@@ -1,0 +1,44 @@
+#############################################################################################
+# pre-commit is a "framework for managing and maintaining multi-language pre-commit hooks"  #
+# see https://pre-commit.com/#intro for an introduction to pre-commit                       #
+#                                                                                           #
+# - pre-commit hooks are run on staged files just before a commit or a push                 #
+# - to run a given hook on any file at any time, run the following on the command line:     #
+#    pre-commit run <HOOK_ID> --files <FILE1> <FILE2> ..., e.g.,                            #
+#    pre-commit run autopep8 --files mal_formatted_file.py                                  #
+#############################################################################################
+exclude: '^$'
+# "exclude: '^$'" specifies the global file exclude pattern; '^$' excludes
+
+fail_fast: false
+# "fail_fast: false" means pre-commit continues to run hooks after the first failure
+
+repos:
+    - repo: https://github.com/pre-commit/mirrors-mypy
+      rev: v0.740
+      hooks:
+          - id: mypy  # Run mypy type checker; note: runs with flag --missing-imports
+
+    - repo: https://github.com/pre-commit/mirrors-autopep8
+      rev: v1.4.4
+      hooks:
+          - id: autopep8  # Perform pep8 auto-formatting
+            args: [--max-line-length=110, --in-place]
+
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v2.4.0
+      hooks:
+          - id: no-commit-to-branch  # Protect specific branches from direct checkins
+            args: [--branch, master, --branch, develop]
+          -   id: check-added-large-files  # Prevent giant files from being committed
+              args: [maxkb=1024]
+          - id: check-ast  # Check whether files parse as valid python
+          - id: check-json  # Attempt to load json files to verify syntax
+          - id: check-xml  # Attempt to load xml files to verify syntax
+          - id: check-yaml  # Attempt to load yaml files to verify syntax
+          - id: check-merge-conflict  # Check for files that contain merge conflict strings
+          - id: check-symlinks  # Check for broken symlinks
+          - id: debug-statements  # Check for debugger imports and py37+ breakpoint() calls
+          - id: detect-private-key  # Check for the existence of private keys
+          - id: flake8  # Run flake8 on your python files
+          - id: trailing-whitespace  # Trim trailing whitespace.
