@@ -1,6 +1,8 @@
+![Logo](https://raw.githubusercontent.com/ondewo/ondewo-logos/master/github/ondewo_logo_github_2.png)
+
 # Ondewo VTSI Client Python
 
-The vtsi client allows for easy control of the voip server. With it, you can configure the connection to text-to-speech, speech-to-text, conversational-ai etc. It allows for making large numbers of voip-calls in parallel, and returns detailed logs regarding the status of the calls.
+The vtsi client allows for easy control of the ONDEWO VTSI server. With it, you can configure the connection to text-to-speech, speech-to-text, conversational-ai etc. It allows for making large numbers of voip-calls in parallel, and returns detailed logs regarding the status of the calls.
 
 ## Quickstart
 
