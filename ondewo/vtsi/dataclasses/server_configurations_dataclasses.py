@@ -18,7 +18,7 @@ from ondewo.vtsi import voip_pb2
 from ondewo.vtsi.voip_pb2 import ServiceConfig
 
 if TYPE_CHECKING:
-    from vtsi_client.voip_server_client import ConfigManager
+    from ondewo.vtsi.client import ConfigManager
 
 
 @dataclass
@@ -67,7 +67,7 @@ class AsteriskConfiguration:
 
 
 @dataclass
-class VtsiServerConfiguration:
+class VtsiConfiguration:
     """location of voip server"""
     host: str
     port: int = 40045

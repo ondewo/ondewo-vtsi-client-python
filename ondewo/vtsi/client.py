@@ -19,7 +19,7 @@ from ondewo.vtsi import call_log_pb2, call_log_pb2_grpc, voip_pb2, voip_pb2_grpc
 
 from ondewo.vtsi.dataclasses.server_configurations_dataclasses import (
     CaiConfiguration,
-    VtsiServerConfiguration,
+    VtsiConfiguration,
     AudioConfiguration,
     AsteriskConfiguration,
     CallConfig,
@@ -52,7 +52,7 @@ class ConfigManager:
 
     def __init__(
         self,
-        config_voip: VtsiServerConfiguration,
+        config_voip: VtsiConfiguration,
         config_cai: CaiConfiguration,
         config_audio: AudioConfiguration,
         config_asterisk: AsteriskConfiguration,
@@ -62,10 +62,10 @@ class ConfigManager:
         self.config_audio = config_audio
         self.config_asterisk = config_asterisk
 
-        self.client = VtsiServerClient(manager=self)
+        self.client = VtsiClient(manager=self)
 
 
-class VtsiServerClient:
+class VtsiClient:
     """
     exposes the endpoints of the ondewo voip-server in a user-friendly way
     """
@@ -79,9 +79,9 @@ class VtsiServerClient:
         self.call_log_stub = call_log_pb2_grpc.VoipCallLogsStub(channel=channel)
 
     @staticmethod
-    def get_minimal_client(voip_host: str, voip_port: str) -> 'VtsiServerClient':
+    def get_minimal_client(voip_host: str, voip_port: str) -> 'VtsiClient':
         manager = ConfigManager(
-            config_voip=VtsiServerConfiguration(
+            config_voip=VtsiConfiguration(
                 host=voip_host,
                 port=int(voip_port),
             ),
@@ -93,7 +93,7 @@ class VtsiServerClient:
             ),
             config_asterisk=AsteriskConfiguration(),
         )
-        return VtsiServerClient(manager=manager)
+        return VtsiClient(manager=manager)
 
     def load_manifest(self, request: voip_pb2.VoipManifest,) -> bool:
         """
