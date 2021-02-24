@@ -123,64 +123,58 @@ class VtsiClient:
         response: voip_pb2.RemoveManifestResponse = self.voip_stub.RemoveManifest(request=request)
         return response
 
-    def perform_call(self,
+    def start_caller(self,
                      phone_number: str,
                      call_id: str,
                      sip_sim_version: str,
                      project_id: str,
                      init_text: str,
                      contexts: List[context_pb2.Context],
-                     ) -> voip_pb2.PerformCallResponse:
+                     ) -> voip_pb2.StartCallInstanceResponse:
         """
         perform a single call
         """
-        request = CallConfig.get_caller_proto_request(
+        request = CallConfig.get_call_proto_request(
             manager=self.manager,
             call_id=call_id,
-            init_text=init_text,
             sip_sim_version=sip_sim_version,
             phone_number=phone_number,
             project_id=project_id,
+            init_text=init_text,
             contexts=contexts,
         )
         print("performing call")
-        response: voip_pb2.PerformCallResponse = self.voip_stub.PerformCall(request=request)
+        response: voip_pb2.StartCallInstanceResponse = self.voip_stub.StartCallInstance(request=request)
         return response
 
-    def stop_call(
+    def stop_caller(
         self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
     ) -> bool:
         """
         stop an ongoing call
         """
-        if call_id:
-            request = voip_pb2.StopCallRequest(call_id=call_id)
-        elif sip_id:
-            request = voip_pb2.StopCallRequest(sip_id=sip_id)
-        else:
-            raise ValueError("either call_id or sip_id needs to be specified!")
-        print("stopping call")
-        response: voip_pb2.StopCallResponse = self.voip_stub.StopCall(request=request)
-        return response.success  # type: ignore
+        return self._stop_call(call_id=call_id, sip_id=sip_id)
 
     def start_listener(self,
                        project_id: str,
                        call_id: str,
                        sip_sim_version: str,
-                       init_text: str
+                       init_text: str,
+                       contexts: List[context_pb2.Context],
                        ) -> voip_pb2.StartListenerResponse:
         """
         start an ondewo-sip-sim instance to listen for calls
         """
-        request = CallConfig.get_listener_proto_request(
+        request = CallConfig.get_call_proto_request(
             manager=self.manager,
-            project_id=project_id,
             call_id=call_id,
-            init_text=init_text,
             sip_sim_version=sip_sim_version,
+            project_id=project_id,
+            init_text=init_text,
+            contexts=contexts,
         )
         print("starting listener")
-        response: voip_pb2.StartListenerResponse = self.voip_stub.StartListener(request=request)
+        response: voip_pb2.StartCallInstanceResponse = self.voip_stub.StartCallInstance(request=request)
         return response
 
     def stop_listener(
@@ -189,14 +183,22 @@ class VtsiClient:
         """
         stop a listener instance
         """
+        return self._stop_call(call_id=call_id, sip_id=sip_id)
+
+    def _stop_call(
+        self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
+    ) -> bool:
+        """
+        stop a call instance
+        """
         if call_id:
-            request = voip_pb2.StopCallRequest(call_id=call_id)
+            request = voip_pb2.StopCallInstanceRequest(call_id=call_id)
         elif sip_id:
-            request = voip_pb2.StopCallRequest(sip_id=sip_id)
+            request = voip_pb2.StopCallInstanceRequest(sip_id=sip_id)
         else:
             raise ValueError("either call_id or sip_id needs to be specified!")
-        print("stopping listener")
-        response: voip_pb2.StopListenerResponse = self.voip_stub.StopListener(request=request)
+        print("stopping call")
+        response: voip_pb2.StopCallInstanceResponse = self.voip_stub.StopCallInstance(request=request)
         return response.success  # type: ignore
 
     def get_manifest_status(self, manifest_id: str,) -> voip_pb2.VoipManifestStatus:
@@ -271,15 +273,6 @@ class VtsiClient:
         request = voip_pb2.ShutdownUnhealthyCallsRequest()
         response: voip_pb2.ShutdownUnhealthyCallsResponse = self.voip_stub.ShutdownUnhealthyCalls(request=request)
         return response.success     # type: ignore
-
-    # def get_call_ids(self, sip_id: str,) -> List[str]:
-    #     """
-    #     get all call_ids associated with a sip-instance (currently only 1)
-    #     """
-    #     request = call_log_pb2.GetCallIdsRequest(sip_id=sip_id)
-    #     print("get call IDs")
-    #     response: call_log_pb2.GetCallIdsResponse = self.call_log_stub.GetCallIds(request=request)
-    #     return [call_id for call_id in response.call_ids]
 
     def start_voip_log(self, call_id: str, start_time: Optional[float] = None,) -> call_log_pb2.VoipLogResponse:
         """
