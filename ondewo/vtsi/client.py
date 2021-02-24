@@ -129,11 +129,12 @@ class VtsiClient:
                      sip_sim_version: str,
                      project_id: str,
                      init_text: str,
-                     contexts: List[context_pb2.Context],
+                     contexts: Optional[List[context_pb2.Context]] = None,
                      ) -> voip_pb2.StartCallInstanceResponse:
         """
         perform a single call
         """
+        contexts = contexts if contexts else []
         request = CallConfig.get_call_proto_request(
             manager=self.manager,
             call_id=call_id,
@@ -160,11 +161,12 @@ class VtsiClient:
                        call_id: str,
                        sip_sim_version: str,
                        init_text: str,
-                       contexts: List[context_pb2.Context],
-                       ) -> voip_pb2.StartListenerResponse:
+                       contexts: Optional[List[context_pb2.Context]] = None,
+                       ) -> voip_pb2.StartCallInstanceResponse:
         """
         start an ondewo-sip-sim instance to listen for calls
         """
+        contexts = contexts if contexts else []
         request = CallConfig.get_call_proto_request(
             manager=self.manager,
             call_id=call_id,
