@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16ondewo/vtsi/voip.proto\x12\nondewo.nlu\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x18ondewo/nlu/context.proto\"\xb0\x01\n\x0cVoipManifest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\x12%\n\x08\x63ontexts\x18\x02 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12/\n\x07\x63\x61llers\x18\t \x03(\x0b\x32\x1e.ondewo.nlu.PerformCallRequest\x12\x33\n\tlisteners\x18\n \x03(\x0b\x32 .ondewo.nlu.StartListenerRequest\"&\n\x0fManifestRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"T\n\x13RunManifestResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.ManifestRequest\x12\x0f\n\x07started\x18\x02 \x01(\x08\"\xcd\x01\n\x16RemoveManifestResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.ManifestRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12\x36\n\x10\x63\x61ller_responses\x18\t \x03(\x0b\x32\x1c.ondewo.nlu.StopCallResponse\x12<\n\x12listener_responses\x18\n \x03(\x0b\x32 .ondewo.nlu.StopListenerResponse\"^\n\rServiceConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x1a\n\x12service_identifier\x18\x03 \x01(\t\x12\x15\n\rlanguage_code\x18\x05 \x01(\t\"R\n\x14VoipManifestResponse\x12)\n\x07request\x18\x01 \x01(\x0b\x32\x18.ondewo.nlu.VoipManifest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"\x94\x03\n\x12PerformCallRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x17\n\x0fsip_sim_version\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\x14\n\x0cphone_number\x18\x04 \x01(\t\x12%\n\x08\x63ontexts\x18\x05 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x11\n\tinit_text\x18\x06 \x01(\t\x12\x32\n\x0f\x61sterisk_config\x18\x07 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ncai_config\x18\x08 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\nstt_config\x18\t \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12/\n\x0c\x64\x65mux_config\x18\n \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ntts_config\x18\x0b \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\"W\n\x13PerformCallResponse\x12/\n\x07request\x18\x01 \x01(\x0b\x32\x1e.ondewo.nlu.PerformCallRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"<\n\x0fStopCallRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"f\n\x10StopCallResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.StopCallRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12\x13\n\x0blog_message\x18\x03 \x01(\t\"\xd9\x02\n\x14StartListenerRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x17\n\x0fsip_sim_version\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\x11\n\tinit_text\x18\x04 \x01(\t\x12\x32\n\x0f\x61sterisk_config\x18\x07 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ncai_config\x18\x08 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\nstt_config\x18\t \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12/\n\x0c\x64\x65mux_config\x18\n \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ntts_config\x18\x0b \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\"[\n\x15StartListenerResponse\x12\x31\n\x07request\x18\x01 \x01(\x0b\x32 .ondewo.nlu.StartListenerRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"j\n\x14StopListenerResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.StopCallRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12\x13\n\x0blog_message\x18\x03 \x01(\t\"0\n\x19VoipManifestStatusRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"\xae\x01\n\x12VoipManifestStatus\x12\x36\n\x07request\x18\x01 \x01(\x0b\x32%.ondewo.nlu.VoipManifestStatusRequest\x12.\n\x0e\x63\x61llers_status\x18\x02 \x03(\x0b\x32\x16.ondewo.nlu.VoipStatus\x12\x30\n\x10listeners_status\x18\x03 \x03(\x0b\x32\x16.ondewo.nlu.VoipStatus\"A\n\x14GetVoipStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"\xf0\x01\n\nVoipStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\x12\x32\n\x0fstatus_asterisk\x18\x03 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_cai\x18\x04 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_stt\x18\x05 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_tts\x18\x06 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\"2\n\rServiceStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\"_\n\x1bUpdateServicesStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x12\x15\n\x0bmanifest_id\x18\x03 \x01(\tH\x00\x42\x04\n\x02id\"E\n\x1cUpdateServicesStatusResponse\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"h\n\x19\x44\x65ployPreconditionRequest\x12\x17\n\x0fsip_sim_version\x18\x01 \x01(\t\x12\x32\n\x0f\x61sterisk_config\x18\x02 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\"-\n\x1a\x44\x65ployPreconditionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\">\n\x15GetManifestIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\".\n\x16GetManifestIDsResponse\x12\x14\n\x0cmanifest_ids\x18\x01 \x03(\t\":\n\x11GetCallIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"&\n\x12GetCallIDsResponse\x12\x10\n\x08\x63\x61ll_ids\x18\x01 \x03(\t\"F\n\x1dShutdownUnhealthyCallsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"1\n\x1eShutdownUnhealthyCallsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xb0\x11\n\x0cVoipSessions\x12\x8d\x01\n\x0cLoadManifest\x12\x18.ondewo.nlu.VoipManifest\x1a .ondewo.nlu.VoipManifestResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:GiveManifest:\x01*\x12\x8d\x01\n\x0bRunManifest\x12\x1b.ondewo.nlu.ManifestRequest\x1a\x1f.ondewo.nlu.RunManifestResponse\"@\x82\xd3\xe4\x93\x02:\"5/v2/{session=projects/*/agent/sessions/*}:RunManifest:\x01*\x12\x96\x01\n\x0eRemoveManifest\x12\x1b.ondewo.nlu.ManifestRequest\x1a\".ondewo.nlu.RemoveManifestResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:RemoveManifest:\x01*\x12\x9c\x01\n\x0eGetManifestIDs\x12!.ondewo.nlu.GetManifestIDsRequest\x1a\".ondewo.nlu.GetManifestIDsResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:GetManifestIDs:\x01*\x12\x90\x01\n\x0bPerformCall\x12\x1e.ondewo.nlu.PerformCallRequest\x1a\x1f.ondewo.nlu.PerformCallResponse\"@\x82\xd3\xe4\x93\x02:\"5/v2/{session=projects/*/agent/sessions/*}:PerformCall:\x01*\x12\x84\x01\n\x08StopCall\x12\x1b.ondewo.nlu.StopCallRequest\x1a\x1c.ondewo.nlu.StopCallResponse\"=\x82\xd3\xe4\x93\x02\x37\"2/v2/{session=projects/*/agent/sessions/*}:StopCall:\x01*\x12\x98\x01\n\rStartListener\x12 .ondewo.nlu.StartListenerRequest\x1a!.ondewo.nlu.StartListenerResponse\"B\x82\xd3\xe4\x93\x02<\"7/v2/{session=projects/*/agent/sessions/*}:StartListener:\x01*\x12\x90\x01\n\x0cStopListener\x12\x1b.ondewo.nlu.StopCallRequest\x1a .ondewo.nlu.StopListenerResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:StopListener:\x01*\x12\x8c\x01\n\nGetCallIDs\x12\x1d.ondewo.nlu.GetCallIDsRequest\x1a\x1e.ondewo.nlu.GetCallIDsResponse\"?\x82\xd3\xe4\x93\x02\x39\"4/v2/{session=projects/*/agent/sessions/*}:GetCallIDs:\x01*\x12\xbc\x01\n\x16ShutdownUnhealthyCalls\x12).ondewo.nlu.ShutdownUnhealthyCallsRequest\x1a*.ondewo.nlu.ShutdownUnhealthyCallsResponse\"K\x82\xd3\xe4\x93\x02\x45\"@/v2/{session=projects/*/agent/sessions/*}:ShutdownUnhealthyCalls:\x01*\x12\xa2\x01\n\x11GetManifestStatus\x12%.ondewo.nlu.VoipManifestStatusRequest\x1a\x1e.ondewo.nlu.VoipManifestStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetManifestStatus:\x01*\x12\x95\x01\n\x11GetInstanceStatus\x12 .ondewo.nlu.GetVoipStatusRequest\x1a\x16.ondewo.nlu.VoipStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetInstanceStatus:\x01*\x12\xb4\x01\n\x14UpdateServicesStatus\x12\'.ondewo.nlu.UpdateServicesStatusRequest\x1a(.ondewo.nlu.UpdateServicesStatusResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*\x12\xbd\x01\n!DeployPreconditionForWorkingSetup\x12%.ondewo.nlu.DeployPreconditionRequest\x1a&.ondewo.nlu.DeployPreconditionResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*b\x06proto3'
+  serialized_pb=b'\n\x16ondewo/vtsi/voip.proto\x12\nondewo.nlu\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x18ondewo/nlu/context.proto\"\x81\x01\n\x0cVoipManifest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\x12%\n\x08\x63ontexts\x18\x02 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x35\n\x07\x63\x61llers\x18\t \x03(\x0b\x32$.ondewo.nlu.StartCallInstanceRequest\"&\n\x0fManifestRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"T\n\x13RunManifestResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.ManifestRequest\x12\x0f\n\x07started\x18\x02 \x01(\x08\"\x97\x01\n\x16RemoveManifestResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.ManifestRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12>\n\x10\x63\x61ller_responses\x18\t \x03(\x0b\x32$.ondewo.nlu.StopCallInstanceResponse\"^\n\rServiceConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x1a\n\x12service_identifier\x18\x03 \x01(\t\x12\x15\n\rlanguage_code\x18\x05 \x01(\t\"R\n\x14VoipManifestResponse\x12)\n\x07request\x18\x01 \x01(\x0b\x32\x18.ondewo.nlu.VoipManifest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"\x9a\x03\n\x18StartCallInstanceRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x17\n\x0fsip_sim_version\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\x14\n\x0cphone_number\x18\x04 \x01(\t\x12%\n\x08\x63ontexts\x18\x05 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x11\n\tinit_text\x18\x06 \x01(\t\x12\x32\n\x0f\x61sterisk_config\x18\x07 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ncai_config\x18\x08 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\nstt_config\x18\t \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12/\n\x0c\x64\x65mux_config\x18\n \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ntts_config\x18\x0b \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\"c\n\x19StartCallInstanceResponse\x12\x35\n\x07request\x18\x01 \x01(\x0b\x32$.ondewo.nlu.StartCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"D\n\x17StopCallInstanceRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"v\n\x18StopCallInstanceResponse\x12\x34\n\x07request\x18\x01 \x01(\x0b\x32#.ondewo.nlu.StopCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12\x13\n\x0blog_message\x18\x03 \x01(\t\"0\n\x19VoipManifestStatusRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"z\n\x12VoipManifestStatus\x12\x36\n\x07request\x18\x01 \x01(\x0b\x32%.ondewo.nlu.VoipManifestStatusRequest\x12,\n\x0c\x63\x61lls_status\x18\x02 \x03(\x0b\x32\x16.ondewo.nlu.VoipStatus\"A\n\x14GetVoipStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"\xf0\x01\n\nVoipStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\x12\x32\n\x0fstatus_asterisk\x18\x03 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_cai\x18\x04 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_stt\x18\x05 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_tts\x18\x06 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\"2\n\rServiceStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\"_\n\x1bUpdateServicesStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x12\x15\n\x0bmanifest_id\x18\x03 \x01(\tH\x00\x42\x04\n\x02id\"E\n\x1cUpdateServicesStatusResponse\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"h\n\x19\x44\x65ployPreconditionRequest\x12\x17\n\x0fsip_sim_version\x18\x01 \x01(\t\x12\x32\n\x0f\x61sterisk_config\x18\x02 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\"-\n\x1a\x44\x65ployPreconditionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\">\n\x15GetManifestIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\".\n\x16GetManifestIDsResponse\x12\x14\n\x0cmanifest_ids\x18\x01 \x03(\t\":\n\x11GetCallIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"&\n\x12GetCallIDsResponse\x12\x10\n\x08\x63\x61ll_ids\x18\x01 \x03(\t\"F\n\x1dShutdownUnhealthyCallsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"1\n\x1eShutdownUnhealthyCallsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xb2\x0f\n\x0cVoipSessions\x12\x8d\x01\n\x0cLoadManifest\x12\x18.ondewo.nlu.VoipManifest\x1a .ondewo.nlu.VoipManifestResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:GiveManifest:\x01*\x12\x8d\x01\n\x0bRunManifest\x12\x1b.ondewo.nlu.ManifestRequest\x1a\x1f.ondewo.nlu.RunManifestResponse\"@\x82\xd3\xe4\x93\x02:\"5/v2/{session=projects/*/agent/sessions/*}:RunManifest:\x01*\x12\x96\x01\n\x0eRemoveManifest\x12\x1b.ondewo.nlu.ManifestRequest\x1a\".ondewo.nlu.RemoveManifestResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:RemoveManifest:\x01*\x12\x9c\x01\n\x0eGetManifestIDs\x12!.ondewo.nlu.GetManifestIDsRequest\x1a\".ondewo.nlu.GetManifestIDsResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:GetManifestIDs:\x01*\x12\xa4\x01\n\x11StartCallInstance\x12$.ondewo.nlu.StartCallInstanceRequest\x1a%.ondewo.nlu.StartCallInstanceResponse\"B\x82\xd3\xe4\x93\x02<\"7/v2/{session=projects/*/agent/sessions/*}:StartListener:\x01*\x12\xa0\x01\n\x10StopCallInstance\x12#.ondewo.nlu.StopCallInstanceRequest\x1a$.ondewo.nlu.StopCallInstanceResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:StopListener:\x01*\x12\x8c\x01\n\nGetCallIDs\x12\x1d.ondewo.nlu.GetCallIDsRequest\x1a\x1e.ondewo.nlu.GetCallIDsResponse\"?\x82\xd3\xe4\x93\x02\x39\"4/v2/{session=projects/*/agent/sessions/*}:GetCallIDs:\x01*\x12\xbc\x01\n\x16ShutdownUnhealthyCalls\x12).ondewo.nlu.ShutdownUnhealthyCallsRequest\x1a*.ondewo.nlu.ShutdownUnhealthyCallsResponse\"K\x82\xd3\xe4\x93\x02\x45\"@/v2/{session=projects/*/agent/sessions/*}:ShutdownUnhealthyCalls:\x01*\x12\xa2\x01\n\x11GetManifestStatus\x12%.ondewo.nlu.VoipManifestStatusRequest\x1a\x1e.ondewo.nlu.VoipManifestStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetManifestStatus:\x01*\x12\x95\x01\n\x11GetInstanceStatus\x12 .ondewo.nlu.GetVoipStatusRequest\x1a\x16.ondewo.nlu.VoipStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetInstanceStatus:\x01*\x12\xb4\x01\n\x14UpdateServicesStatus\x12\'.ondewo.nlu.UpdateServicesStatusRequest\x1a(.ondewo.nlu.UpdateServicesStatusResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*\x12\xbd\x01\n!DeployPreconditionForWorkingSetup\x12%.ondewo.nlu.DeployPreconditionRequest\x1a&.ondewo.nlu.DeployPreconditionResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*b\x06proto3'
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,ondewo_dot_nlu_dot_context__pb2.DESCRIPTOR,])
 
@@ -58,13 +58,6 @@ _VOIPMANIFEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='listeners', full_name='ondewo.nlu.VoipManifest.listeners', index=3,
-      number=10, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -78,7 +71,7 @@ _VOIPMANIFEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=124,
-  serialized_end=300,
+  serialized_end=253,
 )
 
 
@@ -109,8 +102,8 @@ _MANIFESTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=302,
-  serialized_end=340,
+  serialized_start=255,
+  serialized_end=293,
 )
 
 
@@ -148,8 +141,8 @@ _RUNMANIFESTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=342,
-  serialized_end=426,
+  serialized_start=295,
+  serialized_end=379,
 )
 
 
@@ -182,13 +175,6 @@ _REMOVEMANIFESTRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='listener_responses', full_name='ondewo.nlu.RemoveManifestResponse.listener_responses', index=3,
-      number=10, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -201,8 +187,8 @@ _REMOVEMANIFESTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=429,
-  serialized_end=634,
+  serialized_start=382,
+  serialized_end=533,
 )
 
 
@@ -254,8 +240,8 @@ _SERVICECONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=636,
-  serialized_end=730,
+  serialized_start=535,
+  serialized_end=629,
 )
 
 
@@ -293,91 +279,91 @@ _VOIPMANIFESTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=732,
-  serialized_end=814,
+  serialized_start=631,
+  serialized_end=713,
 )
 
 
-_PERFORMCALLREQUEST = _descriptor.Descriptor(
-  name='PerformCallRequest',
-  full_name='ondewo.nlu.PerformCallRequest',
+_STARTCALLINSTANCEREQUEST = _descriptor.Descriptor(
+  name='StartCallInstanceRequest',
+  full_name='ondewo.nlu.StartCallInstanceRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='call_id', full_name='ondewo.nlu.PerformCallRequest.call_id', index=0,
+      name='call_id', full_name='ondewo.nlu.StartCallInstanceRequest.call_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sip_sim_version', full_name='ondewo.nlu.PerformCallRequest.sip_sim_version', index=1,
+      name='sip_sim_version', full_name='ondewo.nlu.StartCallInstanceRequest.sip_sim_version', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='project_id', full_name='ondewo.nlu.PerformCallRequest.project_id', index=2,
+      name='project_id', full_name='ondewo.nlu.StartCallInstanceRequest.project_id', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='phone_number', full_name='ondewo.nlu.PerformCallRequest.phone_number', index=3,
+      name='phone_number', full_name='ondewo.nlu.StartCallInstanceRequest.phone_number', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='contexts', full_name='ondewo.nlu.PerformCallRequest.contexts', index=4,
+      name='contexts', full_name='ondewo.nlu.StartCallInstanceRequest.contexts', index=4,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='init_text', full_name='ondewo.nlu.PerformCallRequest.init_text', index=5,
+      name='init_text', full_name='ondewo.nlu.StartCallInstanceRequest.init_text', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='asterisk_config', full_name='ondewo.nlu.PerformCallRequest.asterisk_config', index=6,
+      name='asterisk_config', full_name='ondewo.nlu.StartCallInstanceRequest.asterisk_config', index=6,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='cai_config', full_name='ondewo.nlu.PerformCallRequest.cai_config', index=7,
+      name='cai_config', full_name='ondewo.nlu.StartCallInstanceRequest.cai_config', index=7,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='stt_config', full_name='ondewo.nlu.PerformCallRequest.stt_config', index=8,
+      name='stt_config', full_name='ondewo.nlu.StartCallInstanceRequest.stt_config', index=8,
       number=9, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='demux_config', full_name='ondewo.nlu.PerformCallRequest.demux_config', index=9,
+      name='demux_config', full_name='ondewo.nlu.StartCallInstanceRequest.demux_config', index=9,
       number=10, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tts_config', full_name='ondewo.nlu.PerformCallRequest.tts_config', index=10,
+      name='tts_config', full_name='ondewo.nlu.StartCallInstanceRequest.tts_config', index=10,
       number=11, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -395,28 +381,28 @@ _PERFORMCALLREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=817,
-  serialized_end=1221,
+  serialized_start=716,
+  serialized_end=1126,
 )
 
 
-_PERFORMCALLRESPONSE = _descriptor.Descriptor(
-  name='PerformCallResponse',
-  full_name='ondewo.nlu.PerformCallResponse',
+_STARTCALLINSTANCERESPONSE = _descriptor.Descriptor(
+  name='StartCallInstanceResponse',
+  full_name='ondewo.nlu.StartCallInstanceResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='request', full_name='ondewo.nlu.PerformCallResponse.request', index=0,
+      name='request', full_name='ondewo.nlu.StartCallInstanceResponse.request', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='success', full_name='ondewo.nlu.PerformCallResponse.success', index=1,
+      name='success', full_name='ondewo.nlu.StartCallInstanceResponse.success', index=1,
       number=2, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -434,28 +420,28 @@ _PERFORMCALLRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1223,
-  serialized_end=1310,
+  serialized_start=1128,
+  serialized_end=1227,
 )
 
 
-_STOPCALLREQUEST = _descriptor.Descriptor(
-  name='StopCallRequest',
-  full_name='ondewo.nlu.StopCallRequest',
+_STOPCALLINSTANCEREQUEST = _descriptor.Descriptor(
+  name='StopCallInstanceRequest',
+  full_name='ondewo.nlu.StopCallInstanceRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='call_id', full_name='ondewo.nlu.StopCallRequest.call_id', index=0,
+      name='call_id', full_name='ondewo.nlu.StopCallInstanceRequest.call_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sip_id', full_name='ondewo.nlu.StopCallRequest.sip_id', index=1,
+      name='sip_id', full_name='ondewo.nlu.StopCallInstanceRequest.sip_id', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -473,40 +459,40 @@ _STOPCALLREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
-      name='id', full_name='ondewo.nlu.StopCallRequest.id',
+      name='id', full_name='ondewo.nlu.StopCallInstanceRequest.id',
       index=0, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1312,
-  serialized_end=1372,
+  serialized_start=1229,
+  serialized_end=1297,
 )
 
 
-_STOPCALLRESPONSE = _descriptor.Descriptor(
-  name='StopCallResponse',
-  full_name='ondewo.nlu.StopCallResponse',
+_STOPCALLINSTANCERESPONSE = _descriptor.Descriptor(
+  name='StopCallInstanceResponse',
+  full_name='ondewo.nlu.StopCallInstanceResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='request', full_name='ondewo.nlu.StopCallResponse.request', index=0,
+      name='request', full_name='ondewo.nlu.StopCallInstanceResponse.request', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='success', full_name='ondewo.nlu.StopCallResponse.success', index=1,
+      name='success', full_name='ondewo.nlu.StopCallInstanceResponse.success', index=1,
       number=2, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='log_message', full_name='ondewo.nlu.StopCallResponse.log_message', index=2,
+      name='log_message', full_name='ondewo.nlu.StopCallInstanceResponse.log_message', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -524,181 +510,8 @@ _STOPCALLRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1374,
-  serialized_end=1476,
-)
-
-
-_STARTLISTENERREQUEST = _descriptor.Descriptor(
-  name='StartListenerRequest',
-  full_name='ondewo.nlu.StartListenerRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='call_id', full_name='ondewo.nlu.StartListenerRequest.call_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='sip_sim_version', full_name='ondewo.nlu.StartListenerRequest.sip_sim_version', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='project_id', full_name='ondewo.nlu.StartListenerRequest.project_id', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='init_text', full_name='ondewo.nlu.StartListenerRequest.init_text', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='asterisk_config', full_name='ondewo.nlu.StartListenerRequest.asterisk_config', index=4,
-      number=7, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='cai_config', full_name='ondewo.nlu.StartListenerRequest.cai_config', index=5,
-      number=8, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='stt_config', full_name='ondewo.nlu.StartListenerRequest.stt_config', index=6,
-      number=9, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='demux_config', full_name='ondewo.nlu.StartListenerRequest.demux_config', index=7,
-      number=10, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='tts_config', full_name='ondewo.nlu.StartListenerRequest.tts_config', index=8,
-      number=11, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1479,
-  serialized_end=1824,
-)
-
-
-_STARTLISTENERRESPONSE = _descriptor.Descriptor(
-  name='StartListenerResponse',
-  full_name='ondewo.nlu.StartListenerResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='request', full_name='ondewo.nlu.StartListenerResponse.request', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='success', full_name='ondewo.nlu.StartListenerResponse.success', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1826,
-  serialized_end=1917,
-)
-
-
-_STOPLISTENERRESPONSE = _descriptor.Descriptor(
-  name='StopListenerResponse',
-  full_name='ondewo.nlu.StopListenerResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='request', full_name='ondewo.nlu.StopListenerResponse.request', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='success', full_name='ondewo.nlu.StopListenerResponse.success', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='log_message', full_name='ondewo.nlu.StopListenerResponse.log_message', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1919,
-  serialized_end=2025,
+  serialized_start=1299,
+  serialized_end=1417,
 )
 
 
@@ -729,8 +542,8 @@ _VOIPMANIFESTSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2027,
-  serialized_end=2075,
+  serialized_start=1419,
+  serialized_end=1467,
 )
 
 
@@ -750,15 +563,8 @@ _VOIPMANIFESTSTATUS = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='callers_status', full_name='ondewo.nlu.VoipManifestStatus.callers_status', index=1,
+      name='calls_status', full_name='ondewo.nlu.VoipManifestStatus.calls_status', index=1,
       number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='listeners_status', full_name='ondewo.nlu.VoipManifestStatus.listeners_status', index=2,
-      number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -775,8 +581,8 @@ _VOIPMANIFESTSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2078,
-  serialized_end=2252,
+  serialized_start=1469,
+  serialized_end=1591,
 )
 
 
@@ -819,8 +625,8 @@ _GETVOIPSTATUSREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=2254,
-  serialized_end=2319,
+  serialized_start=1593,
+  serialized_end=1658,
 )
 
 
@@ -886,8 +692,8 @@ _VOIPSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2322,
-  serialized_end=2562,
+  serialized_start=1661,
+  serialized_end=1901,
 )
 
 
@@ -925,8 +731,8 @@ _SERVICESTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2564,
-  serialized_end=2614,
+  serialized_start=1903,
+  serialized_end=1953,
 )
 
 
@@ -976,8 +782,8 @@ _UPDATESERVICESSTATUSREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=2616,
-  serialized_end=2711,
+  serialized_start=1955,
+  serialized_end=2050,
 )
 
 
@@ -1008,8 +814,8 @@ _UPDATESERVICESSTATUSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2713,
-  serialized_end=2782,
+  serialized_start=2052,
+  serialized_end=2121,
 )
 
 
@@ -1047,8 +853,8 @@ _DEPLOYPRECONDITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2784,
-  serialized_end=2888,
+  serialized_start=2123,
+  serialized_end=2227,
 )
 
 
@@ -1079,8 +885,8 @@ _DEPLOYPRECONDITIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2890,
-  serialized_end=2935,
+  serialized_start=2229,
+  serialized_end=2274,
 )
 
 
@@ -1111,8 +917,8 @@ _GETMANIFESTIDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2937,
-  serialized_end=2999,
+  serialized_start=2276,
+  serialized_end=2338,
 )
 
 
@@ -1143,8 +949,8 @@ _GETMANIFESTIDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3001,
-  serialized_end=3047,
+  serialized_start=2340,
+  serialized_end=2386,
 )
 
 
@@ -1175,8 +981,8 @@ _GETCALLIDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3049,
-  serialized_end=3107,
+  serialized_start=2388,
+  serialized_end=2446,
 )
 
 
@@ -1207,8 +1013,8 @@ _GETCALLIDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3109,
-  serialized_end=3147,
+  serialized_start=2448,
+  serialized_end=2486,
 )
 
 
@@ -1239,8 +1045,8 @@ _SHUTDOWNUNHEALTHYCALLSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3149,
-  serialized_end=3219,
+  serialized_start=2488,
+  serialized_end=2558,
 )
 
 
@@ -1271,42 +1077,32 @@ _SHUTDOWNUNHEALTHYCALLSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3221,
-  serialized_end=3270,
+  serialized_start=2560,
+  serialized_end=2609,
 )
 
 _VOIPMANIFEST.fields_by_name['contexts'].message_type = ondewo_dot_nlu_dot_context__pb2._CONTEXT
-_VOIPMANIFEST.fields_by_name['callers'].message_type = _PERFORMCALLREQUEST
-_VOIPMANIFEST.fields_by_name['listeners'].message_type = _STARTLISTENERREQUEST
+_VOIPMANIFEST.fields_by_name['callers'].message_type = _STARTCALLINSTANCEREQUEST
 _RUNMANIFESTRESPONSE.fields_by_name['request'].message_type = _MANIFESTREQUEST
 _REMOVEMANIFESTRESPONSE.fields_by_name['request'].message_type = _MANIFESTREQUEST
-_REMOVEMANIFESTRESPONSE.fields_by_name['caller_responses'].message_type = _STOPCALLRESPONSE
-_REMOVEMANIFESTRESPONSE.fields_by_name['listener_responses'].message_type = _STOPLISTENERRESPONSE
+_REMOVEMANIFESTRESPONSE.fields_by_name['caller_responses'].message_type = _STOPCALLINSTANCERESPONSE
 _VOIPMANIFESTRESPONSE.fields_by_name['request'].message_type = _VOIPMANIFEST
-_PERFORMCALLREQUEST.fields_by_name['contexts'].message_type = ondewo_dot_nlu_dot_context__pb2._CONTEXT
-_PERFORMCALLREQUEST.fields_by_name['asterisk_config'].message_type = _SERVICECONFIG
-_PERFORMCALLREQUEST.fields_by_name['cai_config'].message_type = _SERVICECONFIG
-_PERFORMCALLREQUEST.fields_by_name['stt_config'].message_type = _SERVICECONFIG
-_PERFORMCALLREQUEST.fields_by_name['demux_config'].message_type = _SERVICECONFIG
-_PERFORMCALLREQUEST.fields_by_name['tts_config'].message_type = _SERVICECONFIG
-_PERFORMCALLRESPONSE.fields_by_name['request'].message_type = _PERFORMCALLREQUEST
-_STOPCALLREQUEST.oneofs_by_name['id'].fields.append(
-  _STOPCALLREQUEST.fields_by_name['call_id'])
-_STOPCALLREQUEST.fields_by_name['call_id'].containing_oneof = _STOPCALLREQUEST.oneofs_by_name['id']
-_STOPCALLREQUEST.oneofs_by_name['id'].fields.append(
-  _STOPCALLREQUEST.fields_by_name['sip_id'])
-_STOPCALLREQUEST.fields_by_name['sip_id'].containing_oneof = _STOPCALLREQUEST.oneofs_by_name['id']
-_STOPCALLRESPONSE.fields_by_name['request'].message_type = _STOPCALLREQUEST
-_STARTLISTENERREQUEST.fields_by_name['asterisk_config'].message_type = _SERVICECONFIG
-_STARTLISTENERREQUEST.fields_by_name['cai_config'].message_type = _SERVICECONFIG
-_STARTLISTENERREQUEST.fields_by_name['stt_config'].message_type = _SERVICECONFIG
-_STARTLISTENERREQUEST.fields_by_name['demux_config'].message_type = _SERVICECONFIG
-_STARTLISTENERREQUEST.fields_by_name['tts_config'].message_type = _SERVICECONFIG
-_STARTLISTENERRESPONSE.fields_by_name['request'].message_type = _STARTLISTENERREQUEST
-_STOPLISTENERRESPONSE.fields_by_name['request'].message_type = _STOPCALLREQUEST
+_STARTCALLINSTANCEREQUEST.fields_by_name['contexts'].message_type = ondewo_dot_nlu_dot_context__pb2._CONTEXT
+_STARTCALLINSTANCEREQUEST.fields_by_name['asterisk_config'].message_type = _SERVICECONFIG
+_STARTCALLINSTANCEREQUEST.fields_by_name['cai_config'].message_type = _SERVICECONFIG
+_STARTCALLINSTANCEREQUEST.fields_by_name['stt_config'].message_type = _SERVICECONFIG
+_STARTCALLINSTANCEREQUEST.fields_by_name['demux_config'].message_type = _SERVICECONFIG
+_STARTCALLINSTANCEREQUEST.fields_by_name['tts_config'].message_type = _SERVICECONFIG
+_STARTCALLINSTANCERESPONSE.fields_by_name['request'].message_type = _STARTCALLINSTANCEREQUEST
+_STOPCALLINSTANCEREQUEST.oneofs_by_name['id'].fields.append(
+  _STOPCALLINSTANCEREQUEST.fields_by_name['call_id'])
+_STOPCALLINSTANCEREQUEST.fields_by_name['call_id'].containing_oneof = _STOPCALLINSTANCEREQUEST.oneofs_by_name['id']
+_STOPCALLINSTANCEREQUEST.oneofs_by_name['id'].fields.append(
+  _STOPCALLINSTANCEREQUEST.fields_by_name['sip_id'])
+_STOPCALLINSTANCEREQUEST.fields_by_name['sip_id'].containing_oneof = _STOPCALLINSTANCEREQUEST.oneofs_by_name['id']
+_STOPCALLINSTANCERESPONSE.fields_by_name['request'].message_type = _STOPCALLINSTANCEREQUEST
 _VOIPMANIFESTSTATUS.fields_by_name['request'].message_type = _VOIPMANIFESTSTATUSREQUEST
-_VOIPMANIFESTSTATUS.fields_by_name['callers_status'].message_type = _VOIPSTATUS
-_VOIPMANIFESTSTATUS.fields_by_name['listeners_status'].message_type = _VOIPSTATUS
+_VOIPMANIFESTSTATUS.fields_by_name['calls_status'].message_type = _VOIPSTATUS
 _GETVOIPSTATUSREQUEST.oneofs_by_name['id'].fields.append(
   _GETVOIPSTATUSREQUEST.fields_by_name['call_id'])
 _GETVOIPSTATUSREQUEST.fields_by_name['call_id'].containing_oneof = _GETVOIPSTATUSREQUEST.oneofs_by_name['id']
@@ -1337,13 +1133,10 @@ DESCRIPTOR.message_types_by_name['RunManifestResponse'] = _RUNMANIFESTRESPONSE
 DESCRIPTOR.message_types_by_name['RemoveManifestResponse'] = _REMOVEMANIFESTRESPONSE
 DESCRIPTOR.message_types_by_name['ServiceConfig'] = _SERVICECONFIG
 DESCRIPTOR.message_types_by_name['VoipManifestResponse'] = _VOIPMANIFESTRESPONSE
-DESCRIPTOR.message_types_by_name['PerformCallRequest'] = _PERFORMCALLREQUEST
-DESCRIPTOR.message_types_by_name['PerformCallResponse'] = _PERFORMCALLRESPONSE
-DESCRIPTOR.message_types_by_name['StopCallRequest'] = _STOPCALLREQUEST
-DESCRIPTOR.message_types_by_name['StopCallResponse'] = _STOPCALLRESPONSE
-DESCRIPTOR.message_types_by_name['StartListenerRequest'] = _STARTLISTENERREQUEST
-DESCRIPTOR.message_types_by_name['StartListenerResponse'] = _STARTLISTENERRESPONSE
-DESCRIPTOR.message_types_by_name['StopListenerResponse'] = _STOPLISTENERRESPONSE
+DESCRIPTOR.message_types_by_name['StartCallInstanceRequest'] = _STARTCALLINSTANCEREQUEST
+DESCRIPTOR.message_types_by_name['StartCallInstanceResponse'] = _STARTCALLINSTANCERESPONSE
+DESCRIPTOR.message_types_by_name['StopCallInstanceRequest'] = _STOPCALLINSTANCEREQUEST
+DESCRIPTOR.message_types_by_name['StopCallInstanceResponse'] = _STOPCALLINSTANCERESPONSE
 DESCRIPTOR.message_types_by_name['VoipManifestStatusRequest'] = _VOIPMANIFESTSTATUSREQUEST
 DESCRIPTOR.message_types_by_name['VoipManifestStatus'] = _VOIPMANIFESTSTATUS
 DESCRIPTOR.message_types_by_name['GetVoipStatusRequest'] = _GETVOIPSTATUSREQUEST
@@ -1403,54 +1196,33 @@ VoipManifestResponse = _reflection.GeneratedProtocolMessageType('VoipManifestRes
   })
 _sym_db.RegisterMessage(VoipManifestResponse)
 
-PerformCallRequest = _reflection.GeneratedProtocolMessageType('PerformCallRequest', (_message.Message,), {
-  'DESCRIPTOR' : _PERFORMCALLREQUEST,
+StartCallInstanceRequest = _reflection.GeneratedProtocolMessageType('StartCallInstanceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STARTCALLINSTANCEREQUEST,
   '__module__' : 'ondewo.vtsi.voip_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.PerformCallRequest)
+  # @@protoc_insertion_point(class_scope:ondewo.nlu.StartCallInstanceRequest)
   })
-_sym_db.RegisterMessage(PerformCallRequest)
+_sym_db.RegisterMessage(StartCallInstanceRequest)
 
-PerformCallResponse = _reflection.GeneratedProtocolMessageType('PerformCallResponse', (_message.Message,), {
-  'DESCRIPTOR' : _PERFORMCALLRESPONSE,
+StartCallInstanceResponse = _reflection.GeneratedProtocolMessageType('StartCallInstanceResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STARTCALLINSTANCERESPONSE,
   '__module__' : 'ondewo.vtsi.voip_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.PerformCallResponse)
+  # @@protoc_insertion_point(class_scope:ondewo.nlu.StartCallInstanceResponse)
   })
-_sym_db.RegisterMessage(PerformCallResponse)
+_sym_db.RegisterMessage(StartCallInstanceResponse)
 
-StopCallRequest = _reflection.GeneratedProtocolMessageType('StopCallRequest', (_message.Message,), {
-  'DESCRIPTOR' : _STOPCALLREQUEST,
+StopCallInstanceRequest = _reflection.GeneratedProtocolMessageType('StopCallInstanceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STOPCALLINSTANCEREQUEST,
   '__module__' : 'ondewo.vtsi.voip_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.StopCallRequest)
+  # @@protoc_insertion_point(class_scope:ondewo.nlu.StopCallInstanceRequest)
   })
-_sym_db.RegisterMessage(StopCallRequest)
+_sym_db.RegisterMessage(StopCallInstanceRequest)
 
-StopCallResponse = _reflection.GeneratedProtocolMessageType('StopCallResponse', (_message.Message,), {
-  'DESCRIPTOR' : _STOPCALLRESPONSE,
+StopCallInstanceResponse = _reflection.GeneratedProtocolMessageType('StopCallInstanceResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STOPCALLINSTANCERESPONSE,
   '__module__' : 'ondewo.vtsi.voip_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.StopCallResponse)
+  # @@protoc_insertion_point(class_scope:ondewo.nlu.StopCallInstanceResponse)
   })
-_sym_db.RegisterMessage(StopCallResponse)
-
-StartListenerRequest = _reflection.GeneratedProtocolMessageType('StartListenerRequest', (_message.Message,), {
-  'DESCRIPTOR' : _STARTLISTENERREQUEST,
-  '__module__' : 'ondewo.vtsi.voip_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.StartListenerRequest)
-  })
-_sym_db.RegisterMessage(StartListenerRequest)
-
-StartListenerResponse = _reflection.GeneratedProtocolMessageType('StartListenerResponse', (_message.Message,), {
-  'DESCRIPTOR' : _STARTLISTENERRESPONSE,
-  '__module__' : 'ondewo.vtsi.voip_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.StartListenerResponse)
-  })
-_sym_db.RegisterMessage(StartListenerResponse)
-
-StopListenerResponse = _reflection.GeneratedProtocolMessageType('StopListenerResponse', (_message.Message,), {
-  'DESCRIPTOR' : _STOPLISTENERRESPONSE,
-  '__module__' : 'ondewo.vtsi.voip_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.StopListenerResponse)
-  })
-_sym_db.RegisterMessage(StopListenerResponse)
+_sym_db.RegisterMessage(StopCallInstanceResponse)
 
 VoipManifestStatusRequest = _reflection.GeneratedProtocolMessageType('VoipManifestStatusRequest', (_message.Message,), {
   'DESCRIPTOR' : _VOIPMANIFESTSTATUSREQUEST,
@@ -1566,8 +1338,8 @@ _VOIPSESSIONS = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=3273,
-  serialized_end=5497,
+  serialized_start=2612,
+  serialized_end=4582,
   methods=[
   _descriptor.MethodDescriptor(
     name='LoadManifest',
@@ -1610,49 +1382,29 @@ _VOIPSESSIONS = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='PerformCall',
-    full_name='ondewo.nlu.VoipSessions.PerformCall',
+    name='StartCallInstance',
+    full_name='ondewo.nlu.VoipSessions.StartCallInstance',
     index=4,
     containing_service=None,
-    input_type=_PERFORMCALLREQUEST,
-    output_type=_PERFORMCALLRESPONSE,
-    serialized_options=b'\202\323\344\223\002:\"5/v2/{session=projects/*/agent/sessions/*}:PerformCall:\001*',
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='StopCall',
-    full_name='ondewo.nlu.VoipSessions.StopCall',
-    index=5,
-    containing_service=None,
-    input_type=_STOPCALLREQUEST,
-    output_type=_STOPCALLRESPONSE,
-    serialized_options=b'\202\323\344\223\0027\"2/v2/{session=projects/*/agent/sessions/*}:StopCall:\001*',
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='StartListener',
-    full_name='ondewo.nlu.VoipSessions.StartListener',
-    index=6,
-    containing_service=None,
-    input_type=_STARTLISTENERREQUEST,
-    output_type=_STARTLISTENERRESPONSE,
+    input_type=_STARTCALLINSTANCEREQUEST,
+    output_type=_STARTCALLINSTANCERESPONSE,
     serialized_options=b'\202\323\344\223\002<\"7/v2/{session=projects/*/agent/sessions/*}:StartListener:\001*',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='StopListener',
-    full_name='ondewo.nlu.VoipSessions.StopListener',
-    index=7,
+    name='StopCallInstance',
+    full_name='ondewo.nlu.VoipSessions.StopCallInstance',
+    index=5,
     containing_service=None,
-    input_type=_STOPCALLREQUEST,
-    output_type=_STOPLISTENERRESPONSE,
+    input_type=_STOPCALLINSTANCEREQUEST,
+    output_type=_STOPCALLINSTANCERESPONSE,
     serialized_options=b'\202\323\344\223\002;\"6/v2/{session=projects/*/agent/sessions/*}:StopListener:\001*',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
     name='GetCallIDs',
     full_name='ondewo.nlu.VoipSessions.GetCallIDs',
-    index=8,
+    index=6,
     containing_service=None,
     input_type=_GETCALLIDSREQUEST,
     output_type=_GETCALLIDSRESPONSE,
@@ -1662,7 +1414,7 @@ _VOIPSESSIONS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ShutdownUnhealthyCalls',
     full_name='ondewo.nlu.VoipSessions.ShutdownUnhealthyCalls',
-    index=9,
+    index=7,
     containing_service=None,
     input_type=_SHUTDOWNUNHEALTHYCALLSREQUEST,
     output_type=_SHUTDOWNUNHEALTHYCALLSRESPONSE,
@@ -1672,7 +1424,7 @@ _VOIPSESSIONS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetManifestStatus',
     full_name='ondewo.nlu.VoipSessions.GetManifestStatus',
-    index=10,
+    index=8,
     containing_service=None,
     input_type=_VOIPMANIFESTSTATUSREQUEST,
     output_type=_VOIPMANIFESTSTATUS,
@@ -1682,7 +1434,7 @@ _VOIPSESSIONS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetInstanceStatus',
     full_name='ondewo.nlu.VoipSessions.GetInstanceStatus',
-    index=11,
+    index=9,
     containing_service=None,
     input_type=_GETVOIPSTATUSREQUEST,
     output_type=_VOIPSTATUS,
@@ -1692,7 +1444,7 @@ _VOIPSESSIONS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='UpdateServicesStatus',
     full_name='ondewo.nlu.VoipSessions.UpdateServicesStatus',
-    index=12,
+    index=10,
     containing_service=None,
     input_type=_UPDATESERVICESSTATUSREQUEST,
     output_type=_UPDATESERVICESSTATUSRESPONSE,
@@ -1702,7 +1454,7 @@ _VOIPSESSIONS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='DeployPreconditionForWorkingSetup',
     full_name='ondewo.nlu.VoipSessions.DeployPreconditionForWorkingSetup',
-    index=13,
+    index=11,
     containing_service=None,
     input_type=_DEPLOYPRECONDITIONREQUEST,
     output_type=_DEPLOYPRECONDITIONRESPONSE,
