@@ -1,8 +1,11 @@
-# Copyright 2021 ONDEWO GmbH
-# Licensed under the ONDEWO GmbH license, Version 1.0 (the "License");
-# you must not use this file except in compliance with the License.
-# You must obtain a copy of the License at
-# office@ondewo.com
+# Copyright 2020 ONDEWO GmbH
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -139,7 +142,7 @@ class VtsiClient:
                      call_id: str,
                      sip_sim_version: str,
                      project_id: str,
-                     init_text: str,
+                     init_text: Optional[str] = '',
                      contexts: Optional[List[context_pb2.Context]] = None,
                      ) -> voip_pb2.StartCallInstanceResponse:
         """
