@@ -36,25 +36,15 @@ class VoipSessionsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetManifestIDsRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetManifestIDsResponse.FromString,
                 )
-        self.PerformCall = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/PerformCall',
-                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.PerformCallRequest.SerializeToString,
-                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.PerformCallResponse.FromString,
+        self.StartCallInstance = channel.unary_unary(
+                '/ondewo.nlu.VoipSessions/StartCallInstance',
+                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceResponse.FromString,
                 )
-        self.StopCall = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/StopCall',
-                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallRequest.SerializeToString,
-                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallResponse.FromString,
-                )
-        self.StartListener = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/StartListener',
-                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenerRequest.SerializeToString,
-                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenerResponse.FromString,
-                )
-        self.StopListener = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/StopListener',
-                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallRequest.SerializeToString,
-                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopListenerResponse.FromString,
+        self.StopCallInstance = channel.unary_unary(
+                '/ondewo.nlu.VoipSessions/StopCallInstance',
+                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceResponse.FromString,
                 )
         self.GetCallIDs = channel.unary_unary(
                 '/ondewo.nlu.VoipSessions/GetCallIDs',
@@ -126,28 +116,10 @@ class VoipSessionsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def PerformCall(self, request, context):
-        """///////////
-        CALLERS //
-        ///////////
-
-        perform a single call with the given parameters in the request
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def StopCall(self, request, context):
-        """stop an ongoing call
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def StartListener(self, request, context):
-        """/////////////
-        LISTENERS //
-        /////////////
+    def StartCallInstance(self, request, context):
+        """/////////
+        CALLS //
+        /////////
 
         start an ondewo-sip-sim instance that listens for calls with the given parameters
         """
@@ -155,7 +127,7 @@ class VoipSessionsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def StopListener(self, request, context):
+    def StopCallInstance(self, request, context):
         """stop/kill an ondewo-sip-sim listener instance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -235,25 +207,15 @@ def add_VoipSessionsServicer_to_server(servicer, server):
                     request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetManifestIDsRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetManifestIDsResponse.SerializeToString,
             ),
-            'PerformCall': grpc.unary_unary_rpc_method_handler(
-                    servicer.PerformCall,
-                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.PerformCallRequest.FromString,
-                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.PerformCallResponse.SerializeToString,
+            'StartCallInstance': grpc.unary_unary_rpc_method_handler(
+                    servicer.StartCallInstance,
+                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceResponse.SerializeToString,
             ),
-            'StopCall': grpc.unary_unary_rpc_method_handler(
-                    servicer.StopCall,
-                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallRequest.FromString,
-                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallResponse.SerializeToString,
-            ),
-            'StartListener': grpc.unary_unary_rpc_method_handler(
-                    servicer.StartListener,
-                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenerRequest.FromString,
-                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenerResponse.SerializeToString,
-            ),
-            'StopListener': grpc.unary_unary_rpc_method_handler(
-                    servicer.StopListener,
-                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallRequest.FromString,
-                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopListenerResponse.SerializeToString,
+            'StopCallInstance': grpc.unary_unary_rpc_method_handler(
+                    servicer.StopCallInstance,
+                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceResponse.SerializeToString,
             ),
             'GetCallIDs': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCallIDs,
@@ -366,7 +328,7 @@ class VoipSessions(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def PerformCall(request,
+    def StartCallInstance(request,
             target,
             options=(),
             channel_credentials=None,
@@ -376,14 +338,14 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/PerformCall',
-            ondewo_dot_vtsi_dot_voip__pb2.PerformCallRequest.SerializeToString,
-            ondewo_dot_vtsi_dot_voip__pb2.PerformCallResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StartCallInstance',
+            ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def StopCall(request,
+    def StopCallInstance(request,
             target,
             options=(),
             channel_credentials=None,
@@ -393,43 +355,9 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StopCall',
-            ondewo_dot_vtsi_dot_voip__pb2.StopCallRequest.SerializeToString,
-            ondewo_dot_vtsi_dot_voip__pb2.StopCallResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def StartListener(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StartListener',
-            ondewo_dot_vtsi_dot_voip__pb2.StartListenerRequest.SerializeToString,
-            ondewo_dot_vtsi_dot_voip__pb2.StartListenerResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def StopListener(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StopListener',
-            ondewo_dot_vtsi_dot_voip__pb2.StopCallRequest.SerializeToString,
-            ondewo_dot_vtsi_dot_voip__pb2.StopListenerResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StopCallInstance',
+            ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
