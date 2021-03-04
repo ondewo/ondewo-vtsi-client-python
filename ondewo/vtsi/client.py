@@ -73,17 +73,27 @@ class VtsiClient:
     def __init__(self, manager: ConfigManager) -> None:
         self.manager: ConfigManager = manager
 
+        target = f"{self.manager.config_voip.host}:{self.manager.config_voip.port}"
+
+        with open(self.manager.cert_path, 'rb') as fi:
+            cert = fi.read()
+
         # create grpc service stub
-        channel = grpc.insecure_channel(target=f"{self.manager.config_voip.host}:{self.manager.config_voip.port}")
+        if self.manager.config_voip.secure:
+            credentials = grpc.ssl_channel_credentials(root_certificates=cert)
+            channel = grpc.secure_channel(target, credentials)
+        else:
+            channel = grpc.insecure_channel(target=target)
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
         self.call_log_stub = call_log_pb2_grpc.VoipCallLogsStub(channel=channel)
 
     @staticmethod
-    def get_minimal_client(voip_host: str, voip_port: str) -> 'VtsiClient':
+    def get_minimal_client(voip_host: str, voip_port: str, secure: bool = False, cert_path: Optional[str] = None) -> 'VtsiClient':
         manager = ConfigManager(
             config_voip=VtsiConfiguration(
                 host=voip_host,
                 port=int(voip_port),
+                secure=secure,
             ),
             config_cai=CaiConfiguration(
                 cai_project_id="[PLACEHOLDER]",
@@ -92,6 +102,7 @@ class VtsiClient:
                 language_code="[PLACEHOLDER",
             ),
             config_asterisk=AsteriskConfiguration(),
+            cert_path=cert_path,
         )
         return VtsiClient(manager=manager)
 
