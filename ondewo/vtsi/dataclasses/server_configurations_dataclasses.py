@@ -1,8 +1,11 @@
 # Copyright 2021 ONDEWO GmbH
-# Licensed under the ONDEWO GmbH license, Version 1.0 (the "License");
-# you must not use this file except in compliance with the License.
-# You must obtain a copy of the License at
-# office@ondewo.com
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -11,14 +14,14 @@
 
 import uuid
 from dataclasses import dataclass, field
-from typing import List, TYPE_CHECKING
+from typing import List, TYPE_CHECKING, Optional
 
 from ondewo.nlu import context_pb2
 from ondewo.vtsi import voip_pb2
 from ondewo.vtsi.voip_pb2 import ServiceConfig
 
 if TYPE_CHECKING:
-    from vtsi_client.voip_server_client import ConfigManager
+    from ondewo.vtsi.client import ConfigManager
 
 
 @dataclass
@@ -67,72 +70,37 @@ class AsteriskConfiguration:
 
 
 @dataclass
-class VtsiServerConfiguration:
+class VtsiConfiguration:
     """location of voip server"""
     host: str
     port: int = 40045
+    secure: bool = False
+    cert_path: str = ''
 
 
 class CallConfig:
     """
     provides functions to create
-        PerformCallRequest and
-        StartListenerRequest
+        StartCallInstanceRequest
     requests from data in the ConfigManager
     """
 
     @staticmethod
-    def get_caller_proto_request(
-        manager: "ConfigManager",
-        phone_number: str,
-        project_id: str,
-        call_id: str,
-        sip_sim_version: str,
-        contexts: List[context_pb2.Context],
-    ):
-        return voip_pb2.PerformCallRequest(
-            call_id=call_id,
-            sip_sim_version=sip_sim_version,
-            project_id=project_id,
-            phone_number=phone_number,
-            contexts=contexts,
-            asterisk_config=ServiceConfig(
-                host=manager.config_asterisk.host, port=manager.config_asterisk.port, service_identifier="asterisk",
-            ),
-            cai_config=ServiceConfig(
-                host=manager.config_cai.host,
-                port=manager.config_cai.port,
-                service_identifier=manager.config_cai.cai_type,
-            ),
-            stt_config=ServiceConfig(
-                language_code=manager.config_audio.language_code,
-                host=manager.config_audio.s2t_host,
-                port=manager.config_audio.s2t_port,
-                service_identifier=manager.config_audio.s2t_type,
-            ),
-            tts_config=ServiceConfig(
-                language_code=manager.config_audio.language_code,
-                host=manager.config_audio.t2s_host,
-                port=manager.config_audio.t2s_port,
-                service_identifier=manager.config_audio.t2s_type,
-            ),
-            demux_config=ServiceConfig(
-                host=manager.config_audio.demux_host, port=manager.config_audio.demux_port, service_identifier="demux",
-            ),
-        )
-
-    @staticmethod
-    def get_listener_proto_request(
+    def get_call_proto_request(
         manager: "ConfigManager",
         project_id: str,
         call_id: str,
         sip_sim_version: str,
         init_text: str,
+        contexts: List[context_pb2.Context],
+        phone_number: Optional[str] = None,
     ):
-        return voip_pb2.StartListenerRequest(
+        return voip_pb2.StartCallInstanceRequest(
             call_id=call_id,
             project_id=project_id,
             sip_sim_version=sip_sim_version,
+            phone_number=phone_number,
+            contexts=contexts,
             init_text=init_text,
             asterisk_config=ServiceConfig(
                 host=manager.config_asterisk.host, port=manager.config_asterisk.port, service_identifier="asterisk",
@@ -143,15 +111,15 @@ class CallConfig:
                 service_identifier=manager.config_cai.cai_type,
             ),
             stt_config=ServiceConfig(
+                language_code=manager.config_audio.language_code,
                 host=manager.config_audio.s2t_host,
                 port=manager.config_audio.s2t_port,
-                language_code=manager.config_audio.language_code,
                 service_identifier=manager.config_audio.s2t_type,
             ),
             tts_config=ServiceConfig(
+                language_code=manager.config_audio.language_code,
                 host=manager.config_audio.t2s_host,
                 port=manager.config_audio.t2s_port,
-                language_code=manager.config_audio.language_code,
                 service_identifier=manager.config_audio.t2s_type,
             ),
             demux_config=ServiceConfig(
@@ -164,5 +132,4 @@ class CallConfig:
 class Manifest:
     manifest_id: str
     contexts: List[context_pb2.Context]
-    callers: List[voip_pb2.PerformCallRequest]
-    listeners: List[voip_pb2.StartListenerRequest]
+    calles: List[voip_pb2.StartCallInstanceRequest]

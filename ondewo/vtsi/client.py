@@ -1,14 +1,18 @@
 # Copyright 2021 ONDEWO GmbH
-# Licensed under the ONDEWO GmbH license, Version 1.0 (the "License");
-# you must not use this file except in compliance with the License.
-# You must obtain a copy of the License at
-# office@ondewo.com
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import time
 from dataclasses import dataclass
 from typing import List, Optional, Dict
@@ -19,7 +23,7 @@ from ondewo.vtsi import call_log_pb2, call_log_pb2_grpc, voip_pb2, voip_pb2_grpc
 
 from ondewo.vtsi.dataclasses.server_configurations_dataclasses import (
     CaiConfiguration,
-    VtsiServerConfiguration,
+    VtsiConfiguration,
     AudioConfiguration,
     AsteriskConfiguration,
     CallConfig,
@@ -52,7 +56,7 @@ class ConfigManager:
 
     def __init__(
         self,
-        config_voip: VtsiServerConfiguration,
+        config_voip: VtsiConfiguration,
         config_cai: CaiConfiguration,
         config_audio: AudioConfiguration,
         config_asterisk: AsteriskConfiguration,
@@ -62,10 +66,10 @@ class ConfigManager:
         self.config_audio = config_audio
         self.config_asterisk = config_asterisk
 
-        self.client = VtsiServerClient(manager=self)
+        self.client = VtsiClient(manager=self)
 
 
-class VtsiServerClient:
+class VtsiClient:
     """
     exposes the endpoints of the ondewo voip-server in a user-friendly way
     """
@@ -73,17 +77,31 @@ class VtsiServerClient:
     def __init__(self, manager: ConfigManager) -> None:
         self.manager: ConfigManager = manager
 
+        target = f"{self.manager.config_voip.host}:{self.manager.config_voip.port}"
+
+        if os.path.exists(self.manager.config_voip.cert_path):
+            with open(self.manager.config_voip.cert_path, "rb") as fi:
+                grpc_cert = fi.read()
+
         # create grpc service stub
-        channel = grpc.insecure_channel(target=f"{self.manager.config_voip.host}:{self.manager.config_voip.port}")
+        if self.manager.config_voip.secure:
+            credentials = grpc.ssl_channel_credentials(root_certificates=grpc_cert)
+            channel = grpc.secure_channel(target, credentials)
+            print(f'Creating a secure channel to {target}')
+        else:
+            channel = grpc.insecure_channel(target=target)
+            print(f'Creating an insecure channel to {target}')
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
         self.call_log_stub = call_log_pb2_grpc.VoipCallLogsStub(channel=channel)
 
     @staticmethod
-    def get_minimal_client(voip_host: str, voip_port: str) -> 'VtsiServerClient':
-        manager = ConfigManager(
-            config_voip=VtsiServerConfiguration(
+    def get_minimal_client(voip_host: str, voip_port: str, secure: bool = False, cert_path: Optional[str] = None) -> 'VtsiClient':
+        manager: ConfigManager = ConfigManager(
+            config_voip=VtsiConfiguration(
                 host=voip_host,
                 port=int(voip_port),
+                secure=secure,
+                cert_path=cert_path,
             ),
             config_cai=CaiConfiguration(
                 cai_project_id="[PLACEHOLDER]",
@@ -93,7 +111,7 @@ class VtsiServerClient:
             ),
             config_asterisk=AsteriskConfiguration(),
         )
-        return VtsiServerClient(manager=manager)
+        return VtsiClient(manager=manager)
 
     def load_manifest(self, request: voip_pb2.VoipManifest,) -> bool:
         """
@@ -123,64 +141,60 @@ class VtsiServerClient:
         response: voip_pb2.RemoveManifestResponse = self.voip_stub.RemoveManifest(request=request)
         return response
 
-    def perform_call(self,
+    def start_caller(self,
                      phone_number: str,
                      call_id: str,
                      sip_sim_version: str,
                      project_id: str,
-                     init_text: str,
-                     contexts: List[context_pb2.Context],
-                     ) -> voip_pb2.PerformCallResponse:
+                     init_text: Optional[str] = '',
+                     contexts: Optional[List[context_pb2.Context]] = None,
+                     ) -> voip_pb2.StartCallInstanceResponse:
         """
         perform a single call
         """
-        request = CallConfig.get_caller_proto_request(
+        contexts = contexts if contexts else []
+        request = CallConfig.get_call_proto_request(
             manager=self.manager,
             call_id=call_id,
-            init_text=init_text,
             sip_sim_version=sip_sim_version,
             phone_number=phone_number,
             project_id=project_id,
+            init_text=init_text,
             contexts=contexts,
         )
         print("performing call")
-        response: voip_pb2.PerformCallResponse = self.voip_stub.PerformCall(request=request)
+        response: voip_pb2.StartCallInstanceResponse = self.voip_stub.StartCallInstance(request=request)
         return response
 
-    def stop_call(
+    def stop_caller(
         self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
     ) -> bool:
         """
         stop an ongoing call
         """
-        if call_id:
-            request = voip_pb2.StopCallRequest(call_id=call_id)
-        elif sip_id:
-            request = voip_pb2.StopCallRequest(sip_id=sip_id)
-        else:
-            raise ValueError("either call_id or sip_id needs to be specified!")
-        print("stopping call")
-        response: voip_pb2.StopCallResponse = self.voip_stub.StopCall(request=request)
-        return response.success  # type: ignore
+        return self._stop_call(call_id=call_id, sip_id=sip_id)
 
     def start_listener(self,
                        project_id: str,
                        call_id: str,
                        sip_sim_version: str,
-                       init_text: str
-                       ) -> voip_pb2.StartListenerResponse:
+                       init_text: str,
+                       contexts: Optional[List[context_pb2.Context]] = None,
+                       ) -> voip_pb2.StartCallInstanceResponse:
         """
         start an ondewo-sip-sim instance to listen for calls
         """
-        request = CallConfig.get_listener_proto_request(
+        contexts = contexts if contexts else []
+        request = CallConfig.get_call_proto_request(
             manager=self.manager,
-            project_id=project_id,
             call_id=call_id,
-            init_text=init_text,
             sip_sim_version=sip_sim_version,
+            project_id=project_id,
+            init_text=init_text,
+            contexts=contexts,
         )
         print("starting listener")
-        response: voip_pb2.StartListenerResponse = self.voip_stub.StartListener(request=request)
+        response: voip_pb2.StartCallInstanceResponse = self.voip_stub.StartCallInstance(request=request)
         return response
 
     def stop_listener(
@@ -189,14 +203,22 @@ class VtsiServerClient:
         """
         stop a listener instance
         """
+        return self._stop_call(call_id=call_id, sip_id=sip_id)
+
+    def _stop_call(
+        self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
+    ) -> bool:
+        """
+        stop a call instance
+        """
         if call_id:
-            request = voip_pb2.StopCallRequest(call_id=call_id)
+            request = voip_pb2.StopCallInstanceRequest(call_id=call_id)
         elif sip_id:
-            request = voip_pb2.StopCallRequest(sip_id=sip_id)
+            request = voip_pb2.StopCallInstanceRequest(sip_id=sip_id)
         else:
             raise ValueError("either call_id or sip_id needs to be specified!")
-        print("stopping listener")
-        response: voip_pb2.StopListenerResponse = self.voip_stub.StopListener(request=request)
+        print("stopping call")
+        response: voip_pb2.StopCallInstanceResponse = self.voip_stub.StopCallInstance(request=request)
         return response.success  # type: ignore
 
     def get_manifest_status(self, manifest_id: str,) -> voip_pb2.VoipManifestStatus:
@@ -271,15 +293,6 @@ class VtsiServerClient:
         request = voip_pb2.ShutdownUnhealthyCallsRequest()
         response: voip_pb2.ShutdownUnhealthyCallsResponse = self.voip_stub.ShutdownUnhealthyCalls(request=request)
         return response.success     # type: ignore
-
-    # def get_call_ids(self, sip_id: str,) -> List[str]:
-    #     """
-    #     get all call_ids associated with a sip-instance (currently only 1)
-    #     """
-    #     request = call_log_pb2.GetCallIdsRequest(sip_id=sip_id)
-    #     print("get call IDs")
-    #     response: call_log_pb2.GetCallIdsResponse = self.call_log_stub.GetCallIds(request=request)
-    #     return [call_id for call_id in response.call_ids]
 
     def start_voip_log(self, call_id: str, start_time: Optional[float] = None,) -> call_log_pb2.VoipLogResponse:
         """

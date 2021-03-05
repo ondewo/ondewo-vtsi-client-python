@@ -1,5 +1,19 @@
 # Release History
 *****************
+*****************
+## Release ONDEWO VTSI Client Python 2.0.0
+
+### Improvements
+
+* added secure grpc authentication
+* added an example listener deployment
+* simplified call initiation (no difference between listners and callers)
+
+### Bug Fixes
+
+* fixed pip install namespace bug
+
+*****************
 
 ## Release ONDEWO VTSI Client Python 1.2.1
 
