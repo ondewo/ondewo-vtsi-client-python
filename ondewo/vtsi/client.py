@@ -79,12 +79,13 @@ class VtsiClient:
 
         target = f"{self.manager.config_voip.host}:{self.manager.config_voip.port}"
 
-        if os.path.exists(self.manager.config_voip.cert_path):
-            with open(self.manager.config_voip.cert_path, "rb") as fi:
-                grpc_cert = fi.read()
-
         # create grpc service stub
         if self.manager.config_voip.secure:
+
+            if os.path.exists(self.manager.config_voip.cert_path):
+                with open(self.manager.config_voip.cert_path, "rb") as fi:
+                    grpc_cert = fi.read()
+
             credentials = grpc.ssl_channel_credentials(root_certificates=grpc_cert)
             channel = grpc.secure_channel(target, credentials)
             print(f'Creating a secure channel to {target}')
@@ -152,7 +153,7 @@ class VtsiClient:
         """
         perform a single call
         """
-        contexts = contexts if contexts else []
+        contexts = contexts if contexts else self.manager.config_cai.cai_contexts
         request = CallConfig.get_call_proto_request(
             manager=self.manager,
             call_id=call_id,
@@ -184,7 +185,7 @@ class VtsiClient:
         """
         start an ondewo-sip-sim instance to listen for calls
         """
-        contexts = contexts if contexts else []
+        contexts = contexts if contexts else self.manager.config_cai.cai_contexts
         request = CallConfig.get_call_proto_request(
             manager=self.manager,
             call_id=call_id,
