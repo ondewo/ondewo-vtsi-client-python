@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import time
 from dataclasses import dataclass
 from typing import List, Optional, Dict
@@ -64,6 +65,7 @@ class ConfigManager:
         self.config_cai = config_cai
         self.config_audio = config_audio
         self.config_asterisk = config_asterisk
+        self.cert_path
 
         self.client = VtsiClient(manager=self)
 
@@ -78,12 +80,13 @@ class VtsiClient:
 
         target = f"{self.manager.config_voip.host}:{self.manager.config_voip.port}"
 
-        with open(self.manager.cert_path, 'rb') as fi:
-            cert = fi.read()
+        if os.path.exists(self.manager.config_voip.cert_path):
+            with open(self.manager.config_voip.cert_path, "rb") as fi:
+                grpc_cert = fi.read()
 
         # create grpc service stub
         if self.manager.config_voip.secure:
-            credentials = grpc.ssl_channel_credentials(root_certificates=cert)
+            credentials = grpc.ssl_channel_credentials(root_certificates=grpc_cert)
             channel = grpc.secure_channel(target, credentials)
         else:
             channel = grpc.insecure_channel(target=target)
@@ -92,11 +95,12 @@ class VtsiClient:
 
     @staticmethod
     def get_minimal_client(voip_host: str, voip_port: str, secure: bool = False, cert_path: Optional[str] = None) -> 'VtsiClient':
-        manager = ConfigManager(
+        manager: ConfigManager = ConfigManager(
             config_voip=VtsiConfiguration(
                 host=voip_host,
                 port=int(voip_port),
                 secure=secure,
+                cert_path=cert_path,
             ),
             config_cai=CaiConfiguration(
                 cai_project_id="[PLACEHOLDER]",
@@ -105,7 +109,6 @@ class VtsiClient:
                 language_code="[PLACEHOLDER",
             ),
             config_asterisk=AsteriskConfiguration(),
-            cert_path=cert_path,
         )
         return VtsiClient(manager=manager)
 
