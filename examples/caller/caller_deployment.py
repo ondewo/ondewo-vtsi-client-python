@@ -65,6 +65,14 @@ contexts: List[context_pb2.Context] = []
 
 deployments: List[Tuple[str, CaiConfiguration, AudioConfiguration]] = []
 
+start_context = context_pb2.Context(
+    name=f"projects/{project_id}/agent/sessions/{context_session_id}/contexts/go_to_start",
+    lifespan_count=100,
+    parameters={
+        "start": context_pb2.Context.Parameter(display_name="start", value_original="convo"),
+    }
+)
+
 #########################
 # IMAGE 1: Mirror
 #########################
