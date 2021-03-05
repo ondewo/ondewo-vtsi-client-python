@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import time
 from dataclasses import dataclass
 from typing import List, Optional, Dict
@@ -76,17 +77,31 @@ class VtsiClient:
     def __init__(self, manager: ConfigManager) -> None:
         self.manager: ConfigManager = manager
 
+        target = f"{self.manager.config_voip.host}:{self.manager.config_voip.port}"
+
+        if os.path.exists(self.manager.config_voip.cert_path):
+            with open(self.manager.config_voip.cert_path, "rb") as fi:
+                grpc_cert = fi.read()
+
         # create grpc service stub
-        channel = grpc.insecure_channel(target=f"{self.manager.config_voip.host}:{self.manager.config_voip.port}")
+        if self.manager.config_voip.secure:
+            credentials = grpc.ssl_channel_credentials(root_certificates=grpc_cert)
+            channel = grpc.secure_channel(target, credentials)
+            print(f'Creating a secure channel to {target}')
+        else:
+            channel = grpc.insecure_channel(target=target)
+            print(f'Creating an insecure channel to {target}')
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
         self.call_log_stub = call_log_pb2_grpc.VoipCallLogsStub(channel=channel)
 
     @staticmethod
-    def get_minimal_client(voip_host: str, voip_port: str) -> 'VtsiClient':
-        manager = ConfigManager(
+    def get_minimal_client(voip_host: str, voip_port: str, secure: bool = False, cert_path: Optional[str] = None) -> 'VtsiClient':
+        manager: ConfigManager = ConfigManager(
             config_voip=VtsiConfiguration(
                 host=voip_host,
                 port=int(voip_port),
+                secure=secure,
+                cert_path=cert_path,
             ),
             config_cai=CaiConfiguration(
                 cai_project_id="[PLACEHOLDER]",

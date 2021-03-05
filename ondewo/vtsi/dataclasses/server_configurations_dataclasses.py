@@ -74,6 +74,8 @@ class VtsiConfiguration:
     """location of voip server"""
     host: str
     port: int = 40045
+    secure: bool = False
+    cert_path: str = ''
 
 
 class CallConfig:
