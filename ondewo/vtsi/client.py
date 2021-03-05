@@ -65,7 +65,6 @@ class ConfigManager:
         self.config_cai = config_cai
         self.config_audio = config_audio
         self.config_asterisk = config_asterisk
-        self.cert_path
 
         self.client = VtsiClient(manager=self)
 
@@ -88,8 +87,10 @@ class VtsiClient:
         if self.manager.config_voip.secure:
             credentials = grpc.ssl_channel_credentials(root_certificates=grpc_cert)
             channel = grpc.secure_channel(target, credentials)
+            print(f'Creating a secure channel to {target}')
         else:
             channel = grpc.insecure_channel(target=target)
+            print(f'Creating an insecure channel to {target}')
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
         self.call_log_stub = call_log_pb2_grpc.VoipCallLogsStub(channel=channel)
 
