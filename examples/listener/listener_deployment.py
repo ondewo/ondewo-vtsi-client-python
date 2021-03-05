@@ -35,8 +35,8 @@ sip_sim_version = "0.8.1"
 
 # VOIP SERVER CONFIGURATION
 config_voip = VtsiConfiguration(
-    host="localhost",
-    port=50200,
+    host="grpc-vtsi.ondewo.com",
+    port=443,
 )
 
 # AUDIO CONFIGURATION
@@ -55,7 +55,6 @@ config_audio_ondewo = AudioConfiguration(
 )
 
 config_asterisk = AsteriskConfiguration(
-    # host="34.91.37.255",
     host="127.0.0.1"
 )
 
@@ -99,13 +98,5 @@ for project_id, config_cai, config_audio in deployments:
         project_id=project_id,
         sip_sim_version=sip_sim_version,
     )
-
-    # manager.client.start_caller(
-    #     init_text=greeting_text,
-    #     call_id=str(uuid.uuid4()),
-    #     project_id=project_id,
-    #     phone_number='ffettes',
-    #     sip_sim_version=sip_sim_version,
-    # )
 
 ######################################################
