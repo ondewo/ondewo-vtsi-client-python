@@ -1,6 +1,17 @@
 # Release History
 *****************
 *****************
+## Release ONDEWO VTSI Client Python 2.0.1
+
+### Improvements
+
+* made py2 importable
+
+### Bug Fixes
+
+* fixed grpc cert import bug
+
+*****************
 ## Release ONDEWO VTSI Client Python 2.0.0
 
 ### Improvements
