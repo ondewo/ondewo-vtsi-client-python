@@ -7,8 +7,8 @@ with open("requirements.txt") as f:
     requires = f.read().splitlines()
 
 setuptools.setup(
-    name="ONDEWO VTSI Client Python",
-    version="2.0.0",
+    name="ondewo-vtsi-client-python",
+    version="2.0.1",
     author="Ondewo GbmH",
     author_email="info@ondewo.com",
     description="sends deployment commands to the Ondewo VTSI Server",
@@ -28,6 +28,6 @@ setuptools.setup(
         "Development Status :: 3 - Alpha",
         "Topic :: Software Development :: Libraries",
     ],
-    python_requires=">=3.0.1",
+    python_requires=">=2.6,!=3.0.*",
     install_requires=requires,
 )
