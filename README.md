@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/ondewo/ondewo-vtsi-client-python">
-      <img alt="ONDEWO Logo" src="https://raw.githubusercontent.com/ondewo/ondewo-logos/master/github/ondewo_logo_github_2.png" width="60" />
+      <img alt="ONDEWO Logo" src="https://raw.githubusercontent.com/ondewo/ondewo-logos/master/github/ondewo_logo_github_2.png"/>
     </a>
   <h1 align="center">
     ONDEWO Voice Client
