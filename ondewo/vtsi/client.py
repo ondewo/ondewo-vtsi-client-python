@@ -276,6 +276,16 @@ class VtsiClient:
             call_ids.append(call_id)
         return call_ids
 
+    def get_session_id(self, call_id: str) -> str:
+        """
+        get session id by call id
+        """
+        request = voip_pb2.GetSessionIDRequest(
+            call_id=call_id
+        )
+        response: voip_pb2.GetSessionIDResponse = self.voip_stub.GetSessionID(request=request)
+        return response.session_id
+
     def get_manifest_ids(self) -> List[str]:
         """
         get all manifest_ids known to the voip manager
