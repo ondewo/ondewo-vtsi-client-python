@@ -1,4 +1,11 @@
-![Logo](https://raw.githubusercontent.com/ondewo/ondewo-logos/master/github/ondewo_logo_github_2.png)
+<p align="center">
+    <a href="https://github.com/ondewo/ondewo-vtsi-client-python">
+      <img alt="ONDEWO Logo" src="https://raw.githubusercontent.com/ondewo/ondewo-logos/master/github/ondewo_logo_github_2.png" width="60" />
+    </a>
+  <h1 align="center">
+    ONDEWO Voice Client
+  </h1>
+</p>
 
 # Ondewo VTSI Client Python
 
