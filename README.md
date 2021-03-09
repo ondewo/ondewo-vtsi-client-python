@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://github.com/ondewo/ondewo-vtsi-client-python">
+    <a href="https://www.ondewo.com">
       <img alt="ONDEWO Logo" src="https://raw.githubusercontent.com/ondewo/ondewo-logos/master/github/ondewo_logo_github_2.png"/>
     </a>
   <h1 align="center">
