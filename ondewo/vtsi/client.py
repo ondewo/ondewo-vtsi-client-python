@@ -147,7 +147,8 @@ class VtsiClient:
                      call_id: str,
                      sip_sim_version: str,
                      project_id: str,
-                     init_text: Optional[str] = '',
+                     init_text: Optional[str] = None,
+                     trigger_intent: Optional[str] = None,
                      contexts: Optional[List[context_pb2.Context]] = None,
                      ) -> voip_pb2.StartCallInstanceResponse:
         """
@@ -161,6 +162,7 @@ class VtsiClient:
             phone_number=phone_number,
             project_id=project_id,
             init_text=init_text,
+            trigger_intent=trigger_intent,
             contexts=contexts,
         )
         print("performing call")
@@ -176,10 +178,11 @@ class VtsiClient:
         return self._stop_call(call_id=call_id, sip_id=sip_id)
 
     def start_listener(self,
-                       project_id: str,
                        call_id: str,
                        sip_sim_version: str,
-                       init_text: str,
+                       project_id: str,
+                       init_text: Optional[str] = None,
+                       trigger_intent: Optional[str] = None,
                        contexts: Optional[List[context_pb2.Context]] = None,
                        ) -> voip_pb2.StartCallInstanceResponse:
         """
@@ -192,6 +195,7 @@ class VtsiClient:
             sip_sim_version=sip_sim_version,
             project_id=project_id,
             init_text=init_text,
+            trigger_intent=trigger_intent,
             contexts=contexts,
         )
         print("starting listener")
