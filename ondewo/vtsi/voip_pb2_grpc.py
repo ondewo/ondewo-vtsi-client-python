@@ -51,6 +51,11 @@ class VoipSessionsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsResponse.FromString,
                 )
+        self.GetSessionID = channel.unary_unary(
+                '/ondewo.nlu.VoipSessions/GetSessionID',
+                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDResponse.FromString,
+                )
         self.ShutdownUnhealthyCalls = channel.unary_unary(
                 '/ondewo.nlu.VoipSessions/ShutdownUnhealthyCalls',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.ShutdownUnhealthyCallsRequest.SerializeToString,
@@ -145,6 +150,13 @@ class VoipSessionsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetSessionID(self, request, context):
+        """get session ID
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ShutdownUnhealthyCalls(self, request, context):
         """shutdown any deployed call with unhealthy status
         """
@@ -221,6 +233,11 @@ def add_VoipSessionsServicer_to_server(servicer, server):
                     servicer.GetCallIDs,
                     request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsResponse.SerializeToString,
+            ),
+            'GetSessionID': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSessionID,
+                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDResponse.SerializeToString,
             ),
             'ShutdownUnhealthyCalls': grpc.unary_unary_rpc_method_handler(
                     servicer.ShutdownUnhealthyCalls,
@@ -375,6 +392,23 @@ class VoipSessions(object):
         return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/GetCallIDs',
             ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetSessionID(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/GetSessionID',
+            ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
