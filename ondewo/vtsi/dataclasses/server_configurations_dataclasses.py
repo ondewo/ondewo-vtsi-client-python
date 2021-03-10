@@ -65,7 +65,7 @@ class CaiConfiguration:
 class AsteriskConfiguration:
     """location of asterisk"""
 
-    host: str = "10.164.0.2"  # "34.90.21.10"  # gcloud IP
+    host: str = "185.225.97.110"  # "34.90.21.10"  # gcloud IP
     port: int = 5060  # unused / not transferred (hardcoded in sip-sim)
 
 
@@ -91,17 +91,19 @@ class CallConfig:
         project_id: str,
         call_id: str,
         sip_sim_version: str,
-        init_text: str,
-        contexts: List[context_pb2.Context],
+        contexts: Optional[List[context_pb2.Context]] = None,
+        init_text: Optional[str] = None,
+        trigger_intent: Optional[str] = None,
         phone_number: Optional[str] = None,
     ):
         return voip_pb2.StartCallInstanceRequest(
             call_id=call_id,
             project_id=project_id,
             sip_sim_version=sip_sim_version,
-            phone_number=phone_number,
-            contexts=contexts,
             init_text=init_text,
+            contexts=contexts,
+            trigger_intent=trigger_intent,
+            phone_number=phone_number,
             asterisk_config=ServiceConfig(
                 host=manager.config_asterisk.host, port=manager.config_asterisk.port, service_identifier="asterisk",
             ),
