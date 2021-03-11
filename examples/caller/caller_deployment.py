@@ -58,7 +58,6 @@ config_asterisk = AsteriskConfiguration(
     host="127.0.0.1"
 )
 
-TYPE = "listener"  # "caller" or "listener" [context set only for caller]
 phone_number = "+43123123123"  # only needed for "caller" instance
 greeting_text = "hello"
 contexts: List[context_pb2.Context] = []

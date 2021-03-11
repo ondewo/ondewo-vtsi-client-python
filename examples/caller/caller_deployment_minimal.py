@@ -58,24 +58,25 @@ config_asterisk = AsteriskConfiguration(
     host="127.0.0.1"
 )
 
-phone_number = ""  # only needed for "caller" instance
+phone_number = "+43123123123"  # only needed for "caller" instance
 greeting_text = "hello"
 contexts: List[context_pb2.Context] = []
 
 deployments: List[Tuple[str, CaiConfiguration, AudioConfiguration]] = []
 
 #########################
-# IMAGE 1: Mirror
+# IMAGE 1: Caller
 #########################
 
 # CONVERSATIONAL AI CONFIGURATION
 project_id = "not_a_cai_project"  # parent = projects/not_a_project/agent
 config_cai = CaiConfiguration(
-    host="grpc-nlu.ondewo.com",      # => host="0.0.0.0",
-    port=443,                        # => port=50102,
+    host="grpc-nlu.ondewo.com",
+    port=443,
     cai_project_id=project_id,
     cai_contexts=contexts,
-    cai_type="mirror",
+    # # Optional
+    # custom_bpi_image="registry-dev.ondewo.com:5000/ondewo/bpi-sip-customer-1000"
 )
 config_audio = config_audio_ondewo
 
@@ -91,9 +92,10 @@ for project_id, config_cai, config_audio in deployments:
         config_asterisk=config_asterisk,
     )
 
-    manager.client.start_listener(
+    manager.client.start_caller(
         init_text=greeting_text,
         call_id=str(uuid.uuid4()),
+        phone_number=phone_number,
         project_id=project_id,
         sip_sim_version=sip_sim_version,
     )
