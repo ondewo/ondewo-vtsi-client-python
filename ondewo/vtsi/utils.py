@@ -18,8 +18,8 @@ from typing import List
 from ondewo.nlu import context_pb2
 from ondewo.vtsi import voip_pb2
 
-from vtsi_client.dataclasses.server_configurations_dataclasses import CallConfig
-from vtsi_client.voip_server_client import ConfigManager
+from ondewo.vtsi.dataclasses.server_configurations_dataclasses import CallConfig
+from ondewo.vtsi.voip_server_client import ConfigManager
 
 
 def create_manifest(

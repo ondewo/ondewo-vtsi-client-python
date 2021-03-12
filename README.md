@@ -18,7 +18,7 @@ The vtsi client allows for easy control of the ONDEWO VTSI server. With it, you 
 
 ## Ipython example
 ```
-from vtsi_client.voip_server_client import VtsiServerClient
+from ondewo.vtsi.voip_server_client import VtsiServerClient
 
 voip_host = 'localhost'
 voip_port = '40045'
