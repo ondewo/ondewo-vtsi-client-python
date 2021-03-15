@@ -171,6 +171,14 @@ class VtsiClient:
         self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
     ) -> bool:
         """
+        stop an ongoing caller instance
+        """
+        return self._stop_call(call_id=call_id, sip_id=sip_id)
+
+    def stop_call(
+        self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
+    ) -> bool:
+        """
         stop an ongoing call
         """
         return self._stop_call(call_id=call_id, sip_id=sip_id)
