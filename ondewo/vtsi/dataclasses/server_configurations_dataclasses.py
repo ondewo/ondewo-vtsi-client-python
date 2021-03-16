@@ -117,13 +117,13 @@ class CallConfig:
                 service_identifier=manager.config_cai.cai_type,
             ),
             stt_config=ServiceConfig(
-                language_code=manager.config_audio.language_code,
+                language_code=manager.config_audio.s2t_language,
                 host=manager.config_audio.s2t_host,
                 port=manager.config_audio.s2t_port,
                 service_identifier=manager.config_audio.s2t_type,
             ),
             tts_config=ServiceConfig(
-                language_code=manager.config_audio.language_code,
+                language_code=manager.config_audio.t2s_language,
                 host=manager.config_audio.t2s_host,
                 port=manager.config_audio.t2s_port,
                 service_identifier=manager.config_audio.t2s_type,
