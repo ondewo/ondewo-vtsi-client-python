@@ -39,6 +39,12 @@ config_voip = VtsiConfiguration(
     port=443,
 )
 
+# # VOIP SERVER CONFIGURATION
+# config_voip = VtsiConfiguration(
+#     host="localhost",
+#     port=50200,
+# )
+
 # AUDIO CONFIGURATION
 config_audio_ondewo = AudioConfiguration(
     # --- text-to-speech ---
