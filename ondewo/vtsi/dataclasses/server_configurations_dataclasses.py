@@ -46,7 +46,7 @@ class AudioConfiguration:
     t2s_language: Optional[str] = None
     s2t_language: Optional[str] = None
 
-    def __init__(self) -> None:
+    def __post_init__(self) -> None:
         if not self.t2s_language:
             self.t2s_language = self.language_code
 
