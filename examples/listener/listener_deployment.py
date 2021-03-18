@@ -31,7 +31,7 @@ cai/bpi: 50052 ("BPI_PORT_LOCAL")
 #########################
 
 # SIP-SIM CONFIGURATION
-sip_sim_version = "0.8.1"
+sip_sim_version = "1.5.1"
 
 # VOIP SERVER CONFIGURATION
 config_voip = VtsiConfiguration(
@@ -41,17 +41,17 @@ config_voip = VtsiConfiguration(
 
 # AUDIO CONFIGURATION
 config_audio_ondewo = AudioConfiguration(
-    language_code="de-DE",
-
     # --- text-to-speech ---
     t2s_host="grpc-t2s.ondewo.com",
     t2s_port=443,
     t2s_type="ONDEWO",
+    t2s_language="thorsten",
 
     # --- speech-to-text ---
     s2t_host="grpc-s2t.ondewo.com",
     s2t_port=443,
-    s2t_type="ONDEWO",  # == default, OPTIONS: "ONDEWO" in string (or not -> use Cloud provider name)
+    s2t_type="ONDEWO",
+    s2t_language="german_general",
 )
 
 config_asterisk = AsteriskConfiguration(
@@ -71,8 +71,8 @@ deployments: List[Tuple[str, CaiConfiguration, AudioConfiguration]] = []
 # CONVERSATIONAL AI CONFIGURATION
 project_id = "not_a_cai_project"  # parent = projects/not_a_project/agent
 config_cai = CaiConfiguration(
-    host="grpc-nlu.ondewo.com",      # => host="0.0.0.0",
-    port=443,                        # => port=50102,
+    host="grpc-nlu.ondewo.com",
+    port=443,
     cai_project_id=project_id,
     cai_contexts=contexts,
     cai_type="mirror",

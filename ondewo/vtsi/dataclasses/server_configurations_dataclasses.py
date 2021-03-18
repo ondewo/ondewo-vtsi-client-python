@@ -28,24 +28,30 @@ if TYPE_CHECKING:
 class AudioConfiguration:
     """language and location of audio services (s2t, t2s) & demuxer"""
 
-    language_code: str
-
     # text-to-speech
     t2s_host: str = "0.0.0.0"
     t2s_port: int = 8013
     t2s_type: str = "ONDEWO text-to-speech"  # OPTIONS: "ONDEWO" in str (or not -> use Cloud provider name)
-    # t2s_port_ondewo = 40015  # used internally by sip-sim
 
     # speech-to-text
     s2t_host: str = "0.0.0.0"
     s2t_port: int = 40014
     s2t_type: str = "ONDEWO speech-to-text"  # OPTIONS: "ONDEWO" in str (or not -> use Cloud provider name)
-    # s2t_port_cloud: int = 8012
-    # s2t_port_ondewo: int = 40014
 
     # demux settings
     demux_host: str = "0.0.0.0"
     demux_port: int = 8011
+
+    language_code: Optional[str] = None
+    t2s_language: Optional[str] = None
+    s2t_language: Optional[str] = None
+
+    def __post_init__(self) -> None:
+        if not self.t2s_language:
+            self.t2s_language = self.language_code
+
+        if not self.s2t_language:
+            self.s2t_language = self.language_code
 
 
 @dataclass
@@ -111,13 +117,13 @@ class CallConfig:
                 service_identifier=manager.config_cai.cai_type,
             ),
             stt_config=ServiceConfig(
-                language_code=manager.config_audio.language_code,
+                language_code=manager.config_audio.s2t_language,
                 host=manager.config_audio.s2t_host,
                 port=manager.config_audio.s2t_port,
                 service_identifier=manager.config_audio.s2t_type,
             ),
             tts_config=ServiceConfig(
-                language_code=manager.config_audio.language_code,
+                language_code=manager.config_audio.t2s_language,
                 host=manager.config_audio.t2s_host,
                 port=manager.config_audio.t2s_port,
                 service_identifier=manager.config_audio.t2s_type,
