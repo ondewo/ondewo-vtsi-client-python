@@ -35,8 +35,8 @@ sip_sim_version = "1.5.1"
 
 # VOIP SERVER CONFIGURATION
 config_voip = VtsiConfiguration(
-    host="localhost",
-    port=50200,
+    host="grpc-vtsi.ondewo.com",
+    port=443,
 )
 
 # AUDIO CONFIGURATION
@@ -50,7 +50,7 @@ config_audio_ondewo = AudioConfiguration(
     # --- speech-to-text ---
     s2t_host="grpc-s2t.ondewo.com",
     s2t_port=443,
-    s2t_type="ONDEWO",  # == default, OPTIONS: "ONDEWO" in string (or not -> use Cloud provider name)
+    s2t_type="ONDEWO",
     s2t_language="german_general",
 )
 
@@ -71,8 +71,8 @@ deployments: List[Tuple[str, CaiConfiguration, AudioConfiguration]] = []
 # CONVERSATIONAL AI CONFIGURATION
 project_id = "not_a_cai_project"  # parent = projects/not_a_project/agent
 config_cai = CaiConfiguration(
-    host="localhost",
-    port=50102,
+    host="grpc-nlu.ondewo.com",
+    port=443,
     cai_project_id=project_id,
     cai_contexts=contexts,
     cai_type="mirror",
