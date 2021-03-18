@@ -31,13 +31,19 @@ cai/bpi: 50052 ("BPI_PORT_LOCAL")
 #########################
 
 # SIP-SIM CONFIGURATION
-sip_sim_version = "0.8.1"
+sip_sim_version = "1.5.0"
 
 # VOIP SERVER CONFIGURATION
 config_voip = VtsiConfiguration(
     host="grpc-vtsi.ondewo.com",
     port=443,
 )
+
+# # VOIP SERVER CONFIGURATION
+# config_voip = VtsiConfiguration(
+#     host="localhost",
+#     port=50200,
+# )
 
 # AUDIO CONFIGURATION
 config_audio_ondewo = AudioConfiguration(
@@ -71,8 +77,8 @@ deployments: List[Tuple[str, CaiConfiguration, AudioConfiguration]] = []
 # CONVERSATIONAL AI CONFIGURATION
 project_id = "not_a_cai_project"  # parent = projects/not_a_project/agent
 config_cai = CaiConfiguration(
-    host="grpc-nlu.ondewo.com",      # => host="0.0.0.0",
-    port=443,                        # => port=50102,
+    host="grpc-nlu.ondewo.com",
+    port=443,
     cai_project_id=project_id,
     cai_contexts=contexts,
     cai_type="mirror",
