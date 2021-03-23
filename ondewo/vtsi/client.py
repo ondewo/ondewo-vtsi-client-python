@@ -96,11 +96,14 @@ class VtsiClient:
         self.call_log_stub = call_log_pb2_grpc.VoipCallLogsStub(channel=channel)
 
     @staticmethod
-    def get_minimal_client(voip_host: str, voip_port: str, secure: bool = False, cert_path: Optional[str] = None) -> 'VtsiClient':
+    def get_minimal_client(vtsi_host: str = "grpc-vtsi.ondewo.com", vtsi_port: str = 443, secure: bool = True, cert_path: Optional[str] = './grpc_cert') -> 'VtsiClient':
+        if secure and not os.path.exists(cert_path):
+            raise Exception("Secure connection requested, but no grpc certificate provided!")
+
         manager: ConfigManager = ConfigManager(
-            config_voip=VtsiConfiguration(
-                host=voip_host,
-                port=int(voip_port),
+            config_vtsi=VtsiConfiguration(
+                host=vtsi_host,
+                port=int(vtsi_port),
                 secure=secure,
                 cert_path=cert_path,
             ),
@@ -108,7 +111,8 @@ class VtsiClient:
                 cai_project_id="[PLACEHOLDER]",
             ),
             config_audio=AudioConfiguration(
-                language_code="[PLACEHOLDER",
+                t2s_language="thorsten",
+                s2t_language="general_german",
             ),
             config_asterisk=AsteriskConfiguration(),
         )
