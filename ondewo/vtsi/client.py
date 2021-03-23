@@ -151,7 +151,7 @@ class VtsiClient:
                      call_id: str,
                      sip_sim_version: str,
                      project_id: str,
-                     init_text: Optional[str] = '',
+                     init_text: Optional[str] = None,
                      contexts: Optional[List[context_pb2.Context]] = None,
                      ) -> voip_pb2.StartCallInstanceResponse:
         """
@@ -191,7 +191,7 @@ class VtsiClient:
                        project_id: str,
                        call_id: str,
                        sip_sim_version: str,
-                       init_text: str,
+                       init_text: Optional[str] = None,
                        contexts: Optional[List[context_pb2.Context]] = None,
                        ) -> voip_pb2.StartCallInstanceResponse:
         """
