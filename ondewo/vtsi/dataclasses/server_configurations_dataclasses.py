@@ -31,12 +31,12 @@ class AudioConfiguration:
     # text-to-speech
     t2s_host: str = "grpc-t2s.ondewo.com"
     t2s_port: int = 443
-    t2s_type: str = "ONDEWO text-to-speech"  # OPTIONS: "ONDEWO" in str (or not -> use Cloud provider name)
+    t2s_type: str = "ONDEWO"
 
     # speech-to-text
     s2t_host: str = "grpc-s2t.ondewo.com"
     s2t_port: int = 443
-    s2t_type: str = "ONDEWO speech-to-text"  # OPTIONS: "ONDEWO" in str (or not -> use Cloud provider name)
+    s2t_type: str = "ONDEWO"
 
     # demux settings
     demux_host: str = "0.0.0.0"
