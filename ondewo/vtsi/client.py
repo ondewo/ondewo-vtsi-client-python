@@ -101,7 +101,7 @@ class VtsiClient:
             raise Exception("Secure connection requested, but no grpc certificate provided!")
 
         manager: ConfigManager = ConfigManager(
-            config_vtsi=VtsiConfiguration(
+            config_voip=VtsiConfiguration(
                 host=vtsi_host,
                 port=int(vtsi_port),
                 secure=secure,
