@@ -367,12 +367,12 @@ class VtsiClient:
         response: call_log_pb2.SaveCallLogsResponse = self.call_log_stub.ActivateSaveCallLogs(request=request)
         return response
 
-    def get_voip_log(self, call_id: str) -> call_log_pb2.VoipLog:
+    def get_voip_log(self, call_id: str) -> call_log_pb2.GetVoipLogResponse:
         """
         get the call log of a sip-sim instance
         """
         request = call_log_pb2.GetVoipLogRequest(call_id=call_id)
-        response: call_log_pb2.VoipLog = self.call_log_stub.GetVoipLog(request=request)
+        response: call_log_pb2.GetVoipLogResponse = self.call_log_stub.GetVoipLog(request=request)
         return response
 
     def get_manifest_voip_log(self, manifest_id: str) -> call_log_pb2.ManifestVoipLog:
