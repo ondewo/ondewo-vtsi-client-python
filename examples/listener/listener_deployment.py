@@ -31,19 +31,19 @@ cai/bpi: 50052 ("BPI_PORT_LOCAL")
 #########################
 
 # SIP-SIM CONFIGURATION
-sip_sim_version = "1.5.1"
-
-# VOIP SERVER CONFIGURATION
-config_voip = VtsiConfiguration(
-    host="grpc-vtsi.ondewo.com",
-    port=443,
-)
+sip_sim_version = "1.5.2"
 
 # # VOIP SERVER CONFIGURATION
 # config_voip = VtsiConfiguration(
-#     host="localhost",
-#     port=50200,
+#     host="grpc-vtsi.ondewo.com",
+#     port=443,
 # )
+
+# VOIP SERVER CONFIGURATION
+config_voip = VtsiConfiguration(
+    host="localhost",
+    port=50200,
+)
 
 # AUDIO CONFIGURATION
 config_audio_ondewo = AudioConfiguration(
