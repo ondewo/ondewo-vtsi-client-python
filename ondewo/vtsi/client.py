@@ -109,10 +109,11 @@ class VtsiClient:
             ),
             config_cai=CaiConfiguration(
                 cai_project_id="[PLACEHOLDER]",
+                cai_type="mirror"
             ),
             config_audio=AudioConfiguration(
                 t2s_language="thorsten",
-                s2t_language="general_german",
+                s2t_language="german_general",
             ),
             config_asterisk=AsteriskConfiguration(),
         )

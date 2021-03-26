@@ -22,6 +22,7 @@ cai/bpi: 50052 ("BPI_PORT_LOCAL")
 sip_sim_version: str = "1.5.2"
 
 client: VtsiClient = VtsiClient.get_minimal_client()
+# client: VtsiClient = VtsiClient.get_minimal_client(vtsi_host="localhost", vtsi_port=50200, secure=False)  # for local testing
 client.start_listener(
     call_id=str(uuid.uuid4()),
     project_id=str(uuid.uuid4()),
