@@ -40,11 +40,6 @@ class VoipCallLogsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_call__log__pb2.GetManifestVoipLogRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.ManifestVoipLog.FromString,
                 )
-        self.ActivateSaveCallLogs = channel.unary_unary(
-                '/ondewo.nlu.VoipCallLogs/ActivateSaveCallLogs',
-                request_serializer=ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsRequest.SerializeToString,
-                response_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsResponse.FromString,
-                )
 
 
 class VoipCallLogsServicer(object):
@@ -94,13 +89,6 @@ class VoipCallLogsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ActivateSaveCallLogs(self, request, context):
-        """activate saving call logs in the voip manager
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_VoipCallLogsServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -128,11 +116,6 @@ def add_VoipCallLogsServicer_to_server(servicer, server):
                     servicer.GetManifestVoipLog,
                     request_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.GetManifestVoipLogRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_call__log__pb2.ManifestVoipLog.SerializeToString,
-            ),
-            'ActivateSaveCallLogs': grpc.unary_unary_rpc_method_handler(
-                    servicer.ActivateSaveCallLogs,
-                    request_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsRequest.FromString,
-                    response_serializer=ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -227,22 +210,5 @@ class VoipCallLogs(object):
         return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipCallLogs/GetManifestVoipLog',
             ondewo_dot_vtsi_dot_call__log__pb2.GetManifestVoipLogRequest.SerializeToString,
             ondewo_dot_vtsi_dot_call__log__pb2.ManifestVoipLog.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def ActivateSaveCallLogs(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipCallLogs/ActivateSaveCallLogs',
-            ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsRequest.SerializeToString,
-            ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
