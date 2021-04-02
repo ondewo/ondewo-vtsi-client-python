@@ -19,7 +19,7 @@ cai/bpi: 50052 ("BPI_PORT_LOCAL")
 """
 
 # SIP-SIM CONFIGURATION
-sip_sim_version: str = "1.5.2"
+sip_sim_version: str = "1.5.3"
 
 client: VtsiClient = VtsiClient.get_minimal_client()
 # client: VtsiClient = VtsiClient.get_minimal_client(vtsi_host="localhost", vtsi_port=50200, secure=False)  # for local testing
