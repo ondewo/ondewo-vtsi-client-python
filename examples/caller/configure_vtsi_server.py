@@ -30,9 +30,12 @@ PROJECT_ID: str = "example_project_id"
 ########################################
 # Full configuration for VTSI, Asterisk, SIP, T2S, S2T modules
 
+# VTSI configuration
 config_voip = VtsiConfiguration(
     host=VTSI_HOST, port=VTSI_PORT, secure=VTSI_SECURE, cert_path=VTSI_CERT
 )
+
+# S2T and T2S configuration
 config_audio_ondewo = AudioConfiguration(
     t2s_host=T2S_HOST,
     t2s_port=T2S_PORT,
@@ -43,10 +46,15 @@ config_audio_ondewo = AudioConfiguration(
     s2t_type=S2T_TYPE,
     s2t_language=S2T_LANGUAGE,
 )
+
+# Asterisk configuration
 config_asterisk = AsteriskConfiguration(
     host=ASTERISK_HOST,
 )
 
+# CAI/BPI configuration
+# I. Input contexts can be passed here (passed contexts will be used for every calls)
+# or in VtsiClient.start_caller() call
 config_cai = CaiConfiguration(
     host=CAI_HOST,
     port=CAI_PORT,

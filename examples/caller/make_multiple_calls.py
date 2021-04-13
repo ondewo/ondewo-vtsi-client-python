@@ -31,7 +31,8 @@ client: VtsiClient = VtsiClient.get_minimal_client(voip_host=VTSI_HOST, voip_por
 
 # deploy_caller() function for multi-threading
 def deploy_caller(phone_number: str) -> StartCallInstanceResponse:
-    # input contexts can be passed here (passed contexts will be used for only THIS call)
+    # Input contexts can be passed here (passed contexts will be used for only THIS call) or
+    # in CaiConfig initialization
     response: StartCallInstanceResponse = client.start_caller(
         init_text=INIT_TEXT,
         phone_number=phone_number,
