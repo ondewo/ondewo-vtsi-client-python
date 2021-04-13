@@ -14,6 +14,7 @@ input_context_parameters = {
     "test": "test_value"
 }
 
+
 # Helper function to convert plain dictionary format to ONDEWO Context Parameter dictionary format
 def create_parameter_dict(my_dict: Dict) -> Optional[Dict[str, context_pb2.Context.Parameter]]:
     assert isinstance(my_dict, dict) or my_dict is None, "parameter must be a dict or None"
@@ -26,6 +27,7 @@ def create_parameter_dict(my_dict: Dict) -> Optional[Dict[str, context_pb2.Conte
             for key in my_dict
         }
     return None
+
 
 # Define one input context to pass through the call (pass context parameters dictionary)
 context = context_pb2.Context(

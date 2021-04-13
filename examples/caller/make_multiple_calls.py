@@ -6,7 +6,6 @@ from typing import List
 from ondewo.vtsi.client import VtsiClient
 from ondewo.vtsi.voip_pb2 import StartCallInstanceResponse
 
-
 #     SIP
 SIP_SIM_VERSION: str = "1.5.4"
 
