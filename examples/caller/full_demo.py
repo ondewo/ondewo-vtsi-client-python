@@ -48,11 +48,15 @@ INIT_TEXT: str = "hello"
 #   Configure
 ###################
 
+# Phone numbers to call
 PHONE_NUMBERS = ["+11233232", "+2342345"]
 
+# VTSI configuration
 config_voip = VtsiConfiguration(
     host=VTSI_HOST, port=VTSI_PORT, secure=VTSI_SECURE, cert_path=VTSI_CERT
 )
+
+# S2T and T2S configuration
 config_audio_ondewo = AudioConfiguration(
     t2s_host=T2S_HOST,
     t2s_port=T2S_PORT,
@@ -63,10 +67,13 @@ config_audio_ondewo = AudioConfiguration(
     s2t_type=S2T_TYPE,
     s2t_language=S2T_LANGUAGE,
 )
+
+# Asterisk configuration
 config_asterisk = AsteriskConfiguration(
     host=ASTERISK_HOST,
 )
 
+# CAI/BPI configuration
 # I. Input contexts can be passed here (passed contexts will be used for every calls)
 config_cai = CaiConfiguration(
     host=CAI_HOST,
@@ -75,6 +82,7 @@ config_cai = CaiConfiguration(
     cai_contexts=[],
 )
 
+# ConfigManager to use VTSI client and reach the configs of the different modules
 manager = ConfigManager(
     config_audio=config_audio_ondewo,
     config_cai=config_cai,
@@ -86,11 +94,13 @@ manager = ConfigManager(
 #   Set contexts
 ###################
 
+# Input context parameters in plain, dictionary format
 input_context_parameters = {
     "test": "test_value"
 }
 
 
+# Helper function to convert plain dictionary format to ONDEWO Context Parameter dictionary format
 def create_parameter_dict(my_dict: Dict) -> Optional[Dict[str, context_pb2.Context.Parameter]]:
     assert isinstance(my_dict, dict) or my_dict is None, "parameter must be a dict or None"
     if my_dict is not None:
@@ -107,6 +117,8 @@ def create_parameter_dict(my_dict: Dict) -> Optional[Dict[str, context_pb2.Conte
 parameter_dict = create_parameter_dict(input_context_parameters)
 
 call_id: str = str(uuid.uuid4())
+
+# Define one input context to pass through the call (pass context parameters dictionary)
 context = context_pb2.Context(
     name=f"projects/{PROJECT_ID}/agent/sessions/{call_id}/contexts/input",
     lifespan_count=10000,
@@ -114,15 +126,17 @@ context = context_pb2.Context(
     parameters=parameter_dict,
 )
 
+# Input context list (several context can be added)
 contexts = [context]
+
 
 ###################
 #   Start call
 ###################
 
-
+# deploy_caller() function for multi-threading
 def deploy_caller(phone_number: str) -> StartCallInstanceResponse:
-    # II. OR input contexts can be passed here (passed contexts will be used for THIS call)
+    # II. OR input contexts can be passed here (passed contexts will be used for only THIS call)
     response: StartCallInstanceResponse = manager.client.start_caller(
         init_text=INIT_TEXT,
         phone_number=phone_number,
@@ -137,7 +151,7 @@ def deploy_caller(phone_number: str) -> StartCallInstanceResponse:
 ###################
 #   Start multi-threaded calls
 ###################
-
+# Iterating through phone number list, start the parallel calls
 threads: List[Thread] = [
     threading.Thread(target=deploy_caller, args=[phone_number])
     for phone_number in PHONE_NUMBERS

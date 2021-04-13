@@ -28,6 +28,7 @@ CAI_CLIENT_CONFIG: str = "cert/path.json"
 PROJECT_ID: str = "example_project_id"
 
 ########################################
+# Full configuration for VTSI, Asterisk, SIP, T2S, S2T modules
 
 config_voip = VtsiConfiguration(
     host=VTSI_HOST, port=VTSI_PORT, secure=VTSI_SECURE, cert_path=VTSI_CERT
@@ -53,6 +54,7 @@ config_cai = CaiConfiguration(
     cai_contexts=[],
 )
 
+# ConfigManager to use VTSI client and reach the configs of the different modules
 manager = ConfigManager(
     config_audio=config_audio_ondewo,
     config_cai=config_cai,
