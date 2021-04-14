@@ -10,14 +10,14 @@ from ondewo.vtsi.voip_pb2 import StartCallInstanceResponse
 SIP_SIM_VERSION: str = "1.5.4"
 
 #     VTSI_SERVER
-VTSI_HOST: str = "0.0.0.0"
-VTSI_PORT: int = 12345
+# For testing purposes 0.0.0.0 can be used
+VTSI_HOST: str = "grpc-vtsi.ondewo.com"
+VTSI_PORT: int = 443
 VTSI_SECURE: bool = False  # if true, VTSI cert is needed
 VTSI_CERT: str = ""
 
 #     PROJECT
 PROJECT_ID: str = "example_project_id"
-INIT_TEXT: str = "hello"
 
 #########################################
 
@@ -31,15 +31,11 @@ client: VtsiClient = VtsiClient.get_minimal_client(voip_host=VTSI_HOST, voip_por
 
 # deploy_caller() function for multi-threading
 def deploy_caller(phone_number: str) -> StartCallInstanceResponse:
-    # Input contexts can be passed here (passed contexts will be used for only THIS call) or
-    # in CaiConfig initialization
     response: StartCallInstanceResponse = client.start_caller(
-        init_text=INIT_TEXT,
         phone_number=phone_number,
         call_id=str(uuid.uuid4()),
         sip_sim_version=SIP_SIM_VERSION,
         project_id=PROJECT_ID,
-        # contexts=[]
     )
     return response
 

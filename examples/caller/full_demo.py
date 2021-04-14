@@ -20,8 +20,9 @@ from ondewo.vtsi.voip_pb2 import StartCallInstanceResponse
 #     SIP
 SIP_SIM_VERSION: str = "1.5.4"
 #     VTSI_SERVER
-VTSI_HOST: str = "0.0.0.0"
-VTSI_PORT: int = 12345
+# For testing purposes 0.0.0.0 can be used
+VTSI_HOST: str = "grpc-vtsi.ondewo.com"
+VTSI_PORT: int = 443
 VTSI_SECURE: bool = False  # if true, VTSI cert is needed
 VTSI_CERT: str = ""
 #     SPEECH2TEXT
@@ -38,11 +39,10 @@ T2S_LANGUAGE: str = "example_t2s_language"
 ASTERISK_HOST: str = "127.0.0.1"
 #     CAI
 CAI_HOST: str = "0.0.0.0"
-CAI_PORT: int = 12345
-CAI_CLIENT_CONFIG: str = "cert/path.json"
+CAI_PORT: int = 123450
 #     PROJECT
 PROJECT_ID: str = "example_project_id"
-INIT_TEXT: str = "hello"
+INIT_TEXT: str = "Hello"
 
 ###################
 #   Configure
@@ -53,7 +53,10 @@ PHONE_NUMBERS = ["+11233232", "+2342345"]
 
 # VTSI configuration
 config_voip = VtsiConfiguration(
-    host=VTSI_HOST, port=VTSI_PORT, secure=VTSI_SECURE, cert_path=VTSI_CERT
+    host=VTSI_HOST,
+    port=VTSI_PORT,
+    secure=VTSI_SECURE,
+    cert_path=VTSI_CERT
 )
 
 # S2T and T2S configuration
@@ -74,12 +77,11 @@ config_asterisk = AsteriskConfiguration(
 )
 
 # CAI/BPI configuration
-# I. Input contexts can be passed here (passed contexts will be used for every calls)
+# I. Input contexts can be passed here (passed contexts will be used for every call)
 config_cai = CaiConfiguration(
     host=CAI_HOST,
     port=CAI_PORT,
     cai_project_id=PROJECT_ID,
-    cai_contexts=[],
 )
 
 # ConfigManager to use VTSI client and reach the configs of the different modules
@@ -95,9 +97,11 @@ manager = ConfigManager(
 ###################
 
 # Input context parameters in plain, dictionary format
-input_context_parameters = {
+plain_context_parameters = {
     "test": "test_value"
 }
+
+contexts = []
 
 
 # Helper function to convert plain dictionary format to ONDEWO Context Parameter dictionary format
@@ -114,20 +118,24 @@ def create_parameter_dict(my_dict: Dict) -> Optional[Dict[str, context_pb2.Conte
     return None
 
 
-parameter_dict = create_parameter_dict(input_context_parameters)
+# Helper function to append context to the contexts list
+def append_context(input_context_parameters: Dict[str, str], name: str):
+    context = context_pb2.Context(
+        name=name,
+        lifespan_count=10000,
+        lifespan_time=10000,
+        parameters=create_parameter_dict(input_context_parameters),
+    )
+    contexts.append(context)
+
 
 call_id: str = str(uuid.uuid4())
 
-# Define one input context to pass through the call (pass context parameters dictionary)
-context = context_pb2.Context(
-    name=f"projects/{PROJECT_ID}/agent/sessions/{call_id}/contexts/input",
-    lifespan_count=10000,
-    lifespan_time=10000,
-    parameters=parameter_dict,
+# Append to input context list (several context can be added)
+append_context(
+    input_context_parameters=plain_context_parameters,
+    name=f"projects/{PROJECT_ID}/agent/sessions/{call_id}/contexts/input"
 )
-
-# Input context list (several context can be added)
-contexts = [context]
 
 
 ###################
@@ -138,12 +146,12 @@ contexts = [context]
 def deploy_caller(phone_number: str) -> StartCallInstanceResponse:
     # II. OR input contexts can be passed here (passed contexts will be used for only THIS call)
     response: StartCallInstanceResponse = manager.client.start_caller(
-        init_text=INIT_TEXT,
         phone_number=phone_number,
         call_id=call_id,
         sip_sim_version=SIP_SIM_VERSION,
         project_id=PROJECT_ID,
-        contexts=contexts
+        contexts=contexts,
+        init_text=INIT_TEXT
     )
     return response
 
@@ -158,3 +166,5 @@ threads: List[Thread] = [
 ]
 for thread in threads:
     thread.start()
+
+print(contexts)
