@@ -196,6 +196,7 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
     project_id = ... # type: typing___Text
     phone_number = ... # type: typing___Text
     init_text = ... # type: typing___Text
+    sip_prefix = ... # type: typing___Text
 
     @property
     def contexts(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[ondewo___nlu___context_pb2___Context]: ...
@@ -223,6 +224,7 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
         phone_number : typing___Optional[typing___Text] = None,
         contexts : typing___Optional[typing___Iterable[ondewo___nlu___context_pb2___Context]] = None,
         init_text : typing___Optional[typing___Text] = None,
+        sip_prefix : typing___Optional[typing___Text] = None,
         asterisk_config : typing___Optional[global___ServiceConfig] = None,
         cai_config : typing___Optional[global___ServiceConfig] = None,
         stt_config : typing___Optional[global___ServiceConfig] = None,
@@ -238,7 +240,7 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def HasField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"demux_config",b"demux_config",u"stt_config",b"stt_config",u"tts_config",b"tts_config"]) -> builtin___bool: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"call_id",b"call_id",u"contexts",b"contexts",u"demux_config",b"demux_config",u"init_text",b"init_text",u"phone_number",b"phone_number",u"project_id",b"project_id",u"sip_sim_version",b"sip_sim_version",u"stt_config",b"stt_config",u"tts_config",b"tts_config"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"call_id",b"call_id",u"contexts",b"contexts",u"demux_config",b"demux_config",u"init_text",b"init_text",u"phone_number",b"phone_number",u"project_id",b"project_id",u"sip_prefix",b"sip_prefix",u"sip_sim_version",b"sip_sim_version",u"stt_config",b"stt_config",u"tts_config",b"tts_config"]) -> None: ...
 global___StartCallInstanceRequest = StartCallInstanceRequest
 
 class StartCallInstanceResponse(google___protobuf___message___Message):
