@@ -154,6 +154,9 @@ class VtsiClient:
                      project_id: str,
                      init_text: Optional[str] = None,
                      contexts: Optional[List[context_pb2.Context]] = None,
+                     sip_name: Optional[str] = None,
+                     sip_prefix: Optional[str] = None,
+                     password_dictionary: Optional[Dict] = None,
                      ) -> voip_pb2.StartCallInstanceResponse:
         """
         perform a single call
@@ -167,6 +170,9 @@ class VtsiClient:
             project_id=project_id,
             init_text=init_text,
             contexts=contexts,
+            sip_name=sip_name,
+            sip_prefix=sip_prefix,
+            password_dictionary=password_dictionary,
         )
         print("performing call")
         response: voip_pb2.StartCallInstanceResponse = self.voip_stub.StartCallInstance(request=request)
