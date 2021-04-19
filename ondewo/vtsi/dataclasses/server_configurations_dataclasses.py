@@ -14,11 +14,13 @@
 
 import uuid
 from dataclasses import dataclass, field
-from typing import List, TYPE_CHECKING, Optional
+from typing import List, TYPE_CHECKING, Optional, Dict
 
 from ondewo.nlu import context_pb2
 from ondewo.vtsi import voip_pb2
 from ondewo.vtsi.voip_pb2 import ServiceConfig
+
+from google.protobuf.struct_pb2 import Struct
 
 if TYPE_CHECKING:
     from ondewo.vtsi.client import ConfigManager
@@ -93,14 +95,20 @@ class CallConfig:
 
     @staticmethod
     def get_call_proto_request(
-        manager: "ConfigManager",
-        project_id: str,
-        call_id: str,
-        sip_sim_version: str,
-        init_text: str,
-        contexts: List[context_pb2.Context],
-        phone_number: Optional[str] = None,
+            manager: "ConfigManager",
+            project_id: str,
+            call_id: str,
+            sip_sim_version: str,
+            init_text: str,
+            contexts: List[context_pb2.Context],
+            phone_number: Optional[str] = None,
+            sip_name: Optional[str] = None,
+            sip_prefix: Optional[str] = None,
+            password_dictionary: Optional[Dict[str, str]] = None,
     ):
+        password_struct = Struct()
+        if password_dictionary:
+            password_struct.update(password_dictionary)
         return voip_pb2.StartCallInstanceRequest(
             call_id=call_id,
             project_id=project_id,
@@ -108,8 +116,12 @@ class CallConfig:
             phone_number=phone_number,
             contexts=contexts,
             init_text=init_text,
+            sip_name=sip_name,
+            sip_prefix=sip_prefix,
+            password_dictionary=password_struct,
             asterisk_config=ServiceConfig(
-                host=manager.config_asterisk.host, port=manager.config_asterisk.port, service_identifier="asterisk",
+                host=manager.config_asterisk.host, port=manager.config_asterisk.port,
+                service_identifier="asterisk",
             ),
             cai_config=ServiceConfig(
                 host=manager.config_cai.host,
@@ -129,7 +141,8 @@ class CallConfig:
                 service_identifier=manager.config_audio.t2s_type,
             ),
             demux_config=ServiceConfig(
-                host=manager.config_audio.demux_host, port=manager.config_audio.demux_port, service_identifier="demux",
+                host=manager.config_audio.demux_host, port=manager.config_audio.demux_port,
+                service_identifier="demux",
             ),
         )
 
