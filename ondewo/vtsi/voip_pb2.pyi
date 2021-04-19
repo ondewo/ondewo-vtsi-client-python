@@ -207,9 +207,6 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
     def contexts(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[ondewo___nlu___context_pb2___Context]: ...
 
     @property
-    def password_dictionary(self) -> google___protobuf___struct_pb2___Struct: ...
-
-    @property
     def asterisk_config(self) -> global___ServiceConfig: ...
 
     @property
@@ -224,6 +221,9 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
     @property
     def tts_config(self) -> global___ServiceConfig: ...
 
+    @property
+    def password_dictionary(self) -> google___protobuf___struct_pb2___Struct: ...
+
     def __init__(self,
         *,
         call_id : typing___Optional[typing___Text] = None,
@@ -232,14 +232,14 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
         phone_number : typing___Optional[typing___Text] = None,
         contexts : typing___Optional[typing___Iterable[ondewo___nlu___context_pb2___Context]] = None,
         init_text : typing___Optional[typing___Text] = None,
-        sip_prefix : typing___Optional[typing___Text] = None,
-        sip_name : typing___Optional[typing___Text] = None,
-        password_dictionary : typing___Optional[google___protobuf___struct_pb2___Struct] = None,
         asterisk_config : typing___Optional[global___ServiceConfig] = None,
         cai_config : typing___Optional[global___ServiceConfig] = None,
         stt_config : typing___Optional[global___ServiceConfig] = None,
         demux_config : typing___Optional[global___ServiceConfig] = None,
         tts_config : typing___Optional[global___ServiceConfig] = None,
+        sip_prefix : typing___Optional[typing___Text] = None,
+        sip_name : typing___Optional[typing___Text] = None,
+        password_dictionary : typing___Optional[google___protobuf___struct_pb2___Struct] = None,
         ) -> None: ...
     if sys.version_info >= (3,):
         @classmethod
