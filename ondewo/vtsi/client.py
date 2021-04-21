@@ -96,19 +96,24 @@ class VtsiClient:
         self.call_log_stub = call_log_pb2_grpc.VoipCallLogsStub(channel=channel)
 
     @staticmethod
-    def get_minimal_client(voip_host: str, voip_port: str, secure: bool = False, cert_path: Optional[str] = None) -> 'VtsiClient':
+    def get_minimal_client(vtsi_host: str = "grpc-vtsi.ondewo.com", vtsi_port: str = 443, secure: bool = True, cert_path: Optional[str] = './grpc_cert') -> 'VtsiClient':
+        if secure and not os.path.exists(cert_path):
+            raise Exception("Secure connection requested, but no grpc certificate provided!")
+
         manager: ConfigManager = ConfigManager(
             config_voip=VtsiConfiguration(
-                host=voip_host,
-                port=int(voip_port),
+                host=vtsi_host,
+                port=int(vtsi_port),
                 secure=secure,
                 cert_path=cert_path,
             ),
             config_cai=CaiConfiguration(
                 cai_project_id="[PLACEHOLDER]",
+                cai_type="mirror"
             ),
             config_audio=AudioConfiguration(
-                language_code="[PLACEHOLDER",
+                t2s_language="thorsten",
+                s2t_language="german_general",
             ),
             config_asterisk=AsteriskConfiguration(),
         )
@@ -147,8 +152,11 @@ class VtsiClient:
                      call_id: str,
                      sip_sim_version: str,
                      project_id: str,
-                     init_text: Optional[str] = '',
+                     init_text: Optional[str] = None,
                      contexts: Optional[List[context_pb2.Context]] = None,
+                     sip_name: Optional[str] = None,
+                     sip_prefix: Optional[str] = None,
+                     password_dictionary: Optional[Dict] = None,
                      ) -> voip_pb2.StartCallInstanceResponse:
         """
         perform a single call
@@ -162,6 +170,9 @@ class VtsiClient:
             project_id=project_id,
             init_text=init_text,
             contexts=contexts,
+            sip_name=sip_name,
+            sip_prefix=sip_prefix,
+            password_dictionary=password_dictionary,
         )
         print("performing call")
         response: voip_pb2.StartCallInstanceResponse = self.voip_stub.StartCallInstance(request=request)
@@ -187,7 +198,7 @@ class VtsiClient:
                        project_id: str,
                        call_id: str,
                        sip_sim_version: str,
-                       init_text: str,
+                       init_text: Optional[str] = None,
                        contexts: Optional[List[context_pb2.Context]] = None,
                        ) -> voip_pb2.StartCallInstanceResponse:
         """
@@ -367,12 +378,12 @@ class VtsiClient:
         response: call_log_pb2.SaveCallLogsResponse = self.call_log_stub.ActivateSaveCallLogs(request=request)
         return response
 
-    def get_voip_log(self, call_id: str) -> call_log_pb2.VoipLog:
+    def get_voip_log(self, call_id: str) -> call_log_pb2.GetVoipLogResponse:
         """
         get the call log of a sip-sim instance
         """
         request = call_log_pb2.GetVoipLogRequest(call_id=call_id)
-        response: call_log_pb2.VoipLog = self.call_log_stub.GetVoipLog(request=request)
+        response: call_log_pb2.GetVoipLogResponse = self.call_log_stub.GetVoipLog(request=request)
         return response
 
     def get_manifest_voip_log(self, manifest_id: str) -> call_log_pb2.ManifestVoipLog:

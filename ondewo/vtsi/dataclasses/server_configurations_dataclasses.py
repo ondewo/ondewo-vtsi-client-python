@@ -14,11 +14,13 @@
 
 import uuid
 from dataclasses import dataclass, field
-from typing import List, TYPE_CHECKING, Optional
+from typing import List, TYPE_CHECKING, Optional, Dict
 
 from ondewo.nlu import context_pb2
 from ondewo.vtsi import voip_pb2
 from ondewo.vtsi.voip_pb2 import ServiceConfig
+
+from google.protobuf.struct_pb2 import Struct
 
 if TYPE_CHECKING:
     from ondewo.vtsi.client import ConfigManager
@@ -29,14 +31,14 @@ class AudioConfiguration:
     """language and location of audio services (s2t, t2s) & demuxer"""
 
     # text-to-speech
-    t2s_host: str = "0.0.0.0"
-    t2s_port: int = 8013
-    t2s_type: str = "ONDEWO text-to-speech"  # OPTIONS: "ONDEWO" in str (or not -> use Cloud provider name)
+    t2s_host: str = "grpc-t2s.ondewo.com"
+    t2s_port: int = 443
+    t2s_type: str = "ONDEWO"
 
     # speech-to-text
-    s2t_host: str = "0.0.0.0"
-    s2t_port: int = 40014
-    s2t_type: str = "ONDEWO speech-to-text"  # OPTIONS: "ONDEWO" in str (or not -> use Cloud provider name)
+    s2t_host: str = "grpc-s2t.ondewo.com"
+    s2t_port: int = 443
+    s2t_type: str = "ONDEWO"
 
     # demux settings
     demux_host: str = "0.0.0.0"
@@ -61,8 +63,8 @@ class CaiConfiguration:
     cai_project_id: str
     cai_contexts: List[context_pb2.Context] = field(default_factory=list)
 
-    host: str = "localhost"
-    port: int = 50053  # 50055 = cai, 50053 = bpi
+    host: str = "grpc-nlu.ondewo.com"
+    port: int = 443
     context_session_id: str = str(uuid.uuid4())  # overwritten by sip-sim
     cai_type: str = ""  # can be set to "mirror" to activate CAI="mirror" environment variable when deploying sip-sim
 
@@ -71,15 +73,15 @@ class CaiConfiguration:
 class AsteriskConfiguration:
     """location of asterisk"""
 
-    host: str = "10.164.0.2"  # "34.90.21.10"  # gcloud IP
+    host: str = "127.0.0.1"
     port: int = 5060  # unused / not transferred (hardcoded in sip-sim)
 
 
 @dataclass
 class VtsiConfiguration:
     """location of voip server"""
-    host: str
-    port: int = 40045
+    host: str = "grpc-vtsi.ondewo.com"
+    port: int = 443
     secure: bool = False
     cert_path: str = ''
 
@@ -93,14 +95,20 @@ class CallConfig:
 
     @staticmethod
     def get_call_proto_request(
-        manager: "ConfigManager",
-        project_id: str,
-        call_id: str,
-        sip_sim_version: str,
-        init_text: str,
-        contexts: List[context_pb2.Context],
-        phone_number: Optional[str] = None,
+            manager: "ConfigManager",
+            project_id: str,
+            call_id: str,
+            sip_sim_version: str,
+            init_text: str,
+            contexts: List[context_pb2.Context],
+            phone_number: Optional[str] = None,
+            sip_name: Optional[str] = None,
+            sip_prefix: Optional[str] = None,
+            password_dictionary: Optional[Dict[str, str]] = None,
     ):
+        password_struct = Struct()
+        if password_dictionary:
+            password_struct.update(password_dictionary)
         return voip_pb2.StartCallInstanceRequest(
             call_id=call_id,
             project_id=project_id,
@@ -108,8 +116,12 @@ class CallConfig:
             phone_number=phone_number,
             contexts=contexts,
             init_text=init_text,
+            sip_name=sip_name,
+            sip_prefix=sip_prefix,
+            password_dictionary=password_struct,
             asterisk_config=ServiceConfig(
-                host=manager.config_asterisk.host, port=manager.config_asterisk.port, service_identifier="asterisk",
+                host=manager.config_asterisk.host, port=manager.config_asterisk.port,
+                service_identifier="asterisk",
             ),
             cai_config=ServiceConfig(
                 host=manager.config_cai.host,
@@ -129,7 +141,8 @@ class CallConfig:
                 service_identifier=manager.config_audio.t2s_type,
             ),
             demux_config=ServiceConfig(
-                host=manager.config_audio.demux_host, port=manager.config_audio.demux_port, service_identifier="demux",
+                host=manager.config_audio.demux_host, port=manager.config_audio.demux_port,
+                service_identifier="demux",
             ),
         )
 
