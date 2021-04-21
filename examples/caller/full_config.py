@@ -7,6 +7,7 @@ from ondewo.vtsi.voip_pb2 import StartCallInstanceResponse
 
 #     SIP
 SIP_SIM_VERSION: str = "1.5.4"
+PHONE_NUMBER: str = "+1234567"
 
 #     VTSI_SERVER
 # For testing purposes 0.0.0.0 can be used
@@ -81,12 +82,10 @@ manager = ConfigManager(
 )
 
 # Start call
-call_id: str = str(uuid.uuid4())
-phone_number: str = "+1234567"
 
 response: StartCallInstanceResponse = manager.client.start_caller(
-    phone_number=phone_number,
-    call_id=call_id,
+    phone_number=PHONE_NUMBER,
+    call_id=str(uuid.uuid4()),
     sip_sim_version=SIP_SIM_VERSION,
     project_id=PROJECT_ID,
     init_text=INIT_TEXT
