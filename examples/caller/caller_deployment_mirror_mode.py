@@ -21,8 +21,6 @@ client = VtsiClient.get_minimal_client(
     vtsi_port=VTSI_PORT
 )
 
-
-client.manager.config_cai.cai_type = ''
 client.start_caller(
     call_id=str(uuid.uuid4()),
     sip_sim_version=SIP_SIM_VERSION,

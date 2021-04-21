@@ -13,8 +13,6 @@ SIP_SIM_VERSION: str = "1.5.4"
 # For testing purposes 0.0.0.0 can be used
 VTSI_HOST: str = "grpc-vtsi.ondewo.com"
 VTSI_PORT: int = 443
-VTSI_SECURE: bool = False  # if true, VTSI cert is needed
-VTSI_CERT: str = ""
 
 #     PROJECT
 PROJECT_ID: str = "example_project_id"
@@ -25,8 +23,7 @@ PROJECT_ID: str = "example_project_id"
 PHONE_NUMBERS = ["+11233232", "+2342345"]
 
 # get_minimal_client() returns the minimal working VTSI client
-client: VtsiClient = VtsiClient.get_minimal_client(voip_host=VTSI_HOST, voip_port=str(VTSI_PORT),
-                                                   secure=VTSI_SECURE, cert_path=VTSI_CERT)
+client: VtsiClient = VtsiClient.get_minimal_client(voip_host=VTSI_HOST, voip_port=str(VTSI_PORT))
 
 
 # deploy_caller() function for multi-threading
