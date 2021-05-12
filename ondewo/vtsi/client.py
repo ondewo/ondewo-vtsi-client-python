@@ -153,6 +153,7 @@ class VtsiClient:
                      sip_sim_version: str,
                      project_id: str,
                      init_text: Optional[str] = None,
+                     initial_intent: Optional[str] = None,
                      contexts: Optional[List[context_pb2.Context]] = None,
                      sip_name: Optional[str] = None,
                      sip_prefix: Optional[str] = None,
@@ -169,6 +170,7 @@ class VtsiClient:
             phone_number=phone_number,
             project_id=project_id,
             init_text=init_text,
+            initial_intent=initial_intent,
             contexts=contexts,
             sip_name=sip_name,
             sip_prefix=sip_prefix,
@@ -199,6 +201,7 @@ class VtsiClient:
                        call_id: str,
                        sip_sim_version: str,
                        init_text: Optional[str] = None,
+                       initial_intent: Optional[str] = None,
                        contexts: Optional[List[context_pb2.Context]] = None,
                        ) -> voip_pb2.StartCallInstanceResponse:
         """
@@ -211,6 +214,7 @@ class VtsiClient:
             sip_sim_version=sip_sim_version,
             project_id=project_id,
             init_text=init_text,
+            initial_intent=initial_intent,
             contexts=contexts,
         )
         print("starting listener")
