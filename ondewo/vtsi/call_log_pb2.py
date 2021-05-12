@@ -12,32 +12,33 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+from ondewo.sip import sip_pb2 as ondewo_dot_sip_dot_sip__pb2
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='ondewo/vtsi/call_log.proto',
-  package='ondewo.nlu',
+  package='ondewo.sip',
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1aondewo/vtsi/call_log.proto\x12\nondewo.nlu\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1cgoogle/api/annotations.proto\"#\n\x11GetCallIdsRequest\x12\x0e\n\x06sip_id\x18\x01 \x01(\t\"6\n\x12GetCallIdsResponse\x12\x0e\n\x06sip_id\x18\x01 \x01(\t\x12\x10\n\x08\x63\x61ll_ids\x18\x02 \x03(\t\":\n\x13StartVoipLogRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x12\n\nstart_time\x18\x02 \x01(\x02\"9\n\x14\x46inishVoipLogRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x10\n\x08\x65nd_time\x18\x02 \x01(\x02\"z\n\x14UpdateVoipLogRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x14\n\x0cservice_name\x18\x02 \x01(\t\x12\x13\n\x0blog_message\x18\x03 \x01(\t\x12&\n\x08\x63ounters\x18\x04 \x01(\x0b\x32\x14.ondewo.nlu.Counters\"I\n\x0fVoipLogResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x13\n\x0blog_message\x18\x02 \x01(\t\x12\x10\n\x08\x64uration\x18\x03 \x01(\x02\"$\n\x11GetVoipLogRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\"e\n\x12GetVoipLogResponse\x12\'\n\nactive_log\x18\x01 \x01(\x0b\x32\x13.ondewo.nlu.VoipLog\x12&\n\tdone_logs\x18\x02 \x03(\x0b\x32\x13.ondewo.nlu.VoipLog\"\x8c\x01\n\x07VoipLog\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x12\n\nstart_time\x18\x02 \x01(\x01\x12\x10\n\x08\x65nd_time\x18\x03 \x01(\x01\x12\"\n\x04logs\x18\x04 \x03(\x0b\x32\x14.ondewo.nlu.LogEntry\x12&\n\x08\x63ounters\x18\x05 \x01(\x0b\x32\x14.ondewo.nlu.Counters\">\n\x08\x43ounters\x12\x19\n\x11\x66ifteen_s_counter\x18\x01 \x01(\x03\x12\x17\n\x0fsixty_s_counter\x18\x02 \x01(\x03\"H\n\x08LogEntry\x12\x11\n\ttimestamp\x18\x01 \x01(\x01\x12\x14\n\x0cservice_name\x18\x02 \x01(\t\x12\x13\n\x0blog_message\x18\x03 \x01(\t\"0\n\x19GetManifestVoipLogRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"}\n\x0fManifestVoipLog\x12\x33\n\x0b\x63\x61ller_logs\x18\x01 \x03(\x0b\x32\x1e.ondewo.nlu.GetVoipLogResponse\x12\x35\n\rlistener_logs\x18\x02 \x03(\x0b\x32\x1e.ondewo.nlu.GetVoipLogResponse\"<\n\x13SaveCallLogsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"\'\n\x14SaveCallLogsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\x9c\x07\n\x0cVoipCallLogs\x12\x8f\x01\n\x0cStartVoipLog\x12\x1f.ondewo.nlu.StartVoipLogRequest\x1a\x1b.ondewo.nlu.VoipLogResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:StartVoipLog:\x01*\x12\x92\x01\n\rFinishVoipLog\x12 .ondewo.nlu.FinishVoipLogRequest\x1a\x1b.ondewo.nlu.VoipLogResponse\"B\x82\xd3\xe4\x93\x02<\"7/v2/{session=projects/*/agent/sessions/*}:FinishVoipLog:\x01*\x12\x92\x01\n\rUpdateVoipLog\x12 .ondewo.nlu.UpdateVoipLogRequest\x1a\x1b.ondewo.nlu.VoipLogResponse\"B\x82\xd3\xe4\x93\x02<\"7/v2/{session=projects/*/agent/sessions/*}:UpdateVoipLog:\x01*\x12\x8c\x01\n\nGetVoipLog\x12\x1d.ondewo.nlu.GetVoipLogRequest\x1a\x1e.ondewo.nlu.GetVoipLogResponse\"?\x82\xd3\xe4\x93\x02\x39\"4/v2/{session=projects/*/agent/sessions/*}:GetVoipLog:\x01*\x12\xa1\x01\n\x12GetManifestVoipLog\x12%.ondewo.nlu.GetManifestVoipLogRequest\x1a\x1b.ondewo.nlu.ManifestVoipLog\"G\x82\xd3\xe4\x93\x02\x41\"</v2/{session=projects/*/agent/sessions/*}:GetManifestVoipLog:\x01*\x12\x9c\x01\n\x14\x41\x63tivateSaveCallLogs\x12\x1f.ondewo.nlu.SaveCallLogsRequest\x1a .ondewo.nlu.SaveCallLogsResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:SaveCallLogs:\x01*b\x06proto3'
+  serialized_pb=b'\n\x1aondewo/vtsi/call_log.proto\x12\nondewo.sip\x1a\x1bgoogle/protobuf/empty.proto\x1a\x14ondewo/sip/sip.proto\x1a\x1cgoogle/api/annotations.proto\"#\n\x11GetCallIdsRequest\x12\x0e\n\x06sip_id\x18\x01 \x01(\t\"6\n\x12GetCallIdsResponse\x12\x0e\n\x06sip_id\x18\x01 \x01(\t\x12\x10\n\x08\x63\x61ll_ids\x18\x02 \x03(\t\"$\n\x11GetVoipLogRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\"e\n\x12GetVoipLogResponse\x12\'\n\nactive_log\x18\x01 \x01(\x0b\x32\x13.ondewo.sip.VoipLog\x12&\n\tdone_logs\x18\x02 \x03(\x0b\x32\x13.ondewo.sip.VoipLog\"\x97\x01\n\x07VoipLog\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x12\n\nstart_time\x18\x02 \x01(\x01\x12\x10\n\x08\x65nd_time\x18\x03 \x01(\x01\x12-\n\x0estatus_history\x18\x04 \x03(\x0b\x32\x15.ondewo.sip.SipStatus\x12&\n\x08\x63ounters\x18\x05 \x01(\x0b\x32\x14.ondewo.sip.Counters\">\n\x08\x43ounters\x12\x19\n\x11\x66ifteen_s_counter\x18\x01 \x01(\x03\x12\x17\n\x0fsixty_s_counter\x18\x02 \x01(\x03\"0\n\x19GetManifestVoipLogRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"}\n\x0fManifestVoipLog\x12\x33\n\x0b\x63\x61ller_logs\x18\x01 \x03(\x0b\x32\x1e.ondewo.sip.GetVoipLogResponse\x12\x35\n\rlistener_logs\x18\x02 \x03(\x0b\x32\x1e.ondewo.sip.GetVoipLogResponse\"\'\n\x14SaveCallLogsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xd7\x03\n\x0cVoipCallLogs\x12\x8c\x01\n\nGetVoipLog\x12\x1d.ondewo.sip.GetVoipLogRequest\x1a\x1e.ondewo.sip.GetVoipLogResponse\"?\x82\xd3\xe4\x93\x02\x39\"4/v2/{session=projects/*/agent/sessions/*}:GetVoipLog:\x01*\x12\xa1\x01\n\x12GetManifestVoipLog\x12%.ondewo.sip.GetManifestVoipLogRequest\x1a\x1b.ondewo.sip.ManifestVoipLog\"G\x82\xd3\xe4\x93\x02\x41\"</v2/{session=projects/*/agent/sessions/*}:GetManifestVoipLog:\x01*\x12\x93\x01\n\x14\x41\x63tivateSaveCallLogs\x12\x16.google.protobuf.Empty\x1a .ondewo.sip.SaveCallLogsResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:SaveCallLogs:\x01*b\x06proto3'
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_api_dot_annotations__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,ondewo_dot_sip_dot_sip__pb2.DESCRIPTOR,google_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
 
 
 
 _GETCALLIDSREQUEST = _descriptor.Descriptor(
   name='GetCallIdsRequest',
-  full_name='ondewo.nlu.GetCallIdsRequest',
+  full_name='ondewo.sip.GetCallIdsRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='sip_id', full_name='ondewo.nlu.GetCallIdsRequest.sip_id', index=0,
+      name='sip_id', full_name='ondewo.sip.GetCallIdsRequest.sip_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -55,28 +56,28 @@ _GETCALLIDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=101,
-  serialized_end=136,
+  serialized_start=123,
+  serialized_end=158,
 )
 
 
 _GETCALLIDSRESPONSE = _descriptor.Descriptor(
   name='GetCallIdsResponse',
-  full_name='ondewo.nlu.GetCallIdsResponse',
+  full_name='ondewo.sip.GetCallIdsResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='sip_id', full_name='ondewo.nlu.GetCallIdsResponse.sip_id', index=0,
+      name='sip_id', full_name='ondewo.sip.GetCallIdsResponse.sip_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='call_ids', full_name='ondewo.nlu.GetCallIdsResponse.call_ids', index=1,
+      name='call_ids', full_name='ondewo.sip.GetCallIdsResponse.call_ids', index=1,
       number=2, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -94,198 +95,21 @@ _GETCALLIDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=138,
-  serialized_end=192,
-)
-
-
-_STARTVOIPLOGREQUEST = _descriptor.Descriptor(
-  name='StartVoipLogRequest',
-  full_name='ondewo.nlu.StartVoipLogRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='call_id', full_name='ondewo.nlu.StartVoipLogRequest.call_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='start_time', full_name='ondewo.nlu.StartVoipLogRequest.start_time', index=1,
-      number=2, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=194,
-  serialized_end=252,
-)
-
-
-_FINISHVOIPLOGREQUEST = _descriptor.Descriptor(
-  name='FinishVoipLogRequest',
-  full_name='ondewo.nlu.FinishVoipLogRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='call_id', full_name='ondewo.nlu.FinishVoipLogRequest.call_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='end_time', full_name='ondewo.nlu.FinishVoipLogRequest.end_time', index=1,
-      number=2, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=254,
-  serialized_end=311,
-)
-
-
-_UPDATEVOIPLOGREQUEST = _descriptor.Descriptor(
-  name='UpdateVoipLogRequest',
-  full_name='ondewo.nlu.UpdateVoipLogRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='call_id', full_name='ondewo.nlu.UpdateVoipLogRequest.call_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='service_name', full_name='ondewo.nlu.UpdateVoipLogRequest.service_name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='log_message', full_name='ondewo.nlu.UpdateVoipLogRequest.log_message', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='counters', full_name='ondewo.nlu.UpdateVoipLogRequest.counters', index=3,
-      number=4, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=313,
-  serialized_end=435,
-)
-
-
-_VOIPLOGRESPONSE = _descriptor.Descriptor(
-  name='VoipLogResponse',
-  full_name='ondewo.nlu.VoipLogResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='success', full_name='ondewo.nlu.VoipLogResponse.success', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='log_message', full_name='ondewo.nlu.VoipLogResponse.log_message', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='duration', full_name='ondewo.nlu.VoipLogResponse.duration', index=2,
-      number=3, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=437,
-  serialized_end=510,
+  serialized_start=160,
+  serialized_end=214,
 )
 
 
 _GETVOIPLOGREQUEST = _descriptor.Descriptor(
   name='GetVoipLogRequest',
-  full_name='ondewo.nlu.GetVoipLogRequest',
+  full_name='ondewo.sip.GetVoipLogRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='call_id', full_name='ondewo.nlu.GetVoipLogRequest.call_id', index=0,
+      name='call_id', full_name='ondewo.sip.GetVoipLogRequest.call_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -303,28 +127,28 @@ _GETVOIPLOGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=512,
-  serialized_end=548,
+  serialized_start=216,
+  serialized_end=252,
 )
 
 
 _GETVOIPLOGRESPONSE = _descriptor.Descriptor(
   name='GetVoipLogResponse',
-  full_name='ondewo.nlu.GetVoipLogResponse',
+  full_name='ondewo.sip.GetVoipLogResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='active_log', full_name='ondewo.nlu.GetVoipLogResponse.active_log', index=0,
+      name='active_log', full_name='ondewo.sip.GetVoipLogResponse.active_log', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='done_logs', full_name='ondewo.nlu.GetVoipLogResponse.done_logs', index=1,
+      name='done_logs', full_name='ondewo.sip.GetVoipLogResponse.done_logs', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -342,49 +166,49 @@ _GETVOIPLOGRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=550,
-  serialized_end=651,
+  serialized_start=254,
+  serialized_end=355,
 )
 
 
 _VOIPLOG = _descriptor.Descriptor(
   name='VoipLog',
-  full_name='ondewo.nlu.VoipLog',
+  full_name='ondewo.sip.VoipLog',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='call_id', full_name='ondewo.nlu.VoipLog.call_id', index=0,
+      name='call_id', full_name='ondewo.sip.VoipLog.call_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='start_time', full_name='ondewo.nlu.VoipLog.start_time', index=1,
+      name='start_time', full_name='ondewo.sip.VoipLog.start_time', index=1,
       number=2, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='end_time', full_name='ondewo.nlu.VoipLog.end_time', index=2,
+      name='end_time', full_name='ondewo.sip.VoipLog.end_time', index=2,
       number=3, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='logs', full_name='ondewo.nlu.VoipLog.logs', index=3,
+      name='status_history', full_name='ondewo.sip.VoipLog.status_history', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='counters', full_name='ondewo.nlu.VoipLog.counters', index=4,
+      name='counters', full_name='ondewo.sip.VoipLog.counters', index=4,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -402,28 +226,28 @@ _VOIPLOG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=654,
-  serialized_end=794,
+  serialized_start=358,
+  serialized_end=509,
 )
 
 
 _COUNTERS = _descriptor.Descriptor(
   name='Counters',
-  full_name='ondewo.nlu.Counters',
+  full_name='ondewo.sip.Counters',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='fifteen_s_counter', full_name='ondewo.nlu.Counters.fifteen_s_counter', index=0,
+      name='fifteen_s_counter', full_name='ondewo.sip.Counters.fifteen_s_counter', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sixty_s_counter', full_name='ondewo.nlu.Counters.sixty_s_counter', index=1,
+      name='sixty_s_counter', full_name='ondewo.sip.Counters.sixty_s_counter', index=1,
       number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -441,67 +265,21 @@ _COUNTERS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=796,
-  serialized_end=858,
-)
-
-
-_LOGENTRY = _descriptor.Descriptor(
-  name='LogEntry',
-  full_name='ondewo.nlu.LogEntry',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='timestamp', full_name='ondewo.nlu.LogEntry.timestamp', index=0,
-      number=1, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='service_name', full_name='ondewo.nlu.LogEntry.service_name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='log_message', full_name='ondewo.nlu.LogEntry.log_message', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=860,
-  serialized_end=932,
+  serialized_start=511,
+  serialized_end=573,
 )
 
 
 _GETMANIFESTVOIPLOGREQUEST = _descriptor.Descriptor(
   name='GetManifestVoipLogRequest',
-  full_name='ondewo.nlu.GetManifestVoipLogRequest',
+  full_name='ondewo.sip.GetManifestVoipLogRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='manifest_id', full_name='ondewo.nlu.GetManifestVoipLogRequest.manifest_id', index=0,
+      name='manifest_id', full_name='ondewo.sip.GetManifestVoipLogRequest.manifest_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -519,28 +297,28 @@ _GETMANIFESTVOIPLOGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=934,
-  serialized_end=982,
+  serialized_start=575,
+  serialized_end=623,
 )
 
 
 _MANIFESTVOIPLOG = _descriptor.Descriptor(
   name='ManifestVoipLog',
-  full_name='ondewo.nlu.ManifestVoipLog',
+  full_name='ondewo.sip.ManifestVoipLog',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='caller_logs', full_name='ondewo.nlu.ManifestVoipLog.caller_logs', index=0,
+      name='caller_logs', full_name='ondewo.sip.ManifestVoipLog.caller_logs', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='listener_logs', full_name='ondewo.nlu.ManifestVoipLog.listener_logs', index=1,
+      name='listener_logs', full_name='ondewo.sip.ManifestVoipLog.listener_logs', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -558,53 +336,21 @@ _MANIFESTVOIPLOG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=984,
-  serialized_end=1109,
-)
-
-
-_SAVECALLLOGSREQUEST = _descriptor.Descriptor(
-  name='SaveCallLogsRequest',
-  full_name='ondewo.nlu.SaveCallLogsRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='empty', full_name='ondewo.nlu.SaveCallLogsRequest.empty', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1111,
-  serialized_end=1171,
+  serialized_start=625,
+  serialized_end=750,
 )
 
 
 _SAVECALLLOGSRESPONSE = _descriptor.Descriptor(
   name='SaveCallLogsResponse',
-  full_name='ondewo.nlu.SaveCallLogsResponse',
+  full_name='ondewo.sip.SaveCallLogsResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='success', full_name='ondewo.nlu.SaveCallLogsResponse.success', index=0,
+      name='success', full_name='ondewo.sip.SaveCallLogsResponse.success', index=0,
       number=1, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -622,137 +368,87 @@ _SAVECALLLOGSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1173,
-  serialized_end=1212,
+  serialized_start=752,
+  serialized_end=791,
 )
 
-_UPDATEVOIPLOGREQUEST.fields_by_name['counters'].message_type = _COUNTERS
 _GETVOIPLOGRESPONSE.fields_by_name['active_log'].message_type = _VOIPLOG
 _GETVOIPLOGRESPONSE.fields_by_name['done_logs'].message_type = _VOIPLOG
-_VOIPLOG.fields_by_name['logs'].message_type = _LOGENTRY
+_VOIPLOG.fields_by_name['status_history'].message_type = ondewo_dot_sip_dot_sip__pb2._SIPSTATUS
 _VOIPLOG.fields_by_name['counters'].message_type = _COUNTERS
 _MANIFESTVOIPLOG.fields_by_name['caller_logs'].message_type = _GETVOIPLOGRESPONSE
 _MANIFESTVOIPLOG.fields_by_name['listener_logs'].message_type = _GETVOIPLOGRESPONSE
-_SAVECALLLOGSREQUEST.fields_by_name['empty'].message_type = google_dot_protobuf_dot_empty__pb2._EMPTY
 DESCRIPTOR.message_types_by_name['GetCallIdsRequest'] = _GETCALLIDSREQUEST
 DESCRIPTOR.message_types_by_name['GetCallIdsResponse'] = _GETCALLIDSRESPONSE
-DESCRIPTOR.message_types_by_name['StartVoipLogRequest'] = _STARTVOIPLOGREQUEST
-DESCRIPTOR.message_types_by_name['FinishVoipLogRequest'] = _FINISHVOIPLOGREQUEST
-DESCRIPTOR.message_types_by_name['UpdateVoipLogRequest'] = _UPDATEVOIPLOGREQUEST
-DESCRIPTOR.message_types_by_name['VoipLogResponse'] = _VOIPLOGRESPONSE
 DESCRIPTOR.message_types_by_name['GetVoipLogRequest'] = _GETVOIPLOGREQUEST
 DESCRIPTOR.message_types_by_name['GetVoipLogResponse'] = _GETVOIPLOGRESPONSE
 DESCRIPTOR.message_types_by_name['VoipLog'] = _VOIPLOG
 DESCRIPTOR.message_types_by_name['Counters'] = _COUNTERS
-DESCRIPTOR.message_types_by_name['LogEntry'] = _LOGENTRY
 DESCRIPTOR.message_types_by_name['GetManifestVoipLogRequest'] = _GETMANIFESTVOIPLOGREQUEST
 DESCRIPTOR.message_types_by_name['ManifestVoipLog'] = _MANIFESTVOIPLOG
-DESCRIPTOR.message_types_by_name['SaveCallLogsRequest'] = _SAVECALLLOGSREQUEST
 DESCRIPTOR.message_types_by_name['SaveCallLogsResponse'] = _SAVECALLLOGSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 GetCallIdsRequest = _reflection.GeneratedProtocolMessageType('GetCallIdsRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETCALLIDSREQUEST,
   '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.GetCallIdsRequest)
+  # @@protoc_insertion_point(class_scope:ondewo.sip.GetCallIdsRequest)
   })
 _sym_db.RegisterMessage(GetCallIdsRequest)
 
 GetCallIdsResponse = _reflection.GeneratedProtocolMessageType('GetCallIdsResponse', (_message.Message,), {
   'DESCRIPTOR' : _GETCALLIDSRESPONSE,
   '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.GetCallIdsResponse)
+  # @@protoc_insertion_point(class_scope:ondewo.sip.GetCallIdsResponse)
   })
 _sym_db.RegisterMessage(GetCallIdsResponse)
-
-StartVoipLogRequest = _reflection.GeneratedProtocolMessageType('StartVoipLogRequest', (_message.Message,), {
-  'DESCRIPTOR' : _STARTVOIPLOGREQUEST,
-  '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.StartVoipLogRequest)
-  })
-_sym_db.RegisterMessage(StartVoipLogRequest)
-
-FinishVoipLogRequest = _reflection.GeneratedProtocolMessageType('FinishVoipLogRequest', (_message.Message,), {
-  'DESCRIPTOR' : _FINISHVOIPLOGREQUEST,
-  '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.FinishVoipLogRequest)
-  })
-_sym_db.RegisterMessage(FinishVoipLogRequest)
-
-UpdateVoipLogRequest = _reflection.GeneratedProtocolMessageType('UpdateVoipLogRequest', (_message.Message,), {
-  'DESCRIPTOR' : _UPDATEVOIPLOGREQUEST,
-  '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.UpdateVoipLogRequest)
-  })
-_sym_db.RegisterMessage(UpdateVoipLogRequest)
-
-VoipLogResponse = _reflection.GeneratedProtocolMessageType('VoipLogResponse', (_message.Message,), {
-  'DESCRIPTOR' : _VOIPLOGRESPONSE,
-  '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.VoipLogResponse)
-  })
-_sym_db.RegisterMessage(VoipLogResponse)
 
 GetVoipLogRequest = _reflection.GeneratedProtocolMessageType('GetVoipLogRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETVOIPLOGREQUEST,
   '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.GetVoipLogRequest)
+  # @@protoc_insertion_point(class_scope:ondewo.sip.GetVoipLogRequest)
   })
 _sym_db.RegisterMessage(GetVoipLogRequest)
 
 GetVoipLogResponse = _reflection.GeneratedProtocolMessageType('GetVoipLogResponse', (_message.Message,), {
   'DESCRIPTOR' : _GETVOIPLOGRESPONSE,
   '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.GetVoipLogResponse)
+  # @@protoc_insertion_point(class_scope:ondewo.sip.GetVoipLogResponse)
   })
 _sym_db.RegisterMessage(GetVoipLogResponse)
 
 VoipLog = _reflection.GeneratedProtocolMessageType('VoipLog', (_message.Message,), {
   'DESCRIPTOR' : _VOIPLOG,
   '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.VoipLog)
+  # @@protoc_insertion_point(class_scope:ondewo.sip.VoipLog)
   })
 _sym_db.RegisterMessage(VoipLog)
 
 Counters = _reflection.GeneratedProtocolMessageType('Counters', (_message.Message,), {
   'DESCRIPTOR' : _COUNTERS,
   '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.Counters)
+  # @@protoc_insertion_point(class_scope:ondewo.sip.Counters)
   })
 _sym_db.RegisterMessage(Counters)
-
-LogEntry = _reflection.GeneratedProtocolMessageType('LogEntry', (_message.Message,), {
-  'DESCRIPTOR' : _LOGENTRY,
-  '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.LogEntry)
-  })
-_sym_db.RegisterMessage(LogEntry)
 
 GetManifestVoipLogRequest = _reflection.GeneratedProtocolMessageType('GetManifestVoipLogRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETMANIFESTVOIPLOGREQUEST,
   '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.GetManifestVoipLogRequest)
+  # @@protoc_insertion_point(class_scope:ondewo.sip.GetManifestVoipLogRequest)
   })
 _sym_db.RegisterMessage(GetManifestVoipLogRequest)
 
 ManifestVoipLog = _reflection.GeneratedProtocolMessageType('ManifestVoipLog', (_message.Message,), {
   'DESCRIPTOR' : _MANIFESTVOIPLOG,
   '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.ManifestVoipLog)
+  # @@protoc_insertion_point(class_scope:ondewo.sip.ManifestVoipLog)
   })
 _sym_db.RegisterMessage(ManifestVoipLog)
-
-SaveCallLogsRequest = _reflection.GeneratedProtocolMessageType('SaveCallLogsRequest', (_message.Message,), {
-  'DESCRIPTOR' : _SAVECALLLOGSREQUEST,
-  '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.SaveCallLogsRequest)
-  })
-_sym_db.RegisterMessage(SaveCallLogsRequest)
 
 SaveCallLogsResponse = _reflection.GeneratedProtocolMessageType('SaveCallLogsResponse', (_message.Message,), {
   'DESCRIPTOR' : _SAVECALLLOGSRESPONSE,
   '__module__' : 'ondewo.vtsi.call_log_pb2'
-  # @@protoc_insertion_point(class_scope:ondewo.nlu.SaveCallLogsResponse)
+  # @@protoc_insertion_point(class_scope:ondewo.sip.SaveCallLogsResponse)
   })
 _sym_db.RegisterMessage(SaveCallLogsResponse)
 
@@ -760,48 +456,18 @@ _sym_db.RegisterMessage(SaveCallLogsResponse)
 
 _VOIPCALLLOGS = _descriptor.ServiceDescriptor(
   name='VoipCallLogs',
-  full_name='ondewo.nlu.VoipCallLogs',
+  full_name='ondewo.sip.VoipCallLogs',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1215,
-  serialized_end=2139,
+  serialized_start=794,
+  serialized_end=1265,
   methods=[
   _descriptor.MethodDescriptor(
-    name='StartVoipLog',
-    full_name='ondewo.nlu.VoipCallLogs.StartVoipLog',
-    index=0,
-    containing_service=None,
-    input_type=_STARTVOIPLOGREQUEST,
-    output_type=_VOIPLOGRESPONSE,
-    serialized_options=b'\202\323\344\223\002;\"6/v2/{session=projects/*/agent/sessions/*}:StartVoipLog:\001*',
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='FinishVoipLog',
-    full_name='ondewo.nlu.VoipCallLogs.FinishVoipLog',
-    index=1,
-    containing_service=None,
-    input_type=_FINISHVOIPLOGREQUEST,
-    output_type=_VOIPLOGRESPONSE,
-    serialized_options=b'\202\323\344\223\002<\"7/v2/{session=projects/*/agent/sessions/*}:FinishVoipLog:\001*',
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='UpdateVoipLog',
-    full_name='ondewo.nlu.VoipCallLogs.UpdateVoipLog',
-    index=2,
-    containing_service=None,
-    input_type=_UPDATEVOIPLOGREQUEST,
-    output_type=_VOIPLOGRESPONSE,
-    serialized_options=b'\202\323\344\223\002<\"7/v2/{session=projects/*/agent/sessions/*}:UpdateVoipLog:\001*',
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
     name='GetVoipLog',
-    full_name='ondewo.nlu.VoipCallLogs.GetVoipLog',
-    index=3,
+    full_name='ondewo.sip.VoipCallLogs.GetVoipLog',
+    index=0,
     containing_service=None,
     input_type=_GETVOIPLOGREQUEST,
     output_type=_GETVOIPLOGRESPONSE,
@@ -810,8 +476,8 @@ _VOIPCALLLOGS = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='GetManifestVoipLog',
-    full_name='ondewo.nlu.VoipCallLogs.GetManifestVoipLog',
-    index=4,
+    full_name='ondewo.sip.VoipCallLogs.GetManifestVoipLog',
+    index=1,
     containing_service=None,
     input_type=_GETMANIFESTVOIPLOGREQUEST,
     output_type=_MANIFESTVOIPLOG,
@@ -820,10 +486,10 @@ _VOIPCALLLOGS = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='ActivateSaveCallLogs',
-    full_name='ondewo.nlu.VoipCallLogs.ActivateSaveCallLogs',
-    index=5,
+    full_name='ondewo.sip.VoipCallLogs.ActivateSaveCallLogs',
+    index=2,
     containing_service=None,
-    input_type=_SAVECALLLOGSREQUEST,
+    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_SAVECALLLOGSRESPONSE,
     serialized_options=b'\202\323\344\223\002;\"6/v2/{session=projects/*/agent/sessions/*}:SaveCallLogs:\001*',
     create_key=_descriptor._internal_create_key,
