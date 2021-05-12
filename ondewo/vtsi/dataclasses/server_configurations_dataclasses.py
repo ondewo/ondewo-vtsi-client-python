@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class AudioConfiguration:
-    """language and location of audio services (s2t, t2s) & demuxer"""
+    """language and location of audio services (s2t, t2s)"""
 
     # text-to-speech
     t2s_host: str = "grpc-t2s.ondewo.com"
@@ -137,10 +137,6 @@ class CallConfig:
                 host=manager.config_audio.t2s_host,
                 port=manager.config_audio.t2s_port,
                 service_identifier=manager.config_audio.t2s_type,
-            ),
-            demux_config=ServiceConfig(
-                host=manager.config_audio.demux_host, port=manager.config_audio.demux_port,
-                service_identifier="demux",
             ),
         )
 
