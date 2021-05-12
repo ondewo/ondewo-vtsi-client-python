@@ -40,10 +40,6 @@ class AudioConfiguration:
     s2t_port: int = 443
     s2t_type: str = "ONDEWO"
 
-    # demux settings
-    demux_host: str = "0.0.0.0"
-    demux_port: int = 8011
-
     language_code: Optional[str] = None
     t2s_language: Optional[str] = None
     s2t_language: Optional[str] = None
@@ -100,6 +96,7 @@ class CallConfig:
             call_id: str,
             sip_sim_version: str,
             init_text: str,
+            initial_intent: str,
             contexts: List[context_pb2.Context],
             phone_number: Optional[str] = None,
             sip_name: Optional[str] = None,
@@ -116,6 +113,7 @@ class CallConfig:
             phone_number=phone_number,
             contexts=contexts,
             init_text=init_text,
+            initial_intent=initial_intent,
             sip_name=sip_name,
             sip_prefix=sip_prefix,
             password_dictionary=password_struct,
