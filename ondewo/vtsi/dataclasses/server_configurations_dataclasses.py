@@ -63,6 +63,7 @@ class CaiConfiguration:
     port: int = 443
     context_session_id: str = str(uuid.uuid4())  # overwritten by sip-sim
     cai_type: str = ""  # can be set to "mirror" to activate CAI="mirror" environment variable when deploying sip-sim
+    cai_language: str = "de"
 
 
 @dataclass
@@ -122,6 +123,7 @@ class CallConfig:
                 service_identifier="asterisk",
             ),
             cai_config=ServiceConfig(
+                language_code=manager.config_cai.cai_language,
                 host=manager.config_cai.host,
                 port=manager.config_cai.port,
                 service_identifier=manager.config_cai.cai_type,
