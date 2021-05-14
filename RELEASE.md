@@ -7,6 +7,8 @@
 * changed voip to vtsi in some variable names
 * lots of example scripts
 * get_minimal_client has more and better defaults
+* added 'initial_intent' config var
+* removed many defunct proto endpoints
 
 *****************
 ## Release ONDEWO VTSI Client Python 3.0.0
