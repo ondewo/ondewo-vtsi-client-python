@@ -108,7 +108,7 @@ class VtsiClient:
                 cai_project_id="[PLACEHOLDER]",
             ),
             config_audio=AudioConfiguration(
-                language_code="[PLACEHOLDER",
+                language_code="[PLACEHOLDER]",
             ),
             config_asterisk=AsteriskConfiguration(),
         )
