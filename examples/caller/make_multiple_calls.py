@@ -38,9 +38,16 @@ def deploy_caller(phone_number: str) -> StartCallInstanceResponse:
 
 
 # Iterating through phone number list, start the parallel calls
-threads: List[Thread] = [
-    threading.Thread(target=deploy_caller, args=[phone_number])
-    for phone_number in PHONE_NUMBERS
-]
-for thread in threads:
-    thread.start()
+
+# threads: List[Thread] = [
+#     threading.Thread(target=deploy_caller, args=[phone_number])
+#     for phone_number in PHONE_NUMBERS
+# ]
+# for thread in threads:
+#     thread.start()
+
+# Start multiple call instances via endpoint
+
+
+
+
