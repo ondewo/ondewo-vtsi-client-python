@@ -246,33 +246,34 @@ class VtsiClient:
 
     def start_multiple_call_instances(
             self,
-            phone_numbers: Dict[str, str],
-            call_ids: str,
+            phone_numbers_by_call_ids: Dict[str, str],
+            call_ids: List[str],
             sip_sim_version: str,
             project_id: str,
             init_text: Optional[str] = None,
             initial_intent: Optional[str] = None,
-            contexts_dict: Optional[Dict[str, List[context_pb2.Context]]] = None,
+            contexts: Optional[List[context_pb2.Context]] = None,
             sip_names: Optional[Dict[str, str]] = None,
             sip_prefix: Optional[str] = None,
             password_dictionary: Optional[Dict] = None,
     ) -> voip_pb2.StartMultipleCallInstancesResponse:
         call_request_list: List[Any] = []
         for call_id in call_ids:
-            if call_id in phone_numbers:
+            if call_id in phone_numbers_by_call_ids:
                 request = CallConfig.get_call_proto_request(
                     manager=self.manager,
                     call_id=call_id,
                     sip_sim_version=sip_sim_version,
-                    phone_number=phone_numbers[call_id],
+                    phone_number=phone_numbers_by_call_ids[call_id],
                     project_id=project_id,
                     init_text=init_text,
                     initial_intent=initial_intent,
-                    contexts=contexts_dict[call_id] or self.manager.config_cai.cai_contexts,
-                    sip_name=sip_names[call_id] or None,
+                    contexts=contexts or self.manager.config_cai.cai_contexts,
+                    sip_name=sip_names[call_id] if sip_names and call_id in sip_names else None,
                     sip_prefix=sip_prefix,
                     password_dictionary=password_dictionary,
                 )
+                print("start caller request added")
             else:
                 request = CallConfig.get_call_proto_request(
                     manager=self.manager,
@@ -281,18 +282,19 @@ class VtsiClient:
                     project_id=project_id,
                     init_text=init_text,
                     initial_intent=initial_intent,
-                    contexts=contexts_dict[call_id] or self.manager.config_cai.cai_contexts,
+                    contexts=contexts or self.manager.config_cai.cai_contexts,
                 )
+                print("start listener request added")
             call_request_list.append(request)
 
-            print("performing multiple calls")
-            request_to_pass: voip_pb2.StartMultipleCallInstancesRequest(
-                requests=call_request_list
-            )
-            response: voip_pb2.StartMultipleCallInstancesResponse = \
-                self.voip_stub.StartMultipleCallInstances(request=request)
+        print("performing multiple calls")
+        request_to_pass = voip_pb2.StartMultipleCallInstancesRequest(
+            requests=call_request_list
+        )
+        response: voip_pb2.StartMultipleCallInstancesResponse = \
+            self.voip_stub.StartMultipleCallInstances(request=request_to_pass)
 
-            return response
+        return response
 
     # def get_manifest_status(self, manifest_id: str,) -> voip_pb2.VoipManifestStatus:
     #     """
