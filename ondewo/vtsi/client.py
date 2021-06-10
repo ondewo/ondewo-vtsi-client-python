@@ -277,7 +277,7 @@ class VtsiClient:
                     sip_prefix=sip_prefix,
                     password_dictionary=password_dictionary,
                 )
-                print(f"start caller request added to: {sip_name}")
+                print(f"start caller request added to {sip_name}")
             else:
                 request = CallConfig.get_call_proto_request(
                     manager=self.manager,
