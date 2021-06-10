@@ -112,6 +112,7 @@ class VtsiClient:
                 cai_type="mirror"
             ),
             config_audio=AudioConfiguration(
+                language_code="[PLACEHOLDER]",
                 t2s_language="thorsten",
                 s2t_language="german_general",
             ),
@@ -153,6 +154,7 @@ class VtsiClient:
                      sip_sim_version: str,
                      project_id: str,
                      init_text: Optional[str] = None,
+                     initial_intent: Optional[str] = None,
                      contexts: Optional[List[context_pb2.Context]] = None,
                      sip_name: Optional[str] = None,
                      sip_prefix: Optional[str] = None,
@@ -169,6 +171,7 @@ class VtsiClient:
             phone_number=phone_number,
             project_id=project_id,
             init_text=init_text,
+            initial_intent=initial_intent,
             contexts=contexts,
             sip_name=sip_name,
             sip_prefix=sip_prefix,
@@ -199,6 +202,7 @@ class VtsiClient:
                        call_id: str,
                        sip_sim_version: str,
                        init_text: Optional[str] = None,
+                       initial_intent: Optional[str] = None,
                        contexts: Optional[List[context_pb2.Context]] = None,
                        ) -> voip_pb2.StartCallInstanceResponse:
         """
@@ -211,6 +215,7 @@ class VtsiClient:
             sip_sim_version=sip_sim_version,
             project_id=project_id,
             init_text=init_text,
+            initial_intent=initial_intent,
             contexts=contexts,
         )
         print("starting listener")
@@ -323,52 +328,6 @@ class VtsiClient:
         request = voip_pb2.ShutdownUnhealthyCallsRequest()
         response: voip_pb2.ShutdownUnhealthyCallsResponse = self.voip_stub.ShutdownUnhealthyCalls(request=request)
         return response.success     # type: ignore
-
-    def start_voip_log(self, call_id: str, start_time: Optional[float] = None,) -> call_log_pb2.VoipLogResponse:
-        """
-        start log of a call instance with the current time as start
-        """
-        if not start_time:
-            start_time = time.time()
-        request = call_log_pb2.StartVoipLogRequest(call_id=call_id, start_time=start_time,)
-        print("starting voip log")
-        response: call_log_pb2.VoipLogResponse = self.call_log_stub.StartVoipLog(request=request)
-        return response
-
-    def finish_voip_log(self, call_id: str, end_time: Optional[float] = None,) -> call_log_pb2.VoipLogResponse:
-        """
-        finish the log of a call instance with current time as end
-        """
-        if not end_time:
-            end_time = time.time()
-        request = call_log_pb2.FinishVoipLogRequest(call_id=call_id, end_time=end_time,)
-        print("finishing voip log")
-        response: call_log_pb2.VoipLogResponse = self.call_log_stub.FinishVoipLog(request=request)
-        return response
-
-    def update_voip_log(
-        self, call_id: str, service_name: str, log_message: str, counters: Optional[dict] = None,
-    ) -> call_log_pb2.VoipLogResponse:
-        """
-        update the call log with a <log_message> logged by <service_name>
-        can also update '15s' and '60s' counters by specifying ~ {'15s': 4, '60s': 2}
-        """
-        if not counters:
-            request = call_log_pb2.UpdateVoipLogRequest(
-                call_id=call_id, service_name=service_name, log_message=log_message,
-            )
-        else:
-            if counters:
-                counters = create_parameter_dict(counters)
-            request = call_log_pb2.UpdateVoipLogRequest(
-                call_id=call_id,
-                service_name=service_name,
-                log_message=log_message,
-                counters=counters,
-            )
-        print("updating voip log")
-        response: call_log_pb2.VoipLogResponse = self.call_log_stub.UpdateVoipLog(request=request)
-        return response
 
     def activate_call_logs(self) -> call_log_pb2.SaveCallLogsResponse:
         """

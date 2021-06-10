@@ -2,6 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from ondewo.vtsi import call_log_pb2 as ondewo_dot_vtsi_dot_call__log__pb2
 
 
@@ -15,34 +16,19 @@ class VoipCallLogsStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.StartVoipLog = channel.unary_unary(
-                '/ondewo.nlu.VoipCallLogs/StartVoipLog',
-                request_serializer=ondewo_dot_vtsi_dot_call__log__pb2.StartVoipLogRequest.SerializeToString,
-                response_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.VoipLogResponse.FromString,
-                )
-        self.FinishVoipLog = channel.unary_unary(
-                '/ondewo.nlu.VoipCallLogs/FinishVoipLog',
-                request_serializer=ondewo_dot_vtsi_dot_call__log__pb2.FinishVoipLogRequest.SerializeToString,
-                response_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.VoipLogResponse.FromString,
-                )
-        self.UpdateVoipLog = channel.unary_unary(
-                '/ondewo.nlu.VoipCallLogs/UpdateVoipLog',
-                request_serializer=ondewo_dot_vtsi_dot_call__log__pb2.UpdateVoipLogRequest.SerializeToString,
-                response_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.VoipLogResponse.FromString,
-                )
         self.GetVoipLog = channel.unary_unary(
-                '/ondewo.nlu.VoipCallLogs/GetVoipLog',
+                '/ondewo.sip.VoipCallLogs/GetVoipLog',
                 request_serializer=ondewo_dot_vtsi_dot_call__log__pb2.GetVoipLogRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.GetVoipLogResponse.FromString,
                 )
         self.GetManifestVoipLog = channel.unary_unary(
-                '/ondewo.nlu.VoipCallLogs/GetManifestVoipLog',
+                '/ondewo.sip.VoipCallLogs/GetManifestVoipLog',
                 request_serializer=ondewo_dot_vtsi_dot_call__log__pb2.GetManifestVoipLogRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.ManifestVoipLog.FromString,
                 )
         self.ActivateSaveCallLogs = channel.unary_unary(
-                '/ondewo.nlu.VoipCallLogs/ActivateSaveCallLogs',
-                request_serializer=ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsRequest.SerializeToString,
+                '/ondewo.sip.VoipCallLogs/ActivateSaveCallLogs',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsResponse.FromString,
                 )
 
@@ -51,7 +37,7 @@ class VoipCallLogsServicer(object):
     """call log endpoints to be used by ondewo-sip-sim instances to transfer their log info to the voip manager
     """
 
-    def StartVoipLog(self, request, context):
+    def GetVoipLog(self, request, context):
         """// get all call IDs associated with a sip-id [PROTOTYPE IF MULTIPLE CALLS PER SIP INSTANCE ARE REALIZED, REMOVED FOR CLARITY]
         rpc GetCallIds (GetCallIdsRequest) returns (GetCallIdsResponse) {
         option (google.api.http) = {
@@ -60,28 +46,7 @@ class VoipCallLogsServicer(object):
         };
         }
 
-        start logging of a call
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def FinishVoipLog(self, request, context):
-        """finish logging of a call
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def UpdateVoipLog(self, request, context):
-        """update logging of a call
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetVoipLog(self, request, context):
-        """get call log for single call instance
+        get call log for single call instance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -104,21 +69,6 @@ class VoipCallLogsServicer(object):
 
 def add_VoipCallLogsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'StartVoipLog': grpc.unary_unary_rpc_method_handler(
-                    servicer.StartVoipLog,
-                    request_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.StartVoipLogRequest.FromString,
-                    response_serializer=ondewo_dot_vtsi_dot_call__log__pb2.VoipLogResponse.SerializeToString,
-            ),
-            'FinishVoipLog': grpc.unary_unary_rpc_method_handler(
-                    servicer.FinishVoipLog,
-                    request_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.FinishVoipLogRequest.FromString,
-                    response_serializer=ondewo_dot_vtsi_dot_call__log__pb2.VoipLogResponse.SerializeToString,
-            ),
-            'UpdateVoipLog': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateVoipLog,
-                    request_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.UpdateVoipLogRequest.FromString,
-                    response_serializer=ondewo_dot_vtsi_dot_call__log__pb2.VoipLogResponse.SerializeToString,
-            ),
             'GetVoipLog': grpc.unary_unary_rpc_method_handler(
                     servicer.GetVoipLog,
                     request_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.GetVoipLogRequest.FromString,
@@ -131,12 +81,12 @@ def add_VoipCallLogsServicer_to_server(servicer, server):
             ),
             'ActivateSaveCallLogs': grpc.unary_unary_rpc_method_handler(
                     servicer.ActivateSaveCallLogs,
-                    request_deserializer=ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsRequest.FromString,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'ondewo.nlu.VoipCallLogs', rpc_method_handlers)
+            'ondewo.sip.VoipCallLogs', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -144,57 +94,6 @@ def add_VoipCallLogsServicer_to_server(servicer, server):
 class VoipCallLogs(object):
     """call log endpoints to be used by ondewo-sip-sim instances to transfer their log info to the voip manager
     """
-
-    @staticmethod
-    def StartVoipLog(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipCallLogs/StartVoipLog',
-            ondewo_dot_vtsi_dot_call__log__pb2.StartVoipLogRequest.SerializeToString,
-            ondewo_dot_vtsi_dot_call__log__pb2.VoipLogResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def FinishVoipLog(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipCallLogs/FinishVoipLog',
-            ondewo_dot_vtsi_dot_call__log__pb2.FinishVoipLogRequest.SerializeToString,
-            ondewo_dot_vtsi_dot_call__log__pb2.VoipLogResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def UpdateVoipLog(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipCallLogs/UpdateVoipLog',
-            ondewo_dot_vtsi_dot_call__log__pb2.UpdateVoipLogRequest.SerializeToString,
-            ondewo_dot_vtsi_dot_call__log__pb2.VoipLogResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetVoipLog(request,
@@ -207,7 +106,7 @@ class VoipCallLogs(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipCallLogs/GetVoipLog',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.sip.VoipCallLogs/GetVoipLog',
             ondewo_dot_vtsi_dot_call__log__pb2.GetVoipLogRequest.SerializeToString,
             ondewo_dot_vtsi_dot_call__log__pb2.GetVoipLogResponse.FromString,
             options, channel_credentials,
@@ -224,7 +123,7 @@ class VoipCallLogs(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipCallLogs/GetManifestVoipLog',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.sip.VoipCallLogs/GetManifestVoipLog',
             ondewo_dot_vtsi_dot_call__log__pb2.GetManifestVoipLogRequest.SerializeToString,
             ondewo_dot_vtsi_dot_call__log__pb2.ManifestVoipLog.FromString,
             options, channel_credentials,
@@ -241,8 +140,8 @@ class VoipCallLogs(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipCallLogs/ActivateSaveCallLogs',
-            ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsRequest.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/ondewo.sip.VoipCallLogs/ActivateSaveCallLogs',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ondewo_dot_vtsi_dot_call__log__pb2.SaveCallLogsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

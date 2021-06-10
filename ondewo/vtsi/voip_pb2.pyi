@@ -202,6 +202,7 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
     init_text = ... # type: typing___Text
     sip_prefix = ... # type: typing___Text
     sip_name = ... # type: typing___Text
+    initial_intent = ... # type: typing___Text
 
     @property
     def contexts(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[ondewo___nlu___context_pb2___Context]: ...
@@ -214,9 +215,6 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
 
     @property
     def stt_config(self) -> global___ServiceConfig: ...
-
-    @property
-    def demux_config(self) -> global___ServiceConfig: ...
 
     @property
     def tts_config(self) -> global___ServiceConfig: ...
@@ -235,11 +233,11 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
         asterisk_config : typing___Optional[global___ServiceConfig] = None,
         cai_config : typing___Optional[global___ServiceConfig] = None,
         stt_config : typing___Optional[global___ServiceConfig] = None,
-        demux_config : typing___Optional[global___ServiceConfig] = None,
         tts_config : typing___Optional[global___ServiceConfig] = None,
         sip_prefix : typing___Optional[typing___Text] = None,
         sip_name : typing___Optional[typing___Text] = None,
         password_dictionary : typing___Optional[google___protobuf___struct_pb2___Struct] = None,
+        initial_intent : typing___Optional[typing___Text] = None,
         ) -> None: ...
     if sys.version_info >= (3,):
         @classmethod
@@ -249,8 +247,8 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
         def FromString(cls, s: typing___Union[builtin___bytes, builtin___buffer, builtin___unicode]) -> StartCallInstanceRequest: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
-    def HasField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"demux_config",b"demux_config",u"password_dictionary",b"password_dictionary",u"stt_config",b"stt_config",u"tts_config",b"tts_config"]) -> builtin___bool: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"call_id",b"call_id",u"contexts",b"contexts",u"demux_config",b"demux_config",u"init_text",b"init_text",u"password_dictionary",b"password_dictionary",u"phone_number",b"phone_number",u"project_id",b"project_id",u"sip_name",b"sip_name",u"sip_prefix",b"sip_prefix",u"sip_sim_version",b"sip_sim_version",u"stt_config",b"stt_config",u"tts_config",b"tts_config"]) -> None: ...
+    def HasField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"password_dictionary",b"password_dictionary",u"stt_config",b"stt_config",u"tts_config",b"tts_config"]) -> builtin___bool: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"call_id",b"call_id",u"contexts",b"contexts",u"init_text",b"init_text",u"initial_intent",b"initial_intent",u"password_dictionary",b"password_dictionary",u"phone_number",b"phone_number",u"project_id",b"project_id",u"sip_name",b"sip_name",u"sip_prefix",b"sip_prefix",u"sip_sim_version",b"sip_sim_version",u"stt_config",b"stt_config",u"tts_config",b"tts_config"]) -> None: ...
 global___StartCallInstanceRequest = StartCallInstanceRequest
 
 class StartCallInstanceResponse(google___protobuf___message___Message):

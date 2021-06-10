@@ -1,5 +1,15 @@
 # Release History
 *****************
+## Release ONDEWO VTSI Client Python 2.1.0
+
+### Improvements
+
+* changed voip to vtsi in some variable names
+* lots of example scripts
+* get_minimal_client has more and better defaults
+* added 'initial_intent' config var
+* removed many defunct proto endpoints
+
 *****************
 ## Release ONDEWO VTSI Client Python 2.0.1
 
