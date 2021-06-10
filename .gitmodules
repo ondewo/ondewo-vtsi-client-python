@@ -4,3 +4,6 @@
 [submodule "ondewo-vtsi-api"]
 	path = ondewo-vtsi-api
 	url = https://github.com/ondewo/ondewo-vtsi-api
+[submodule "ondewo-sip-api"]
+	path = ondewo-sip-api
+	url = https://github.com/ondewo/ondewo-sip-api

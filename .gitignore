@@ -5,3 +5,5 @@ __pycache__/
 ONDEWO_Voip_Client_Python.egg-info
 venv*/
 *.egg-info
+
+grpc_cert

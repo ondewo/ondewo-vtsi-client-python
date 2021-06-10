@@ -1,4 +1,11 @@
-![Logo](https://raw.githubusercontent.com/ondewo/ondewo-logos/master/github/ondewo_logo_github_2.png)
+<p align="center">
+    <a href="https://www.ondewo.com">
+      <img alt="ONDEWO Logo" src="https://raw.githubusercontent.com/ondewo/ondewo-logos/master/github/ondewo_logo_github_2.png"/>
+    </a>
+  <h1 align="center">
+    ONDEWO Voice Client
+  </h1>
+</p>
 
 # Ondewo VTSI Client Python
 
@@ -11,7 +18,7 @@ The vtsi client allows for easy control of the ONDEWO VTSI server. With it, you 
 
 ## Ipython example
 ```
-from vtsi_client.voip_server_client import VtsiServerClient
+from ondewo.vtsi.voip_server_client import VtsiServerClient
 
 voip_host = 'localhost'
 voip_port = '40045'

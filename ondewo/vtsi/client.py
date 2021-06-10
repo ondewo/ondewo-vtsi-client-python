@@ -96,19 +96,25 @@ class VtsiClient:
         self.call_log_stub = call_log_pb2_grpc.VoipCallLogsStub(channel=channel)
 
     @staticmethod
-    def get_minimal_client(voip_host: str, voip_port: str, secure: bool = False, cert_path: Optional[str] = None) -> 'VtsiClient':
+    def get_minimal_client(vtsi_host: str = "grpc-vtsi.ondewo.com", vtsi_port: str = 443, secure: bool = True, cert_path: Optional[str] = './grpc_cert') -> 'VtsiClient':
+        if secure and not os.path.exists(cert_path):
+            raise Exception("Secure connection requested, but no grpc certificate provided!")
+
         manager: ConfigManager = ConfigManager(
             config_voip=VtsiConfiguration(
-                host=voip_host,
-                port=int(voip_port),
+                host=vtsi_host,
+                port=int(vtsi_port),
                 secure=secure,
                 cert_path=cert_path,
             ),
             config_cai=CaiConfiguration(
                 cai_project_id="[PLACEHOLDER]",
+                cai_type="mirror"
             ),
             config_audio=AudioConfiguration(
                 language_code="[PLACEHOLDER]",
+                t2s_language="thorsten",
+                s2t_language="german_general",
             ),
             config_asterisk=AsteriskConfiguration(),
         )
@@ -147,8 +153,12 @@ class VtsiClient:
                      call_id: str,
                      sip_sim_version: str,
                      project_id: str,
-                     init_text: Optional[str] = '',
+                     init_text: Optional[str] = None,
+                     initial_intent: Optional[str] = None,
                      contexts: Optional[List[context_pb2.Context]] = None,
+                     sip_name: Optional[str] = None,
+                     sip_prefix: Optional[str] = None,
+                     password_dictionary: Optional[Dict] = None,
                      ) -> voip_pb2.StartCallInstanceResponse:
         """
         perform a single call
@@ -161,13 +171,25 @@ class VtsiClient:
             phone_number=phone_number,
             project_id=project_id,
             init_text=init_text,
+            initial_intent=initial_intent,
             contexts=contexts,
+            sip_name=sip_name,
+            sip_prefix=sip_prefix,
+            password_dictionary=password_dictionary,
         )
         print("performing call")
         response: voip_pb2.StartCallInstanceResponse = self.voip_stub.StartCallInstance(request=request)
         return response
 
     def stop_caller(
+        self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
+    ) -> bool:
+        """
+        stop an ongoing caller instance
+        """
+        return self._stop_call(call_id=call_id, sip_id=sip_id)
+
+    def stop_call(
         self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
     ) -> bool:
         """
@@ -179,7 +201,8 @@ class VtsiClient:
                        project_id: str,
                        call_id: str,
                        sip_sim_version: str,
-                       init_text: str,
+                       init_text: Optional[str] = None,
+                       initial_intent: Optional[str] = None,
                        contexts: Optional[List[context_pb2.Context]] = None,
                        ) -> voip_pb2.StartCallInstanceResponse:
         """
@@ -192,6 +215,7 @@ class VtsiClient:
             sip_sim_version=sip_sim_version,
             project_id=project_id,
             init_text=init_text,
+            initial_intent=initial_intent,
             contexts=contexts,
         )
         print("starting listener")
@@ -276,6 +300,16 @@ class VtsiClient:
             call_ids.append(call_id)
         return call_ids
 
+    def get_session_id(self, call_id: str) -> str:
+        """
+        get session id by call id
+        """
+        request = voip_pb2.GetSessionIDRequest(
+            call_id=call_id
+        )
+        response: voip_pb2.GetSessionIDResponse = self.voip_stub.GetSessionID(request=request)
+        return response.session_id
+
     def get_manifest_ids(self) -> List[str]:
         """
         get all manifest_ids known to the voip manager
@@ -295,52 +329,6 @@ class VtsiClient:
         response: voip_pb2.ShutdownUnhealthyCallsResponse = self.voip_stub.ShutdownUnhealthyCalls(request=request)
         return response.success     # type: ignore
 
-    def start_voip_log(self, call_id: str, start_time: Optional[float] = None,) -> call_log_pb2.VoipLogResponse:
-        """
-        start log of a call instance with the current time as start
-        """
-        if not start_time:
-            start_time = time.time()
-        request = call_log_pb2.StartVoipLogRequest(call_id=call_id, start_time=start_time,)
-        print("starting voip log")
-        response: call_log_pb2.VoipLogResponse = self.call_log_stub.StartVoipLog(request=request)
-        return response
-
-    def finish_voip_log(self, call_id: str, end_time: Optional[float] = None,) -> call_log_pb2.VoipLogResponse:
-        """
-        finish the log of a call instance with current time as end
-        """
-        if not end_time:
-            end_time = time.time()
-        request = call_log_pb2.FinishVoipLogRequest(call_id=call_id, end_time=end_time,)
-        print("finishing voip log")
-        response: call_log_pb2.VoipLogResponse = self.call_log_stub.FinishVoipLog(request=request)
-        return response
-
-    def update_voip_log(
-        self, call_id: str, service_name: str, log_message: str, counters: Optional[dict] = None,
-    ) -> call_log_pb2.VoipLogResponse:
-        """
-        update the call log with a <log_message> logged by <service_name>
-        can also update '15s' and '60s' counters by specifying ~ {'15s': 4, '60s': 2}
-        """
-        if not counters:
-            request = call_log_pb2.UpdateVoipLogRequest(
-                call_id=call_id, service_name=service_name, log_message=log_message,
-            )
-        else:
-            if counters:
-                counters = create_parameter_dict(counters)
-            request = call_log_pb2.UpdateVoipLogRequest(
-                call_id=call_id,
-                service_name=service_name,
-                log_message=log_message,
-                counters=counters,
-            )
-        print("updating voip log")
-        response: call_log_pb2.VoipLogResponse = self.call_log_stub.UpdateVoipLog(request=request)
-        return response
-
     def activate_call_logs(self) -> call_log_pb2.SaveCallLogsResponse:
         """
         activate call logs globally for the voip manager
@@ -349,12 +337,12 @@ class VtsiClient:
         response: call_log_pb2.SaveCallLogsResponse = self.call_log_stub.ActivateSaveCallLogs(request=request)
         return response
 
-    def get_voip_log(self, call_id: str) -> call_log_pb2.VoipLog:
+    def get_voip_log(self, call_id: str) -> call_log_pb2.GetVoipLogResponse:
         """
         get the call log of a sip-sim instance
         """
         request = call_log_pb2.GetVoipLogRequest(call_id=call_id)
-        response: call_log_pb2.VoipLog = self.call_log_stub.GetVoipLog(request=request)
+        response: call_log_pb2.GetVoipLogResponse = self.call_log_stub.GetVoipLog(request=request)
         return response
 
     def get_manifest_voip_log(self, manifest_id: str) -> call_log_pb2.ManifestVoipLog:

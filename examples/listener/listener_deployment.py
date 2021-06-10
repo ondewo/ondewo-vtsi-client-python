@@ -31,34 +31,39 @@ cai/bpi: 50052 ("BPI_PORT_LOCAL")
 #########################
 
 # SIP-SIM CONFIGURATION
-sip_sim_version = "0.8.1"
+sip_sim_version = "1.5.2"
+
+# # VOIP SERVER CONFIGURATION
+# config_voip = VtsiConfiguration(
+#     host="grpc-vtsi.ondewo.com",
+#     port=443,
+# )
 
 # VOIP SERVER CONFIGURATION
 config_voip = VtsiConfiguration(
-    host="grpc-vtsi.ondewo.com",
-    port=443,
+    host="localhost",
+    port=50200,
 )
 
 # AUDIO CONFIGURATION
 config_audio_ondewo = AudioConfiguration(
-    language_code="de-DE",
-
     # --- text-to-speech ---
     t2s_host="grpc-t2s.ondewo.com",
     t2s_port=443,
     t2s_type="ONDEWO",
+    t2s_language="thorsten",
 
     # --- speech-to-text ---
     s2t_host="grpc-s2t.ondewo.com",
     s2t_port=443,
-    s2t_type="ONDEWO",  # == default, OPTIONS: "ONDEWO" in string (or not -> use Cloud provider name)
+    s2t_type="ONDEWO",
+    s2t_language="german_general",
 )
 
 config_asterisk = AsteriskConfiguration(
     host="127.0.0.1"
 )
 
-TYPE = "listener"  # "caller" or "listener" [context set only for caller]
 phone_number = ""  # only needed for "caller" instance
 greeting_text = "hello"
 contexts: List[context_pb2.Context] = []
@@ -72,8 +77,8 @@ deployments: List[Tuple[str, CaiConfiguration, AudioConfiguration]] = []
 # CONVERSATIONAL AI CONFIGURATION
 project_id = "not_a_cai_project"  # parent = projects/not_a_project/agent
 config_cai = CaiConfiguration(
-    host="0.0.0.0",
-    port=50102,
+    host="grpc-nlu.ondewo.com",
+    port=443,
     cai_project_id=project_id,
     cai_contexts=contexts,
     cai_type="mirror",
