@@ -261,6 +261,8 @@ class VtsiClient:
     ) -> voip_pb2.StartMultipleCallInstancesResponse:
         call_request_list: List[Any] = []
         for call_id in call_ids:
+            sip_name = sip_names_by_call_ids[
+                call_id] if sip_names_by_call_ids and call_id in sip_names_by_call_ids else None
             if call_id in phone_numbers_by_call_ids:
                 request = CallConfig.get_call_proto_request(
                     manager=self.manager,
@@ -271,12 +273,11 @@ class VtsiClient:
                     init_text=init_text,
                     initial_intent=initial_intent,
                     contexts=contexts or self.manager.config_cai.cai_contexts,
-                    sip_name=sip_names_by_call_ids[call_id]
-                    if sip_names_by_call_ids and call_id in sip_names_by_call_ids else None,
+                    sip_name=sip_name,
                     sip_prefix=sip_prefix,
                     password_dictionary=password_dictionary,
                 )
-                print("start caller request added")
+                print(f"start caller request added to: {sip_name}")
             else:
                 request = CallConfig.get_call_proto_request(
                     manager=self.manager,
@@ -286,10 +287,9 @@ class VtsiClient:
                     init_text=init_text,
                     initial_intent=initial_intent,
                     contexts=contexts or self.manager.config_cai.cai_contexts,
-                    sip_name=sip_names_by_call_ids[call_id]
-                    if sip_names_by_call_ids and call_id in sip_names_by_call_ids else None,
+                    sip_name=sip_name,
                 )
-                print("start listener request added")
+                print(f"start listener request added to {sip_name}")
             call_request_list.append(request)
 
         print("performing multiple calls")
