@@ -202,6 +202,7 @@ class VtsiClient:
                        init_text: Optional[str] = None,
                        initial_intent: Optional[str] = None,
                        contexts: Optional[List[context_pb2.Context]] = None,
+                       sip_name: Optional[str] = None,
                        ) -> voip_pb2.StartCallInstanceResponse:
         """
         start an ondewo-sip-sim instance to listen for calls
@@ -215,6 +216,7 @@ class VtsiClient:
             init_text=init_text,
             initial_intent=initial_intent,
             contexts=contexts,
+            sip_name=sip_name,
         )
         print("starting listener")
         response: voip_pb2.StartCallInstanceResponse = self.voip_stub.StartCallInstance(request=request)
@@ -253,7 +255,7 @@ class VtsiClient:
             init_text: Optional[str] = None,
             initial_intent: Optional[str] = None,
             contexts: Optional[List[context_pb2.Context]] = None,
-            sip_names: Optional[Dict[str, str]] = None,
+            sip_names_by_call_ids: Optional[Dict[str, str]] = None,
             sip_prefix: Optional[str] = None,
             password_dictionary: Optional[Dict] = None,
     ) -> voip_pb2.StartMultipleCallInstancesResponse:
@@ -269,7 +271,8 @@ class VtsiClient:
                     init_text=init_text,
                     initial_intent=initial_intent,
                     contexts=contexts or self.manager.config_cai.cai_contexts,
-                    sip_name=sip_names[call_id] if sip_names and call_id in sip_names else None,
+                    sip_name=sip_names_by_call_ids[call_id]
+                    if sip_names_by_call_ids and call_id in sip_names_by_call_ids else None,
                     sip_prefix=sip_prefix,
                     password_dictionary=password_dictionary,
                 )
@@ -283,6 +286,8 @@ class VtsiClient:
                     init_text=init_text,
                     initial_intent=initial_intent,
                     contexts=contexts or self.manager.config_cai.cai_contexts,
+                    sip_name=sip_names_by_call_ids[call_id]
+                    if sip_names_by_call_ids and call_id in sip_names_by_call_ids else None,
                 )
                 print("start listener request added")
             call_request_list.append(request)
