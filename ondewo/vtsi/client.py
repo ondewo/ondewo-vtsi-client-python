@@ -302,15 +302,6 @@ class VtsiClient:
 
         return response
 
-    # def get_manifest_status(self, manifest_id: str,) -> voip_pb2.VoipManifestStatus:
-    #     """
-    #     get the status of all caller and listener instances of a manifest, as well as the status of associated services
-    #     """
-    #     request = voip_pb2.VoipManifestStatusRequest(manifest_id=manifest_id)
-    #     print("getting manifest status")
-    #     response: voip_pb2.VoipManifestStatus = self.voip_stub.GetManifestStatus(request=request)
-    #     return response
-
     def get_instance_status(self, call_id: Optional[str] = None, sip_id: Optional[str] = None,) -> voip_pb2.VoipStatus:
         """
         stop a listener instance
@@ -366,17 +357,6 @@ class VtsiClient:
         response: voip_pb2.GetSessionIDResponse = self.voip_stub.GetSessionID(request=request)
         return response.session_id
 
-    # def get_manifest_ids(self) -> List[str]:
-    #     """
-    #     get all manifest_ids known to the voip manager
-    #     """
-    #     request = voip_pb2.GetManifestIDsRequest()
-    #     response: voip_pb2.GetManifestIDsResponse = self.voip_stub.GetManifestIDs(request=request)
-    #     manifest_ids = []
-    #     for manifest_id in response.manifest_ids:
-    #         manifest_ids.append(manifest_id)
-    #     return manifest_ids
-
     def shutdown_unhealthy_calls(self) -> bool:
         """
         shutdown any deployed call instances with unhealthy overall voip status
@@ -400,14 +380,6 @@ class VtsiClient:
         request = call_log_pb2.GetVoipLogRequest(call_id=call_id)
         response: call_log_pb2.GetVoipLogResponse = self.call_log_stub.GetVoipLog(request=request)
         return response
-
-    # def get_manifest_voip_log(self, manifest_id: str) -> call_log_pb2.ManifestVoipLog:
-    #     """
-    #     get the call logs of a full manifest of calls
-    #     """
-    #     request = call_log_pb2.GetManifestVoipLogRequest(manifest_id=manifest_id)
-    #     response: call_log_pb2.ManifestVoipLog = self.call_log_stub.GetManifestVoipLog(request=request)
-    #     return response
 
     def deploy_precondition_image(
         self, sip_sim_version: str, asterisk_host: str, asterisk_port: Optional[int] = None,
