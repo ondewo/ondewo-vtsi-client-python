@@ -34,6 +34,7 @@ def deploy_caller(phone_number: str) -> StartCallInstanceResponse:
     return response
 
 
+# Old method to start multiple calls, new method is more general
 # Iterating through phone number list, start the parallel calls
 
 # threads: List[Thread] = [
