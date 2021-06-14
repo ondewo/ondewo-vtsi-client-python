@@ -111,6 +111,7 @@ class VtsiClient:
                 cai_type="mirror"
             ),
             config_audio=AudioConfiguration(
+                language_code="[PLACEHOLDER]",
                 t2s_language="thorsten",
                 s2t_language="german_general",
             ),

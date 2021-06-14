@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import uuid
 
 from ondewo.vtsi.client import ConfigManager
@@ -6,35 +8,34 @@ from ondewo.vtsi.dataclasses.server_configurations_dataclasses import VtsiConfig
 from ondewo.vtsi.voip_pb2 import StartCallInstanceResponse
 
 #     SIP
-SIP_SIM_VERSION: str = "1.5.4"
+SIP_SIM_VERSION: str = "0.2.2"
 PHONE_NUMBER: str = "+1234567"
 
 #     VTSI_SERVER
 # For testing purposes 0.0.0.0 can be used
 VTSI_HOST: str = "grpc-vtsi.ondewo.com"
 VTSI_PORT: int = 443
-VTSI_SECURE: bool = False  # if true, VTSI cert is needed
-VTSI_CERT: str = ""
+VTSI_SECURE: bool = True  # if true, VTSI cert is needed
+VTSI_CERT: str = "./grpc_cert"
 #     SPEECH2TEXT
-S2T_HOST: str = ""
-S2T_PORT: int = 123
+S2T_HOST: str = "grpc-s2t.ondewo.com"
+S2T_PORT: int = 443
 S2T_TYPE: str = "ONDEWO"
-S2T_LANGUAGE: str = "example_s2t_language"
+S2T_LANGUAGE: str = "default_german"
 #     TEXT2SPEECH
-T2S_HOST: str = ""
-T2S_PORT: int = 123
+T2S_HOST: str = "grpc-t2s.ondewo.com"
+T2S_PORT: int = 443
 T2S_TYPE: str = "ONDEWO"
-T2S_LANGUAGE: str = "example_t2s_language"
+T2S_LANGUAGE: str = "kerstin"
 #     ASTERISK
-ASTERISK_HOST: str = "127.0.0.1"
+ASTERISK_HOST: str = "aim.ondewo.com"
 #     CAI
-CAI_HOST: str = "0.0.0.0"
-CAI_PORT: int = 12345
+CAI_HOST: str = "grpc-nlu.ondewo.com"
+CAI_PORT: int = 443
 #     PROJECT
-PROJECT_ID: str = "example_project_id"
+PROJECT_ID: str = "project_id"
 #  Init text is being used when the caller wants to send text to the NLU (CAI) first,
 #  for example to activate a special intent in the beginning of the conversation
-INIT_TEXT: str = "Hello"
 
 ########################################
 # Full configuration for VTSI, Asterisk, SIP, T2S, S2T modules
@@ -88,5 +89,5 @@ response: StartCallInstanceResponse = manager.client.start_caller(
     call_id=str(uuid.uuid4()),
     sip_sim_version=SIP_SIM_VERSION,
     project_id=PROJECT_ID,
-    init_text=INIT_TEXT
+    initial_intent='Default Welcome Intent'
 )

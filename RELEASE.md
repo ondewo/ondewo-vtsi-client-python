@@ -11,23 +11,6 @@
 * removed many defunct proto endpoints
 
 *****************
-## Release ONDEWO VTSI Client Python 3.0.0
-
-### Improvements
-* added initial_intent triggering functionality
-> * reformatted to align with all the other clients import styles
-> * using the most up-to-date version of logging
-
-### Breaking Changes
-> * import style has changed to be compliant with the rest of the clients
-> * grpc_certificate format has changed from PEM to JSON
-
-### Migration Guide
-* from ondewo.vtsi.client import Client => from ondewo.vtsi.client.client import Client
-* from ondewo.vtsi.client_config import ClientConfig => from ondew.vtsi.client.client_config import ClientConfig
-> * get a new grpc certificate from us in the json format
-
-*****************
 ## Release ONDEWO VTSI Client Python 2.0.1
 
 ### Improvements
