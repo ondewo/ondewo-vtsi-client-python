@@ -46,6 +46,11 @@ class VoipSessionsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceResponse.FromString,
                 )
+        self.StartMultipleCallInstances = channel.unary_unary(
+                '/ondewo.nlu.VoipSessions/StartMultipleCallInstances',
+                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesResponse.FromString,
+                )
         self.GetCallIDs = channel.unary_unary(
                 '/ondewo.nlu.VoipSessions/GetCallIDs',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsRequest.SerializeToString,
@@ -134,6 +139,13 @@ class VoipSessionsServicer(object):
 
     def StopCallInstance(self, request, context):
         """stop/kill an ondewo-sip-sim listener instance
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StartMultipleCallInstances(self, request, context):
+        """start an ondewo-sip-sim instance that listens for calls with the given parameters
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -228,6 +240,11 @@ def add_VoipSessionsServicer_to_server(servicer, server):
                     servicer.StopCallInstance,
                     request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceResponse.SerializeToString,
+            ),
+            'StartMultipleCallInstances': grpc.unary_unary_rpc_method_handler(
+                    servicer.StartMultipleCallInstances,
+                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesResponse.SerializeToString,
             ),
             'GetCallIDs': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCallIDs,
@@ -375,6 +392,23 @@ class VoipSessions(object):
         return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StopCallInstance',
             ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StartMultipleCallInstances(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StartMultipleCallInstances',
+            ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

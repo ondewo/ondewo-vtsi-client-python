@@ -1,13 +1,10 @@
-import threading
 import uuid
-from threading import Thread
-from typing import List
 
 from ondewo.vtsi.client import VtsiClient
-from ondewo.vtsi.voip_pb2 import StartCallInstanceResponse
+from ondewo.vtsi.voip_pb2 import StartCallInstanceResponse, StartMultipleCallInstancesResponse
 
 #     SIP
-SIP_SIM_VERSION: str = "1.5.4"
+SIP_SIM_VERSION: str = "latest"
 
 #     VTSI_SERVER
 # For testing purposes 0.0.0.0 can be used
@@ -37,10 +34,20 @@ def deploy_caller(phone_number: str) -> StartCallInstanceResponse:
     return response
 
 
+# Old method to start multiple calls, new method is more general
 # Iterating through phone number list, start the parallel calls
-threads: List[Thread] = [
-    threading.Thread(target=deploy_caller, args=[phone_number])
-    for phone_number in PHONE_NUMBERS
-]
-for thread in threads:
-    thread.start()
+
+# threads: List[Thread] = [
+#     threading.Thread(target=deploy_caller, args=[phone_number])
+#     for phone_number in PHONE_NUMBERS
+# ]
+# for thread in threads:
+#     thread.start()
+
+# Start multiple call instances via endpoint
+response: StartMultipleCallInstancesResponse = client.start_multiple_call_instances(
+    phone_numbers_by_call_ids={'1': PHONE_NUMBERS[0], '2': PHONE_NUMBERS[1]},
+    call_ids=['1', '2'],
+    sip_sim_version=SIP_SIM_VERSION,
+    project_id=PROJECT_ID,
+)

@@ -13,14 +13,13 @@
 # limitations under the License.
 
 import os
-import time
 from dataclasses import dataclass
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 
 import grpc
+
 from ondewo.nlu import context_pb2
 from ondewo.vtsi import call_log_pb2, call_log_pb2_grpc, voip_pb2, voip_pb2_grpc
-
 from ondewo.vtsi.dataclasses.server_configurations_dataclasses import (
     CaiConfiguration,
     VtsiConfiguration,
@@ -204,6 +203,7 @@ class VtsiClient:
                        init_text: Optional[str] = None,
                        initial_intent: Optional[str] = None,
                        contexts: Optional[List[context_pb2.Context]] = None,
+                       sip_name: Optional[str] = None,
                        ) -> voip_pb2.StartCallInstanceResponse:
         """
         start an ondewo-sip-sim instance to listen for calls
@@ -217,6 +217,7 @@ class VtsiClient:
             init_text=init_text,
             initial_intent=initial_intent,
             contexts=contexts,
+            sip_name=sip_name,
         )
         print("starting listener")
         response: voip_pb2.StartCallInstanceResponse = self.voip_stub.StartCallInstance(request=request)
@@ -246,13 +247,59 @@ class VtsiClient:
         response: voip_pb2.StopCallInstanceResponse = self.voip_stub.StopCallInstance(request=request)
         return response.success  # type: ignore
 
-    def get_manifest_status(self, manifest_id: str,) -> voip_pb2.VoipManifestStatus:
-        """
-        get the status of all caller and listener instances of a manifest, as well as the status of associated services
-        """
-        request = voip_pb2.VoipManifestStatusRequest(manifest_id=manifest_id)
-        print("getting manifest status")
-        response: voip_pb2.VoipManifestStatus = self.voip_stub.GetManifestStatus(request=request)
+    def start_multiple_call_instances(
+            self,
+            phone_numbers_by_call_ids: Dict[str, str],
+            call_ids: List[str],
+            sip_sim_version: str,
+            project_id: str,
+            init_text: Optional[str] = None,
+            initial_intent: Optional[str] = None,
+            contexts: Optional[List[context_pb2.Context]] = None,
+            sip_names_by_call_ids: Optional[Dict[str, str]] = None,
+            sip_prefix: Optional[str] = None,
+            password_dictionary: Optional[Dict] = None,
+    ) -> voip_pb2.StartMultipleCallInstancesResponse:
+        call_request_list: List[Any] = []
+        for call_id in call_ids:
+            sip_name = sip_names_by_call_ids[
+                call_id] if sip_names_by_call_ids and call_id in sip_names_by_call_ids else None
+            if call_id in phone_numbers_by_call_ids:
+                request = CallConfig.get_call_proto_request(
+                    manager=self.manager,
+                    call_id=call_id,
+                    sip_sim_version=sip_sim_version,
+                    phone_number=phone_numbers_by_call_ids[call_id],
+                    project_id=project_id,
+                    init_text=init_text,
+                    initial_intent=initial_intent,
+                    contexts=contexts or self.manager.config_cai.cai_contexts,
+                    sip_name=sip_name,
+                    sip_prefix=sip_prefix,
+                    password_dictionary=password_dictionary,
+                )
+                print(f"start caller request added for sip_name {sip_name}")
+            else:
+                request = CallConfig.get_call_proto_request(
+                    manager=self.manager,
+                    call_id=call_id,
+                    sip_sim_version=sip_sim_version,
+                    project_id=project_id,
+                    init_text=init_text,
+                    initial_intent=initial_intent,
+                    contexts=contexts or self.manager.config_cai.cai_contexts,
+                    sip_name=sip_name,
+                )
+                print(f"start listener request added for sip_name {sip_name}")
+            call_request_list.append(request)
+
+        print("performing multiple calls")
+        request_to_pass = voip_pb2.StartMultipleCallInstancesRequest(
+            requests=call_request_list
+        )
+        response: voip_pb2.StartMultipleCallInstancesResponse = \
+            self.voip_stub.StartMultipleCallInstances(request=request_to_pass)
+
         return response
 
     def get_instance_status(self, call_id: Optional[str] = None, sip_id: Optional[str] = None,) -> voip_pb2.VoipStatus:
@@ -310,17 +357,6 @@ class VtsiClient:
         response: voip_pb2.GetSessionIDResponse = self.voip_stub.GetSessionID(request=request)
         return response.session_id
 
-    def get_manifest_ids(self) -> List[str]:
-        """
-        get all manifest_ids known to the voip manager
-        """
-        request = voip_pb2.GetManifestIDsRequest()
-        response: voip_pb2.GetManifestIDsResponse = self.voip_stub.GetManifestIDs(request=request)
-        manifest_ids = []
-        for manifest_id in response.manifest_ids:
-            manifest_ids.append(manifest_id)
-        return manifest_ids
-
     def shutdown_unhealthy_calls(self) -> bool:
         """
         shutdown any deployed call instances with unhealthy overall voip status
@@ -343,14 +379,6 @@ class VtsiClient:
         """
         request = call_log_pb2.GetVoipLogRequest(call_id=call_id)
         response: call_log_pb2.GetVoipLogResponse = self.call_log_stub.GetVoipLog(request=request)
-        return response
-
-    def get_manifest_voip_log(self, manifest_id: str) -> call_log_pb2.ManifestVoipLog:
-        """
-        get the call logs of a full manifest of calls
-        """
-        request = call_log_pb2.GetManifestVoipLogRequest(manifest_id=manifest_id)
-        response: call_log_pb2.ManifestVoipLog = self.call_log_stub.GetManifestVoipLog(request=request)
         return response
 
     def deploy_precondition_image(
