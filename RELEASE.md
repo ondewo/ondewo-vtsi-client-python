@@ -1,5 +1,11 @@
 # Release History
 *****************
+## Release ONDEWO VTSI Client Python 2.1.1
+
+### Improvements
+* pushed to pypi
+
+*****************
 ## Release ONDEWO VTSI Client Python 2.1.0
 
 ### Improvements
