@@ -41,4 +41,15 @@ generate_specific_protos:
 		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${ONDEWO_APIS_DIR} -I${CUSTOM_APIS_DIR_2} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
 	done
 # }}}
+push_to_pypi: build_package upload_package clear_package_data
+	echo 'pushed to pypi : )'
+
+build_package:
+	python setup.py sdist bdist_wheel
+
+upload_package:
+	twine upload -r pypi dist/*
+
+clear_package_data:
+	rm -rf build dist ondewo_vtsi_client_python.egg-info
 # vim:foldmethod=marker:foldlevel=0
