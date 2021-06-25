@@ -51,5 +51,5 @@ upload_package:
 	twine upload -r pypi dist/*
 
 clear_package_data:
-	rm -rf build dist ondewo_logging.egg-info
+	rm -rf build dist ondewo_vtsi_client_python.egg-info
 # vim:foldmethod=marker:foldlevel=0

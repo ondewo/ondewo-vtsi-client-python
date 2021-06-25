@@ -1,5 +1,13 @@
 # Release History
 *****************
+## Release ONDEWO VTSI Client Python 2.2.0
+
+### Improvements
+* endpoint added to make multiple calls
+* new multiple calls example added
+* deleted manifest related code
+
+*****************
 ## Release ONDEWO VTSI Client Python 2.1.1
 
 ### Improvements
