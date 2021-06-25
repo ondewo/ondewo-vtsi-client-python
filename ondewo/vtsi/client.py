@@ -278,7 +278,8 @@ class VtsiClient:
                     sip_prefix=sip_prefix,
                     password_dictionary=password_dictionary,
                 )
-                print(f"start caller request added for sip_name {sip_name}")
+                print(f"start caller request added for sip_name {sip_name} to call "
+                      f"phone number {phone_numbers_by_call_ids[call_id]}")
             else:
                 request = CallConfig.get_call_proto_request(
                     manager=self.manager,
@@ -289,6 +290,7 @@ class VtsiClient:
                     initial_intent=initial_intent,
                     contexts=contexts or self.manager.config_cai.cai_contexts,
                     sip_name=sip_name,
+                    password_dictionary=password_dictionary,
                 )
                 print(f"start listener request added for sip_name {sip_name}")
             call_request_list.append(request)
