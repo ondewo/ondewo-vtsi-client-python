@@ -4,7 +4,7 @@ from ondewo.vtsi.client import VtsiClient
 from ondewo.vtsi.voip_pb2 import StartCallInstanceResponse, StartMultipleCallInstancesResponse
 
 #     SIP
-SIP_SIM_VERSION: str = "latest"
+SIP_SIM_VERSION: str = "1.5.4"
 
 #     VTSI_SERVER
 # For testing purposes 0.0.0.0 can be used

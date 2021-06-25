@@ -8,7 +8,7 @@ with open("requirements.txt") as f:
 
 setuptools.setup(
     name="ondewo-vtsi-client",
-    version="2.1.1",
+    version="2.2.0",
     author="Ondewo GbmH",
     author_email="info@ondewo.com",
     description="sends deployment commands to the Ondewo VTSI Server",
