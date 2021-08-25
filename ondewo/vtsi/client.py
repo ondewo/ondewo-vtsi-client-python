@@ -264,6 +264,14 @@ class VtsiClient:
         for call_id in call_ids:
             sip_name = sip_names_by_call_ids[
                 call_id] if sip_names_by_call_ids and call_id in sip_names_by_call_ids else None
+
+            if contexts_by_call_ids and call_id in contexts_by_call_ids:
+                contexts = contexts_by_call_ids[call_id]
+            elif self.manager.config_cai.cai_contexts:
+                contexts = self.manager.config_cai.cai_contexts
+            else:
+                contexts = None
+
             if call_id in phone_numbers_by_call_ids:
                 request = CallConfig.get_call_proto_request(
                     manager=self.manager,
@@ -273,7 +281,7 @@ class VtsiClient:
                     project_id=project_id,
                     init_text=init_text,
                     initial_intent=initial_intent,
-                    contexts=contexts_by_call_ids[call_id] or self.manager.config_cai.cai_contexts,
+                    contexts=contexts,
                     sip_name=sip_name,
                     sip_prefix=sip_prefix,
                     password_dictionary=password_dictionary,
@@ -288,7 +296,7 @@ class VtsiClient:
                     project_id=project_id,
                     init_text=init_text,
                     initial_intent=initial_intent,
-                    contexts=contexts_by_call_ids[call_id] or self.manager.config_cai.cai_contexts,
+                    contexts=contexts,
                     sip_name=sip_name,
                     password_dictionary=password_dictionary,
                 )
