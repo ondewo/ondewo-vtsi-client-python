@@ -137,14 +137,14 @@ class CallConfig:
                 host=manager.config_audio.s2t_host,
                 port=manager.config_audio.s2t_port,
                 service_identifier=manager.config_audio.s2t_type,
-                grpc_cert=manager.config_audio.s2t_grpc_gert,
+                grpc_cert=manager.config_audio.s2t_grpc_cert,
             ),
             tts_config=ServiceConfig(
                 language_code=manager.config_audio.t2s_language,
                 host=manager.config_audio.t2s_host,
                 port=manager.config_audio.t2s_port,
                 service_identifier=manager.config_audio.t2s_type,
-                grpc_cert=manager.config_audio.t2s_grpc_gert,
+                grpc_cert=manager.config_audio.t2s_grpc_cert,
             ),
         )
 
