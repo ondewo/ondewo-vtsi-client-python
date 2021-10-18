@@ -34,13 +34,13 @@ class AudioConfiguration:
     t2s_host: str = "grpc-t2s.ondewo.com"
     t2s_port: int = 443
     t2s_type: str = "ONDEWO"
-    t2s_grpc_gert: Optional[str] = None
+    t2s_grpc_cert: Optional[str] = None
 
     # speech-to-text
     s2t_host: str = "grpc-s2t.ondewo.com"
     s2t_port: int = 443
     s2t_type: str = "ONDEWO"
-    s2t_grpc_gert: Optional[str] = None
+    s2t_grpc_cert: Optional[str] = None
 
     language_code: Optional[str] = None
     t2s_language: Optional[str] = None
