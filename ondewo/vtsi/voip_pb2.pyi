@@ -150,6 +150,7 @@ class ServiceConfig(google___protobuf___message___Message):
     port = ... # type: builtin___int
     service_identifier = ... # type: typing___Text
     language_code = ... # type: typing___Text
+    grpc_cert = ... # type: typing___Text
 
     def __init__(self,
         *,
@@ -157,6 +158,7 @@ class ServiceConfig(google___protobuf___message___Message):
         port : typing___Optional[builtin___int] = None,
         service_identifier : typing___Optional[typing___Text] = None,
         language_code : typing___Optional[typing___Text] = None,
+        grpc_cert : typing___Optional[typing___Text] = None,
         ) -> None: ...
     if sys.version_info >= (3,):
         @classmethod
@@ -166,7 +168,7 @@ class ServiceConfig(google___protobuf___message___Message):
         def FromString(cls, s: typing___Union[builtin___bytes, builtin___buffer, builtin___unicode]) -> ServiceConfig: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"host",b"host",u"language_code",b"language_code",u"port",b"port",u"service_identifier",b"service_identifier"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"grpc_cert",b"grpc_cert",u"host",b"host",u"language_code",b"language_code",u"port",b"port",u"service_identifier",b"service_identifier"]) -> None: ...
 global___ServiceConfig = ServiceConfig
 
 class VoipManifestResponse(google___protobuf___message___Message):
