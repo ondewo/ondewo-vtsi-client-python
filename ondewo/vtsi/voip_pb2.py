@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16ondewo/vtsi/voip.proto\x12\nondewo.nlu\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x18ondewo/nlu/context.proto\x1a\x1cgoogle/protobuf/struct.proto\"\x81\x01\n\x0cVoipManifest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\x12%\n\x08\x63ontexts\x18\x02 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x35\n\x07\x63\x61llers\x18\t \x03(\x0b\x32$.ondewo.nlu.StartCallInstanceRequest\"&\n\x0fManifestRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"T\n\x13RunManifestResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.ManifestRequest\x12\x0f\n\x07started\x18\x02 \x01(\x08\"\x97\x01\n\x16RemoveManifestResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.ManifestRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12>\n\x10\x63\x61ller_responses\x18\t \x03(\x0b\x32$.ondewo.nlu.StopCallInstanceResponse\"^\n\rServiceConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x1a\n\x12service_identifier\x18\x03 \x01(\t\x12\x15\n\rlanguage_code\x18\x05 \x01(\t\"R\n\x14VoipManifestResponse\x12)\n\x07request\x18\x01 \x01(\x0b\x32\x18.ondewo.nlu.VoipManifest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"\xdd\x03\n\x18StartCallInstanceRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x17\n\x0fsip_sim_version\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\x14\n\x0cphone_number\x18\x04 \x01(\t\x12%\n\x08\x63ontexts\x18\x05 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x11\n\tinit_text\x18\x06 \x01(\t\x12\x32\n\x0f\x61sterisk_config\x18\x07 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ncai_config\x18\x08 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\nstt_config\x18\t \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ntts_config\x18\x0b \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12\x12\n\nsip_prefix\x18\x0c \x01(\t\x12\x10\n\x08sip_name\x18\r \x01(\t\x12\x34\n\x13password_dictionary\x18\x0e \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x16\n\x0einitial_intent\x18\x0f \x01(\t\"c\n\x19StartCallInstanceResponse\x12\x35\n\x07request\x18\x01 \x01(\x0b\x32$.ondewo.nlu.StartCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"[\n!StartMultipleCallInstancesRequest\x12\x36\n\x08requests\x18\x01 \x03(\x0b\x32$.ondewo.nlu.StartCallInstanceRequest\"u\n\"StartMultipleCallInstancesResponse\x12>\n\x07request\x18\x01 \x01(\x0b\x32-.ondewo.nlu.StartMultipleCallInstancesRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"D\n\x17StopCallInstanceRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"v\n\x18StopCallInstanceResponse\x12\x34\n\x07request\x18\x01 \x01(\x0b\x32#.ondewo.nlu.StopCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12\x13\n\x0blog_message\x18\x03 \x01(\t\"0\n\x19VoipManifestStatusRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"z\n\x12VoipManifestStatus\x12\x36\n\x07request\x18\x01 \x01(\x0b\x32%.ondewo.nlu.VoipManifestStatusRequest\x12,\n\x0c\x63\x61lls_status\x18\x02 \x03(\x0b\x32\x16.ondewo.nlu.VoipStatus\"A\n\x14GetVoipStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"\xf0\x01\n\nVoipStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\x12\x32\n\x0fstatus_asterisk\x18\x03 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_cai\x18\x04 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_stt\x18\x05 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_tts\x18\x06 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\"2\n\rServiceStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\"_\n\x1bUpdateServicesStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x12\x15\n\x0bmanifest_id\x18\x03 \x01(\tH\x00\x42\x04\n\x02id\"E\n\x1cUpdateServicesStatusResponse\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"h\n\x19\x44\x65ployPreconditionRequest\x12\x17\n\x0fsip_sim_version\x18\x01 \x01(\t\x12\x32\n\x0f\x61sterisk_config\x18\x02 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\"-\n\x1a\x44\x65ployPreconditionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\">\n\x15GetManifestIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\".\n\x16GetManifestIDsResponse\x12\x14\n\x0cmanifest_ids\x18\x01 \x03(\t\":\n\x11GetCallIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"&\n\x12GetCallIDsResponse\x12\x10\n\x08\x63\x61ll_ids\x18\x01 \x03(\t\"&\n\x13GetSessionIDRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\";\n\x14GetSessionIDResponse\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\t\"F\n\x1dShutdownUnhealthyCallsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"1\n\x1eShutdownUnhealthyCallsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xa0\x12\n\x0cVoipSessions\x12\x8d\x01\n\x0cLoadManifest\x12\x18.ondewo.nlu.VoipManifest\x1a .ondewo.nlu.VoipManifestResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:GiveManifest:\x01*\x12\x8d\x01\n\x0bRunManifest\x12\x1b.ondewo.nlu.ManifestRequest\x1a\x1f.ondewo.nlu.RunManifestResponse\"@\x82\xd3\xe4\x93\x02:\"5/v2/{session=projects/*/agent/sessions/*}:RunManifest:\x01*\x12\x96\x01\n\x0eRemoveManifest\x12\x1b.ondewo.nlu.ManifestRequest\x1a\".ondewo.nlu.RemoveManifestResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:RemoveManifest:\x01*\x12\x9c\x01\n\x0eGetManifestIDs\x12!.ondewo.nlu.GetManifestIDsRequest\x1a\".ondewo.nlu.GetManifestIDsResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:GetManifestIDs:\x01*\x12\xa8\x01\n\x11StartCallInstance\x12$.ondewo.nlu.StartCallInstanceRequest\x1a%.ondewo.nlu.StartCallInstanceResponse\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:StartCallInstance:\x01*\x12\xa4\x01\n\x10StopCallInstance\x12#.ondewo.nlu.StopCallInstanceRequest\x1a$.ondewo.nlu.StopCallInstanceResponse\"E\x82\xd3\xe4\x93\x02?\":/v2/{session=projects/*/agent/sessions/*}:StopCallInstance:\x01*\x12\xcc\x01\n\x1aStartMultipleCallInstances\x12-.ondewo.nlu.StartMultipleCallInstancesRequest\x1a..ondewo.nlu.StartMultipleCallInstancesResponse\"O\x82\xd3\xe4\x93\x02I\"D/v2/{session=projects/*/agent/sessions/*}:StartMultipleCallInstances:\x01*\x12\x8c\x01\n\nGetCallIDs\x12\x1d.ondewo.nlu.GetCallIDsRequest\x1a\x1e.ondewo.nlu.GetCallIDsResponse\"?\x82\xd3\xe4\x93\x02\x39\"4/v2/{session=projects/*/agent/sessions/*}:GetCallIDs:\x01*\x12\x94\x01\n\x0cGetSessionID\x12\x1f.ondewo.nlu.GetSessionIDRequest\x1a .ondewo.nlu.GetSessionIDResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:GetSessionID:\x01*\x12\xbc\x01\n\x16ShutdownUnhealthyCalls\x12).ondewo.nlu.ShutdownUnhealthyCallsRequest\x1a*.ondewo.nlu.ShutdownUnhealthyCallsResponse\"K\x82\xd3\xe4\x93\x02\x45\"@/v2/{session=projects/*/agent/sessions/*}:ShutdownUnhealthyCalls:\x01*\x12\xa2\x01\n\x11GetManifestStatus\x12%.ondewo.nlu.VoipManifestStatusRequest\x1a\x1e.ondewo.nlu.VoipManifestStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetManifestStatus:\x01*\x12\x95\x01\n\x11GetInstanceStatus\x12 .ondewo.nlu.GetVoipStatusRequest\x1a\x16.ondewo.nlu.VoipStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetInstanceStatus:\x01*\x12\xb4\x01\n\x14UpdateServicesStatus\x12\'.ondewo.nlu.UpdateServicesStatusRequest\x1a(.ondewo.nlu.UpdateServicesStatusResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*\x12\xbd\x01\n!DeployPreconditionForWorkingSetup\x12%.ondewo.nlu.DeployPreconditionRequest\x1a&.ondewo.nlu.DeployPreconditionResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*b\x06proto3'
+  serialized_pb=b'\n\x16ondewo/vtsi/voip.proto\x12\nondewo.nlu\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x18ondewo/nlu/context.proto\x1a\x1cgoogle/protobuf/struct.proto\"\x81\x01\n\x0cVoipManifest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\x12%\n\x08\x63ontexts\x18\x02 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x35\n\x07\x63\x61llers\x18\t \x03(\x0b\x32$.ondewo.nlu.StartCallInstanceRequest\"&\n\x0fManifestRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"T\n\x13RunManifestResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.ManifestRequest\x12\x0f\n\x07started\x18\x02 \x01(\x08\"\x97\x01\n\x16RemoveManifestResponse\x12,\n\x07request\x18\x01 \x01(\x0b\x32\x1b.ondewo.nlu.ManifestRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12>\n\x10\x63\x61ller_responses\x18\t \x03(\x0b\x32$.ondewo.nlu.StopCallInstanceResponse\"q\n\rServiceConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x1a\n\x12service_identifier\x18\x03 \x01(\t\x12\x15\n\rlanguage_code\x18\x05 \x01(\t\x12\x11\n\tgrpc_cert\x18\x06 \x01(\t\"R\n\x14VoipManifestResponse\x12)\n\x07request\x18\x01 \x01(\x0b\x32\x18.ondewo.nlu.VoipManifest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"\xdd\x03\n\x18StartCallInstanceRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x17\n\x0fsip_sim_version\x18\x02 \x01(\t\x12\x12\n\nproject_id\x18\x03 \x01(\t\x12\x14\n\x0cphone_number\x18\x04 \x01(\t\x12%\n\x08\x63ontexts\x18\x05 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x11\n\tinit_text\x18\x06 \x01(\t\x12\x32\n\x0f\x61sterisk_config\x18\x07 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ncai_config\x18\x08 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\nstt_config\x18\t \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12-\n\ntts_config\x18\x0b \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\x12\x12\n\nsip_prefix\x18\x0c \x01(\t\x12\x10\n\x08sip_name\x18\r \x01(\t\x12\x34\n\x13password_dictionary\x18\x0e \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x16\n\x0einitial_intent\x18\x0f \x01(\t\"c\n\x19StartCallInstanceResponse\x12\x35\n\x07request\x18\x01 \x01(\x0b\x32$.ondewo.nlu.StartCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"[\n!StartMultipleCallInstancesRequest\x12\x36\n\x08requests\x18\x01 \x03(\x0b\x32$.ondewo.nlu.StartCallInstanceRequest\"u\n\"StartMultipleCallInstancesResponse\x12>\n\x07request\x18\x01 \x01(\x0b\x32-.ondewo.nlu.StartMultipleCallInstancesRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"D\n\x17StopCallInstanceRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"v\n\x18StopCallInstanceResponse\x12\x34\n\x07request\x18\x01 \x01(\x0b\x32#.ondewo.nlu.StopCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12\x13\n\x0blog_message\x18\x03 \x01(\t\"0\n\x19VoipManifestStatusRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"z\n\x12VoipManifestStatus\x12\x36\n\x07request\x18\x01 \x01(\x0b\x32%.ondewo.nlu.VoipManifestStatusRequest\x12,\n\x0c\x63\x61lls_status\x18\x02 \x03(\x0b\x32\x16.ondewo.nlu.VoipStatus\"A\n\x14GetVoipStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"\xf0\x01\n\nVoipStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\x12\x32\n\x0fstatus_asterisk\x18\x03 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_cai\x18\x04 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_stt\x18\x05 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\x12-\n\nstatus_tts\x18\x06 \x01(\x0b\x32\x19.ondewo.nlu.ServiceStatus\"2\n\rServiceStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\"_\n\x1bUpdateServicesStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x12\x15\n\x0bmanifest_id\x18\x03 \x01(\tH\x00\x42\x04\n\x02id\"E\n\x1cUpdateServicesStatusResponse\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"h\n\x19\x44\x65ployPreconditionRequest\x12\x17\n\x0fsip_sim_version\x18\x01 \x01(\t\x12\x32\n\x0f\x61sterisk_config\x18\x02 \x01(\x0b\x32\x19.ondewo.nlu.ServiceConfig\"-\n\x1a\x44\x65ployPreconditionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\">\n\x15GetManifestIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\".\n\x16GetManifestIDsResponse\x12\x14\n\x0cmanifest_ids\x18\x01 \x03(\t\":\n\x11GetCallIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"&\n\x12GetCallIDsResponse\x12\x10\n\x08\x63\x61ll_ids\x18\x01 \x03(\t\"&\n\x13GetSessionIDRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\";\n\x14GetSessionIDResponse\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\t\"F\n\x1dShutdownUnhealthyCallsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"1\n\x1eShutdownUnhealthyCallsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xa0\x12\n\x0cVoipSessions\x12\x8d\x01\n\x0cLoadManifest\x12\x18.ondewo.nlu.VoipManifest\x1a .ondewo.nlu.VoipManifestResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:GiveManifest:\x01*\x12\x8d\x01\n\x0bRunManifest\x12\x1b.ondewo.nlu.ManifestRequest\x1a\x1f.ondewo.nlu.RunManifestResponse\"@\x82\xd3\xe4\x93\x02:\"5/v2/{session=projects/*/agent/sessions/*}:RunManifest:\x01*\x12\x96\x01\n\x0eRemoveManifest\x12\x1b.ondewo.nlu.ManifestRequest\x1a\".ondewo.nlu.RemoveManifestResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:RemoveManifest:\x01*\x12\x9c\x01\n\x0eGetManifestIDs\x12!.ondewo.nlu.GetManifestIDsRequest\x1a\".ondewo.nlu.GetManifestIDsResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:GetManifestIDs:\x01*\x12\xa8\x01\n\x11StartCallInstance\x12$.ondewo.nlu.StartCallInstanceRequest\x1a%.ondewo.nlu.StartCallInstanceResponse\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:StartCallInstance:\x01*\x12\xa4\x01\n\x10StopCallInstance\x12#.ondewo.nlu.StopCallInstanceRequest\x1a$.ondewo.nlu.StopCallInstanceResponse\"E\x82\xd3\xe4\x93\x02?\":/v2/{session=projects/*/agent/sessions/*}:StopCallInstance:\x01*\x12\xcc\x01\n\x1aStartMultipleCallInstances\x12-.ondewo.nlu.StartMultipleCallInstancesRequest\x1a..ondewo.nlu.StartMultipleCallInstancesResponse\"O\x82\xd3\xe4\x93\x02I\"D/v2/{session=projects/*/agent/sessions/*}:StartMultipleCallInstances:\x01*\x12\x8c\x01\n\nGetCallIDs\x12\x1d.ondewo.nlu.GetCallIDsRequest\x1a\x1e.ondewo.nlu.GetCallIDsResponse\"?\x82\xd3\xe4\x93\x02\x39\"4/v2/{session=projects/*/agent/sessions/*}:GetCallIDs:\x01*\x12\x94\x01\n\x0cGetSessionID\x12\x1f.ondewo.nlu.GetSessionIDRequest\x1a .ondewo.nlu.GetSessionIDResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:GetSessionID:\x01*\x12\xbc\x01\n\x16ShutdownUnhealthyCalls\x12).ondewo.nlu.ShutdownUnhealthyCallsRequest\x1a*.ondewo.nlu.ShutdownUnhealthyCallsResponse\"K\x82\xd3\xe4\x93\x02\x45\"@/v2/{session=projects/*/agent/sessions/*}:ShutdownUnhealthyCalls:\x01*\x12\xa2\x01\n\x11GetManifestStatus\x12%.ondewo.nlu.VoipManifestStatusRequest\x1a\x1e.ondewo.nlu.VoipManifestStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetManifestStatus:\x01*\x12\x95\x01\n\x11GetInstanceStatus\x12 .ondewo.nlu.GetVoipStatusRequest\x1a\x16.ondewo.nlu.VoipStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetInstanceStatus:\x01*\x12\xb4\x01\n\x14UpdateServicesStatus\x12\'.ondewo.nlu.UpdateServicesStatusRequest\x1a(.ondewo.nlu.UpdateServicesStatusResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*\x12\xbd\x01\n!DeployPreconditionForWorkingSetup\x12%.ondewo.nlu.DeployPreconditionRequest\x1a&.ondewo.nlu.DeployPreconditionResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*b\x06proto3'
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,ondewo_dot_nlu_dot_context__pb2.DESCRIPTOR,google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,])
 
@@ -229,6 +229,13 @@ _SERVICECONFIG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='grpc_cert', full_name='ondewo.nlu.ServiceConfig.grpc_cert', index=4,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -242,7 +249,7 @@ _SERVICECONFIG = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=565,
-  serialized_end=659,
+  serialized_end=678,
 )
 
 
@@ -280,8 +287,8 @@ _VOIPMANIFESTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=661,
-  serialized_end=743,
+  serialized_start=680,
+  serialized_end=762,
 )
 
 
@@ -403,8 +410,8 @@ _STARTCALLINSTANCEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=746,
-  serialized_end=1223,
+  serialized_start=765,
+  serialized_end=1242,
 )
 
 
@@ -442,8 +449,8 @@ _STARTCALLINSTANCERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1225,
-  serialized_end=1324,
+  serialized_start=1244,
+  serialized_end=1343,
 )
 
 
@@ -474,8 +481,8 @@ _STARTMULTIPLECALLINSTANCESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1326,
-  serialized_end=1417,
+  serialized_start=1345,
+  serialized_end=1436,
 )
 
 
@@ -513,8 +520,8 @@ _STARTMULTIPLECALLINSTANCESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1419,
-  serialized_end=1536,
+  serialized_start=1438,
+  serialized_end=1555,
 )
 
 
@@ -557,8 +564,8 @@ _STOPCALLINSTANCEREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1538,
-  serialized_end=1606,
+  serialized_start=1557,
+  serialized_end=1625,
 )
 
 
@@ -603,8 +610,8 @@ _STOPCALLINSTANCERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1608,
-  serialized_end=1726,
+  serialized_start=1627,
+  serialized_end=1745,
 )
 
 
@@ -635,8 +642,8 @@ _VOIPMANIFESTSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1728,
-  serialized_end=1776,
+  serialized_start=1747,
+  serialized_end=1795,
 )
 
 
@@ -674,8 +681,8 @@ _VOIPMANIFESTSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1778,
-  serialized_end=1900,
+  serialized_start=1797,
+  serialized_end=1919,
 )
 
 
@@ -718,8 +725,8 @@ _GETVOIPSTATUSREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1902,
-  serialized_end=1967,
+  serialized_start=1921,
+  serialized_end=1986,
 )
 
 
@@ -785,8 +792,8 @@ _VOIPSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1970,
-  serialized_end=2210,
+  serialized_start=1989,
+  serialized_end=2229,
 )
 
 
@@ -824,8 +831,8 @@ _SERVICESTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2212,
-  serialized_end=2262,
+  serialized_start=2231,
+  serialized_end=2281,
 )
 
 
@@ -875,8 +882,8 @@ _UPDATESERVICESSTATUSREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=2264,
-  serialized_end=2359,
+  serialized_start=2283,
+  serialized_end=2378,
 )
 
 
@@ -907,8 +914,8 @@ _UPDATESERVICESSTATUSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2361,
-  serialized_end=2430,
+  serialized_start=2380,
+  serialized_end=2449,
 )
 
 
@@ -946,8 +953,8 @@ _DEPLOYPRECONDITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2432,
-  serialized_end=2536,
+  serialized_start=2451,
+  serialized_end=2555,
 )
 
 
@@ -978,8 +985,8 @@ _DEPLOYPRECONDITIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2538,
-  serialized_end=2583,
+  serialized_start=2557,
+  serialized_end=2602,
 )
 
 
@@ -1010,8 +1017,8 @@ _GETMANIFESTIDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2585,
-  serialized_end=2647,
+  serialized_start=2604,
+  serialized_end=2666,
 )
 
 
@@ -1042,8 +1049,8 @@ _GETMANIFESTIDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2649,
-  serialized_end=2695,
+  serialized_start=2668,
+  serialized_end=2714,
 )
 
 
@@ -1074,8 +1081,8 @@ _GETCALLIDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2697,
-  serialized_end=2755,
+  serialized_start=2716,
+  serialized_end=2774,
 )
 
 
@@ -1106,8 +1113,8 @@ _GETCALLIDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2757,
-  serialized_end=2795,
+  serialized_start=2776,
+  serialized_end=2814,
 )
 
 
@@ -1138,8 +1145,8 @@ _GETSESSIONIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2797,
-  serialized_end=2835,
+  serialized_start=2816,
+  serialized_end=2854,
 )
 
 
@@ -1177,8 +1184,8 @@ _GETSESSIONIDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2837,
-  serialized_end=2896,
+  serialized_start=2856,
+  serialized_end=2915,
 )
 
 
@@ -1209,8 +1216,8 @@ _SHUTDOWNUNHEALTHYCALLSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2898,
-  serialized_end=2968,
+  serialized_start=2917,
+  serialized_end=2987,
 )
 
 
@@ -1241,8 +1248,8 @@ _SHUTDOWNUNHEALTHYCALLSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2970,
-  serialized_end=3019,
+  serialized_start=2989,
+  serialized_end=3038,
 )
 
 _VOIPMANIFEST.fields_by_name['contexts'].message_type = ondewo_dot_nlu_dot_context__pb2._CONTEXT
@@ -1536,8 +1543,8 @@ _VOIPSESSIONS = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=3022,
-  serialized_end=5358,
+  serialized_start=3041,
+  serialized_end=5377,
   methods=[
   _descriptor.MethodDescriptor(
     name='LoadManifest',
