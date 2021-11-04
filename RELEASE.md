@@ -1,5 +1,17 @@
 # Release History
 *****************
+## Release ONDEWO VTSI Client Python 2.3.0
+
+### Improvements
+
+* different contexts can be used for each call in make multiple calls endpoint
+* grpc_cert fields added to stt, tts and nlu configs
+
+### Bug Fixes
+
+* added nlu-client and sip-client as dependencies
+
+*****************
 ## Release ONDEWO VTSI Client Python 2.2.0
 
 ### Improvements
