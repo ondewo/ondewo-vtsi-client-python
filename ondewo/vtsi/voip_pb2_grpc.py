@@ -145,7 +145,7 @@ class VoipSessionsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StartMultipleCallInstances(self, request, context):
-        """start multiple ondewo-sip-sim instances, callers and/or listeners
+        """start an ondewo-sip-sim instance that listens for calls with the given parameters
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

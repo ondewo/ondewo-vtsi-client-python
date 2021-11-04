@@ -34,13 +34,11 @@ class AudioConfiguration:
     t2s_host: str = "grpc-t2s.ondewo.com"
     t2s_port: int = 443
     t2s_type: str = "ONDEWO"
-    t2s_grpc_cert: Optional[str] = None
 
     # speech-to-text
     s2t_host: str = "grpc-s2t.ondewo.com"
     s2t_port: int = 443
     s2t_type: str = "ONDEWO"
-    s2t_grpc_cert: Optional[str] = None
 
     language_code: Optional[str] = None
     t2s_language: Optional[str] = None
@@ -66,7 +64,6 @@ class CaiConfiguration:
     context_session_id: str = str(uuid.uuid4())  # overwritten by sip-sim
     cai_type: str = ""  # can be set to "mirror" to activate CAI="mirror" environment variable when deploying sip-sim
     cai_language: str = "de"
-    nlu_grpc_cert: Optional[str] = None
 
 
 @dataclass
@@ -130,21 +127,18 @@ class CallConfig:
                 host=manager.config_cai.host,
                 port=manager.config_cai.port,
                 service_identifier=manager.config_cai.cai_type,
-                grpc_cert=manager.config_cai.nlu_grpc_cert,
             ),
             stt_config=ServiceConfig(
                 language_code=manager.config_audio.s2t_language,
                 host=manager.config_audio.s2t_host,
                 port=manager.config_audio.s2t_port,
                 service_identifier=manager.config_audio.s2t_type,
-                grpc_cert=manager.config_audio.s2t_grpc_cert,
             ),
             tts_config=ServiceConfig(
                 language_code=manager.config_audio.t2s_language,
                 host=manager.config_audio.t2s_host,
                 port=manager.config_audio.t2s_port,
                 service_identifier=manager.config_audio.t2s_type,
-                grpc_cert=manager.config_audio.t2s_grpc_cert,
             ),
         )
 
