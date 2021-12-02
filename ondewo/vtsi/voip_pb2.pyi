@@ -25,6 +25,14 @@ from ondewo.nlu.context_pb2 import (
     Context as ondewo___nlu___context_pb2___Context,
 )
 
+from ondewo.s2t.speech_to_text_pb2 import (
+    TranscribeRequestConfig as ondewo___s2t___speech_to_text_pb2___TranscribeRequestConfig,
+)
+
+from ondewo.t2s.text_to_speech_pb2 import (
+    RequestConfig as ondewo___t2s___text_to_speech_pb2___RequestConfig,
+)
+
 from typing import (
     Iterable as typing___Iterable,
     Optional as typing___Optional,
@@ -224,6 +232,12 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
     @property
     def password_dictionary(self) -> google___protobuf___struct_pb2___Struct: ...
 
+    @property
+    def s2t_config(self) -> ondewo___s2t___speech_to_text_pb2___TranscribeRequestConfig: ...
+
+    @property
+    def t2s_config(self) -> ondewo___t2s___text_to_speech_pb2___RequestConfig: ...
+
     def __init__(self,
         *,
         call_id : typing___Optional[typing___Text] = None,
@@ -240,6 +254,8 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
         sip_name : typing___Optional[typing___Text] = None,
         password_dictionary : typing___Optional[google___protobuf___struct_pb2___Struct] = None,
         initial_intent : typing___Optional[typing___Text] = None,
+        s2t_config : typing___Optional[ondewo___s2t___speech_to_text_pb2___TranscribeRequestConfig] = None,
+        t2s_config : typing___Optional[ondewo___t2s___text_to_speech_pb2___RequestConfig] = None,
         ) -> None: ...
     if sys.version_info >= (3,):
         @classmethod
@@ -249,8 +265,8 @@ class StartCallInstanceRequest(google___protobuf___message___Message):
         def FromString(cls, s: typing___Union[builtin___bytes, builtin___buffer, builtin___unicode]) -> StartCallInstanceRequest: ...
     def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
     def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
-    def HasField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"password_dictionary",b"password_dictionary",u"stt_config",b"stt_config",u"tts_config",b"tts_config"]) -> builtin___bool: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"call_id",b"call_id",u"contexts",b"contexts",u"init_text",b"init_text",u"initial_intent",b"initial_intent",u"password_dictionary",b"password_dictionary",u"phone_number",b"phone_number",u"project_id",b"project_id",u"sip_name",b"sip_name",u"sip_prefix",b"sip_prefix",u"sip_sim_version",b"sip_sim_version",u"stt_config",b"stt_config",u"tts_config",b"tts_config"]) -> None: ...
+    def HasField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"password_dictionary",b"password_dictionary",u"s2t_config",b"s2t_config",u"stt_config",b"stt_config",u"t2s_config",b"t2s_config",u"tts_config",b"tts_config"]) -> builtin___bool: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"asterisk_config",b"asterisk_config",u"cai_config",b"cai_config",u"call_id",b"call_id",u"contexts",b"contexts",u"init_text",b"init_text",u"initial_intent",b"initial_intent",u"password_dictionary",b"password_dictionary",u"phone_number",b"phone_number",u"project_id",b"project_id",u"s2t_config",b"s2t_config",u"sip_name",b"sip_name",u"sip_prefix",b"sip_prefix",u"sip_sim_version",b"sip_sim_version",u"stt_config",b"stt_config",u"t2s_config",b"t2s_config",u"tts_config",b"tts_config"]) -> None: ...
 global___StartCallInstanceRequest = StartCallInstanceRequest
 
 class StartCallInstanceResponse(google___protobuf___message___Message):

@@ -7,3 +7,9 @@
 [submodule "ondewo-sip-api"]
 	path = ondewo-sip-api
 	url = https://github.com/ondewo/ondewo-sip-api
+[submodule "ondewo-s2t-api"]
+	path = ondewo-s2t-api
+	url = git@github.com:ondewo/ondewo-s2t-api.git
+[submodule "ondewo-t2s-api"]
+	path = ondewo-t2s-api
+	url = git@github.com:ondewo/ondewo-t2s-api.git

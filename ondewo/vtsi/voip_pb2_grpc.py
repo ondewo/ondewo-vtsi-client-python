@@ -17,72 +17,72 @@ class VoipSessionsStub(object):
             channel: A grpc.Channel.
         """
         self.LoadManifest = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/LoadManifest',
+                '/ondewo.vtsi.VoipSessions/LoadManifest',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.VoipManifest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.VoipManifestResponse.FromString,
                 )
         self.RunManifest = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/RunManifest',
+                '/ondewo.vtsi.VoipSessions/RunManifest',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.ManifestRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.RunManifestResponse.FromString,
                 )
         self.RemoveManifest = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/RemoveManifest',
+                '/ondewo.vtsi.VoipSessions/RemoveManifest',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.ManifestRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.RemoveManifestResponse.FromString,
                 )
         self.GetManifestIDs = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/GetManifestIDs',
+                '/ondewo.vtsi.VoipSessions/GetManifestIDs',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetManifestIDsRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetManifestIDsResponse.FromString,
                 )
         self.StartCallInstance = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/StartCallInstance',
+                '/ondewo.vtsi.VoipSessions/StartCallInstance',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceResponse.FromString,
                 )
         self.StopCallInstance = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/StopCallInstance',
+                '/ondewo.vtsi.VoipSessions/StopCallInstance',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceResponse.FromString,
                 )
         self.StartMultipleCallInstances = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/StartMultipleCallInstances',
+                '/ondewo.vtsi.VoipSessions/StartMultipleCallInstances',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesResponse.FromString,
                 )
         self.GetCallIDs = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/GetCallIDs',
+                '/ondewo.vtsi.VoipSessions/GetCallIDs',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsResponse.FromString,
                 )
         self.GetSessionID = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/GetSessionID',
+                '/ondewo.vtsi.VoipSessions/GetSessionID',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDResponse.FromString,
                 )
         self.ShutdownUnhealthyCalls = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/ShutdownUnhealthyCalls',
+                '/ondewo.vtsi.VoipSessions/ShutdownUnhealthyCalls',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.ShutdownUnhealthyCallsRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.ShutdownUnhealthyCallsResponse.FromString,
                 )
         self.GetManifestStatus = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/GetManifestStatus',
+                '/ondewo.vtsi.VoipSessions/GetManifestStatus',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.VoipManifestStatusRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.VoipManifestStatus.FromString,
                 )
         self.GetInstanceStatus = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/GetInstanceStatus',
+                '/ondewo.vtsi.VoipSessions/GetInstanceStatus',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetVoipStatusRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.VoipStatus.FromString,
                 )
         self.UpdateServicesStatus = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/UpdateServicesStatus',
+                '/ondewo.vtsi.VoipSessions/UpdateServicesStatus',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.UpdateServicesStatusRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.UpdateServicesStatusResponse.FromString,
                 )
         self.DeployPreconditionForWorkingSetup = channel.unary_unary(
-                '/ondewo.nlu.VoipSessions/DeployPreconditionForWorkingSetup',
+                '/ondewo.vtsi.VoipSessions/DeployPreconditionForWorkingSetup',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.DeployPreconditionRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.DeployPreconditionResponse.FromString,
                 )
@@ -283,7 +283,7 @@ def add_VoipSessionsServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'ondewo.nlu.VoipSessions', rpc_method_handlers)
+            'ondewo.vtsi.VoipSessions', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -304,7 +304,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/LoadManifest',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/LoadManifest',
             ondewo_dot_vtsi_dot_voip__pb2.VoipManifest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.VoipManifestResponse.FromString,
             options, channel_credentials,
@@ -321,7 +321,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/RunManifest',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/RunManifest',
             ondewo_dot_vtsi_dot_voip__pb2.ManifestRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.RunManifestResponse.FromString,
             options, channel_credentials,
@@ -338,7 +338,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/RemoveManifest',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/RemoveManifest',
             ondewo_dot_vtsi_dot_voip__pb2.ManifestRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.RemoveManifestResponse.FromString,
             options, channel_credentials,
@@ -355,7 +355,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/GetManifestIDs',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/GetManifestIDs',
             ondewo_dot_vtsi_dot_voip__pb2.GetManifestIDsRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.GetManifestIDsResponse.FromString,
             options, channel_credentials,
@@ -372,7 +372,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StartCallInstance',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StartCallInstance',
             ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.StartCallInstanceResponse.FromString,
             options, channel_credentials,
@@ -389,7 +389,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StopCallInstance',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StopCallInstance',
             ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.StopCallInstanceResponse.FromString,
             options, channel_credentials,
@@ -406,7 +406,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/StartMultipleCallInstances',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StartMultipleCallInstances',
             ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.StartMultipleCallInstancesResponse.FromString,
             options, channel_credentials,
@@ -423,7 +423,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/GetCallIDs',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/GetCallIDs',
             ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.GetCallIDsResponse.FromString,
             options, channel_credentials,
@@ -440,7 +440,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/GetSessionID',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/GetSessionID',
             ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.GetSessionIDResponse.FromString,
             options, channel_credentials,
@@ -457,7 +457,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/ShutdownUnhealthyCalls',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/ShutdownUnhealthyCalls',
             ondewo_dot_vtsi_dot_voip__pb2.ShutdownUnhealthyCallsRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.ShutdownUnhealthyCallsResponse.FromString,
             options, channel_credentials,
@@ -474,7 +474,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/GetManifestStatus',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/GetManifestStatus',
             ondewo_dot_vtsi_dot_voip__pb2.VoipManifestStatusRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.VoipManifestStatus.FromString,
             options, channel_credentials,
@@ -491,7 +491,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/GetInstanceStatus',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/GetInstanceStatus',
             ondewo_dot_vtsi_dot_voip__pb2.GetVoipStatusRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.VoipStatus.FromString,
             options, channel_credentials,
@@ -508,7 +508,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/UpdateServicesStatus',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/UpdateServicesStatus',
             ondewo_dot_vtsi_dot_voip__pb2.UpdateServicesStatusRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.UpdateServicesStatusResponse.FromString,
             options, channel_credentials,
@@ -525,7 +525,7 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.VoipSessions/DeployPreconditionForWorkingSetup',
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/DeployPreconditionForWorkingSetup',
             ondewo_dot_vtsi_dot_voip__pb2.DeployPreconditionRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.DeployPreconditionResponse.FromString,
             options, channel_credentials,
