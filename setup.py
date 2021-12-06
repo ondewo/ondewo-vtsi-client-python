@@ -22,6 +22,9 @@ setuptools.setup(
             setuptools.find_packages()
         )
     ],
+    package_data={
+        'ondewo.vtsi': ['py.typed']
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
