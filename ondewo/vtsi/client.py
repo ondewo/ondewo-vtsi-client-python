@@ -20,9 +20,15 @@ import grpc
 
 from ondewo.nlu import context_pb2
 from ondewo.vtsi import call_log_pb2, call_log_pb2_grpc, voip_pb2, voip_pb2_grpc
-from ondewo.vtsi.dataclasses.server_configurations_dataclasses import BaseServiceConfig, Credentials, \
-    NLUConfig, T2SConfig, S2TConfig, SIPConfig, AsteriskConfig, CommonServicesConfigs, VtsiConfiguration, \
-    CallConfig
+
+
+@dataclass
+class VtsiConfiguration:
+    """location of voip server"""
+    host: str = "grpc-vtsi.ondewo.com"
+    port: int = 443
+    secure: bool = False
+    cert_path: str = ''
 
 
 def create_parameter_dict(my_dict: Dict) -> Optional[Dict[str, context_pb2.Context.Parameter]]:
@@ -37,16 +43,16 @@ def create_parameter_dict(my_dict: Dict) -> Optional[Dict[str, context_pb2.Conte
         }
     return None
 
+
 class VtsiClient:
     """
     exposes the endpoints of the ondewo voip-server in a user-friendly way
     """
 
     def __init__(self,
-            config_voip: VtsiConfiguration
-    ) -> None:
+                 config_voip: VtsiConfiguration
+                 ) -> None:
         self.config_voip = config_voip
-
 
         target = f"{self.config_voip.host}:{self.config_voip.port}"
 
@@ -66,7 +72,6 @@ class VtsiClient:
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
         self.call_log_stub = call_log_pb2_grpc.VoipCallLogsStub(channel=channel)
 
-
     def stop_call(
             self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
     ) -> bool:
@@ -74,7 +79,6 @@ class VtsiClient:
         stop an ongoing call
         """
         return self._stop_call(call_id=call_id, sip_id=sip_id)
-
 
     def _stop_call(
             self, call_id: Optional[str] = None, sip_id: Optional[str] = None,
@@ -92,15 +96,14 @@ class VtsiClient:
         response: voip_pb2.StopCallInstanceResponse = self.voip_stub.StopCallInstance(request=request)
         return response.success  # type: ignore
 
-    def start_call_instance_request(self,start_call_instance_requests:voip_pb2.StartCallInstanceRequest
-    ) -> voip_pb2.StartCallInstanceResponse:
+    def start_call_instance_request(self, start_call_instance_requests: voip_pb2.StartCallInstanceRequest
+                                    ) -> voip_pb2.StartCallInstanceResponse:
 
         return self.voip_stub.StartCallInstance(request=start_call_instance_requests)
 
-
-    def start_multiple_call_instances(self, start_call_instance_requests:[voip_pb2.StartCallInstanceRequest]):
+    def start_multiple_call_instances(self,
+                                      start_call_instance_requests: [voip_pb2.StartCallInstanceRequest]):
         return self.voip_stub.StartMultipleCallInstances(request=start_call_instance_requests)
-
 
     def get_instance_status(self, call_id: Optional[str] = None,
                             sip_id: Optional[str] = None, ) -> voip_pb2.VoipStatus:
