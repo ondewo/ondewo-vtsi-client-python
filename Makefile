@@ -1,11 +1,15 @@
-ONDEWO_APIS_DIR=ondewo-nlu-api
+NLU_APIS_DIR=ondewo-nlu-api
 GOOGLE_APIS_DIR=ondewo-nlu-api/googleapis
-CUSTOM_APIS_DIR=ondewo-vtsi-api/
-CUSTOM_APIS_DIR_2=ondewo-sip-api/
+VTSI_APIS_DIR=ondewo-vtsi-api/
+SIP_APIS_DIR=ondewo-sip-api/
+S2T_APIS_DIR=ondewo-s2t-api/
+T2S_APIS_DIR=ondewo-t2s-api/
 GOOGLE_PROTOS_DIR=ondewo-nlu-api/googleapis/google/
-ONDEWO_PROTOS_DIR=ondewo-nlu-api/ondewo/
-CUSTOM_PROTOS_DIR=ondewo-vtsi-api/
-CUSTOM_PROTOS_DIR_2=ondewo-sip-api/
+NLU_PROTOS_DIR=ondewo-nlu-api/ondewo/
+VTSI_PROTOS_DIR=ondewo-vtsi-api/
+SIP_PROTOS_DIR=ondewo-sip-api/
+S2T_PROTOS_DIR=ondewo-s2t-api/
+T2S_PROTOS_DIR=ondewo-t2s-api/
 
 TESTFILE := ondewo
 CODE_CHECK_IMAGE := code_check_image_${TESTFILE}
@@ -26,20 +30,27 @@ generate_google_protos:
 	python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. ${GOOGLE_APIS_DIR}/google/longrunning/operations.proto
 
 generate_ondewo_protos:
-	for f in $$(find ${ONDEWO_PROTOS_DIR} -name '*.proto'); do \
-		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${ONDEWO_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
+	for f in $$(find ${NLU_PROTOS_DIR} -name '*.proto'); do \
+		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${NLU_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
 	done
 
 generate_specific_protos:
-	for f in $$(find ${ONDEWO_PROTOS_DIR}nlu -name '*.proto'); do \
-		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${ONDEWO_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
+	for f in $$(find ${NLU_PROTOS_DIR}nlu -name '*.proto'); do \
+		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${NLU_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
 	done
-	for f in $$(find ${CUSTOM_PROTOS_DIR} -name '*.proto'); do \
-		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${ONDEWO_APIS_DIR} -I${CUSTOM_APIS_DIR} -I${CUSTOM_APIS_DIR_2} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
+	for f in $$(find ${SIP_PROTOS_DIR} -name '*.proto'); do \
+		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${NLU_APIS_DIR} -I${SIP_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
 	done
-	for f in $$(find ${CUSTOM_PROTOS_DIR_2} -name '*.proto'); do \
-		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${ONDEWO_APIS_DIR} -I${CUSTOM_APIS_DIR_2} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
+	for f in $$(find ${S2T_PROTOS_DIR} -name '*.proto'); do \
+		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${NLU_APIS_DIR} -I${S2T_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
 	done
+	for f in $$(find ${T2S_PROTOS_DIR} -name '*.proto'); do \
+		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${NLU_APIS_DIR} -I${T2S_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
+	done
+	for f in $$(find ${VTSI_PROTOS_DIR} -name '*.proto'); do \
+		python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} -I${NLU_APIS_DIR} -I${VTSI_APIS_DIR} -I${SIP_APIS_DIR} -I${T2S_APIS_DIR} -I${S2T_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. $$f; \
+	done
+
 # }}}
 push_to_pypi: build_package upload_package clear_package_data
 	echo 'pushed to pypi : )'
