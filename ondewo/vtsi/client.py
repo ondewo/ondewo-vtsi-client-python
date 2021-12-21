@@ -103,7 +103,7 @@ class VtsiClient:
 
     def start_multiple_call_instances(self,
                                       start_call_instance_requests: voip_pb2.StartMultipleCallInstancesRequest):
-        return self.voip_stub.StartMultipleCallInstances(requests=start_call_instance_requests)
+        return self.voip_stub.StartMultipleCallInstances(request=start_call_instance_requests)
 
     def get_instance_status(self, call_id: Optional[str] = None,
                             sip_id: Optional[str] = None, ) -> voip_pb2.VoipStatus:
