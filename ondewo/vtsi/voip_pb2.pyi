@@ -406,26 +406,31 @@ class AudioObjectStorageConfig(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing_extensions.Literal["audio_storage_config",b"audio_storage_config"]) -> typing.Optional[typing_extensions.Literal["minio_config"]]: ...
 global___AudioObjectStorageConfig = AudioObjectStorageConfig
 
+class Endpoint(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    HOST_FIELD_NUMBER: builtins.int
+    PORT_FIELD_NUMBER: builtins.int
+    host: typing.Text = ...
+    port: typing.Text = ...
+    def __init__(self,
+        *,
+        host : typing.Text = ...,
+        port : typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["host",b"host","port",b"port"]) -> None: ...
+global___Endpoint = Endpoint
+
 class MinioConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Endpoint(google.protobuf.message.Message):
-        """where the minio server runs (host_ip:port)"""
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-        HOST_FIELD_NUMBER: builtins.int
-        PORT_FIELD_NUMBER: builtins.int
-        host: typing.Text = ...
-        port: typing.Text = ...
-        def __init__(self,
-            *,
-            host : typing.Text = ...,
-            port : typing.Text = ...,
-            ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["host",b"host","port",b"port"]) -> None: ...
-
+    ENDPOINT_FIELD_NUMBER: builtins.int
     ACCESS_KEY_FIELD_NUMBER: builtins.int
     SECRET_KEY_FIELD_NUMBER: builtins.int
     SECURE_FIELD_NUMBER: builtins.int
     SESSION_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def endpoint(self) -> global___Endpoint:
+        """where the minio server runs (host_ip:port)"""
+        pass
     access_key: typing.Text = ...
     """access key of server"""
 
@@ -440,12 +445,14 @@ class MinioConfig(google.protobuf.message.Message):
 
     def __init__(self,
         *,
+        endpoint : typing.Optional[global___Endpoint] = ...,
         access_key : typing.Text = ...,
         secret_key : typing.Text = ...,
         secure : builtins.bool = ...,
         session_token : typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["access_key",b"access_key","secret_key",b"secret_key","secure",b"secure","session_token",b"session_token"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["endpoint",b"endpoint"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["access_key",b"access_key","endpoint",b"endpoint","secret_key",b"secret_key","secure",b"secure","session_token",b"session_token"]) -> None: ...
 global___MinioConfig = MinioConfig
 
 class S2tCallbacks(google.protobuf.message.Message):
