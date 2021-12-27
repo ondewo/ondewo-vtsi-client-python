@@ -20,7 +20,7 @@ install:
 	pip install -e .
 
 # {{{ PROTOS
-generate_all_protos: generate_ondewo_protos generate_google_protos
+generate_all_protos: generate_ondewo_protos generate_google_protos generate_specific_protos
 generate_google_protos:
 	# generate google api files
 	python -m grpc_tools.protoc -I${GOOGLE_APIS_DIR} --python_out=. --mypy_out=. --grpc_python_out=. ${GOOGLE_APIS_DIR}/google/api/annotations.proto
