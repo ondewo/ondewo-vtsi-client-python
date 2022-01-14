@@ -16,7 +16,7 @@ with open("requirements.txt") as f:
 
 setuptools.setup(
     name="ondewo-vtsi-client",
-    version="3.0.0",
+    version="3.1.0",
     author="ONDEWO GbmH",
     author_email="info@ondewo.com",
     description="exposes the ondewo-vtsi endpoints in a user-friendly way",
@@ -26,6 +26,9 @@ setuptools.setup(
     packages=[
         np for np in filter(lambda n: n.startswith("ondewo.") or n == "ondewo", setuptools.find_packages())
     ],
+    package_data={
+        'ondewo.vtsi': ['py.typed']
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",

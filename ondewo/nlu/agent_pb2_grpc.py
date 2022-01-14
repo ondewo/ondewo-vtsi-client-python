@@ -8,31 +8,17 @@ from ondewo.nlu import agent_pb2 as ondewo_dot_nlu_dot_agent__pb2
 
 
 class AgentsStub(object):
-    """Agents are best described as Natural Language Understanding (NLU) modules
-    that transform user requests into actionable data. You can include agents
-    in your app, product, or service to determine user intent and respond to the
-    user in a natural way.
+    """Agents are best described as Natural Language Understanding (NLU) modules that transform user requests into actionable data. You can include agents in your app, product, or service to determine user intent and respond to the user in a natural way.
 
-    After you create an agent, you can add [Intents][google.cloud.dialogflow.v2.Intents], [Contexts][google.cloud.dialogflow.v2.Contexts],
-    [Entity Types][google.cloud.dialogflow.v2.EntityTypes], [Webhooks][google.cloud.dialogflow.v2.WebhookRequest], and so on to
-    manage the flow of a conversation and match user input to predefined intents
-    and actions.
+    After you create an agent, you can add [Intents][google.cloud.dialogflow.v2.Intents], [Contexts][google.cloud.dialogflow.v2.Contexts], [Entity Types][google.cloud.dialogflow.v2.EntityTypes], [Webhooks][google.cloud.dialogflow.v2.WebhookRequest], and so on to manage the flow of a conversation and match user input to predefined intents and actions.
 
-    You can create an agent using both Dialogflow Standard Edition and
-    Dialogflow Enterprise Edition. For details, see
-    [Dialogflow Editions](/dialogflow-enterprise/docs/editions).
+    You can create an agent using both Dialogflow Standard Edition and Dialogflow Enterprise Edition. For details, see [Dialogflow Editions](/dialogflow-enterprise/docs/editions).
 
-    You can save your agent for backup or versioning by exporting the agent by
-    using the [ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent] method. You can import a saved
-    agent by using the [ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent] method.
+    You can save your agent for backup or versioning by exporting the agent by using the [ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent] method. You can import a saved agent by using the [ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent] method.
 
-    Dialogflow provides several
-    [prebuilt agents](https://dialogflow.com/docs/prebuilt-agents) for common
-    conversation scenarios such as determining a date and time, converting
-    currency, and so on.
+    Dialogflow provides several [prebuilt agents](https://dialogflow.com/docs/prebuilt-agents) for common conversation scenarios such as determining a date and time, converting currency, and so on.
 
-    For more information about agents, see the
-    [Dialogflow documentation](https://dialogflow.com/docs/agents).
+    For more information about agents, see the [Dialogflow documentation](https://dialogflow.com/docs/agents).
     """
 
     def __init__(self, channel):
@@ -121,6 +107,11 @@ class AgentsStub(object):
                 request_serializer=ondewo_dot_nlu_dot_agent__pb2.ExportAgentRequest.SerializeToString,
                 response_deserializer=google_dot_longrunning_dot_operations__pb2.Operation.FromString,
                 )
+        self.ExportBenchmarkAgent = channel.unary_unary(
+                '/ondewo.nlu.Agents/ExportBenchmarkAgent',
+                request_serializer=ondewo_dot_nlu_dot_agent__pb2.ExportBenchmarkAgentRequest.SerializeToString,
+                response_deserializer=google_dot_longrunning_dot_operations__pb2.Operation.FromString,
+                )
         self.ImportAgent = channel.unary_unary(
                 '/ondewo.nlu.Agents/ImportAgent',
                 request_serializer=ondewo_dot_nlu_dot_agent__pb2.ImportAgentRequest.SerializeToString,
@@ -161,38 +152,66 @@ class AgentsStub(object):
                 request_serializer=ondewo_dot_nlu_dot_agent__pb2.ExportResourcesRequest.SerializeToString,
                 response_deserializer=ondewo_dot_nlu_dot_agent__pb2.ExportResourcesResponse.FromString,
                 )
+        self.GetModelStatuses = channel.unary_unary(
+                '/ondewo.nlu.Agents/GetModelStatuses',
+                request_serializer=ondewo_dot_nlu_dot_agent__pb2.GetModelStatusesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_agent__pb2.GetModelStatusesResponse.FromString,
+                )
+        self.GetPlatformMapping = channel.unary_unary(
+                '/ondewo.nlu.Agents/GetPlatformMapping',
+                request_serializer=ondewo_dot_nlu_dot_agent__pb2.GetPlatformMappingRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_agent__pb2.PlatformMapping.FromString,
+                )
+        self.SetPlatformMapping = channel.unary_unary(
+                '/ondewo.nlu.Agents/SetPlatformMapping',
+                request_serializer=ondewo_dot_nlu_dot_agent__pb2.PlatformMapping.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_agent__pb2.PlatformMapping.FromString,
+                )
 
 
 class AgentsServicer(object):
-    """Agents are best described as Natural Language Understanding (NLU) modules
-    that transform user requests into actionable data. You can include agents
-    in your app, product, or service to determine user intent and respond to the
-    user in a natural way.
+    """Agents are best described as Natural Language Understanding (NLU) modules that transform user requests into actionable data. You can include agents in your app, product, or service to determine user intent and respond to the user in a natural way.
 
-    After you create an agent, you can add [Intents][google.cloud.dialogflow.v2.Intents], [Contexts][google.cloud.dialogflow.v2.Contexts],
-    [Entity Types][google.cloud.dialogflow.v2.EntityTypes], [Webhooks][google.cloud.dialogflow.v2.WebhookRequest], and so on to
-    manage the flow of a conversation and match user input to predefined intents
-    and actions.
+    After you create an agent, you can add [Intents][google.cloud.dialogflow.v2.Intents], [Contexts][google.cloud.dialogflow.v2.Contexts], [Entity Types][google.cloud.dialogflow.v2.EntityTypes], [Webhooks][google.cloud.dialogflow.v2.WebhookRequest], and so on to manage the flow of a conversation and match user input to predefined intents and actions.
 
-    You can create an agent using both Dialogflow Standard Edition and
-    Dialogflow Enterprise Edition. For details, see
-    [Dialogflow Editions](/dialogflow-enterprise/docs/editions).
+    You can create an agent using both Dialogflow Standard Edition and Dialogflow Enterprise Edition. For details, see [Dialogflow Editions](/dialogflow-enterprise/docs/editions).
 
-    You can save your agent for backup or versioning by exporting the agent by
-    using the [ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent] method. You can import a saved
-    agent by using the [ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent] method.
+    You can save your agent for backup or versioning by exporting the agent by using the [ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent] method. You can import a saved agent by using the [ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent] method.
 
-    Dialogflow provides several
-    [prebuilt agents](https://dialogflow.com/docs/prebuilt-agents) for common
-    conversation scenarios such as determining a date and time, converting
-    currency, and so on.
+    Dialogflow provides several [prebuilt agents](https://dialogflow.com/docs/prebuilt-agents) for common conversation scenarios such as determining a date and time, converting currency, and so on.
 
-    For more information about agents, see the
-    [Dialogflow documentation](https://dialogflow.com/docs/agents).
+    For more information about agents, see the [Dialogflow documentation](https://dialogflow.com/docs/agents).
     """
 
     def CreateAgent(self, request, context):
         """Creates the specified agent.
+
+        <p>Examples:</p>
+
+        <pre>
+        grpcurl -plaintext -H 'cai-token: aimp' -d '{
+        "agent": {
+        "display_name": "Pizza Bot",
+        "default_language_code": "en",
+        "supported_language_codes": ["en"],
+        "time_zone": "Europe/Vienna",
+        "nlu_platform": "ONDEWO"
+        }
+        }' localhost:50055 ondewo.nlu.Agents.CreateAgent
+        </pre>
+
+        <samp>{
+        "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent",
+        "display_name": "Pizza Bot",
+        "default_language_code": "en",
+        "supported_language_codes": [
+        "en"
+        ],
+        "time_zone": "Europe/Vienna",
+        "nlu_platform": "ONDEWO",
+        "owner_id": "5aac51b8-668f-49dd-913f-cc683e56af34"
+        }
+        </samp>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -200,6 +219,38 @@ class AgentsServicer(object):
 
     def UpdateAgent(self, request, context):
         """Updates the specified agent.
+
+        <p>Examples:</p>
+
+        <pre>
+        grpcurl -plaintext -H 'cai-token: aimp' -d '{
+        "agent": {
+        "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent",
+        "display_name": "Pizza Bot 2",
+        "supported_language_codes": ["en", "de"]
+        },
+        "update_mask": {
+        "paths": [
+        "agent.display_name",
+        "agent.supported_language_codes"
+        ]
+        }
+        }' localhost:50055 ondewo.nlu.Agents.UpdateAgent
+        </pre>
+
+        <samp>{
+        "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent",
+        "display_name": "Pizza Bot 2",
+        "default_language_code": "en",
+        "supported_language_codes": [
+        "en",
+        "de"
+        ],
+        "time_zone": "Europe/Vienna",
+        "nlu_platform": "ONDEWO",
+        "owner_id": "5aac51b8-668f-49dd-913f-cc683e56af34"
+        }
+        </samp>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -207,6 +258,28 @@ class AgentsServicer(object):
 
     def GetAgent(self, request, context):
         """Retrieves the specified agent.
+
+        <p>Examples:</p>
+
+        <pre>
+        grpcurl -plaintext -H 'cai-token: aimp' -d '{
+        "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent"
+        }' localhost:50055 ondewo.nlu.Agents.GetAgent
+        </pre>
+        <samp>{
+        "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent",
+        "display_name": "Pizza Bot 2",
+        "default_language_code": "en",
+        "supported_language_codes": [
+        "en",
+        "de"
+        ],
+        "time_zone": "Europe/Vienna",
+        "nlu_platform": "ONDEWO",
+        "configs": {...},
+        "owner_id": "5aac51b8-668f-49dd-913f-cc683e56af34"
+        }
+        </samp>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -214,6 +287,15 @@ class AgentsServicer(object):
 
     def DeleteAgent(self, request, context):
         """Deletes the specified agent.
+
+        <p>Examples:</p>
+
+        <pre>
+        grpcurl -plaintext -H 'cai-token: aimp' -d '{
+        "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent"
+        }' localhost:50055 ondewo.nlu.Agents.DeleteAgent
+        </pre>
+        <samp>{}</samp>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -221,6 +303,13 @@ class AgentsServicer(object):
 
     def DeleteAllAgents(self, request, context):
         """Deletes all agents in the server (for development purposes only).
+
+        <p>Examples:</p>
+
+        <pre>
+        grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.DeleteAllAgents
+        </pre>
+        <samp>{}</samp>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -228,6 +317,31 @@ class AgentsServicer(object):
 
     def ListAgents(self, request, context):
         """Lists agents in the server associated to the current user
+
+        <p>Examples:</p>
+
+        <pre>
+        grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.ListAgents
+        </pre>
+        <samp>{
+        "agents_with_owners": [
+        {
+        "agent": {
+        "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent",
+        "display_name": "Pizza Bot 2",
+        "owner_id": "5aac51b8-668f-49dd-913f-cc683e56af34"
+        },
+        "owner": {
+        "user_id": "5aac51b8-668f-49dd-913f-cc683e56af34",
+        "display_name": "admin",
+        "server_role_id": 3,
+        "user_email": "admin@ondewo.com"
+        }
+        }
+        ],
+        "next_page_token": "current_index-1"
+        }
+        </samp>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -235,6 +349,37 @@ class AgentsServicer(object):
 
     def ListAgentsOfUser(self, request, context):
         """Lists agents in the server associated to the given user
+
+        <p>Examples:</p>
+
+        <pre>
+        grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.ListAgentsOfUser
+        </pre>
+        <samp>{
+        "agents_of_user_with_owners": [
+        {
+        "agent_with_owner": {
+        "agent": {
+        "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent",
+        "display_name": "Pizza Bot 2",
+        "owner_id": "5aac51b8-668f-49dd-913f-cc683e56af34"
+        },
+        "owner": {
+        "user_id": "5aac51b8-668f-49dd-913f-cc683e56af34",
+        "display_name": "admin",
+        "server_role_id": 3,
+        "user_email": "admin@ondewo.com"
+        }
+        },
+        "project_role": {
+        "role_id": 4,
+        "name": "ADMIN"
+        }
+        }
+        ],
+        "next_page_token": "current_index-1"
+        }
+        </samp>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -242,6 +387,31 @@ class AgentsServicer(object):
 
     def ListAllAgents(self, request, context):
         """Lists all agents in the server
+
+        <p>Examples:</p>
+
+        <pre>
+        grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.ListAllAgents
+        </pre>
+        <samp>{
+        "agents_with_owners": [
+        {
+        "agent": {
+        "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent",
+        "display_name": "Pizza Bot 2",
+        "owner_id": "5aac51b8-668f-49dd-913f-cc683e56af34"
+        },
+        "owner": {
+        "user_id": "5aac51b8-668f-49dd-913f-cc683e56af34",
+        "display_name": "admin",
+        "server_role_id": 3,
+        "user_email": "admin@ondewo.com"
+        }
+        }
+        ],
+        "next_page_token": "current_index-1"
+        }
+        </samp>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -309,6 +479,14 @@ class AgentsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ExportBenchmarkAgent(self, request, context):
+        """Exports the specified train agent to a ZIP file after train-test split, returns the test TrainingPhrase list.
+
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ImportAgent(self, request, context):
         """Imports the specified agent from a ZIP file.
 
@@ -368,6 +546,27 @@ class AgentsServicer(object):
 
     def ExportResources(self, request, context):
         """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetModelStatuses(self, request, context):
+        """Get statuses of models related to project
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetPlatformMapping(self, request, context):
+        """Get all set platform name mappings for an Agent
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SetPlatformMapping(self, request, context):
+        """Set platform name mappings for an Agent
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -455,6 +654,11 @@ def add_AgentsServicer_to_server(servicer, server):
                     request_deserializer=ondewo_dot_nlu_dot_agent__pb2.ExportAgentRequest.FromString,
                     response_serializer=google_dot_longrunning_dot_operations__pb2.Operation.SerializeToString,
             ),
+            'ExportBenchmarkAgent': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExportBenchmarkAgent,
+                    request_deserializer=ondewo_dot_nlu_dot_agent__pb2.ExportBenchmarkAgentRequest.FromString,
+                    response_serializer=google_dot_longrunning_dot_operations__pb2.Operation.SerializeToString,
+            ),
             'ImportAgent': grpc.unary_unary_rpc_method_handler(
                     servicer.ImportAgent,
                     request_deserializer=ondewo_dot_nlu_dot_agent__pb2.ImportAgentRequest.FromString,
@@ -495,6 +699,21 @@ def add_AgentsServicer_to_server(servicer, server):
                     request_deserializer=ondewo_dot_nlu_dot_agent__pb2.ExportResourcesRequest.FromString,
                     response_serializer=ondewo_dot_nlu_dot_agent__pb2.ExportResourcesResponse.SerializeToString,
             ),
+            'GetModelStatuses': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetModelStatuses,
+                    request_deserializer=ondewo_dot_nlu_dot_agent__pb2.GetModelStatusesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_agent__pb2.GetModelStatusesResponse.SerializeToString,
+            ),
+            'GetPlatformMapping': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPlatformMapping,
+                    request_deserializer=ondewo_dot_nlu_dot_agent__pb2.GetPlatformMappingRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_agent__pb2.PlatformMapping.SerializeToString,
+            ),
+            'SetPlatformMapping': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetPlatformMapping,
+                    request_deserializer=ondewo_dot_nlu_dot_agent__pb2.PlatformMapping.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_agent__pb2.PlatformMapping.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'ondewo.nlu.Agents', rpc_method_handlers)
@@ -503,31 +722,17 @@ def add_AgentsServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Agents(object):
-    """Agents are best described as Natural Language Understanding (NLU) modules
-    that transform user requests into actionable data. You can include agents
-    in your app, product, or service to determine user intent and respond to the
-    user in a natural way.
+    """Agents are best described as Natural Language Understanding (NLU) modules that transform user requests into actionable data. You can include agents in your app, product, or service to determine user intent and respond to the user in a natural way.
 
-    After you create an agent, you can add [Intents][google.cloud.dialogflow.v2.Intents], [Contexts][google.cloud.dialogflow.v2.Contexts],
-    [Entity Types][google.cloud.dialogflow.v2.EntityTypes], [Webhooks][google.cloud.dialogflow.v2.WebhookRequest], and so on to
-    manage the flow of a conversation and match user input to predefined intents
-    and actions.
+    After you create an agent, you can add [Intents][google.cloud.dialogflow.v2.Intents], [Contexts][google.cloud.dialogflow.v2.Contexts], [Entity Types][google.cloud.dialogflow.v2.EntityTypes], [Webhooks][google.cloud.dialogflow.v2.WebhookRequest], and so on to manage the flow of a conversation and match user input to predefined intents and actions.
 
-    You can create an agent using both Dialogflow Standard Edition and
-    Dialogflow Enterprise Edition. For details, see
-    [Dialogflow Editions](/dialogflow-enterprise/docs/editions).
+    You can create an agent using both Dialogflow Standard Edition and Dialogflow Enterprise Edition. For details, see [Dialogflow Editions](/dialogflow-enterprise/docs/editions).
 
-    You can save your agent for backup or versioning by exporting the agent by
-    using the [ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent] method. You can import a saved
-    agent by using the [ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent] method.
+    You can save your agent for backup or versioning by exporting the agent by using the [ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent] method. You can import a saved agent by using the [ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent] method.
 
-    Dialogflow provides several
-    [prebuilt agents](https://dialogflow.com/docs/prebuilt-agents) for common
-    conversation scenarios such as determining a date and time, converting
-    currency, and so on.
+    Dialogflow provides several [prebuilt agents](https://dialogflow.com/docs/prebuilt-agents) for common conversation scenarios such as determining a date and time, converting currency, and so on.
 
-    For more information about agents, see the
-    [Dialogflow documentation](https://dialogflow.com/docs/agents).
+    For more information about agents, see the [Dialogflow documentation](https://dialogflow.com/docs/agents).
     """
 
     @staticmethod
@@ -803,6 +1008,23 @@ class Agents(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def ExportBenchmarkAgent(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.Agents/ExportBenchmarkAgent',
+            ondewo_dot_nlu_dot_agent__pb2.ExportBenchmarkAgentRequest.SerializeToString,
+            google_dot_longrunning_dot_operations__pb2.Operation.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def ImportAgent(request,
             target,
             options=(),
@@ -935,5 +1157,56 @@ class Agents(object):
         return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.Agents/ExportResources',
             ondewo_dot_nlu_dot_agent__pb2.ExportResourcesRequest.SerializeToString,
             ondewo_dot_nlu_dot_agent__pb2.ExportResourcesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetModelStatuses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.Agents/GetModelStatuses',
+            ondewo_dot_nlu_dot_agent__pb2.GetModelStatusesRequest.SerializeToString,
+            ondewo_dot_nlu_dot_agent__pb2.GetModelStatusesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetPlatformMapping(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.Agents/GetPlatformMapping',
+            ondewo_dot_nlu_dot_agent__pb2.GetPlatformMappingRequest.SerializeToString,
+            ondewo_dot_nlu_dot_agent__pb2.PlatformMapping.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SetPlatformMapping(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.nlu.Agents/SetPlatformMapping',
+            ondewo_dot_nlu_dot_agent__pb2.PlatformMapping.SerializeToString,
+            ondewo_dot_nlu_dot_agent__pb2.PlatformMapping.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
