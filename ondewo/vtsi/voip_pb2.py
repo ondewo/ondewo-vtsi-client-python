@@ -26,7 +26,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16ondewo/vtsi/voip.proto\x12\x0bondewo.vtsi\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x18ondewo/nlu/context.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1fondewo/s2t/speech-to-text.proto\x1a\x1fondewo/t2s/text-to-speech.proto\"\x82\x01\n\x0cVoipManifest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\x12%\n\x08\x63ontexts\x18\x02 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x36\n\x07\x63\x61llers\x18\t \x03(\x0b\x32%.ondewo.vtsi.StartCallInstanceRequest\"&\n\x0fManifestRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"U\n\x13RunManifestResponse\x12-\n\x07request\x18\x01 \x01(\x0b\x32\x1c.ondewo.vtsi.ManifestRequest\x12\x0f\n\x07started\x18\x02 \x01(\x08\"\x99\x01\n\x16RemoveManifestResponse\x12-\n\x07request\x18\x01 \x01(\x0b\x32\x1c.ondewo.vtsi.ManifestRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12?\n\x10\x63\x61ller_responses\x18\t \x03(\x0b\x32%.ondewo.vtsi.StopCallInstanceResponse\"B\n\x11\x42\x61seServiceConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x11\n\tgrpc_cert\x18\x03 \x01(\t\"5\n\x0b\x43redentials\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x83\x02\n\tNLUConfig\x12\x33\n\x0b\x62\x61se_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12/\n\x0b\x63redentials\x18\x02 \x01(\x0b\x32\x18.ondewo.vtsi.CredentialsH\x00\x12\x14\n\nauth_token\x18\x03 \x01(\tH\x00\x12\x15\n\rlanguage_code\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x16\n\x0einitial_intent\x18\x06 \x01(\t\x12%\n\x08\x63ontexts\x18\x07 \x03(\x0b\x32\x13.ondewo.nlu.ContextB\x10\n\x0e\x61uthentication\"o\n\tT2SConfig\x12\x33\n\x0b\x62\x61se_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12-\n\nt2s_config\x18\x02 \x01(\x0b\x32\x19.ondewo.t2s.RequestConfig\"y\n\tS2TConfig\x12\x33\n\x0b\x62\x61se_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12\x37\n\ns2t_config\x18\x02 \x01(\x0b\x32#.ondewo.s2t.TranscribeRequestConfig\"E\n\x0e\x41steriskConfig\x12\x33\n\x0b\x62\x61se_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\"\xfd\x01\n\x15\x43ommonServicesConfigs\x12\x34\n\x0f\x61sterisk_config\x18\x01 \x01(\x0b\x32\x1b.ondewo.vtsi.AsteriskConfig\x12*\n\ncai_config\x18\x02 \x01(\x0b\x32\x16.ondewo.vtsi.NLUConfig\x12*\n\nstt_config\x18\x03 \x01(\x0b\x32\x16.ondewo.vtsi.S2TConfig\x12*\n\ntts_config\x18\x04 \x01(\x0b\x32\x16.ondewo.vtsi.T2SConfig\x12*\n\ncsi_config\x18\x05 \x01(\x0b\x32\x16.ondewo.vtsi.CsiConfig\"\x93\x03\n\tSIPConfig\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x19\n\x11\x63\x61ll_display_name\x18\x02 \x01(\t\x12\x17\n\x0fsip_sim_version\x18\x03 \x01(\t\x12\x12\n\nsip_prefix\x18\x04 \x01(\t\x12\x13\n\x0bsip_account\x18\x05 \x01(\t\x12Z\n\x1b\x61\x63\x63ount_password_dictionary\x18\x06 \x03(\x0b\x32\x35.ondewo.vtsi.SIPConfig.AccountPasswordDictionaryEntry\x12\x14\n\x0cphone_number\x18\x07 \x01(\t\x12\x34\n\x07headers\x18\x08 \x03(\x0b\x32#.ondewo.vtsi.SIPConfig.HeadersEntry\x1a@\n\x1e\x41\x63\x63ountPasswordDictionaryEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a.\n\x0cHeadersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xeb\x01\n\tCsiConfig\x12H\n\x19\x61udio_object_store_config\x18\x01 \x01(\x0b\x32%.ondewo.vtsi.AudioObjectStorageConfig\x12\x30\n\rs2t_callbacks\x18\x02 \x01(\x0b\x32\x19.ondewo.vtsi.S2tCallbacks\x12\x30\n\rnlu_callbacks\x18\x03 \x01(\x0b\x32\x19.ondewo.vtsi.NluCallbacks\x12\x30\n\rt2s_callbacks\x18\x04 \x01(\x0b\x32\x19.ondewo.vtsi.T2sCallbacks\"d\n\x18\x41udioObjectStorageConfig\x12\x30\n\x0cminio_config\x18\x01 \x01(\x0b\x32\x18.ondewo.vtsi.MinioConfigH\x00\x42\x16\n\x14\x61udio_storage_config\"&\n\x08\x45ndpoint\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\t\"\x85\x01\n\x0bMinioConfig\x12\'\n\x08\x65ndpoint\x18\x01 \x01(\x0b\x32\x15.ondewo.vtsi.Endpoint\x12\x12\n\naccess_key\x18\x02 \x01(\t\x12\x12\n\nsecret_key\x18\x03 \x01(\t\x12\x0e\n\x06secure\x18\x04 \x01(\x08\x12\x15\n\rsession_token\x18\x05 \x01(\t\"E\n\x0cS2tCallbacks\x12\x19\n\x11pre_s2t_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_s2t_callbacks\x18\x02 \x03(\t\"E\n\x0cNluCallbacks\x12\x19\n\x11pre_nlu_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_nlu_callbacks\x18\x02 \x03(\t\"E\n\x0cT2sCallbacks\x12\x19\n\x11pre_t2s_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_t2s_callbacks\x18\x02 \x03(\t\"\x84\x01\n\x18StartCallInstanceRequest\x12*\n\nsip_config\x18\x01 \x01(\x0b\x32\x16.ondewo.vtsi.SIPConfig\x12<\n\x10services_configs\x18\x02 \x01(\x0b\x32\".ondewo.vtsi.CommonServicesConfigs\"d\n\x19StartCallInstanceResponse\x12\x36\n\x07request\x18\x01 \x01(\x0b\x32%.ondewo.vtsi.StartCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"\\\n!StartMultipleCallInstancesRequest\x12\x37\n\x08requests\x18\x01 \x03(\x0b\x32%.ondewo.vtsi.StartCallInstanceRequest\"v\n\"StartMultipleCallInstancesResponse\x12?\n\x07request\x18\x01 \x01(\x0b\x32..ondewo.vtsi.StartMultipleCallInstancesRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"D\n\x17StopCallInstanceRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"w\n\x18StopCallInstanceResponse\x12\x35\n\x07request\x18\x01 \x01(\x0b\x32$.ondewo.vtsi.StopCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12\x13\n\x0blog_message\x18\x03 \x01(\t\"0\n\x19VoipManifestStatusRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"|\n\x12VoipManifestStatus\x12\x37\n\x07request\x18\x01 \x01(\x0b\x32&.ondewo.vtsi.VoipManifestStatusRequest\x12-\n\x0c\x63\x61lls_status\x18\x02 \x03(\x0b\x32\x17.ondewo.vtsi.VoipStatus\"A\n\x14GetVoipStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"\xf4\x01\n\nVoipStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\x12\x33\n\x0fstatus_asterisk\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_cai\x18\x04 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_stt\x18\x05 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_tts\x18\x06 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\"2\n\rServiceStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\"_\n\x1bUpdateServicesStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x12\x15\n\x0bmanifest_id\x18\x03 \x01(\tH\x00\x42\x04\n\x02id\"E\n\x1cUpdateServicesStatusResponse\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"j\n\x19\x44\x65ployPreconditionRequest\x12\x17\n\x0fsip_sim_version\x18\x01 \x01(\t\x12\x34\n\x0f\x61sterisk_config\x18\x02 \x01(\x0b\x32\x1b.ondewo.vtsi.AsteriskConfig\"-\n\x1a\x44\x65ployPreconditionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\">\n\x15GetManifestIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\".\n\x16GetManifestIDsResponse\x12\x14\n\x0cmanifest_ids\x18\x01 \x03(\t\":\n\x11GetCallIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"&\n\x12GetCallIDsResponse\x12\x10\n\x08\x63\x61ll_ids\x18\x01 \x03(\t\"&\n\x13GetSessionIDRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\";\n\x14GetSessionIDResponse\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\t\"F\n\x1dShutdownUnhealthyCallsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"1\n\x1eShutdownUnhealthyCallsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xaa\x11\n\x0cVoipSessions\x12\x8f\x01\n\x0bRunManifest\x12\x1c.ondewo.vtsi.ManifestRequest\x1a .ondewo.vtsi.RunManifestResponse\"@\x82\xd3\xe4\x93\x02:\"5/v2/{session=projects/*/agent/sessions/*}:RunManifest:\x01*\x12\x98\x01\n\x0eRemoveManifest\x12\x1c.ondewo.vtsi.ManifestRequest\x1a#.ondewo.vtsi.RemoveManifestResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:RemoveManifest:\x01*\x12\x9e\x01\n\x0eGetManifestIDs\x12\".ondewo.vtsi.GetManifestIDsRequest\x1a#.ondewo.vtsi.GetManifestIDsResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:GetManifestIDs:\x01*\x12\xaa\x01\n\x11StartCallInstance\x12%.ondewo.vtsi.StartCallInstanceRequest\x1a&.ondewo.vtsi.StartCallInstanceResponse\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:StartCallInstance:\x01*\x12\xa6\x01\n\x10StopCallInstance\x12$.ondewo.vtsi.StopCallInstanceRequest\x1a%.ondewo.vtsi.StopCallInstanceResponse\"E\x82\xd3\xe4\x93\x02?\":/v2/{session=projects/*/agent/sessions/*}:StopCallInstance:\x01*\x12\xce\x01\n\x1aStartMultipleCallInstances\x12..ondewo.vtsi.StartMultipleCallInstancesRequest\x1a/.ondewo.vtsi.StartMultipleCallInstancesResponse\"O\x82\xd3\xe4\x93\x02I\"D/v2/{session=projects/*/agent/sessions/*}:StartMultipleCallInstances:\x01*\x12\x8e\x01\n\nGetCallIDs\x12\x1e.ondewo.vtsi.GetCallIDsRequest\x1a\x1f.ondewo.vtsi.GetCallIDsResponse\"?\x82\xd3\xe4\x93\x02\x39\"4/v2/{session=projects/*/agent/sessions/*}:GetCallIDs:\x01*\x12\x96\x01\n\x0cGetSessionID\x12 .ondewo.vtsi.GetSessionIDRequest\x1a!.ondewo.vtsi.GetSessionIDResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:GetSessionID:\x01*\x12\xbe\x01\n\x16ShutdownUnhealthyCalls\x12*.ondewo.vtsi.ShutdownUnhealthyCallsRequest\x1a+.ondewo.vtsi.ShutdownUnhealthyCallsResponse\"K\x82\xd3\xe4\x93\x02\x45\"@/v2/{session=projects/*/agent/sessions/*}:ShutdownUnhealthyCalls:\x01*\x12\xa4\x01\n\x11GetManifestStatus\x12&.ondewo.vtsi.VoipManifestStatusRequest\x1a\x1f.ondewo.vtsi.VoipManifestStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetManifestStatus:\x01*\x12\x97\x01\n\x11GetInstanceStatus\x12!.ondewo.vtsi.GetVoipStatusRequest\x1a\x17.ondewo.vtsi.VoipStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetInstanceStatus:\x01*\x12\xb6\x01\n\x14UpdateServicesStatus\x12(.ondewo.vtsi.UpdateServicesStatusRequest\x1a).ondewo.vtsi.UpdateServicesStatusResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*\x12\xbf\x01\n!DeployPreconditionForWorkingSetup\x12&.ondewo.vtsi.DeployPreconditionRequest\x1a\'.ondewo.vtsi.DeployPreconditionResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*b\x06proto3'
+  serialized_pb=b'\n\x16ondewo/vtsi/voip.proto\x12\x0bondewo.vtsi\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x18ondewo/nlu/context.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1fondewo/s2t/speech-to-text.proto\x1a\x1fondewo/t2s/text-to-speech.proto\"\x82\x01\n\x0cVoipManifest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\x12%\n\x08\x63ontexts\x18\x02 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x36\n\x07\x63\x61llers\x18\t \x03(\x0b\x32%.ondewo.vtsi.StartCallInstanceRequest\"&\n\x0fManifestRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"U\n\x13RunManifestResponse\x12-\n\x07request\x18\x01 \x01(\x0b\x32\x1c.ondewo.vtsi.ManifestRequest\x12\x0f\n\x07started\x18\x02 \x01(\x08\"\x99\x01\n\x16RemoveManifestResponse\x12-\n\x07request\x18\x01 \x01(\x0b\x32\x1c.ondewo.vtsi.ManifestRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12?\n\x10\x63\x61ller_responses\x18\t \x03(\x0b\x32%.ondewo.vtsi.StopCallInstanceResponse\"B\n\x11\x42\x61seServiceConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x11\n\tgrpc_cert\x18\x03 \x01(\t\"5\n\x0b\x43redentials\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x83\x02\n\tNLUConfig\x12\x33\n\x0b\x62\x61se_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12/\n\x0b\x63redentials\x18\x02 \x01(\x0b\x32\x18.ondewo.vtsi.CredentialsH\x00\x12\x14\n\nauth_token\x18\x03 \x01(\tH\x00\x12\x15\n\rlanguage_code\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x16\n\x0einitial_intent\x18\x06 \x01(\t\x12%\n\x08\x63ontexts\x18\x07 \x03(\x0b\x32\x13.ondewo.nlu.ContextB\x10\n\x0e\x61uthentication\"o\n\tT2SConfig\x12\x33\n\x0b\x62\x61se_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12-\n\nt2s_config\x18\x02 \x01(\x0b\x32\x19.ondewo.t2s.RequestConfig\"y\n\tS2TConfig\x12\x33\n\x0b\x62\x61se_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12\x37\n\ns2t_config\x18\x02 \x01(\x0b\x32#.ondewo.s2t.TranscribeRequestConfig\"E\n\x0e\x41steriskConfig\x12\x33\n\x0b\x62\x61se_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\"\xfd\x01\n\x15\x43ommonServicesConfigs\x12\x34\n\x0f\x61sterisk_config\x18\x01 \x01(\x0b\x32\x1b.ondewo.vtsi.AsteriskConfig\x12*\n\ncai_config\x18\x02 \x01(\x0b\x32\x16.ondewo.vtsi.NLUConfig\x12*\n\nstt_config\x18\x03 \x01(\x0b\x32\x16.ondewo.vtsi.S2TConfig\x12*\n\ntts_config\x18\x04 \x01(\x0b\x32\x16.ondewo.vtsi.T2SConfig\x12*\n\ncsi_config\x18\x05 \x01(\x0b\x32\x16.ondewo.vtsi.CsiConfig\"\x93\x03\n\tSIPConfig\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x19\n\x11\x63\x61ll_display_name\x18\x02 \x01(\t\x12\x17\n\x0fsip_sim_version\x18\x03 \x01(\t\x12\x12\n\nsip_prefix\x18\x04 \x01(\t\x12\x13\n\x0bsip_account\x18\x05 \x01(\t\x12Z\n\x1b\x61\x63\x63ount_password_dictionary\x18\x06 \x03(\x0b\x32\x35.ondewo.vtsi.SIPConfig.AccountPasswordDictionaryEntry\x12\x14\n\x0cphone_number\x18\x07 \x01(\t\x12\x34\n\x07headers\x18\x08 \x03(\x0b\x32#.ondewo.vtsi.SIPConfig.HeadersEntry\x1a@\n\x1e\x41\x63\x63ountPasswordDictionaryEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a.\n\x0cHeadersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xac\x02\n\tCsiConfig\x12\x30\n\rs2t_callbacks\x18\x01 \x01(\x0b\x32\x19.ondewo.vtsi.S2tCallbacks\x12\x30\n\rnlu_callbacks\x18\x02 \x01(\x0b\x32\x19.ondewo.vtsi.NluCallbacks\x12\x30\n\rt2s_callbacks\x18\x03 \x01(\x0b\x32\x19.ondewo.vtsi.T2sCallbacks\x12H\n\x19\x61udio_object_store_config\x18\x04 \x01(\x0b\x32%.ondewo.vtsi.AudioObjectStorageConfig\x12?\n\x15message_broker_config\x18\x05 \x01(\x0b\x32 .ondewo.vtsi.MessageBrokerConfig\"d\n\x18\x41udioObjectStorageConfig\x12\x30\n\x0cminio_config\x18\x01 \x01(\x0b\x32\x18.ondewo.vtsi.MinioConfigH\x00\x42\x16\n\x14\x61udio_storage_config\"g\n\x13MessageBrokerConfig\x12\x37\n\x10rabbit_mq_confiq\x18\x01 \x01(\x0b\x32\x1b.ondewo.vtsi.RabbitMqConfigH\x00\x42\x17\n\x15message_broker_config\"\\\n\x0eRabbitMqConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\t\x12\x0e\n\x06port_2\x18\x03 \x01(\t\x12\x0c\n\x04user\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\"&\n\x08\x45ndpoint\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\t\"\x85\x01\n\x0bMinioConfig\x12\'\n\x08\x65ndpoint\x18\x01 \x01(\x0b\x32\x15.ondewo.vtsi.Endpoint\x12\x12\n\naccess_key\x18\x02 \x01(\t\x12\x12\n\nsecret_key\x18\x03 \x01(\t\x12\x0e\n\x06secure\x18\x04 \x01(\x08\x12\x15\n\rsession_token\x18\x05 \x01(\t\"E\n\x0cS2tCallbacks\x12\x19\n\x11pre_s2t_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_s2t_callbacks\x18\x02 \x03(\t\"E\n\x0cNluCallbacks\x12\x19\n\x11pre_nlu_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_nlu_callbacks\x18\x02 \x03(\t\"E\n\x0cT2sCallbacks\x12\x19\n\x11pre_t2s_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_t2s_callbacks\x18\x02 \x03(\t\"\x84\x01\n\x18StartCallInstanceRequest\x12*\n\nsip_config\x18\x01 \x01(\x0b\x32\x16.ondewo.vtsi.SIPConfig\x12<\n\x10services_configs\x18\x02 \x01(\x0b\x32\".ondewo.vtsi.CommonServicesConfigs\"d\n\x19StartCallInstanceResponse\x12\x36\n\x07request\x18\x01 \x01(\x0b\x32%.ondewo.vtsi.StartCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"\\\n!StartMultipleCallInstancesRequest\x12\x37\n\x08requests\x18\x01 \x03(\x0b\x32%.ondewo.vtsi.StartCallInstanceRequest\"v\n\"StartMultipleCallInstancesResponse\x12?\n\x07request\x18\x01 \x01(\x0b\x32..ondewo.vtsi.StartMultipleCallInstancesRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\"D\n\x17StopCallInstanceRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"w\n\x18StopCallInstanceResponse\x12\x35\n\x07request\x18\x01 \x01(\x0b\x32$.ondewo.vtsi.StopCallInstanceRequest\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12\x13\n\x0blog_message\x18\x03 \x01(\t\"0\n\x19VoipManifestStatusRequest\x12\x13\n\x0bmanifest_id\x18\x01 \x01(\t\"|\n\x12VoipManifestStatus\x12\x37\n\x07request\x18\x01 \x01(\x0b\x32&.ondewo.vtsi.VoipManifestStatusRequest\x12-\n\x0c\x63\x61lls_status\x18\x02 \x03(\x0b\x32\x17.ondewo.vtsi.VoipStatus\"A\n\x14GetVoipStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x42\x04\n\x02id\"\xf4\x01\n\nVoipStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\x12\x33\n\x0fstatus_asterisk\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_cai\x18\x04 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_stt\x18\x05 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_tts\x18\x06 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\"2\n\rServiceStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x10\n\x08last_log\x18\x02 \x01(\t\"_\n\x1bUpdateServicesStatusRequest\x12\x11\n\x07\x63\x61ll_id\x18\x01 \x01(\tH\x00\x12\x10\n\x06sip_id\x18\x02 \x01(\tH\x00\x12\x15\n\x0bmanifest_id\x18\x03 \x01(\tH\x00\x42\x04\n\x02id\"E\n\x1cUpdateServicesStatusResponse\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"j\n\x19\x44\x65ployPreconditionRequest\x12\x17\n\x0fsip_sim_version\x18\x01 \x01(\t\x12\x34\n\x0f\x61sterisk_config\x18\x02 \x01(\x0b\x32\x1b.ondewo.vtsi.AsteriskConfig\"-\n\x1a\x44\x65ployPreconditionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\">\n\x15GetManifestIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\".\n\x16GetManifestIDsResponse\x12\x14\n\x0cmanifest_ids\x18\x01 \x03(\t\":\n\x11GetCallIDsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"&\n\x12GetCallIDsResponse\x12\x10\n\x08\x63\x61ll_ids\x18\x01 \x03(\t\"&\n\x13GetSessionIDRequest\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\";\n\x14GetSessionIDResponse\x12\x0f\n\x07\x63\x61ll_id\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\t\"F\n\x1dShutdownUnhealthyCallsRequest\x12%\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Empty\"1\n\x1eShutdownUnhealthyCallsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xaa\x11\n\x0cVoipSessions\x12\x8f\x01\n\x0bRunManifest\x12\x1c.ondewo.vtsi.ManifestRequest\x1a .ondewo.vtsi.RunManifestResponse\"@\x82\xd3\xe4\x93\x02:\"5/v2/{session=projects/*/agent/sessions/*}:RunManifest:\x01*\x12\x98\x01\n\x0eRemoveManifest\x12\x1c.ondewo.vtsi.ManifestRequest\x1a#.ondewo.vtsi.RemoveManifestResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:RemoveManifest:\x01*\x12\x9e\x01\n\x0eGetManifestIDs\x12\".ondewo.vtsi.GetManifestIDsRequest\x1a#.ondewo.vtsi.GetManifestIDsResponse\"C\x82\xd3\xe4\x93\x02=\"8/v2/{session=projects/*/agent/sessions/*}:GetManifestIDs:\x01*\x12\xaa\x01\n\x11StartCallInstance\x12%.ondewo.vtsi.StartCallInstanceRequest\x1a&.ondewo.vtsi.StartCallInstanceResponse\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:StartCallInstance:\x01*\x12\xa6\x01\n\x10StopCallInstance\x12$.ondewo.vtsi.StopCallInstanceRequest\x1a%.ondewo.vtsi.StopCallInstanceResponse\"E\x82\xd3\xe4\x93\x02?\":/v2/{session=projects/*/agent/sessions/*}:StopCallInstance:\x01*\x12\xce\x01\n\x1aStartMultipleCallInstances\x12..ondewo.vtsi.StartMultipleCallInstancesRequest\x1a/.ondewo.vtsi.StartMultipleCallInstancesResponse\"O\x82\xd3\xe4\x93\x02I\"D/v2/{session=projects/*/agent/sessions/*}:StartMultipleCallInstances:\x01*\x12\x8e\x01\n\nGetCallIDs\x12\x1e.ondewo.vtsi.GetCallIDsRequest\x1a\x1f.ondewo.vtsi.GetCallIDsResponse\"?\x82\xd3\xe4\x93\x02\x39\"4/v2/{session=projects/*/agent/sessions/*}:GetCallIDs:\x01*\x12\x96\x01\n\x0cGetSessionID\x12 .ondewo.vtsi.GetSessionIDRequest\x1a!.ondewo.vtsi.GetSessionIDResponse\"A\x82\xd3\xe4\x93\x02;\"6/v2/{session=projects/*/agent/sessions/*}:GetSessionID:\x01*\x12\xbe\x01\n\x16ShutdownUnhealthyCalls\x12*.ondewo.vtsi.ShutdownUnhealthyCallsRequest\x1a+.ondewo.vtsi.ShutdownUnhealthyCallsResponse\"K\x82\xd3\xe4\x93\x02\x45\"@/v2/{session=projects/*/agent/sessions/*}:ShutdownUnhealthyCalls:\x01*\x12\xa4\x01\n\x11GetManifestStatus\x12&.ondewo.vtsi.VoipManifestStatusRequest\x1a\x1f.ondewo.vtsi.VoipManifestStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetManifestStatus:\x01*\x12\x97\x01\n\x11GetInstanceStatus\x12!.ondewo.vtsi.GetVoipStatusRequest\x1a\x17.ondewo.vtsi.VoipStatus\"F\x82\xd3\xe4\x93\x02@\";/v2/{session=projects/*/agent/sessions/*}:GetInstanceStatus:\x01*\x12\xb6\x01\n\x14UpdateServicesStatus\x12(.ondewo.vtsi.UpdateServicesStatusRequest\x1a).ondewo.vtsi.UpdateServicesStatusResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*\x12\xbf\x01\n!DeployPreconditionForWorkingSetup\x12&.ondewo.vtsi.DeployPreconditionRequest\x1a\'.ondewo.vtsi.DeployPreconditionResponse\"I\x82\xd3\xe4\x93\x02\x43\">/v2/{session=projects/*/agent/sessions/*}:UpdateServicesStatus:\x01*b\x06proto3'
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,ondewo_dot_nlu_dot_context__pb2.DESCRIPTOR,google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,ondewo_dot_s2t_dot_speech__to__text__pb2.DESCRIPTOR,ondewo_dot_t2s_dot_text__to__speech__pb2.DESCRIPTOR,])
 
@@ -696,29 +696,36 @@ _CSICONFIG = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='audio_object_store_config', full_name='ondewo.vtsi.CsiConfig.audio_object_store_config', index=0,
+      name='s2t_callbacks', full_name='ondewo.vtsi.CsiConfig.s2t_callbacks', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='s2t_callbacks', full_name='ondewo.vtsi.CsiConfig.s2t_callbacks', index=1,
+      name='nlu_callbacks', full_name='ondewo.vtsi.CsiConfig.nlu_callbacks', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='nlu_callbacks', full_name='ondewo.vtsi.CsiConfig.nlu_callbacks', index=2,
+      name='t2s_callbacks', full_name='ondewo.vtsi.CsiConfig.t2s_callbacks', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='t2s_callbacks', full_name='ondewo.vtsi.CsiConfig.t2s_callbacks', index=3,
+      name='audio_object_store_config', full_name='ondewo.vtsi.CsiConfig.audio_object_store_config', index=3,
       number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='message_broker_config', full_name='ondewo.vtsi.CsiConfig.message_broker_config', index=4,
+      number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -736,7 +743,7 @@ _CSICONFIG = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=2024,
-  serialized_end=2259,
+  serialized_end=2324,
 )
 
 
@@ -772,8 +779,105 @@ _AUDIOOBJECTSTORAGECONFIG = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=2261,
-  serialized_end=2361,
+  serialized_start=2326,
+  serialized_end=2426,
+)
+
+
+_MESSAGEBROKERCONFIG = _descriptor.Descriptor(
+  name='MessageBrokerConfig',
+  full_name='ondewo.vtsi.MessageBrokerConfig',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='rabbit_mq_confiq', full_name='ondewo.vtsi.MessageBrokerConfig.rabbit_mq_confiq', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='message_broker_config', full_name='ondewo.vtsi.MessageBrokerConfig.message_broker_config',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=2428,
+  serialized_end=2531,
+)
+
+
+_RABBITMQCONFIG = _descriptor.Descriptor(
+  name='RabbitMqConfig',
+  full_name='ondewo.vtsi.RabbitMqConfig',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='host', full_name='ondewo.vtsi.RabbitMqConfig.host', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='port', full_name='ondewo.vtsi.RabbitMqConfig.port', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='port_2', full_name='ondewo.vtsi.RabbitMqConfig.port_2', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='user', full_name='ondewo.vtsi.RabbitMqConfig.user', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='password', full_name='ondewo.vtsi.RabbitMqConfig.password', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2533,
+  serialized_end=2625,
 )
 
 
@@ -811,8 +915,8 @@ _ENDPOINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2363,
-  serialized_end=2401,
+  serialized_start=2627,
+  serialized_end=2665,
 )
 
 
@@ -845,70 +949,6 @@ _MINIOCONFIG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=669,
-  serialized_end=735,
-)
-
-
-_CREDENTIALS = _descriptor.Descriptor(
-  name='Credentials',
-  full_name='ondewo.vtsi.Credentials',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='account_name', full_name='ondewo.vtsi.Credentials.account_name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='password', full_name='ondewo.vtsi.Credentials.password', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=737,
-  serialized_end=790,
-)
-
-
-_NLUCONFIG = _descriptor.Descriptor(
-  name='NLUConfig',
-  full_name='ondewo.vtsi.NLUConfig',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
     _descriptor.FieldDescriptor(
       name='secure', full_name='ondewo.vtsi.MinioConfig.secure', index=3,
       number=4, type=8, cpp_type=7, label=1,
@@ -923,57 +963,6 @@ _NLUCONFIG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='contexts', full_name='ondewo.vtsi.NLUConfig.contexts', index=6,
-      number=7, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-    _descriptor.OneofDescriptor(
-      name='authentication', full_name='ondewo.vtsi.NLUConfig.authentication',
-      index=0, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
-  ],
-  serialized_start=793,
-  serialized_end=1052,
-)
-
-
-_T2SCONFIG = _descriptor.Descriptor(
-  name='T2SConfig',
-  full_name='ondewo.vtsi.T2SConfig',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='base_config', full_name='ondewo.vtsi.T2SConfig.base_config', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='t2s_config', full_name='ondewo.vtsi.T2SConfig.t2s_config', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -986,8 +975,8 @@ _T2SCONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2404,
-  serialized_end=2537,
+  serialized_start=2668,
+  serialized_end=2801,
 )
 
 
@@ -1025,8 +1014,8 @@ _S2TCALLBACKS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2539,
-  serialized_end=2608,
+  serialized_start=2803,
+  serialized_end=2872,
 )
 
 
@@ -1064,8 +1053,8 @@ _NLUCALLBACKS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2610,
-  serialized_end=2679,
+  serialized_start=2874,
+  serialized_end=2943,
 )
 
 
@@ -1103,8 +1092,8 @@ _T2SCALLBACKS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2681,
-  serialized_end=2750,
+  serialized_start=2945,
+  serialized_end=3014,
 )
 
 
@@ -1142,8 +1131,8 @@ _STARTCALLINSTANCEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2753,
-  serialized_end=2885,
+  serialized_start=3017,
+  serialized_end=3149,
 )
 
 
@@ -1181,8 +1170,8 @@ _STARTCALLINSTANCERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2887,
-  serialized_end=2987,
+  serialized_start=3151,
+  serialized_end=3251,
 )
 
 
@@ -1213,8 +1202,8 @@ _STARTMULTIPLECALLINSTANCESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2989,
-  serialized_end=3081,
+  serialized_start=3253,
+  serialized_end=3345,
 )
 
 
@@ -1252,8 +1241,8 @@ _STARTMULTIPLECALLINSTANCESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3083,
-  serialized_end=3201,
+  serialized_start=3347,
+  serialized_end=3465,
 )
 
 
@@ -1296,8 +1285,8 @@ _STOPCALLINSTANCEREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=3203,
-  serialized_end=3271,
+  serialized_start=3467,
+  serialized_end=3535,
 )
 
 
@@ -1342,8 +1331,8 @@ _STOPCALLINSTANCERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3273,
-  serialized_end=3392,
+  serialized_start=3537,
+  serialized_end=3656,
 )
 
 
@@ -1374,8 +1363,8 @@ _VOIPMANIFESTSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3394,
-  serialized_end=3442,
+  serialized_start=3658,
+  serialized_end=3706,
 )
 
 
@@ -1413,8 +1402,8 @@ _VOIPMANIFESTSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3444,
-  serialized_end=3568,
+  serialized_start=3708,
+  serialized_end=3832,
 )
 
 
@@ -1457,8 +1446,8 @@ _GETVOIPSTATUSREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=3570,
-  serialized_end=3635,
+  serialized_start=3834,
+  serialized_end=3899,
 )
 
 
@@ -1524,8 +1513,8 @@ _VOIPSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3638,
-  serialized_end=3882,
+  serialized_start=3902,
+  serialized_end=4146,
 )
 
 
@@ -1563,8 +1552,8 @@ _SERVICESTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3884,
-  serialized_end=3934,
+  serialized_start=4148,
+  serialized_end=4198,
 )
 
 
@@ -1614,8 +1603,8 @@ _UPDATESERVICESSTATUSREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=3936,
-  serialized_end=4031,
+  serialized_start=4200,
+  serialized_end=4295,
 )
 
 
@@ -1646,8 +1635,8 @@ _UPDATESERVICESSTATUSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4033,
-  serialized_end=4102,
+  serialized_start=4297,
+  serialized_end=4366,
 )
 
 
@@ -1685,8 +1674,8 @@ _DEPLOYPRECONDITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4104,
-  serialized_end=4210,
+  serialized_start=4368,
+  serialized_end=4474,
 )
 
 
@@ -1717,8 +1706,8 @@ _DEPLOYPRECONDITIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4212,
-  serialized_end=4257,
+  serialized_start=4476,
+  serialized_end=4521,
 )
 
 
@@ -1749,8 +1738,8 @@ _GETMANIFESTIDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4259,
-  serialized_end=4321,
+  serialized_start=4523,
+  serialized_end=4585,
 )
 
 
@@ -1781,8 +1770,8 @@ _GETMANIFESTIDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4323,
-  serialized_end=4369,
+  serialized_start=4587,
+  serialized_end=4633,
 )
 
 
@@ -1813,8 +1802,8 @@ _GETCALLIDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4371,
-  serialized_end=4429,
+  serialized_start=4635,
+  serialized_end=4693,
 )
 
 
@@ -1845,8 +1834,8 @@ _GETCALLIDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4431,
-  serialized_end=4469,
+  serialized_start=4695,
+  serialized_end=4733,
 )
 
 
@@ -1877,8 +1866,8 @@ _GETSESSIONIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4471,
-  serialized_end=4509,
+  serialized_start=4735,
+  serialized_end=4773,
 )
 
 
@@ -1916,8 +1905,8 @@ _GETSESSIONIDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4511,
-  serialized_end=4570,
+  serialized_start=4775,
+  serialized_end=4834,
 )
 
 
@@ -1948,8 +1937,8 @@ _SHUTDOWNUNHEALTHYCALLSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4572,
-  serialized_end=4642,
+  serialized_start=4836,
+  serialized_end=4906,
 )
 
 
@@ -1980,8 +1969,8 @@ _SHUTDOWNUNHEALTHYCALLSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4644,
-  serialized_end=4693,
+  serialized_start=4908,
+  serialized_end=4957,
 )
 
 _VOIPMANIFEST.fields_by_name['contexts'].message_type = ondewo_dot_nlu_dot_context__pb2._CONTEXT
@@ -2012,14 +2001,19 @@ _SIPCONFIG_ACCOUNTPASSWORDDICTIONARYENTRY.containing_type = _SIPCONFIG
 _SIPCONFIG_HEADERSENTRY.containing_type = _SIPCONFIG
 _SIPCONFIG.fields_by_name['account_password_dictionary'].message_type = _SIPCONFIG_ACCOUNTPASSWORDDICTIONARYENTRY
 _SIPCONFIG.fields_by_name['headers'].message_type = _SIPCONFIG_HEADERSENTRY
-_CSICONFIG.fields_by_name['audio_object_store_config'].message_type = _AUDIOOBJECTSTORAGECONFIG
 _CSICONFIG.fields_by_name['s2t_callbacks'].message_type = _S2TCALLBACKS
 _CSICONFIG.fields_by_name['nlu_callbacks'].message_type = _NLUCALLBACKS
 _CSICONFIG.fields_by_name['t2s_callbacks'].message_type = _T2SCALLBACKS
+_CSICONFIG.fields_by_name['audio_object_store_config'].message_type = _AUDIOOBJECTSTORAGECONFIG
+_CSICONFIG.fields_by_name['message_broker_config'].message_type = _MESSAGEBROKERCONFIG
 _AUDIOOBJECTSTORAGECONFIG.fields_by_name['minio_config'].message_type = _MINIOCONFIG
 _AUDIOOBJECTSTORAGECONFIG.oneofs_by_name['audio_storage_config'].fields.append(
   _AUDIOOBJECTSTORAGECONFIG.fields_by_name['minio_config'])
 _AUDIOOBJECTSTORAGECONFIG.fields_by_name['minio_config'].containing_oneof = _AUDIOOBJECTSTORAGECONFIG.oneofs_by_name['audio_storage_config']
+_MESSAGEBROKERCONFIG.fields_by_name['rabbit_mq_confiq'].message_type = _RABBITMQCONFIG
+_MESSAGEBROKERCONFIG.oneofs_by_name['message_broker_config'].fields.append(
+  _MESSAGEBROKERCONFIG.fields_by_name['rabbit_mq_confiq'])
+_MESSAGEBROKERCONFIG.fields_by_name['rabbit_mq_confiq'].containing_oneof = _MESSAGEBROKERCONFIG.oneofs_by_name['message_broker_config']
 _MINIOCONFIG.fields_by_name['endpoint'].message_type = _ENDPOINT
 _STARTCALLINSTANCEREQUEST.fields_by_name['sip_config'].message_type = _SIPCONFIG
 _STARTCALLINSTANCEREQUEST.fields_by_name['services_configs'].message_type = _COMMONSERVICESCONFIGS
@@ -2073,6 +2067,8 @@ DESCRIPTOR.message_types_by_name['CommonServicesConfigs'] = _COMMONSERVICESCONFI
 DESCRIPTOR.message_types_by_name['SIPConfig'] = _SIPCONFIG
 DESCRIPTOR.message_types_by_name['CsiConfig'] = _CSICONFIG
 DESCRIPTOR.message_types_by_name['AudioObjectStorageConfig'] = _AUDIOOBJECTSTORAGECONFIG
+DESCRIPTOR.message_types_by_name['MessageBrokerConfig'] = _MESSAGEBROKERCONFIG
+DESCRIPTOR.message_types_by_name['RabbitMqConfig'] = _RABBITMQCONFIG
 DESCRIPTOR.message_types_by_name['Endpoint'] = _ENDPOINT
 DESCRIPTOR.message_types_by_name['MinioConfig'] = _MINIOCONFIG
 DESCRIPTOR.message_types_by_name['S2tCallbacks'] = _S2TCALLBACKS
@@ -2216,6 +2212,20 @@ AudioObjectStorageConfig = _reflection.GeneratedProtocolMessageType('AudioObject
   # @@protoc_insertion_point(class_scope:ondewo.vtsi.AudioObjectStorageConfig)
   })
 _sym_db.RegisterMessage(AudioObjectStorageConfig)
+
+MessageBrokerConfig = _reflection.GeneratedProtocolMessageType('MessageBrokerConfig', (_message.Message,), {
+  'DESCRIPTOR' : _MESSAGEBROKERCONFIG,
+  '__module__' : 'ondewo.vtsi.voip_pb2'
+  # @@protoc_insertion_point(class_scope:ondewo.vtsi.MessageBrokerConfig)
+  })
+_sym_db.RegisterMessage(MessageBrokerConfig)
+
+RabbitMqConfig = _reflection.GeneratedProtocolMessageType('RabbitMqConfig', (_message.Message,), {
+  'DESCRIPTOR' : _RABBITMQCONFIG,
+  '__module__' : 'ondewo.vtsi.voip_pb2'
+  # @@protoc_insertion_point(class_scope:ondewo.vtsi.RabbitMqConfig)
+  })
+_sym_db.RegisterMessage(RabbitMqConfig)
 
 Endpoint = _reflection.GeneratedProtocolMessageType('Endpoint', (_message.Message,), {
   'DESCRIPTOR' : _ENDPOINT,
@@ -2424,8 +2434,8 @@ _VOIPSESSIONS = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=4696,
-  serialized_end=6914,
+  serialized_start=4960,
+  serialized_end=7178,
   methods=[
   _descriptor.MethodDescriptor(
     name='RunManifest',
