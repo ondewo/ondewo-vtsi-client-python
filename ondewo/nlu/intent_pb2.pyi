@@ -1234,6 +1234,7 @@ class Intent(google.protobuf.message.Message):
     STATUS_FIELD_NUMBER: builtins.int
     START_DATE_FIELD_NUMBER: builtins.int
     END_DATE_FIELD_NUMBER: builtins.int
+    TAGS_FIELD_NUMBER: builtins.int
     name: typing.Text = ...
     """Required for all methods except `create` (`create` populates the name
     automatically.
@@ -1362,6 +1363,10 @@ class Intent(google.protobuf.message.Message):
     def end_date(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """Optional. Provides information that can be used in custom scripts"""
         pass
+    @property
+    def tags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional."""
+        pass
     def __init__(self,
         *,
         name : typing.Text = ...,
@@ -1390,9 +1395,10 @@ class Intent(google.protobuf.message.Message):
         status : global___Intent.IntentStatus.V = ...,
         start_date : typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
         end_date : typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        tags : typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["end_date",b"end_date","start_date",b"start_date"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["action",b"action","default_response_platforms",b"default_response_platforms","display_name",b"display_name","domain_name",b"domain_name","end_date",b"end_date","events",b"events","followup_intent_info",b"followup_intent_info","input_context_names",b"input_context_names","is_end_of_deviation",b"is_end_of_deviation","is_fallback",b"is_fallback","is_start_of_deviation",b"is_start_of_deviation","messages",b"messages","ml_disabled",b"ml_disabled","name",b"name","next_page_token",b"next_page_token","output_contexts",b"output_contexts","parameters",b"parameters","parent_followup_intent_name",b"parent_followup_intent_name","priority",b"priority","reset_contexts",b"reset_contexts","root_followup_intent_name",b"root_followup_intent_name","start_date",b"start_date","status",b"status","training_phrase_count",b"training_phrase_count","training_phrases",b"training_phrases","webhook_state",b"webhook_state"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["action",b"action","default_response_platforms",b"default_response_platforms","display_name",b"display_name","domain_name",b"domain_name","end_date",b"end_date","events",b"events","followup_intent_info",b"followup_intent_info","input_context_names",b"input_context_names","is_end_of_deviation",b"is_end_of_deviation","is_fallback",b"is_fallback","is_start_of_deviation",b"is_start_of_deviation","messages",b"messages","ml_disabled",b"ml_disabled","name",b"name","next_page_token",b"next_page_token","output_contexts",b"output_contexts","parameters",b"parameters","parent_followup_intent_name",b"parent_followup_intent_name","priority",b"priority","reset_contexts",b"reset_contexts","root_followup_intent_name",b"root_followup_intent_name","start_date",b"start_date","status",b"status","tags",b"tags","training_phrase_count",b"training_phrase_count","training_phrases",b"training_phrases","webhook_state",b"webhook_state"]) -> None: ...
 global___Intent = Intent
 
 class ListIntentsRequest(google.protobuf.message.Message):
@@ -1404,6 +1410,7 @@ class ListIntentsRequest(google.protobuf.message.Message):
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     FILTER_BY_CATEGORY_FIELD_NUMBER: builtins.int
     SORT_BY_FIELD_FIELD_NUMBER: builtins.int
+    FILTER_BY_TAGS_FIELD_NUMBER: builtins.int
     parent: typing.Text = ...
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent`.
@@ -1433,6 +1440,10 @@ class ListIntentsRequest(google.protobuf.message.Message):
     def sort_by_field(self) -> global___IntentSorting:
         """Optional. Defines the sorting of the list. Default, no sorting."""
         pass
+    @property
+    def filter_by_tags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional. Applies a filter to the list by tags. Default, no filter."""
+        pass
     def __init__(self,
         *,
         parent : typing.Text = ...,
@@ -1441,9 +1452,10 @@ class ListIntentsRequest(google.protobuf.message.Message):
         page_token : typing.Text = ...,
         filter_by_category : global___IntentCategory.V = ...,
         sort_by_field : typing.Optional[global___IntentSorting] = ...,
+        filter_by_tags : typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["sort_by_field",b"sort_by_field"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["filter_by_category",b"filter_by_category","intent_view",b"intent_view","language_code",b"language_code","page_token",b"page_token","parent",b"parent","sort_by_field",b"sort_by_field"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["filter_by_category",b"filter_by_category","filter_by_tags",b"filter_by_tags","intent_view",b"intent_view","language_code",b"language_code","page_token",b"page_token","parent",b"parent","sort_by_field",b"sort_by_field"]) -> None: ...
 global___ListIntentsRequest = ListIntentsRequest
 
 class ListIntentsResponse(google.protobuf.message.Message):
@@ -1746,6 +1758,24 @@ class IntentSorting(google.protobuf.message.Message):
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["sorting_field",b"sorting_field","sorting_mode",b"sorting_mode"]) -> None: ...
 global___IntentSorting = IntentSorting
+
+class IntentTagMessage(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    INTENT_NAME_FIELD_NUMBER: builtins.int
+    VALUE_FIELD_NUMBER: builtins.int
+    intent_name: typing.Text = ...
+    """The path of the intent.
+    Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
+    """
+
+    value: typing.Text = ...
+    def __init__(self,
+        *,
+        intent_name : typing.Text = ...,
+        value : typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name","value",b"value"]) -> None: ...
+global___IntentTagMessage = IntentTagMessage
 
 class BatchUpdateTrainingPhrasesRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
