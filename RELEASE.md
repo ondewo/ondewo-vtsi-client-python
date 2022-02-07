@@ -1,6 +1,14 @@
 # Release History
 *****************
 
+## Release ONDEWO VTSI Client Python 3.2.0
+### Improvements
+
+* New API changes
+* CSI configs added so you can configure services like Rabbitmq
+
+*****************
+
 ## Release ONDEWO VTSI Client Python 3.1.0
 ### Improvements
 
