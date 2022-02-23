@@ -203,7 +203,7 @@ class SynthesizeResponse(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["audio",b"audio","audio_length",b"audio_length","audio_uuid",b"audio_uuid","config",b"config","generation_time",b"generation_time","text",b"text"]) -> None: ...
 global___SynthesizeResponse = SynthesizeResponse
 
-class GetServiceInfoResponse(google.protobuf.message.Message):
+class T2SGetServiceInfoResponse(google.protobuf.message.Message):
     """////////////////////
     GET SERVICE INFO //
     ////////////////////
@@ -217,7 +217,7 @@ class GetServiceInfoResponse(google.protobuf.message.Message):
         version : typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["version",b"version"]) -> None: ...
-global___GetServiceInfoResponse = GetServiceInfoResponse
+global___T2SGetServiceInfoResponse = T2SGetServiceInfoResponse
 
 class ListT2sPipelinesRequest(google.protobuf.message.Message):
     """//////////////////////
@@ -441,18 +441,18 @@ class Text2SpeechConfig(google.protobuf.message.Message):
     """Required. Defines the id of the pipeline."""
 
     @property
-    def description(self) -> global___Description:
+    def description(self) -> global___T2SDescription:
         """Required. Defines the description of the pipeline representation."""
         pass
     active: builtins.bool = ...
     """Required. Defines if the pipeline is active or inactive."""
 
     @property
-    def inference(self) -> global___Inference:
+    def inference(self) -> global___T2SInference:
         """Required. Defines he inference of the pipeline representation."""
         pass
     @property
-    def normalization(self) -> global___Normalization:
+    def normalization(self) -> global___T2SNormalization:
         """Required. Defines the normalization process of the pipeline representation."""
         pass
     @property
@@ -462,17 +462,17 @@ class Text2SpeechConfig(google.protobuf.message.Message):
     def __init__(self,
         *,
         id : typing.Text = ...,
-        description : typing.Optional[global___Description] = ...,
+        description : typing.Optional[global___T2SDescription] = ...,
         active : builtins.bool = ...,
-        inference : typing.Optional[global___Inference] = ...,
-        normalization : typing.Optional[global___Normalization] = ...,
+        inference : typing.Optional[global___T2SInference] = ...,
+        normalization : typing.Optional[global___T2SNormalization] = ...,
         postprocessing : typing.Optional[global___Postprocessing] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["description",b"description","inference",b"inference","normalization",b"normalization","postprocessing",b"postprocessing"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["active",b"active","description",b"description","id",b"id","inference",b"inference","normalization",b"normalization","postprocessing",b"postprocessing"]) -> None: ...
 global___Text2SpeechConfig = Text2SpeechConfig
 
-class Description(google.protobuf.message.Message):
+class T2SDescription(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     LANGUAGE_FIELD_NUMBER: builtins.int
     SPEAKER_SEX_FIELD_NUMBER: builtins.int
@@ -496,9 +496,9 @@ class Description(google.protobuf.message.Message):
         domain : typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["comments",b"comments","domain",b"domain","language",b"language","pipeline_owner",b"pipeline_owner","speaker_name",b"speaker_name","speaker_sex",b"speaker_sex"]) -> None: ...
-global___Description = Description
+global___T2SDescription = T2SDescription
 
-class Inference(google.protobuf.message.Message):
+class T2SInference(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     TYPE_FIELD_NUMBER: builtins.int
     COMPOSITE_INFERENCE_FIELD_NUMBER: builtins.int
@@ -516,7 +516,7 @@ class Inference(google.protobuf.message.Message):
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["caching",b"caching","composite_inference",b"composite_inference"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["caching",b"caching","composite_inference",b"composite_inference","type",b"type"]) -> None: ...
-global___Inference = Inference
+global___T2SInference = T2SInference
 
 class CompositeInference(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
@@ -725,7 +725,7 @@ class Caching(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["active",b"active","cache_save_dir",b"cache_save_dir","load_cache",b"load_cache","memory_cache_max_size",b"memory_cache_max_size","sampling_rate",b"sampling_rate","save_cache",b"save_cache"]) -> None: ...
 global___Caching = Caching
 
-class Normalization(google.protobuf.message.Message):
+class T2SNormalization(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     LANGUAGE_FIELD_NUMBER: builtins.int
     PIPELINE_FIELD_NUMBER: builtins.int
@@ -741,7 +741,7 @@ class Normalization(google.protobuf.message.Message):
         custom_phonemizer_id : typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["custom_phonemizer_id",b"custom_phonemizer_id","language",b"language","pipeline",b"pipeline"]) -> None: ...
-global___Normalization = Normalization
+global___T2SNormalization = T2SNormalization
 
 class Postprocessing(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
