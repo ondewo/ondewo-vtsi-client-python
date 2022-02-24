@@ -1,6 +1,14 @@
 # Release History
 *****************
 
+## Release ONDEWO VTSI Client Python 3.3.0
+### Improvements
+
+* New client updates for s2t t2s nlu and sip
+
+*****************
+
+
 ## Release ONDEWO VTSI Client Python 3.2.0
 ### Improvements
 
