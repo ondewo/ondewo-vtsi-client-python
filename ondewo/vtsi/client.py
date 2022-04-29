@@ -178,3 +178,13 @@ class VtsiClient:
         request = call_log_pb2.GetVoipLogRequest(call_id=call_id)
         response: call_log_pb2.GetVoipLogResponse = self.call_log_stub.GetVoipLog(request=request)
         return response
+
+
+    def get_audio_file(self, request: voip_pb2.GetAudioFileRequest) -> voip_pb2.GetAudioFileResponse:
+        response: voip_pb2.GetAudioFileResponse = self.voip_stub.GetAudioFile(request=request)
+        return response
+
+    def get_full_conversation_audio_file(
+            self, request: voip_pb2.GetFullConversationAudioFileRequest
+    ) -> voip_pb2.GetFullConversationAudioFileResponse:
+        return self.voip_stub.GetFullConversationAudioFile(request=request)
