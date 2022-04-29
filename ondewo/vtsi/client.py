@@ -181,10 +181,8 @@ class VtsiClient:
 
 
     def get_audio_file(self, request: voip_pb2.GetAudioFileRequest) -> voip_pb2.GetAudioFileResponse:
-        response: voip_pb2.GetAudioFileResponse = self.voip_stub.GetAudioFile(request=request)
-        return response
+        return self.voip_stub.GetAudioFile(request=request)
 
-    def get_full_conversation_audio_file(
-            self, request: voip_pb2.GetFullConversationAudioFileRequest
-    ) -> voip_pb2.GetFullConversationAudioFileResponse:
+    def get_full_conversation_audio_file(self, request: voip_pb2.GetFullConversationAudioFileRequest) \
+            -> voip_pb2.GetFullConversationAudioFileResponse:
         return self.voip_stub.GetFullConversationAudioFile(request=request)
