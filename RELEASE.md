@@ -1,6 +1,13 @@
 # Release History
 *****************
 
+## Release ONDEWO VTSI Client Python 3.4.0
+### Improvements
+
+* New client updates for retrieving minio data
+
+*****************
+
 ## Release ONDEWO VTSI Client Python 3.3.0
 ### Improvements
 
