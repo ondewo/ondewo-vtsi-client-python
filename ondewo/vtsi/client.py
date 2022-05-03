@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import grpc
 import os
 from dataclasses import dataclass
 from typing import List, Optional, Dict, Any
-
-import grpc
 
 from ondewo.nlu import context_pb2
 from ondewo.vtsi import call_log_pb2, call_log_pb2_grpc, voip_pb2, voip_pb2_grpc
@@ -178,7 +177,6 @@ class VtsiClient:
         request = call_log_pb2.GetVoipLogRequest(call_id=call_id)
         response: call_log_pb2.GetVoipLogResponse = self.call_log_stub.GetVoipLog(request=request)
         return response
-
 
     def get_audio_file(self, request: voip_pb2.GetAudioFileRequest) -> voip_pb2.GetAudioFileResponse:
         return self.voip_stub.GetAudioFile(request=request)
