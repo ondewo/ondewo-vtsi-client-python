@@ -9,31 +9,32 @@ import google.protobuf.message
 import typing
 import typing_extensions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class _SortingMode:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _SortingModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SortingMode.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    ASCENDING: _SortingMode.ValueType  # 0
+    DESCENDING: _SortingMode.ValueType  # 1
 class SortingMode(_SortingMode, metaclass=_SortingModeEnumTypeWrapper):
     pass
-class _SortingMode:
-    V = typing.NewType('V', builtins.int)
-class _SortingModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SortingMode.V], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-    ASCENDING = SortingMode.V(0)
-    DESCENDING = SortingMode.V(1)
 
-ASCENDING = SortingMode.V(0)
-DESCENDING = SortingMode.V(1)
+ASCENDING: SortingMode.ValueType  # 0
+DESCENDING: SortingMode.ValueType  # 1
 global___SortingMode = SortingMode
 
 
 class StatResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     VALUE_FIELD_NUMBER: builtins.int
-    value: builtins.int = ...
+    value: builtins.int
     """Response wrapper for the "Get<Stat>" endpoints"""
 
     def __init__(self,
         *,
-        value : builtins.int = ...,
+        value: builtins.int = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___StatResponse = StatResponse
