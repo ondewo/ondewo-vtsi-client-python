@@ -1,4 +1,5 @@
-dataclasses-json==0.8
+dataclasses==0.8
+dataclasses-json==0.0.12
 polling==0.3.2
 pytest==7.1.2
 regex==2022.6.2
