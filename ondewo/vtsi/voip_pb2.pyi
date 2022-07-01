@@ -1185,3 +1185,72 @@ class GetCallIDsFromSipAccountResponse(google.protobuf.message.Message):
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["call_ids",b"call_ids"]) -> None: ...
 global___GetCallIDsFromSipAccountResponse = GetCallIDsFromSipAccountResponse
+
+class GetAudioFileRequest(google.protobuf.message.Message):
+    """///////////////////////
+    Retrieving Audio files //
+    //////////////////////////
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    BUCKET_NAME_FIELD_NUMBER: builtins.int
+    OBJECT_NAME_FIELD_NUMBER: builtins.int
+    MINIO_CONFIG_FIELD_NUMBER: builtins.int
+    bucket_name: typing.Text
+    object_name: typing.Text
+    @property
+    def minio_config(self) -> global___MinioConfig:
+        """Optional to add if you want to retrieve it from a specific minio server"""
+        pass
+    def __init__(self,
+        *,
+        bucket_name: typing.Text = ...,
+        object_name: typing.Text = ...,
+        minio_config: typing.Optional[global___MinioConfig] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["minio_config",b"minio_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["bucket_name",b"bucket_name","minio_config",b"minio_config","object_name",b"object_name"]) -> None: ...
+global___GetAudioFileRequest = GetAudioFileRequest
+
+class GetAudioFileResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    AUDIO_FIELD_NUMBER: builtins.int
+    audio: builtins.bytes
+    def __init__(self,
+        *,
+        audio: builtins.bytes = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["audio",b"audio"]) -> None: ...
+global___GetAudioFileResponse = GetAudioFileResponse
+
+class GetFullConversationAudioFileRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    BUCKET_NAME_FIELD_NUMBER: builtins.int
+    OBJECT_NAMES_FIELD_NUMBER: builtins.int
+    MINIO_CONFIG_FIELD_NUMBER: builtins.int
+    bucket_name: typing.Text
+    @property
+    def object_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
+    @property
+    def minio_config(self) -> global___MinioConfig:
+        """Optional to add if you want to retrieve it from a specific minio server"""
+        pass
+    def __init__(self,
+        *,
+        bucket_name: typing.Text = ...,
+        object_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        minio_config: typing.Optional[global___MinioConfig] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["minio_config",b"minio_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["bucket_name",b"bucket_name","minio_config",b"minio_config","object_names",b"object_names"]) -> None: ...
+global___GetFullConversationAudioFileRequest = GetFullConversationAudioFileRequest
+
+class GetFullConversationAudioFileResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    AUDIO_FIELD_NUMBER: builtins.int
+    audio: builtins.bytes
+    def __init__(self,
+        *,
+        audio: builtins.bytes = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["audio",b"audio"]) -> None: ...
+global___GetFullConversationAudioFileResponse = GetFullConversationAudioFileResponse
