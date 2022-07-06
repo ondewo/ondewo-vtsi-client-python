@@ -345,6 +345,7 @@ class CsiConfig(google.protobuf.message.Message):
     T2S_CALLBACKS_FIELD_NUMBER: builtins.int
     AUDIO_OBJECT_STORE_CONFIG_FIELD_NUMBER: builtins.int
     MESSAGE_BROKER_CONFIG_FIELD_NUMBER: builtins.int
+    ACTIVATE_CONTROL_MESSAGES_FIELD_NUMBER: builtins.int
     @property
     def s2t_callbacks(self) -> global___S2tCallbacks: ...
     @property
@@ -355,6 +356,7 @@ class CsiConfig(google.protobuf.message.Message):
     def audio_object_store_config(self) -> global___AudioObjectStorageConfig: ...
     @property
     def message_broker_config(self) -> global___MessageBrokerConfig: ...
+    activate_control_messages: builtins.bool
     def __init__(self,
         *,
         s2t_callbacks: typing.Optional[global___S2tCallbacks] = ...,
@@ -362,44 +364,93 @@ class CsiConfig(google.protobuf.message.Message):
         t2s_callbacks: typing.Optional[global___T2sCallbacks] = ...,
         audio_object_store_config: typing.Optional[global___AudioObjectStorageConfig] = ...,
         message_broker_config: typing.Optional[global___MessageBrokerConfig] = ...,
+        activate_control_messages: builtins.bool = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["audio_object_store_config",b"audio_object_store_config","message_broker_config",b"message_broker_config","nlu_callbacks",b"nlu_callbacks","s2t_callbacks",b"s2t_callbacks","t2s_callbacks",b"t2s_callbacks"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["audio_object_store_config",b"audio_object_store_config","message_broker_config",b"message_broker_config","nlu_callbacks",b"nlu_callbacks","s2t_callbacks",b"s2t_callbacks","t2s_callbacks",b"t2s_callbacks"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activate_control_messages",b"activate_control_messages","audio_object_store_config",b"audio_object_store_config","message_broker_config",b"message_broker_config","nlu_callbacks",b"nlu_callbacks","s2t_callbacks",b"s2t_callbacks","t2s_callbacks",b"t2s_callbacks"]) -> None: ...
 global___CsiConfig = CsiConfig
 
 class AudioObjectStorageConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ACTIVATE_AUDIO_OBJECT_STORAGE_FIELD_NUMBER: builtins.int
+    AUDIO_OBJECT_STORAGE_SERVICES_ACTIVATION_CONFIG_FIELD_NUMBER: builtins.int
     MINIO_CONFIG_FIELD_NUMBER: builtins.int
     activate_audio_object_storage: builtins.bool
+    @property
+    def audio_object_storage_services_activation_config(self) -> global___AudioObjectStorageServicesActivationConfig: ...
     @property
     def minio_config(self) -> global___MinioConfig: ...
     def __init__(self,
         *,
         activate_audio_object_storage: builtins.bool = ...,
+        audio_object_storage_services_activation_config: typing.Optional[global___AudioObjectStorageServicesActivationConfig] = ...,
         minio_config: typing.Optional[global___MinioConfig] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["activate_audio_object_storage",b"activate_audio_object_storage","audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["activate_audio_object_storage",b"activate_audio_object_storage","activate_audio_object_storage_oneof",b"activate_audio_object_storage_oneof","audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config","audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activate_audio_object_storage",b"activate_audio_object_storage","activate_audio_object_storage_oneof",b"activate_audio_object_storage_oneof","audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config","audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["activate_audio_object_storage_oneof",b"activate_audio_object_storage_oneof"]) -> typing.Optional[typing_extensions.Literal["activate_audio_object_storage","audio_object_storage_services_activation_config"]]: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["audio_storage_config",b"audio_storage_config"]) -> typing.Optional[typing_extensions.Literal["minio_config"]]: ...
 global___AudioObjectStorageConfig = AudioObjectStorageConfig
+
+class AudioObjectStorageServicesActivationConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    ACTIVATE_S2T_FIELD_NUMBER: builtins.int
+    ACTIVATE_T2S_FIELD_NUMBER: builtins.int
+    activate_s2t: builtins.bool
+    activate_t2s: builtins.bool
+    def __init__(self,
+        *,
+        activate_s2t: builtins.bool = ...,
+        activate_t2s: builtins.bool = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activate_s2t",b"activate_s2t","activate_t2s",b"activate_t2s"]) -> None: ...
+global___AudioObjectStorageServicesActivationConfig = AudioObjectStorageServicesActivationConfig
 
 class MessageBrokerConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ACTIVATE_MESSAGE_BROKER_FIELD_NUMBER: builtins.int
+    MESSAGE_BROKER_SERVICES_ACTIVATION_CONFIG_FIELD_NUMBER: builtins.int
     RABBIT_MQ_CONFIG_FIELD_NUMBER: builtins.int
     activate_message_broker: builtins.bool
+    @property
+    def message_broker_services_activation_config(self) -> global___MessageBrokerServicesActivationConfig: ...
     @property
     def rabbit_mq_config(self) -> global___RabbitMqConfig: ...
     def __init__(self,
         *,
         activate_message_broker: builtins.bool = ...,
+        message_broker_services_activation_config: typing.Optional[global___MessageBrokerServicesActivationConfig] = ...,
         rabbit_mq_config: typing.Optional[global___RabbitMqConfig] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["message_broker_config",b"message_broker_config","rabbit_mq_config",b"rabbit_mq_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["activate_message_broker",b"activate_message_broker","message_broker_config",b"message_broker_config","rabbit_mq_config",b"rabbit_mq_config"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["activate_message_broker",b"activate_message_broker","activate_message_broker_oneof",b"activate_message_broker_oneof","message_broker_config",b"message_broker_config","message_broker_services_activation_config",b"message_broker_services_activation_config","rabbit_mq_config",b"rabbit_mq_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activate_message_broker",b"activate_message_broker","activate_message_broker_oneof",b"activate_message_broker_oneof","message_broker_config",b"message_broker_config","message_broker_services_activation_config",b"message_broker_services_activation_config","rabbit_mq_config",b"rabbit_mq_config"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["activate_message_broker_oneof",b"activate_message_broker_oneof"]) -> typing.Optional[typing_extensions.Literal["activate_message_broker","message_broker_services_activation_config"]]: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["message_broker_config",b"message_broker_config"]) -> typing.Optional[typing_extensions.Literal["rabbit_mq_config"]]: ...
 global___MessageBrokerConfig = MessageBrokerConfig
+
+class MessageBrokerServicesActivationConfig(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    ACTIVATE_S2T_FIELD_NUMBER: builtins.int
+    ACTIVATE_NLU_FIELD_NUMBER: builtins.int
+    ACTIVATE_T2S_FIELD_NUMBER: builtins.int
+    ACTIVATE_SIP_FIELD_NUMBER: builtins.int
+    activate_s2t: builtins.bool
+    activate_nlu: builtins.bool
+    activate_t2s: builtins.bool
+    activate_sip: builtins.bool
+    def __init__(self,
+        *,
+        activate_s2t: builtins.bool = ...,
+        activate_nlu: builtins.bool = ...,
+        activate_t2s: builtins.bool = ...,
+        activate_sip: builtins.bool = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activate_nlu",b"activate_nlu","activate_s2t",b"activate_s2t","activate_sip",b"activate_sip","activate_t2s",b"activate_t2s"]) -> None: ...
+global___MessageBrokerServicesActivationConfig = MessageBrokerServicesActivationConfig
 
 class RabbitMqConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
