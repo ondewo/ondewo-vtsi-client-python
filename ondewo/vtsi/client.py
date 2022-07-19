@@ -67,26 +67,26 @@ class VtsiClient:
             print(f'Creating an insecure channel to {target}')
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
 
-    def handle_register_project_configs_request(
+    def register_project_configs_request(
             self, request: voip_pb2.RegisterProjectConfigsRequest, context: grpc.ServicerContext
     ) -> voip_pb2.RegisterProjectConfigsResponse:
         return self.voip_stub.RegisterProjectConfigs(request=request)
 
-    def handle_get_project_configs_request(
+    def get_project_configs_request(
             self,
             request: voip_pb2.GetProjectConfigsRequest,
             context: grpc.ServicerContext
     ) -> voip_pb2.GetProjectConfigsResponse:
         return self.voip_stub.GetProjectConfigs(request=request)
 
-    def handle_update_project_configs_request(
+    def update_project_configs_request(
             self,
             request: voip_pb2.UpdateProjectConfigsRequest,
             context: grpc.ServicerContext
     ) -> voip_pb2.UpdateProjectConfigsResponse:
         return self.voip_stub.UpdateProjectConfigs(request=request)
 
-    def handle_delete_project_configs_request(
+    def delete_project_configs_request(
             self,
             request: voip_pb2.DeleteProjectConfigsRequest,
             context: grpc.ServicerContext
