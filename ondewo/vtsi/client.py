@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from typing import List, Optional, Dict, Any
 
 from ondewo.vtsi import voip_pb2, voip_pb2_grpc
+from google.protobuf import empty_pb2
 
 
 @dataclass
