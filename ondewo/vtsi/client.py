@@ -68,7 +68,9 @@ class VtsiClient:
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
 
     def register_project_configs(
-            self, request: voip_pb2.RegisterProjectConfigsRequest, context: grpc.ServicerContext
+            self,
+            request: voip_pb2.RegisterProjectConfigsRequest,
+            context: grpc.ServicerContext
     ) -> voip_pb2.RegisterProjectConfigsResponse:
         return self.voip_stub.RegisterProjectConfigs(request=request)
 
@@ -123,7 +125,7 @@ class VtsiClient:
 
     def stop_all_calls(
             self,
-            request: voip_pb2.empty_pb2.Empty,
+            request: empty_pb2.Empty,
             context: grpc.ServicerContext,
     ) -> voip_pb2.StopAllCallsResponse:
         return self.voip_stub.StopAllCalls(request=request)
@@ -151,7 +153,7 @@ class VtsiClient:
 
     def get_sip_accounts(
             self,
-            request: voip_pb2.empty_pb2.Empty,
+            request: empty_pb2.Empty,
             context: grpc.ServicerContext,
     ) -> voip_pb2.GetSipAccountsResponse:
         return self.voip_stub.GetSipAccounts(request=request)
