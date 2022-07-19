@@ -49,9 +49,7 @@ class VtsiClient:
             config_voip: VtsiConfiguration
     ) -> None:
         self.config_voip = config_voip
-
         target = f"{self.config_voip.host}:{self.config_voip.port}"
-
         # create grpc service stub
         if self.config_voip.secure:
 
