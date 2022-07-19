@@ -43,9 +43,10 @@ class VtsiClient:
     exposes the endpoints of the ondewo voip-server in a user-friendly way
     """
 
-    def __init__(self,
-                 config_voip: VtsiConfiguration
-                 ) -> None:
+    def __init__(
+            self,
+            config_voip: VtsiConfiguration
+    ) -> None:
         self.config_voip = config_voip
 
         target = f"{self.config_voip.host}:{self.config_voip.port}"
