@@ -57,6 +57,301 @@ outbound: CallType.ValueType  # 2
 global___CallType = CallType
 
 
+class ProjectConfigs(google.protobuf.message.Message):
+    """/////////
+    Projects //
+    /////////
+
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    MAX_CALLERS_FIELD_NUMBER: builtins.int
+    MAX_LISTENERS_FIELD_NUMBER: builtins.int
+    ASTERISK_CONFIGS_FIELD_NUMBER: builtins.int
+    max_callers: builtins.int
+    """The maximum number of callers that this project can have."""
+
+    max_listeners: builtins.int
+    """The maximum number of listeners that this project can have."""
+
+    @property
+    def asterisk_configs(self) -> global___AsteriskConfigs:
+        """Configs to start the asterisk server."""
+        pass
+    def __init__(self,
+        *,
+        max_callers: builtins.int = ...,
+        max_listeners: builtins.int = ...,
+        asterisk_configs: typing.Optional[global___AsteriskConfigs] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["asterisk_configs",b"asterisk_configs"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["asterisk_configs",b"asterisk_configs","max_callers",b"max_callers","max_listeners",b"max_listeners"]) -> None: ...
+global___ProjectConfigs = ProjectConfigs
+
+class AsteriskConfigsVariables(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    SIP_TRUNK_USERNAME_FIELD_NUMBER: builtins.int
+    SIP_TRUNK_PASSWORD_FIELD_NUMBER: builtins.int
+    SIP_TRUNK_HOST_FIELD_NUMBER: builtins.int
+    TRANSFER_NUMBER_FIELD_NUMBER: builtins.int
+    TRANSFER_NUMBER_HOST_FIELD_NUMBER: builtins.int
+    SIP_TRUNK_PHONE_NUMBER_FIELD_NUMBER: builtins.int
+    sip_trunk_username: typing.Text
+    """SIP trunk username."""
+
+    sip_trunk_password: typing.Text
+    """SIP trunk password."""
+
+    sip_trunk_host: typing.Text
+    """SIP trunk host."""
+
+    transfer_number: typing.Text
+    """Transfer number."""
+
+    transfer_number_host: typing.Text
+    """Transfer number host."""
+
+    sip_trunk_phone_number: typing.Text
+    """SIP trunk phone number."""
+
+    def __init__(self,
+        *,
+        sip_trunk_username: typing.Text = ...,
+        sip_trunk_password: typing.Text = ...,
+        sip_trunk_host: typing.Text = ...,
+        transfer_number: typing.Text = ...,
+        transfer_number_host: typing.Text = ...,
+        sip_trunk_phone_number: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["sip_trunk_host",b"sip_trunk_host","sip_trunk_password",b"sip_trunk_password","sip_trunk_phone_number",b"sip_trunk_phone_number","sip_trunk_username",b"sip_trunk_username","transfer_number",b"transfer_number","transfer_number_host",b"transfer_number_host"]) -> None: ...
+global___AsteriskConfigsVariables = AsteriskConfigsVariables
+
+class AsteriskConfigsFiles(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    SIP_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
+    EXTENSIONS_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
+    QUEUES_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
+    MODULES_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
+    sip_conf_file_string: typing.Text
+    """sip.conf file."""
+
+    extensions_conf_file_string: typing.Text
+    """extensions.conf file."""
+
+    queues_conf_file_string: typing.Text
+    """queues.conf file."""
+
+    modules_conf_file_string: typing.Text
+    """modules.conf file."""
+
+    def __init__(self,
+        *,
+        sip_conf_file_string: typing.Text = ...,
+        extensions_conf_file_string: typing.Text = ...,
+        queues_conf_file_string: typing.Text = ...,
+        modules_conf_file_string: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["extensions_conf_file_string",b"extensions_conf_file_string","modules_conf_file_string",b"modules_conf_file_string","queues_conf_file_string",b"queues_conf_file_string","sip_conf_file_string",b"sip_conf_file_string"]) -> None: ...
+global___AsteriskConfigsFiles = AsteriskConfigsFiles
+
+class AsteriskConfigs(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    ASTERISK_CONFIGS_VARIABLES_FIELD_NUMBER: builtins.int
+    ASTERISK_CONFIGS_FILES_FIELD_NUMBER: builtins.int
+    ASTERISK_CONFIGS_TARGET_DIRECTORY_NAME_FIELD_NUMBER: builtins.int
+    ASTERISK_PORT_FIELD_NUMBER: builtins.int
+    @property
+    def asterisk_configs_variables(self) -> global___AsteriskConfigsVariables:
+        """Configs as variables which will fill those variables using a blue print."""
+        pass
+    @property
+    def asterisk_configs_files(self) -> global___AsteriskConfigsFiles:
+        """Configs as files which will set up the configs using those files."""
+        pass
+    asterisk_configs_target_directory_name: typing.Text
+    """Configs will be mapped in from a preconfigured asterisk target directory."""
+
+    asterisk_port: builtins.int
+    """The port where Asterisk should start. {Optional}"""
+
+    def __init__(self,
+        *,
+        asterisk_configs_variables: typing.Optional[global___AsteriskConfigsVariables] = ...,
+        asterisk_configs_files: typing.Optional[global___AsteriskConfigsFiles] = ...,
+        asterisk_configs_target_directory_name: typing.Text = ...,
+        asterisk_port: builtins.int = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["asterisk_configs_files",b"asterisk_configs_files","asterisk_configs_oneof",b"asterisk_configs_oneof","asterisk_configs_target_directory_name",b"asterisk_configs_target_directory_name","asterisk_configs_variables",b"asterisk_configs_variables"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["asterisk_configs_files",b"asterisk_configs_files","asterisk_configs_oneof",b"asterisk_configs_oneof","asterisk_configs_target_directory_name",b"asterisk_configs_target_directory_name","asterisk_configs_variables",b"asterisk_configs_variables","asterisk_port",b"asterisk_port"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["asterisk_configs_oneof",b"asterisk_configs_oneof"]) -> typing.Optional[typing_extensions.Literal["asterisk_configs_variables","asterisk_configs_files","asterisk_configs_target_directory_name"]]: ...
+global___AsteriskConfigs = AsteriskConfigs
+
+class RegisterProjectConfigsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PROJECT_ID_FIELD_NUMBER: builtins.int
+    PROJECT_CONFIGS_FIELD_NUMBER: builtins.int
+    project_id: typing.Text
+    """Project id of the NLU project."""
+
+    @property
+    def project_configs(self) -> global___ProjectConfigs:
+        """Project Configs."""
+        pass
+    def __init__(self,
+        *,
+        project_id: typing.Text = ...,
+        project_configs: typing.Optional[global___ProjectConfigs] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs","project_id",b"project_id"]) -> None: ...
+global___RegisterProjectConfigsRequest = RegisterProjectConfigsRequest
+
+class RegisterProjectConfigsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___RegisterProjectConfigsRequest:
+        """The request that was sent."""
+        pass
+    success: builtins.bool
+    """success status."""
+
+    error_messages: typing.Text
+    """error messages if there are any."""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___RegisterProjectConfigsRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___RegisterProjectConfigsResponse = RegisterProjectConfigsResponse
+
+class GetProjectConfigsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PROJECT_ID_FIELD_NUMBER: builtins.int
+    project_id: typing.Text
+    """Project id of the NLU project."""
+
+    def __init__(self,
+        *,
+        project_id: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
+global___GetProjectConfigsRequest = GetProjectConfigsRequest
+
+class GetProjectConfigsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PROJECT_CONFIGS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    REQUEST_FIELD_NUMBER: builtins.int
+    @property
+    def project_configs(self) -> global___ProjectConfigs:
+        """Project Configs."""
+        pass
+    error_messages: typing.Text
+    """error messages if there are any."""
+
+    @property
+    def request(self) -> global___GetProjectConfigsRequest:
+        """The request that was sent."""
+        pass
+    def __init__(self,
+        *,
+        project_configs: typing.Optional[global___ProjectConfigs] = ...,
+        error_messages: typing.Text = ...,
+        request: typing.Optional[global___GetProjectConfigsRequest] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs","request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","project_configs",b"project_configs","request",b"request"]) -> None: ...
+global___GetProjectConfigsResponse = GetProjectConfigsResponse
+
+class UpdateProjectConfigsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PROJECT_ID_FIELD_NUMBER: builtins.int
+    PROJECT_CONFIGS_FIELD_NUMBER: builtins.int
+    project_id: typing.Text
+    """Project id of the NLU project."""
+
+    @property
+    def project_configs(self) -> global___ProjectConfigs:
+        """Project Configs."""
+        pass
+    def __init__(self,
+        *,
+        project_id: typing.Text = ...,
+        project_configs: typing.Optional[global___ProjectConfigs] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs","project_id",b"project_id"]) -> None: ...
+global___UpdateProjectConfigsRequest = UpdateProjectConfigsRequest
+
+class UpdateProjectConfigsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___UpdateProjectConfigsRequest:
+        """The request that was sent."""
+        pass
+    success: builtins.bool
+    """success status."""
+
+    error_messages: typing.Text
+    """error messages if there are any."""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___UpdateProjectConfigsRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___UpdateProjectConfigsResponse = UpdateProjectConfigsResponse
+
+class DeleteProjectConfigsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PROJECT_ID_FIELD_NUMBER: builtins.int
+    project_id: typing.Text
+    """Project id of the NLU project."""
+
+    def __init__(self,
+        *,
+        project_id: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
+global___DeleteProjectConfigsRequest = DeleteProjectConfigsRequest
+
+class DeleteProjectConfigsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___DeleteProjectConfigsRequest:
+        """The request that was sent."""
+        pass
+    success: builtins.bool
+    """success status."""
+
+    error_messages: typing.Text
+    """error messages if there are any."""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___DeleteProjectConfigsRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___DeleteProjectConfigsResponse = DeleteProjectConfigsResponse
+
 class BaseServiceConfig(google.protobuf.message.Message):
     """///////////
     CALLERS //
