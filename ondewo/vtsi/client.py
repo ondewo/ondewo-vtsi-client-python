@@ -67,86 +67,112 @@ class VtsiClient:
             print(f'Creating an insecure channel to {target}')
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
 
+    def handle_register_project_configs_request(
+            self, request: voip_pb2.RegisterProjectConfigsRequest, context: grpc.ServicerContext
+    ) -> voip_pb2.RegisterProjectConfigsResponse:
+        return self.voip_stub.RegisterProjectConfigs(request=request)
+
+    def handle_get_project_configs_request(
+            self,
+            request: voip_pb2.GetProjectConfigsRequest,
+            context: grpc.ServicerContext
+    ) -> voip_pb2.GetProjectConfigsResponse:
+        return self.voip_stub.GetProjectConfigs(request=request)
+
+    def handle_update_project_configs_request(
+            self,
+            request: voip_pb2.UpdateProjectConfigsRequest,
+            context: grpc.ServicerContext
+    ) -> voip_pb2.UpdateProjectConfigsResponse:
+        return self.voip_stub.UpdateProjectConfigs(request=request)
+
+    def handle_delete_project_configs_request(
+            self,
+            request: voip_pb2.DeleteProjectConfigsRequest,
+            context: grpc.ServicerContext
+    ) -> voip_pb2.DeleteProjectConfigsResponse:
+        return self.voip_stub.DeleteProjectConfigs(request=request)
+
     def start_listeners(
             self,
-            request: StartListenersRequest,
+            request: voip_pb2.StartListenersRequest,
             context: grpc.ServicerContext,
-    ) -> StartListenersResponse:
+    ) -> voip_pb2.StartListenersResponse:
         return self.voip_stub.StartListeners(request=request)
 
     def start_callers(
             self,
-            request: StartCallersRequest,
+            request: voip_pb2.StartCallersRequest,
             context: grpc.ServicerContext,
-    ) -> StartCallersResponse:
+    ) -> voip_pb2.StartCallersResponse:
         return self.voip_stub.StartCallers(request=request)
 
     def start_scheduled_callers(
             self,
-            request: StartScheduledCallersRequest,
+            request: voip_pb2.StartScheduledCallersRequest,
             context: grpc.ServicerContext,
-    ) -> StartScheduledCallersResponse:
+    ) -> voip_pb2.StartScheduledCallersResponse:
         return self.voip_stub.StartScheduledCallers(request=request)
 
     def stop_calls(
             self,
-            request: StopCallsRequest,
+            request: voip_pb2.StopCallsRequest,
             context: grpc.ServicerContext,
-    ) -> StopCallsResponse:
+    ) -> voip_pb2.StopCallsResponse:
         return self.voip_stub.StopCalls(request=request)
 
     def stop_all_calls(
             self,
-            request: empty_pb2.Empty,
+            request: voip_pb2.empty_pb2.Empty,
             context: grpc.ServicerContext,
-    ) -> StopAllCallsResponse:
+    ) -> voip_pb2.StopAllCallsResponse:
         return self.voip_stub.StopAllCalls(request=request)
 
     def transfer_call(
             self,
-            request: TransferCallRequest,
+            request: voip_pb2.TransferCallRequest,
             context: grpc.ServicerContext,
-    ) -> TransferCallResponse:
+    ) -> voip_pb2.TransferCallResponse:
         return self.voip_stub.TransferCall(request=request)
 
     def get_voip_call_info(
             self,
-            request: GetVoipCallInfoRequest,
+            request: voip_pb2.GetVoipCallInfoRequest,
             context: grpc.ServicerContext,
-    ) -> GetVoipCallInfoResponse:
+    ) -> voip_pb2.GetVoipCallInfoResponse:
         return self.voip_stub.GetVoipCallInfo(request=request)
 
     def list_voip_call_info(
             self,
-            request: ListVoipCallInfoRequest,
+            request: voip_pb2.ListVoipCallInfoRequest,
             context: grpc.ServicerContext,
-    ) -> ListVoipCallInfoResponse:
+    ) -> voip_pb2.ListVoipCallInfoResponse:
         return self.voip_stub.ListVoipCallInfo(request=request)
 
     def get_sip_accounts(
             self,
-            request: empty_pb2.Empty,
+            request: voip_pb2.empty_pb2.Empty,
             context: grpc.ServicerContext,
-    ) -> GetSipAccountsResponse:
+    ) -> voip_pb2.GetSipAccountsResponse:
         return self.voip_stub.GetSipAccounts(request=request)
 
     def get_call_ids_from_sip_account(
             self,
-            request: GetCallIDsFromSipAccountRequest,
+            request: voip_pb2.GetCallIDsFromSipAccountRequest,
             context: grpc.ServicerContext,
-    ) -> GetCallIDsFromSipAccountResponse:
+    ) -> voip_pb2.GetCallIDsFromSipAccountResponse:
         return self.voip_stub.GetCallIDsFromSipAccount(request=request)
 
     def get_audio_file(
             self,
-            request: GetAudioFileRequest,
+            request: voip_pb2.GetAudioFileRequest,
             context: grpc.ServicerContext,
-    ) -> GetAudioFileResponse:
+    ) -> voip_pb2.GetAudioFileResponse:
         return self.voip_stub.GetAudioFile(request=request)
 
     def get_full_conversation_audio_file(
             self,
-            request: GetFullConversationAudioFileRequest,
+            request: voip_pb2.GetFullConversationAudioFileRequest,
             context: grpc.ServicerContext,
-    ) -> GetFullConversationAudioFileResponse:
+    ) -> voip_pb2.GetFullConversationAudioFileResponse:
         return self.voip_stub.GetFullConversationAudioFile(request=request)
