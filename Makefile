@@ -30,7 +30,7 @@ CURRENT_RELEASE_NOTES=`cat RELEASE.md \
 
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 
-IMAGE_UTILS_NAME=ondewo-nlu-client-utils-python:${ONDEWO_NLU_VERSION}
+IMAGE_UTILS_NAME=ondewo-vtsi-client-utils-python:${ONDEWO_VTSI_VERSION}
 
 .DEFAULT_GOAL := help
 
@@ -80,12 +80,11 @@ install:
 	pip install -r requirements.txt
 
 clean_python_api:  ## Clear generated python files
-	rm ondewo/nlu/*pb2_grpc.py
-	rm ondewo/nlu/*pb2.py
-	rm ondewo/nlu/*.pyi
-	rm ondewo/qa/*pb2_grpc.py
-	rm ondewo/qa/*pb2.py
-	rm ondewo/qa/*.pyi
+	find ./ondewo -name \*pb2.py -type f -exec rm -f {} \;
+	@echo "############"
+	find ./ondewo -name \*pb2_grpc.py -type f -exec rm -f {} \;
+	@echo "############"
+	find ./ondewo -name \*.pyi -type f -exec rm -f {} \;
 	rm -rf google
 
 # {{{ PROTOS
