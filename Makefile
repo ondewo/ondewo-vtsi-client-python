@@ -1,7 +1,7 @@
 include ./envs/versions.env
 export
 export GH_TOKEN=
-# Fully automated build and deploy process for ondewo-nlu-client-python
+# Fully automated build and deploy process for ondewo-vtsi-client-python
 # Release Process Steps:
 # 1 - Create Release Branch and push
 # 2 - Create Release Tag and push
@@ -34,8 +34,6 @@ IMAGE_UTILS_NAME=ondewo-vtsi-client-utils-python:${ONDEWO_VTSI_VERSION}
 
 .DEFAULT_GOAL := help
 
-TEST: ## Print extracted Release Notes to Test
-	@echo "$(CURRENT_RELEASE_NOTES)"
 
 # First comment after target starting with double ## specifies usage
 help:  ## Print usage info about help targets
@@ -45,6 +43,7 @@ help:  ## Print usage info about help targets
 # BEFORE "release"
 update_setup: ## Update VTSI Version in setup.py
 	@sed -i "s/version='[0-9]*.[0-9]*.[0-9]*'/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
+	@sed -i "s/version=\"[0-9]*.[0-9]*.[0-9]*\"/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
 
 release: ## Automate the entire release process
 	@echo "Release Automation started"
@@ -68,11 +67,11 @@ login_to_gh: ## Login to Github CLI with Access Token
 build_gh_release: ## Generate Github Release with CLI
 	gh release create --repo $(GH_REPO) "$(ONDEWO_VTSI_VERSION)" -n "$(CURRENT_RELEASE_NOTES)" -t "Release ${ONDEWO_VTSI_VERSION}"
 
-build_and_push_to_pypi_via_docker: build build_utils_docker_image push_to_pypi_via_docker_image  ## Release automation for building and pushing to pypi via a docker image
+build_and_push_to_pypi_via_docker:  push_to_pypi_via_docker_image  ## Release automation for building and pushing to pypi via a docker image
 
 build_and_release_to_github_via_docker: build build_utils_docker_image release_to_github_via_docker_image  ## Release automation for building and releasing on GitHub via a docker image
 
-build: clear_package_data init_submodules checkout_defined_submodule_versions generate_ondewo_protos  ## Build source code
+build: clear_package_data init_submodules checkout_defined_submodule_versions generate_ondewo_protos update_setup ## Build source code
 
 install:
 	git submodule update --init --recursive
@@ -81,9 +80,7 @@ install:
 
 clean_python_api:  ## Clear generated python files
 	find ./ondewo -name \*pb2.py -type f -exec rm -f {} \;
-	@echo "############"
 	find ./ondewo -name \*pb2_grpc.py -type f -exec rm -f {} \;
-	@echo "############"
 	find ./ondewo -name \*.pyi -type f -exec rm -f {} \;
 	rm -rf google
 
@@ -170,5 +167,33 @@ upload_package:
 	twine upload --verbose -r pypi dist/* -u${PYPI_USERNAME} -p${PYPI_PASSWORD}
 
 clear_package_data:
-	rm -rf build dist/* ondewo_nlu_client.egg-info
-# vim:foldmethod=marker:foldlevel=0
+	rm -rf build dist/* ondewo_vtsi_client.egg-info
+
+ondewo_release: spc clone_devops_accounts run_release_with_devops ## Release with credentials from devops-accounts repo
+	@rm -rf ${DEVOPS_ACCOUNT_GIT}
+
+clone_devops_accounts: ## Clones devops-accounts repo
+	if [ -d $(DEVOPS_ACCOUNT_GIT) ]; then rm -Rf $(DEVOPS_ACCOUNT_GIT); fi
+	git clone git@bitbucket.org:ondewo/${DEVOPS_ACCOUNT_GIT}.git
+
+DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"
+DEVOPS_ACCOUNT_DIR="./${DEVOPS_ACCOUNT_GIT}"
+
+TEST:
+	@echo ${GITHUB_GH_TOKEN}
+	@echo ${PYPI_USERNAME}
+	@echo ${PYPI_PASSWORD}
+	@echo ${CURRENT_RELEASE_NOTES}
+
+run_release_with_devops:
+	$(eval info:= $(shell cat ${DEVOPS_ACCOUNT_DIR}/account_github.env | grep GITHUB_GH & cat ${DEVOPS_ACCOUNT_DIR}/account_pypi.env | grep PYPI_USERNAME & cat ${DEVOPS_ACCOUNT_DIR}/account_pypi.env | grep PYPI_PASSWORD))
+	make release $(info)
+
+spc: ## Checks if the Release Branch, Tag and Pypi version already exist
+	$(eval filtered_branches:= $(shell git branch --all | grep "release/${ONDEWO_VTSI_VERSION}"))
+	$(eval filtered_tags:= $(shell git tag --list | grep "${ONDEWO_VTSI_VERSION}"))
+	$(eval setuppy_version:= $(shell cat setup.py | grep "version"))
+	@if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
+	@if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
+	@if test "$(setuppy_version)" != "version='${ONDEWO_VTSI_VERSION}',"; then echo "-- Test 3: Setup.py not updated!!" & exit 1; else echo "-- Test 3: Setup.py is fine";fi
+
