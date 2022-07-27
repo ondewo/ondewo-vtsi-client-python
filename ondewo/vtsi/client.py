@@ -70,7 +70,7 @@ class VtsiClient:
     def register_project_configs(
             self,
             request: voip_pb2.RegisterProjectConfigsRequest,
-    ) -> voip_pb2.RegisterProjectConfigsResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.RegisterProjectConfigs(request=request)
 
     def get_project_configs(
@@ -82,49 +82,49 @@ class VtsiClient:
     def update_project_configs(
             self,
             request: voip_pb2.UpdateProjectConfigsRequest,
-    ) -> voip_pb2.UpdateProjectConfigsResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.UpdateProjectConfigs(request=request)
 
     def delete_project_configs(
             self,
             request: voip_pb2.DeleteProjectConfigsRequest,
-    ) -> voip_pb2.DeleteProjectConfigsResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.DeleteProjectConfigs(request=request)
 
     def start_listeners(
             self,
             request: voip_pb2.StartListenersRequest,
-    ) -> voip_pb2.StartListenersResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.StartListeners(request=request)
 
     def start_callers(
             self,
             request: voip_pb2.StartCallersRequest,
-    ) -> voip_pb2.StartCallersResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.StartCallers(request=request)
 
     def start_scheduled_callers(
             self,
             request: voip_pb2.StartScheduledCallersRequest,
-    ) -> voip_pb2.StartScheduledCallersResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.StartScheduledCallers(request=request)
 
     def stop_calls(
             self,
             request: voip_pb2.StopCallsRequest,
-    ) -> voip_pb2.StopCallsResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.StopCalls(request=request)
 
     def stop_all_calls(
             self,
             request: empty_pb2.Empty,
-    ) -> voip_pb2.StopAllCallsResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.StopAllCalls(request=request)
 
     def transfer_call(
             self,
             request: voip_pb2.TransferCallRequest,
-    ) -> voip_pb2.TransferCallResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.TransferCall(request=request)
 
     def get_voip_call_info(
