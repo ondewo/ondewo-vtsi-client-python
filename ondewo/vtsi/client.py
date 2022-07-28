@@ -117,7 +117,7 @@ class VtsiClient:
 
     def stop_all_calls(
             self,
-            request: empty_pb2.Empty,
+            request: voip_pb2.StopAllCallsRequest,
     ) -> empty_pb2.Empty:
         return self.voip_stub.StopAllCalls(request=request)
 
@@ -138,18 +138,6 @@ class VtsiClient:
             request: voip_pb2.ListVoipCallInfoRequest,
     ) -> voip_pb2.ListVoipCallInfoResponse:
         return self.voip_stub.ListVoipCallInfo(request=request)
-
-    def get_sip_accounts(
-            self,
-            request: empty_pb2.Empty,
-    ) -> voip_pb2.GetSipAccountsResponse:
-        return self.voip_stub.GetSipAccounts(request=request)
-
-    def get_call_ids_from_sip_account(
-            self,
-            request: voip_pb2.GetCallIDsFromSipAccountRequest,
-    ) -> voip_pb2.GetCallIDsFromSipAccountResponse:
-        return self.voip_stub.GetCallIDsFromSipAccount(request=request)
 
     def get_audio_file(
             self,
