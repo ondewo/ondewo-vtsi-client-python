@@ -1,0 +1,4 @@
+mypy-protobuf
+pytest
+mypy
+flake8
