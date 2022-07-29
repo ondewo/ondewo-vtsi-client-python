@@ -94,13 +94,13 @@ class VtsiClient:
     def start_listeners(
             self,
             request: voip_pb2.StartListenersRequest,
-    ) -> empty_pb2.Empty:
+    ) -> voip_pb2.StartListenersResponse:
         return self.voip_stub.StartListeners(request=request)
 
     def start_callers(
             self,
             request: voip_pb2.StartCallersRequest,
-    ) -> empty_pb2.Empty:
+    ) -> voip_pb2.StartCallersResponse:
         return self.voip_stub.StartCallers(request=request)
 
     def start_scheduled_callers(
