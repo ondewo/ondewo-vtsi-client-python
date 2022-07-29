@@ -843,20 +843,20 @@ global___StartListenersRequest = StartListenersRequest
 class StartListenersResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PROJECT_ID_FIELD_NUMBER: builtins.int
-    CALL_ID_FIELD_NUMBER: builtins.int
+    CALL_IDS_FIELD_NUMBER: builtins.int
     project_id: typing.Text
     """ondewo-cai project ID."""
 
     @property
-    def call_id(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+    def call_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
         """The call ids that were assigned to each call"""
         pass
     def __init__(self,
         *,
         project_id: typing.Text = ...,
-        call_id: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        call_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","project_id",b"project_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_ids",b"call_ids","project_id",b"project_id"]) -> None: ...
 global___StartListenersResponse = StartListenersResponse
 
 class StartCallersRequest(google.protobuf.message.Message):
@@ -880,20 +880,20 @@ global___StartCallersRequest = StartCallersRequest
 class StartCallersResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PROJECT_ID_FIELD_NUMBER: builtins.int
-    CALL_ID_FIELD_NUMBER: builtins.int
+    CALL_IDS_FIELD_NUMBER: builtins.int
     project_id: typing.Text
     """ondewo-cai project ID."""
 
     @property
-    def call_id(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+    def call_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
         """The call ids that were assigned to each call"""
         pass
     def __init__(self,
         *,
         project_id: typing.Text = ...,
-        call_id: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        call_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","project_id",b"project_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_ids",b"call_ids","project_id",b"project_id"]) -> None: ...
 global___StartCallersResponse = StartCallersResponse
 
 class StartScheduledCallersRequest(google.protobuf.message.Message):
@@ -914,36 +914,22 @@ class StartScheduledCallersRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id","requests",b"requests"]) -> None: ...
 global___StartScheduledCallersRequest = StartScheduledCallersRequest
 
-class StopCallRequest(google.protobuf.message.Message):
-    """parameters of the call to stop"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    CALL_ID_FIELD_NUMBER: builtins.int
-    call_id: typing.Text
-    """calls can be stopped the call-ID"""
-
-    def __init__(self,
-        *,
-        call_id: typing.Text = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id"]) -> None: ...
-global___StopCallRequest = StopCallRequest
-
 class StopCallsRequest(google.protobuf.message.Message):
     """parameters of the calls to stop"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PROJECT_ID_FIELD_NUMBER: builtins.int
-    REQUESTS_FIELD_NUMBER: builtins.int
+    CALL_IDS_FIELD_NUMBER: builtins.int
     project_id: typing.Text
     """ondewo-cai project ID."""
 
     @property
-    def requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopCallRequest]: ...
+    def call_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
     def __init__(self,
         *,
         project_id: typing.Text = ...,
-        requests: typing.Optional[typing.Iterable[global___StopCallRequest]] = ...,
+        call_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id","requests",b"requests"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_ids",b"call_ids","project_id",b"project_id"]) -> None: ...
 global___StopCallsRequest = StopCallsRequest
 
 class StopAllCallsRequest(google.protobuf.message.Message):
