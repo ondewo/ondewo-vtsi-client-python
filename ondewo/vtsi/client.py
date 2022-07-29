@@ -41,7 +41,7 @@ class VtsiConfiguration:
 
 class VtsiClient:
     """
-    exposes the endpoints of the ondewo voip-server in a user-friendly way
+    exposes the endpoints of the ondewo voip-server in a user-friendly way.
     """
 
     def __init__(
