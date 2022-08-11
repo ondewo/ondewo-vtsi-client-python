@@ -5,4 +5,10 @@ ONDEWO_Voip_Client_Python.egg-info
 venv*/
 *.egg-info
 
+ondewo-nlu-api
+ondewo-vtsi-api
+ondewo-s2t-api
+ondewo-sip-api
+ondewo-csi-api
+ondewo-t2s-api
 grpc_cert
