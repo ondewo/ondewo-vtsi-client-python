@@ -16,7 +16,26 @@ import ondewo.nlu.context_pb2
 import typing
 import typing_extensions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _IntentView:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _IntentViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IntentView.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    INTENT_VIEW_UNSPECIFIED: _IntentView.ValueType  # 0
+    """Same as INTENT_VIEW_FULL"""
+
+    INTENT_VIEW_FULL: _IntentView.ValueType  # 1
+    """All fields are populated."""
+
+    INTENT_VIEW_PARTIAL: _IntentView.ValueType  # 2
+    """The only nested structures populated are Contexts and Training phrases.
+     The Training phrases field is populated with only a few entries and no annotations.
+    """
+
+    INTENT_VIEW_SHALLOW: _IntentView.ValueType  # 3
+    """All nested structures are not populated (no training phrases, nor contexts, nor parameters, ...)"""
 
 class IntentView(_IntentView, metaclass=_IntentViewEnumTypeWrapper):
     """Represents the options for views of an intent.
@@ -24,84 +43,67 @@ class IntentView(_IntentView, metaclass=_IntentViewEnumTypeWrapper):
     does not return training phrases in the response by default.
     """
     pass
-class _IntentView:
-    V = typing.NewType('V', builtins.int)
-class _IntentViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IntentView.V], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-    INTENT_VIEW_UNSPECIFIED = IntentView.V(0)
-    """Same as INTENT_VIEW_FULL"""
 
-    INTENT_VIEW_FULL = IntentView.V(1)
-    """All fields are populated."""
-
-    INTENT_VIEW_PARTIAL = IntentView.V(2)
-    """The only nested structures populated are Contexts and Training phrases.
-     The Training phrases field is populated with only a few entries and no annotations.
-    """
-
-    INTENT_VIEW_SHALLOW = IntentView.V(3)
-    """All nested structures are not populated (no training phrases, nor contexts, nor parameters, ...)"""
-
-
-INTENT_VIEW_UNSPECIFIED = IntentView.V(0)
+INTENT_VIEW_UNSPECIFIED: IntentView.ValueType  # 0
 """Same as INTENT_VIEW_FULL"""
 
-INTENT_VIEW_FULL = IntentView.V(1)
+INTENT_VIEW_FULL: IntentView.ValueType  # 1
 """All fields are populated."""
 
-INTENT_VIEW_PARTIAL = IntentView.V(2)
+INTENT_VIEW_PARTIAL: IntentView.ValueType  # 2
 """The only nested structures populated are Contexts and Training phrases.
  The Training phrases field is populated with only a few entries and no annotations.
 """
 
-INTENT_VIEW_SHALLOW = IntentView.V(3)
+INTENT_VIEW_SHALLOW: IntentView.ValueType  # 3
 """All nested structures are not populated (no training phrases, nor contexts, nor parameters, ...)"""
 
 global___IntentView = IntentView
 
 
+class _IntentCategory:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _IntentCategoryEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IntentCategory.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    ALL_INTENTS: _IntentCategory.ValueType  # 0
+    """represent all intents"""
+
+    DEFAULT_INTENTS: _IntentCategory.ValueType  # 1
+    """represent the default intents"""
+
+    USER_DEFINED_INTENTS: _IntentCategory.ValueType  # 2
+    """represent the user defined (custom) intents"""
+
+    DATE_EXPIRED_INTENTS: _IntentCategory.ValueType  # 3
+    """represents the intents that had its end_date elapsed"""
+
+    DATE_ACTIVE_INTENTS: _IntentCategory.ValueType  # 4
+    """represents the intents that its start_date began but had not yet expired"""
+
+    DATE_UPCOMING_INTENTS: _IntentCategory.ValueType  # 5
+    """represent the intents that are still expecting its start_date to begin"""
+
 class IntentCategory(_IntentCategory, metaclass=_IntentCategoryEnumTypeWrapper):
     """Represents the type of intents to filter by in the "List Intents" request"""
     pass
-class _IntentCategory:
-    V = typing.NewType('V', builtins.int)
-class _IntentCategoryEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IntentCategory.V], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-    ALL_INTENTS = IntentCategory.V(0)
-    """represent all intents"""
 
-    DEFAULT_INTENTS = IntentCategory.V(1)
-    """represent the default intents"""
-
-    USER_DEFINED_INTENTS = IntentCategory.V(2)
-    """represent the user defined (custom) intents"""
-
-    DATE_EXPIRED_INTENTS = IntentCategory.V(3)
-    """represents the intents that had its end_date elapsed"""
-
-    DATE_ACTIVE_INTENTS = IntentCategory.V(4)
-    """represents the intents that its start_date began but had not yet expired"""
-
-    DATE_UPCOMING_INTENTS = IntentCategory.V(5)
-    """represent the intents that are still expecting its start_date to begin"""
-
-
-ALL_INTENTS = IntentCategory.V(0)
+ALL_INTENTS: IntentCategory.ValueType  # 0
 """represent all intents"""
 
-DEFAULT_INTENTS = IntentCategory.V(1)
+DEFAULT_INTENTS: IntentCategory.ValueType  # 1
 """represent the default intents"""
 
-USER_DEFINED_INTENTS = IntentCategory.V(2)
+USER_DEFINED_INTENTS: IntentCategory.ValueType  # 2
 """represent the user defined (custom) intents"""
 
-DATE_EXPIRED_INTENTS = IntentCategory.V(3)
+DATE_EXPIRED_INTENTS: IntentCategory.ValueType  # 3
 """represents the intents that had its end_date elapsed"""
 
-DATE_ACTIVE_INTENTS = IntentCategory.V(4)
+DATE_ACTIVE_INTENTS: IntentCategory.ValueType  # 4
 """represents the intents that its start_date began but had not yet expired"""
 
-DATE_UPCOMING_INTENTS = IntentCategory.V(5)
+DATE_UPCOMING_INTENTS: IntentCategory.ValueType  # 5
 """represent the intents that are still expecting its start_date to begin"""
 
 global___IntentCategory = IntentCategory
@@ -112,45 +114,47 @@ class Intent(google.protobuf.message.Message):
     Intents convert a number of user expressions or patterns into an action. An
     action is an extraction of a user command or sentence semantics.
     """
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    class _IntentStatus:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _IntentStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Intent._IntentStatus.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        ACTIVE: Intent._IntentStatus.ValueType  # 0
+        INACTIVE: Intent._IntentStatus.ValueType  # 1
     class IntentStatus(_IntentStatus, metaclass=_IntentStatusEnumTypeWrapper):
         pass
-    class _IntentStatus:
-        V = typing.NewType('V', builtins.int)
-    class _IntentStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IntentStatus.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        ACTIVE = Intent.IntentStatus.V(0)
-        INACTIVE = Intent.IntentStatus.V(1)
 
-    ACTIVE = Intent.IntentStatus.V(0)
-    INACTIVE = Intent.IntentStatus.V(1)
+    ACTIVE: Intent.IntentStatus.ValueType  # 0
+    INACTIVE: Intent.IntentStatus.ValueType  # 1
 
-    class WebhookState(_WebhookState, metaclass=_WebhookStateEnumTypeWrapper):
-        """Represents the different states that webhooks can be in."""
-        pass
     class _WebhookState:
-        V = typing.NewType('V', builtins.int)
-    class _WebhookStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WebhookState.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        WEBHOOK_STATE_UNSPECIFIED = Intent.WebhookState.V(0)
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _WebhookStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Intent._WebhookState.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        WEBHOOK_STATE_UNSPECIFIED: Intent._WebhookState.ValueType  # 0
         """Webhook is disabled in the agent and in the intent."""
 
-        WEBHOOK_STATE_ENABLED = Intent.WebhookState.V(1)
+        WEBHOOK_STATE_ENABLED: Intent._WebhookState.ValueType  # 1
         """Webhook is enabled in the agent and in the intent."""
 
-        WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING = Intent.WebhookState.V(2)
+        WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING: Intent._WebhookState.ValueType  # 2
         """Webhook is enabled in the agent and in the intent. Also, each slot
         filling prompt is forwarded to the webhook.
         """
 
+    class WebhookState(_WebhookState, metaclass=_WebhookStateEnumTypeWrapper):
+        """Represents the different states that webhooks can be in."""
+        pass
 
-    WEBHOOK_STATE_UNSPECIFIED = Intent.WebhookState.V(0)
+    WEBHOOK_STATE_UNSPECIFIED: Intent.WebhookState.ValueType  # 0
     """Webhook is disabled in the agent and in the intent."""
 
-    WEBHOOK_STATE_ENABLED = Intent.WebhookState.V(1)
+    WEBHOOK_STATE_ENABLED: Intent.WebhookState.ValueType  # 1
     """Webhook is enabled in the agent and in the intent."""
 
-    WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING = Intent.WebhookState.V(2)
+    WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING: Intent.WebhookState.ValueType  # 2
     """Webhook is enabled in the agent and in the intent. Also, each slot
     filling prompt is forwarded to the webhook.
     """
@@ -158,37 +162,38 @@ class Intent(google.protobuf.message.Message):
 
     class TrainingPhrase(google.protobuf.message.Message):
         """Represents an example or template that the agent is trained on."""
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-        class Type(_Type, metaclass=_TypeEnumTypeWrapper):
-            """Represents different types of training phrases."""
-            pass
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         class _Type:
-            V = typing.NewType('V', builtins.int)
-        class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Type.V], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-            TYPE_UNSPECIFIED = Intent.TrainingPhrase.Type.V(0)
+            ValueType = typing.NewType('ValueType', builtins.int)
+            V: typing_extensions.TypeAlias = ValueType
+        class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Intent.TrainingPhrase._Type.ValueType], builtins.type):
+            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            TYPE_UNSPECIFIED: Intent.TrainingPhrase._Type.ValueType  # 0
             """Not specified. This value should never be used."""
 
-            EXAMPLE = Intent.TrainingPhrase.Type.V(1)
+            EXAMPLE: Intent.TrainingPhrase._Type.ValueType  # 1
             """Examples do not contain @-prefixed entity type names, but example parts
             can be annotated with entity types.
             """
 
-            TEMPLATE = Intent.TrainingPhrase.Type.V(2)
+            TEMPLATE: Intent.TrainingPhrase._Type.ValueType  # 2
             """Templates are not annotated with entity types, but they can contain
             @-prefixed entity type names as substrings.
             """
 
+        class Type(_Type, metaclass=_TypeEnumTypeWrapper):
+            """Represents different types of training phrases."""
+            pass
 
-        TYPE_UNSPECIFIED = Intent.TrainingPhrase.Type.V(0)
+        TYPE_UNSPECIFIED: Intent.TrainingPhrase.Type.ValueType  # 0
         """Not specified. This value should never be used."""
 
-        EXAMPLE = Intent.TrainingPhrase.Type.V(1)
+        EXAMPLE: Intent.TrainingPhrase.Type.ValueType  # 1
         """Examples do not contain @-prefixed entity type names, but example parts
         can be annotated with entity types.
         """
 
-        TEMPLATE = Intent.TrainingPhrase.Type.V(2)
+        TEMPLATE: Intent.TrainingPhrase.Type.ValueType  # 2
         """Templates are not annotated with entity types, but they can contain
         @-prefixed entity type names as substrings.
         """
@@ -198,7 +203,7 @@ class Intent(google.protobuf.message.Message):
             """Represents an entity annotation in a training phrase. The entity can be annotated on the level of
             entity type only or both entity type and entity value.
             """
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             ENTITY_TYPE_NAME_FIELD_NUMBER: builtins.int
             ENTITY_TYPE_DISPLAY_NAME_FIELD_NUMBER: builtins.int
             ENTITY_VALUE_NAME_FIELD_NUMBER: builtins.int
@@ -207,34 +212,34 @@ class Intent(google.protobuf.message.Message):
             END_FIELD_NUMBER: builtins.int
             PARAMETER_NAME_FIELD_NUMBER: builtins.int
             PARAMETER_DISPLAY_NAME_FIELD_NUMBER: builtins.int
-            entity_type_name: typing.Text = ...
+            entity_type_name: typing.Text
             """Required. The unique entity type identifier in format
             `projects/<Project ID>/agent/entityTypes/<Entity Type ID>`.
             """
 
-            entity_type_display_name: typing.Text = ...
+            entity_type_display_name: typing.Text
             """Optional. The entity type name."""
 
-            entity_value_name: typing.Text = ...
+            entity_value_name: typing.Text
             """Optional. The unique entity value identifier in format
             `projects/<Project ID>/agent/entityTypes/<Entity Type ID>/entities/<Entity ID>`. The entity
             value must belong to the entity type defined in entity_type_name
             """
 
-            entity_value_display_name: typing.Text = ...
+            entity_value_display_name: typing.Text
             """Optional. The entity value name."""
 
-            start: builtins.int = ...
+            start: builtins.int
             """Required. Defines a character position, where the entity starts in the training phrase text
             (0-indexed).
             """
 
-            end: builtins.int = ...
+            end: builtins.int
             """Required. Defines a character position + 1, where the entity ends in the training phrase.
             Example: "Meet you tomorrow" -> Entity(entity_type_display_name="sys.date", start=9, end=17)
             """
 
-            parameter_name: typing.Text = ...
+            parameter_name: typing.Text
             """Optional. The unique parameter identifier in format
             `projects/<Project ID>/agent/intents/<Intent ID>/parameters/<Parameter ID>` for the value
             extracted from the annotated part of the example. The parameter must be one of the parameters
@@ -243,19 +248,19 @@ class Intent(google.protobuf.message.Message):
             annotation.
             """
 
-            parameter_display_name: typing.Text = ...
+            parameter_display_name: typing.Text
             """Optional. The parameter name."""
 
             def __init__(self,
                 *,
-                entity_type_name : typing.Text = ...,
-                entity_type_display_name : typing.Text = ...,
-                entity_value_name : typing.Text = ...,
-                entity_value_display_name : typing.Text = ...,
-                start : builtins.int = ...,
-                end : builtins.int = ...,
-                parameter_name : typing.Text = ...,
-                parameter_display_name : typing.Text = ...,
+                entity_type_name: typing.Text = ...,
+                entity_type_display_name: typing.Text = ...,
+                entity_value_name: typing.Text = ...,
+                entity_value_display_name: typing.Text = ...,
+                start: builtins.int = ...,
+                end: builtins.int = ...,
+                parameter_name: typing.Text = ...,
+                parameter_display_name: typing.Text = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["end",b"end","entity_type_display_name",b"entity_type_display_name","entity_type_name",b"entity_type_name","entity_value_display_name",b"entity_value_display_name","entity_value_name",b"entity_value_name","parameter_display_name",b"parameter_display_name","parameter_name",b"parameter_name","start",b"start"]) -> None: ...
 
@@ -265,66 +270,66 @@ class Intent(google.protobuf.message.Message):
         ENTITIES_FIELD_NUMBER: builtins.int
         TIMES_ADDED_COUNT_FIELD_NUMBER: builtins.int
         LANGUAGE_CODE_FIELD_NUMBER: builtins.int
-        name: typing.Text = ...
+        name: typing.Text
         """Required. The unique identifier of this training phrase.
         Format: `projects/<Project ID>/agent/intents/<Intent ID>/trainingPhrases/<Training Phrase ID>`.
         """
 
-        type: global___Intent.TrainingPhrase.Type.V = ...
+        type: global___Intent.TrainingPhrase.Type.ValueType
         """Required. The type of the training phrase."""
 
-        text: typing.Text = ...
+        text: typing.Text
         """Required. The text of the training phrase."""
 
         @property
         def entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent.TrainingPhrase.Entity]:
             """Optional. The collection of annotated entities in the training phrase."""
             pass
-        times_added_count: builtins.int = ...
+        times_added_count: builtins.int
         """Optional. Indicates how many times this example or template was added to
         the intent. Each time a developer adds an existing sample by editing an
         intent or training, this counter is increased.
         """
 
-        language_code: typing.Text = ...
+        language_code: typing.Text
         """Optional. The language of the training phrase."""
 
         def __init__(self,
             *,
-            name : typing.Text = ...,
-            type : global___Intent.TrainingPhrase.Type.V = ...,
-            text : typing.Text = ...,
-            entities : typing.Optional[typing.Iterable[global___Intent.TrainingPhrase.Entity]] = ...,
-            times_added_count : builtins.int = ...,
-            language_code : typing.Text = ...,
+            name: typing.Text = ...,
+            type: global___Intent.TrainingPhrase.Type.ValueType = ...,
+            text: typing.Text = ...,
+            entities: typing.Optional[typing.Iterable[global___Intent.TrainingPhrase.Entity]] = ...,
+            times_added_count: builtins.int = ...,
+            language_code: typing.Text = ...,
             ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["entities",b"entities","language_code",b"language_code","name",b"name","text",b"text","times_added_count",b"times_added_count","type",b"type"]) -> None: ...
 
     class Parameter(google.protobuf.message.Message):
         """Represents intent parameters."""
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         class Prompt(google.protobuf.message.Message):
             """Represents the prompts in the parameters."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             NAME_FIELD_NUMBER: builtins.int
             TEXT_FIELD_NUMBER: builtins.int
             LANGUAGE_CODE_FIELD_NUMBER: builtins.int
-            name: typing.Text = ...
+            name: typing.Text
             """The unique identifier of this prompt.
             Format: `projects/<Project ID>/agent/intents/<Intent ID>/parameters/<Parameter ID>/prompts/<Prompt ID>`.
             """
 
-            text: typing.Text = ...
+            text: typing.Text
             """Required. Text of the prompt"""
 
-            language_code: typing.Text = ...
+            language_code: typing.Text
             """The language of the prompts. If not specified, the default language code will be used."""
 
             def __init__(self,
                 *,
-                name : typing.Text = ...,
-                text : typing.Text = ...,
-                language_code : typing.Text = ...,
+                name: typing.Text = ...,
+                text: typing.Text = ...,
+                language_code: typing.Text = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["language_code",b"language_code","name",b"name","text",b"text"]) -> None: ...
 
@@ -337,15 +342,15 @@ class Intent(google.protobuf.message.Message):
         MANDATORY_FIELD_NUMBER: builtins.int
         PROMPTS_FIELD_NUMBER: builtins.int
         IS_LIST_FIELD_NUMBER: builtins.int
-        name: typing.Text = ...
+        name: typing.Text
         """The unique identifier of this parameter.
         Format: `projects/<Project ID>/agent/intents/<Intent ID>/parameters/<Parameter ID>`.
         """
 
-        display_name: typing.Text = ...
+        display_name: typing.Text
         """Required. The name of the parameter."""
 
-        value: typing.Text = ...
+        value: typing.Text
         """Optional. The definition of the parameter value. It can be:
         - a constant string,
         - a parameter value defined as `$parameter_name`,
@@ -354,25 +359,25 @@ class Intent(google.protobuf.message.Message):
           `#context_name.parameter_name`.
         """
 
-        default_value: typing.Text = ...
+        default_value: typing.Text
         """Optional. The default value to use when the `value` yields an empty
         result.
         Default values can be extracted from contexts by using the following
         syntax: `#context_name.parameter_name`.
         """
 
-        entity_type_name: typing.Text = ...
+        entity_type_name: typing.Text
         """Optional. The unique identifier of the entity type in format
         `projects/<Project ID>/agent/entityTypes/<Entity Type ID>` that describes values of the parameter.
         If the parameter is required, this must be provided.
         """
 
-        entity_type_display_name: typing.Text = ...
+        entity_type_display_name: typing.Text
         """Optional. The name of the entity type that describes values of the parameter. If the parameter is
         required, this must be provided.
         """
 
-        mandatory: builtins.bool = ...
+        mandatory: builtins.bool
         """Optional. Indicates whether the parameter is required. That is,
         whether the intent cannot be completed without collecting the parameter
         value.
@@ -384,58 +389,56 @@ class Intent(google.protobuf.message.Message):
             user in order to collect value for the parameter.
             """
             pass
-        is_list: builtins.bool = ...
+        is_list: builtins.bool
         """Optional. Indicates whether the parameter represents a list of values."""
 
         def __init__(self,
             *,
-            name : typing.Text = ...,
-            display_name : typing.Text = ...,
-            value : typing.Text = ...,
-            default_value : typing.Text = ...,
-            entity_type_name : typing.Text = ...,
-            entity_type_display_name : typing.Text = ...,
-            mandatory : builtins.bool = ...,
-            prompts : typing.Optional[typing.Iterable[global___Intent.Parameter.Prompt]] = ...,
-            is_list : builtins.bool = ...,
+            name: typing.Text = ...,
+            display_name: typing.Text = ...,
+            value: typing.Text = ...,
+            default_value: typing.Text = ...,
+            entity_type_name: typing.Text = ...,
+            entity_type_display_name: typing.Text = ...,
+            mandatory: builtins.bool = ...,
+            prompts: typing.Optional[typing.Iterable[global___Intent.Parameter.Prompt]] = ...,
+            is_list: builtins.bool = ...,
             ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["default_value",b"default_value","display_name",b"display_name","entity_type_display_name",b"entity_type_display_name","entity_type_name",b"entity_type_name","is_list",b"is_list","mandatory",b"mandatory","name",b"name","prompts",b"prompts","value",b"value"]) -> None: ...
 
     class Message(google.protobuf.message.Message):
         """Corresponds to the `Response` field in the Dialogflow console."""
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-        class Platform(_Platform, metaclass=_PlatformEnumTypeWrapper):
-            """Represents different platforms that a rich message can be intended for."""
-            pass
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         class _Platform:
-            V = typing.NewType('V', builtins.int)
-        class _PlatformEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Platform.V], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-            PLATFORM_UNSPECIFIED = Intent.Message.Platform.V(0)
+            ValueType = typing.NewType('ValueType', builtins.int)
+            V: typing_extensions.TypeAlias = ValueType
+        class _PlatformEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Intent.Message._Platform.ValueType], builtins.type):
+            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            PLATFORM_UNSPECIFIED: Intent.Message._Platform.ValueType  # 0
             """Not specified."""
 
-            FACEBOOK = Intent.Message.Platform.V(1)
+            FACEBOOK: Intent.Message._Platform.ValueType  # 1
             """Facebook."""
 
-            SLACK = Intent.Message.Platform.V(2)
+            SLACK: Intent.Message._Platform.ValueType  # 2
             """Slack."""
 
-            TELEGRAM = Intent.Message.Platform.V(3)
+            TELEGRAM: Intent.Message._Platform.ValueType  # 3
             """Telegram."""
 
-            KIK = Intent.Message.Platform.V(4)
+            KIK: Intent.Message._Platform.ValueType  # 4
             """Kik."""
 
-            SKYPE = Intent.Message.Platform.V(5)
+            SKYPE: Intent.Message._Platform.ValueType  # 5
             """Skype."""
 
-            LINE = Intent.Message.Platform.V(6)
+            LINE: Intent.Message._Platform.ValueType  # 6
             """Line."""
 
-            VIBER = Intent.Message.Platform.V(7)
+            VIBER: Intent.Message._Platform.ValueType  # 7
             """Viber."""
 
-            ACTIONS_ON_GOOGLE = Intent.Message.Platform.V(8)
+            ACTIONS_ON_GOOGLE: Intent.Message._Platform.ValueType  # 8
             """Actions on Google.
             When using Actions on Google, you can choose one of the specific
             Intent.Message types that mention support for Actions on Google,
@@ -499,52 +502,55 @@ class Intent(google.protobuf.message.Message):
             }</pre>
             """
 
-            PLACEHOLDER_1 = Intent.Message.Platform.V(9)
-            PLACEHOLDER_2 = Intent.Message.Platform.V(10)
-            PLACEHOLDER_3 = Intent.Message.Platform.V(11)
-            PLACEHOLDER_4 = Intent.Message.Platform.V(12)
-            PLACEHOLDER_5 = Intent.Message.Platform.V(13)
-            PLACEHOLDER_6 = Intent.Message.Platform.V(14)
-            PLACEHOLDER_7 = Intent.Message.Platform.V(15)
-            PLACEHOLDER_8 = Intent.Message.Platform.V(16)
-            PLACEHOLDER_9 = Intent.Message.Platform.V(17)
-            PLACEHOLDER_10 = Intent.Message.Platform.V(18)
-            PLACEHOLDER_11 = Intent.Message.Platform.V(19)
-            PLACEHOLDER_12 = Intent.Message.Platform.V(20)
-            PLACEHOLDER_13 = Intent.Message.Platform.V(21)
-            PLACEHOLDER_14 = Intent.Message.Platform.V(22)
-            PLACEHOLDER_15 = Intent.Message.Platform.V(23)
-            PLACEHOLDER_16 = Intent.Message.Platform.V(24)
-            PLACEHOLDER_17 = Intent.Message.Platform.V(25)
-            PLACEHOLDER_18 = Intent.Message.Platform.V(26)
-            PLACEHOLDER_19 = Intent.Message.Platform.V(27)
-            PLACEHOLDER_20 = Intent.Message.Platform.V(28)
+            PLACEHOLDER_1: Intent.Message._Platform.ValueType  # 9
+            PLACEHOLDER_2: Intent.Message._Platform.ValueType  # 10
+            PLACEHOLDER_3: Intent.Message._Platform.ValueType  # 11
+            PLACEHOLDER_4: Intent.Message._Platform.ValueType  # 12
+            PLACEHOLDER_5: Intent.Message._Platform.ValueType  # 13
+            PLACEHOLDER_6: Intent.Message._Platform.ValueType  # 14
+            PLACEHOLDER_7: Intent.Message._Platform.ValueType  # 15
+            PLACEHOLDER_8: Intent.Message._Platform.ValueType  # 16
+            PLACEHOLDER_9: Intent.Message._Platform.ValueType  # 17
+            PLACEHOLDER_10: Intent.Message._Platform.ValueType  # 18
+            PLACEHOLDER_11: Intent.Message._Platform.ValueType  # 19
+            PLACEHOLDER_12: Intent.Message._Platform.ValueType  # 20
+            PLACEHOLDER_13: Intent.Message._Platform.ValueType  # 21
+            PLACEHOLDER_14: Intent.Message._Platform.ValueType  # 22
+            PLACEHOLDER_15: Intent.Message._Platform.ValueType  # 23
+            PLACEHOLDER_16: Intent.Message._Platform.ValueType  # 24
+            PLACEHOLDER_17: Intent.Message._Platform.ValueType  # 25
+            PLACEHOLDER_18: Intent.Message._Platform.ValueType  # 26
+            PLACEHOLDER_19: Intent.Message._Platform.ValueType  # 27
+            PLACEHOLDER_20: Intent.Message._Platform.ValueType  # 28
+        class Platform(_Platform, metaclass=_PlatformEnumTypeWrapper):
+            """Represents different platforms that a rich message can be intended for."""
+            pass
 
-        PLATFORM_UNSPECIFIED = Intent.Message.Platform.V(0)
+        PLATFORM_UNSPECIFIED: Intent.Message.Platform.ValueType  # 0
         """Not specified."""
 
-        FACEBOOK = Intent.Message.Platform.V(1)
+        FACEBOOK: Intent.Message.Platform.ValueType  # 1
         """Facebook."""
 
-        SLACK = Intent.Message.Platform.V(2)
+        SLACK: Intent.Message.Platform.ValueType  # 2
         """Slack."""
 
-        TELEGRAM = Intent.Message.Platform.V(3)
+        TELEGRAM: Intent.Message.Platform.ValueType  # 3
         """Telegram."""
 
-        KIK = Intent.Message.Platform.V(4)
+        KIK: Intent.Message.Platform.ValueType  # 4
         """Kik."""
 
-        SKYPE = Intent.Message.Platform.V(5)
+        SKYPE: Intent.Message.Platform.ValueType  # 5
         """Skype."""
 
-        LINE = Intent.Message.Platform.V(6)
+        LINE: Intent.Message.Platform.ValueType  # 6
         """Line."""
 
-        VIBER = Intent.Message.Platform.V(7)
+        VIBER: Intent.Message.Platform.ValueType  # 7
         """Viber."""
 
-        ACTIONS_ON_GOOGLE = Intent.Message.Platform.V(8)
+        ACTIONS_ON_GOOGLE: Intent.Message.Platform.ValueType  # 8
         """Actions on Google.
         When using Actions on Google, you can choose one of the specific
         Intent.Message types that mention support for Actions on Google,
@@ -608,30 +614,30 @@ class Intent(google.protobuf.message.Message):
         }</pre>
         """
 
-        PLACEHOLDER_1 = Intent.Message.Platform.V(9)
-        PLACEHOLDER_2 = Intent.Message.Platform.V(10)
-        PLACEHOLDER_3 = Intent.Message.Platform.V(11)
-        PLACEHOLDER_4 = Intent.Message.Platform.V(12)
-        PLACEHOLDER_5 = Intent.Message.Platform.V(13)
-        PLACEHOLDER_6 = Intent.Message.Platform.V(14)
-        PLACEHOLDER_7 = Intent.Message.Platform.V(15)
-        PLACEHOLDER_8 = Intent.Message.Platform.V(16)
-        PLACEHOLDER_9 = Intent.Message.Platform.V(17)
-        PLACEHOLDER_10 = Intent.Message.Platform.V(18)
-        PLACEHOLDER_11 = Intent.Message.Platform.V(19)
-        PLACEHOLDER_12 = Intent.Message.Platform.V(20)
-        PLACEHOLDER_13 = Intent.Message.Platform.V(21)
-        PLACEHOLDER_14 = Intent.Message.Platform.V(22)
-        PLACEHOLDER_15 = Intent.Message.Platform.V(23)
-        PLACEHOLDER_16 = Intent.Message.Platform.V(24)
-        PLACEHOLDER_17 = Intent.Message.Platform.V(25)
-        PLACEHOLDER_18 = Intent.Message.Platform.V(26)
-        PLACEHOLDER_19 = Intent.Message.Platform.V(27)
-        PLACEHOLDER_20 = Intent.Message.Platform.V(28)
+        PLACEHOLDER_1: Intent.Message.Platform.ValueType  # 9
+        PLACEHOLDER_2: Intent.Message.Platform.ValueType  # 10
+        PLACEHOLDER_3: Intent.Message.Platform.ValueType  # 11
+        PLACEHOLDER_4: Intent.Message.Platform.ValueType  # 12
+        PLACEHOLDER_5: Intent.Message.Platform.ValueType  # 13
+        PLACEHOLDER_6: Intent.Message.Platform.ValueType  # 14
+        PLACEHOLDER_7: Intent.Message.Platform.ValueType  # 15
+        PLACEHOLDER_8: Intent.Message.Platform.ValueType  # 16
+        PLACEHOLDER_9: Intent.Message.Platform.ValueType  # 17
+        PLACEHOLDER_10: Intent.Message.Platform.ValueType  # 18
+        PLACEHOLDER_11: Intent.Message.Platform.ValueType  # 19
+        PLACEHOLDER_12: Intent.Message.Platform.ValueType  # 20
+        PLACEHOLDER_13: Intent.Message.Platform.ValueType  # 21
+        PLACEHOLDER_14: Intent.Message.Platform.ValueType  # 22
+        PLACEHOLDER_15: Intent.Message.Platform.ValueType  # 23
+        PLACEHOLDER_16: Intent.Message.Platform.ValueType  # 24
+        PLACEHOLDER_17: Intent.Message.Platform.ValueType  # 25
+        PLACEHOLDER_18: Intent.Message.Platform.ValueType  # 26
+        PLACEHOLDER_19: Intent.Message.Platform.ValueType  # 27
+        PLACEHOLDER_20: Intent.Message.Platform.ValueType  # 28
 
         class Text(google.protobuf.message.Message):
             """The text response message."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             TEXT_FIELD_NUMBER: builtins.int
             @property
             def text(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -639,36 +645,36 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                text : typing.Optional[typing.Iterable[typing.Text]] = ...,
+                text: typing.Optional[typing.Iterable[typing.Text]] = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["text",b"text"]) -> None: ...
 
         class Image(google.protobuf.message.Message):
             """The image response message."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             IMAGE_URI_FIELD_NUMBER: builtins.int
             ACCESSIBILITY_TEXT_FIELD_NUMBER: builtins.int
-            image_uri: typing.Text = ...
+            image_uri: typing.Text
             """Optional. The public URI to an image file."""
 
-            accessibility_text: typing.Text = ...
+            accessibility_text: typing.Text
             """Optional. A text description of the image to be used for accessibility,
             e.g., screen readers.
             """
 
             def __init__(self,
                 *,
-                image_uri : typing.Text = ...,
-                accessibility_text : typing.Text = ...,
+                image_uri: typing.Text = ...,
+                accessibility_text: typing.Text = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["accessibility_text",b"accessibility_text","image_uri",b"image_uri"]) -> None: ...
 
         class QuickReplies(google.protobuf.message.Message):
             """The quick replies response message."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             TITLE_FIELD_NUMBER: builtins.int
             QUICK_REPLIES_FIELD_NUMBER: builtins.int
-            title: typing.Text = ...
+            title: typing.Text
             """Optional. The title of the collection of quick replies."""
 
             @property
@@ -677,31 +683,31 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                title : typing.Text = ...,
-                quick_replies : typing.Optional[typing.Iterable[typing.Text]] = ...,
+                title: typing.Text = ...,
+                quick_replies: typing.Optional[typing.Iterable[typing.Text]] = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["quick_replies",b"quick_replies","title",b"title"]) -> None: ...
 
         class Card(google.protobuf.message.Message):
             """The card response message."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             class Button(google.protobuf.message.Message):
                 """Optional. Contains information about a button."""
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+                DESCRIPTOR: google.protobuf.descriptor.Descriptor
                 TEXT_FIELD_NUMBER: builtins.int
                 POSTBACK_FIELD_NUMBER: builtins.int
-                text: typing.Text = ...
+                text: typing.Text
                 """Note: One of the following is required:
                 Optional. The text to show on the button.
                 """
 
-                postback: typing.Text = ...
+                postback: typing.Text
                 """Optional. The text to send back to the Dialogflow API or a URI to open."""
 
                 def __init__(self,
                     *,
-                    text : typing.Text = ...,
-                    postback : typing.Text = ...,
+                    text: typing.Text = ...,
+                    postback: typing.Text = ...,
                     ) -> None: ...
                 def ClearField(self, field_name: typing_extensions.Literal["postback",b"postback","text",b"text"]) -> None: ...
 
@@ -709,13 +715,13 @@ class Intent(google.protobuf.message.Message):
             SUBTITLE_FIELD_NUMBER: builtins.int
             IMAGE_URI_FIELD_NUMBER: builtins.int
             BUTTONS_FIELD_NUMBER: builtins.int
-            title: typing.Text = ...
+            title: typing.Text
             """Optional. The title of the card."""
 
-            subtitle: typing.Text = ...
+            subtitle: typing.Text
             """Optional. The subtitle of the card."""
 
-            image_uri: typing.Text = ...
+            image_uri: typing.Text
             """Optional. The public URI to an image file for the card."""
 
             @property
@@ -724,38 +730,38 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                title : typing.Text = ...,
-                subtitle : typing.Text = ...,
-                image_uri : typing.Text = ...,
-                buttons : typing.Optional[typing.Iterable[global___Intent.Message.Card.Button]] = ...,
+                title: typing.Text = ...,
+                subtitle: typing.Text = ...,
+                image_uri: typing.Text = ...,
+                buttons: typing.Optional[typing.Iterable[global___Intent.Message.Card.Button]] = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["buttons",b"buttons","image_uri",b"image_uri","subtitle",b"subtitle","title",b"title"]) -> None: ...
 
         class SimpleResponse(google.protobuf.message.Message):
             """The simple response message containing speech or text."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             TEXT_TO_SPEECH_FIELD_NUMBER: builtins.int
             SSML_FIELD_NUMBER: builtins.int
             DISPLAY_TEXT_FIELD_NUMBER: builtins.int
-            text_to_speech: typing.Text = ...
+            text_to_speech: typing.Text
             """One of text_to_speech or ssml must be provided. The plain text of the
             speech output. Mutually exclusive with ssml.
             """
 
-            ssml: typing.Text = ...
+            ssml: typing.Text
             """One of text_to_speech or ssml must be provided. Structured spoken
             response to the user in the SSML format. Mutually exclusive with
             text_to_speech.
             """
 
-            display_text: typing.Text = ...
+            display_text: typing.Text
             """Optional. The text to display."""
 
             def __init__(self,
                 *,
-                text_to_speech : typing.Text = ...,
-                ssml : typing.Text = ...,
-                display_text : typing.Text = ...,
+                text_to_speech: typing.Text = ...,
+                ssml: typing.Text = ...,
+                display_text: typing.Text = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["display_text",b"display_text","ssml",b"ssml","text_to_speech",b"text_to_speech"]) -> None: ...
 
@@ -765,7 +771,7 @@ class Intent(google.protobuf.message.Message):
             `WebhookResponse.fulfillment_messages` should contain only one
             `SimpleResponse`.
             """
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             SIMPLE_RESPONSES_FIELD_NUMBER: builtins.int
             @property
             def simple_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent.Message.SimpleResponse]:
@@ -773,32 +779,32 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                simple_responses : typing.Optional[typing.Iterable[global___Intent.Message.SimpleResponse]] = ...,
+                simple_responses: typing.Optional[typing.Iterable[global___Intent.Message.SimpleResponse]] = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["simple_responses",b"simple_responses"]) -> None: ...
 
         class BasicCard(google.protobuf.message.Message):
             """The basic card message. Useful for displaying information."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             class Button(google.protobuf.message.Message):
                 """The button object that appears at the bottom of a card."""
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+                DESCRIPTOR: google.protobuf.descriptor.Descriptor
                 class OpenUriAction(google.protobuf.message.Message):
                     """Opens the given URI."""
-                    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+                    DESCRIPTOR: google.protobuf.descriptor.Descriptor
                     URI_FIELD_NUMBER: builtins.int
-                    uri: typing.Text = ...
+                    uri: typing.Text
                     """Required. The HTTP or HTTPS scheme URI."""
 
                     def __init__(self,
                         *,
-                        uri : typing.Text = ...,
+                        uri: typing.Text = ...,
                         ) -> None: ...
                     def ClearField(self, field_name: typing_extensions.Literal["uri",b"uri"]) -> None: ...
 
                 TITLE_FIELD_NUMBER: builtins.int
                 OPEN_URI_ACTION_FIELD_NUMBER: builtins.int
-                title: typing.Text = ...
+                title: typing.Text
                 """Required. The title of the button."""
 
                 @property
@@ -807,8 +813,8 @@ class Intent(google.protobuf.message.Message):
                     pass
                 def __init__(self,
                     *,
-                    title : typing.Text = ...,
-                    open_uri_action : typing.Optional[global___Intent.Message.BasicCard.Button.OpenUriAction] = ...,
+                    title: typing.Text = ...,
+                    open_uri_action: typing.Optional[global___Intent.Message.BasicCard.Button.OpenUriAction] = ...,
                     ) -> None: ...
                 def HasField(self, field_name: typing_extensions.Literal["open_uri_action",b"open_uri_action"]) -> builtins.bool: ...
                 def ClearField(self, field_name: typing_extensions.Literal["open_uri_action",b"open_uri_action","title",b"title"]) -> None: ...
@@ -818,13 +824,13 @@ class Intent(google.protobuf.message.Message):
             FORMATTED_TEXT_FIELD_NUMBER: builtins.int
             IMAGE_FIELD_NUMBER: builtins.int
             BUTTONS_FIELD_NUMBER: builtins.int
-            title: typing.Text = ...
+            title: typing.Text
             """Optional. The title of the card."""
 
-            subtitle: typing.Text = ...
+            subtitle: typing.Text
             """Optional. The subtitle of the card."""
 
-            formatted_text: typing.Text = ...
+            formatted_text: typing.Text
             """Required, unless image is present. The body text of the card."""
 
             @property
@@ -837,11 +843,11 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                title : typing.Text = ...,
-                subtitle : typing.Text = ...,
-                formatted_text : typing.Text = ...,
-                image : typing.Optional[global___Intent.Message.Image] = ...,
-                buttons : typing.Optional[typing.Iterable[global___Intent.Message.BasicCard.Button]] = ...,
+                title: typing.Text = ...,
+                subtitle: typing.Text = ...,
+                formatted_text: typing.Text = ...,
+                image: typing.Optional[global___Intent.Message.Image] = ...,
+                buttons: typing.Optional[typing.Iterable[global___Intent.Message.BasicCard.Button]] = ...,
                 ) -> None: ...
             def HasField(self, field_name: typing_extensions.Literal["image",b"image"]) -> builtins.bool: ...
             def ClearField(self, field_name: typing_extensions.Literal["buttons",b"buttons","formatted_text",b"formatted_text","image",b"image","subtitle",b"subtitle","title",b"title"]) -> None: ...
@@ -850,20 +856,20 @@ class Intent(google.protobuf.message.Message):
             """The suggestion chip message that the user can tap to quickly post a reply
             to the conversation.
             """
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             TITLE_FIELD_NUMBER: builtins.int
-            title: typing.Text = ...
+            title: typing.Text
             """Required. The text shown the in the suggestion chip."""
 
             def __init__(self,
                 *,
-                title : typing.Text = ...,
+                title: typing.Text = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["title",b"title"]) -> None: ...
 
         class Suggestions(google.protobuf.message.Message):
             """The collection of suggestions."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             SUGGESTIONS_FIELD_NUMBER: builtins.int
             @property
             def suggestions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent.Message.Suggestion]:
@@ -871,7 +877,7 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                suggestions : typing.Optional[typing.Iterable[global___Intent.Message.Suggestion]] = ...,
+                suggestions: typing.Optional[typing.Iterable[global___Intent.Message.Suggestion]] = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["suggestions",b"suggestions"]) -> None: ...
 
@@ -879,30 +885,30 @@ class Intent(google.protobuf.message.Message):
             """The suggestion chip message that allows the user to jump out to the app
             or website associated with this agent.
             """
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             DESTINATION_NAME_FIELD_NUMBER: builtins.int
             URI_FIELD_NUMBER: builtins.int
-            destination_name: typing.Text = ...
+            destination_name: typing.Text
             """Required. The name of the app or site this chip is linking to."""
 
-            uri: typing.Text = ...
+            uri: typing.Text
             """Required. The URI of the app or site to open when the user taps the
             suggestion chip.
             """
 
             def __init__(self,
                 *,
-                destination_name : typing.Text = ...,
-                uri : typing.Text = ...,
+                destination_name: typing.Text = ...,
+                uri: typing.Text = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["destination_name",b"destination_name","uri",b"uri"]) -> None: ...
 
         class ListSelect(google.protobuf.message.Message):
             """The card for presenting a list of options to select from."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             class Item(google.protobuf.message.Message):
                 """An item in the list."""
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+                DESCRIPTOR: google.protobuf.descriptor.Descriptor
                 INFO_FIELD_NUMBER: builtins.int
                 TITLE_FIELD_NUMBER: builtins.int
                 DESCRIPTION_FIELD_NUMBER: builtins.int
@@ -911,10 +917,10 @@ class Intent(google.protobuf.message.Message):
                 def info(self) -> global___Intent.Message.SelectItemInfo:
                     """Required. Additional information about this option."""
                     pass
-                title: typing.Text = ...
+                title: typing.Text
                 """Required. The title of the list item."""
 
-                description: typing.Text = ...
+                description: typing.Text
                 """Optional. The main text describing the item."""
 
                 @property
@@ -923,17 +929,17 @@ class Intent(google.protobuf.message.Message):
                     pass
                 def __init__(self,
                     *,
-                    info : typing.Optional[global___Intent.Message.SelectItemInfo] = ...,
-                    title : typing.Text = ...,
-                    description : typing.Text = ...,
-                    image : typing.Optional[global___Intent.Message.Image] = ...,
+                    info: typing.Optional[global___Intent.Message.SelectItemInfo] = ...,
+                    title: typing.Text = ...,
+                    description: typing.Text = ...,
+                    image: typing.Optional[global___Intent.Message.Image] = ...,
                     ) -> None: ...
                 def HasField(self, field_name: typing_extensions.Literal["image",b"image","info",b"info"]) -> builtins.bool: ...
                 def ClearField(self, field_name: typing_extensions.Literal["description",b"description","image",b"image","info",b"info","title",b"title"]) -> None: ...
 
             TITLE_FIELD_NUMBER: builtins.int
             ITEMS_FIELD_NUMBER: builtins.int
-            title: typing.Text = ...
+            title: typing.Text
             """Optional. The overall title of the list."""
 
             @property
@@ -942,17 +948,17 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                title : typing.Text = ...,
-                items : typing.Optional[typing.Iterable[global___Intent.Message.ListSelect.Item]] = ...,
+                title: typing.Text = ...,
+                items: typing.Optional[typing.Iterable[global___Intent.Message.ListSelect.Item]] = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["items",b"items","title",b"title"]) -> None: ...
 
         class CarouselSelect(google.protobuf.message.Message):
             """The card for presenting a carousel of options to select from."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             class Item(google.protobuf.message.Message):
                 """An item in the carousel."""
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+                DESCRIPTOR: google.protobuf.descriptor.Descriptor
                 INFO_FIELD_NUMBER: builtins.int
                 TITLE_FIELD_NUMBER: builtins.int
                 DESCRIPTION_FIELD_NUMBER: builtins.int
@@ -961,10 +967,10 @@ class Intent(google.protobuf.message.Message):
                 def info(self) -> global___Intent.Message.SelectItemInfo:
                     """Required. Additional info about the option item."""
                     pass
-                title: typing.Text = ...
+                title: typing.Text
                 """Required. Title of the carousel item."""
 
-                description: typing.Text = ...
+                description: typing.Text
                 """Optional. The body text of the card."""
 
                 @property
@@ -973,10 +979,10 @@ class Intent(google.protobuf.message.Message):
                     pass
                 def __init__(self,
                     *,
-                    info : typing.Optional[global___Intent.Message.SelectItemInfo] = ...,
-                    title : typing.Text = ...,
-                    description : typing.Text = ...,
-                    image : typing.Optional[global___Intent.Message.Image] = ...,
+                    info: typing.Optional[global___Intent.Message.SelectItemInfo] = ...,
+                    title: typing.Text = ...,
+                    description: typing.Text = ...,
+                    image: typing.Optional[global___Intent.Message.Image] = ...,
                     ) -> None: ...
                 def HasField(self, field_name: typing_extensions.Literal["image",b"image","info",b"info"]) -> builtins.bool: ...
                 def ClearField(self, field_name: typing_extensions.Literal["description",b"description","image",b"image","info",b"info","title",b"title"]) -> None: ...
@@ -988,12 +994,12 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                items : typing.Optional[typing.Iterable[global___Intent.Message.CarouselSelect.Item]] = ...,
+                items: typing.Optional[typing.Iterable[global___Intent.Message.CarouselSelect.Item]] = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["items",b"items"]) -> None: ...
 
         class HTMLText(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             TEXT_FIELD_NUMBER: builtins.int
             @property
             def text(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -1001,47 +1007,47 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                text : typing.Optional[typing.Iterable[typing.Text]] = ...,
+                text: typing.Optional[typing.Iterable[typing.Text]] = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["text",b"text"]) -> None: ...
 
         class Video(google.protobuf.message.Message):
             """The Video response message."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             URI_FIELD_NUMBER: builtins.int
             ACCESSIBILITY_TEXT_FIELD_NUMBER: builtins.int
-            uri: typing.Text = ...
+            uri: typing.Text
             """Optional. The public URI to a video file."""
 
-            accessibility_text: typing.Text = ...
+            accessibility_text: typing.Text
             """Optional. A text description of the video to be used for accessibility,
             e.g., screen readers.
             """
 
             def __init__(self,
                 *,
-                uri : typing.Text = ...,
-                accessibility_text : typing.Text = ...,
+                uri: typing.Text = ...,
+                accessibility_text: typing.Text = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["accessibility_text",b"accessibility_text","uri",b"uri"]) -> None: ...
 
         class Audio(google.protobuf.message.Message):
             """The Audio response message."""
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             URI_FIELD_NUMBER: builtins.int
             ACCESSIBILITY_TEXT_FIELD_NUMBER: builtins.int
-            uri: typing.Text = ...
+            uri: typing.Text
             """Optional. The public URI to an audio file."""
 
-            accessibility_text: typing.Text = ...
+            accessibility_text: typing.Text
             """Optional. A text description of the audio to be used for accessibility,
             e.g., screen readers.
             """
 
             def __init__(self,
                 *,
-                uri : typing.Text = ...,
-                accessibility_text : typing.Text = ...,
+                uri: typing.Text = ...,
+                accessibility_text: typing.Text = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["accessibility_text",b"accessibility_text","uri",b"uri"]) -> None: ...
 
@@ -1049,10 +1055,10 @@ class Intent(google.protobuf.message.Message):
             """Additional info about the select item for when it is triggered in a
             dialog.
             """
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
             KEY_FIELD_NUMBER: builtins.int
             SYNONYMS_FIELD_NUMBER: builtins.int
-            key: typing.Text = ...
+            key: typing.Text
             """Required. A unique key that will be sent back to the agent if this
             response is given.
             """
@@ -1065,8 +1071,8 @@ class Intent(google.protobuf.message.Message):
                 pass
             def __init__(self,
                 *,
-                key : typing.Text = ...,
-                synonyms : typing.Optional[typing.Iterable[typing.Text]] = ...,
+                key: typing.Text = ...,
+                synonyms: typing.Optional[typing.Iterable[typing.Text]] = ...,
                 ) -> None: ...
             def ClearField(self, field_name: typing_extensions.Literal["key",b"key","synonyms",b"synonyms"]) -> None: ...
 
@@ -1088,12 +1094,12 @@ class Intent(google.protobuf.message.Message):
         AUDIO_FIELD_NUMBER: builtins.int
         PLATFORM_FIELD_NUMBER: builtins.int
         IS_PROMPT_FIELD_NUMBER: builtins.int
-        name: typing.Text = ...
+        name: typing.Text
         """Required. The name of the return message.
         Format: `projects/<Project ID>/agent/intents/<Intent ID>/responseMessages/<Message ID>`.
         """
 
-        language_code: typing.Text = ...
+        language_code: typing.Text
         """Required. The language of the return message."""
 
         @property
@@ -1155,32 +1161,32 @@ class Intent(google.protobuf.message.Message):
         def audio(self) -> global___Intent.Message.Audio:
             """The Audio response"""
             pass
-        platform: global___Intent.Message.Platform.V = ...
+        platform: global___Intent.Message.Platform.ValueType
         """Optional. The platform that this message is intended for."""
 
-        is_prompt: builtins.bool = ...
+        is_prompt: builtins.bool
         """Read-only. States if a returned message is a prompt or not."""
 
         def __init__(self,
             *,
-            name : typing.Text = ...,
-            language_code : typing.Text = ...,
-            text : typing.Optional[global___Intent.Message.Text] = ...,
-            image : typing.Optional[global___Intent.Message.Image] = ...,
-            quick_replies : typing.Optional[global___Intent.Message.QuickReplies] = ...,
-            card : typing.Optional[global___Intent.Message.Card] = ...,
-            payload : typing.Optional[google.protobuf.struct_pb2.Struct] = ...,
-            simple_responses : typing.Optional[global___Intent.Message.SimpleResponses] = ...,
-            basic_card : typing.Optional[global___Intent.Message.BasicCard] = ...,
-            suggestions : typing.Optional[global___Intent.Message.Suggestions] = ...,
-            link_out_suggestion : typing.Optional[global___Intent.Message.LinkOutSuggestion] = ...,
-            list_select : typing.Optional[global___Intent.Message.ListSelect] = ...,
-            carousel_select : typing.Optional[global___Intent.Message.CarouselSelect] = ...,
-            html_text : typing.Optional[global___Intent.Message.HTMLText] = ...,
-            video : typing.Optional[global___Intent.Message.Video] = ...,
-            audio : typing.Optional[global___Intent.Message.Audio] = ...,
-            platform : global___Intent.Message.Platform.V = ...,
-            is_prompt : builtins.bool = ...,
+            name: typing.Text = ...,
+            language_code: typing.Text = ...,
+            text: typing.Optional[global___Intent.Message.Text] = ...,
+            image: typing.Optional[global___Intent.Message.Image] = ...,
+            quick_replies: typing.Optional[global___Intent.Message.QuickReplies] = ...,
+            card: typing.Optional[global___Intent.Message.Card] = ...,
+            payload: typing.Optional[google.protobuf.struct_pb2.Struct] = ...,
+            simple_responses: typing.Optional[global___Intent.Message.SimpleResponses] = ...,
+            basic_card: typing.Optional[global___Intent.Message.BasicCard] = ...,
+            suggestions: typing.Optional[global___Intent.Message.Suggestions] = ...,
+            link_out_suggestion: typing.Optional[global___Intent.Message.LinkOutSuggestion] = ...,
+            list_select: typing.Optional[global___Intent.Message.ListSelect] = ...,
+            carousel_select: typing.Optional[global___Intent.Message.CarouselSelect] = ...,
+            html_text: typing.Optional[global___Intent.Message.HTMLText] = ...,
+            video: typing.Optional[global___Intent.Message.Video] = ...,
+            audio: typing.Optional[global___Intent.Message.Audio] = ...,
+            platform: global___Intent.Message.Platform.ValueType = ...,
+            is_prompt: builtins.bool = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["audio",b"audio","basic_card",b"basic_card","card",b"card","carousel_select",b"carousel_select","html_text",b"html_text","image",b"image","link_out_suggestion",b"link_out_suggestion","list_select",b"list_select","message",b"message","payload",b"payload","quick_replies",b"quick_replies","simple_responses",b"simple_responses","suggestions",b"suggestions","text",b"text","video",b"video"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["audio",b"audio","basic_card",b"basic_card","card",b"card","carousel_select",b"carousel_select","html_text",b"html_text","image",b"image","is_prompt",b"is_prompt","language_code",b"language_code","link_out_suggestion",b"link_out_suggestion","list_select",b"list_select","message",b"message","name",b"name","payload",b"payload","platform",b"platform","quick_replies",b"quick_replies","simple_responses",b"simple_responses","suggestions",b"suggestions","text",b"text","video",b"video"]) -> None: ...
@@ -1188,23 +1194,23 @@ class Intent(google.protobuf.message.Message):
 
     class FollowupIntentInfo(google.protobuf.message.Message):
         """Represents a single followup intent in the chain."""
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         FOLLOWUP_INTENT_NAME_FIELD_NUMBER: builtins.int
         PARENT_FOLLOWUP_INTENT_NAME_FIELD_NUMBER: builtins.int
-        followup_intent_name: typing.Text = ...
+        followup_intent_name: typing.Text
         """The unique identifier of the followup intent.
         Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
         """
 
-        parent_followup_intent_name: typing.Text = ...
+        parent_followup_intent_name: typing.Text
         """The unique identifier of the followup intent parent.
         Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
         """
 
         def __init__(self,
             *,
-            followup_intent_name : typing.Text = ...,
-            parent_followup_intent_name : typing.Text = ...,
+            followup_intent_name: typing.Text = ...,
+            parent_followup_intent_name: typing.Text = ...,
             ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["followup_intent_name",b"followup_intent_name","parent_followup_intent_name",b"parent_followup_intent_name"]) -> None: ...
 
@@ -1235,28 +1241,28 @@ class Intent(google.protobuf.message.Message):
     START_DATE_FIELD_NUMBER: builtins.int
     END_DATE_FIELD_NUMBER: builtins.int
     TAGS_FIELD_NUMBER: builtins.int
-    name: typing.Text = ...
+    name: typing.Text
     """Required for all methods except `create` (`create` populates the name
     automatically.
     The unique identifier of this intent.
     Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
     """
 
-    display_name: typing.Text = ...
+    display_name: typing.Text
     """Required. The name of this intent."""
 
-    webhook_state: global___Intent.WebhookState.V = ...
+    webhook_state: global___Intent.WebhookState.ValueType
     """Required. Indicates whether webhooks are enabled for the intent."""
 
-    priority: builtins.int = ...
+    priority: builtins.int
     """Optional. The priority of this intent. Higher numbers represent higher
     priorities. Zero or negative numbers mean that the intent is disabled.
     """
 
-    is_fallback: builtins.bool = ...
+    is_fallback: builtins.bool
     """Optional. Indicates whether this is a fallback intent."""
 
-    ml_disabled: builtins.bool = ...
+    ml_disabled: builtins.bool
     """Optional. Indicates whether Machine Learning is disabled for the intent.
     Note: If `ml_diabled` setting is set to true, then this intent is not
     taken into account during inference in `ML ONLY` match mode. Also,
@@ -1283,7 +1289,7 @@ class Intent(google.protobuf.message.Message):
         trained on.
         """
         pass
-    action: typing.Text = ...
+    action: typing.Text
     """Optional. The name of the action associated with the intent."""
 
     @property
@@ -1295,7 +1301,7 @@ class Intent(google.protobuf.message.Message):
         Format: `projects/<Project ID>/agent/sessions/-/contexts/<Context ID>`.
         """
         pass
-    reset_contexts: builtins.bool = ...
+    reset_contexts: builtins.bool
     """Optional. Indicates whether to delete all contexts in the current
     session when this intent is matched.
     """
@@ -1311,18 +1317,18 @@ class Intent(google.protobuf.message.Message):
         """
         pass
     @property
-    def default_response_platforms(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___Intent.Message.Platform.V]:
+    def default_response_platforms(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___Intent.Message.Platform.ValueType]:
         """Optional. The list of platforms for which the first response will be
         taken from among the messages assigned to the DEFAULT_PLATFORM.
         """
         pass
-    root_followup_intent_name: typing.Text = ...
+    root_followup_intent_name: typing.Text
     """The unique identifier of the root intent in the chain of followup intents.
     It identifies the correct followup intents chain for this intent.
     Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
     """
 
-    parent_followup_intent_name: typing.Text = ...
+    parent_followup_intent_name: typing.Text
     """The unique identifier of the parent intent in the chain of followup
     intents.
     It identifies the parent followup intent.
@@ -1335,24 +1341,24 @@ class Intent(google.protobuf.message.Message):
         name of this intent as a root_name.
         """
         pass
-    next_page_token: typing.Text = ...
+    next_page_token: typing.Text
     """Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>`
     where <CURRENT_INDEX> and <PAGE_SIZE> are of type int
     """
 
-    domain_name: typing.Text = ...
+    domain_name: typing.Text
     """Optional. Domain to which the intent belongs"""
 
-    is_start_of_deviation: builtins.bool = ...
+    is_start_of_deviation: builtins.bool
     """Optional. Indicates whether the intent starts a deviation in conversation flow"""
 
-    is_end_of_deviation: builtins.bool = ...
+    is_end_of_deviation: builtins.bool
     """Optional. Indicates whether the intent ends a deviation in conversation flow"""
 
-    training_phrase_count: builtins.int = ...
+    training_phrase_count: builtins.int
     """Optional. Total count of training phrases associated to the intent."""
 
-    status: global___Intent.IntentStatus.V = ...
+    status: global___Intent.IntentStatus.ValueType
     """Indicates whether the intent is active or not"""
 
     @property
@@ -1365,37 +1371,37 @@ class Intent(google.protobuf.message.Message):
         pass
     @property
     def tags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
-        """Optional."""
+        """Optional. Adds arbitrary "categories" for which one could filter the intents"""
         pass
     def __init__(self,
         *,
-        name : typing.Text = ...,
-        display_name : typing.Text = ...,
-        webhook_state : global___Intent.WebhookState.V = ...,
-        priority : builtins.int = ...,
-        is_fallback : builtins.bool = ...,
-        ml_disabled : builtins.bool = ...,
-        input_context_names : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        events : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        training_phrases : typing.Optional[typing.Iterable[global___Intent.TrainingPhrase]] = ...,
-        action : typing.Text = ...,
-        output_contexts : typing.Optional[typing.Iterable[ondewo.nlu.context_pb2.Context]] = ...,
-        reset_contexts : builtins.bool = ...,
-        parameters : typing.Optional[typing.Iterable[global___Intent.Parameter]] = ...,
-        messages : typing.Optional[typing.Iterable[global___Intent.Message]] = ...,
-        default_response_platforms : typing.Optional[typing.Iterable[global___Intent.Message.Platform.V]] = ...,
-        root_followup_intent_name : typing.Text = ...,
-        parent_followup_intent_name : typing.Text = ...,
-        followup_intent_info : typing.Optional[typing.Iterable[global___Intent.FollowupIntentInfo]] = ...,
-        next_page_token : typing.Text = ...,
-        domain_name : typing.Text = ...,
-        is_start_of_deviation : builtins.bool = ...,
-        is_end_of_deviation : builtins.bool = ...,
-        training_phrase_count : builtins.int = ...,
-        status : global___Intent.IntentStatus.V = ...,
-        start_date : typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
-        end_date : typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
-        tags : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        name: typing.Text = ...,
+        display_name: typing.Text = ...,
+        webhook_state: global___Intent.WebhookState.ValueType = ...,
+        priority: builtins.int = ...,
+        is_fallback: builtins.bool = ...,
+        ml_disabled: builtins.bool = ...,
+        input_context_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        events: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        training_phrases: typing.Optional[typing.Iterable[global___Intent.TrainingPhrase]] = ...,
+        action: typing.Text = ...,
+        output_contexts: typing.Optional[typing.Iterable[ondewo.nlu.context_pb2.Context]] = ...,
+        reset_contexts: builtins.bool = ...,
+        parameters: typing.Optional[typing.Iterable[global___Intent.Parameter]] = ...,
+        messages: typing.Optional[typing.Iterable[global___Intent.Message]] = ...,
+        default_response_platforms: typing.Optional[typing.Iterable[global___Intent.Message.Platform.ValueType]] = ...,
+        root_followup_intent_name: typing.Text = ...,
+        parent_followup_intent_name: typing.Text = ...,
+        followup_intent_info: typing.Optional[typing.Iterable[global___Intent.FollowupIntentInfo]] = ...,
+        next_page_token: typing.Text = ...,
+        domain_name: typing.Text = ...,
+        is_start_of_deviation: builtins.bool = ...,
+        is_end_of_deviation: builtins.bool = ...,
+        training_phrase_count: builtins.int = ...,
+        status: global___Intent.IntentStatus.ValueType = ...,
+        start_date: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        end_date: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        tags: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["end_date",b"end_date","start_date",b"start_date"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["action",b"action","default_response_platforms",b"default_response_platforms","display_name",b"display_name","domain_name",b"domain_name","end_date",b"end_date","events",b"events","followup_intent_info",b"followup_intent_info","input_context_names",b"input_context_names","is_end_of_deviation",b"is_end_of_deviation","is_fallback",b"is_fallback","is_start_of_deviation",b"is_start_of_deviation","messages",b"messages","ml_disabled",b"ml_disabled","name",b"name","next_page_token",b"next_page_token","output_contexts",b"output_contexts","parameters",b"parameters","parent_followup_intent_name",b"parent_followup_intent_name","priority",b"priority","reset_contexts",b"reset_contexts","root_followup_intent_name",b"root_followup_intent_name","start_date",b"start_date","status",b"status","tags",b"tags","training_phrase_count",b"training_phrase_count","training_phrases",b"training_phrases","webhook_state",b"webhook_state"]) -> None: ...
@@ -1403,7 +1409,7 @@ global___Intent = Intent
 
 class ListIntentsRequest(google.protobuf.message.Message):
     """The request message for [Intents.ListIntents][google.cloud.dialogflow.v2.Intents.ListIntents]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     INTENT_VIEW_FIELD_NUMBER: builtins.int
@@ -1411,12 +1417,12 @@ class ListIntentsRequest(google.protobuf.message.Message):
     FILTER_BY_CATEGORY_FIELD_NUMBER: builtins.int
     SORT_BY_FIELD_FIELD_NUMBER: builtins.int
     FILTER_BY_TAGS_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to list training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     [More than a dozen
@@ -1424,16 +1430,16 @@ class ListIntentsRequest(google.protobuf.message.Message):
     Note: languages must be enabled in the agent before they can be used.
     """
 
-    intent_view: global___IntentView.V = ...
+    intent_view: global___IntentView.ValueType
     """Optional. The resource view to apply to the returned intent."""
 
-    page_token: typing.Text = ...
+    page_token: typing.Text
     """Optional. The next_page_token value returned from a previous list request.
     Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>`
     where <CURRENT_INDEX> and <PAGE_SIZE> are of type int
     """
 
-    filter_by_category: global___IntentCategory.V = ...
+    filter_by_category: global___IntentCategory.ValueType
     """Optional. Applies a filter to the list. Default, no filter."""
 
     @property
@@ -1446,13 +1452,13 @@ class ListIntentsRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        language_code : typing.Text = ...,
-        intent_view : global___IntentView.V = ...,
-        page_token : typing.Text = ...,
-        filter_by_category : global___IntentCategory.V = ...,
-        sort_by_field : typing.Optional[global___IntentSorting] = ...,
-        filter_by_tags : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        parent: typing.Text = ...,
+        language_code: typing.Text = ...,
+        intent_view: global___IntentView.ValueType = ...,
+        page_token: typing.Text = ...,
+        filter_by_category: global___IntentCategory.ValueType = ...,
+        sort_by_field: typing.Optional[global___IntentSorting] = ...,
+        filter_by_tags: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["sort_by_field",b"sort_by_field"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["filter_by_category",b"filter_by_category","filter_by_tags",b"filter_by_tags","intent_view",b"intent_view","language_code",b"language_code","page_token",b"page_token","parent",b"parent","sort_by_field",b"sort_by_field"]) -> None: ...
@@ -1460,7 +1466,7 @@ global___ListIntentsRequest = ListIntentsRequest
 
 class ListIntentsResponse(google.protobuf.message.Message):
     """The response message for [Intents.ListIntents][google.cloud.dialogflow.v2.Intents.ListIntents]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENTS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
@@ -1469,7 +1475,7 @@ class ListIntentsResponse(google.protobuf.message.Message):
         returned based on the page_token field in the request.
         """
         pass
-    next_page_token: typing.Text = ...
+    next_page_token: typing.Text
     """Token to retrieve the next page of results, or empty if there are no
     more results in the list.
     Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>`
@@ -1478,25 +1484,25 @@ class ListIntentsResponse(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        intents : typing.Optional[typing.Iterable[global___Intent]] = ...,
-        next_page_token : typing.Text = ...,
+        intents: typing.Optional[typing.Iterable[global___Intent]] = ...,
+        next_page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["intents",b"intents","next_page_token",b"next_page_token"]) -> None: ...
 global___ListIntentsResponse = ListIntentsResponse
 
 class GetIntentRequest(google.protobuf.message.Message):
     """The request message for [Intents.GetIntent][google.cloud.dialogflow.v2.Intents.GetIntent]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAME_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     INTENT_VIEW_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    name: typing.Text = ...
+    name: typing.Text
     """Required. The name of the intent.
     Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to retrieve training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     [More than a dozen
@@ -1504,10 +1510,10 @@ class GetIntentRequest(google.protobuf.message.Message):
     Note: languages must be enabled in the agent, before they can be used.
     """
 
-    intent_view: global___IntentView.V = ...
+    intent_view: global___IntentView.ValueType
     """Optional. The resource view to apply to the returned intent."""
 
-    page_token: typing.Text = ...
+    page_token: typing.Text
     """Optional. The next_page_token value returned from a previous list request.
     Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>`
     where <CURRENT_INDEX> and <PAGE_SIZE> are of type int
@@ -1515,22 +1521,22 @@ class GetIntentRequest(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        name : typing.Text = ...,
-        language_code : typing.Text = ...,
-        intent_view : global___IntentView.V = ...,
-        page_token : typing.Text = ...,
+        name: typing.Text = ...,
+        language_code: typing.Text = ...,
+        intent_view: global___IntentView.ValueType = ...,
+        page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["intent_view",b"intent_view","language_code",b"language_code","name",b"name","page_token",b"page_token"]) -> None: ...
 global___GetIntentRequest = GetIntentRequest
 
 class CreateIntentRequest(google.protobuf.message.Message):
     """The request message for [Intents.CreateIntent][google.cloud.dialogflow.v2.Intents.CreateIntent]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     INTENT_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     INTENT_VIEW_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to create a intent for.
     Format: `projects/<Project ID>/agent`.
     """
@@ -1539,7 +1545,7 @@ class CreateIntentRequest(google.protobuf.message.Message):
     def intent(self) -> global___Intent:
         """Required. The intent to create."""
         pass
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language of training phrases, parameters and rich messages
     defined in `intent`. If not specified, the agent's default language is
     used. [More than a dozen
@@ -1547,15 +1553,15 @@ class CreateIntentRequest(google.protobuf.message.Message):
     Note: languages must be enabled in the agent, before they can be used.
     """
 
-    intent_view: global___IntentView.V = ...
+    intent_view: global___IntentView.ValueType
     """Optional. The resource view to apply to the returned intent."""
 
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        intent : typing.Optional[global___Intent] = ...,
-        language_code : typing.Text = ...,
-        intent_view : global___IntentView.V = ...,
+        parent: typing.Text = ...,
+        intent: typing.Optional[global___Intent] = ...,
+        language_code: typing.Text = ...,
+        intent_view: global___IntentView.ValueType = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["intent",b"intent"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["intent",b"intent","intent_view",b"intent_view","language_code",b"language_code","parent",b"parent"]) -> None: ...
@@ -1563,7 +1569,7 @@ global___CreateIntentRequest = CreateIntentRequest
 
 class UpdateIntentRequest(google.protobuf.message.Message):
     """The request message for [Intents.UpdateIntent][google.cloud.dialogflow.v2.Intents.UpdateIntent]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENT_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     UPDATE_MASK_FIELD_NUMBER: builtins.int
@@ -1574,7 +1580,7 @@ class UpdateIntentRequest(google.protobuf.message.Message):
         Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
         """
         pass
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language of training phrases, parameters and rich messages
     defined in `intent`. If not specified, the agent's default language is
     used. [More than a dozen
@@ -1586,15 +1592,15 @@ class UpdateIntentRequest(google.protobuf.message.Message):
     def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
         """Optional. The mask to control which fields get updated."""
         pass
-    intent_view: global___IntentView.V = ...
+    intent_view: global___IntentView.ValueType
     """Optional. The resource view to apply to the returned intent."""
 
     def __init__(self,
         *,
-        intent : typing.Optional[global___Intent] = ...,
-        language_code : typing.Text = ...,
-        update_mask : typing.Optional[google.protobuf.field_mask_pb2.FieldMask] = ...,
-        intent_view : global___IntentView.V = ...,
+        intent: typing.Optional[global___Intent] = ...,
+        language_code: typing.Text = ...,
+        update_mask: typing.Optional[google.protobuf.field_mask_pb2.FieldMask] = ...,
+        intent_view: global___IntentView.ValueType = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["intent",b"intent","update_mask",b"update_mask"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["intent",b"intent","intent_view",b"intent_view","language_code",b"language_code","update_mask",b"update_mask"]) -> None: ...
@@ -1602,35 +1608,35 @@ global___UpdateIntentRequest = UpdateIntentRequest
 
 class DeleteIntentRequest(google.protobuf.message.Message):
     """The request message for [Intents.DeleteIntent][google.cloud.dialogflow.v2.Intents.DeleteIntent]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAME_FIELD_NUMBER: builtins.int
-    name: typing.Text = ...
+    name: typing.Text
     """Required. The name of the intent to delete.
     Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
     """
 
     def __init__(self,
         *,
-        name : typing.Text = ...,
+        name: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
 global___DeleteIntentRequest = DeleteIntentRequest
 
 class BatchUpdateIntentsRequest(google.protobuf.message.Message):
     """The request message for [Intents.BatchUpdateIntents][google.cloud.dialogflow.v2.Intents.BatchUpdateIntents]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     INTENT_BATCH_URI_FIELD_NUMBER: builtins.int
     INTENT_BATCH_INLINE_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     UPDATE_MASK_FIELD_NUMBER: builtins.int
     INTENT_VIEW_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The name of the agent to update or create intents in.
     Format: `projects/<Project ID>/agent`.
     """
 
-    intent_batch_uri: typing.Text = ...
+    intent_batch_uri: typing.Text
     """The URI to a Google Cloud Storage file containing intents to update or
     create. The file format can either be a serialized proto (of IntentBatch
     type) or JSON object. Note: The URI must start with "gs://".
@@ -1640,7 +1646,7 @@ class BatchUpdateIntentsRequest(google.protobuf.message.Message):
     def intent_batch_inline(self) -> global___IntentBatch:
         """The collection of intents to update or create."""
         pass
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language of training phrases, parameters and rich messages
     defined in `intents`. If not specified, the agent's default language is
     used. [More than a dozen
@@ -1652,17 +1658,17 @@ class BatchUpdateIntentsRequest(google.protobuf.message.Message):
     def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
         """Optional. The mask to control which fields get updated."""
         pass
-    intent_view: global___IntentView.V = ...
+    intent_view: global___IntentView.ValueType
     """Optional. The resource view to apply to the returned intent."""
 
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        intent_batch_uri : typing.Text = ...,
-        intent_batch_inline : typing.Optional[global___IntentBatch] = ...,
-        language_code : typing.Text = ...,
-        update_mask : typing.Optional[google.protobuf.field_mask_pb2.FieldMask] = ...,
-        intent_view : global___IntentView.V = ...,
+        parent: typing.Text = ...,
+        intent_batch_uri: typing.Text = ...,
+        intent_batch_inline: typing.Optional[global___IntentBatch] = ...,
+        language_code: typing.Text = ...,
+        update_mask: typing.Optional[google.protobuf.field_mask_pb2.FieldMask] = ...,
+        intent_view: global___IntentView.ValueType = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["intent_batch",b"intent_batch","intent_batch_inline",b"intent_batch_inline","intent_batch_uri",b"intent_batch_uri","update_mask",b"update_mask"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["intent_batch",b"intent_batch","intent_batch_inline",b"intent_batch_inline","intent_batch_uri",b"intent_batch_uri","intent_view",b"intent_view","language_code",b"language_code","parent",b"parent","update_mask",b"update_mask"]) -> None: ...
@@ -1671,7 +1677,7 @@ global___BatchUpdateIntentsRequest = BatchUpdateIntentsRequest
 
 class BatchUpdateIntentsResponse(google.protobuf.message.Message):
     """The response message for [Intents.BatchUpdateIntents][google.cloud.dialogflow.v2.Intents.BatchUpdateIntents]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENTS_FIELD_NUMBER: builtins.int
     @property
     def intents(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent]:
@@ -1679,17 +1685,17 @@ class BatchUpdateIntentsResponse(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        intents : typing.Optional[typing.Iterable[global___Intent]] = ...,
+        intents: typing.Optional[typing.Iterable[global___Intent]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["intents",b"intents"]) -> None: ...
 global___BatchUpdateIntentsResponse = BatchUpdateIntentsResponse
 
 class BatchDeleteIntentsRequest(google.protobuf.message.Message):
     """The request message for [Intents.BatchDeleteIntents][google.cloud.dialogflow.v2.Intents.BatchDeleteIntents]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     INTENTS_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The name of the agent to delete all entities types for. Format:
     `projects/<Project ID>/agent`.
     """
@@ -1702,15 +1708,15 @@ class BatchDeleteIntentsRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        intents : typing.Optional[typing.Iterable[global___Intent]] = ...,
+        parent: typing.Text = ...,
+        intents: typing.Optional[typing.Iterable[global___Intent]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["intents",b"intents","parent",b"parent"]) -> None: ...
 global___BatchDeleteIntentsRequest = BatchDeleteIntentsRequest
 
 class IntentBatch(google.protobuf.message.Message):
     """This message is a wrapper around a collection of intents."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENTS_FIELD_NUMBER: builtins.int
     @property
     def intents(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent]:
@@ -1718,88 +1724,136 @@ class IntentBatch(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        intents : typing.Optional[typing.Iterable[global___Intent]] = ...,
+        intents: typing.Optional[typing.Iterable[global___Intent]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["intents",b"intents"]) -> None: ...
 global___IntentBatch = IntentBatch
 
 class IntentSorting(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    class _IntentSortingField:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _IntentSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[IntentSorting._IntentSortingField.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        NO_INTENT_SORTING: IntentSorting._IntentSortingField.ValueType  # 0
+        SORT_INTENT_BY_NAME: IntentSorting._IntentSortingField.ValueType  # 1
+        SORT_INTENT_BY_CREATION_DATE: IntentSorting._IntentSortingField.ValueType  # 2
+        SORT_INTENT_BY_LAST_UPDATED: IntentSorting._IntentSortingField.ValueType  # 3
+        SORT_INTENT_BY_USERSAYS_COUNT: IntentSorting._IntentSortingField.ValueType  # 4
+        SORT_INTENT_BY_START_DATE: IntentSorting._IntentSortingField.ValueType  # 5
+        SORT_INTENT_BY_END_DATE: IntentSorting._IntentSortingField.ValueType  # 6
     class IntentSortingField(_IntentSortingField, metaclass=_IntentSortingFieldEnumTypeWrapper):
         pass
-    class _IntentSortingField:
-        V = typing.NewType('V', builtins.int)
-    class _IntentSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IntentSortingField.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        NO_INTENT_SORTING = IntentSorting.IntentSortingField.V(0)
-        SORT_INTENT_BY_NAME = IntentSorting.IntentSortingField.V(1)
-        SORT_INTENT_BY_CREATION_DATE = IntentSorting.IntentSortingField.V(2)
-        SORT_INTENT_BY_LAST_UPDATED = IntentSorting.IntentSortingField.V(3)
-        SORT_INTENT_BY_USERSAYS_COUNT = IntentSorting.IntentSortingField.V(4)
-        SORT_INTENT_BY_START_DATE = IntentSorting.IntentSortingField.V(5)
-        SORT_INTENT_BY_END_DATE = IntentSorting.IntentSortingField.V(6)
 
-    NO_INTENT_SORTING = IntentSorting.IntentSortingField.V(0)
-    SORT_INTENT_BY_NAME = IntentSorting.IntentSortingField.V(1)
-    SORT_INTENT_BY_CREATION_DATE = IntentSorting.IntentSortingField.V(2)
-    SORT_INTENT_BY_LAST_UPDATED = IntentSorting.IntentSortingField.V(3)
-    SORT_INTENT_BY_USERSAYS_COUNT = IntentSorting.IntentSortingField.V(4)
-    SORT_INTENT_BY_START_DATE = IntentSorting.IntentSortingField.V(5)
-    SORT_INTENT_BY_END_DATE = IntentSorting.IntentSortingField.V(6)
+    NO_INTENT_SORTING: IntentSorting.IntentSortingField.ValueType  # 0
+    SORT_INTENT_BY_NAME: IntentSorting.IntentSortingField.ValueType  # 1
+    SORT_INTENT_BY_CREATION_DATE: IntentSorting.IntentSortingField.ValueType  # 2
+    SORT_INTENT_BY_LAST_UPDATED: IntentSorting.IntentSortingField.ValueType  # 3
+    SORT_INTENT_BY_USERSAYS_COUNT: IntentSorting.IntentSortingField.ValueType  # 4
+    SORT_INTENT_BY_START_DATE: IntentSorting.IntentSortingField.ValueType  # 5
+    SORT_INTENT_BY_END_DATE: IntentSorting.IntentSortingField.ValueType  # 6
 
     SORTING_FIELD_FIELD_NUMBER: builtins.int
     SORTING_MODE_FIELD_NUMBER: builtins.int
-    sorting_field: global___IntentSorting.IntentSortingField.V = ...
-    sorting_mode: ondewo.nlu.common_pb2.SortingMode.V = ...
+    sorting_field: global___IntentSorting.IntentSortingField.ValueType
+    sorting_mode: ondewo.nlu.common_pb2.SortingMode.ValueType
     def __init__(self,
         *,
-        sorting_field : global___IntentSorting.IntentSortingField.V = ...,
-        sorting_mode : ondewo.nlu.common_pb2.SortingMode.V = ...,
+        sorting_field: global___IntentSorting.IntentSortingField.ValueType = ...,
+        sorting_mode: ondewo.nlu.common_pb2.SortingMode.ValueType = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["sorting_field",b"sorting_field","sorting_mode",b"sorting_mode"]) -> None: ...
 global___IntentSorting = IntentSorting
 
-class IntentTagMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+class IntentTagRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENT_NAME_FIELD_NUMBER: builtins.int
-    VALUE_FIELD_NUMBER: builtins.int
-    intent_name: typing.Text = ...
+    TAGS_FIELD_NUMBER: builtins.int
+    intent_name: typing.Text
     """The path of the intent.
     Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
     """
 
-    value: typing.Text = ...
+    @property
+    def tags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Intent tags for this intent to operate on"""
+        pass
     def __init__(self,
         *,
-        intent_name : typing.Text = ...,
-        value : typing.Text = ...,
+        intent_name: typing.Text = ...,
+        tags: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name","value",b"value"]) -> None: ...
-global___IntentTagMessage = IntentTagMessage
+    def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name","tags",b"tags"]) -> None: ...
+global___IntentTagRequest = IntentTagRequest
+
+class GetIntentTagsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    INTENT_NAME_FIELD_NUMBER: builtins.int
+    intent_name: typing.Text
+    """The path of the intent.
+    Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
+    """
+
+    def __init__(self,
+        *,
+        intent_name: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name"]) -> None: ...
+global___GetIntentTagsRequest = GetIntentTagsRequest
+
+class GetIntentTagsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    INTENT_TAGS_FIELD_NUMBER: builtins.int
+    @property
+    def intent_tags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """All the distinct intent tags sorted"""
+        pass
+    def __init__(self,
+        *,
+        intent_tags: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["intent_tags",b"intent_tags"]) -> None: ...
+global___GetIntentTagsResponse = GetIntentTagsResponse
+
+class GetAllIntentTagsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PARENT_FIELD_NUMBER: builtins.int
+    parent: typing.Text
+    """Required. The name of the agent to delete all entities types for. Format:
+    `projects/<Project ID>/agent`.
+    """
+
+    def __init__(self,
+        *,
+        parent: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["parent",b"parent"]) -> None: ...
+global___GetAllIntentTagsRequest = GetAllIntentTagsRequest
 
 class BatchUpdateTrainingPhrasesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     TRAINING_PHRASES_FIELD_NUMBER: builtins.int
     @property
     def training_phrases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent.TrainingPhrase]: ...
     def __init__(self,
         *,
-        training_phrases : typing.Optional[typing.Iterable[global___Intent.TrainingPhrase]] = ...,
+        training_phrases: typing.Optional[typing.Iterable[global___Intent.TrainingPhrase]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["training_phrases",b"training_phrases"]) -> None: ...
 global___BatchUpdateTrainingPhrasesRequest = BatchUpdateTrainingPhrasesRequest
 
 class TrainingPhraseStatus(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     TRAINING_PHRASE_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
     @property
     def training_phrase(self) -> global___Intent.TrainingPhrase: ...
-    error_message: typing.Text = ...
+    error_message: typing.Text
     def __init__(self,
         *,
-        training_phrase : typing.Optional[global___Intent.TrainingPhrase] = ...,
-        error_message : typing.Text = ...,
+        training_phrase: typing.Optional[global___Intent.TrainingPhrase] = ...,
+        error_message: typing.Text = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["error_message",b"error_message","phrase_or_status",b"phrase_or_status","training_phrase",b"training_phrase"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","phrase_or_status",b"phrase_or_status","training_phrase",b"training_phrase"]) -> None: ...
@@ -1807,29 +1861,29 @@ class TrainingPhraseStatus(google.protobuf.message.Message):
 global___TrainingPhraseStatus = TrainingPhraseStatus
 
 class BatchTrainingPhrasesStatusResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     TRAINING_PHRASE_STATUSES_FIELD_NUMBER: builtins.int
     HAS_ERRORS_FIELD_NUMBER: builtins.int
     @property
     def training_phrase_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrainingPhraseStatus]: ...
-    has_errors: builtins.bool = ...
+    has_errors: builtins.bool
     """indicates if statuses of some of the training phrases have errors"""
 
     def __init__(self,
         *,
-        training_phrase_statuses : typing.Optional[typing.Iterable[global___TrainingPhraseStatus]] = ...,
-        has_errors : builtins.bool = ...,
+        training_phrase_statuses: typing.Optional[typing.Iterable[global___TrainingPhraseStatus]] = ...,
+        has_errors: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["has_errors",b"has_errors","training_phrase_statuses",b"training_phrase_statuses"]) -> None: ...
 global___BatchTrainingPhrasesStatusResponse = BatchTrainingPhrasesStatusResponse
 
 class BatchCreateTrainingPhrasesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class CreateTrainingPhraseRequest(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         INTENT_NAME_FIELD_NUMBER: builtins.int
         TRAINING_PHRASE_FIELD_NUMBER: builtins.int
-        intent_name: typing.Text = ...
+        intent_name: typing.Text
         """Required. The name of the intent for which to create a training phrase for."""
 
         @property
@@ -1838,8 +1892,8 @@ class BatchCreateTrainingPhrasesRequest(google.protobuf.message.Message):
             pass
         def __init__(self,
             *,
-            intent_name : typing.Text = ...,
-            training_phrase : typing.Optional[global___Intent.TrainingPhrase] = ...,
+            intent_name: typing.Text = ...,
+            training_phrase: typing.Optional[global___Intent.TrainingPhrase] = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["training_phrase",b"training_phrase"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name","training_phrase",b"training_phrase"]) -> None: ...
@@ -1849,13 +1903,13 @@ class BatchCreateTrainingPhrasesRequest(google.protobuf.message.Message):
     def training_phrase_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchCreateTrainingPhrasesRequest.CreateTrainingPhraseRequest]: ...
     def __init__(self,
         *,
-        training_phrase_requests : typing.Optional[typing.Iterable[global___BatchCreateTrainingPhrasesRequest.CreateTrainingPhraseRequest]] = ...,
+        training_phrase_requests: typing.Optional[typing.Iterable[global___BatchCreateTrainingPhrasesRequest.CreateTrainingPhraseRequest]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["training_phrase_requests",b"training_phrase_requests"]) -> None: ...
 global___BatchCreateTrainingPhrasesRequest = BatchCreateTrainingPhrasesRequest
 
 class BatchGetTrainingPhrasesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
     def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -1865,13 +1919,13 @@ class BatchGetTrainingPhrasesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___BatchGetTrainingPhrasesRequest = BatchGetTrainingPhrasesRequest
 
 class BatchDeleteTrainingPhrasesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
     def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -1881,24 +1935,24 @@ class BatchDeleteTrainingPhrasesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___BatchDeleteTrainingPhrasesRequest = BatchDeleteTrainingPhrasesRequest
 
 class BatchDeleteTrainingPhrasesResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class DeleteTrainingPhraseStatus(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         SUCCESSFULLY_DELETED_FIELD_NUMBER: builtins.int
         ERROR_MESSAGE_FIELD_NUMBER: builtins.int
         @property
         def successfully_deleted(self) -> google.protobuf.empty_pb2.Empty: ...
-        error_message: typing.Text = ...
+        error_message: typing.Text
         def __init__(self,
             *,
-            successfully_deleted : typing.Optional[google.protobuf.empty_pb2.Empty] = ...,
-            error_message : typing.Text = ...,
+            successfully_deleted: typing.Optional[google.protobuf.empty_pb2.Empty] = ...,
+            error_message: typing.Text = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["delete_status",b"delete_status","error_message",b"error_message","successfully_deleted",b"successfully_deleted"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["delete_status",b"delete_status","error_message",b"error_message","successfully_deleted",b"successfully_deleted"]) -> None: ...
@@ -1908,32 +1962,32 @@ class BatchDeleteTrainingPhrasesResponse(google.protobuf.message.Message):
     HAS_ERRORS_FIELD_NUMBER: builtins.int
     @property
     def delete_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchDeleteTrainingPhrasesResponse.DeleteTrainingPhraseStatus]: ...
-    has_errors: builtins.bool = ...
+    has_errors: builtins.bool
     def __init__(self,
         *,
-        delete_statuses : typing.Optional[typing.Iterable[global___BatchDeleteTrainingPhrasesResponse.DeleteTrainingPhraseStatus]] = ...,
-        has_errors : builtins.bool = ...,
+        delete_statuses: typing.Optional[typing.Iterable[global___BatchDeleteTrainingPhrasesResponse.DeleteTrainingPhraseStatus]] = ...,
+        has_errors: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["delete_statuses",b"delete_statuses","has_errors",b"has_errors"]) -> None: ...
 global___BatchDeleteTrainingPhrasesResponse = BatchDeleteTrainingPhrasesResponse
 
 class ListTrainingPhrasesRequest(google.protobuf.message.Message):
     """The request message for TrainingPhraseRequest"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENT_NAME_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    intent_name: typing.Text = ...
+    intent_name: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to list training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     """
 
-    page_token: typing.Text = ...
+    page_token: typing.Text
     """Optional. The next_page_token value returned from a previous list request.
     Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>--sub_field-<SUB_FIELD>`
     where <CURRENT_INDEX> and <PAGE_SIZE> are of type int, <SUB_FIELD> is of type str (example: `training_phrases`)
@@ -1941,16 +1995,16 @@ class ListTrainingPhrasesRequest(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        intent_name : typing.Text = ...,
-        language_code : typing.Text = ...,
-        page_token : typing.Text = ...,
+        intent_name: typing.Text = ...,
+        language_code: typing.Text = ...,
+        page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name","language_code",b"language_code","page_token",b"page_token"]) -> None: ...
 global___ListTrainingPhrasesRequest = ListTrainingPhrasesRequest
 
 class ListTrainingPhrasesResponse(google.protobuf.message.Message):
     """The response message for ListTrainingPhrase"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     TRAINING_PHRASES_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
@@ -1959,7 +2013,7 @@ class ListTrainingPhrasesResponse(google.protobuf.message.Message):
         returned based on the page_token field in the request.
         """
         pass
-    next_page_token: typing.Text = ...
+    next_page_token: typing.Text
     """Token to retrieve the next page of results, or empty if there are no
     more results in the list.
     Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>--sub_field-<SUB_FIELD>`
@@ -1968,25 +2022,25 @@ class ListTrainingPhrasesResponse(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        training_phrases : typing.Optional[typing.Iterable[global___Intent.TrainingPhrase]] = ...,
-        next_page_token : typing.Text = ...,
+        training_phrases: typing.Optional[typing.Iterable[global___Intent.TrainingPhrase]] = ...,
+        next_page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["next_page_token",b"next_page_token","training_phrases",b"training_phrases"]) -> None: ...
 global___ListTrainingPhrasesResponse = ListTrainingPhrasesResponse
 
 class BatchResponseMessagesStatusResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class ResponseMessageStatus(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         RESPONSE_MESSAGE_FIELD_NUMBER: builtins.int
         ERROR_MESSAGE_FIELD_NUMBER: builtins.int
         @property
         def response_message(self) -> global___Intent.Message: ...
-        error_message: typing.Text = ...
+        error_message: typing.Text
         def __init__(self,
             *,
-            response_message : typing.Optional[global___Intent.Message] = ...,
-            error_message : typing.Text = ...,
+            response_message: typing.Optional[global___Intent.Message] = ...,
+            error_message: typing.Text = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["error_message",b"error_message","phrase_or_status",b"phrase_or_status","response_message",b"response_message"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","phrase_or_status",b"phrase_or_status","response_message",b"response_message"]) -> None: ...
@@ -1996,24 +2050,24 @@ class BatchResponseMessagesStatusResponse(google.protobuf.message.Message):
     HAS_ERRORS_FIELD_NUMBER: builtins.int
     @property
     def response_message_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchResponseMessagesStatusResponse.ResponseMessageStatus]: ...
-    has_errors: builtins.bool = ...
+    has_errors: builtins.bool
     """indicates if statuses of some of the response messages have errors"""
 
     def __init__(self,
         *,
-        response_message_statuses : typing.Optional[typing.Iterable[global___BatchResponseMessagesStatusResponse.ResponseMessageStatus]] = ...,
-        has_errors : builtins.bool = ...,
+        response_message_statuses: typing.Optional[typing.Iterable[global___BatchResponseMessagesStatusResponse.ResponseMessageStatus]] = ...,
+        has_errors: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["has_errors",b"has_errors","response_message_statuses",b"response_message_statuses"]) -> None: ...
 global___BatchResponseMessagesStatusResponse = BatchResponseMessagesStatusResponse
 
 class BatchCreateResponseMessagesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class CreateResponseMessageRequest(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         INTENT_NAME_FIELD_NUMBER: builtins.int
         RESPONSE_MESSAGE_FIELD_NUMBER: builtins.int
-        intent_name: typing.Text = ...
+        intent_name: typing.Text
         """Required. The name of the intent for which to create a response message for."""
 
         @property
@@ -2022,8 +2076,8 @@ class BatchCreateResponseMessagesRequest(google.protobuf.message.Message):
             pass
         def __init__(self,
             *,
-            intent_name : typing.Text = ...,
-            response_message : typing.Optional[global___Intent.Message] = ...,
+            intent_name: typing.Text = ...,
+            response_message: typing.Optional[global___Intent.Message] = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["response_message",b"response_message"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name","response_message",b"response_message"]) -> None: ...
@@ -2033,13 +2087,13 @@ class BatchCreateResponseMessagesRequest(google.protobuf.message.Message):
     def response_message_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchCreateResponseMessagesRequest.CreateResponseMessageRequest]: ...
     def __init__(self,
         *,
-        response_message_requests : typing.Optional[typing.Iterable[global___BatchCreateResponseMessagesRequest.CreateResponseMessageRequest]] = ...,
+        response_message_requests: typing.Optional[typing.Iterable[global___BatchCreateResponseMessagesRequest.CreateResponseMessageRequest]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["response_message_requests",b"response_message_requests"]) -> None: ...
 global___BatchCreateResponseMessagesRequest = BatchCreateResponseMessagesRequest
 
 class BatchUpdateResponseMessagesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     RESPONSE_MESSAGES_FIELD_NUMBER: builtins.int
     @property
     def response_messages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent.Message]:
@@ -2047,13 +2101,13 @@ class BatchUpdateResponseMessagesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        response_messages : typing.Optional[typing.Iterable[global___Intent.Message]] = ...,
+        response_messages: typing.Optional[typing.Iterable[global___Intent.Message]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["response_messages",b"response_messages"]) -> None: ...
 global___BatchUpdateResponseMessagesRequest = BatchUpdateResponseMessagesRequest
 
 class BatchGetResponseMessagesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
     def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -2063,13 +2117,13 @@ class BatchGetResponseMessagesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___BatchGetResponseMessagesRequest = BatchGetResponseMessagesRequest
 
 class BatchDeleteResponseMessagesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
     def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -2079,24 +2133,24 @@ class BatchDeleteResponseMessagesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___BatchDeleteResponseMessagesRequest = BatchDeleteResponseMessagesRequest
 
 class BatchDeleteResponseMessagesResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class DeleteResponseMessageStatus(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         SUCCESSFULLY_DELETED_FIELD_NUMBER: builtins.int
         ERROR_MESSAGE_FIELD_NUMBER: builtins.int
         @property
         def successfully_deleted(self) -> google.protobuf.empty_pb2.Empty: ...
-        error_message: typing.Text = ...
+        error_message: typing.Text
         def __init__(self,
             *,
-            successfully_deleted : typing.Optional[google.protobuf.empty_pb2.Empty] = ...,
-            error_message : typing.Text = ...,
+            successfully_deleted: typing.Optional[google.protobuf.empty_pb2.Empty] = ...,
+            error_message: typing.Text = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["delete_status",b"delete_status","error_message",b"error_message","successfully_deleted",b"successfully_deleted"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["delete_status",b"delete_status","error_message",b"error_message","successfully_deleted",b"successfully_deleted"]) -> None: ...
@@ -2106,32 +2160,32 @@ class BatchDeleteResponseMessagesResponse(google.protobuf.message.Message):
     HAS_ERRORS_FIELD_NUMBER: builtins.int
     @property
     def delete_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchDeleteResponseMessagesResponse.DeleteResponseMessageStatus]: ...
-    has_errors: builtins.bool = ...
+    has_errors: builtins.bool
     def __init__(self,
         *,
-        delete_statuses : typing.Optional[typing.Iterable[global___BatchDeleteResponseMessagesResponse.DeleteResponseMessageStatus]] = ...,
-        has_errors : builtins.bool = ...,
+        delete_statuses: typing.Optional[typing.Iterable[global___BatchDeleteResponseMessagesResponse.DeleteResponseMessageStatus]] = ...,
+        has_errors: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["delete_statuses",b"delete_statuses","has_errors",b"has_errors"]) -> None: ...
 global___BatchDeleteResponseMessagesResponse = BatchDeleteResponseMessagesResponse
 
 class ListResponseMessagesRequest(google.protobuf.message.Message):
     """The request message for ResponseMessageRequest"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENT_NAME_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    intent_name: typing.Text = ...
+    intent_name: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to list response messages, parameters and rich
     messages for. If not specified, the agent's default language is used.
     """
 
-    page_token: typing.Text = ...
+    page_token: typing.Text
     """Optional. The next_page_token value returned from a previous list request.
     Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>--sub_field-<SUB_FIELD>`
     where <CURRENT_INDEX> and <PAGE_SIZE> are of type int, <SUB_FIELD> is of type str (example: `messages`)
@@ -2139,16 +2193,16 @@ class ListResponseMessagesRequest(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        intent_name : typing.Text = ...,
-        language_code : typing.Text = ...,
-        page_token : typing.Text = ...,
+        intent_name: typing.Text = ...,
+        language_code: typing.Text = ...,
+        page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name","language_code",b"language_code","page_token",b"page_token"]) -> None: ...
 global___ListResponseMessagesRequest = ListResponseMessagesRequest
 
 class ListResponseMessagesResponse(google.protobuf.message.Message):
     """The response message for ListResponseMessage"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     RESPONSE_MESSAGES_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
@@ -2157,7 +2211,7 @@ class ListResponseMessagesResponse(google.protobuf.message.Message):
         returned based on the page_token field in the request.
         """
         pass
-    next_page_token: typing.Text = ...
+    next_page_token: typing.Text
     """Token to retrieve the next page of results, or empty if there are no
     more results in the list.
     Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>--sub_field-<SUB_FIELD>`
@@ -2166,25 +2220,25 @@ class ListResponseMessagesResponse(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        response_messages : typing.Optional[typing.Iterable[global___Intent.Message]] = ...,
-        next_page_token : typing.Text = ...,
+        response_messages: typing.Optional[typing.Iterable[global___Intent.Message]] = ...,
+        next_page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["next_page_token",b"next_page_token","response_messages",b"response_messages"]) -> None: ...
 global___ListResponseMessagesResponse = ListResponseMessagesResponse
 
 class BatchParametersStatusResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class ParameterStatus(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         PARAMETER_FIELD_NUMBER: builtins.int
         ERROR_MESSAGE_FIELD_NUMBER: builtins.int
         @property
         def parameter(self) -> global___Intent.Parameter: ...
-        error_message: typing.Text = ...
+        error_message: typing.Text
         def __init__(self,
             *,
-            parameter : typing.Optional[global___Intent.Parameter] = ...,
-            error_message : typing.Text = ...,
+            parameter: typing.Optional[global___Intent.Parameter] = ...,
+            error_message: typing.Text = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["error_message",b"error_message","parameter",b"parameter","phrase_or_status",b"phrase_or_status"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","parameter",b"parameter","phrase_or_status",b"phrase_or_status"]) -> None: ...
@@ -2194,24 +2248,24 @@ class BatchParametersStatusResponse(google.protobuf.message.Message):
     HAS_ERRORS_FIELD_NUMBER: builtins.int
     @property
     def parameter_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchParametersStatusResponse.ParameterStatus]: ...
-    has_errors: builtins.bool = ...
+    has_errors: builtins.bool
     """indicates if statuses of some of the parameters have errors"""
 
     def __init__(self,
         *,
-        parameter_statuses : typing.Optional[typing.Iterable[global___BatchParametersStatusResponse.ParameterStatus]] = ...,
-        has_errors : builtins.bool = ...,
+        parameter_statuses: typing.Optional[typing.Iterable[global___BatchParametersStatusResponse.ParameterStatus]] = ...,
+        has_errors: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["has_errors",b"has_errors","parameter_statuses",b"parameter_statuses"]) -> None: ...
 global___BatchParametersStatusResponse = BatchParametersStatusResponse
 
 class BatchCreateParametersRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class CreateParameterRequest(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         INTENT_NAME_FIELD_NUMBER: builtins.int
         PARAMETER_FIELD_NUMBER: builtins.int
-        intent_name: typing.Text = ...
+        intent_name: typing.Text
         """Required. The name of the intent for which to create a training phrase for."""
 
         @property
@@ -2220,8 +2274,8 @@ class BatchCreateParametersRequest(google.protobuf.message.Message):
             pass
         def __init__(self,
             *,
-            intent_name : typing.Text = ...,
-            parameter : typing.Optional[global___Intent.Parameter] = ...,
+            intent_name: typing.Text = ...,
+            parameter: typing.Optional[global___Intent.Parameter] = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["parameter",b"parameter"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name","parameter",b"parameter"]) -> None: ...
@@ -2231,13 +2285,13 @@ class BatchCreateParametersRequest(google.protobuf.message.Message):
     def parameter_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchCreateParametersRequest.CreateParameterRequest]: ...
     def __init__(self,
         *,
-        parameter_requests : typing.Optional[typing.Iterable[global___BatchCreateParametersRequest.CreateParameterRequest]] = ...,
+        parameter_requests: typing.Optional[typing.Iterable[global___BatchCreateParametersRequest.CreateParameterRequest]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["parameter_requests",b"parameter_requests"]) -> None: ...
 global___BatchCreateParametersRequest = BatchCreateParametersRequest
 
 class BatchUpdateParametersRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARAMETERS_FIELD_NUMBER: builtins.int
     @property
     def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent.Parameter]:
@@ -2245,13 +2299,13 @@ class BatchUpdateParametersRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        parameters : typing.Optional[typing.Iterable[global___Intent.Parameter]] = ...,
+        parameters: typing.Optional[typing.Iterable[global___Intent.Parameter]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["parameters",b"parameters"]) -> None: ...
 global___BatchUpdateParametersRequest = BatchUpdateParametersRequest
 
 class BatchGetParametersRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
     def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -2261,13 +2315,13 @@ class BatchGetParametersRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___BatchGetParametersRequest = BatchGetParametersRequest
 
 class BatchDeleteParametersRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
     def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -2277,24 +2331,24 @@ class BatchDeleteParametersRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___BatchDeleteParametersRequest = BatchDeleteParametersRequest
 
 class BatchDeleteParametersResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class DeleteParameterStatus(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         SUCCESSFULLY_DELETED_FIELD_NUMBER: builtins.int
         ERROR_MESSAGE_FIELD_NUMBER: builtins.int
         @property
         def successfully_deleted(self) -> google.protobuf.empty_pb2.Empty: ...
-        error_message: typing.Text = ...
+        error_message: typing.Text
         def __init__(self,
             *,
-            successfully_deleted : typing.Optional[google.protobuf.empty_pb2.Empty] = ...,
-            error_message : typing.Text = ...,
+            successfully_deleted: typing.Optional[google.protobuf.empty_pb2.Empty] = ...,
+            error_message: typing.Text = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["delete_status",b"delete_status","error_message",b"error_message","successfully_deleted",b"successfully_deleted"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["delete_status",b"delete_status","error_message",b"error_message","successfully_deleted",b"successfully_deleted"]) -> None: ...
@@ -2304,30 +2358,30 @@ class BatchDeleteParametersResponse(google.protobuf.message.Message):
     HAS_ERRORS_FIELD_NUMBER: builtins.int
     @property
     def delete_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchDeleteParametersResponse.DeleteParameterStatus]: ...
-    has_errors: builtins.bool = ...
+    has_errors: builtins.bool
     def __init__(self,
         *,
-        delete_statuses : typing.Optional[typing.Iterable[global___BatchDeleteParametersResponse.DeleteParameterStatus]] = ...,
-        has_errors : builtins.bool = ...,
+        delete_statuses: typing.Optional[typing.Iterable[global___BatchDeleteParametersResponse.DeleteParameterStatus]] = ...,
+        has_errors: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["delete_statuses",b"delete_statuses","has_errors",b"has_errors"]) -> None: ...
 global___BatchDeleteParametersResponse = BatchDeleteParametersResponse
 
 class ListParametersRequest(google.protobuf.message.Message):
     """The request message for TrainingPhraseRequest"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENT_NAME_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    intent_name: typing.Text = ...
+    intent_name: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language code used to filter out prompts."""
 
-    page_token: typing.Text = ...
+    page_token: typing.Text
     """Optional. The next_page_token value returned from a previous list request.
     Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>--sub_field-<SUB_FIELD>`
     where <CURRENT_INDEX> and <PAGE_SIZE> are of type int, <SUB_FIELD> is of type str (example: `parameters`)
@@ -2335,16 +2389,16 @@ class ListParametersRequest(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        intent_name : typing.Text = ...,
-        language_code : typing.Text = ...,
-        page_token : typing.Text = ...,
+        intent_name: typing.Text = ...,
+        language_code: typing.Text = ...,
+        page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["intent_name",b"intent_name","language_code",b"language_code","page_token",b"page_token"]) -> None: ...
 global___ListParametersRequest = ListParametersRequest
 
 class ListParametersResponse(google.protobuf.message.Message):
     """The response message for ListTrainingPhrase"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARAMETERS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
@@ -2353,7 +2407,7 @@ class ListParametersResponse(google.protobuf.message.Message):
         returned based on the page_token field in the request.
         """
         pass
-    next_page_token: typing.Text = ...
+    next_page_token: typing.Text
     """Token to retrieve the next page of results, or empty if there are no
     more results in the list.
     Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>--sub_field-<SUB_FIELD>`
@@ -2362,8 +2416,70 @@ class ListParametersResponse(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        parameters : typing.Optional[typing.Iterable[global___Intent.Parameter]] = ...,
-        next_page_token : typing.Text = ...,
+        parameters: typing.Optional[typing.Iterable[global___Intent.Parameter]] = ...,
+        next_page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["next_page_token",b"next_page_token","parameters",b"parameters"]) -> None: ...
 global___ListParametersResponse = ListParametersResponse
+
+class ListTrainingPhrasesofIntentsWithEnrichmentRequest(google.protobuf.message.Message):
+    """The request message for TrainingPhraseRequest"""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PARENT_FIELD_NUMBER: builtins.int
+    LANGUAGE_CODE_FIELD_NUMBER: builtins.int
+    INTENT_IDS_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    parent: typing.Text
+    """Required. The name of the agent to delete all entities types for. Format:
+    `projects/<Project ID>/agent`.
+    """
+
+    language_code: typing.Text
+    """Optional. The language code used to filter out prompts."""
+
+    @property
+    def intent_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional. List of intent uuids to filter by. Only training phrases
+        that have this intent uuid will be returned
+        If not passed, returns all
+        """
+        pass
+    page_token: typing.Text
+    """Optional. The next_page_token value returned from a previous list request.
+    Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>--sub_field-<SUB_FIELD>`
+    where <CURRENT_INDEX> and <PAGE_SIZE> are of type int, <SUB_FIELD> is of type str (example: `parameters`)
+    """
+
+    def __init__(self,
+        *,
+        parent: typing.Text = ...,
+        language_code: typing.Text = ...,
+        intent_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        page_token: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["intent_ids",b"intent_ids","language_code",b"language_code","page_token",b"page_token","parent",b"parent"]) -> None: ...
+global___ListTrainingPhrasesofIntentsWithEnrichmentRequest = ListTrainingPhrasesofIntentsWithEnrichmentRequest
+
+class ListTrainingPhrasesofIntentsWithEnrichmentResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    TRAINING_PHRASES_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def training_phrases(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """List of user_says values. There will be a maximum number of items
+        returned based on the page_token field in the request.
+        """
+        pass
+    next_page_token: typing.Text
+    """Optional. The next_page_token value returned from a previous list request.
+    Format: `current_index-<CURRENT_INDEX>--page_size-<PAGE_SIZE>--sub_field-<SUB_FIELD>`
+    where <CURRENT_INDEX> and <PAGE_SIZE> are of type int, <SUB_FIELD> is of type str (example: `parameters`)
+    """
+
+    def __init__(self,
+        *,
+        training_phrases: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        next_page_token: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["next_page_token",b"next_page_token","training_phrases",b"training_phrases"]) -> None: ...
+global___ListTrainingPhrasesofIntentsWithEnrichmentResponse = ListTrainingPhrasesofIntentsWithEnrichmentResponse

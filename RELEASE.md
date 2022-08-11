@@ -1,6 +1,11 @@
 # Release History
 *****************
 
+## Release ONDEWO VTSI Client Python 3.5.0
+### Improvements
+
+* New client for VTSI API 3.0.0
+
 ## Release ONDEWO VTSI Client Python 3.4.0
 ### Improvements
 
@@ -123,7 +128,7 @@
 ### Known issues not covered in this release
  * CI/CD Integration is missing
  * Code Quality checks
- * Extend the README.md with an examples usage 
+ * Extend the README.md with an examples usage
 
 *****************
 ## Release ONDEWO RELEASE Template

@@ -12,44 +12,45 @@ import ondewo.nlu.intent_pb2
 import typing
 import typing_extensions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _ReannotateEntitiesOptions:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _ReannotateEntitiesOptionsEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ReannotateEntitiesOptions.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    REANNOTATE_NEVER: _ReannotateEntitiesOptions.ValueType  # 0
+    """Never re-annotate training phrases"""
+
+    REANNOTATE_ALWAYS: _ReannotateEntitiesOptions.ValueType  # 1
+    """Always re-annotate training phrases"""
+
+    REANNOTATE_IF_EMPTY: _ReannotateEntitiesOptions.ValueType  # 2
+    """Re-annotate training phrases if there are no annotations"""
+
+    REANNOTATE_AFTER_DELETION: _ReannotateEntitiesOptions.ValueType  # 3
+    """Re-annotate if training phrases have been deleted"""
+
+    REANNOTATE_IF_EMPTY_OR_AFTER_DELETION: _ReannotateEntitiesOptions.ValueType  # 4
+    """Re-annotate if there are no annotations or if training phrases have been deleted"""
 
 class ReannotateEntitiesOptions(_ReannotateEntitiesOptions, metaclass=_ReannotateEntitiesOptionsEnumTypeWrapper):
     """Encapsulates entity re-annotation options"""
     pass
-class _ReannotateEntitiesOptions:
-    V = typing.NewType('V', builtins.int)
-class _ReannotateEntitiesOptionsEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ReannotateEntitiesOptions.V], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-    REANNOTATE_NEVER = ReannotateEntitiesOptions.V(0)
-    """Never re-annotate training phrases"""
 
-    REANNOTATE_ALWAYS = ReannotateEntitiesOptions.V(1)
-    """Always re-annotate training phrases"""
-
-    REANNOTATE_IF_EMPTY = ReannotateEntitiesOptions.V(2)
-    """Re-annotate training phrases if there are no annotations"""
-
-    REANNOTATE_AFTER_DELETION = ReannotateEntitiesOptions.V(3)
-    """Re-annotate if training phrases have been deleted"""
-
-    REANNOTATE_IF_EMPTY_OR_AFTER_DELETION = ReannotateEntitiesOptions.V(4)
-    """Re-annotate if there are no annotations or if training phrases have been deleted"""
-
-
-REANNOTATE_NEVER = ReannotateEntitiesOptions.V(0)
+REANNOTATE_NEVER: ReannotateEntitiesOptions.ValueType  # 0
 """Never re-annotate training phrases"""
 
-REANNOTATE_ALWAYS = ReannotateEntitiesOptions.V(1)
+REANNOTATE_ALWAYS: ReannotateEntitiesOptions.ValueType  # 1
 """Always re-annotate training phrases"""
 
-REANNOTATE_IF_EMPTY = ReannotateEntitiesOptions.V(2)
+REANNOTATE_IF_EMPTY: ReannotateEntitiesOptions.ValueType  # 2
 """Re-annotate training phrases if there are no annotations"""
 
-REANNOTATE_AFTER_DELETION = ReannotateEntitiesOptions.V(3)
+REANNOTATE_AFTER_DELETION: ReannotateEntitiesOptions.ValueType  # 3
 """Re-annotate if training phrases have been deleted"""
 
-REANNOTATE_IF_EMPTY_OR_AFTER_DELETION = ReannotateEntitiesOptions.V(4)
+REANNOTATE_IF_EMPTY_OR_AFTER_DELETION: ReannotateEntitiesOptions.ValueType  # 4
 """Re-annotate if there are no annotations or if training phrases have been deleted"""
 
 global___ReannotateEntitiesOptions = ReannotateEntitiesOptions
@@ -57,21 +58,21 @@ global___ReannotateEntitiesOptions = ReannotateEntitiesOptions
 
 class ValidateRegexRequest(google.protobuf.message.Message):
     """The request to validate regexes."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     REGEX_FIELD_NUMBER: builtins.int
-    regex: typing.Text = ...
+    regex: typing.Text
     """String containing the regex."""
 
     def __init__(self,
         *,
-        regex : typing.Text = ...,
+        regex: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["regex",b"regex"]) -> None: ...
 global___ValidateRegexRequest = ValidateRegexRequest
 
 class ValidateRegexResponse(google.protobuf.message.Message):
     """The response of the regex validation"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ERROR_MESSAGES_FIELD_NUMBER: builtins.int
     @property
     def error_messages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -79,20 +80,20 @@ class ValidateRegexResponse(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        error_messages : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        error_messages: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages"]) -> None: ...
 global___ValidateRegexResponse = ValidateRegexResponse
 
 class ValidateEmbeddedRegexRequest(google.protobuf.message.Message):
     """Validation request for entity type values"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ENTITY_TYPE_FIELD_NUMBER: builtins.int
     @property
     def entity_type(self) -> ondewo.nlu.entity_type_pb2.EntityType.Entity: ...
     def __init__(self,
         *,
-        entity_type : typing.Optional[ondewo.nlu.entity_type_pb2.EntityType.Entity] = ...,
+        entity_type: typing.Optional[ondewo.nlu.entity_type_pb2.EntityType.Entity] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["entity_type",b"entity_type"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_type",b"entity_type"]) -> None: ...
@@ -100,7 +101,7 @@ global___ValidateEmbeddedRegexRequest = ValidateEmbeddedRegexRequest
 
 class ValidateEmbeddedRegexResponse(google.protobuf.message.Message):
     """Response of the entity type validation"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ERROR_MESSAGES_FIELD_NUMBER: builtins.int
     @property
     def error_messages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -108,14 +109,14 @@ class ValidateEmbeddedRegexResponse(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        error_messages : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        error_messages: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages"]) -> None: ...
 global___ValidateEmbeddedRegexResponse = ValidateEmbeddedRegexResponse
 
 class CleanAllIntentsRequest(google.protobuf.message.Message):
     """The request to clean the all intents."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     SPECIAL_CHARACTERS_FIELD_NUMBER: builtins.int
@@ -124,18 +125,18 @@ class CleanAllIntentsRequest(google.protobuf.message.Message):
     TRAINING_PHRASE_CLEANER_OPTIONS_FIELD_NUMBER: builtins.int
     REANNOTATE_ENTITIES_OPTIONS_FIELD_NUMBER: builtins.int
     NUMBER_OF_WORKERS_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to list training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     Note: languages must be enabled in the agent before they can be used.
     """
 
-    special_characters: typing.Text = ...
+    special_characters: typing.Text
     """Optional. Characters to be recognized as special characters for cleaning.
     Overrides the default: '.,;!?:'
     """
@@ -147,29 +148,29 @@ class CleanAllIntentsRequest(google.protobuf.message.Message):
         Default = None
         """
         pass
-    dry_run: builtins.bool = ...
+    dry_run: builtins.bool
     """Required. Do not apply changes to the database if set to True"""
 
     @property
     def training_phrase_cleaner_options(self) -> global___TrainingPhraseCleanerOptions:
         """Optional. Options for the cleaning of the training phrases."""
         pass
-    reannotate_entities_options: global___ReannotateEntitiesOptions.V = ...
+    reannotate_entities_options: global___ReannotateEntitiesOptions.ValueType
     """Optional. Options for re-annotation of entities (default = REANNOTATE_NEVER)"""
 
-    number_of_workers: builtins.int = ...
+    number_of_workers: builtins.int
     """Optional. Number of threads used to accomplish the task"""
 
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        language_code : typing.Text = ...,
-        special_characters : typing.Text = ...,
-        substring_white_list : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        dry_run : builtins.bool = ...,
-        training_phrase_cleaner_options : typing.Optional[global___TrainingPhraseCleanerOptions] = ...,
-        reannotate_entities_options : global___ReannotateEntitiesOptions.V = ...,
-        number_of_workers : builtins.int = ...,
+        parent: typing.Text = ...,
+        language_code: typing.Text = ...,
+        special_characters: typing.Text = ...,
+        substring_white_list: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        dry_run: builtins.bool = ...,
+        training_phrase_cleaner_options: typing.Optional[global___TrainingPhraseCleanerOptions] = ...,
+        reannotate_entities_options: global___ReannotateEntitiesOptions.ValueType = ...,
+        number_of_workers: builtins.int = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["training_phrase_cleaner_options",b"training_phrase_cleaner_options"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["dry_run",b"dry_run","language_code",b"language_code","number_of_workers",b"number_of_workers","parent",b"parent","reannotate_entities_options",b"reannotate_entities_options","special_characters",b"special_characters","substring_white_list",b"substring_white_list","training_phrase_cleaner_options",b"training_phrase_cleaner_options"]) -> None: ...
@@ -177,7 +178,7 @@ global___CleanAllIntentsRequest = CleanAllIntentsRequest
 
 class CleanAllIntentsResponse(google.protobuf.message.Message):
     """Response corresponding to the CleanAllIntents Request"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     CLEANED_INTENTS_FIELD_NUMBER: builtins.int
     INTENT_UPDATE_LIST_FIELD_NUMBER: builtins.int
     @property
@@ -190,15 +191,15 @@ class CleanAllIntentsResponse(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        cleaned_intents : typing.Optional[typing.Iterable[ondewo.nlu.intent_pb2.Intent]] = ...,
-        intent_update_list : typing.Optional[typing.Iterable[global___IntentUpdate]] = ...,
+        cleaned_intents: typing.Optional[typing.Iterable[ondewo.nlu.intent_pb2.Intent]] = ...,
+        intent_update_list: typing.Optional[typing.Iterable[global___IntentUpdate]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["cleaned_intents",b"cleaned_intents","intent_update_list",b"intent_update_list"]) -> None: ...
 global___CleanAllIntentsResponse = CleanAllIntentsResponse
 
 class CleanIntentRequest(google.protobuf.message.Message):
     """The request message to clean a single intents."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     INTENT_NAME_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
@@ -207,23 +208,23 @@ class CleanIntentRequest(google.protobuf.message.Message):
     DRY_RUN_FIELD_NUMBER: builtins.int
     TRAINING_PHRASE_CLEANER_OPTIONS_FIELD_NUMBER: builtins.int
     REANNOTATE_ENTITIES_OPTIONS_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent`.
     """
 
-    intent_name: typing.Text = ...
+    intent_name: typing.Text
     """Required. The name of the intent.
     Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to list training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     Note: languages must be enabled in the agent before they can be used.
     """
 
-    special_characters: typing.Text = ...
+    special_characters: typing.Text
     """Optional. Characters to be recognized as special characters for cleaning.
     Overrides the default: '.,;!?:'
     """
@@ -235,26 +236,26 @@ class CleanIntentRequest(google.protobuf.message.Message):
         Default = None
         """
         pass
-    dry_run: builtins.bool = ...
+    dry_run: builtins.bool
     """Required. Do not apply changes to the database if set to True"""
 
     @property
     def training_phrase_cleaner_options(self) -> global___TrainingPhraseCleanerOptions:
         """Optional. Options for the cleaning of the training phrases."""
         pass
-    reannotate_entities_options: global___ReannotateEntitiesOptions.V = ...
+    reannotate_entities_options: global___ReannotateEntitiesOptions.ValueType
     """Optional. Options for re-annotation of entities (default = REANNOTATE_NEVER)"""
 
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        intent_name : typing.Text = ...,
-        language_code : typing.Text = ...,
-        special_characters : typing.Text = ...,
-        substring_white_list : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        dry_run : builtins.bool = ...,
-        training_phrase_cleaner_options : typing.Optional[global___TrainingPhraseCleanerOptions] = ...,
-        reannotate_entities_options : global___ReannotateEntitiesOptions.V = ...,
+        parent: typing.Text = ...,
+        intent_name: typing.Text = ...,
+        language_code: typing.Text = ...,
+        special_characters: typing.Text = ...,
+        substring_white_list: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        dry_run: builtins.bool = ...,
+        training_phrase_cleaner_options: typing.Optional[global___TrainingPhraseCleanerOptions] = ...,
+        reannotate_entities_options: global___ReannotateEntitiesOptions.ValueType = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["training_phrase_cleaner_options",b"training_phrase_cleaner_options"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["dry_run",b"dry_run","intent_name",b"intent_name","language_code",b"language_code","parent",b"parent","reannotate_entities_options",b"reannotate_entities_options","special_characters",b"special_characters","substring_white_list",b"substring_white_list","training_phrase_cleaner_options",b"training_phrase_cleaner_options"]) -> None: ...
@@ -262,7 +263,7 @@ global___CleanIntentRequest = CleanIntentRequest
 
 class CleanIntentResponse(google.protobuf.message.Message):
     """The response message to clean a single intents."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     CLEANED_INTENT_FIELD_NUMBER: builtins.int
     INTENT_UPDATE_FIELD_NUMBER: builtins.int
     @property
@@ -275,8 +276,8 @@ class CleanIntentResponse(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        cleaned_intent : typing.Optional[ondewo.nlu.intent_pb2.Intent] = ...,
-        intent_update : typing.Optional[global___IntentUpdate] = ...,
+        cleaned_intent: typing.Optional[ondewo.nlu.intent_pb2.Intent] = ...,
+        intent_update: typing.Optional[global___IntentUpdate] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["cleaned_intent",b"cleaned_intent","intent_update",b"intent_update"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["cleaned_intent",b"cleaned_intent","intent_update",b"intent_update"]) -> None: ...
@@ -284,53 +285,53 @@ global___CleanIntentResponse = CleanIntentResponse
 
 class TrainingPhraseCleanerOptions(google.protobuf.message.Message):
     """Options for cleaning the training phrases"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     DELETE_REPEATED_WHITESPACES_FIELD_NUMBER: builtins.int
     DELETE_LEADING_SPECIAL_CHARACTERS_FIELD_NUMBER: builtins.int
     DELETE_TRAILING_SPECIAL_CHARACTERS_FIELD_NUMBER: builtins.int
-    delete_repeated_whitespaces: builtins.bool = ...
+    delete_repeated_whitespaces: builtins.bool
     """Whether or not to delete repeated whitespaces"""
 
-    delete_leading_special_characters: builtins.bool = ...
+    delete_leading_special_characters: builtins.bool
     """Whether of not to delete leading special characters"""
 
-    delete_trailing_special_characters: builtins.bool = ...
+    delete_trailing_special_characters: builtins.bool
     """Whether of not to delete trailing special characters"""
 
     def __init__(self,
         *,
-        delete_repeated_whitespaces : builtins.bool = ...,
-        delete_leading_special_characters : builtins.bool = ...,
-        delete_trailing_special_characters : builtins.bool = ...,
+        delete_repeated_whitespaces: builtins.bool = ...,
+        delete_leading_special_characters: builtins.bool = ...,
+        delete_trailing_special_characters: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["delete_leading_special_characters",b"delete_leading_special_characters","delete_repeated_whitespaces",b"delete_repeated_whitespaces","delete_trailing_special_characters",b"delete_trailing_special_characters"]) -> None: ...
 global___TrainingPhraseCleanerOptions = TrainingPhraseCleanerOptions
 
 class StringUpdate(google.protobuf.message.Message):
     """Message to keep track of updated strings"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NEW_FIELD_NUMBER: builtins.int
     OLD_FIELD_NUMBER: builtins.int
-    new: typing.Text = ...
+    new: typing.Text
     """New version of the string"""
 
-    old: typing.Text = ...
+    old: typing.Text
     """Old version of the string"""
 
     def __init__(self,
         *,
-        new : typing.Text = ...,
-        old : typing.Text = ...,
+        new: typing.Text = ...,
+        old: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["new",b"new","old",b"old"]) -> None: ...
 global___StringUpdate = StringUpdate
 
 class IntentUpdate(google.protobuf.message.Message):
     """Stores updates applied to an intent"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class TrainingPhraseUpdate(google.protobuf.message.Message):
         """Message to track the updates made to a training phrase"""
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         TRAINING_PHRASE_UPDATE_FIELD_NUMBER: builtins.int
         ENTITY_UPDATES_FIELD_NUMBER: builtins.int
         ENTITIES_REANNOTATED_FIELD_NUMBER: builtins.int
@@ -347,15 +348,15 @@ class IntentUpdate(google.protobuf.message.Message):
         def entities_reannotated(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
             """Stores re-annotated entity strings"""
             pass
-        contains_update_variable: builtins.bool = ...
+        contains_update_variable: builtins.bool
         """Will be switched to True if at least one update has been performed"""
 
         def __init__(self,
             *,
-            training_phrase_update : typing.Optional[global___StringUpdate] = ...,
-            entity_updates : typing.Optional[typing.Iterable[global___StringUpdate]] = ...,
-            entities_reannotated : typing.Optional[typing.Iterable[typing.Text]] = ...,
-            contains_update_variable : builtins.bool = ...,
+            training_phrase_update: typing.Optional[global___StringUpdate] = ...,
+            entity_updates: typing.Optional[typing.Iterable[global___StringUpdate]] = ...,
+            entities_reannotated: typing.Optional[typing.Iterable[typing.Text]] = ...,
+            contains_update_variable: builtins.bool = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["training_phrase_update",b"training_phrase_update"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["contains_update_variable",b"contains_update_variable","entities_reannotated",b"entities_reannotated","entity_updates",b"entity_updates","training_phrase_update",b"training_phrase_update"]) -> None: ...
@@ -363,7 +364,7 @@ class IntentUpdate(google.protobuf.message.Message):
     INTENT_DISPLAY_NAME_FIELD_NUMBER: builtins.int
     TRAINING_PHRASE_UPDATE_LIST_FIELD_NUMBER: builtins.int
     DELETED_PARAMETERS_FIELD_NUMBER: builtins.int
-    intent_display_name: typing.Text = ...
+    intent_display_name: typing.Text
     """The display name of the intent"""
 
     @property
@@ -376,19 +377,19 @@ class IntentUpdate(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        intent_display_name : typing.Text = ...,
-        training_phrase_update_list : typing.Optional[typing.Iterable[global___IntentUpdate.TrainingPhraseUpdate]] = ...,
-        deleted_parameters : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        intent_display_name: typing.Text = ...,
+        training_phrase_update_list: typing.Optional[typing.Iterable[global___IntentUpdate.TrainingPhraseUpdate]] = ...,
+        deleted_parameters: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["deleted_parameters",b"deleted_parameters","intent_display_name",b"intent_display_name","training_phrase_update_list",b"training_phrase_update_list"]) -> None: ...
 global___IntentUpdate = IntentUpdate
 
 class EntityTypeUpdate(google.protobuf.message.Message):
     """Stores updates applied to an entity type"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class EntityUpdate(google.protobuf.message.Message):
         """Stores updates applied to an entity"""
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         ENTITY_VALUE_UPDATE_FIELD_NUMBER: builtins.int
         ENTITY_SYNONYM_UPDATES_FIELD_NUMBER: builtins.int
         @property
@@ -401,15 +402,15 @@ class EntityTypeUpdate(google.protobuf.message.Message):
             pass
         def __init__(self,
             *,
-            entity_value_update : typing.Optional[global___StringUpdate] = ...,
-            entity_synonym_updates : typing.Optional[typing.Iterable[global___StringUpdate]] = ...,
+            entity_value_update: typing.Optional[global___StringUpdate] = ...,
+            entity_synonym_updates: typing.Optional[typing.Iterable[global___StringUpdate]] = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["entity_value_update",b"entity_value_update"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["entity_synonym_updates",b"entity_synonym_updates","entity_value_update",b"entity_value_update"]) -> None: ...
 
     ENTITY_TYPE_NAME_FIELD_NUMBER: builtins.int
     VALUES_UPDATE_LIST_FIELD_NUMBER: builtins.int
-    entity_type_name: typing.Text = ...
+    entity_type_name: typing.Text
     """The entity type name"""
 
     @property
@@ -418,15 +419,15 @@ class EntityTypeUpdate(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        entity_type_name : typing.Text = ...,
-        values_update_list : typing.Optional[typing.Iterable[global___EntityTypeUpdate.EntityUpdate]] = ...,
+        entity_type_name: typing.Text = ...,
+        values_update_list: typing.Optional[typing.Iterable[global___EntityTypeUpdate.EntityUpdate]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_type_name",b"entity_type_name","values_update_list",b"values_update_list"]) -> None: ...
 global___EntityTypeUpdate = EntityTypeUpdate
 
 class CleanAllEntityTypesRequest(google.protobuf.message.Message):
     """Request to clean the entity types"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     SPECIAL_CHARACTERS_FIELD_NUMBER: builtins.int
@@ -435,18 +436,18 @@ class CleanAllEntityTypesRequest(google.protobuf.message.Message):
     FORBIDDEN_ENTITY_TYPE_PATTERNS_FIELD_NUMBER: builtins.int
     DRY_RUN_FIELD_NUMBER: builtins.int
     NUMBER_OF_WORKERS_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to list training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     Note: languages must be enabled in the agent before they can be used.
     """
 
-    special_characters: typing.Text = ...
+    special_characters: typing.Text
     """Optional. Characters to be recognized as special characters for cleaning.
     Overrides the default: '.,;!?:'
     """
@@ -457,7 +458,7 @@ class CleanAllEntityTypesRequest(google.protobuf.message.Message):
         Example: ['St.', 'U.S.', 'sys.', '24.12.', 'Nr.', 'TelNr.']
         """
         pass
-    max_entity_count_update: builtins.int = ...
+    max_entity_count_update: builtins.int
     """Optional. Entity type that contain more than max_entity_count_update entities will
     not be cleaned. Relevant for auto-generated entity values (e.g. City Names)
     Default = 10000
@@ -470,29 +471,29 @@ class CleanAllEntityTypesRequest(google.protobuf.message.Message):
         Example: ['sys.ignore.'] -> would delete entity types with display names sys.ignore.*
         """
         pass
-    dry_run: builtins.bool = ...
+    dry_run: builtins.bool
     """Required. Do not apply changes to the database if set to True"""
 
-    number_of_workers: builtins.int = ...
+    number_of_workers: builtins.int
     """Optional. Number of threads used to accomplish the task"""
 
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        language_code : typing.Text = ...,
-        special_characters : typing.Text = ...,
-        substring_white_list : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        max_entity_count_update : builtins.int = ...,
-        forbidden_entity_type_patterns : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        dry_run : builtins.bool = ...,
-        number_of_workers : builtins.int = ...,
+        parent: typing.Text = ...,
+        language_code: typing.Text = ...,
+        special_characters: typing.Text = ...,
+        substring_white_list: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        max_entity_count_update: builtins.int = ...,
+        forbidden_entity_type_patterns: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        dry_run: builtins.bool = ...,
+        number_of_workers: builtins.int = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["dry_run",b"dry_run","forbidden_entity_type_patterns",b"forbidden_entity_type_patterns","language_code",b"language_code","max_entity_count_update",b"max_entity_count_update","number_of_workers",b"number_of_workers","parent",b"parent","special_characters",b"special_characters","substring_white_list",b"substring_white_list"]) -> None: ...
 global___CleanAllEntityTypesRequest = CleanAllEntityTypesRequest
 
 class CleanAllEntityTypesResponse(google.protobuf.message.Message):
     """Response from entity type cleaner"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     CLEANED_ENTITY_TYPES_FIELD_NUMBER: builtins.int
     DELETED_ENTITY_TYPES_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_UPDATES_FIELD_NUMBER: builtins.int
@@ -515,17 +516,17 @@ class CleanAllEntityTypesResponse(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        cleaned_entity_types : typing.Optional[typing.Iterable[ondewo.nlu.entity_type_pb2.EntityType]] = ...,
-        deleted_entity_types : typing.Optional[typing.Iterable[ondewo.nlu.entity_type_pb2.EntityType]] = ...,
-        entity_type_updates : typing.Optional[typing.Iterable[global___EntityTypeUpdate]] = ...,
-        entity_type_deletions : typing.Optional[typing.Iterable[global___EntityTypeUpdate]] = ...,
+        cleaned_entity_types: typing.Optional[typing.Iterable[ondewo.nlu.entity_type_pb2.EntityType]] = ...,
+        deleted_entity_types: typing.Optional[typing.Iterable[ondewo.nlu.entity_type_pb2.EntityType]] = ...,
+        entity_type_updates: typing.Optional[typing.Iterable[global___EntityTypeUpdate]] = ...,
+        entity_type_deletions: typing.Optional[typing.Iterable[global___EntityTypeUpdate]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["cleaned_entity_types",b"cleaned_entity_types","deleted_entity_types",b"deleted_entity_types","entity_type_deletions",b"entity_type_deletions","entity_type_updates",b"entity_type_updates"]) -> None: ...
 global___CleanAllEntityTypesResponse = CleanAllEntityTypesResponse
 
 class CleanEntityTypeRequest(google.protobuf.message.Message):
     """Request to clean a single entity type"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_NAME_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
@@ -533,21 +534,21 @@ class CleanEntityTypeRequest(google.protobuf.message.Message):
     SUBSTRING_WHITE_LIST_FIELD_NUMBER: builtins.int
     MAX_ENTITY_COUNT_UPDATE_FIELD_NUMBER: builtins.int
     DRY_RUN_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent`.
     """
 
-    entity_type_name: typing.Text = ...
+    entity_type_name: typing.Text
     """Required. The name of the entity_type"""
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to list training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     Note: languages must be enabled in the agent before they can be used.
     """
 
-    special_characters: typing.Text = ...
+    special_characters: typing.Text
     """Optional. Characters to be recognized as special characters for cleaning.
     Overrides the default: '.,;!?:'
     """
@@ -558,31 +559,31 @@ class CleanEntityTypeRequest(google.protobuf.message.Message):
         Example: ['St.', 'U.S.', 'sys.', '24.12.', 'Nr.', 'TelNr.']
         """
         pass
-    max_entity_count_update: builtins.int = ...
+    max_entity_count_update: builtins.int
     """Optional. Entity type that contain more than max_entity_count_update entities will
     not be cleaned. Relevant for auto-generated entity values (e.g. City Names)
     Default = 10000
     """
 
-    dry_run: builtins.bool = ...
+    dry_run: builtins.bool
     """Required. Do not apply changes to the database if set to True"""
 
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        entity_type_name : typing.Text = ...,
-        language_code : typing.Text = ...,
-        special_characters : typing.Text = ...,
-        substring_white_list : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        max_entity_count_update : builtins.int = ...,
-        dry_run : builtins.bool = ...,
+        parent: typing.Text = ...,
+        entity_type_name: typing.Text = ...,
+        language_code: typing.Text = ...,
+        special_characters: typing.Text = ...,
+        substring_white_list: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        max_entity_count_update: builtins.int = ...,
+        dry_run: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["dry_run",b"dry_run","entity_type_name",b"entity_type_name","language_code",b"language_code","max_entity_count_update",b"max_entity_count_update","parent",b"parent","special_characters",b"special_characters","substring_white_list",b"substring_white_list"]) -> None: ...
 global___CleanEntityTypeRequest = CleanEntityTypeRequest
 
 class CleanEntityTypeResponse(google.protobuf.message.Message):
     """Response from entity type cleaner"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     CLEANED_ENTITY_TYPE_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_UPDATE_FIELD_NUMBER: builtins.int
     @property
@@ -595,8 +596,8 @@ class CleanEntityTypeResponse(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        cleaned_entity_type : typing.Optional[ondewo.nlu.entity_type_pb2.EntityType] = ...,
-        entity_type_update : typing.Optional[global___EntityTypeUpdate] = ...,
+        cleaned_entity_type: typing.Optional[ondewo.nlu.entity_type_pb2.EntityType] = ...,
+        entity_type_update: typing.Optional[global___EntityTypeUpdate] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["cleaned_entity_type",b"cleaned_entity_type","entity_type_update",b"entity_type_update"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["cleaned_entity_type",b"cleaned_entity_type","entity_type_update",b"entity_type_update"]) -> None: ...
@@ -604,19 +605,19 @@ global___CleanEntityTypeResponse = CleanEntityTypeResponse
 
 class AddTrainingPhrasesRequest(google.protobuf.message.Message):
     """Request message to AddTrainingPhrase rpc"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class TrainingPhraseForIntent(google.protobuf.message.Message):
         """Message that contains the new training phrase, together with the intent display name
         and, optionally the entity annotations
         """
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         TRAINING_PHRASE_FIELD_NUMBER: builtins.int
         INTENT_DISPLAY_NAME_FIELD_NUMBER: builtins.int
         ENTITIES_FIELD_NUMBER: builtins.int
-        training_phrase: typing.Text = ...
+        training_phrase: typing.Text
         """Required. New training phrase to be added"""
 
-        intent_display_name: typing.Text = ...
+        intent_display_name: typing.Text
         """Required. Corresponding display name of the intent"""
 
         @property
@@ -625,9 +626,9 @@ class AddTrainingPhrasesRequest(google.protobuf.message.Message):
             pass
         def __init__(self,
             *,
-            training_phrase : typing.Text = ...,
-            intent_display_name : typing.Text = ...,
-            entities : typing.Optional[typing.Iterable[ondewo.nlu.intent_pb2.Intent.TrainingPhrase.Entity]] = ...,
+            training_phrase: typing.Text = ...,
+            intent_display_name: typing.Text = ...,
+            entities: typing.Optional[typing.Iterable[ondewo.nlu.intent_pb2.Intent.TrainingPhrase.Entity]] = ...,
             ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["entities",b"entities","intent_display_name",b"intent_display_name","training_phrase",b"training_phrase"]) -> None: ...
 
@@ -638,12 +639,12 @@ class AddTrainingPhrasesRequest(google.protobuf.message.Message):
     SPECIAL_CHARACTERS_FIELD_NUMBER: builtins.int
     TRAINING_PHRASE_CLEANER_OPTIONS_FIELD_NUMBER: builtins.int
     NUMBER_OF_WORKERS_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Required. The language to list training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     Note: languages must be enabled in the agent before they can be used.
@@ -653,10 +654,10 @@ class AddTrainingPhrasesRequest(google.protobuf.message.Message):
     def training_phrase_list(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AddTrainingPhrasesRequest.TrainingPhraseForIntent]:
         """Required. List of training phrases to be added to the intent"""
         pass
-    extract_entities: builtins.bool = ...
+    extract_entities: builtins.bool
     """Optional. Whether or not to extract entities for the new training phrases"""
 
-    special_characters: typing.Text = ...
+    special_characters: typing.Text
     """Optional. Characters to be recognized as special characters for cleaning
     the training phrases. Overrides the default: '.,;!?:'
     """
@@ -665,18 +666,18 @@ class AddTrainingPhrasesRequest(google.protobuf.message.Message):
     def training_phrase_cleaner_options(self) -> global___TrainingPhraseCleanerOptions:
         """Optional. Options for the training phrase cleaner to override the default settings"""
         pass
-    number_of_workers: builtins.int = ...
+    number_of_workers: builtins.int
     """Optional. Number of threads used to accomplish the task"""
 
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        language_code : typing.Text = ...,
-        training_phrase_list : typing.Optional[typing.Iterable[global___AddTrainingPhrasesRequest.TrainingPhraseForIntent]] = ...,
-        extract_entities : builtins.bool = ...,
-        special_characters : typing.Text = ...,
-        training_phrase_cleaner_options : typing.Optional[global___TrainingPhraseCleanerOptions] = ...,
-        number_of_workers : builtins.int = ...,
+        parent: typing.Text = ...,
+        language_code: typing.Text = ...,
+        training_phrase_list: typing.Optional[typing.Iterable[global___AddTrainingPhrasesRequest.TrainingPhraseForIntent]] = ...,
+        extract_entities: builtins.bool = ...,
+        special_characters: typing.Text = ...,
+        training_phrase_cleaner_options: typing.Optional[global___TrainingPhraseCleanerOptions] = ...,
+        number_of_workers: builtins.int = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["training_phrase_cleaner_options",b"training_phrase_cleaner_options"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["extract_entities",b"extract_entities","language_code",b"language_code","number_of_workers",b"number_of_workers","parent",b"parent","special_characters",b"special_characters","training_phrase_cleaner_options",b"training_phrase_cleaner_options","training_phrase_list",b"training_phrase_list"]) -> None: ...
@@ -684,7 +685,7 @@ global___AddTrainingPhrasesRequest = AddTrainingPhrasesRequest
 
 class AddTrainingPhrasesResponse(google.protobuf.message.Message):
     """Response message to AddTrainingPhrase rpc"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ERROR_MESSAGES_FIELD_NUMBER: builtins.int
     @property
     def error_messages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -692,14 +693,14 @@ class AddTrainingPhrasesResponse(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        error_messages : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        error_messages: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages"]) -> None: ...
 global___AddTrainingPhrasesResponse = AddTrainingPhrasesResponse
 
 class AddTrainingPhrasesFromCSVRequest(google.protobuf.message.Message):
     """Request message to AddTrainingPhraseFromCSV rpc"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     CSV_CONTENTS_FIELD_NUMBER: builtins.int
@@ -707,24 +708,24 @@ class AddTrainingPhrasesFromCSVRequest(google.protobuf.message.Message):
     SPECIAL_CHARACTERS_FIELD_NUMBER: builtins.int
     TRAINING_PHRASE_CLEANER_OPTIONS_FIELD_NUMBER: builtins.int
     NUMBER_OF_WORKERS_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to list all intents from.
     Format: `projects/<Project ID>/agent`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Required. The language to list training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     Note: languages must be enabled in the agent before they can be used.
     """
 
-    csv_contents: builtins.bytes = ...
+    csv_contents: builtins.bytes
     """Required. Contents of the .csv file containing training phrases to be added to the intents"""
 
-    extract_entities: builtins.bool = ...
+    extract_entities: builtins.bool
     """Optional. Whether or not to extract entities for the new training phrases"""
 
-    special_characters: typing.Text = ...
+    special_characters: typing.Text
     """Optional. Before new training phrases are added to their corresponding intent,
     they are cleaned with cleaning scripts. These cleaning scripts remove certain special characters,
     if they are found at the beginning of the text or if they appear in annotations.
@@ -735,18 +736,18 @@ class AddTrainingPhrasesFromCSVRequest(google.protobuf.message.Message):
     def training_phrase_cleaner_options(self) -> global___TrainingPhraseCleanerOptions:
         """Optional. Options for the training phrase cleaner to override the default settings"""
         pass
-    number_of_workers: builtins.int = ...
+    number_of_workers: builtins.int
     """Optional. Number of threads used to accomplish the task"""
 
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        language_code : typing.Text = ...,
-        csv_contents : builtins.bytes = ...,
-        extract_entities : builtins.bool = ...,
-        special_characters : typing.Text = ...,
-        training_phrase_cleaner_options : typing.Optional[global___TrainingPhraseCleanerOptions] = ...,
-        number_of_workers : builtins.int = ...,
+        parent: typing.Text = ...,
+        language_code: typing.Text = ...,
+        csv_contents: builtins.bytes = ...,
+        extract_entities: builtins.bool = ...,
+        special_characters: typing.Text = ...,
+        training_phrase_cleaner_options: typing.Optional[global___TrainingPhraseCleanerOptions] = ...,
+        number_of_workers: builtins.int = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["training_phrase_cleaner_options",b"training_phrase_cleaner_options"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["csv_contents",b"csv_contents","extract_entities",b"extract_entities","language_code",b"language_code","number_of_workers",b"number_of_workers","parent",b"parent","special_characters",b"special_characters","training_phrase_cleaner_options",b"training_phrase_cleaner_options"]) -> None: ...

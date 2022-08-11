@@ -1,5 +1,4 @@
 .idea
-.isort.cfg
 .mypy_cache
 __pycache__/
 ONDEWO_Voip_Client_Python.egg-info

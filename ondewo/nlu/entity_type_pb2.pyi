@@ -13,7 +13,24 @@ import ondewo.nlu.common_pb2
 import typing
 import typing_extensions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _EntityTypeView:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _EntityTypeViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_EntityTypeView.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    ENTITY_TYPE_VIEW_UNSPECIFIED: _EntityTypeView.ValueType  # 0
+    """Same as ENTITY_TYPE_VIEW_FULL"""
+
+    ENTITY_TYPE_VIEW_FULL: _EntityTypeView.ValueType  # 1
+    """All fields are populated."""
+
+    ENTITY_TYPE_VIEW_PARTIAL: _EntityTypeView.ValueType  # 2
+    """The amount of entity values and synonyms is limited"""
+
+    ENTITY_TYPE_VIEW_SHALLOW: _EntityTypeView.ValueType  # 3
+    """No entity synonyms are returned, only entity values"""
 
 class EntityTypeView(_EntityTypeView, metaclass=_EntityTypeViewEnumTypeWrapper):
     """Represents the options for views of an entity type.
@@ -21,62 +38,47 @@ class EntityTypeView(_EntityTypeView, metaclass=_EntityTypeViewEnumTypeWrapper):
     does not return all values and synonyms besides the full view that is set by default.
     """
     pass
-class _EntityTypeView:
-    V = typing.NewType('V', builtins.int)
-class _EntityTypeViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_EntityTypeView.V], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-    ENTITY_TYPE_VIEW_UNSPECIFIED = EntityTypeView.V(0)
-    """Same as ENTITY_TYPE_VIEW_FULL"""
 
-    ENTITY_TYPE_VIEW_FULL = EntityTypeView.V(1)
-    """All fields are populated."""
-
-    ENTITY_TYPE_VIEW_PARTIAL = EntityTypeView.V(2)
-    """The amount of entity values and synonyms is limited"""
-
-    ENTITY_TYPE_VIEW_SHALLOW = EntityTypeView.V(3)
-    """No entity synonyms are returned, only entity values"""
-
-
-ENTITY_TYPE_VIEW_UNSPECIFIED = EntityTypeView.V(0)
+ENTITY_TYPE_VIEW_UNSPECIFIED: EntityTypeView.ValueType  # 0
 """Same as ENTITY_TYPE_VIEW_FULL"""
 
-ENTITY_TYPE_VIEW_FULL = EntityTypeView.V(1)
+ENTITY_TYPE_VIEW_FULL: EntityTypeView.ValueType  # 1
 """All fields are populated."""
 
-ENTITY_TYPE_VIEW_PARTIAL = EntityTypeView.V(2)
+ENTITY_TYPE_VIEW_PARTIAL: EntityTypeView.ValueType  # 2
 """The amount of entity values and synonyms is limited"""
 
-ENTITY_TYPE_VIEW_SHALLOW = EntityTypeView.V(3)
+ENTITY_TYPE_VIEW_SHALLOW: EntityTypeView.ValueType  # 3
 """No entity synonyms are returned, only entity values"""
 
 global___EntityTypeView = EntityTypeView
 
 
+class _EntityTypeCategory:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _EntityTypeCategoryEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_EntityTypeCategory.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    ALL_ENTITY_TYPES: _EntityTypeCategory.ValueType  # 0
+    """represent all entity types"""
+
+    DEFAULT_ENTITY_TYPES: _EntityTypeCategory.ValueType  # 1
+    """represent the default entity types"""
+
+    USER_DEFINED_ENTITY_TYPES: _EntityTypeCategory.ValueType  # 2
+    """represent the user defined (custom) entity types"""
+
 class EntityTypeCategory(_EntityTypeCategory, metaclass=_EntityTypeCategoryEnumTypeWrapper):
     """Represents the category of entity types to filter by in the "List Entity Types" request"""
     pass
-class _EntityTypeCategory:
-    V = typing.NewType('V', builtins.int)
-class _EntityTypeCategoryEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_EntityTypeCategory.V], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-    ALL_ENTITY_TYPES = EntityTypeCategory.V(0)
-    """represent all entity types"""
 
-    DEFAULT_ENTITY_TYPES = EntityTypeCategory.V(1)
-    """represent the default entity types"""
-
-    USER_DEFINED_ENTITY_TYPES = EntityTypeCategory.V(2)
-    """represent the user defined (custom) entity types"""
-
-
-ALL_ENTITY_TYPES = EntityTypeCategory.V(0)
+ALL_ENTITY_TYPES: EntityTypeCategory.ValueType  # 0
 """represent all entity types"""
 
-DEFAULT_ENTITY_TYPES = EntityTypeCategory.V(1)
+DEFAULT_ENTITY_TYPES: EntityTypeCategory.ValueType  # 1
 """represent the default entity types"""
 
-USER_DEFINED_ENTITY_TYPES = EntityTypeCategory.V(2)
+USER_DEFINED_ENTITY_TYPES: EntityTypeCategory.ValueType  # 2
 """represent the user defined (custom) entity types"""
 
 global___EntityTypeCategory = EntityTypeCategory
@@ -87,55 +89,70 @@ class EntityType(google.protobuf.message.Message):
     Entity types serve as a tool for extracting parameter values from natural
     language queries.
     """
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Kind(_Kind, metaclass=_KindEnumTypeWrapper):
-        """Represents kinds of entities."""
-        pass
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class _Kind:
-        V = typing.NewType('V', builtins.int)
-    class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Kind.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        KIND_UNSPECIFIED = EntityType.Kind.V(0)
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[EntityType._Kind.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        KIND_UNSPECIFIED: EntityType._Kind.ValueType  # 0
         """Not specified. This value should be never used."""
 
-        KIND_MAP = EntityType.Kind.V(1)
+        KIND_MAP: EntityType._Kind.ValueType  # 1
         """Map entity types allow mapping of a group of synonyms to a canonical
         value.
         """
 
-        KIND_LIST = EntityType.Kind.V(2)
+        KIND_LIST: EntityType._Kind.ValueType  # 2
         """List entity types contain a set of entries that do not map to canonical
         values. However, list entity types can contain references to other entity
         types (with or without aliases).
         """
 
+    class Kind(_Kind, metaclass=_KindEnumTypeWrapper):
+        """Represents kinds of entities."""
+        pass
 
-    KIND_UNSPECIFIED = EntityType.Kind.V(0)
+    KIND_UNSPECIFIED: EntityType.Kind.ValueType  # 0
     """Not specified. This value should be never used."""
 
-    KIND_MAP = EntityType.Kind.V(1)
+    KIND_MAP: EntityType.Kind.ValueType  # 1
     """Map entity types allow mapping of a group of synonyms to a canonical
     value.
     """
 
-    KIND_LIST = EntityType.Kind.V(2)
+    KIND_LIST: EntityType.Kind.ValueType  # 2
     """List entity types contain a set of entries that do not map to canonical
     values. However, list entity types can contain references to other entity
     types (with or without aliases).
     """
 
 
+    class _EntityTypeStatus:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _EntityTypeStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[EntityType._EntityTypeStatus.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        ACTIVE: EntityType._EntityTypeStatus.ValueType  # 0
+        INACTIVE: EntityType._EntityTypeStatus.ValueType  # 1
     class EntityTypeStatus(_EntityTypeStatus, metaclass=_EntityTypeStatusEnumTypeWrapper):
         pass
-    class _EntityTypeStatus:
-        V = typing.NewType('V', builtins.int)
-    class _EntityTypeStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_EntityTypeStatus.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        ACTIVE = EntityType.EntityTypeStatus.V(0)
-        INACTIVE = EntityType.EntityTypeStatus.V(1)
 
-    ACTIVE = EntityType.EntityTypeStatus.V(0)
-    INACTIVE = EntityType.EntityTypeStatus.V(1)
+    ACTIVE: EntityType.EntityTypeStatus.ValueType  # 0
+    INACTIVE: EntityType.EntityTypeStatus.ValueType  # 1
+
+    class _AutoExpansionMode:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _AutoExpansionModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[EntityType._AutoExpansionMode.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        AUTO_EXPANSION_MODE_UNSPECIFIED: EntityType._AutoExpansionMode.ValueType  # 0
+        """Auto expansion disabled for the entity."""
+
+        AUTO_EXPANSION_MODE_DEFAULT: EntityType._AutoExpansionMode.ValueType  # 1
+        """Allows an agent to recognize values that have not been explicitly
+        listed in the entity.
+        """
 
     class AutoExpansionMode(_AutoExpansionMode, metaclass=_AutoExpansionModeEnumTypeWrapper):
         """Represents different entity type expansion modes. Automated expansion
@@ -143,23 +160,11 @@ class EntityType(google.protobuf.message.Message):
         the entity (for example, new kinds of shopping list items).
         """
         pass
-    class _AutoExpansionMode:
-        V = typing.NewType('V', builtins.int)
-    class _AutoExpansionModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_AutoExpansionMode.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        AUTO_EXPANSION_MODE_UNSPECIFIED = EntityType.AutoExpansionMode.V(0)
-        """Auto expansion disabled for the entity."""
 
-        AUTO_EXPANSION_MODE_DEFAULT = EntityType.AutoExpansionMode.V(1)
-        """Allows an agent to recognize values that have not been explicitly
-        listed in the entity.
-        """
-
-
-    AUTO_EXPANSION_MODE_UNSPECIFIED = EntityType.AutoExpansionMode.V(0)
+    AUTO_EXPANSION_MODE_UNSPECIFIED: EntityType.AutoExpansionMode.ValueType  # 0
     """Auto expansion disabled for the entity."""
 
-    AUTO_EXPANSION_MODE_DEFAULT = EntityType.AutoExpansionMode.V(1)
+    AUTO_EXPANSION_MODE_DEFAULT: EntityType.AutoExpansionMode.ValueType  # 1
     """Allows an agent to recognize values that have not been explicitly
     listed in the entity.
     """
@@ -167,14 +172,14 @@ class EntityType(google.protobuf.message.Message):
 
     class Entity(google.protobuf.message.Message):
         """Optional. Represents an entity."""
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         VALUE_FIELD_NUMBER: builtins.int
         SYNONYMS_FIELD_NUMBER: builtins.int
         NAME_FIELD_NUMBER: builtins.int
         DISPLAY_NAME_FIELD_NUMBER: builtins.int
         SYNONYM_COUNT_FIELD_NUMBER: builtins.int
         LANGUAGE_CODE_FIELD_NUMBER: builtins.int
-        value: typing.Text = ...
+        value: typing.Text
         """Required.
         For `KIND_MAP` entity types:
           A canonical name to be used in place of synonyms.
@@ -189,28 +194,28 @@ class EntityType(google.protobuf.message.Message):
             must contain exactly one synonym equal to `value`.
             """
             pass
-        name: typing.Text = ...
+        name: typing.Text
         """The unique identifier of the entity. Format:
         `projects/<Project ID>/agent/entityTypes/<Entity Type ID>/entities/<Entity ID>`.
         """
 
-        display_name: typing.Text = ...
+        display_name: typing.Text
         """The name of the entity."""
 
-        synonym_count: builtins.int = ...
+        synonym_count: builtins.int
         """Optional. Total count of entity synonyms"""
 
-        language_code: typing.Text = ...
+        language_code: typing.Text
         """Required. The language to list entity synonyms for."""
 
         def __init__(self,
             *,
-            value : typing.Text = ...,
-            synonyms : typing.Optional[typing.Iterable[typing.Text]] = ...,
-            name : typing.Text = ...,
-            display_name : typing.Text = ...,
-            synonym_count : builtins.int = ...,
-            language_code : typing.Text = ...,
+            value: typing.Text = ...,
+            synonyms: typing.Optional[typing.Iterable[typing.Text]] = ...,
+            name: typing.Text = ...,
+            display_name: typing.Text = ...,
+            synonym_count: builtins.int = ...,
+            language_code: typing.Text = ...,
             ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["display_name",b"display_name","language_code",b"language_code","name",b"name","synonym_count",b"synonym_count","synonyms",b"synonyms","value",b"value"]) -> None: ...
 
@@ -223,20 +228,20 @@ class EntityType(google.protobuf.message.Message):
     ENTITY_COUNT_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     SYNONYM_COUNT_FIELD_NUMBER: builtins.int
-    name: typing.Text = ...
+    name: typing.Text
     """Required for all methods except `create` (`create` populates the name
     automatically.
     The unique identifier of the entity type. Format:
     `projects/<Project ID>/agent/entityTypes/<Entity Type ID>`.
     """
 
-    display_name: typing.Text = ...
+    display_name: typing.Text
     """Required. The name of the entity type."""
 
-    kind: global___EntityType.Kind.V = ...
+    kind: global___EntityType.Kind.ValueType
     """Required. Indicates the kind of entity type."""
 
-    auto_expansion_mode: global___EntityType.AutoExpansionMode.V = ...
+    auto_expansion_mode: global___EntityType.AutoExpansionMode.ValueType
     """Optional. Indicates whether the entity type can be automatically
     expanded.
     """
@@ -245,46 +250,46 @@ class EntityType(google.protobuf.message.Message):
     def entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EntityType.Entity]:
         """Optional. The collection of entities associated with the entity type."""
         pass
-    next_page_token: typing.Text = ...
-    entity_count: builtins.int = ...
+    next_page_token: typing.Text
+    entity_count: builtins.int
     """Read-Only field. Total count of entity values of the entity type"""
 
-    status: global___EntityType.EntityTypeStatus.V = ...
+    status: global___EntityType.EntityTypeStatus.ValueType
     """Indicates whether the entity type is active or not"""
 
-    synonym_count: builtins.int = ...
+    synonym_count: builtins.int
     """Read-Only field. Total count of entity synonyms of the entity type"""
 
     def __init__(self,
         *,
-        name : typing.Text = ...,
-        display_name : typing.Text = ...,
-        kind : global___EntityType.Kind.V = ...,
-        auto_expansion_mode : global___EntityType.AutoExpansionMode.V = ...,
-        entities : typing.Optional[typing.Iterable[global___EntityType.Entity]] = ...,
-        next_page_token : typing.Text = ...,
-        entity_count : builtins.int = ...,
-        status : global___EntityType.EntityTypeStatus.V = ...,
-        synonym_count : builtins.int = ...,
+        name: typing.Text = ...,
+        display_name: typing.Text = ...,
+        kind: global___EntityType.Kind.ValueType = ...,
+        auto_expansion_mode: global___EntityType.AutoExpansionMode.ValueType = ...,
+        entities: typing.Optional[typing.Iterable[global___EntityType.Entity]] = ...,
+        next_page_token: typing.Text = ...,
+        entity_count: builtins.int = ...,
+        status: global___EntityType.EntityTypeStatus.ValueType = ...,
+        synonym_count: builtins.int = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["auto_expansion_mode",b"auto_expansion_mode","display_name",b"display_name","entities",b"entities","entity_count",b"entity_count","kind",b"kind","name",b"name","next_page_token",b"next_page_token","status",b"status","synonym_count",b"synonym_count"]) -> None: ...
 global___EntityType = EntityType
 
 class ListEntityTypesRequest(google.protobuf.message.Message):
     """The request message for [EntityTypes.ListEntityTypes][google.cloud.dialogflow.v2.EntityTypes.ListEntityTypes]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_VIEW_FIELD_NUMBER: builtins.int
     FILTER_BY_CATEGORY_FIELD_NUMBER: builtins.int
     SORT_BY_FIELD_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to list all entity types from.
     Format: `projects/<Project ID>/agent`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to list entity synonyms for. If not specified,
     the agent's default language is used.
     [More than a dozen
@@ -292,13 +297,13 @@ class ListEntityTypesRequest(google.protobuf.message.Message):
     Note: languages must be enabled in the agent, before they can be used.
     """
 
-    page_token: typing.Text = ...
+    page_token: typing.Text
     """Optional. The next_page_token value returned from a previous list request."""
 
-    entity_type_view: global___EntityTypeView.V = ...
+    entity_type_view: global___EntityTypeView.ValueType
     """Optional. The resource view to apply to the returned entity type."""
 
-    filter_by_category: global___EntityTypeCategory.V = ...
+    filter_by_category: global___EntityTypeCategory.ValueType
     """Optional. Applies a filter to the list. Default, no filter."""
 
     @property
@@ -307,12 +312,12 @@ class ListEntityTypesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        language_code : typing.Text = ...,
-        page_token : typing.Text = ...,
-        entity_type_view : global___EntityTypeView.V = ...,
-        filter_by_category : global___EntityTypeCategory.V = ...,
-        sort_by_field : typing.Optional[global___EntityTypeSorting] = ...,
+        parent: typing.Text = ...,
+        language_code: typing.Text = ...,
+        page_token: typing.Text = ...,
+        entity_type_view: global___EntityTypeView.ValueType = ...,
+        filter_by_category: global___EntityTypeCategory.ValueType = ...,
+        sort_by_field: typing.Optional[global___EntityTypeSorting] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["sort_by_field",b"sort_by_field"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_type_view",b"entity_type_view","filter_by_category",b"filter_by_category","language_code",b"language_code","page_token",b"page_token","parent",b"parent","sort_by_field",b"sort_by_field"]) -> None: ...
@@ -320,7 +325,7 @@ global___ListEntityTypesRequest = ListEntityTypesRequest
 
 class ListEntityTypesResponse(google.protobuf.message.Message):
     """The response message for [EntityTypes.ListEntityTypes][google.cloud.dialogflow.v2.EntityTypes.ListEntityTypes]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ENTITY_TYPES_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
@@ -329,32 +334,32 @@ class ListEntityTypesResponse(google.protobuf.message.Message):
         returned based on the page_token field in the request.
         """
         pass
-    next_page_token: typing.Text = ...
+    next_page_token: typing.Text
     """Token to retrieve the next page of results, or empty if there are no
     more results in the list.
     """
 
     def __init__(self,
         *,
-        entity_types : typing.Optional[typing.Iterable[global___EntityType]] = ...,
-        next_page_token : typing.Text = ...,
+        entity_types: typing.Optional[typing.Iterable[global___EntityType]] = ...,
+        next_page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_types",b"entity_types","next_page_token",b"next_page_token"]) -> None: ...
 global___ListEntityTypesResponse = ListEntityTypesResponse
 
 class GetEntityTypeRequest(google.protobuf.message.Message):
     """The request message for [EntityTypes.GetEntityType][google.cloud.dialogflow.v2.EntityTypes.GetEntityType]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAME_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_VIEW_FIELD_NUMBER: builtins.int
-    name: typing.Text = ...
+    name: typing.Text
     """Required. The name of the entity type.
     Format: `projects/<Project ID>/agent/entityTypes/<EntityType ID>`.
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to retrieve entity synonyms for. If not specified,
     the agent's default language is used.
     [More than a dozen
@@ -362,28 +367,28 @@ class GetEntityTypeRequest(google.protobuf.message.Message):
     Note: languages must be enabled in the agent, before they can be used.
     """
 
-    page_token: typing.Text = ...
-    entity_type_view: global___EntityTypeView.V = ...
+    page_token: typing.Text
+    entity_type_view: global___EntityTypeView.ValueType
     """Optional. The resource view to apply to the returned Entity Type"""
 
     def __init__(self,
         *,
-        name : typing.Text = ...,
-        language_code : typing.Text = ...,
-        page_token : typing.Text = ...,
-        entity_type_view : global___EntityTypeView.V = ...,
+        name: typing.Text = ...,
+        language_code: typing.Text = ...,
+        page_token: typing.Text = ...,
+        entity_type_view: global___EntityTypeView.ValueType = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_type_view",b"entity_type_view","language_code",b"language_code","name",b"name","page_token",b"page_token"]) -> None: ...
 global___GetEntityTypeRequest = GetEntityTypeRequest
 
 class CreateEntityTypeRequest(google.protobuf.message.Message):
     """The request message for [EntityTypes.CreateEntityType][google.cloud.dialogflow.v2.EntityTypes.CreateEntityType]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_VIEW_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The agent to create a entity type for.
     Format: `projects/<Project ID>/agent`.
     """
@@ -392,7 +397,7 @@ class CreateEntityTypeRequest(google.protobuf.message.Message):
     def entity_type(self) -> global___EntityType:
         """Required. The entity type to create."""
         pass
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language of entity synonyms defined in `entity_type`. If not
     specified, the agent's default language is used.
     [More than a dozen
@@ -400,15 +405,15 @@ class CreateEntityTypeRequest(google.protobuf.message.Message):
     Note: languages must be enabled in the agent, before they can be used.
     """
 
-    entity_type_view: global___EntityTypeView.V = ...
+    entity_type_view: global___EntityTypeView.ValueType
     """Optional. The resource view to apply to the returned Entity Type"""
 
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        entity_type : typing.Optional[global___EntityType] = ...,
-        language_code : typing.Text = ...,
-        entity_type_view : global___EntityTypeView.V = ...,
+        parent: typing.Text = ...,
+        entity_type: typing.Optional[global___EntityType] = ...,
+        language_code: typing.Text = ...,
+        entity_type_view: global___EntityTypeView.ValueType = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["entity_type",b"entity_type"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_type",b"entity_type","entity_type_view",b"entity_type_view","language_code",b"language_code","parent",b"parent"]) -> None: ...
@@ -416,7 +421,7 @@ global___CreateEntityTypeRequest = CreateEntityTypeRequest
 
 class UpdateEntityTypeRequest(google.protobuf.message.Message):
     """The request message for [EntityTypes.UpdateEntityType][google.cloud.dialogflow.v2.EntityTypes.UpdateEntityType]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ENTITY_TYPE_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     UPDATE_MASK_FIELD_NUMBER: builtins.int
@@ -427,7 +432,7 @@ class UpdateEntityTypeRequest(google.protobuf.message.Message):
         Format: `projects/<Project ID>/agent/entityTypes/<EntityType ID>`.
         """
         pass
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language of entity synonyms defined in `entity_type`. If not
     specified, the agent's default language is used.
     [More than a dozen
@@ -439,15 +444,15 @@ class UpdateEntityTypeRequest(google.protobuf.message.Message):
     def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
         """Optional. The mask to control which fields get updated."""
         pass
-    entity_type_view: global___EntityTypeView.V = ...
+    entity_type_view: global___EntityTypeView.ValueType
     """Optional. The resource view to apply to the returned Entity Type"""
 
     def __init__(self,
         *,
-        entity_type : typing.Optional[global___EntityType] = ...,
-        language_code : typing.Text = ...,
-        update_mask : typing.Optional[google.protobuf.field_mask_pb2.FieldMask] = ...,
-        entity_type_view : global___EntityTypeView.V = ...,
+        entity_type: typing.Optional[global___EntityType] = ...,
+        language_code: typing.Text = ...,
+        update_mask: typing.Optional[google.protobuf.field_mask_pb2.FieldMask] = ...,
+        entity_type_view: global___EntityTypeView.ValueType = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["entity_type",b"entity_type","update_mask",b"update_mask"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_type",b"entity_type","entity_type_view",b"entity_type_view","language_code",b"language_code","update_mask",b"update_mask"]) -> None: ...
@@ -455,34 +460,34 @@ global___UpdateEntityTypeRequest = UpdateEntityTypeRequest
 
 class DeleteEntityTypeRequest(google.protobuf.message.Message):
     """The request message for [EntityTypes.DeleteEntityType][google.cloud.dialogflow.v2.EntityTypes.DeleteEntityType]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAME_FIELD_NUMBER: builtins.int
-    name: typing.Text = ...
+    name: typing.Text
     """Required. The name of the entity type to delete.
     Format: `projects/<Project ID>/agent/entityTypes/<EntityType ID>`.
     """
 
     def __init__(self,
         *,
-        name : typing.Text = ...,
+        name: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
 global___DeleteEntityTypeRequest = DeleteEntityTypeRequest
 
 class BatchUpdateEntityTypesRequest(google.protobuf.message.Message):
     """The request message for [EntityTypes.BatchUpdateEntityTypes][google.cloud.dialogflow.v2.EntityTypes.BatchUpdateEntityTypes]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_BATCH_URI_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_BATCH_INLINE_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     UPDATE_MASK_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The name of the agent to update or create entity types in.
     Format: `projects/<Project ID>/agent`.
     """
 
-    entity_type_batch_uri: typing.Text = ...
+    entity_type_batch_uri: typing.Text
     """The URI to a Google Cloud Storage file containing entity types to update
     or create. The file format can either be a serialized proto (of
     EntityBatch type) or a JSON object. Note: The URI must start with
@@ -493,7 +498,7 @@ class BatchUpdateEntityTypesRequest(google.protobuf.message.Message):
     def entity_type_batch_inline(self) -> global___EntityTypeBatch:
         """The collection of entity type to update or create."""
         pass
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language of entity synonyms defined in `entity_types`. If not
     specified, the agent's default language is used.
     [More than a dozen
@@ -507,11 +512,11 @@ class BatchUpdateEntityTypesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        entity_type_batch_uri : typing.Text = ...,
-        entity_type_batch_inline : typing.Optional[global___EntityTypeBatch] = ...,
-        language_code : typing.Text = ...,
-        update_mask : typing.Optional[google.protobuf.field_mask_pb2.FieldMask] = ...,
+        parent: typing.Text = ...,
+        entity_type_batch_uri: typing.Text = ...,
+        entity_type_batch_inline: typing.Optional[global___EntityTypeBatch] = ...,
+        language_code: typing.Text = ...,
+        update_mask: typing.Optional[google.protobuf.field_mask_pb2.FieldMask] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["entity_type_batch",b"entity_type_batch","entity_type_batch_inline",b"entity_type_batch_inline","entity_type_batch_uri",b"entity_type_batch_uri","update_mask",b"update_mask"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_type_batch",b"entity_type_batch","entity_type_batch_inline",b"entity_type_batch_inline","entity_type_batch_uri",b"entity_type_batch_uri","language_code",b"language_code","parent",b"parent","update_mask",b"update_mask"]) -> None: ...
@@ -520,7 +525,7 @@ global___BatchUpdateEntityTypesRequest = BatchUpdateEntityTypesRequest
 
 class BatchUpdateEntityTypesResponse(google.protobuf.message.Message):
     """The response message for [EntityTypes.BatchUpdateEntityTypes][google.cloud.dialogflow.v2.EntityTypes.BatchUpdateEntityTypes]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ENTITY_TYPES_FIELD_NUMBER: builtins.int
     @property
     def entity_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EntityType]:
@@ -528,17 +533,17 @@ class BatchUpdateEntityTypesResponse(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        entity_types : typing.Optional[typing.Iterable[global___EntityType]] = ...,
+        entity_types: typing.Optional[typing.Iterable[global___EntityType]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_types",b"entity_types"]) -> None: ...
 global___BatchUpdateEntityTypesResponse = BatchUpdateEntityTypesResponse
 
 class BatchDeleteEntityTypesRequest(google.protobuf.message.Message):
     """The request message for [EntityTypes.BatchDeleteEntityTypes][google.cloud.dialogflow.v2.EntityTypes.BatchDeleteEntityTypes]."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     ENTITY_TYPE_NAMES_FIELD_NUMBER: builtins.int
-    parent: typing.Text = ...
+    parent: typing.Text
     """Required. The name of the agent to delete all entities types for. Format:
     `projects/<Project ID>/agent`.
     """
@@ -551,15 +556,15 @@ class BatchDeleteEntityTypesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        parent : typing.Text = ...,
-        entity_type_names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        parent: typing.Text = ...,
+        entity_type_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_type_names",b"entity_type_names","parent",b"parent"]) -> None: ...
 global___BatchDeleteEntityTypesRequest = BatchDeleteEntityTypesRequest
 
 class EntityTypeBatch(google.protobuf.message.Message):
     """This message is a wrapper around a collection of entity types."""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ENTITY_TYPES_FIELD_NUMBER: builtins.int
     @property
     def entity_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EntityType]:
@@ -567,58 +572,59 @@ class EntityTypeBatch(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        entity_types : typing.Optional[typing.Iterable[global___EntityType]] = ...,
+        entity_types: typing.Optional[typing.Iterable[global___EntityType]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_types",b"entity_types"]) -> None: ...
 global___EntityTypeBatch = EntityTypeBatch
 
 class EntityTypeSorting(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    class _EntityTypeSortingField:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _EntityTypeSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[EntityTypeSorting._EntityTypeSortingField.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        NO_ENTITY_TYPE_SORTING: EntityTypeSorting._EntityTypeSortingField.ValueType  # 0
+        SORT_ENTITY_TYPE_BY_NAME: EntityTypeSorting._EntityTypeSortingField.ValueType  # 1
+        SORT_ENTITY_TYPE_BY_CREATION_DATE: EntityTypeSorting._EntityTypeSortingField.ValueType  # 2
+        SORT_ENTITY_TYPE_BY_LAST_UPDATED: EntityTypeSorting._EntityTypeSortingField.ValueType  # 3
+        SORT_ENTITY_TYPE_BY_ENTITY_VALUE_COUNT: EntityTypeSorting._EntityTypeSortingField.ValueType  # 4
+        SORT_ENTITY_TYPE_BY_SYNONYM_COUNT: EntityTypeSorting._EntityTypeSortingField.ValueType  # 5
     class EntityTypeSortingField(_EntityTypeSortingField, metaclass=_EntityTypeSortingFieldEnumTypeWrapper):
         pass
-    class _EntityTypeSortingField:
-        V = typing.NewType('V', builtins.int)
-    class _EntityTypeSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_EntityTypeSortingField.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        NO_ENTITY_TYPE_SORTING = EntityTypeSorting.EntityTypeSortingField.V(0)
-        SORT_ENTITY_TYPE_BY_NAME = EntityTypeSorting.EntityTypeSortingField.V(1)
-        SORT_ENTITY_TYPE_BY_CREATION_DATE = EntityTypeSorting.EntityTypeSortingField.V(2)
-        SORT_ENTITY_TYPE_BY_LAST_UPDATED = EntityTypeSorting.EntityTypeSortingField.V(3)
-        SORT_ENTITY_TYPE_BY_ENTITY_VALUE_COUNT = EntityTypeSorting.EntityTypeSortingField.V(4)
-        SORT_ENTITY_TYPE_BY_SYNONYM_COUNT = EntityTypeSorting.EntityTypeSortingField.V(5)
 
-    NO_ENTITY_TYPE_SORTING = EntityTypeSorting.EntityTypeSortingField.V(0)
-    SORT_ENTITY_TYPE_BY_NAME = EntityTypeSorting.EntityTypeSortingField.V(1)
-    SORT_ENTITY_TYPE_BY_CREATION_DATE = EntityTypeSorting.EntityTypeSortingField.V(2)
-    SORT_ENTITY_TYPE_BY_LAST_UPDATED = EntityTypeSorting.EntityTypeSortingField.V(3)
-    SORT_ENTITY_TYPE_BY_ENTITY_VALUE_COUNT = EntityTypeSorting.EntityTypeSortingField.V(4)
-    SORT_ENTITY_TYPE_BY_SYNONYM_COUNT = EntityTypeSorting.EntityTypeSortingField.V(5)
+    NO_ENTITY_TYPE_SORTING: EntityTypeSorting.EntityTypeSortingField.ValueType  # 0
+    SORT_ENTITY_TYPE_BY_NAME: EntityTypeSorting.EntityTypeSortingField.ValueType  # 1
+    SORT_ENTITY_TYPE_BY_CREATION_DATE: EntityTypeSorting.EntityTypeSortingField.ValueType  # 2
+    SORT_ENTITY_TYPE_BY_LAST_UPDATED: EntityTypeSorting.EntityTypeSortingField.ValueType  # 3
+    SORT_ENTITY_TYPE_BY_ENTITY_VALUE_COUNT: EntityTypeSorting.EntityTypeSortingField.ValueType  # 4
+    SORT_ENTITY_TYPE_BY_SYNONYM_COUNT: EntityTypeSorting.EntityTypeSortingField.ValueType  # 5
 
     SORTING_FIELD_FIELD_NUMBER: builtins.int
     SORTING_MODE_FIELD_NUMBER: builtins.int
-    sorting_field: global___EntityTypeSorting.EntityTypeSortingField.V = ...
-    sorting_mode: ondewo.nlu.common_pb2.SortingMode.V = ...
+    sorting_field: global___EntityTypeSorting.EntityTypeSortingField.ValueType
+    sorting_mode: ondewo.nlu.common_pb2.SortingMode.ValueType
     def __init__(self,
         *,
-        sorting_field : global___EntityTypeSorting.EntityTypeSortingField.V = ...,
-        sorting_mode : ondewo.nlu.common_pb2.SortingMode.V = ...,
+        sorting_field: global___EntityTypeSorting.EntityTypeSortingField.ValueType = ...,
+        sorting_mode: ondewo.nlu.common_pb2.SortingMode.ValueType = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["sorting_field",b"sorting_field","sorting_mode",b"sorting_mode"]) -> None: ...
 global___EntityTypeSorting = EntityTypeSorting
 
 class BatchEntitiesResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class EntityStatus(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         ENTITY_FIELD_NUMBER: builtins.int
         ERROR_MESSAGE_FIELD_NUMBER: builtins.int
         @property
         def entity(self) -> global___EntityType.Entity: ...
-        error_message: typing.Text = ...
+        error_message: typing.Text
         def __init__(self,
             *,
-            entity : typing.Optional[global___EntityType.Entity] = ...,
-            error_message : typing.Text = ...,
+            entity: typing.Optional[global___EntityType.Entity] = ...,
+            error_message: typing.Text = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["entity",b"entity","entity_or_status",b"entity_or_status","error_message",b"error_message"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["entity",b"entity","entity_or_status",b"entity_or_status","error_message",b"error_message"]) -> None: ...
@@ -628,24 +634,24 @@ class BatchEntitiesResponse(google.protobuf.message.Message):
     HAS_ERRORS_FIELD_NUMBER: builtins.int
     @property
     def entity_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchEntitiesResponse.EntityStatus]: ...
-    has_errors: builtins.bool = ...
+    has_errors: builtins.bool
     """indicates if statuses of some of the training phrases have errors"""
 
     def __init__(self,
         *,
-        entity_statuses : typing.Optional[typing.Iterable[global___BatchEntitiesResponse.EntityStatus]] = ...,
-        has_errors : builtins.bool = ...,
+        entity_statuses: typing.Optional[typing.Iterable[global___BatchEntitiesResponse.EntityStatus]] = ...,
+        has_errors: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_statuses",b"entity_statuses","has_errors",b"has_errors"]) -> None: ...
 global___BatchEntitiesResponse = BatchEntitiesResponse
 
 class BatchCreateEntitiesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class CreateEntityRequest(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         ENTITY_TYPE_NAME_FIELD_NUMBER: builtins.int
         ENTITY_FIELD_NUMBER: builtins.int
-        entity_type_name: typing.Text = ...
+        entity_type_name: typing.Text
         """Required. Name of the entity type in which to create the entity value. Format:
         `projects/<Project ID>/agent/entityTypes/<Entity Type ID>`.
         """
@@ -656,8 +662,8 @@ class BatchCreateEntitiesRequest(google.protobuf.message.Message):
             pass
         def __init__(self,
             *,
-            entity_type_name : typing.Text = ...,
-            entity : typing.Optional[global___EntityType.Entity] = ...,
+            entity_type_name: typing.Text = ...,
+            entity: typing.Optional[global___EntityType.Entity] = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["entity",b"entity"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["entity",b"entity","entity_type_name",b"entity_type_name"]) -> None: ...
@@ -667,13 +673,13 @@ class BatchCreateEntitiesRequest(google.protobuf.message.Message):
     def create_entity_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchCreateEntitiesRequest.CreateEntityRequest]: ...
     def __init__(self,
         *,
-        create_entity_requests : typing.Optional[typing.Iterable[global___BatchCreateEntitiesRequest.CreateEntityRequest]] = ...,
+        create_entity_requests: typing.Optional[typing.Iterable[global___BatchCreateEntitiesRequest.CreateEntityRequest]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["create_entity_requests",b"create_entity_requests"]) -> None: ...
 global___BatchCreateEntitiesRequest = BatchCreateEntitiesRequest
 
 class BatchUpdateEntitiesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ENTITIES_FIELD_NUMBER: builtins.int
     @property
     def entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EntityType.Entity]:
@@ -681,13 +687,13 @@ class BatchUpdateEntitiesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        entities : typing.Optional[typing.Iterable[global___EntityType.Entity]] = ...,
+        entities: typing.Optional[typing.Iterable[global___EntityType.Entity]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["entities",b"entities"]) -> None: ...
 global___BatchUpdateEntitiesRequest = BatchUpdateEntitiesRequest
 
 class BatchGetEntitiesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
     def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -697,13 +703,13 @@ class BatchGetEntitiesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___BatchGetEntitiesRequest = BatchGetEntitiesRequest
 
 class BatchDeleteEntitiesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
     def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
@@ -713,24 +719,24 @@ class BatchDeleteEntitiesRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___BatchDeleteEntitiesRequest = BatchDeleteEntitiesRequest
 
 class BatchDeleteEntitiesResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class DeleteEntityStatus(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
         SUCCESSFULLY_DELETED_FIELD_NUMBER: builtins.int
         ERROR_MESSAGE_FIELD_NUMBER: builtins.int
         @property
         def successfully_deleted(self) -> google.protobuf.empty_pb2.Empty: ...
-        error_message: typing.Text = ...
+        error_message: typing.Text
         def __init__(self,
             *,
-            successfully_deleted : typing.Optional[google.protobuf.empty_pb2.Empty] = ...,
-            error_message : typing.Text = ...,
+            successfully_deleted: typing.Optional[google.protobuf.empty_pb2.Empty] = ...,
+            error_message: typing.Text = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["delete_status",b"delete_status","error_message",b"error_message","successfully_deleted",b"successfully_deleted"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["delete_status",b"delete_status","error_message",b"error_message","successfully_deleted",b"successfully_deleted"]) -> None: ...
@@ -740,40 +746,40 @@ class BatchDeleteEntitiesResponse(google.protobuf.message.Message):
     HAS_ERRORS_FIELD_NUMBER: builtins.int
     @property
     def delete_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BatchDeleteEntitiesResponse.DeleteEntityStatus]: ...
-    has_errors: builtins.bool = ...
+    has_errors: builtins.bool
     def __init__(self,
         *,
-        delete_statuses : typing.Optional[typing.Iterable[global___BatchDeleteEntitiesResponse.DeleteEntityStatus]] = ...,
-        has_errors : builtins.bool = ...,
+        delete_statuses: typing.Optional[typing.Iterable[global___BatchDeleteEntitiesResponse.DeleteEntityStatus]] = ...,
+        has_errors: builtins.bool = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["delete_statuses",b"delete_statuses","has_errors",b"has_errors"]) -> None: ...
 global___BatchDeleteEntitiesResponse = BatchDeleteEntitiesResponse
 
 class ListEntitiesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ENTITY_TYPE_NAME_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     SORT_BY_FIELD_FIELD_NUMBER: builtins.int
     SEARCH_BY_PATTERN_FIELD_NUMBER: builtins.int
-    entity_type_name: typing.Text = ...
+    entity_type_name: typing.Text
     """The unique identifier of the entity type. Format:
     `projects/<Project ID>/agent/entityTypes/<Entity Type ID>
     """
 
-    language_code: typing.Text = ...
+    language_code: typing.Text
     """Optional. The language to list training phrases, parameters and rich
     messages for. If not specified, the agent's default language is used.
     """
 
-    page_token: typing.Text = ...
+    page_token: typing.Text
     """Optional. The next_page_token value returned from a previous list request."""
 
     @property
     def sort_by_field(self) -> global___EntityValueSorting:
         """Optional. Defines the sorting of the list. Default, no sorting."""
         pass
-    search_by_pattern: typing.Text = ...
+    search_by_pattern: typing.Text
     """Optional. Defines a pattern to search for in the entity type "values" and "synonyms"
     Example:
          Pattern: "dark"
@@ -786,67 +792,68 @@ class ListEntitiesRequest(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        entity_type_name : typing.Text = ...,
-        language_code : typing.Text = ...,
-        page_token : typing.Text = ...,
-        sort_by_field : typing.Optional[global___EntityValueSorting] = ...,
-        search_by_pattern : typing.Text = ...,
+        entity_type_name: typing.Text = ...,
+        language_code: typing.Text = ...,
+        page_token: typing.Text = ...,
+        sort_by_field: typing.Optional[global___EntityValueSorting] = ...,
+        search_by_pattern: typing.Text = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["sort_by_field",b"sort_by_field"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["entity_type_name",b"entity_type_name","language_code",b"language_code","page_token",b"page_token","search_by_pattern",b"search_by_pattern","sort_by_field",b"sort_by_field"]) -> None: ...
 global___ListEntitiesRequest = ListEntitiesRequest
 
 class ListEntitiesResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ENTITIES_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
     def entities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EntityType.Entity]:
         """The list of entities"""
         pass
-    next_page_token: typing.Text = ...
+    next_page_token: typing.Text
     """Token to retrieve the next page of results, or empty if there are no
     more results in the list.
     """
 
     def __init__(self,
         *,
-        entities : typing.Optional[typing.Iterable[global___EntityType.Entity]] = ...,
-        next_page_token : typing.Text = ...,
+        entities: typing.Optional[typing.Iterable[global___EntityType.Entity]] = ...,
+        next_page_token: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["entities",b"entities","next_page_token",b"next_page_token"]) -> None: ...
 global___ListEntitiesResponse = ListEntitiesResponse
 
 class EntityValueSorting(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class EntityValueSortingField(_EntityValueSortingField, metaclass=_EntityValueSortingFieldEnumTypeWrapper):
-        pass
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class _EntityValueSortingField:
-        V = typing.NewType('V', builtins.int)
-    class _EntityValueSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_EntityValueSortingField.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        NO_ENTITY_VALUE_SORTING = EntityValueSorting.EntityValueSortingField.V(0)
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _EntityValueSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[EntityValueSorting._EntityValueSortingField.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        NO_ENTITY_VALUE_SORTING: EntityValueSorting._EntityValueSortingField.ValueType  # 0
         """Default behaviour: Sorts by value"""
 
-        SORT_ENTITY_VALUE_BY_DISPLAY_NAME = EntityValueSorting.EntityValueSortingField.V(1)
-        SORT_ENTITY_VALUE_BY_VALUE = EntityValueSorting.EntityValueSortingField.V(2)
-        SORT_ENTITY_VALUE_BY_SYNONYM_COUNT = EntityValueSorting.EntityValueSortingField.V(3)
+        SORT_ENTITY_VALUE_BY_DISPLAY_NAME: EntityValueSorting._EntityValueSortingField.ValueType  # 1
+        SORT_ENTITY_VALUE_BY_VALUE: EntityValueSorting._EntityValueSortingField.ValueType  # 2
+        SORT_ENTITY_VALUE_BY_SYNONYM_COUNT: EntityValueSorting._EntityValueSortingField.ValueType  # 3
+    class EntityValueSortingField(_EntityValueSortingField, metaclass=_EntityValueSortingFieldEnumTypeWrapper):
+        pass
 
-    NO_ENTITY_VALUE_SORTING = EntityValueSorting.EntityValueSortingField.V(0)
+    NO_ENTITY_VALUE_SORTING: EntityValueSorting.EntityValueSortingField.ValueType  # 0
     """Default behaviour: Sorts by value"""
 
-    SORT_ENTITY_VALUE_BY_DISPLAY_NAME = EntityValueSorting.EntityValueSortingField.V(1)
-    SORT_ENTITY_VALUE_BY_VALUE = EntityValueSorting.EntityValueSortingField.V(2)
-    SORT_ENTITY_VALUE_BY_SYNONYM_COUNT = EntityValueSorting.EntityValueSortingField.V(3)
+    SORT_ENTITY_VALUE_BY_DISPLAY_NAME: EntityValueSorting.EntityValueSortingField.ValueType  # 1
+    SORT_ENTITY_VALUE_BY_VALUE: EntityValueSorting.EntityValueSortingField.ValueType  # 2
+    SORT_ENTITY_VALUE_BY_SYNONYM_COUNT: EntityValueSorting.EntityValueSortingField.ValueType  # 3
 
     SORTING_FIELD_FIELD_NUMBER: builtins.int
     SORTING_MODE_FIELD_NUMBER: builtins.int
-    sorting_field: global___EntityValueSorting.EntityValueSortingField.V = ...
-    sorting_mode: ondewo.nlu.common_pb2.SortingMode.V = ...
+    sorting_field: global___EntityValueSorting.EntityValueSortingField.ValueType
+    sorting_mode: ondewo.nlu.common_pb2.SortingMode.ValueType
     def __init__(self,
         *,
-        sorting_field : global___EntityValueSorting.EntityValueSortingField.V = ...,
-        sorting_mode : ondewo.nlu.common_pb2.SortingMode.V = ...,
+        sorting_field: global___EntityValueSorting.EntityValueSortingField.ValueType = ...,
+        sorting_mode: ondewo.nlu.common_pb2.SortingMode.ValueType = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["sorting_field",b"sorting_field","sorting_mode",b"sorting_mode"]) -> None: ...
 global___EntityValueSorting = EntityValueSorting

@@ -11,116 +11,118 @@ import google.protobuf.timestamp_pb2
 import typing
 import typing_extensions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class OperationMetadata(google.protobuf.message.Message):
     """Represents the metadata of the long-running operation that can be a parent operation for sub-operations or
     can be a sub-operation itself
     """
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Status(_Status, metaclass=_StatusEnumTypeWrapper):
-        pass
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class _Status:
-        V = typing.NewType('V', builtins.int)
-    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Status.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        STATUS_UNSPECIFIED = OperationMetadata.Status.V(0)
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OperationMetadata._Status.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        STATUS_UNSPECIFIED: OperationMetadata._Status.ValueType  # 0
         """unspecified status code"""
 
-        NOT_STARTED = OperationMetadata.Status.V(1)
+        NOT_STARTED: OperationMetadata._Status.ValueType  # 1
         """operation haven't started yet"""
 
-        IN_PROGRESS = OperationMetadata.Status.V(2)
+        IN_PROGRESS: OperationMetadata._Status.ValueType  # 2
         """operation currently in progress"""
 
-        DONE = OperationMetadata.Status.V(3)
+        DONE: OperationMetadata._Status.ValueType  # 3
         """operation has completed without any error"""
 
-        CANCELLED = OperationMetadata.Status.V(4)
+        CANCELLED: OperationMetadata._Status.ValueType  # 4
         """operation has completed with cancellation by user"""
 
-        FAILED = OperationMetadata.Status.V(5)
+        FAILED: OperationMetadata._Status.ValueType  # 5
         """operation has completed with errors"""
 
+    class Status(_Status, metaclass=_StatusEnumTypeWrapper):
+        pass
 
-    STATUS_UNSPECIFIED = OperationMetadata.Status.V(0)
+    STATUS_UNSPECIFIED: OperationMetadata.Status.ValueType  # 0
     """unspecified status code"""
 
-    NOT_STARTED = OperationMetadata.Status.V(1)
+    NOT_STARTED: OperationMetadata.Status.ValueType  # 1
     """operation haven't started yet"""
 
-    IN_PROGRESS = OperationMetadata.Status.V(2)
+    IN_PROGRESS: OperationMetadata.Status.ValueType  # 2
     """operation currently in progress"""
 
-    DONE = OperationMetadata.Status.V(3)
+    DONE: OperationMetadata.Status.ValueType  # 3
     """operation has completed without any error"""
 
-    CANCELLED = OperationMetadata.Status.V(4)
+    CANCELLED: OperationMetadata.Status.ValueType  # 4
     """operation has completed with cancellation by user"""
 
-    FAILED = OperationMetadata.Status.V(5)
+    FAILED: OperationMetadata.Status.ValueType  # 5
     """operation has completed with errors"""
 
 
-    class OperationType(_OperationType, metaclass=_OperationTypeEnumTypeWrapper):
-        pass
     class _OperationType:
-        V = typing.NewType('V', builtins.int)
-    class _OperationTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_OperationType.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        OPERATION_TYPE_UNSPECIFIED = OperationMetadata.OperationType.V(0)
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _OperationTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OperationMetadata._OperationType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        OPERATION_TYPE_UNSPECIFIED: OperationMetadata._OperationType.ValueType  # 0
         """unspecified operation type"""
 
-        CREATE_AGENT = OperationMetadata.OperationType.V(1)
+        CREATE_AGENT: OperationMetadata._OperationType.ValueType  # 1
         """create a new agent with specified configuration"""
 
-        IMPORT_AGENT = OperationMetadata.OperationType.V(2)
+        IMPORT_AGENT: OperationMetadata._OperationType.ValueType  # 2
         """import agent from a zip file"""
 
-        EXPORT_AGENT = OperationMetadata.OperationType.V(3)
+        EXPORT_AGENT: OperationMetadata._OperationType.ValueType  # 3
         """export agent to a zip file"""
 
-        DELETE_AGENT = OperationMetadata.OperationType.V(4)
+        DELETE_AGENT: OperationMetadata._OperationType.ValueType  # 4
         """delete agent"""
 
-        RESTORE_AGENT = OperationMetadata.OperationType.V(5)
+        RESTORE_AGENT: OperationMetadata._OperationType.ValueType  # 5
         """restore agent"""
 
-        BUILD_AGENT_CACHE = OperationMetadata.OperationType.V(6)
+        BUILD_AGENT_CACHE: OperationMetadata._OperationType.ValueType  # 6
         """build agent cache"""
 
-        TRAIN_AGENT = OperationMetadata.OperationType.V(7)
+        TRAIN_AGENT: OperationMetadata._OperationType.ValueType  # 7
         """train agent"""
 
-        EXPORT_BENCHMARK_AGENT = OperationMetadata.OperationType.V(8)
+        EXPORT_BENCHMARK_AGENT: OperationMetadata._OperationType.ValueType  # 8
         """export benchmark agent to a zip file"""
 
+    class OperationType(_OperationType, metaclass=_OperationTypeEnumTypeWrapper):
+        pass
 
-    OPERATION_TYPE_UNSPECIFIED = OperationMetadata.OperationType.V(0)
+    OPERATION_TYPE_UNSPECIFIED: OperationMetadata.OperationType.ValueType  # 0
     """unspecified operation type"""
 
-    CREATE_AGENT = OperationMetadata.OperationType.V(1)
+    CREATE_AGENT: OperationMetadata.OperationType.ValueType  # 1
     """create a new agent with specified configuration"""
 
-    IMPORT_AGENT = OperationMetadata.OperationType.V(2)
+    IMPORT_AGENT: OperationMetadata.OperationType.ValueType  # 2
     """import agent from a zip file"""
 
-    EXPORT_AGENT = OperationMetadata.OperationType.V(3)
+    EXPORT_AGENT: OperationMetadata.OperationType.ValueType  # 3
     """export agent to a zip file"""
 
-    DELETE_AGENT = OperationMetadata.OperationType.V(4)
+    DELETE_AGENT: OperationMetadata.OperationType.ValueType  # 4
     """delete agent"""
 
-    RESTORE_AGENT = OperationMetadata.OperationType.V(5)
+    RESTORE_AGENT: OperationMetadata.OperationType.ValueType  # 5
     """restore agent"""
 
-    BUILD_AGENT_CACHE = OperationMetadata.OperationType.V(6)
+    BUILD_AGENT_CACHE: OperationMetadata.OperationType.ValueType  # 6
     """build agent cache"""
 
-    TRAIN_AGENT = OperationMetadata.OperationType.V(7)
+    TRAIN_AGENT: OperationMetadata.OperationType.ValueType  # 7
     """train agent"""
 
-    EXPORT_BENCHMARK_AGENT = OperationMetadata.OperationType.V(8)
+    EXPORT_BENCHMARK_AGENT: OperationMetadata.OperationType.ValueType  # 8
     """export benchmark agent to a zip file"""
 
 
@@ -140,10 +142,10 @@ class OperationMetadata(google.protobuf.message.Message):
     NUM_RERUNS_FIELD_NUMBER: builtins.int
     MAX_NUM_RERUNS_FIELD_NUMBER: builtins.int
     DESCRIPTION_FIELD_NUMBER: builtins.int
-    status: global___OperationMetadata.Status.V = ...
+    status: global___OperationMetadata.Status.ValueType
     """long-running operation status code"""
 
-    parent_operation_name: typing.Text = ...
+    parent_operation_name: typing.Text
     """optional parent operation name"""
 
     @property
@@ -162,54 +164,54 @@ class OperationMetadata(google.protobuf.message.Message):
     def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """the time operation processing completed."""
         pass
-    is_cancellation_requested: builtins.bool = ...
+    is_cancellation_requested: builtins.bool
     """indicates whether a request to cancel this operation has been made."""
 
-    cancel_command: typing.Text = ...
+    cancel_command: typing.Text
     """command executed at cancel operation"""
 
-    user_id_created: typing.Text = ...
+    user_id_created: typing.Text
     """id of the user who created the operation"""
 
-    user_id_cancelled: typing.Text = ...
+    user_id_cancelled: typing.Text
     """id of the user who cancelled the operation"""
 
-    project_parent: typing.Text = ...
+    project_parent: typing.Text
     """project parent name, e.g. "projects/pepper/agent" """
 
-    operation_type: global___OperationMetadata.OperationType.V = ...
+    operation_type: global___OperationMetadata.OperationType.ValueType
     """operation type"""
 
-    host_name: typing.Text = ...
+    host_name: typing.Text
     """name of the host where the operation was executed"""
 
-    num_reruns: builtins.int = ...
+    num_reruns: builtins.int
     """number of times the operation was re-run"""
 
-    max_num_reruns: builtins.int = ...
+    max_num_reruns: builtins.int
     """maximum number of re-runs in case the operation fails"""
 
-    description: typing.Text = ...
+    description: typing.Text
     """description, normally needed for suboperations when type is OPERATION_TYPE_UNSPECIFIED"""
 
     def __init__(self,
         *,
-        status : global___OperationMetadata.Status.V = ...,
-        parent_operation_name : typing.Text = ...,
-        sub_operation_names : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        create_time : typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
-        start_time : typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
-        end_time : typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
-        is_cancellation_requested : builtins.bool = ...,
-        cancel_command : typing.Text = ...,
-        user_id_created : typing.Text = ...,
-        user_id_cancelled : typing.Text = ...,
-        project_parent : typing.Text = ...,
-        operation_type : global___OperationMetadata.OperationType.V = ...,
-        host_name : typing.Text = ...,
-        num_reruns : builtins.int = ...,
-        max_num_reruns : builtins.int = ...,
-        description : typing.Text = ...,
+        status: global___OperationMetadata.Status.ValueType = ...,
+        parent_operation_name: typing.Text = ...,
+        sub_operation_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        create_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        start_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        end_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        is_cancellation_requested: builtins.bool = ...,
+        cancel_command: typing.Text = ...,
+        user_id_created: typing.Text = ...,
+        user_id_cancelled: typing.Text = ...,
+        project_parent: typing.Text = ...,
+        operation_type: global___OperationMetadata.OperationType.ValueType = ...,
+        host_name: typing.Text = ...,
+        num_reruns: builtins.int = ...,
+        max_num_reruns: builtins.int = ...,
+        description: typing.Text = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["create_time",b"create_time","end_time",b"end_time","start_time",b"start_time"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["cancel_command",b"cancel_command","create_time",b"create_time","description",b"description","end_time",b"end_time","host_name",b"host_name","is_cancellation_requested",b"is_cancellation_requested","max_num_reruns",b"max_num_reruns","num_reruns",b"num_reruns","operation_type",b"operation_type","parent_operation_name",b"parent_operation_name","project_parent",b"project_parent","start_time",b"start_time","status",b"status","sub_operation_names",b"sub_operation_names","user_id_cancelled",b"user_id_cancelled","user_id_created",b"user_id_created"]) -> None: ...
