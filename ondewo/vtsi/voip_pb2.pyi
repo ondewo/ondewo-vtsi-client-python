@@ -185,7 +185,7 @@ class AsteriskConfigs(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing_extensions.Literal["asterisk_configs_oneof",b"asterisk_configs_oneof"]) -> typing.Optional[typing_extensions.Literal["asterisk_configs_variables","asterisk_configs_files","asterisk_configs_target_directory_name"]]: ...
 global___AsteriskConfigs = AsteriskConfigs
 
-class RegisterProjectConfigsRequest(google.protobuf.message.Message):
+class CreateProjectConfigsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PROJECT_ID_FIELD_NUMBER: builtins.int
     PROJECT_CONFIGS_FIELD_NUMBER: builtins.int
@@ -203,7 +203,7 @@ class RegisterProjectConfigsRequest(google.protobuf.message.Message):
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs","project_id",b"project_id"]) -> None: ...
-global___RegisterProjectConfigsRequest = RegisterProjectConfigsRequest
+global___CreateProjectConfigsRequest = CreateProjectConfigsRequest
 
 class GetProjectConfigsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -276,6 +276,37 @@ class DeleteProjectConfigsRequest(google.protobuf.message.Message):
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
 global___DeleteProjectConfigsRequest = DeleteProjectConfigsRequest
+
+class DeployProjectRequest(google.protobuf.message.Message):
+    """/////////
+    Asterisk //
+    /////////
+
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PROJECT_ID_FIELD_NUMBER: builtins.int
+    project_id: typing.Text
+    """Project id of the NLU project."""
+
+    def __init__(self,
+        *,
+        project_id: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
+global___DeployProjectRequest = DeployProjectRequest
+
+class UndeployProjectRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PROJECT_ID_FIELD_NUMBER: builtins.int
+    project_id: typing.Text
+    """Project id of the NLU project."""
+
+    def __init__(self,
+        *,
+        project_id: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
+global___UndeployProjectRequest = UndeployProjectRequest
 
 class BaseServiceConfig(google.protobuf.message.Message):
     """///////////

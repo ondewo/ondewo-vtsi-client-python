@@ -20,9 +20,9 @@ class VoipSessionsStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.RegisterProjectConfigs = channel.unary_unary(
-                '/ondewo.vtsi.VoipSessions/RegisterProjectConfigs',
-                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.RegisterProjectConfigsRequest.SerializeToString,
+        self.CreateProjectConfigs = channel.unary_unary(
+                '/ondewo.vtsi.VoipSessions/CreateProjectConfigs',
+                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.CreateProjectConfigsRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.GetProjectConfigs = channel.unary_unary(
@@ -38,6 +38,16 @@ class VoipSessionsStub(object):
         self.DeleteProjectConfigs = channel.unary_unary(
                 '/ondewo.vtsi.VoipSessions/DeleteProjectConfigs',
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.DeleteProjectConfigsRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.DeployProject = channel.unary_unary(
+                '/ondewo.vtsi.VoipSessions/DeployProject',
+                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.DeployProjectRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.UndeployProject = channel.unary_unary(
+                '/ondewo.vtsi.VoipSessions/UndeployProject',
+                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.UndeployProjectRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.StartListeners = channel.unary_unary(
@@ -100,8 +110,8 @@ class VoipSessionsServicer(object):
     /////////
     """
 
-    def RegisterProjectConfigs(self, request, context):
-        """Register an NLU project with configs.
+    def CreateProjectConfigs(self, request, context):
+        """Create an NLU project with configs.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -124,6 +134,22 @@ class VoipSessionsServicer(object):
     def DeleteProjectConfigs(self, request, context):
         """Delete an NLU project with configs.
         """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeployProject(self, request, context):
+        """/////////
+        Asterisk //
+        /////////
+
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UndeployProject(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -218,9 +244,9 @@ class VoipSessionsServicer(object):
 
 def add_VoipSessionsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'RegisterProjectConfigs': grpc.unary_unary_rpc_method_handler(
-                    servicer.RegisterProjectConfigs,
-                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.RegisterProjectConfigsRequest.FromString,
+            'CreateProjectConfigs': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateProjectConfigs,
+                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.CreateProjectConfigsRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'GetProjectConfigs': grpc.unary_unary_rpc_method_handler(
@@ -236,6 +262,16 @@ def add_VoipSessionsServicer_to_server(servicer, server):
             'DeleteProjectConfigs': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteProjectConfigs,
                     request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.DeleteProjectConfigsRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeployProject': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeployProject,
+                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.DeployProjectRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UndeployProject': grpc.unary_unary_rpc_method_handler(
+                    servicer.UndeployProject,
+                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.UndeployProjectRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'StartListeners': grpc.unary_unary_rpc_method_handler(
@@ -304,7 +340,7 @@ class VoipSessions(object):
     """
 
     @staticmethod
-    def RegisterProjectConfigs(request,
+    def CreateProjectConfigs(request,
             target,
             options=(),
             channel_credentials=None,
@@ -314,8 +350,8 @@ class VoipSessions(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/RegisterProjectConfigs',
-            ondewo_dot_vtsi_dot_voip__pb2.RegisterProjectConfigsRequest.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/CreateProjectConfigs',
+            ondewo_dot_vtsi_dot_voip__pb2.CreateProjectConfigsRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -367,6 +403,40 @@ class VoipSessions(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/DeleteProjectConfigs',
             ondewo_dot_vtsi_dot_voip__pb2.DeleteProjectConfigsRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeployProject(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/DeployProject',
+            ondewo_dot_vtsi_dot_voip__pb2.DeployProjectRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UndeployProject(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/UndeployProject',
+            ondewo_dot_vtsi_dot_voip__pb2.UndeployProjectRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

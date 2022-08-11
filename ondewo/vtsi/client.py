@@ -67,11 +67,11 @@ class VtsiClient:
             print(f'Creating an insecure channel to {target}')
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
 
-    def register_project_configs(
+    def create_project_configs(
             self,
-            request: voip_pb2.RegisterProjectConfigsRequest,
+            request: voip_pb2.CreateProjectConfigsRequest,
     ) -> empty_pb2.Empty:
-        return self.voip_stub.RegisterProjectConfigs(request=request)
+        return self.voip_stub.CreateProjectConfigs(request=request)
 
     def get_project_configs(
             self,
@@ -90,6 +90,19 @@ class VtsiClient:
             request: voip_pb2.DeleteProjectConfigsRequest,
     ) -> empty_pb2.Empty:
         return self.voip_stub.DeleteProjectConfigs(request=request)
+
+    def deploy_project(
+            self,
+            request: voip_pb2.DeployProjectRequest,
+    ) -> empty_pb2.Empty:
+        return self.voip_stub.DeployProject(request=request)
+
+    def undeploy_project(
+            self,
+            request: voip_pb2.UndeployProjectRequest,
+    ) -> empty_pb2.Empty:
+        return self.voip_stub.UndeployProject(request=request)
+
 
     def start_listeners(
             self,
