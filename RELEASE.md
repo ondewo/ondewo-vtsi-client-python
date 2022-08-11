@@ -116,7 +116,7 @@
 ### Known issues not covered in this release
  * CI/CD Integration is missing
  * Code Quality checks
- * Extend the README.md with an examples usage 
+ * Extend the README.md with an examples usage
 
 *****************
 ## Release ONDEWO RELEASE Template

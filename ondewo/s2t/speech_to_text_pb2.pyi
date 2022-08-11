@@ -196,6 +196,7 @@ class TranscribeStreamRequest(google.protobuf.message.Message):
     AUDIO_CHUNK_FIELD_NUMBER: builtins.int
     END_OF_STREAM_FIELD_NUMBER: builtins.int
     CONFIG_FIELD_NUMBER: builtins.int
+    MUTE_AUDIO_FIELD_NUMBER: builtins.int
     audio_chunk: builtins.bytes
     """wav file to transcribe"""
 
@@ -206,14 +207,18 @@ class TranscribeStreamRequest(google.protobuf.message.Message):
     def config(self) -> global___TranscribeRequestConfig:
         """The configuration to override the default configuration"""
         pass
+    mute_audio: builtins.bool
+    """Whether or not to mute the audio signal. Defaults to false."""
+
     def __init__(self,
         *,
         audio_chunk: builtins.bytes = ...,
         end_of_stream: builtins.bool = ...,
         config: typing.Optional[global___TranscribeRequestConfig] = ...,
+        mute_audio: builtins.bool = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["config",b"config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["audio_chunk",b"audio_chunk","config",b"config","end_of_stream",b"end_of_stream"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["audio_chunk",b"audio_chunk","config",b"config","end_of_stream",b"end_of_stream","mute_audio",b"mute_audio"]) -> None: ...
 global___TranscribeStreamRequest = TranscribeStreamRequest
 
 class Transcription(google.protobuf.message.Message):
@@ -392,19 +397,26 @@ class ListS2tPipelinesRequest(google.protobuf.message.Message):
     LANGUAGES_FIELD_NUMBER: builtins.int
     PIPELINE_OWNERS_FIELD_NUMBER: builtins.int
     DOMAINS_FIELD_NUMBER: builtins.int
+    REGISTERED_ONLY_FIELD_NUMBER: builtins.int
     @property
     def languages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
     @property
     def pipeline_owners(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
     @property
     def domains(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
+    registered_only: builtins.bool
+    """If true, return only registered pipelines.
+    Default false: return registered and persisted (from config files) configs.
+    """
+
     def __init__(self,
         *,
         languages: typing.Optional[typing.Iterable[typing.Text]] = ...,
         pipeline_owners: typing.Optional[typing.Iterable[typing.Text]] = ...,
         domains: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        registered_only: builtins.bool = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["domains",b"domains","languages",b"languages","pipeline_owners",b"pipeline_owners"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["domains",b"domains","languages",b"languages","pipeline_owners",b"pipeline_owners","registered_only",b"registered_only"]) -> None: ...
 global___ListS2tPipelinesRequest = ListS2tPipelinesRequest
 
 class ListS2tPipelinesResponse(google.protobuf.message.Message):
@@ -485,7 +497,7 @@ class ListS2tDomainsResponse(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["domains",b"domains"]) -> None: ...
 global___ListS2tDomainsResponse = ListS2tDomainsResponse
 
-class GetServiceInfoResponse(google.protobuf.message.Message):
+class S2TGetServiceInfoResponse(google.protobuf.message.Message):
     """////////////////////
     GET SERVICE INFO //
     ////////////////////
@@ -499,7 +511,7 @@ class GetServiceInfoResponse(google.protobuf.message.Message):
         version: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["version",b"version"]) -> None: ...
-global___GetServiceInfoResponse = GetServiceInfoResponse
+global___S2TGetServiceInfoResponse = S2TGetServiceInfoResponse
 
 class Speech2TextConfig(google.protobuf.message.Message):
     """/////////////////////////////////
@@ -518,10 +530,10 @@ class Speech2TextConfig(google.protobuf.message.Message):
     LOGGING_FIELD_NUMBER: builtins.int
     id: typing.Text
     @property
-    def description(self) -> global___Description: ...
+    def description(self) -> global___S2TDescription: ...
     active: builtins.bool
     @property
-    def inference(self) -> global___Inference: ...
+    def inference(self) -> global___S2TInference: ...
     @property
     def streaming_server(self) -> global___StreamingServer: ...
     @property
@@ -533,9 +545,9 @@ class Speech2TextConfig(google.protobuf.message.Message):
     def __init__(self,
         *,
         id: typing.Text = ...,
-        description: typing.Optional[global___Description] = ...,
+        description: typing.Optional[global___S2TDescription] = ...,
         active: builtins.bool = ...,
-        inference: typing.Optional[global___Inference] = ...,
+        inference: typing.Optional[global___S2TInference] = ...,
         streaming_server: typing.Optional[global___StreamingServer] = ...,
         voice_activity_detection: typing.Optional[global___VoiceActivityDetection] = ...,
         post_processing: typing.Optional[global___PostProcessing] = ...,
@@ -545,7 +557,7 @@ class Speech2TextConfig(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["active",b"active","description",b"description","id",b"id","inference",b"inference","logging",b"logging","post_processing",b"post_processing","streaming_server",b"streaming_server","voice_activity_detection",b"voice_activity_detection"]) -> None: ...
 global___Speech2TextConfig = Speech2TextConfig
 
-class Description(google.protobuf.message.Message):
+class S2TDescription(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     LANGUAGE_FIELD_NUMBER: builtins.int
     PIPELINE_OWNER_FIELD_NUMBER: builtins.int
@@ -563,9 +575,9 @@ class Description(google.protobuf.message.Message):
         comments: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["comments",b"comments","domain",b"domain","language",b"language","pipeline_owner",b"pipeline_owner"]) -> None: ...
-global___Description = Description
+global___S2TDescription = S2TDescription
 
-class Inference(google.protobuf.message.Message):
+class S2TInference(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     CTC_ACOUSTIC_MODELS_FIELD_NUMBER: builtins.int
     LANGUAGE_MODELS_FIELD_NUMBER: builtins.int
@@ -580,7 +592,7 @@ class Inference(google.protobuf.message.Message):
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["ctc_acoustic_models",b"ctc_acoustic_models","language_models",b"language_models"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["ctc_acoustic_models",b"ctc_acoustic_models","language_models",b"language_models"]) -> None: ...
-global___Inference = Inference
+global___S2TInference = S2TInference
 
 class CtcAcousticModels(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -588,6 +600,7 @@ class CtcAcousticModels(google.protobuf.message.Message):
     QUARTZNET_FIELD_NUMBER: builtins.int
     QUARTZNET_TRITON_FIELD_NUMBER: builtins.int
     WAV2VEC_FIELD_NUMBER: builtins.int
+    WAV2VEC_TRITON_FIELD_NUMBER: builtins.int
     type: typing.Text
     @property
     def quartznet(self) -> global___Quartznet: ...
@@ -595,15 +608,18 @@ class CtcAcousticModels(google.protobuf.message.Message):
     def quartznet_triton(self) -> global___QuartznetTriton: ...
     @property
     def wav2vec(self) -> global___Wav2Vec: ...
+    @property
+    def wav2vec_triton(self) -> global___Wav2VecTriton: ...
     def __init__(self,
         *,
         type: typing.Text = ...,
         quartznet: typing.Optional[global___Quartznet] = ...,
         quartznet_triton: typing.Optional[global___QuartznetTriton] = ...,
         wav2vec: typing.Optional[global___Wav2Vec] = ...,
+        wav2vec_triton: typing.Optional[global___Wav2VecTriton] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["quartznet",b"quartznet","quartznet_triton",b"quartznet_triton","wav2vec",b"wav2vec"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["quartznet",b"quartznet","quartznet_triton",b"quartznet_triton","type",b"type","wav2vec",b"wav2vec"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["quartznet",b"quartznet","quartznet_triton",b"quartznet_triton","wav2vec",b"wav2vec","wav2vec_triton",b"wav2vec_triton"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["quartznet",b"quartznet","quartznet_triton",b"quartznet_triton","type",b"type","wav2vec",b"wav2vec","wav2vec_triton",b"wav2vec_triton"]) -> None: ...
 global___CtcAcousticModels = CtcAcousticModels
 
 class Wav2Vec(google.protobuf.message.Message):
@@ -619,6 +635,26 @@ class Wav2Vec(google.protobuf.message.Message):
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["model_path",b"model_path","use_gpu",b"use_gpu"]) -> None: ...
 global___Wav2Vec = Wav2Vec
+
+class Wav2VecTriton(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PROCESSOR_PATH_FIELD_NUMBER: builtins.int
+    TRITON_MODEL_NAME_FIELD_NUMBER: builtins.int
+    TRITON_MODEL_VERSION_FIELD_NUMBER: builtins.int
+    CHECK_STATUS_TIMEOUT_FIELD_NUMBER: builtins.int
+    processor_path: typing.Text
+    triton_model_name: typing.Text
+    triton_model_version: typing.Text
+    check_status_timeout: builtins.int
+    def __init__(self,
+        *,
+        processor_path: typing.Text = ...,
+        triton_model_name: typing.Text = ...,
+        triton_model_version: typing.Text = ...,
+        check_status_timeout: builtins.int = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["check_status_timeout",b"check_status_timeout","processor_path",b"processor_path","triton_model_name",b"triton_model_name","triton_model_version",b"triton_model_version"]) -> None: ...
+global___Wav2VecTriton = Wav2VecTriton
 
 class Quartznet(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -869,13 +905,13 @@ class PostProcessors(google.protobuf.message.Message):
         """Configuration of the sym-spell spelling correction"""
         pass
     @property
-    def normalization(self) -> global___Normalization:
+    def normalization(self) -> global___S2TNormalization:
         """Configuration of the normalization object"""
         pass
     def __init__(self,
         *,
         sym_spell: typing.Optional[global___SymSpell] = ...,
-        normalization: typing.Optional[global___Normalization] = ...,
+        normalization: typing.Optional[global___S2TNormalization] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["normalization",b"normalization","sym_spell",b"sym_spell"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["normalization",b"normalization","sym_spell",b"sym_spell"]) -> None: ...
@@ -906,7 +942,7 @@ class SymSpell(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["dict_path",b"dict_path","max_dictionary_edit_distance",b"max_dictionary_edit_distance","prefix_length",b"prefix_length"]) -> None: ...
 global___SymSpell = SymSpell
 
-class Normalization(google.protobuf.message.Message):
+class S2TNormalization(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     LANGUAGE_FIELD_NUMBER: builtins.int
     language: typing.Text
@@ -917,7 +953,7 @@ class Normalization(google.protobuf.message.Message):
         language: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["language",b"language"]) -> None: ...
-global___Normalization = Normalization
+global___S2TNormalization = S2TNormalization
 
 class Logging(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
