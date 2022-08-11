@@ -100,6 +100,16 @@ class VoipSessionsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetFullConversationAudioFileRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetFullConversationAudioFileResponse.FromString,
                 )
+        self.GetAudioFile = channel.unary_unary(
+                '/ondewo.vtsi.VoipSessions/GetAudioFile',
+                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetAudioFileRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetAudioFileResponse.FromString,
+                )
+        self.GetFullConversationAudioFile = channel.unary_unary(
+                '/ondewo.vtsi.VoipSessions/GetFullConversationAudioFile',
+                request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetFullConversationAudioFileRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetFullConversationAudioFileResponse.FromString,
+                )
 
 
 class VoipSessionsServicer(object):
@@ -241,6 +251,24 @@ class VoipSessionsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetAudioFile(self, request, context):
+        """///////////////////////
+        Retrieving Audio files //
+        //////////////////////////
+
+        Get a s2t or t2s audio file for this conversation if it exists in Minio
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetFullConversationAudioFile(self, request, context):
+        """Get The whole conversation in an audio file
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_VoipSessionsServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -313,6 +341,16 @@ def add_VoipSessionsServicer_to_server(servicer, server):
                     servicer.ListVoipCallInfo,
                     request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.ListVoipCallInfoRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_voip__pb2.ListVoipCallInfoResponse.SerializeToString,
+            ),
+            'GetAudioFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAudioFile,
+                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetAudioFileRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetAudioFileResponse.SerializeToString,
+            ),
+            'GetFullConversationAudioFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFullConversationAudioFile,
+                    request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetFullConversationAudioFileRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetFullConversationAudioFileResponse.SerializeToString,
             ),
             'GetAudioFile': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAudioFile,
@@ -574,6 +612,40 @@ class VoipSessions(object):
         return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/ListVoipCallInfo',
             ondewo_dot_vtsi_dot_voip__pb2.ListVoipCallInfoRequest.SerializeToString,
             ondewo_dot_vtsi_dot_voip__pb2.ListVoipCallInfoResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetAudioFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/GetAudioFile',
+            ondewo_dot_vtsi_dot_voip__pb2.GetAudioFileRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_voip__pb2.GetAudioFileResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetFullConversationAudioFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/GetFullConversationAudioFile',
+            ondewo_dot_vtsi_dot_voip__pb2.GetFullConversationAudioFileRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_voip__pb2.GetFullConversationAudioFileResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
