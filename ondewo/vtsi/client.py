@@ -41,7 +41,7 @@ class VtsiConfiguration:
 
 class VtsiClient:
     """
-    exposes the endpoints of the ondewo voip-server in a user-friendly way
+    exposes the endpoints of the ondewo voip-server in a user-friendly way.
     """
 
     def __init__(
@@ -67,11 +67,11 @@ class VtsiClient:
             print(f'Creating an insecure channel to {target}')
         self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
 
-    def register_project_configs(
+    def create_project_configs(
             self,
-            request: voip_pb2.RegisterProjectConfigsRequest,
-    ) -> voip_pb2.RegisterProjectConfigsResponse:
-        return self.voip_stub.RegisterProjectConfigs(request=request)
+            request: voip_pb2.CreateProjectConfigsRequest,
+    ) -> empty_pb2.Empty:
+        return self.voip_stub.CreateProjectConfigs(request=request)
 
     def get_project_configs(
             self,
@@ -82,14 +82,27 @@ class VtsiClient:
     def update_project_configs(
             self,
             request: voip_pb2.UpdateProjectConfigsRequest,
-    ) -> voip_pb2.UpdateProjectConfigsResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.UpdateProjectConfigs(request=request)
 
     def delete_project_configs(
             self,
             request: voip_pb2.DeleteProjectConfigsRequest,
-    ) -> voip_pb2.DeleteProjectConfigsResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.DeleteProjectConfigs(request=request)
+
+    def deploy_project(
+            self,
+            request: voip_pb2.DeployProjectRequest,
+    ) -> empty_pb2.Empty:
+        return self.voip_stub.DeployProject(request=request)
+
+    def undeploy_project(
+            self,
+            request: voip_pb2.UndeployProjectRequest,
+    ) -> empty_pb2.Empty:
+        return self.voip_stub.UndeployProject(request=request)
+
 
     def start_listeners(
             self,
@@ -106,25 +119,25 @@ class VtsiClient:
     def start_scheduled_callers(
             self,
             request: voip_pb2.StartScheduledCallersRequest,
-    ) -> voip_pb2.StartScheduledCallersResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.StartScheduledCallers(request=request)
 
     def stop_calls(
             self,
             request: voip_pb2.StopCallsRequest,
-    ) -> voip_pb2.StopCallsResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.StopCalls(request=request)
 
     def stop_all_calls(
             self,
-            request: empty_pb2.Empty,
-    ) -> voip_pb2.StopAllCallsResponse:
+            request: voip_pb2.StopAllCallsRequest,
+    ) -> empty_pb2.Empty:
         return self.voip_stub.StopAllCalls(request=request)
 
     def transfer_call(
             self,
             request: voip_pb2.TransferCallRequest,
-    ) -> voip_pb2.TransferCallResponse:
+    ) -> empty_pb2.Empty:
         return self.voip_stub.TransferCall(request=request)
 
     def get_voip_call_info(
@@ -138,18 +151,6 @@ class VtsiClient:
             request: voip_pb2.ListVoipCallInfoRequest,
     ) -> voip_pb2.ListVoipCallInfoResponse:
         return self.voip_stub.ListVoipCallInfo(request=request)
-
-    def get_sip_accounts(
-            self,
-            request: empty_pb2.Empty,
-    ) -> voip_pb2.GetSipAccountsResponse:
-        return self.voip_stub.GetSipAccounts(request=request)
-
-    def get_call_ids_from_sip_account(
-            self,
-            request: voip_pb2.GetCallIDsFromSipAccountRequest,
-    ) -> voip_pb2.GetCallIDsFromSipAccountResponse:
-        return self.voip_stub.GetCallIDsFromSipAccount(request=request)
 
     def get_audio_file(
             self,
