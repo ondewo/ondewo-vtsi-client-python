@@ -46,14 +46,14 @@ class _CallType:
 class _CallTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallType.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     both: _CallType.ValueType  # 0
-    listener: _CallType.ValueType  # 1
-    caller: _CallType.ValueType  # 2
+    inbound: _CallType.ValueType  # 1
+    outbound: _CallType.ValueType  # 2
 class CallType(_CallType, metaclass=_CallTypeEnumTypeWrapper):
     pass
 
 both: CallType.ValueType  # 0
-listener: CallType.ValueType  # 1
-caller: CallType.ValueType  # 2
+inbound: CallType.ValueType  # 1
+outbound: CallType.ValueType  # 2
 global___CallType = CallType
 
 
@@ -185,7 +185,7 @@ class AsteriskConfigs(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing_extensions.Literal["asterisk_configs_oneof",b"asterisk_configs_oneof"]) -> typing.Optional[typing_extensions.Literal["asterisk_configs_variables","asterisk_configs_files","asterisk_configs_target_directory_name"]]: ...
 global___AsteriskConfigs = AsteriskConfigs
 
-class CreateProjectConfigsRequest(google.protobuf.message.Message):
+class RegisterProjectConfigsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PROJECT_ID_FIELD_NUMBER: builtins.int
     PROJECT_CONFIGS_FIELD_NUMBER: builtins.int
@@ -203,7 +203,32 @@ class CreateProjectConfigsRequest(google.protobuf.message.Message):
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs","project_id",b"project_id"]) -> None: ...
-global___CreateProjectConfigsRequest = CreateProjectConfigsRequest
+global___RegisterProjectConfigsRequest = RegisterProjectConfigsRequest
+
+class RegisterProjectConfigsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___RegisterProjectConfigsRequest:
+        """The request that was sent."""
+        pass
+    success: builtins.bool
+    """success status."""
+
+    error_messages: typing.Text
+    """error messages if there are any."""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___RegisterProjectConfigsRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___RegisterProjectConfigsResponse = RegisterProjectConfigsResponse
 
 class GetProjectConfigsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -264,6 +289,31 @@ class UpdateProjectConfigsRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["project_configs",b"project_configs","project_id",b"project_id"]) -> None: ...
 global___UpdateProjectConfigsRequest = UpdateProjectConfigsRequest
 
+class UpdateProjectConfigsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___UpdateProjectConfigsRequest:
+        """The request that was sent."""
+        pass
+    success: builtins.bool
+    """success status."""
+
+    error_messages: typing.Text
+    """error messages if there are any."""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___UpdateProjectConfigsRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___UpdateProjectConfigsResponse = UpdateProjectConfigsResponse
+
 class DeleteProjectConfigsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PROJECT_ID_FIELD_NUMBER: builtins.int
@@ -277,36 +327,30 @@ class DeleteProjectConfigsRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
 global___DeleteProjectConfigsRequest = DeleteProjectConfigsRequest
 
-class DeployProjectRequest(google.protobuf.message.Message):
-    """/////////
-    Asterisk //
-    /////////
-
-    """
+class DeleteProjectConfigsResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """Project id of the NLU project."""
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___DeleteProjectConfigsRequest:
+        """The request that was sent."""
+        pass
+    success: builtins.bool
+    """success status."""
+
+    error_messages: typing.Text
+    """error messages if there are any."""
 
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
+        request: typing.Optional[global___DeleteProjectConfigsRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
-global___DeployProjectRequest = DeployProjectRequest
-
-class UndeployProjectRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """Project id of the NLU project."""
-
-    def __init__(self,
-        *,
-        project_id: typing.Text = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
-global___UndeployProjectRequest = UndeployProjectRequest
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___DeleteProjectConfigsResponse = DeleteProjectConfigsResponse
 
 class BaseServiceConfig(google.protobuf.message.Message):
     """///////////
@@ -357,6 +401,7 @@ class NLUConfig(google.protobuf.message.Message):
     CREDENTIALS_FIELD_NUMBER: builtins.int
     AUTH_TOKEN_FIELD_NUMBER: builtins.int
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
+    PROJECT_ID_FIELD_NUMBER: builtins.int
     INITIAL_INTENT_FIELD_NUMBER: builtins.int
     CONTEXTS_FIELD_NUMBER: builtins.int
     @property
@@ -374,6 +419,9 @@ class NLUConfig(google.protobuf.message.Message):
     for a list of the currently supported language codes.
     """
 
+    project_id: typing.Text
+    """ondewo-cai project ID with which to perform the call"""
+
     initial_intent: typing.Text
     """name of intent to trigger at the start of a call"""
 
@@ -387,11 +435,12 @@ class NLUConfig(google.protobuf.message.Message):
         credentials: typing.Optional[global___Credentials] = ...,
         auth_token: typing.Text = ...,
         language_code: typing.Text = ...,
+        project_id: typing.Text = ...,
         initial_intent: typing.Text = ...,
         contexts: typing.Optional[typing.Iterable[ondewo.nlu.context_pb2.Context]] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["auth_token",b"auth_token","authentication",b"authentication","base_config",b"base_config","credentials",b"credentials"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auth_token",b"auth_token","authentication",b"authentication","base_config",b"base_config","contexts",b"contexts","credentials",b"credentials","initial_intent",b"initial_intent","language_code",b"language_code"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["auth_token",b"auth_token","authentication",b"authentication","base_config",b"base_config","contexts",b"contexts","credentials",b"credentials","initial_intent",b"initial_intent","language_code",b"language_code","project_id",b"project_id"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["authentication",b"authentication"]) -> typing.Optional[typing_extensions.Literal["credentials","auth_token"]]: ...
 global___NLUConfig = NLUConfig
 
@@ -449,7 +498,7 @@ class AsteriskConfig(google.protobuf.message.Message):
 global___AsteriskConfig = AsteriskConfig
 
 class CommonServicesConfigs(google.protobuf.message.Message):
-    """It is common for both listener and caller"""
+    """It is common for both inbound and outbound / listener and caller"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ASTERISK_CONFIG_FIELD_NUMBER: builtins.int
     CAI_CONFIG_FIELD_NUMBER: builtins.int
@@ -493,15 +542,58 @@ class SIPBaseConfig(google.protobuf.message.Message):
     You will need to provide SIPCallerConfig for the caller
     """
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    class AccountPasswordDictionaryEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: typing.Text
+        value: typing.Text
+        def __init__(self,
+            *,
+            key: typing.Text = ...,
+            value: typing.Text = ...,
+            ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key",b"key","value",b"value"]) -> None: ...
+
+    CALL_ID_FIELD_NUMBER: builtins.int
+    CALL_DISPLAY_NAME_FIELD_NUMBER: builtins.int
     SIP_SIM_VERSION_FIELD_NUMBER: builtins.int
+    SIP_PREFIX_FIELD_NUMBER: builtins.int
+    SIP_ACCOUNT_FIELD_NUMBER: builtins.int
+    ACCOUNT_PASSWORD_DICTIONARY_FIELD_NUMBER: builtins.int
+    call_id: typing.Text
+    """uuid of the call instance [optional] .. It's created if not provided"""
+
+    call_display_name: typing.Text
+    """display name (or description) (can be filled with the NLU project name if not provided)"""
+
     sip_sim_version: typing.Text
     """version of sip to use for call"""
 
+    sip_prefix: typing.Text
+    """you either use sip_account for an exact sip instance .. or sip_prefix to get one or instances matched
+    prefix of sip name and sip container name
+    """
+
+    sip_account: typing.Text
+    """name of the sip instance which is in Asterisk"""
+
+    @property
+    def account_password_dictionary(self) -> google.protobuf.internal.containers.ScalarMap[typing.Text, typing.Text]:
+        """password dictionary is passed depending on the account info you have in asterisk's sip.conf
+        dictionary of sip accounts and passwords that are in Asterisk
+        """
+        pass
     def __init__(self,
         *,
+        call_id: typing.Text = ...,
+        call_display_name: typing.Text = ...,
         sip_sim_version: typing.Text = ...,
+        sip_prefix: typing.Text = ...,
+        sip_account: typing.Text = ...,
+        account_password_dictionary: typing.Optional[typing.Mapping[typing.Text, typing.Text]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["sip_sim_version",b"sip_sim_version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["account_password_dictionary",b"account_password_dictionary","call_display_name",b"call_display_name","call_id",b"call_id","sip_account",b"sip_account","sip_prefix",b"sip_prefix","sip_sim_version",b"sip_sim_version"]) -> None: ...
 global___SIPBaseConfig = SIPBaseConfig
 
 class SIPCallerConfig(google.protobuf.message.Message):
@@ -589,8 +681,11 @@ class AudioObjectStorageConfig(google.protobuf.message.Message):
         audio_object_storage_services_activation_config: typing.Optional[global___AudioObjectStorageServicesActivationConfig] = ...,
         minio_config: typing.Optional[global___MinioConfig] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config","audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["activate_audio_object_storage",b"activate_audio_object_storage","audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config","audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["activate_audio_object_storage",b"activate_audio_object_storage","activate_audio_object_storage_oneof",b"activate_audio_object_storage_oneof","audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config","audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activate_audio_object_storage",b"activate_audio_object_storage","activate_audio_object_storage_oneof",b"activate_audio_object_storage_oneof","audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config","audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["activate_audio_object_storage_oneof",b"activate_audio_object_storage_oneof"]) -> typing.Optional[typing_extensions.Literal["activate_audio_object_storage","audio_object_storage_services_activation_config"]]: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["audio_storage_config",b"audio_storage_config"]) -> typing.Optional[typing_extensions.Literal["minio_config"]]: ...
 global___AudioObjectStorageConfig = AudioObjectStorageConfig
 
@@ -624,8 +719,11 @@ class MessageBrokerConfig(google.protobuf.message.Message):
         message_broker_services_activation_config: typing.Optional[global___MessageBrokerServicesActivationConfig] = ...,
         rabbit_mq_config: typing.Optional[global___RabbitMqConfig] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["message_broker_config",b"message_broker_config","message_broker_services_activation_config",b"message_broker_services_activation_config","rabbit_mq_config",b"rabbit_mq_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["activate_message_broker",b"activate_message_broker","message_broker_config",b"message_broker_config","message_broker_services_activation_config",b"message_broker_services_activation_config","rabbit_mq_config",b"rabbit_mq_config"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["activate_message_broker",b"activate_message_broker","activate_message_broker_oneof",b"activate_message_broker_oneof","message_broker_config",b"message_broker_config","message_broker_services_activation_config",b"message_broker_services_activation_config","rabbit_mq_config",b"rabbit_mq_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activate_message_broker",b"activate_message_broker","activate_message_broker_oneof",b"activate_message_broker_oneof","message_broker_config",b"message_broker_config","message_broker_services_activation_config",b"message_broker_services_activation_config","rabbit_mq_config",b"rabbit_mq_config"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["activate_message_broker_oneof",b"activate_message_broker_oneof"]) -> typing.Optional[typing_extensions.Literal["activate_message_broker","message_broker_services_activation_config"]]: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["message_broker_config",b"message_broker_config"]) -> typing.Optional[typing_extensions.Literal["rabbit_mq_config"]]: ...
 global___MessageBrokerConfig = MessageBrokerConfig
 
@@ -801,6 +899,32 @@ class StartListenerRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["services_configs",b"services_configs","sip_config",b"sip_config"]) -> None: ...
 global___StartListenerRequest = StartListenerRequest
 
+class StartListenerResponse(google.protobuf.message.Message):
+    """response from the voip manager concerning the started listener"""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___StartListenerRequest:
+        """request sent to the voip manager"""
+        pass
+    success: builtins.bool
+    """success status"""
+
+    error_messages: typing.Text
+    """error messages if there are any"""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___StartListenerRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___StartListenerResponse = StartListenerResponse
+
 class StartCallerRequest(google.protobuf.message.Message):
     """request for starting a caller"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -822,6 +946,32 @@ class StartCallerRequest(google.protobuf.message.Message):
     def HasField(self, field_name: typing_extensions.Literal["services_configs",b"services_configs","sip_config",b"sip_config"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["services_configs",b"services_configs","sip_config",b"sip_config"]) -> None: ...
 global___StartCallerRequest = StartCallerRequest
+
+class StartCallerResponse(google.protobuf.message.Message):
+    """response from the voip manager concerning the started caller"""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___StartCallerRequest:
+        """request sent to the voip manager"""
+        pass
+    success: builtins.bool
+    """success status"""
+
+    error_messages: typing.Text
+    """error messages if there are any"""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___StartCallerRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___StartCallerResponse = StartCallerResponse
 
 class StartScheduledCallerRequest(google.protobuf.message.Message):
     """request for starting a scheduled call"""
@@ -847,152 +997,294 @@ class StartScheduledCallerRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["request",b"request","scheduled_time",b"scheduled_time"]) -> None: ...
 global___StartScheduledCallerRequest = StartScheduledCallerRequest
 
+class StartScheduledCallerResponse(google.protobuf.message.Message):
+    """response from the voip manager concerning the scheduled call"""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___StartScheduledCallerRequest:
+        """request sent to the voip manager"""
+        pass
+    success: builtins.bool
+    """success status"""
+
+    error_messages: typing.Text
+    """error messages if there are any"""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___StartScheduledCallerRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___StartScheduledCallerResponse = StartScheduledCallerResponse
+
 class StartListenersRequest(google.protobuf.message.Message):
     """collection of listeners to start"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
     REQUESTS_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID with which to perform the call"""
-
     @property
     def requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartListenerRequest]: ...
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
         requests: typing.Optional[typing.Iterable[global___StartListenerRequest]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id","requests",b"requests"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["requests",b"requests"]) -> None: ...
 global___StartListenersRequest = StartListenersRequest
 
 class StartListenersResponse(google.protobuf.message.Message):
+    """response from the voip manager concerning the multiple started listeners"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
-    CALL_IDS_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID."""
-
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
     @property
-    def call_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
-        """The call ids that were assigned to each call"""
+    def request(self) -> global___StartListenersRequest:
+        """request sent to the voip manager
+        success status - refers to general success: False if at least one call-deployment fails,
+        """
         pass
+    success: builtins.bool
+    """True if all call were successful"""
+
+    error_messages: typing.Text
+    """error messages if there are any"""
+
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
-        call_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        request: typing.Optional[global___StartListenersRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_ids",b"call_ids","project_id",b"project_id"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
 global___StartListenersResponse = StartListenersResponse
 
 class StartCallersRequest(google.protobuf.message.Message):
     """collection of callers to start"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
     REQUESTS_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID with which to perform the call"""
-
     @property
     def requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerRequest]: ...
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
         requests: typing.Optional[typing.Iterable[global___StartCallerRequest]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id","requests",b"requests"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["requests",b"requests"]) -> None: ...
 global___StartCallersRequest = StartCallersRequest
 
 class StartCallersResponse(google.protobuf.message.Message):
+    """response from the voip manager concerning the multiple started callers"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
-    CALL_IDS_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID."""
-
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
     @property
-    def call_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
-        """The call ids that were assigned to each call"""
+    def request(self) -> global___StartCallersRequest:
+        """request sent to the voip manager
+        success status - refers to general success: False if at least one call-deployment fails,
+        """
         pass
+    success: builtins.bool
+    """True if all call were successful"""
+
+    error_messages: typing.Text
+    """error messages if there are any"""
+
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
-        call_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        request: typing.Optional[global___StartCallersRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_ids",b"call_ids","project_id",b"project_id"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
 global___StartCallersResponse = StartCallersResponse
 
 class StartScheduledCallersRequest(google.protobuf.message.Message):
     """collection of scheduled callers to start"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
     REQUESTS_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID with which to perform the call"""
-
     @property
     def requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerRequest]: ...
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
         requests: typing.Optional[typing.Iterable[global___StartScheduledCallerRequest]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id","requests",b"requests"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["requests",b"requests"]) -> None: ...
 global___StartScheduledCallersRequest = StartScheduledCallersRequest
+
+class StartScheduledCallersResponse(google.protobuf.message.Message):
+    """response from the voip manager concerning the multiple scheduled callers"""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___StartScheduledCallersRequest:
+        """request sent to the voip manager
+        success status - refers to general success: False if at least one call-deployment fails,
+        """
+        pass
+    success: builtins.bool
+    """True if all call were successful"""
+
+    error_messages: typing.Text
+    """error messages if there are any"""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___StartScheduledCallersRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___StartScheduledCallersResponse = StartScheduledCallersResponse
+
+class StopCallRequest(google.protobuf.message.Message):
+    """parameters of the call to stop"""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    CALL_ID_FIELD_NUMBER: builtins.int
+    SIP_ACCOUNT_FIELD_NUMBER: builtins.int
+    call_id: typing.Text
+    """ID of the call"""
+
+    sip_account: typing.Text
+    """Account of the ondewo-sip instance"""
+
+    def __init__(self,
+        *,
+        call_id: typing.Text = ...,
+        sip_account: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["call_id",b"call_id","id",b"id","sip_account",b"sip_account"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","id",b"id","sip_account",b"sip_account"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["id",b"id"]) -> typing.Optional[typing_extensions.Literal["call_id","sip_account"]]: ...
+global___StopCallRequest = StopCallRequest
+
+class StopCallResponse(google.protobuf.message.Message):
+    """response from the voip manager concerning the stop-call request"""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    LOG_MESSAGE_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___StopCallRequest:
+        """request sent to the voip manager"""
+        pass
+    success: builtins.bool
+    """whether listener was successfully stopped"""
+
+    error_messages: typing.Text
+    """error messages if there are any"""
+
+    log_message: typing.Text
+    """Optional. log message"""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___StopCallRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        log_message: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","log_message",b"log_message","request",b"request","success",b"success"]) -> None: ...
+global___StopCallResponse = StopCallResponse
 
 class StopCallsRequest(google.protobuf.message.Message):
     """parameters of the calls to stop"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
-    CALL_IDS_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID."""
-
+    REQUESTS_FIELD_NUMBER: builtins.int
     @property
-    def call_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
+    def requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopCallRequest]: ...
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
-        call_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        requests: typing.Optional[typing.Iterable[global___StopCallRequest]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_ids",b"call_ids","project_id",b"project_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["requests",b"requests"]) -> None: ...
 global___StopCallsRequest = StopCallsRequest
 
-class StopAllCallsRequest(google.protobuf.message.Message):
-    """parameters of the calls to stop"""
+class StopCallsResponse(google.protobuf.message.Message):
+    """response from the voip manager concerning the stop-calls request"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID."""
-
+    RESPONSES_FIELD_NUMBER: builtins.int
+    @property
+    def responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopCallResponse]: ...
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
+        responses: typing.Optional[typing.Iterable[global___StopCallResponse]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
-global___StopAllCallsRequest = StopAllCallsRequest
+    def ClearField(self, field_name: typing_extensions.Literal["responses",b"responses"]) -> None: ...
+global___StopCallsResponse = StopCallsResponse
+
+class StopAllCallsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    STOP_CALL_RESPONSES_FIELD_NUMBER: builtins.int
+    @property
+    def stop_call_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopCallResponse]: ...
+    def __init__(self,
+        *,
+        stop_call_responses: typing.Optional[typing.Iterable[global___StopCallResponse]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["stop_call_responses",b"stop_call_responses"]) -> None: ...
+global___StopAllCallsResponse = StopAllCallsResponse
 
 class TransferCallRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
     CALL_ID_FIELD_NUMBER: builtins.int
+    SIP_ACCOUNT_FIELD_NUMBER: builtins.int
     TRANSFER_ID_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID."""
-
     call_id: typing.Text
-    """call-ID to transfer"""
+    """ID of the call"""
+
+    sip_account: typing.Text
+    """Account of the ondewo-sip instance"""
 
     transfer_id: typing.Text
     """Number you want to be transfered too"""
 
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
         call_id: typing.Text = ...,
+        sip_account: typing.Text = ...,
         transfer_id: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","project_id",b"project_id","transfer_id",b"transfer_id"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["call_id",b"call_id","id",b"id","sip_account",b"sip_account"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","id",b"id","sip_account",b"sip_account","transfer_id",b"transfer_id"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["id",b"id"]) -> typing.Optional[typing_extensions.Literal["call_id","sip_account"]]: ...
 global___TransferCallRequest = TransferCallRequest
+
+class TransferCallResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    REQUEST_FIELD_NUMBER: builtins.int
+    SUCCESS_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___TransferCallRequest:
+        """request sent to the voip manager"""
+        pass
+    success: builtins.bool
+    """whether transfer request was successfully sent"""
+
+    error_messages: typing.Text
+    """error messages if there are any"""
+
+    def __init__(self,
+        *,
+        request: typing.Optional[global___TransferCallRequest] = ...,
+        success: builtins.bool = ...,
+        error_messages: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["request",b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_messages",b"error_messages","request",b"request","success",b"success"]) -> None: ...
+global___TransferCallResponse = TransferCallResponse
 
 class GetVoipCallInfoRequest(google.protobuf.message.Message):
     """//////////
@@ -1002,25 +1294,32 @@ class GetVoipCallInfoRequest(google.protobuf.message.Message):
     request to get a call instance's call logs
     """
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
     CALL_ID_FIELD_NUMBER: builtins.int
+    SIP_ACCOUNT_FIELD_NUMBER: builtins.int
     VOIP_CALL_INFO_VIEW_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID."""
-
+    CALL_TYPE_FIELD_NUMBER: builtins.int
     call_id: typing.Text
     """ID of the call"""
+
+    sip_account: typing.Text
+    """Account of the ondewo-sip instance"""
 
     voip_call_info_view: global___VoipCallInfoView.ValueType
     """you can specify the view to be shallow or full .. see above for more info"""
 
+    call_type: global___CallType.ValueType
+    """both by default or inbound or outbound"""
+
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
         call_id: typing.Text = ...,
+        sip_account: typing.Text = ...,
         voip_call_info_view: global___VoipCallInfoView.ValueType = ...,
+        call_type: global___CallType.ValueType = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","project_id",b"project_id","voip_call_info_view",b"voip_call_info_view"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["call_id",b"call_id","id",b"id","sip_account",b"sip_account"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","call_type",b"call_type","id",b"id","sip_account",b"sip_account","voip_call_info_view",b"voip_call_info_view"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["id",b"id"]) -> typing.Optional[typing_extensions.Literal["call_id","sip_account"]]: ...
 global___GetVoipCallInfoRequest = GetVoipCallInfoRequest
 
 class GetVoipCallInfoResponse(google.protobuf.message.Message):
@@ -1048,6 +1347,7 @@ class VoipCallInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     CALL_ID_FIELD_NUMBER: builtins.int
     SIP_ACCOUNT_FIELD_NUMBER: builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: builtins.int
     CONTAINER_NAME_FIELD_NUMBER: builtins.int
     CALL_TYPE_FIELD_NUMBER: builtins.int
     PHONE_NUMBER_FIELD_NUMBER: builtins.int
@@ -1062,11 +1362,14 @@ class VoipCallInfo(google.protobuf.message.Message):
     sip_account: typing.Text
     """sip account used"""
 
+    display_name: typing.Text
+    """display name (or description) (can be filled with the NLU project name if not provided)"""
+
     container_name: typing.Text
     """container name which you get from docker ps"""
 
     call_type: global___CallType.ValueType
-    """Listener or caller enum .. if not specified"""
+    """Inbound or outbound enum .. if not specified"""
 
     phone_number: typing.Text
     start_time: builtins.float
@@ -1091,6 +1394,7 @@ class VoipCallInfo(google.protobuf.message.Message):
         *,
         call_id: typing.Text = ...,
         sip_account: typing.Text = ...,
+        display_name: typing.Text = ...,
         container_name: typing.Text = ...,
         call_type: global___CallType.ValueType = ...,
         phone_number: typing.Text = ...,
@@ -1101,30 +1405,25 @@ class VoipCallInfo(google.protobuf.message.Message):
         services_statuses: typing.Optional[global___AllServicesStatuses] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["services_statuses",b"services_statuses","sip_status",b"sip_status","sip_status_history",b"sip_status_history"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","call_type",b"call_type","container_name",b"container_name","end_time",b"end_time","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","call_type",b"call_type","container_name",b"container_name","display_name",b"display_name","end_time",b"end_time","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> None: ...
 global___VoipCallInfo = VoipCallInfo
 
 class ListVoipCallInfoRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_ID_FIELD_NUMBER: builtins.int
     VOIP_CALL_INFO_VIEW_FIELD_NUMBER: builtins.int
     CALL_TYPE_FIELD_NUMBER: builtins.int
-    project_id: typing.Text
-    """ondewo-cai project ID."""
-
     voip_call_info_view: global___VoipCallInfoView.ValueType
     """you can specify the view to be shallow or full .. see above for more info"""
 
     call_type: global___CallType.ValueType
-    """both by default or listener or caller"""
+    """both by default or inbound or outbound"""
 
     def __init__(self,
         *,
-        project_id: typing.Text = ...,
         voip_call_info_view: global___VoipCallInfoView.ValueType = ...,
         call_type: global___CallType.ValueType = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_type",b"call_type","project_id",b"project_id","voip_call_info_view",b"voip_call_info_view"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_type",b"call_type","voip_call_info_view",b"voip_call_info_view"]) -> None: ...
 global___ListVoipCallInfoRequest = ListVoipCallInfoRequest
 
 class ListVoipCallInfoResponse(google.protobuf.message.Message):
@@ -1197,6 +1496,47 @@ class ServiceStatus(google.protobuf.message.Message):
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["error_messsages",b"error_messsages","healthy",b"healthy"]) -> None: ...
 global___ServiceStatus = ServiceStatus
+
+class GetSipAccountsResponse(google.protobuf.message.Message):
+    """//////////
+    Helpers //
+    //////////
+
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    ASTERISK_ACCOUNTS_FIELD_NUMBER: builtins.int
+    @property
+    def asterisk_accounts(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
+    def __init__(self,
+        *,
+        asterisk_accounts: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["asterisk_accounts",b"asterisk_accounts"]) -> None: ...
+global___GetSipAccountsResponse = GetSipAccountsResponse
+
+class GetCallIDsFromSipAccountRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    ASTERISK_ACCOUNT_FIELD_NUMBER: builtins.int
+    @property
+    def asterisk_account(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
+    def __init__(self,
+        *,
+        asterisk_account: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["asterisk_account",b"asterisk_account"]) -> None: ...
+global___GetCallIDsFromSipAccountRequest = GetCallIDsFromSipAccountRequest
+
+class GetCallIDsFromSipAccountResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    CALL_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def call_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
+    def __init__(self,
+        *,
+        call_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["call_ids",b"call_ids"]) -> None: ...
+global___GetCallIDsFromSipAccountResponse = GetCallIDsFromSipAccountResponse
 
 class GetAudioFileRequest(google.protobuf.message.Message):
     """///////////////////////
