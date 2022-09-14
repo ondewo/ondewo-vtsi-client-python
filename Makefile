@@ -61,6 +61,7 @@ precommit_hooks_run_all_files: ## Runs all pre-commit hooks on all files and not
 
 install_dependencies_locally: ## Install dependencies locally
 	pip install -r requirements-dev.txt
+	pip install -r requirements.txt
 
 flake8:
 	flake8
@@ -186,14 +187,15 @@ release: ## Automate the entire release process
 	git add RELEASE.md
 	git add setup.py
 	git add ${ONDEWO_PROTO_COMPILER_DIR}
+	git add ${ONDEWO_VTSI_API_DIR}
 	git add ondewo-vtsi-api
 	git status
-# git commit -m "PREPARING FOR RELEASE ${ONDEWO_VTSI_VERSION}"
-# git push
-# make create_release_branch
-# make create_release_tag
-# make release_to_github_via_docker
-# make push_to_pypi_via_docker
+	git commit -m "PREPARING FOR RELEASE ${ONDEWO_VTSI_VERSION}"
+	git push
+	make create_release_branch
+	make create_release_tag
+	make release_to_github_via_docker
+	make push_to_pypi_via_docker
 	@echo "Release Finished"
 
 create_release_branch: ## Create Release Branch and push it to origin
@@ -298,6 +300,6 @@ spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 	$(eval filtered_branches:= $(shell git branch --all | grep "release/${ONDEWO_VTSI_VERSION}"))
 	$(eval filtered_tags:= $(shell git tag --list | grep "${ONDEWO_VTSI_VERSION}"))
 	$(eval setuppy_version:= $(shell cat setup.py | grep "version"))
-# @if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
-# @if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
-# @if test "$(setuppy_version)" != "version='${ONDEWO_VTSI_VERSION}',"; then echo "-- Test 3: Setup.py not updated!!" & exit 1; else echo "-- Test 3: Setup.py is fine";fi
+	@if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
+	@if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
+	@if test "$(setuppy_version)" != "version='${ONDEWO_VTSI_VERSION}',"; then echo "-- Test 3: Setup.py not updated!!" & exit 1; else echo "-- Test 3: Setup.py is fine";fi
