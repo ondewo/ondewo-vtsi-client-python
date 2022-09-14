@@ -103,7 +103,6 @@ class VtsiClient:
     ) -> empty_pb2.Empty:
         return self.voip_stub.UndeployProject(request=request)
 
-
     def start_listeners(
             self,
             request: voip_pb2.StartListenersRequest,
