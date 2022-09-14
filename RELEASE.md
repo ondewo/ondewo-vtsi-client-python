@@ -6,6 +6,8 @@
 
 * New client for VTSI API 3.0.0
 
+*****************
+
 ## Release ONDEWO VTSI Client Python 3.4.0
 ### Improvements
 

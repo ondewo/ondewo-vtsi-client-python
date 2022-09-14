@@ -17,7 +17,7 @@ export
 
 # MUST BE THE SAME AS API in Mayor and Minor Version Number
 # example: API 2.9.0 --> Client 2.9.X
-ONDEWO_VTSI_VERSION=4.0.0
+ONDEWO_VTSI_VERSION=3.5.0
 PYPI_USERNAME?=ENTER_HERE_YOUR_PYPI_USERNAME
 PYPI_PASSWORD?=ENTER_HERE_YOUR_PYPI_PASSWORD
 
@@ -79,7 +79,7 @@ TEST:
 	@echo ${GITHUB_GH_TOKEN}
 	@echo ${PYPI_USERNAME}
 	@echo ${PYPI_PASSWORD}
-	@echo ${CURRENT_RELEASE_NOTES}
+	@echo "\n${CURRENT_RELEASE_NOTES}"
 
 check_build: ## Checks if all built proto-code is there
 	@rm -rf build_check.txt
@@ -186,6 +186,7 @@ release: ## Automate the entire release process
 	git add RELEASE.md
 	git add setup.py
 	git add ${ONDEWO_PROTO_COMPILER_DIR}
+	git add ondewo-vtsi-api
 	git status
 # git commit -m "PREPARING FOR RELEASE ${ONDEWO_VTSI_VERSION}"
 # git push
