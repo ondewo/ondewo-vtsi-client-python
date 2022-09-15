@@ -971,7 +971,7 @@ class StopAllCallsRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["project_id",b"project_id"]) -> None: ...
 global___StopAllCallsRequest = StopAllCallsRequest
 
-class TransferCallRequest(google.protobuf.message.Message):
+class TransferCallsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PROJECT_ID_FIELD_NUMBER: builtins.int
     CALL_ID_FIELD_NUMBER: builtins.int
@@ -979,20 +979,22 @@ class TransferCallRequest(google.protobuf.message.Message):
     project_id: typing.Text
     """ondewo-cai project ID."""
 
-    call_id: typing.Text
-    """call-ID to transfer"""
-
-    transfer_id: typing.Text
-    """Number you want to be transfered too"""
-
+    @property
+    def call_id(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """call-ID to transfer"""
+        pass
+    @property
+    def transfer_id(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Number you want to be transfered too"""
+        pass
     def __init__(self,
         *,
         project_id: typing.Text = ...,
-        call_id: typing.Text = ...,
-        transfer_id: typing.Text = ...,
+        call_id: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        transfer_id: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["call_id",b"call_id","project_id",b"project_id","transfer_id",b"transfer_id"]) -> None: ...
-global___TransferCallRequest = TransferCallRequest
+global___TransferCallsRequest = TransferCallsRequest
 
 class GetVoipCallInfoRequest(google.protobuf.message.Message):
     """//////////

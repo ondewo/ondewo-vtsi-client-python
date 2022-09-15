@@ -75,9 +75,9 @@ class VoipSessionsStub(object):
             request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopAllCallsRequest.SerializeToString,
             response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
         )
-        self.TransferCall = channel.unary_unary(
-            '/ondewo.vtsi.VoipSessions/TransferCall',
-            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallRequest.SerializeToString,
+        self.TransferCalls = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/TransferCalls',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallsRequest.SerializeToString,
             response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
         )
         self.GetVoipCallInfo = channel.unary_unary(
@@ -195,7 +195,7 @@ class VoipSessionsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def TransferCall(self, request, context):
+    def TransferCalls(self, request, context):
         """Transfer a call from a listener to another number for a specific nlu-project.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -299,9 +299,9 @@ def add_VoipSessionsServicer_to_server(servicer, server):
             request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopAllCallsRequest.FromString,
             response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
         ),
-        'TransferCall': grpc.unary_unary_rpc_method_handler(
-            servicer.TransferCall,
-            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallRequest.FromString,
+        'TransferCalls': grpc.unary_unary_rpc_method_handler(
+            servicer.TransferCalls,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallsRequest.FromString,
             response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
         ),
         'GetVoipCallInfo': grpc.unary_unary_rpc_method_handler(
@@ -528,18 +528,18 @@ class VoipSessions(object):
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def TransferCall(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/TransferCall',
-                                             ondewo_dot_vtsi_dot_voip__pb2.TransferCallRequest.SerializeToString,
+    def TransferCalls(request,
+                      target,
+                      options=(),
+                      channel_credentials=None,
+                      call_credentials=None,
+                      insecure=False,
+                      compression=None,
+                      wait_for_ready=None,
+                      timeout=None,
+                      metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/TransferCalls',
+                                             ondewo_dot_vtsi_dot_voip__pb2.TransferCallsRequest.SerializeToString,
                                              google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
