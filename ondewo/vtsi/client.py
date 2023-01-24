@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import grpc
 import os
 from dataclasses import dataclass
-from typing import List, Optional, Dict, Any
+
+import grpc
+from google.protobuf import empty_pb2
 
 from ondewo.vtsi import voip_pb2, voip_pb2_grpc
-from google.protobuf import empty_pb2
 
 
 @dataclass

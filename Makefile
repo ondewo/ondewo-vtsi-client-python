@@ -52,7 +52,8 @@ IMAGE_UTILS_NAME=ondewo-vtsi-client-utils-python:${ONDEWO_VTSI_VERSION}
 setup_developer_environment_locally: install_precommit_hooks install_dependencies_locally
 
 install_precommit_hooks: ## Installs pre-commit hooks and sets them up for the ondewo-csi-client repo
-	pip install pre-commit
+	-pip install pre-commit
+	-conda -y install pre-commit
 	pre-commit install
 	pre-commit install --hook-type commit-msg
 
@@ -64,7 +65,7 @@ install_dependencies_locally: ## Install dependencies locally
 	pip install -r requirements.txt
 
 flake8:
-	flake8
+	flake8 --config .flake8 .
 
 mypy: ## Run mypy static code checking
 	pre-commit run mypy --all-files
@@ -121,6 +122,8 @@ clean_python_api:  ## Clear generated python files
 	find ./ondewo -name \*.pyi -type f -exec rm -f {} \;
 
 generate_all_protos: generate_nlu_protos generate_s2t_protos generate_t2s_protos generate_sip_protos generate_vtsi_protos
+	-make precommit_hooks_run_all_files
+	make precommit_hooks_run_all_files
 
 generate_nlu_protos:
 	make -f ondewo-proto-compiler/python/Makefile run \
