@@ -31,11 +31,14 @@ class _IntentViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
 
     INTENT_VIEW_PARTIAL: _IntentView.ValueType  # 2
     """The only nested structures populated are Contexts and Training phrases.
-     The Training phrases field is populated with only a few entries and no annotations.
+    The Training phrases field is populated with only a few entries and no annotations.
     """
 
     INTENT_VIEW_SHALLOW: _IntentView.ValueType  # 3
     """All nested structures are not populated (no training phrases, nor contexts, nor parameters, ...)"""
+
+    INTENT_VIEW_MINIMUM: _IntentView.ValueType  # 4
+    """Minimum view including only intent UUID and intent display name"""
 
 class IntentView(_IntentView, metaclass=_IntentViewEnumTypeWrapper):
     """Represents the options for views of an intent.
@@ -52,11 +55,14 @@ INTENT_VIEW_FULL: IntentView.ValueType  # 1
 
 INTENT_VIEW_PARTIAL: IntentView.ValueType  # 2
 """The only nested structures populated are Contexts and Training phrases.
- The Training phrases field is populated with only a few entries and no annotations.
+The Training phrases field is populated with only a few entries and no annotations.
 """
 
 INTENT_VIEW_SHALLOW: IntentView.ValueType  # 3
 """All nested structures are not populated (no training phrases, nor contexts, nor parameters, ...)"""
+
+INTENT_VIEW_MINIMUM: IntentView.ValueType  # 4
+"""Minimum view including only intent UUID and intent display name"""
 
 global___IntentView = IntentView
 
@@ -123,6 +129,7 @@ class Intent(google.protobuf.message.Message):
         ACTIVE: Intent._IntentStatus.ValueType  # 0
         INACTIVE: Intent._IntentStatus.ValueType  # 1
     class IntentStatus(_IntentStatus, metaclass=_IntentStatusEnumTypeWrapper):
+        """Structure of status of an Intent"""
         pass
 
     ACTIVE: Intent.IntentStatus.ValueType  # 0
@@ -999,6 +1006,7 @@ class Intent(google.protobuf.message.Message):
             def ClearField(self, field_name: typing_extensions.Literal["items",b"items"]) -> None: ...
 
         class HTMLText(google.protobuf.message.Message):
+            """This message contains HTML text"""
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
             TEXT_FIELD_NUMBER: builtins.int
             @property
@@ -1730,6 +1738,7 @@ class IntentBatch(google.protobuf.message.Message):
 global___IntentBatch = IntentBatch
 
 class IntentSorting(google.protobuf.message.Message):
+    """This message contains sorting of an intentn"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class _IntentSortingField:
         ValueType = typing.NewType('ValueType', builtins.int)
@@ -1744,6 +1753,7 @@ class IntentSorting(google.protobuf.message.Message):
         SORT_INTENT_BY_START_DATE: IntentSorting._IntentSortingField.ValueType  # 5
         SORT_INTENT_BY_END_DATE: IntentSorting._IntentSortingField.ValueType  # 6
     class IntentSortingField(_IntentSortingField, metaclass=_IntentSortingFieldEnumTypeWrapper):
+        """Structure of intent sorting field"""
         pass
 
     NO_INTENT_SORTING: IntentSorting.IntentSortingField.ValueType  # 0
@@ -1767,6 +1777,7 @@ class IntentSorting(google.protobuf.message.Message):
 global___IntentSorting = IntentSorting
 
 class IntentTagRequest(google.protobuf.message.Message):
+    """This message is a request to get an intent tag"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENT_NAME_FIELD_NUMBER: builtins.int
     TAGS_FIELD_NUMBER: builtins.int
@@ -1788,6 +1799,7 @@ class IntentTagRequest(google.protobuf.message.Message):
 global___IntentTagRequest = IntentTagRequest
 
 class GetIntentTagsRequest(google.protobuf.message.Message):
+    """This message is a request to get intent tags"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENT_NAME_FIELD_NUMBER: builtins.int
     intent_name: typing.Text
@@ -1803,6 +1815,7 @@ class GetIntentTagsRequest(google.protobuf.message.Message):
 global___GetIntentTagsRequest = GetIntentTagsRequest
 
 class GetIntentTagsResponse(google.protobuf.message.Message):
+    """This message is a response of getting intent tags"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     INTENT_TAGS_FIELD_NUMBER: builtins.int
     @property
@@ -1817,6 +1830,7 @@ class GetIntentTagsResponse(google.protobuf.message.Message):
 global___GetIntentTagsResponse = GetIntentTagsResponse
 
 class GetAllIntentTagsRequest(google.protobuf.message.Message):
+    """This message is a request to get all intent tags"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARENT_FIELD_NUMBER: builtins.int
     parent: typing.Text
@@ -1832,10 +1846,13 @@ class GetAllIntentTagsRequest(google.protobuf.message.Message):
 global___GetAllIntentTagsRequest = GetAllIntentTagsRequest
 
 class BatchUpdateTrainingPhrasesRequest(google.protobuf.message.Message):
+    """This message is a request to update a batch of training phrases"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     TRAINING_PHRASES_FIELD_NUMBER: builtins.int
     @property
-    def training_phrases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent.TrainingPhrase]: ...
+    def training_phrases(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Intent.TrainingPhrase]:
+        """A list of training phrases"""
+        pass
     def __init__(self,
         *,
         training_phrases: typing.Optional[typing.Iterable[global___Intent.TrainingPhrase]] = ...,
@@ -1844,6 +1861,7 @@ class BatchUpdateTrainingPhrasesRequest(google.protobuf.message.Message):
 global___BatchUpdateTrainingPhrasesRequest = BatchUpdateTrainingPhrasesRequest
 
 class TrainingPhraseStatus(google.protobuf.message.Message):
+    """This message containing the training phrases status"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     TRAINING_PHRASE_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
@@ -1861,11 +1879,14 @@ class TrainingPhraseStatus(google.protobuf.message.Message):
 global___TrainingPhraseStatus = TrainingPhraseStatus
 
 class BatchTrainingPhrasesStatusResponse(google.protobuf.message.Message):
+    """This message is a response of the status of a batch of training phrases"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     TRAINING_PHRASE_STATUSES_FIELD_NUMBER: builtins.int
     HAS_ERRORS_FIELD_NUMBER: builtins.int
     @property
-    def training_phrase_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrainingPhraseStatus]: ...
+    def training_phrase_statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrainingPhraseStatus]:
+        """A list of training phrase statuses"""
+        pass
     has_errors: builtins.bool
     """indicates if statuses of some of the training phrases have errors"""
 
@@ -1878,6 +1899,7 @@ class BatchTrainingPhrasesStatusResponse(google.protobuf.message.Message):
 global___BatchTrainingPhrasesStatusResponse = BatchTrainingPhrasesStatusResponse
 
 class BatchCreateTrainingPhrasesRequest(google.protobuf.message.Message):
+    """This message is a request of a creation of a batch of training phrases"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class CreateTrainingPhraseRequest(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -1909,6 +1931,7 @@ class BatchCreateTrainingPhrasesRequest(google.protobuf.message.Message):
 global___BatchCreateTrainingPhrasesRequest = BatchCreateTrainingPhrasesRequest
 
 class BatchGetTrainingPhrasesRequest(google.protobuf.message.Message):
+    """This message is a request to get a batch training phrases"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
@@ -1925,6 +1948,7 @@ class BatchGetTrainingPhrasesRequest(google.protobuf.message.Message):
 global___BatchGetTrainingPhrasesRequest = BatchGetTrainingPhrasesRequest
 
 class BatchDeleteTrainingPhrasesRequest(google.protobuf.message.Message):
+    """This message is a request to delete a batch of training phrases"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
@@ -1941,6 +1965,7 @@ class BatchDeleteTrainingPhrasesRequest(google.protobuf.message.Message):
 global___BatchDeleteTrainingPhrasesRequest = BatchDeleteTrainingPhrasesRequest
 
 class BatchDeleteTrainingPhrasesResponse(google.protobuf.message.Message):
+    """This message is a response of deleting a batch of training phrases"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class DeleteTrainingPhraseStatus(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -2029,6 +2054,7 @@ class ListTrainingPhrasesResponse(google.protobuf.message.Message):
 global___ListTrainingPhrasesResponse = ListTrainingPhrasesResponse
 
 class BatchResponseMessagesStatusResponse(google.protobuf.message.Message):
+    """This message is a response of a batch responses of message status"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class ResponseMessageStatus(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -2062,6 +2088,7 @@ class BatchResponseMessagesStatusResponse(google.protobuf.message.Message):
 global___BatchResponseMessagesStatusResponse = BatchResponseMessagesStatusResponse
 
 class BatchCreateResponseMessagesRequest(google.protobuf.message.Message):
+    """Request to create a list of new response messages and adds it to an intent"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class CreateResponseMessageRequest(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -2093,6 +2120,7 @@ class BatchCreateResponseMessagesRequest(google.protobuf.message.Message):
 global___BatchCreateResponseMessagesRequest = BatchCreateResponseMessagesRequest
 
 class BatchUpdateResponseMessagesRequest(google.protobuf.message.Message):
+    """Request to update a response message in the specified intent"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     RESPONSE_MESSAGES_FIELD_NUMBER: builtins.int
     @property
@@ -2107,6 +2135,7 @@ class BatchUpdateResponseMessagesRequest(google.protobuf.message.Message):
 global___BatchUpdateResponseMessagesRequest = BatchUpdateResponseMessagesRequest
 
 class BatchGetResponseMessagesRequest(google.protobuf.message.Message):
+    """Request to retrieve a response messages"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
@@ -2123,6 +2152,7 @@ class BatchGetResponseMessagesRequest(google.protobuf.message.Message):
 global___BatchGetResponseMessagesRequest = BatchGetResponseMessagesRequest
 
 class BatchDeleteResponseMessagesRequest(google.protobuf.message.Message):
+    """Request to delete response messages specified by their names"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
@@ -2139,6 +2169,7 @@ class BatchDeleteResponseMessagesRequest(google.protobuf.message.Message):
 global___BatchDeleteResponseMessagesRequest = BatchDeleteResponseMessagesRequest
 
 class BatchDeleteResponseMessagesResponse(google.protobuf.message.Message):
+    """Response containing list with deleted response messages"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class DeleteResponseMessageStatus(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -2227,6 +2258,7 @@ class ListResponseMessagesResponse(google.protobuf.message.Message):
 global___ListResponseMessagesResponse = ListResponseMessagesResponse
 
 class BatchParametersStatusResponse(google.protobuf.message.Message):
+    """Response containing a batch of parameters in the specified intent"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class ParameterStatus(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -2260,6 +2292,7 @@ class BatchParametersStatusResponse(google.protobuf.message.Message):
 global___BatchParametersStatusResponse = BatchParametersStatusResponse
 
 class BatchCreateParametersRequest(google.protobuf.message.Message):
+    """Request to create a batch of parameters in the specified intent"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class CreateParameterRequest(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -2291,6 +2324,7 @@ class BatchCreateParametersRequest(google.protobuf.message.Message):
 global___BatchCreateParametersRequest = BatchCreateParametersRequest
 
 class BatchUpdateParametersRequest(google.protobuf.message.Message):
+    """Request to update parameters and adds them to an intent"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     PARAMETERS_FIELD_NUMBER: builtins.int
     @property
@@ -2305,6 +2339,7 @@ class BatchUpdateParametersRequest(google.protobuf.message.Message):
 global___BatchUpdateParametersRequest = BatchUpdateParametersRequest
 
 class BatchGetParametersRequest(google.protobuf.message.Message):
+    """Request to get batch of parameters in a specified intent"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
@@ -2321,6 +2356,7 @@ class BatchGetParametersRequest(google.protobuf.message.Message):
 global___BatchGetParametersRequest = BatchGetParametersRequest
 
 class BatchDeleteParametersRequest(google.protobuf.message.Message):
+    """Request to delete parameters specified by their names."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAMES_FIELD_NUMBER: builtins.int
     @property
@@ -2337,6 +2373,7 @@ class BatchDeleteParametersRequest(google.protobuf.message.Message):
 global___BatchDeleteParametersRequest = BatchDeleteParametersRequest
 
 class BatchDeleteParametersResponse(google.protobuf.message.Message):
+    """This message contains response of deleted parameters"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     class DeleteParameterStatus(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -2461,6 +2498,7 @@ class ListTrainingPhrasesofIntentsWithEnrichmentRequest(google.protobuf.message.
 global___ListTrainingPhrasesofIntentsWithEnrichmentRequest = ListTrainingPhrasesofIntentsWithEnrichmentRequest
 
 class ListTrainingPhrasesofIntentsWithEnrichmentResponse(google.protobuf.message.Message):
+    """This message contains a list of training phrases filtered by intent ids, language code and parent passed through the request"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     TRAINING_PHRASES_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int

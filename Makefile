@@ -36,8 +36,7 @@ ONDEWO_VTSI_API_GIT_BRANCH=master
 ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/4.2.0
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 ONDEWO_VTSI_API_DIR=ondewo-vtsi-api
-GOOGLE_API_DIR=${ONDEWO_VTSI_API_DIR}/googleapis
-GOOGLE_PROTOS_DIR=${GOOGLE_API_DIR}/google/
+GOOGLE_PROTOS_DIR=${ONDEWO_VTSI_API_DIR}/google
 NLU_PROTOS_DIR=ondewo/nlu
 S2T_PROTOS_DIR=ondewo/s2t
 T2S_PROTOS_DIR=ondewo/t2s
@@ -108,7 +107,7 @@ update_setup: ## Update Version in setup.py
 	@sed -i "s/version='[0-9]*.[0-9]*.[0-9]*'/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
 	@sed -i "s/version=\"[0-9]*.[0-9]*.[0-9]*\"/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
 
-build: clear_package_data prepate_submodules build_compiler generate_all_protos update_setup ## Build source code
+build: clear_package_data prepare_submodules build_compiler generate_all_protos update_setup ## Build source code
 
 push_to_pypi_via_docker: push_to_pypi_via_docker_image  ## Release automation for building and pushing to pypi via a docker image
 
@@ -219,7 +218,7 @@ build_gh_release: ## Generate Github Release with CLI
 ########################################################
 #		Submodules
 
-prepate_submodules: init_submodules checkout_defined_submodule_versions
+prepare_submodules: init_submodules checkout_defined_submodule_versions
 
 init_submodules:
 	git submodule update --init --recursive

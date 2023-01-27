@@ -2,16 +2,12 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from ondewo.vtsi import voip_pb2 as ondewo_dot_vtsi_dot_voip__pb2
 
 
 class VoipSessionsStub(object):
-    """session manager for phone calls.
+    """ONDEWO VTSI API
     endpoints of voip server that manages instances of ondewo-sip, which handle individual calls
-    /////////
-    Projects //
-    /////////
     """
 
     def __init__(self, channel):
@@ -20,65 +16,90 @@ class VoipSessionsStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CreateProjectConfigs = channel.unary_unary(
-            '/ondewo.vtsi.VoipSessions/CreateProjectConfigs',
-            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.CreateProjectConfigsRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        self.CreateVtsiProject = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/CreateVtsiProject',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.CreateVtsiProjectRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.CreateVtsiProjectResponse.FromString,
         )
-        self.GetProjectConfigs = channel.unary_unary(
-            '/ondewo.vtsi.VoipSessions/GetProjectConfigs',
-            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetProjectConfigsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetProjectConfigsResponse.FromString,
+        self.GetVtsiProject = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/GetVtsiProject',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetVtsiProjectRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.VtsiProject.FromString,
         )
-        self.UpdateProjectConfigs = channel.unary_unary(
-            '/ondewo.vtsi.VoipSessions/UpdateProjectConfigs',
-            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.UpdateProjectConfigsRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        self.UpdateVtsiProject = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/UpdateVtsiProject',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.UpdateVtsiProjectRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.UpdateVtsiProjectResponse.FromString,
         )
-        self.DeleteProjectConfigs = channel.unary_unary(
-            '/ondewo.vtsi.VoipSessions/DeleteProjectConfigs',
-            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.DeleteProjectConfigsRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        self.DeleteVtsiProject = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/DeleteVtsiProject',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.DeleteVtsiProjectRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.DeleteVtsiProjectResponse.FromString,
         )
-        self.DeployProject = channel.unary_unary(
-            '/ondewo.vtsi.VoipSessions/DeployProject',
-            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.DeployProjectRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        self.DeployVtsiProject = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/DeployVtsiProject',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.DeployVtsiProjectRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.DeployVtsiProjectResponse.FromString,
         )
-        self.UndeployProject = channel.unary_unary(
-            '/ondewo.vtsi.VoipSessions/UndeployProject',
-            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.UndeployProjectRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        self.UndeployVtsiProject = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/UndeployVtsiProject',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.UndeployVtsiProjectRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.UndeployVtsiProjectResponse.FromString,
         )
-        self.StartListeners = channel.unary_unary(
-            '/ondewo.vtsi.VoipSessions/StartListeners',
-            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenersRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenersResponse.FromString,
+        self.StartCaller = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/StartCaller',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallerRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallerResponse.FromString,
         )
         self.StartCallers = channel.unary_unary(
             '/ondewo.vtsi.VoipSessions/StartCallers',
             request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallersRequest.SerializeToString,
             response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallersResponse.FromString,
         )
+        self.StartListener = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/StartListener',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenerRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenerResponse.FromString,
+        )
+        self.StartListeners = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/StartListeners',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenersRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenersResponse.FromString,
+        )
+        self.StartScheduledCaller = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/StartScheduledCaller',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallerRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallerResponse.FromString,
+        )
         self.StartScheduledCallers = channel.unary_unary(
             '/ondewo.vtsi.VoipSessions/StartScheduledCallers',
             request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallersRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallersResponse.FromString,
+        )
+        self.StopCall = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/StopCall',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallResponse.FromString,
         )
         self.StopCalls = channel.unary_unary(
             '/ondewo.vtsi.VoipSessions/StopCalls',
             request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallsRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallsResponse.FromString,
         )
         self.StopAllCalls = channel.unary_unary(
             '/ondewo.vtsi.VoipSessions/StopAllCalls',
             request_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopAllCallsRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallsResponse.FromString,
+        )
+        self.TransferCall = channel.unary_unary(
+            '/ondewo.vtsi.VoipSessions/TransferCall',
+            request_serializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallResponse.FromString,
         )
         self.TransferCalls = channel.unary_unary(
             '/ondewo.vtsi.VoipSessions/TransferCalls',
             request_serializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallsRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            response_deserializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallsResponse.FromString,
         )
         self.GetVoipCallInfo = channel.unary_unary(
             '/ondewo.vtsi.VoipSessions/GetVoipCallInfo',
@@ -103,63 +124,62 @@ class VoipSessionsStub(object):
 
 
 class VoipSessionsServicer(object):
-    """session manager for phone calls.
+    """ONDEWO VTSI API
     endpoints of voip server that manages instances of ondewo-sip, which handle individual calls
-    /////////
-    Projects //
-    /////////
     """
 
-    def CreateProjectConfigs(self, request, context):
-        """Create an NLU project with configs.
+    def CreateVtsiProject(self, request, context):
+        """////////////////////////////////////////////////////////////////////////////
+        Project endpoints
+        ////////////////////////////////////////////////////////////////////////////
+
+        Create a VTSI project with configs
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetProjectConfigs(self, request, context):
-        """Get an NLU project with configs.
+    def GetVtsiProject(self, request, context):
+        """Get a VTSI project with configs
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpdateProjectConfigs(self, request, context):
-        """Update an NLU project with configs.
+    def UpdateVtsiProject(self, request, context):
+        """Update a VTSI project with configs
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DeleteProjectConfigs(self, request, context):
-        """Delete an NLU project with configs.
+    def DeleteVtsiProject(self, request, context):
+        """Delete a VTSI project with configs
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DeployProject(self, request, context):
-        """/////////
-        Asterisk //
-        /////////
-
+    def DeployVtsiProject(self, request, context):
+        """Deploy a VTSI project
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UndeployProject(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+    def UndeployVtsiProject(self, request, context):
+        """Undeploy a VTSI project
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def StartListeners(self, request, context):
-        """/////////
-        CALLS //
-        /////////
+    def StartCaller(self, request, context):
+        """////////////////////////////////////////////////////////////////////////////
+        Caller and Listener endpoints
+        ////////////////////////////////////////////////////////////////////////////
 
-        start multiple ondewo-sip listeners instances for a specific nlu-project.
+        start single caller instance for a specific nlu-project.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -172,6 +192,27 @@ class VoipSessionsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StartListener(self, request, context):
+        """start single listener instance for a specific nlu-project.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StartListeners(self, request, context):
+        """start multiple ondewo-sip listeners instances for a specific nlu-project.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StartScheduledCaller(self, request, context):
+        """start multiple ondewo-sip callers instances with schedules
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StartScheduledCallers(self, request, context):
         """start multiple ondewo-sip callers instances with schedules
         """
@@ -179,8 +220,15 @@ class VoipSessionsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StopCall(self, request, context):
+        """stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StopCalls(self, request, context):
-        """stop/kill a list of ondewo-sip listener or caller instances for a specific nlu-project.
+        """stop/kill a list of ondewo-sip listener or caller instances for a specific vtsi-project.
         "stops both Listener and Caller calls"
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -195,22 +243,22 @@ class VoipSessionsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def TransferCall(self, request, context):
+        """Transfer a call from a listener to another
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def TransferCalls(self, request, context):
-        """Transfer a call from a listener to another number for a specific nlu-project.
+        """Transfer a call from a listener to another
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetVoipCallInfo(self, request, context):
-        """ConferenceCall .. to be added in the future
-        rpc ConferenceCall (ConferenceCallRequest) returns (google.protobuf.Empty);
-
-        //////////
-        STATUS //
-        //////////
-
-        get call log for single call instance
+        """get call log for single call instance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -224,11 +272,7 @@ class VoipSessionsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetAudioFile(self, request, context):
-        """///////////////////////
-        Retrieving Audio files //
-        //////////////////////////
-
-        Get a s2t or t2s audio file for this conversation if it exists in Minio
+        """Get a s2t or t2s audio file for this conversation if it exists in Minio
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -244,65 +288,90 @@ class VoipSessionsServicer(object):
 
 def add_VoipSessionsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'CreateProjectConfigs': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateProjectConfigs,
-            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.CreateProjectConfigsRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        'CreateVtsiProject': grpc.unary_unary_rpc_method_handler(
+            servicer.CreateVtsiProject,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.CreateVtsiProjectRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.CreateVtsiProjectResponse.SerializeToString,
         ),
-        'GetProjectConfigs': grpc.unary_unary_rpc_method_handler(
-            servicer.GetProjectConfigs,
-            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetProjectConfigsRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.GetProjectConfigsResponse.SerializeToString,
+        'GetVtsiProject': grpc.unary_unary_rpc_method_handler(
+            servicer.GetVtsiProject,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.GetVtsiProjectRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.VtsiProject.SerializeToString,
         ),
-        'UpdateProjectConfigs': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateProjectConfigs,
-            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.UpdateProjectConfigsRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        'UpdateVtsiProject': grpc.unary_unary_rpc_method_handler(
+            servicer.UpdateVtsiProject,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.UpdateVtsiProjectRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.UpdateVtsiProjectResponse.SerializeToString,
         ),
-        'DeleteProjectConfigs': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteProjectConfigs,
-            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.DeleteProjectConfigsRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        'DeleteVtsiProject': grpc.unary_unary_rpc_method_handler(
+            servicer.DeleteVtsiProject,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.DeleteVtsiProjectRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.DeleteVtsiProjectResponse.SerializeToString,
         ),
-        'DeployProject': grpc.unary_unary_rpc_method_handler(
-            servicer.DeployProject,
-            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.DeployProjectRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        'DeployVtsiProject': grpc.unary_unary_rpc_method_handler(
+            servicer.DeployVtsiProject,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.DeployVtsiProjectRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.DeployVtsiProjectResponse.SerializeToString,
         ),
-        'UndeployProject': grpc.unary_unary_rpc_method_handler(
-            servicer.UndeployProject,
-            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.UndeployProjectRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        'UndeployVtsiProject': grpc.unary_unary_rpc_method_handler(
+            servicer.UndeployVtsiProject,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.UndeployVtsiProjectRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.UndeployVtsiProjectResponse.SerializeToString,
         ),
-        'StartListeners': grpc.unary_unary_rpc_method_handler(
-            servicer.StartListeners,
-            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenersRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenersResponse.SerializeToString,
+        'StartCaller': grpc.unary_unary_rpc_method_handler(
+            servicer.StartCaller,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallerRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallerResponse.SerializeToString,
         ),
         'StartCallers': grpc.unary_unary_rpc_method_handler(
             servicer.StartCallers,
             request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallersRequest.FromString,
             response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartCallersResponse.SerializeToString,
         ),
+        'StartListener': grpc.unary_unary_rpc_method_handler(
+            servicer.StartListener,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenerRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenerResponse.SerializeToString,
+        ),
+        'StartListeners': grpc.unary_unary_rpc_method_handler(
+            servicer.StartListeners,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenersRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartListenersResponse.SerializeToString,
+        ),
+        'StartScheduledCaller': grpc.unary_unary_rpc_method_handler(
+            servicer.StartScheduledCaller,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallerRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallerResponse.SerializeToString,
+        ),
         'StartScheduledCallers': grpc.unary_unary_rpc_method_handler(
             servicer.StartScheduledCallers,
             request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallersRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallersResponse.SerializeToString,
+        ),
+        'StopCall': grpc.unary_unary_rpc_method_handler(
+            servicer.StopCall,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallResponse.SerializeToString,
         ),
         'StopCalls': grpc.unary_unary_rpc_method_handler(
             servicer.StopCalls,
             request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallsRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallsResponse.SerializeToString,
         ),
         'StopAllCalls': grpc.unary_unary_rpc_method_handler(
             servicer.StopAllCalls,
             request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.StopAllCallsRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.StopCallsResponse.SerializeToString,
+        ),
+        'TransferCall': grpc.unary_unary_rpc_method_handler(
+            servicer.TransferCall,
+            request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallResponse.SerializeToString,
         ),
         'TransferCalls': grpc.unary_unary_rpc_method_handler(
             servicer.TransferCalls,
             request_deserializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallsRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            response_serializer=ondewo_dot_vtsi_dot_voip__pb2.TransferCallsResponse.SerializeToString,
         ),
         'GetVoipCallInfo': grpc.unary_unary_rpc_method_handler(
             servicer.GetVoipCallInfo,
@@ -333,32 +402,12 @@ def add_VoipSessionsServicer_to_server(servicer, server):
 
 
 class VoipSessions(object):
-    """session manager for phone calls.
+    """ONDEWO VTSI API
     endpoints of voip server that manages instances of ondewo-sip, which handle individual calls
-    /////////
-    Projects //
-    /////////
     """
 
     @staticmethod
-    def CreateProjectConfigs(request,
-                             target,
-                             options=(),
-                             channel_credentials=None,
-                             call_credentials=None,
-                             insecure=False,
-                             compression=None,
-                             wait_for_ready=None,
-                             timeout=None,
-                             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/CreateProjectConfigs',
-                                             ondewo_dot_vtsi_dot_voip__pb2.CreateProjectConfigsRequest.SerializeToString,
-                                             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetProjectConfigs(request,
+    def CreateVtsiProject(request,
                           target,
                           options=(),
                           channel_credentials=None,
@@ -368,82 +417,14 @@ class VoipSessions(object):
                           wait_for_ready=None,
                           timeout=None,
                           metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/GetProjectConfigs',
-                                             ondewo_dot_vtsi_dot_voip__pb2.GetProjectConfigsRequest.SerializeToString,
-                                             ondewo_dot_vtsi_dot_voip__pb2.GetProjectConfigsResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/CreateVtsiProject',
+                                             ondewo_dot_vtsi_dot_voip__pb2.CreateVtsiProjectRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.CreateVtsiProjectResponse.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def UpdateProjectConfigs(request,
-                             target,
-                             options=(),
-                             channel_credentials=None,
-                             call_credentials=None,
-                             insecure=False,
-                             compression=None,
-                             wait_for_ready=None,
-                             timeout=None,
-                             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/UpdateProjectConfigs',
-                                             ondewo_dot_vtsi_dot_voip__pb2.UpdateProjectConfigsRequest.SerializeToString,
-                                             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def DeleteProjectConfigs(request,
-                             target,
-                             options=(),
-                             channel_credentials=None,
-                             call_credentials=None,
-                             insecure=False,
-                             compression=None,
-                             wait_for_ready=None,
-                             timeout=None,
-                             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/DeleteProjectConfigs',
-                                             ondewo_dot_vtsi_dot_voip__pb2.DeleteProjectConfigsRequest.SerializeToString,
-                                             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def DeployProject(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/DeployProject',
-                                             ondewo_dot_vtsi_dot_voip__pb2.DeployProjectRequest.SerializeToString,
-                                             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def UndeployProject(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/UndeployProject',
-                                             ondewo_dot_vtsi_dot_voip__pb2.UndeployProjectRequest.SerializeToString,
-                                             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def StartListeners(request,
+    def GetVtsiProject(request,
                        target,
                        options=(),
                        channel_credentials=None,
@@ -453,9 +434,94 @@ class VoipSessions(object):
                        wait_for_ready=None,
                        timeout=None,
                        metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StartListeners',
-                                             ondewo_dot_vtsi_dot_voip__pb2.StartListenersRequest.SerializeToString,
-                                             ondewo_dot_vtsi_dot_voip__pb2.StartListenersResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/GetVtsiProject',
+                                             ondewo_dot_vtsi_dot_voip__pb2.GetVtsiProjectRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.VtsiProject.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateVtsiProject(request,
+                          target,
+                          options=(),
+                          channel_credentials=None,
+                          call_credentials=None,
+                          insecure=False,
+                          compression=None,
+                          wait_for_ready=None,
+                          timeout=None,
+                          metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/UpdateVtsiProject',
+                                             ondewo_dot_vtsi_dot_voip__pb2.UpdateVtsiProjectRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.UpdateVtsiProjectResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteVtsiProject(request,
+                          target,
+                          options=(),
+                          channel_credentials=None,
+                          call_credentials=None,
+                          insecure=False,
+                          compression=None,
+                          wait_for_ready=None,
+                          timeout=None,
+                          metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/DeleteVtsiProject',
+                                             ondewo_dot_vtsi_dot_voip__pb2.DeleteVtsiProjectRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.DeleteVtsiProjectResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeployVtsiProject(request,
+                          target,
+                          options=(),
+                          channel_credentials=None,
+                          call_credentials=None,
+                          insecure=False,
+                          compression=None,
+                          wait_for_ready=None,
+                          timeout=None,
+                          metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/DeployVtsiProject',
+                                             ondewo_dot_vtsi_dot_voip__pb2.DeployVtsiProjectRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.DeployVtsiProjectResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UndeployVtsiProject(request,
+                            target,
+                            options=(),
+                            channel_credentials=None,
+                            call_credentials=None,
+                            insecure=False,
+                            compression=None,
+                            wait_for_ready=None,
+                            timeout=None,
+                            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/UndeployVtsiProject',
+                                             ondewo_dot_vtsi_dot_voip__pb2.UndeployVtsiProjectRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.UndeployVtsiProjectResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StartCaller(request,
+                    target,
+                    options=(),
+                    channel_credentials=None,
+                    call_credentials=None,
+                    insecure=False,
+                    compression=None,
+                    wait_for_ready=None,
+                    timeout=None,
+                    metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StartCaller',
+                                             ondewo_dot_vtsi_dot_voip__pb2.StartCallerRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.StartCallerResponse.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -477,6 +543,57 @@ class VoipSessions(object):
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def StartListener(request,
+                      target,
+                      options=(),
+                      channel_credentials=None,
+                      call_credentials=None,
+                      insecure=False,
+                      compression=None,
+                      wait_for_ready=None,
+                      timeout=None,
+                      metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StartListener',
+                                             ondewo_dot_vtsi_dot_voip__pb2.StartListenerRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.StartListenerResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StartListeners(request,
+                       target,
+                       options=(),
+                       channel_credentials=None,
+                       call_credentials=None,
+                       insecure=False,
+                       compression=None,
+                       wait_for_ready=None,
+                       timeout=None,
+                       metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StartListeners',
+                                             ondewo_dot_vtsi_dot_voip__pb2.StartListenersRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.StartListenersResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StartScheduledCaller(request,
+                             target,
+                             options=(),
+                             channel_credentials=None,
+                             call_credentials=None,
+                             insecure=False,
+                             compression=None,
+                             wait_for_ready=None,
+                             timeout=None,
+                             metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StartScheduledCaller',
+                                             ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallerRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallerResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def StartScheduledCallers(request,
                               target,
                               options=(),
@@ -489,7 +606,24 @@ class VoipSessions(object):
                               metadata=None):
         return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StartScheduledCallers',
                                              ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallersRequest.SerializeToString,
-                                             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.StartScheduledCallersResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StopCall(request,
+                 target,
+                 options=(),
+                 channel_credentials=None,
+                 call_credentials=None,
+                 insecure=False,
+                 compression=None,
+                 wait_for_ready=None,
+                 timeout=None,
+                 metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StopCall',
+                                             ondewo_dot_vtsi_dot_voip__pb2.StopCallRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.StopCallResponse.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -506,7 +640,7 @@ class VoipSessions(object):
                   metadata=None):
         return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StopCalls',
                                              ondewo_dot_vtsi_dot_voip__pb2.StopCallsRequest.SerializeToString,
-                                             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.StopCallsResponse.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -523,7 +657,24 @@ class VoipSessions(object):
                      metadata=None):
         return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/StopAllCalls',
                                              ondewo_dot_vtsi_dot_voip__pb2.StopAllCallsRequest.SerializeToString,
-                                             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.StopCallsResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def TransferCall(request,
+                     target,
+                     options=(),
+                     channel_credentials=None,
+                     call_credentials=None,
+                     insecure=False,
+                     compression=None,
+                     wait_for_ready=None,
+                     timeout=None,
+                     metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/TransferCall',
+                                             ondewo_dot_vtsi_dot_voip__pb2.TransferCallRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.TransferCallResponse.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -540,7 +691,7 @@ class VoipSessions(object):
                       metadata=None):
         return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.VoipSessions/TransferCalls',
                                              ondewo_dot_vtsi_dot_voip__pb2.TransferCallsRequest.SerializeToString,
-                                             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                                             ondewo_dot_vtsi_dot_voip__pb2.TransferCallsResponse.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -7,7 +7,8 @@ from ondewo.nlu import project_statistics_pb2 as ondewo_dot_nlu_dot_project__sta
 
 
 class ProjectStatisticsStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Project Root Statistics
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -58,55 +59,60 @@ class ProjectStatisticsStub(object):
 
 
 class ProjectStatisticsServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Project Root Statistics
+    """
 
     def GetIntentCount(self, request, context):
-        """Project Root Statistics
+        """Returns the intent count within a project
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetEntityTypeCount(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Returns the entity types count within a project
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetUserCount(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Returns the users count within a project
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetSessionCount(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Returns the sessions count within a project
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetTrainingPhraseCount(self, request, context):
-        """Intent Statistics
+        """Returns the training phrases count within a project
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetResponseCount(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Returns the responses count within a project
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetEntityValueCount(self, request, context):
-        """Entity Type Statistics
+        """Returns the entity value count within a project
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetEntitySynonymCount(self, request, context):
-        """Entity Value Statistics
+        """Returns the entity synonyms count within a project
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -164,7 +170,8 @@ def add_ProjectStatisticsServicer_to_server(servicer, server):
 
 
 class ProjectStatistics(object):
-    """Missing associated documentation comment in .proto file."""
+    """Project Root Statistics
+    """
 
     @staticmethod
     def GetIntentCount(request,
