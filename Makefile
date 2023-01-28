@@ -238,7 +238,7 @@ install: init_submodules
 ########################################################
 #		PYPI
 
-build_package:
+build_package: ## Builds PYPI Package
 	python setup.py sdist bdist_wheel
 	chmod a+rw dist -R
 
