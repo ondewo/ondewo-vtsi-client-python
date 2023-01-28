@@ -129,9 +129,9 @@ make setup_developer_environment_locally
 │   ├── vtsi
 │   │   ├── client.py
 │   │   ├── __init__.py
-│   │   ├── voip_pb2_grpc.py
-│   │   ├── voip_pb2.py
-│   │   └── voip_pb2.pyi
+│   │   ├── vtsi_pb2_grpc.py
+│   │   ├── vtsi_pb2.py
+│   │   └── vtsi_pb2.pyi
 │   └── __init__.py
 ├── ondewo-proto-compiler
 ├── ondewo-vtsi-api
