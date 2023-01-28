@@ -17,7 +17,7 @@ from dataclasses import dataclass
 
 import grpc
 
-from ondewo.vtsi import voip_pb2, voip_pb2_grpc
+from ondewo.vtsi import vtsi_pb2, vtsi_pb2_grpc
 
 
 @dataclass
@@ -40,19 +40,19 @@ class VtsiConfiguration:
 
 class VtsiClient:
     """
-    exposes the endpoints of the ondewo voip-server in a user-friendly way.
+    exposes the endpoints of the ondewo vtsi-server in a user-friendly way.
     """
 
-    def __init__(self, config_voip: VtsiConfiguration) -> None:
-        self.config_voip = config_voip
-        target = f"{self.config_voip.host}:{self.config_voip.port}"
+    def __init__(self, config_vtsi: VtsiConfiguration) -> None:
+        self.config_vtsi = config_vtsi
+        target = f"{self.config_vtsi.host}:{self.config_vtsi.port}"
         # create grpc service stub
-        if self.config_voip.secure:
+        if self.config_vtsi.secure:
 
-            if self.config_voip.grpc_cert:
-                grpc_cert = self.config_voip.grpc_cert
-            elif os.path.exists(self.config_voip.cert_path):
-                with open(self.config_voip.cert_path, "rb") as fi:
+            if self.config_vtsi.grpc_cert:
+                grpc_cert = self.config_vtsi.grpc_cert
+            elif os.path.exists(self.config_vtsi.cert_path):
+                with open(self.config_vtsi.cert_path, "rb") as fi:
                     grpc_cert = fi.read()
 
             credentials = grpc.ssl_channel_credentials(root_certificates=grpc_cert)
@@ -61,78 +61,78 @@ class VtsiClient:
         else:
             channel = grpc.insecure_channel(target=target)
             print(f'Creating an insecure channel to {target}')
-        self.voip_stub = voip_pb2_grpc.VoipSessionsStub(channel=channel)
+        self.vtsi_stub = vtsi_pb2_grpc.VtsiStub(channel=channel)
 
-    def create_vtsi_project(self, request: voip_pb2.CreateVtsiProjectRequest) -> voip_pb2.CreateVtsiProjectResponse:
-        return self.voip_stub.CreateVtsiProject(request=request)
+    def create_vtsi_project(self, request: vtsi_pb2.CreateVtsiProjectRequest) -> vtsi_pb2.CreateVtsiProjectResponse:
+        return self.vtsi_stub.CreateVtsiProject(request=request)
 
-    def get_vtsi_project(self, request: voip_pb2.GetVtsiProjectRequest) -> voip_pb2.VtsiProject:
-        return self.voip_stub.GetVtsiProject(request=request)
+    def get_vtsi_project(self, request: vtsi_pb2.GetVtsiProjectRequest) -> vtsi_pb2.VtsiProject:
+        return self.vtsi_stub.GetVtsiProject(request=request)
 
-    def update_vtsi_project(self, request: voip_pb2.UpdateVtsiProjectRequest) -> voip_pb2.UpdateVtsiProjectResponse:
-        return self.voip_stub.UpdateVtsiProject(request=request)
+    def update_vtsi_project(self, request: vtsi_pb2.UpdateVtsiProjectRequest) -> vtsi_pb2.UpdateVtsiProjectResponse:
+        return self.vtsi_stub.UpdateVtsiProject(request=request)
 
-    def delete_vtsi_project(self, request: voip_pb2.DeleteVtsiProjectRequest) -> voip_pb2.DeleteVtsiProjectResponse:
-        return self.voip_stub.DeleteVtsiProject(request=request)
+    def delete_vtsi_project(self, request: vtsi_pb2.DeleteVtsiProjectRequest) -> vtsi_pb2.DeleteVtsiProjectResponse:
+        return self.vtsi_stub.DeleteVtsiProject(request=request)
 
-    def deploy_vtsi_project(self, request: voip_pb2.DeployVtsiProjectRequest) -> voip_pb2.DeployVtsiProjectResponse:
-        return self.voip_stub.DeployVtsiProject(request=request)
+    def deploy_vtsi_project(self, request: vtsi_pb2.DeployVtsiProjectRequest) -> vtsi_pb2.DeployVtsiProjectResponse:
+        return self.vtsi_stub.DeployVtsiProject(request=request)
 
     def undeploy_vtsi_project(
         self,
-        request: voip_pb2.UndeployVtsiProjectRequest
-    ) -> voip_pb2.UndeployVtsiProjectResponse:
-        return self.voip_stub.UndeployVtsiProject(request=request)
+        request: vtsi_pb2.UndeployVtsiProjectRequest
+    ) -> vtsi_pb2.UndeployVtsiProjectResponse:
+        return self.vtsi_stub.UndeployVtsiProject(request=request)
 
-    def start_caller(self, request: voip_pb2.StartCallerRequest) -> voip_pb2.StartCallerResponse:
-        return self.voip_stub.StartCaller(request=request)
+    def start_caller(self, request: vtsi_pb2.StartCallerRequest) -> vtsi_pb2.StartCallerResponse:
+        return self.vtsi_stub.StartCaller(request=request)
 
-    def start_callers(self, request: voip_pb2.StartCallersRequest) -> voip_pb2.StartCallersResponse:
-        return self.voip_stub.StartCallers(request=request)
+    def start_callers(self, request: vtsi_pb2.StartCallersRequest) -> vtsi_pb2.StartCallersResponse:
+        return self.vtsi_stub.StartCallers(request=request)
 
-    def start_listener(self, request: voip_pb2.StartListenerRequest) -> voip_pb2.StartListenerResponse:
-        return self.voip_stub.StartListener(request=request)
+    def start_listener(self, request: vtsi_pb2.StartListenerRequest) -> vtsi_pb2.StartListenerResponse:
+        return self.vtsi_stub.StartListener(request=request)
 
-    def start_listeners(self, request: voip_pb2.StartListenersRequest) -> voip_pb2.StartListenersResponse:
-        return self.voip_stub.StartListeners(request=request)
+    def start_listeners(self, request: vtsi_pb2.StartListenersRequest) -> vtsi_pb2.StartListenersResponse:
+        return self.vtsi_stub.StartListeners(request=request)
 
     def start_scheduled_caller(
         self,
-        request: voip_pb2.StartScheduledCallerRequest
-    ) -> voip_pb2.StartScheduledCallerResponse:
-        return self.voip_stub.StartScheduledCaller(request=request)
+        request: vtsi_pb2.StartScheduledCallerRequest
+    ) -> vtsi_pb2.StartScheduledCallerResponse:
+        return self.vtsi_stub.StartScheduledCaller(request=request)
 
     def start_scheduled_callers(
-        self, request: voip_pb2.StartScheduledCallersRequest
-    ) -> voip_pb2.StartScheduledCallersResponse:
-        return self.voip_stub.StartScheduledCallers(request=request)
+        self, request: vtsi_pb2.StartScheduledCallersRequest
+    ) -> vtsi_pb2.StartScheduledCallersResponse:
+        return self.vtsi_stub.StartScheduledCallers(request=request)
 
-    def stop_call(self, request: voip_pb2.StopCallRequest) -> voip_pb2.StopCallResponse:
-        return self.voip_stub.StopCall(request=request)
+    def stop_call(self, request: vtsi_pb2.StopCallRequest) -> vtsi_pb2.StopCallResponse:
+        return self.vtsi_stub.StopCall(request=request)
 
-    def stop_calls(self, request: voip_pb2.StopCallsRequest) -> voip_pb2.StopCallsResponse:
-        return self.voip_stub.StopCalls(request=request)
+    def stop_calls(self, request: vtsi_pb2.StopCallsRequest) -> vtsi_pb2.StopCallsResponse:
+        return self.vtsi_stub.StopCalls(request=request)
 
-    def stop_all_calls(self, request: voip_pb2.StopAllCallsRequest) -> voip_pb2.StopCallsResponse:
-        return self.voip_stub.StopAllCalls(request=request)
+    def stop_all_calls(self, request: vtsi_pb2.StopAllCallsRequest) -> vtsi_pb2.StopCallsResponse:
+        return self.vtsi_stub.StopAllCalls(request=request)
 
-    def transfer_call(self, request: voip_pb2.TransferCallRequest) -> voip_pb2.TransferCallResponse:
-        return self.voip_stub.TransferCall(request=request)
+    def transfer_call(self, request: vtsi_pb2.TransferCallRequest) -> vtsi_pb2.TransferCallResponse:
+        return self.vtsi_stub.TransferCall(request=request)
 
-    def transfer_calls(self, request: voip_pb2.TransferCallsRequest) -> voip_pb2.TransferCallsResponse:
-        return self.voip_stub.TransferCalls(request=request)
+    def transfer_calls(self, request: vtsi_pb2.TransferCallsRequest) -> vtsi_pb2.TransferCallsResponse:
+        return self.vtsi_stub.TransferCalls(request=request)
 
-    def get_voip_call_info(self, request: voip_pb2.GetVoipCallInfoRequest) -> voip_pb2.GetVoipCallInfoResponse:
-        return self.voip_stub.GetVoipCallInfo(request=request)
+    def get_vtsi_call_info(self, request: vtsi_pb2.GetCallInfoRequest) -> vtsi_pb2.GetCallInfoResponse:
+        return self.vtsi_stub.GetCallInfo(request=request)
 
-    def list_voip_call_info(self, request: voip_pb2.ListVoipCallInfoRequest) -> voip_pb2.ListVoipCallInfoResponse:
-        return self.voip_stub.ListVoipCallInfo(request=request)
+    def list_vtsi_call_info(self, request: vtsi_pb2.ListCallInfoRequest) -> vtsi_pb2.ListCallInfoResponse:
+        return self.vtsi_stub.ListCallInfo(request=request)
 
-    def get_audio_file(self, request: voip_pb2.GetAudioFileRequest) -> voip_pb2.GetAudioFileResponse:
-        return self.voip_stub.GetAudioFile(request=request)
+    def get_audio_file(self, request: vtsi_pb2.GetAudioFileRequest) -> vtsi_pb2.GetAudioFileResponse:
+        return self.vtsi_stub.GetAudioFile(request=request)
 
     def get_full_conversation_audio_file(
         self,
-        request: voip_pb2.GetFullConversationAudioFileRequest
-    ) -> voip_pb2.GetFullConversationAudioFileResponse:
-        return self.voip_stub.GetFullConversationAudioFile(request=request)
+        request: vtsi_pb2.GetFullConversationAudioFileRequest
+    ) -> vtsi_pb2.GetFullConversationAudioFileResponse:
+        return self.vtsi_stub.GetFullConversationAudioFile(request=request)
