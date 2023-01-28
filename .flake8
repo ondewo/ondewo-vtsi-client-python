@@ -43,5 +43,6 @@ exclude =
     ./ondewo/sip/sip_pb2.py,
     ./ondewo/t2s/text_to_speech_pb2_grpc.py,
     ./ondewo/t2s/text_to_speech_pb2.py,
-    ./ondewo/vtsi/voip_pb2_grpc.py,
-    ./ondewo/vtsi/voip_pb2.py,
+    ./ondewo/vtsi/vtsi_pb2_grpc.py,
+    ./ondewo/vtsi/vtsi_pb2.py,
+    ./ondewo/vtsi/vtsi_pb2.pyi,
