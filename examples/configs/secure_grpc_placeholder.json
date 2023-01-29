@@ -1,0 +1,5 @@
+{
+    "grpc_cert": "YOUR_GRPC_CERTIFICATE",
+    "host": "grpc-vtsi.ondewo.com",
+    "port": "443"
+}
