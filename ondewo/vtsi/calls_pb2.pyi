@@ -673,10 +673,10 @@ global___Caller = Caller
 class StartListenerRequest(google.protobuf.message.Message):
     """request for starting a listener"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     SIP_CONFIG_FIELD_NUMBER: builtins.int
     COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
-    name: typing.Text
+    vtsi_project_name: typing.Text
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
 
     @property
@@ -689,21 +689,21 @@ class StartListenerRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        name: typing.Text = ...,
+        vtsi_project_name: typing.Text = ...,
         sip_config: typing.Optional[global___SipBaseConfig] = ...,
         common_services_config: typing.Optional[global___CommonServicesConfig] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["common_services_config",b"common_services_config","sip_config",b"sip_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["common_services_config",b"common_services_config","name",b"name","sip_config",b"sip_config"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["common_services_config",b"common_services_config","sip_config",b"sip_config","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___StartListenerRequest = StartListenerRequest
 
 class StartListenerResponse(google.protobuf.message.Message):
     """Response to start multiple listeners"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     LISTENER_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: typing.Text
+    vtsi_project_name: typing.Text
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
 
     @property
@@ -713,20 +713,20 @@ class StartListenerResponse(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        name: typing.Text = ...,
+        vtsi_project_name: typing.Text = ...,
         listener: typing.Optional[global___Listener] = ...,
         error_message: typing.Text = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["listener",b"listener"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","listener",b"listener","name",b"name"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","listener",b"listener","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___StartListenerResponse = StartListenerResponse
 
 class StartListenersRequest(google.protobuf.message.Message):
     """Request to start multiple listeners"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     LISTENER_REQUESTS_FIELD_NUMBER: builtins.int
-    name: typing.Text
+    vtsi_project_name: typing.Text
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
 
     @property
@@ -735,19 +735,19 @@ class StartListenersRequest(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        name: typing.Text = ...,
+        vtsi_project_name: typing.Text = ...,
         listener_requests: typing.Optional[typing.Iterable[global___StartListenerRequest]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["listener_requests",b"listener_requests","name",b"name"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["listener_requests",b"listener_requests","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___StartListenersRequest = StartListenersRequest
 
 class StartListenersResponse(google.protobuf.message.Message):
     """Response to start multiple listeners"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     LISTENER_RESPONSES_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: typing.Text
+    vtsi_project_name: typing.Text
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
 
     @property
@@ -759,11 +759,11 @@ class StartListenersResponse(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        name: typing.Text = ...,
+        vtsi_project_name: typing.Text = ...,
         listener_responses: typing.Optional[typing.Iterable[global___StartListenerResponse]] = ...,
         error_message: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","listener_responses",b"listener_responses","name",b"name"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","listener_responses",b"listener_responses","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___StartListenersResponse = StartListenersResponse
 
 class StartCallerRequest(google.protobuf.message.Message):
