@@ -221,17 +221,14 @@ class AsteriskConfig(google.protobuf.message.Message):
 global___AsteriskConfig = AsteriskConfig
 
 class CommonServicesConfig(google.protobuf.message.Message):
-    """It is common for both listener and caller"""
+    """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+    which are common for both listener and caller
+    """
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    ASTERISK_VTSI_CONFIG_FIELD_NUMBER: builtins.int
     S2T_VTSI_CONFIG_FIELD_NUMBER: builtins.int
     NLU_VTSI_CONFIG_FIELD_NUMBER: builtins.int
     T2S_VTSI_CONFIG_FIELD_NUMBER: builtins.int
     CSI_VTSI_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def asterisk_vtsi_config(self) -> global___AsteriskConfig:
-        """Asterisk service configuration"""
-        pass
     @property
     def s2t_vtsi_config(self) -> global___S2tVtsiConfig:
         """speech-to-text service configuration"""
@@ -250,14 +247,13 @@ class CommonServicesConfig(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        asterisk_vtsi_config: typing.Optional[global___AsteriskConfig] = ...,
         s2t_vtsi_config: typing.Optional[global___S2tVtsiConfig] = ...,
         nlu_vtsi_config: typing.Optional[global___NluVtsiConfig] = ...,
         t2s_vtsi_config: typing.Optional[global___T2sVtsiConfig] = ...,
         csi_vtsi_config: typing.Optional[global___CsiVtsiConfig] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["asterisk_vtsi_config",b"asterisk_vtsi_config","csi_vtsi_config",b"csi_vtsi_config","nlu_vtsi_config",b"nlu_vtsi_config","s2t_vtsi_config",b"s2t_vtsi_config","t2s_vtsi_config",b"t2s_vtsi_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["asterisk_vtsi_config",b"asterisk_vtsi_config","csi_vtsi_config",b"csi_vtsi_config","nlu_vtsi_config",b"nlu_vtsi_config","s2t_vtsi_config",b"s2t_vtsi_config","t2s_vtsi_config",b"t2s_vtsi_config"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["csi_vtsi_config",b"csi_vtsi_config","nlu_vtsi_config",b"nlu_vtsi_config","s2t_vtsi_config",b"s2t_vtsi_config","t2s_vtsi_config",b"t2s_vtsi_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["csi_vtsi_config",b"csi_vtsi_config","nlu_vtsi_config",b"nlu_vtsi_config","s2t_vtsi_config",b"s2t_vtsi_config","t2s_vtsi_config",b"t2s_vtsi_config"]) -> None: ...
 global___CommonServicesConfig = CommonServicesConfig
 
 class SipBaseConfig(google.protobuf.message.Message):
@@ -622,7 +618,7 @@ class Listener(google.protobuf.message.Message):
         pass
     @property
     def common_services_config(self) -> global___CommonServicesConfig:
-        """Service Configs of Asterisk, Speech-2-Text, NLU, Text-2-Speech and CSI"""
+        """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
         pass
     def __init__(self,
         *,
@@ -657,7 +653,7 @@ class Caller(google.protobuf.message.Message):
         pass
     @property
     def common_services_config(self) -> global___CommonServicesConfig:
-        """Service Configs of Asterisk, Speech-2-Text, NLU, Text-2-Speech and CSI"""
+        """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
         pass
     def __init__(self,
         *,
@@ -685,7 +681,7 @@ class StartListenerRequest(google.protobuf.message.Message):
         pass
     @property
     def common_services_config(self) -> global___CommonServicesConfig:
-        """Service Configs of Asterisk, nlu,stt, tts"""
+        """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
         pass
     def __init__(self,
         *,
@@ -781,7 +777,7 @@ class StartCallerRequest(google.protobuf.message.Message):
         pass
     @property
     def common_services_config(self) -> global___CommonServicesConfig:
-        """Service Configs of Asterisk, nlu,stt, tts"""
+        """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
         pass
     def __init__(self,
         *,
@@ -980,7 +976,7 @@ class ScheduledCaller(google.protobuf.message.Message):
         pass
     @property
     def common_services_config(self) -> global___CommonServicesConfig:
-        """Service Configs of Asterisk, Speech-2-Text, NLU, Text-2-Speech and CSI"""
+        """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
         pass
     @property
     def scheduled_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
