@@ -4,11 +4,73 @@ isort:skip_file
 """
 import builtins
 import google.protobuf.descriptor
+import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import google.protobuf.timestamp_pb2
 import typing
 import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _VtsiProjectStatus:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _VtsiProjectStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VtsiProjectStatus.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    UNSPECIFIED: _VtsiProjectStatus.ValueType  # 0
+    """No status specified"""
+
+    UNDEPLOYED: _VtsiProjectStatus.ValueType  # 1
+    """Project successfully created and undeployed"""
+
+    UPDATING: _VtsiProjectStatus.ValueType  # 2
+    """Project configuration is updating"""
+
+    DEPLOYING: _VtsiProjectStatus.ValueType  # 3
+    """Project is deploying"""
+
+    DEPLOYED: _VtsiProjectStatus.ValueType  # 4
+    """Project is deployed"""
+
+    UNDEPLOYING: _VtsiProjectStatus.ValueType  # 5
+    """Project is un-deploying"""
+
+    DELETING: _VtsiProjectStatus.ValueType  # 6
+    """Project is currently deleting"""
+
+    DELETED: _VtsiProjectStatus.ValueType  # 7
+    """Project is deleted"""
+
+class VtsiProjectStatus(_VtsiProjectStatus, metaclass=_VtsiProjectStatusEnumTypeWrapper):
+    """Status of a VtsiProject."""
+    pass
+
+UNSPECIFIED: VtsiProjectStatus.ValueType  # 0
+"""No status specified"""
+
+UNDEPLOYED: VtsiProjectStatus.ValueType  # 1
+"""Project successfully created and undeployed"""
+
+UPDATING: VtsiProjectStatus.ValueType  # 2
+"""Project configuration is updating"""
+
+DEPLOYING: VtsiProjectStatus.ValueType  # 3
+"""Project is deploying"""
+
+DEPLOYED: VtsiProjectStatus.ValueType  # 4
+"""Project is deployed"""
+
+UNDEPLOYING: VtsiProjectStatus.ValueType  # 5
+"""Project is un-deploying"""
+
+DELETING: VtsiProjectStatus.ValueType  # 6
+"""Project is currently deleting"""
+
+DELETED: VtsiProjectStatus.ValueType  # 7
+"""Project is deleted"""
+
+global___VtsiProjectStatus = VtsiProjectStatus
+
 
 class VtsiProject(google.protobuf.message.Message):
     """The VTSI project with its configuration setting"""
@@ -18,6 +80,11 @@ class VtsiProject(google.protobuf.message.Message):
     MAX_CALLERS_FIELD_NUMBER: builtins.int
     MAX_LISTENERS_FIELD_NUMBER: builtins.int
     ASTERISK_CONFIGS_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_STATUS_FIELD_NUMBER: builtins.int
+    CREATED_BY_FIELD_NUMBER: builtins.int
+    CREATED_AT_FIELD_NUMBER: builtins.int
+    MODIFIED_BY_FIELD_NUMBER: builtins.int
+    MODIFIED_AT_FIELD_NUMBER: builtins.int
     name: typing.Text
     """Required. The project name. Format: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Only when a new VtsiProject is created the name can be undefined/empty
@@ -36,6 +103,21 @@ class VtsiProject(google.protobuf.message.Message):
     def asterisk_configs(self) -> global___AsteriskConfigs:
         """Configs to start the asterisk server."""
         pass
+    vtsi_project_status: global___VtsiProjectStatus.ValueType
+    created_by: typing.Text
+    """The user who created the vtsi project. Readonly."""
+
+    @property
+    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Creation time of the vtsi project. Readonly."""
+        pass
+    modified_by: typing.Text
+    """The user who modified the vtsi project. Readonly."""
+
+    @property
+    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Modification time of the vtsi project. Readonly."""
+        pass
     def __init__(self,
         *,
         name: typing.Text = ...,
@@ -43,9 +125,14 @@ class VtsiProject(google.protobuf.message.Message):
         max_callers: builtins.int = ...,
         max_listeners: builtins.int = ...,
         asterisk_configs: typing.Optional[global___AsteriskConfigs] = ...,
+        vtsi_project_status: global___VtsiProjectStatus.ValueType = ...,
+        created_by: typing.Text = ...,
+        created_at: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        modified_by: typing.Text = ...,
+        modified_at: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["asterisk_configs",b"asterisk_configs"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["asterisk_configs",b"asterisk_configs","display_name",b"display_name","max_callers",b"max_callers","max_listeners",b"max_listeners","name",b"name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["asterisk_configs",b"asterisk_configs","created_at",b"created_at","modified_at",b"modified_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["asterisk_configs",b"asterisk_configs","created_at",b"created_at","created_by",b"created_by","display_name",b"display_name","max_callers",b"max_callers","max_listeners",b"max_listeners","modified_at",b"modified_at","modified_by",b"modified_by","name",b"name","vtsi_project_status",b"vtsi_project_status"]) -> None: ...
 global___VtsiProject = VtsiProject
 
 class AsteriskConfigsVariables(google.protobuf.message.Message):

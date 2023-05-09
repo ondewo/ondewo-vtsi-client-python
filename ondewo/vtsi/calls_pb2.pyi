@@ -1286,12 +1286,14 @@ class CallInfo(google.protobuf.message.Message):
     """Listener or caller enum .. if not specified"""
 
     phone_number: typing.Text
-    start_time: builtins.float
-    """start time of log"""
-
-    end_time: builtins.float
-    """end time of log"""
-
+    @property
+    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """start time of log"""
+        pass
+    @property
+    def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """end time of log"""
+        pass
     @property
     def sip_status(self) -> ondewo.sip.sip_pb2.SipStatus:
         """current sip status"""
@@ -1311,13 +1313,13 @@ class CallInfo(google.protobuf.message.Message):
         container_name: typing.Text = ...,
         call_type: global___CallType.ValueType = ...,
         phone_number: typing.Text = ...,
-        start_time: builtins.float = ...,
-        end_time: builtins.float = ...,
+        start_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        end_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
         sip_status: typing.Optional[ondewo.sip.sip_pb2.SipStatus] = ...,
         sip_status_history: typing.Optional[ondewo.sip.sip_pb2.SipStatusHistoryResponse] = ...,
         services_statuses: typing.Optional[global___AllServicesStatuses] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["services_statuses",b"services_statuses","sip_status",b"sip_status","sip_status_history",b"sip_status_history"]) -> builtins.bool: ...
+    def HasField(self, field_name: typing_extensions.Literal["end_time",b"end_time","services_statuses",b"services_statuses","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["call_name",b"call_name","call_type",b"call_type","container_name",b"container_name","end_time",b"end_time","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> None: ...
 global___CallInfo = CallInfo
 
