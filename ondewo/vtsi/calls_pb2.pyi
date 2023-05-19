@@ -124,6 +124,7 @@ class NluVtsiConfig(google.protobuf.message.Message):
     LANGUAGE_CODE_FIELD_NUMBER: builtins.int
     INITIAL_INTENT_FIELD_NUMBER: builtins.int
     CONTEXTS_FIELD_NUMBER: builtins.int
+    HTTP_BASIC_AUTH_TOKEN_FIELD_NUMBER: builtins.int
     @property
     def nlu_base_config(self) -> global___BaseServiceConfig:
         """Base config
@@ -150,6 +151,9 @@ class NluVtsiConfig(google.protobuf.message.Message):
     def contexts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ondewo.nlu.context_pb2.Context]:
         """ondewo-nlu list of contexts"""
         pass
+    http_basic_auth_token: typing.Text
+    """http basic auth token"""
+
     def __init__(self,
         *,
         nlu_base_config: typing.Optional[global___BaseServiceConfig] = ...,
@@ -159,9 +163,10 @@ class NluVtsiConfig(google.protobuf.message.Message):
         language_code: typing.Text = ...,
         initial_intent: typing.Text = ...,
         contexts: typing.Optional[typing.Iterable[ondewo.nlu.context_pb2.Context]] = ...,
+        http_basic_auth_token: typing.Text = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["auth_token",b"auth_token","authentication",b"authentication","credentials",b"credentials","nlu_base_config",b"nlu_base_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["agent_name",b"agent_name","auth_token",b"auth_token","authentication",b"authentication","contexts",b"contexts","credentials",b"credentials","initial_intent",b"initial_intent","language_code",b"language_code","nlu_base_config",b"nlu_base_config"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["agent_name",b"agent_name","auth_token",b"auth_token","authentication",b"authentication","contexts",b"contexts","credentials",b"credentials","http_basic_auth_token",b"http_basic_auth_token","initial_intent",b"initial_intent","language_code",b"language_code","nlu_base_config",b"nlu_base_config"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["authentication",b"authentication"]) -> typing.Optional[typing_extensions.Literal["credentials","auth_token"]]: ...
 global___NluVtsiConfig = NluVtsiConfig
 
