@@ -16,8 +16,8 @@ with open("requirements.txt") as f:
 
 setup(
     name="ondewo-vtsi-client",
-    version='5.0.0',
-    author="ONDEWO GbmH",
+    version='6.0.0',
+    author="Ondewo GbmH",
     author_email="office@ondewo.com",
     description="exposes the ondewo-vtsi endpoints in a user-friendly way",
     long_description=long_description,
@@ -41,10 +41,10 @@ setup(
         'ondewo.sip': ['py.typed', '*.pyi'],
     },
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "Operating System :: OS Independent",
-        "Development Status :: 3 - Alpha",
-        "Topic :: Software Development :: Libraries",
+        'Programming Language :: Python :: 3.8',
+        'Operating System :: OS Independent',
+        'Development Status :: 5 - Production/Stable',
+        'Topic :: Software Development :: Libraries',
     ],
     python_requires='>=3',
     install_requires=requires,
