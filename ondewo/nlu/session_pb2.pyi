@@ -9,6 +9,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.struct_pb2
+import google.protobuf.timestamp_pb2
 import google.rpc.status_pb2
 import google.type.latlng_pb2
 import ondewo.nlu.context_pb2
@@ -908,7 +909,7 @@ class Session(google.protobuf.message.Message):
     SESSION_INFO_FIELD_NUMBER: builtins.int
     name: typing.Text
     """The unique identifier of the session
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code></pre>
     """
 
     @property
@@ -916,7 +917,9 @@ class Session(google.protobuf.message.Message):
         """The list of all the steps of the session"""
         pass
     @property
-    def session_info(self) -> global___SessionInfo: ...
+    def session_info(self) -> global___SessionInfo:
+        """session information"""
+        pass
     def __init__(self,
         *,
         name: typing.Text = ...,
@@ -934,9 +937,10 @@ class SessionStep(google.protobuf.message.Message):
     DETECT_INTENT_REQUEST_FIELD_NUMBER: builtins.int
     DETECT_INTENT_RESPONSE_FIELD_NUMBER: builtins.int
     CONTEXTS_FIELD_NUMBER: builtins.int
+    TIMESTAMP_FIELD_NUMBER: builtins.int
     name: typing.Text
     """The unique identifier for the given review
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>/sessionsteps/<SESSION_ID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;/steps/&lt;session_step_uuid&gt;</code></pre>
     """
 
     @property
@@ -951,15 +955,20 @@ class SessionStep(google.protobuf.message.Message):
     def contexts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ondewo.nlu.context_pb2.Context]:
         """The contexts which were active at the beginning of this step"""
         pass
+    @property
+    def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Timestamp of session step"""
+        pass
     def __init__(self,
         *,
         name: typing.Text = ...,
         detect_intent_request: typing.Optional[global___DetectIntentRequest] = ...,
         detect_intent_response: typing.Optional[global___DetectIntentResponse] = ...,
         contexts: typing.Optional[typing.Iterable[ondewo.nlu.context_pb2.Context]] = ...,
+        timestamp: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["detect_intent_request",b"detect_intent_request","detect_intent_response",b"detect_intent_response"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["contexts",b"contexts","detect_intent_request",b"detect_intent_request","detect_intent_response",b"detect_intent_response","name",b"name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["detect_intent_request",b"detect_intent_request","detect_intent_response",b"detect_intent_response","timestamp",b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["contexts",b"contexts","detect_intent_request",b"detect_intent_request","detect_intent_response",b"detect_intent_response","name",b"name","timestamp",b"timestamp"]) -> None: ...
 global___SessionStep = SessionStep
 
 class TrackSessionStepRequest(google.protobuf.message.Message):
@@ -970,7 +979,7 @@ class TrackSessionStepRequest(google.protobuf.message.Message):
     SESSION_VIEW_FIELD_NUMBER: builtins.int
     session_id: typing.Text
     """The unique identifier for the given review
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>/steps/<SESSION_ID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;/steps/&lt;session_step_uuid&gt;</code></pre>.
     """
 
     @property
@@ -1000,7 +1009,7 @@ class ListSessionsRequest(google.protobuf.message.Message):
     FIELD_MASK_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     session_view: global___Session.View.ValueType
@@ -1108,6 +1117,8 @@ class SessionFilter(google.protobuf.message.Message):
     DATASTREAM_IDS_FIELD_NUMBER: builtins.int
     ORIGIN_IDS_FIELD_NUMBER: builtins.int
     IDENTIFIED_USER_IDS_FIELD_NUMBER: builtins.int
+    DURATION_INTERVAL_60S_ROUNDED_MIN_FIELD_NUMBER: builtins.int
+    DURATION_INTERVAL_60S_ROUNDED_MAX_FIELD_NUMBER: builtins.int
     @property
     def language_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
         """A SessionFilter can be used in some requests to return only sessions matching certain filter conditions.
@@ -1300,6 +1311,12 @@ class SessionFilter(google.protobuf.message.Message):
     def identified_user_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
         """Ids of the "identified user" e.g. for a chatbot the email address or for a phone bot the phone number of the user"""
         pass
+    duration_interval_60s_rounded_min: builtins.float
+    """Match only sessions for which the duration in 60 seconds rounded are larger or equal"""
+
+    duration_interval_60s_rounded_max: builtins.float
+    """Match only sessions for which the duration in 60 seconds rounded are smaller or equal"""
+
     def __init__(self,
         *,
         language_codes: typing.Optional[typing.Iterable[typing.Text]] = ...,
@@ -1349,8 +1366,10 @@ class SessionFilter(google.protobuf.message.Message):
         datastream_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
         origin_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
         identified_user_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        duration_interval_60s_rounded_min: builtins.float = ...,
+        duration_interval_60s_rounded_max: builtins.float = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["account_ids",b"account_ids","datastream_ids",b"datastream_ids","duration_in_m_max",b"duration_in_m_max","duration_in_m_min",b"duration_in_m_min","duration_in_m_rounded_max",b"duration_in_m_rounded_max","duration_in_m_rounded_min",b"duration_in_m_rounded_min","duration_in_s_max",b"duration_in_s_max","duration_in_s_min",b"duration_in_s_min","duration_in_s_rounded_max",b"duration_in_s_rounded_max","duration_in_s_rounded_min",b"duration_in_s_rounded_min","duration_interval_15s_rounded_max",b"duration_interval_15s_rounded_max","duration_interval_15s_rounded_min",b"duration_interval_15s_rounded_min","duration_interval_30s_rounded_max",b"duration_interval_30s_rounded_max","duration_interval_30s_rounded_min",b"duration_interval_30s_rounded_min","duration_interval_45s_rounded_max",b"duration_interval_45s_rounded_max","duration_interval_45s_rounded_min",b"duration_interval_45s_rounded_min","earliest",b"earliest","identified_user_ids",b"identified_user_ids","input_contexts",b"input_contexts","intent_tags",b"intent_tags","labels",b"labels","language_codes",b"language_codes","latest",b"latest","matched_entity_types",b"matched_entity_types","matched_intents",b"matched_intents","max_number_turns",b"max_number_turns","min_entity_types_confidence_max",b"min_entity_types_confidence_max","min_entity_types_confidence_min",b"min_entity_types_confidence_min","min_intents_confidence_max",b"min_intents_confidence_max","min_intents_confidence_min",b"min_intents_confidence_min","min_number_turns",b"min_number_turns","origin_ids",b"origin_ids","output_contexts",b"output_contexts","platforms",b"platforms","property_ids",b"property_ids","session_ids",b"session_ids","started_time_slot_per_day_phase_max",b"started_time_slot_per_day_phase_max","started_time_slot_per_day_phase_min",b"started_time_slot_per_day_phase_min","started_time_slot_per_half_hour_max",b"started_time_slot_per_half_hour_max","started_time_slot_per_half_hour_min",b"started_time_slot_per_half_hour_min","started_time_slot_per_hour_max",b"started_time_slot_per_hour_max","started_time_slot_per_hour_min",b"started_time_slot_per_hour_min","started_time_slot_per_minute_max",b"started_time_slot_per_minute_max","started_time_slot_per_minute_min",b"started_time_slot_per_minute_min","started_time_slot_per_quarter_hour_max",b"started_time_slot_per_quarter_hour_max","started_time_slot_per_quarter_hour_min",b"started_time_slot_per_quarter_hour_min","user_ids",b"user_ids"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["account_ids",b"account_ids","datastream_ids",b"datastream_ids","duration_in_m_max",b"duration_in_m_max","duration_in_m_min",b"duration_in_m_min","duration_in_m_rounded_max",b"duration_in_m_rounded_max","duration_in_m_rounded_min",b"duration_in_m_rounded_min","duration_in_s_max",b"duration_in_s_max","duration_in_s_min",b"duration_in_s_min","duration_in_s_rounded_max",b"duration_in_s_rounded_max","duration_in_s_rounded_min",b"duration_in_s_rounded_min","duration_interval_15s_rounded_max",b"duration_interval_15s_rounded_max","duration_interval_15s_rounded_min",b"duration_interval_15s_rounded_min","duration_interval_30s_rounded_max",b"duration_interval_30s_rounded_max","duration_interval_30s_rounded_min",b"duration_interval_30s_rounded_min","duration_interval_45s_rounded_max",b"duration_interval_45s_rounded_max","duration_interval_45s_rounded_min",b"duration_interval_45s_rounded_min","duration_interval_60s_rounded_max",b"duration_interval_60s_rounded_max","duration_interval_60s_rounded_min",b"duration_interval_60s_rounded_min","earliest",b"earliest","identified_user_ids",b"identified_user_ids","input_contexts",b"input_contexts","intent_tags",b"intent_tags","labels",b"labels","language_codes",b"language_codes","latest",b"latest","matched_entity_types",b"matched_entity_types","matched_intents",b"matched_intents","max_number_turns",b"max_number_turns","min_entity_types_confidence_max",b"min_entity_types_confidence_max","min_entity_types_confidence_min",b"min_entity_types_confidence_min","min_intents_confidence_max",b"min_intents_confidence_max","min_intents_confidence_min",b"min_intents_confidence_min","min_number_turns",b"min_number_turns","origin_ids",b"origin_ids","output_contexts",b"output_contexts","platforms",b"platforms","property_ids",b"property_ids","session_ids",b"session_ids","started_time_slot_per_day_phase_max",b"started_time_slot_per_day_phase_max","started_time_slot_per_day_phase_min",b"started_time_slot_per_day_phase_min","started_time_slot_per_half_hour_max",b"started_time_slot_per_half_hour_max","started_time_slot_per_half_hour_min",b"started_time_slot_per_half_hour_min","started_time_slot_per_hour_max",b"started_time_slot_per_hour_max","started_time_slot_per_hour_min",b"started_time_slot_per_hour_min","started_time_slot_per_minute_max",b"started_time_slot_per_minute_max","started_time_slot_per_minute_min",b"started_time_slot_per_minute_min","started_time_slot_per_quarter_hour_max",b"started_time_slot_per_quarter_hour_max","started_time_slot_per_quarter_hour_min",b"started_time_slot_per_quarter_hour_min","user_ids",b"user_ids"]) -> None: ...
 global___SessionFilter = SessionFilter
 
 class SessionInfo(google.protobuf.message.Message):
@@ -1399,6 +1418,7 @@ class SessionInfo(google.protobuf.message.Message):
     DATASTREAM_IDS_FIELD_NUMBER: builtins.int
     ORIGIN_IDS_FIELD_NUMBER: builtins.int
     IDENTIFIED_USER_IDS_FIELD_NUMBER: builtins.int
+    DURATION_INTERVAL_60S_ROUNDED_FIELD_NUMBER: builtins.int
     @property
     def language_codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
         """A SessionInfo contains some general information about a session.
@@ -1532,6 +1552,9 @@ class SessionInfo(google.protobuf.message.Message):
     def identified_user_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
         """Ids of the "identified user" e.g. for a chatbot the email address or for a phone bot the phone number of the user"""
         pass
+    duration_interval_60s_rounded: builtins.float
+    """duration in 60 seconds intervals rounded"""
+
     def __init__(self,
         *,
         language_codes: typing.Optional[typing.Iterable[typing.Text]] = ...,
@@ -1565,8 +1588,9 @@ class SessionInfo(google.protobuf.message.Message):
         datastream_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
         origin_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
         identified_user_ids: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        duration_interval_60s_rounded: builtins.float = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["account_ids",b"account_ids","datastream_ids",b"datastream_ids","duration_in_m",b"duration_in_m","duration_in_m_rounded",b"duration_in_m_rounded","duration_in_s",b"duration_in_s","duration_in_s_rounded",b"duration_in_s_rounded","duration_interval_15s_rounded",b"duration_interval_15s_rounded","duration_interval_30s_rounded",b"duration_interval_30s_rounded","duration_interval_45s_rounded",b"duration_interval_45s_rounded","earliest",b"earliest","identified_user_ids",b"identified_user_ids","input_context_steps",b"input_context_steps","intent_tags",b"intent_tags","labels",b"labels","language_codes",b"language_codes","latest",b"latest","matched_entity_types",b"matched_entity_types","matched_intents",b"matched_intents","min_entity_types_confidence",b"min_entity_types_confidence","min_intents_confidence",b"min_intents_confidence","number_turns",b"number_turns","origin_ids",b"origin_ids","output_context_steps",b"output_context_steps","platforms",b"platforms","property_ids",b"property_ids","started_time_slot_per_day_phase",b"started_time_slot_per_day_phase","started_time_slot_per_half_hour",b"started_time_slot_per_half_hour","started_time_slot_per_hour",b"started_time_slot_per_hour","started_time_slot_per_minute",b"started_time_slot_per_minute","started_time_slot_per_quarter_hour",b"started_time_slot_per_quarter_hour","user_ids",b"user_ids"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["account_ids",b"account_ids","datastream_ids",b"datastream_ids","duration_in_m",b"duration_in_m","duration_in_m_rounded",b"duration_in_m_rounded","duration_in_s",b"duration_in_s","duration_in_s_rounded",b"duration_in_s_rounded","duration_interval_15s_rounded",b"duration_interval_15s_rounded","duration_interval_30s_rounded",b"duration_interval_30s_rounded","duration_interval_45s_rounded",b"duration_interval_45s_rounded","duration_interval_60s_rounded",b"duration_interval_60s_rounded","earliest",b"earliest","identified_user_ids",b"identified_user_ids","input_context_steps",b"input_context_steps","intent_tags",b"intent_tags","labels",b"labels","language_codes",b"language_codes","latest",b"latest","matched_entity_types",b"matched_entity_types","matched_intents",b"matched_intents","min_entity_types_confidence",b"min_entity_types_confidence","min_intents_confidence",b"min_intents_confidence","number_turns",b"number_turns","origin_ids",b"origin_ids","output_context_steps",b"output_context_steps","platforms",b"platforms","property_ids",b"property_ids","started_time_slot_per_day_phase",b"started_time_slot_per_day_phase","started_time_slot_per_half_hour",b"started_time_slot_per_half_hour","started_time_slot_per_hour",b"started_time_slot_per_hour","started_time_slot_per_minute",b"started_time_slot_per_minute","started_time_slot_per_quarter_hour",b"started_time_slot_per_quarter_hour","user_ids",b"user_ids"]) -> None: ...
 global___SessionInfo = SessionInfo
 
 class ListSessionsResponse(google.protobuf.message.Message):
@@ -1597,7 +1621,7 @@ class GetSessionRequest(google.protobuf.message.Message):
     FIELD_MASK_FIELD_NUMBER: builtins.int
     session_id: typing.Text
     """The session to be returned
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code></pre>
     """
 
     session_view: global___Session.View.ValueType
@@ -1629,7 +1653,7 @@ class CreateSessionRequest(google.protobuf.message.Message):
     parent: typing.Text
     """Creates a session that collects all the conversation interactions between the machine and a user
     The unique identifier of an Agent
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     Required.
     """
 
@@ -1663,7 +1687,7 @@ class DeleteSessionRequest(google.protobuf.message.Message):
     SESSION_ID_FIELD_NUMBER: builtins.int
     session_id: typing.Text
     """Required. The session to be deleted
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_UUID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code></pre>
     """
 
     def __init__(self,
@@ -1682,12 +1706,12 @@ class CreateSessionReviewRequest(google.protobuf.message.Message):
     SESSION_REVIEW_VIEW_FIELD_NUMBER: builtins.int
     session_id: typing.Text
     """The unique identifier for the session under review
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code></pre>
     """
 
     parent_review_id: typing.Text
     """Optional: The unique identifier of the parent review
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>/reviews/<SESSION_REVIEW_ID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;/reviews/&lt;session_review_uuid&gt;</code></pre>
     """
 
     @property
@@ -1744,7 +1768,7 @@ class SessionReview(google.protobuf.message.Message):
     SESSION_REVIEW_STEPS_FIELD_NUMBER: builtins.int
     name: typing.Text
     """The unique identifier for the given review
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>/reviews/<SESSION_REVIEW_ID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;/reviews/&lt;session_review_uuid&gt;</code></pre>
     """
 
     @property
@@ -1770,9 +1794,10 @@ class SessionReviewStep(google.protobuf.message.Message):
     CONTEXTS_OUT_FIELD_NUMBER: builtins.int
     QUERY_TEXT_ORIGINAL_FIELD_NUMBER: builtins.int
     PLATFORMS_FIELD_NUMBER: builtins.int
+    TIMESTAMP_FIELD_NUMBER: builtins.int
     name: typing.Text
     """The unique identifier for the given review step
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>/reviews/<SESSION_REVIEW_ID>/sessionreviewsteps/<SESSION_REVIEW_STEP_ID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;/reviews/&lt;review_uuid&gt;/sessionreviewsteps/&lt;session_review_step_uuid&gt;</code></pre>
     """
 
     @property
@@ -1805,6 +1830,10 @@ class SessionReviewStep(google.protobuf.message.Message):
     def platforms(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType]:
         """Messages for each of the Intent.Message.Platform were sent to the user"""
         pass
+    @property
+    def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Timestamp of session review step"""
+        pass
     def __init__(self,
         *,
         name: typing.Text = ...,
@@ -1815,9 +1844,10 @@ class SessionReviewStep(google.protobuf.message.Message):
         contexts_out: typing.Optional[typing.Iterable[ondewo.nlu.context_pb2.Context]] = ...,
         query_text_original: typing.Text = ...,
         platforms: typing.Optional[typing.Iterable[ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType]] = ...,
+        timestamp: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["annotated_usersays",b"annotated_usersays"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["annotated_usersays",b"annotated_usersays","contexts",b"contexts","contexts_out",b"contexts_out","detected_intents",b"detected_intents","language_code",b"language_code","name",b"name","platforms",b"platforms","query_text_original",b"query_text_original"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["annotated_usersays",b"annotated_usersays","timestamp",b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["annotated_usersays",b"annotated_usersays","contexts",b"contexts","contexts_out",b"contexts_out","detected_intents",b"detected_intents","language_code",b"language_code","name",b"name","platforms",b"platforms","query_text_original",b"query_text_original","timestamp",b"timestamp"]) -> None: ...
 global___SessionReviewStep = SessionReviewStep
 
 class DetectedIntent(google.protobuf.message.Message):
@@ -1886,7 +1916,7 @@ class ListSessionLabelsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the labels for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -1924,7 +1954,7 @@ class ListLanguageCodesOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the language_codes for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -1962,7 +1992,7 @@ class ListMatchedIntentsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the matched_intents for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2000,7 +2030,7 @@ class ListMatchedEntityTypesOfAllSessionsRequest(google.protobuf.message.Message
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the matched_entity_types for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2038,7 +2068,7 @@ class ListUserIdsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the user_ids for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2076,7 +2106,7 @@ class ListIdentifiedUserIdsOfAllSessionsRequest(google.protobuf.message.Message)
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the identified_user_ids for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2114,7 +2144,7 @@ class ListTagsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the tags for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2152,7 +2182,7 @@ class ListInputContextsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the input_contexts for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2190,7 +2220,7 @@ class ListOutputContextsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the output_contexts for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2228,7 +2258,7 @@ class ListPlatformsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the platforms for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2266,7 +2296,7 @@ class ListAccountIdsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the account_ids for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2304,7 +2334,7 @@ class ListPropertyIdsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the property_ids for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2342,7 +2372,7 @@ class ListDatastreamIdsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the datastream_ids for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2380,7 +2410,7 @@ class ListOriginIdsOfAllSessionsRequest(google.protobuf.message.Message):
     SESSION_FILTER_FIELD_NUMBER: builtins.int
     parent: typing.Text
     """The parent for which the origin_ids for all sessions should be listed
-    Format: `projects/<PROJECT_ID>/agent`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
 
     @property
@@ -2459,7 +2489,7 @@ class ListSessionReviewsRequest(google.protobuf.message.Message):
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     session_id: typing.Text
     """The unique identifier for the session for which reviews should be listed
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code></pre>
     """
 
     session_review_view: global___SessionReview.View.ValueType
@@ -2521,7 +2551,7 @@ class GetLatestSessionReviewRequest(google.protobuf.message.Message):
     SESSION_REVIEW_VIEW_FIELD_NUMBER: builtins.int
     session_id: typing.Text
     """The unique identifier of the session for which the latest review should be returned
-    Format: `projects/<PROJECT_ID>/agent/sessions/<SESSION_ID>`.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code></pre>
     """
 
     session_review_view: global___SessionReview.View.ValueType
