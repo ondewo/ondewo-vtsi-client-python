@@ -346,9 +346,9 @@ global___GetVtsiProjectRequest = GetVtsiProjectRequest
 class ListVtsiProjectsRequest(google.protobuf.message.Message):
     """Request to get the list of agents"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    PROJECT_VIEW_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_VIEW_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    project_view: global___VtsiProjectView.ValueType
+    vtsi_project_view: global___VtsiProjectView.ValueType
     """Optional. Specify the view of the returned VtsiProject (full view by default)"""
 
     page_token: typing.Text
@@ -356,10 +356,10 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        project_view: global___VtsiProjectView.ValueType = ...,
+        vtsi_project_view: global___VtsiProjectView.ValueType = ...,
         page_token: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["page_token",b"page_token","project_view",b"project_view"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["page_token",b"page_token","vtsi_project_view",b"vtsi_project_view"]) -> None: ...
 global___ListVtsiProjectsRequest = ListVtsiProjectsRequest
 
 class ListVtsiProjectsResponse(google.protobuf.message.Message):
