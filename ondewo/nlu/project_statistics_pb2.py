@@ -71,14 +71,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
     _PROJECTSTATISTICS.methods_by_name['GetEntityValueCount']._serialized_options = b'\202\323\344\223\0027\0225/{name=projects/*/agent/entityTypes/*}/entities:count'
     _PROJECTSTATISTICS.methods_by_name['GetEntitySynonymCount']._options = None
     _PROJECTSTATISTICS.methods_by_name['GetEntitySynonymCount']._serialized_options = b'\202\323\344\223\002L\022J/{name=projects/*/agent/entityTypes/*/entityValues/*}/entitySynonyms:count'
-    _GETINTENTCOUNTREQUEST._serialized_start = 161
-    _GETINTENTCOUNTREQUEST._serialized_end = 256
-    _GETENTITYTYPECOUNTREQUEST._serialized_start = 258
-    _GETENTITYTYPECOUNTREQUEST._serialized_end = 361
-    _GETPROJECTSTATREQUEST._serialized_start = 363
-    _GETPROJECTSTATREQUEST._serialized_end = 402
-    _GETPROJECTELEMENTSTATREQUEST._serialized_start = 404
-    _GETPROJECTELEMENTSTATREQUEST._serialized_end = 471
-    _PROJECTSTATISTICS._serialized_start = 474
-    _PROJECTSTATISTICS._serialized_end = 1664
+    _GETINTENTCOUNTREQUEST._serialized_start=161
+    _GETINTENTCOUNTREQUEST._serialized_end=256
+    _GETENTITYTYPECOUNTREQUEST._serialized_start=258
+    _GETENTITYTYPECOUNTREQUEST._serialized_end=361
+    _GETPROJECTSTATREQUEST._serialized_start=363
+    _GETPROJECTSTATREQUEST._serialized_end=402
+    _GETPROJECTELEMENTSTATREQUEST._serialized_start=404
+    _GETPROJECTELEMENTSTATREQUEST._serialized_end=471
+    _PROJECTSTATISTICS._serialized_start=474
+    _PROJECTSTATISTICS._serialized_end=1664
 # @@protoc_insertion_point(module_scope)

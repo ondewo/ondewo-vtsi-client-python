@@ -71,16 +71,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
     _WEBHOOK.methods_by_name['SlotFilling']._serialized_options = b'\202\323\344\223\0027\"2/{session=projects/*/agent/sessions/*}:slotFilling:\001*'
     _WEBHOOK.methods_by_name['Ping']._options = None
     _WEBHOOK.methods_by_name['Ping']._serialized_options = b'\202\323\344\223\002 \022\036/projects/*/agent/webhook:ping'
-    _PINGREQUEST._serialized_start = 177
-    _PINGREQUEST._serialized_end = 207
-    _WEBHOOKREQUEST._serialized_start = 210
-    _WEBHOOKREQUEST._serialized_end = 434
-    _WEBHOOKRESPONSE._serialized_start = 437
-    _WEBHOOKRESPONSE._serialized_end = 696
-    _ORIGINALDETECTINTENTREQUEST._serialized_start = 698
-    _ORIGINALDETECTINTENTREQUEST._serialized_end = 785
-    _PINGRESPONSE._serialized_start = 787
-    _PINGRESPONSE._serialized_end = 823
-    _WEBHOOK._serialized_start = 826
-    _WEBHOOK._serialized_end = 1220
+    _PINGREQUEST._serialized_start=177
+    _PINGREQUEST._serialized_end=207
+    _WEBHOOKREQUEST._serialized_start=210
+    _WEBHOOKREQUEST._serialized_end=434
+    _WEBHOOKRESPONSE._serialized_start=437
+    _WEBHOOKRESPONSE._serialized_end=696
+    _ORIGINALDETECTINTENTREQUEST._serialized_start=698
+    _ORIGINALDETECTINTENTREQUEST._serialized_end=785
+    _PINGRESPONSE._serialized_start=787
+    _PINGRESPONSE._serialized_end=823
+    _WEBHOOK._serialized_start=826
+    _WEBHOOK._serialized_end=1220
 # @@protoc_insertion_point(module_scope)

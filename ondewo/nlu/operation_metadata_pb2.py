@@ -29,10 +29,10 @@ _sym_db.RegisterMessage(OperationMetadata)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
     DESCRIPTOR._options = None
-    _OPERATIONMETADATA._serialized_start = 85
-    _OPERATIONMETADATA._serialized_end = 995
-    _OPERATIONMETADATA_STATUS._serialized_start = 683
-    _OPERATIONMETADATA_STATUS._serialized_end = 786
-    _OPERATIONMETADATA_OPERATIONTYPE._serialized_start = 789
-    _OPERATIONMETADATA_OPERATIONTYPE._serialized_end = 995
+    _OPERATIONMETADATA._serialized_start=85
+    _OPERATIONMETADATA._serialized_end=995
+    _OPERATIONMETADATA_STATUS._serialized_start=683
+    _OPERATIONMETADATA_STATUS._serialized_end=786
+    _OPERATIONMETADATA_OPERATIONTYPE._serialized_start=789
+    _OPERATIONMETADATA_OPERATIONTYPE._serialized_end=995
 # @@protoc_insertion_point(module_scope)

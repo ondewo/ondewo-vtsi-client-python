@@ -32,8 +32,8 @@ _sym_db.RegisterMessage(StatResponse)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
     DESCRIPTOR._options = None
-    _SORTINGMODE._serialized_start = 70
-    _SORTINGMODE._serialized_end = 114
-    _STATRESPONSE._serialized_start = 39
-    _STATRESPONSE._serialized_end = 68
+    _SORTINGMODE._serialized_start=70
+    _SORTINGMODE._serialized_end=114
+    _STATRESPONSE._serialized_start=39
+    _STATRESPONSE._serialized_end=68
 # @@protoc_insertion_point(module_scope)

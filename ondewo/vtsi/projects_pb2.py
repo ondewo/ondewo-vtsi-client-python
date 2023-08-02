@@ -15,10 +15,12 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1aondewo/vtsi/projects.proto\x12\x0bondewo.vtsi\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xdc\x02\n\x0bVtsiProject\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x14\n\x0c\x64isplay_name\x18\x02 \x01(\t\x12\x13\n\x0bmax_callers\x18\x03 \x01(\x05\x12\x15\n\rmax_listeners\x18\x04 \x01(\x05\x12\x36\n\x10\x61sterisk_configs\x18\x05 \x01(\x0b\x32\x1c.ondewo.vtsi.AsteriskConfigs\x12;\n\x13vtsi_project_status\x18\x06 \x01(\x0e\x32\x1e.ondewo.vtsi.VtsiProjectStatus\x12\x12\n\ncreated_by\x18\x07 \x01(\t\x12.\n\ncreated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0bmodified_by\x18\t \x01(\t\x12/\n\x0bmodified_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xc1\x01\n\x18\x41steriskConfigsVariables\x12\x1a\n\x12sip_trunk_username\x18\x01 \x01(\t\x12\x1a\n\x12sip_trunk_password\x18\x02 \x01(\t\x12\x16\n\x0esip_trunk_host\x18\x03 \x01(\t\x12\x17\n\x0ftransfer_number\x18\x04 \x01(\t\x12\x1c\n\x14transfer_number_host\x18\x05 \x01(\t\x12\x1e\n\x16sip_trunk_phone_number\x18\x06 \x01(\t\"\x9c\x01\n\x14\x41steriskConfigsFiles\x12\x1c\n\x14sip_conf_file_string\x18\x01 \x01(\t\x12#\n\x1b\x65xtensions_conf_file_string\x18\x02 \x01(\t\x12\x1f\n\x17queues_conf_file_string\x18\x03 \x01(\t\x12 \n\x18modules_conf_file_string\x18\x04 \x01(\t\"\x86\x02\n\x0f\x41steriskConfigs\x12K\n\x1a\x61sterisk_configs_variables\x18\x01 \x01(\x0b\x32%.ondewo.vtsi.AsteriskConfigsVariablesH\x00\x12\x43\n\x16\x61sterisk_configs_files\x18\x02 \x01(\x0b\x32!.ondewo.vtsi.AsteriskConfigsFilesH\x00\x12\x30\n&asterisk_configs_target_directory_name\x18\x03 \x01(\tH\x00\x12\x15\n\rasterisk_port\x18\x04 \x01(\x05\x42\x18\n\x16\x61sterisk_configs_oneof\"a\n\x18\x43reateVtsiProjectRequest\x12.\n\x0cvtsi_project\x18\x01 \x01(\x0b\x32\x18.ondewo.vtsi.VtsiProject\x12\x15\n\rerror_message\x18\x02 \x01(\t\"b\n\x19\x43reateVtsiProjectResponse\x12.\n\x0cvtsi_project\x18\x01 \x01(\x0b\x32\x18.ondewo.vtsi.VtsiProject\x12\x15\n\rerror_message\x18\x02 \x01(\t\"%\n\x15GetVtsiProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"J\n\x18UpdateVtsiProjectRequest\x12.\n\x0cvtsi_project\x18\x01 \x01(\x0b\x32\x18.ondewo.vtsi.VtsiProject\"@\n\x19UpdateVtsiProjectResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rerror_message\x18\x02 \x01(\t\"(\n\x18\x44\x65leteVtsiProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"@\n\x19\x44\x65leteVtsiProjectResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rerror_message\x18\x02 \x01(\t\"(\n\x18\x44\x65ployVtsiProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"@\n\x19\x44\x65ployVtsiProjectResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rerror_message\x18\x02 \x01(\t\"*\n\x1aUndeployVtsiProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"B\n\x1bUndeployVtsiProjectResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rerror_message\x18\x02 \x01(\t*\x8b\x01\n\x11VtsiProjectStatus\x12\x0f\n\x0bUNSPECIFIED\x10\x00\x12\x0e\n\nUNDEPLOYED\x10\x01\x12\x0c\n\x08UPDATING\x10\x02\x12\r\n\tDEPLOYING\x10\x03\x12\x0c\n\x08\x44\x45PLOYED\x10\x04\x12\x0f\n\x0bUNDEPLOYING\x10\x05\x12\x0c\n\x08\x44\x45LETING\x10\x06\x12\x0b\n\x07\x44\x45LETED\x10\x07\x32\xd4\x04\n\x08Projects\x12\x62\n\x11\x43reateVtsiProject\x12%.ondewo.vtsi.CreateVtsiProjectRequest\x1a&.ondewo.vtsi.CreateVtsiProjectResponse\x12N\n\x0eGetVtsiProject\x12\".ondewo.vtsi.GetVtsiProjectRequest\x1a\x18.ondewo.vtsi.VtsiProject\x12\x62\n\x11UpdateVtsiProject\x12%.ondewo.vtsi.UpdateVtsiProjectRequest\x1a&.ondewo.vtsi.UpdateVtsiProjectResponse\x12\x62\n\x11\x44\x65leteVtsiProject\x12%.ondewo.vtsi.DeleteVtsiProjectRequest\x1a&.ondewo.vtsi.DeleteVtsiProjectResponse\x12\x62\n\x11\x44\x65ployVtsiProject\x12%.ondewo.vtsi.DeployVtsiProjectRequest\x1a&.ondewo.vtsi.DeployVtsiProjectResponse\x12h\n\x13UndeployVtsiProject\x12\'.ondewo.vtsi.UndeployVtsiProjectRequest\x1a(.ondewo.vtsi.UndeployVtsiProjectResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1aondewo/vtsi/projects.proto\x12\x0bondewo.vtsi\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xdc\x02\n\x0bVtsiProject\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x14\n\x0c\x64isplay_name\x18\x02 \x01(\t\x12\x13\n\x0bmax_callers\x18\x03 \x01(\x05\x12\x15\n\rmax_listeners\x18\x04 \x01(\x05\x12\x36\n\x10\x61sterisk_configs\x18\x05 \x01(\x0b\x32\x1c.ondewo.vtsi.AsteriskConfigs\x12;\n\x13vtsi_project_status\x18\x06 \x01(\x0e\x32\x1e.ondewo.vtsi.VtsiProjectStatus\x12\x12\n\ncreated_by\x18\x07 \x01(\t\x12.\n\ncreated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0bmodified_by\x18\t \x01(\t\x12/\n\x0bmodified_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xc1\x01\n\x18\x41steriskConfigsVariables\x12\x1a\n\x12sip_trunk_username\x18\x01 \x01(\t\x12\x1a\n\x12sip_trunk_password\x18\x02 \x01(\t\x12\x16\n\x0esip_trunk_host\x18\x03 \x01(\t\x12\x17\n\x0ftransfer_number\x18\x04 \x01(\t\x12\x1c\n\x14transfer_number_host\x18\x05 \x01(\t\x12\x1e\n\x16sip_trunk_phone_number\x18\x06 \x01(\t\"\x9c\x01\n\x14\x41steriskConfigsFiles\x12\x1c\n\x14sip_conf_file_string\x18\x01 \x01(\t\x12#\n\x1b\x65xtensions_conf_file_string\x18\x02 \x01(\t\x12\x1f\n\x17queues_conf_file_string\x18\x03 \x01(\t\x12 \n\x18modules_conf_file_string\x18\x04 \x01(\t\"\x86\x02\n\x0f\x41steriskConfigs\x12K\n\x1a\x61sterisk_configs_variables\x18\x01 \x01(\x0b\x32%.ondewo.vtsi.AsteriskConfigsVariablesH\x00\x12\x43\n\x16\x61sterisk_configs_files\x18\x02 \x01(\x0b\x32!.ondewo.vtsi.AsteriskConfigsFilesH\x00\x12\x30\n&asterisk_configs_target_directory_name\x18\x03 \x01(\tH\x00\x12\x15\n\rasterisk_port\x18\x04 \x01(\x05\x42\x18\n\x16\x61sterisk_configs_oneof\"a\n\x18\x43reateVtsiProjectRequest\x12.\n\x0cvtsi_project\x18\x01 \x01(\x0b\x32\x18.ondewo.vtsi.VtsiProject\x12\x15\n\rerror_message\x18\x02 \x01(\t\"b\n\x19\x43reateVtsiProjectResponse\x12.\n\x0cvtsi_project\x18\x01 \x01(\x0b\x32\x18.ondewo.vtsi.VtsiProject\x12\x15\n\rerror_message\x18\x02 \x01(\t\"%\n\x15GetVtsiProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"a\n\x17ListVtsiProjectsRequest\x12\x32\n\x0cproject_view\x18\x01 \x01(\x0e\x32\x1c.ondewo.vtsi.VtsiProjectView\x12\x12\n\npage_token\x18\x02 \x01(\t\"d\n\x18ListVtsiProjectsResponse\x12/\n\rvtsi_projects\x18\x01 \x03(\x0b\x32\x18.ondewo.vtsi.VtsiProject\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"J\n\x18UpdateVtsiProjectRequest\x12.\n\x0cvtsi_project\x18\x01 \x01(\x0b\x32\x18.ondewo.vtsi.VtsiProject\"@\n\x19UpdateVtsiProjectResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rerror_message\x18\x02 \x01(\t\"(\n\x18\x44\x65leteVtsiProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"@\n\x19\x44\x65leteVtsiProjectResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rerror_message\x18\x02 \x01(\t\"(\n\x18\x44\x65ployVtsiProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"@\n\x19\x44\x65ployVtsiProjectResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rerror_message\x18\x02 \x01(\t\"*\n\x1aUndeployVtsiProjectRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"B\n\x1bUndeployVtsiProjectResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rerror_message\x18\x02 \x01(\t*\x8b\x01\n\x11VtsiProjectStatus\x12\x0f\n\x0bUNSPECIFIED\x10\x00\x12\x0e\n\nUNDEPLOYED\x10\x01\x12\x0c\n\x08UPDATING\x10\x02\x12\r\n\tDEPLOYING\x10\x03\x12\x0c\n\x08\x44\x45PLOYED\x10\x04\x12\x0f\n\x0bUNDEPLOYING\x10\x05\x12\x0c\n\x08\x44\x45LETING\x10\x06\x12\x0b\n\x07\x44\x45LETED\x10\x07*\x8e\x01\n\x0fVtsiProjectView\x12!\n\x1dVTSI_PROJECT_VIEW_UNSPECIFIED\x10\x00\x12\x1a\n\x16VTSI_PROJECT_VIEW_FULL\x10\x01\x12\x1d\n\x19VTSI_PROJECT_VIEW_SHALLOW\x10\x02\x12\x1d\n\x19VTSI_PROJECT_VIEW_MINIMUM\x10\x03\x32\xb5\x05\n\x08Projects\x12\x62\n\x11\x43reateVtsiProject\x12%.ondewo.vtsi.CreateVtsiProjectRequest\x1a&.ondewo.vtsi.CreateVtsiProjectResponse\x12N\n\x0eGetVtsiProject\x12\".ondewo.vtsi.GetVtsiProjectRequest\x1a\x18.ondewo.vtsi.VtsiProject\x12\x62\n\x11UpdateVtsiProject\x12%.ondewo.vtsi.UpdateVtsiProjectRequest\x1a&.ondewo.vtsi.UpdateVtsiProjectResponse\x12\x62\n\x11\x44\x65leteVtsiProject\x12%.ondewo.vtsi.DeleteVtsiProjectRequest\x1a&.ondewo.vtsi.DeleteVtsiProjectResponse\x12\x62\n\x11\x44\x65ployVtsiProject\x12%.ondewo.vtsi.DeployVtsiProjectRequest\x1a&.ondewo.vtsi.DeployVtsiProjectResponse\x12h\n\x13UndeployVtsiProject\x12\'.ondewo.vtsi.UndeployVtsiProjectRequest\x1a(.ondewo.vtsi.UndeployVtsiProjectResponse\x12_\n\x10ListVtsiProjects\x12$.ondewo.vtsi.ListVtsiProjectsRequest\x1a%.ondewo.vtsi.ListVtsiProjectsResponseb\x06proto3')
 
 _VTSIPROJECTSTATUS = DESCRIPTOR.enum_types_by_name['VtsiProjectStatus']
 VtsiProjectStatus = enum_type_wrapper.EnumTypeWrapper(_VTSIPROJECTSTATUS)
+_VTSIPROJECTVIEW = DESCRIPTOR.enum_types_by_name['VtsiProjectView']
+VtsiProjectView = enum_type_wrapper.EnumTypeWrapper(_VTSIPROJECTVIEW)
 UNSPECIFIED = 0
 UNDEPLOYED = 1
 UPDATING = 2
@@ -27,6 +29,10 @@ DEPLOYED = 4
 UNDEPLOYING = 5
 DELETING = 6
 DELETED = 7
+VTSI_PROJECT_VIEW_UNSPECIFIED = 0
+VTSI_PROJECT_VIEW_FULL = 1
+VTSI_PROJECT_VIEW_SHALLOW = 2
+VTSI_PROJECT_VIEW_MINIMUM = 3
 
 
 _VTSIPROJECT = DESCRIPTOR.message_types_by_name['VtsiProject']
@@ -36,6 +42,8 @@ _ASTERISKCONFIGS = DESCRIPTOR.message_types_by_name['AsteriskConfigs']
 _CREATEVTSIPROJECTREQUEST = DESCRIPTOR.message_types_by_name['CreateVtsiProjectRequest']
 _CREATEVTSIPROJECTRESPONSE = DESCRIPTOR.message_types_by_name['CreateVtsiProjectResponse']
 _GETVTSIPROJECTREQUEST = DESCRIPTOR.message_types_by_name['GetVtsiProjectRequest']
+_LISTVTSIPROJECTSREQUEST = DESCRIPTOR.message_types_by_name['ListVtsiProjectsRequest']
+_LISTVTSIPROJECTSRESPONSE = DESCRIPTOR.message_types_by_name['ListVtsiProjectsResponse']
 _UPDATEVTSIPROJECTREQUEST = DESCRIPTOR.message_types_by_name['UpdateVtsiProjectRequest']
 _UPDATEVTSIPROJECTRESPONSE = DESCRIPTOR.message_types_by_name['UpdateVtsiProjectResponse']
 _DELETEVTSIPROJECTREQUEST = DESCRIPTOR.message_types_by_name['DeleteVtsiProjectRequest']
@@ -92,6 +100,20 @@ GetVtsiProjectRequest = _reflection.GeneratedProtocolMessageType('GetVtsiProject
     # @@protoc_insertion_point(class_scope:ondewo.vtsi.GetVtsiProjectRequest)
 })
 _sym_db.RegisterMessage(GetVtsiProjectRequest)
+
+ListVtsiProjectsRequest = _reflection.GeneratedProtocolMessageType('ListVtsiProjectsRequest', (_message.Message,), {
+    'DESCRIPTOR': _LISTVTSIPROJECTSREQUEST,
+    '__module__': 'ondewo.vtsi.projects_pb2'
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListVtsiProjectsRequest)
+})
+_sym_db.RegisterMessage(ListVtsiProjectsRequest)
+
+ListVtsiProjectsResponse = _reflection.GeneratedProtocolMessageType('ListVtsiProjectsResponse', (_message.Message,), {
+    'DESCRIPTOR': _LISTVTSIPROJECTSRESPONSE,
+    '__module__': 'ondewo.vtsi.projects_pb2'
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListVtsiProjectsResponse)
+})
+_sym_db.RegisterMessage(ListVtsiProjectsResponse)
 
 UpdateVtsiProjectRequest = _reflection.GeneratedProtocolMessageType('UpdateVtsiProjectRequest', (_message.Message,), {
     'DESCRIPTOR': _UPDATEVTSIPROJECTREQUEST,
@@ -153,38 +175,44 @@ _PROJECTS = DESCRIPTOR.services_by_name['Projects']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
     DESCRIPTOR._options = None
-    _VTSIPROJECTSTATUS._serialized_start = 1786
-    _VTSIPROJECTSTATUS._serialized_end = 1925
-    _VTSIPROJECT._serialized_start = 107
-    _VTSIPROJECT._serialized_end = 455
-    _ASTERISKCONFIGSVARIABLES._serialized_start = 458
-    _ASTERISKCONFIGSVARIABLES._serialized_end = 651
-    _ASTERISKCONFIGSFILES._serialized_start = 654
-    _ASTERISKCONFIGSFILES._serialized_end = 810
-    _ASTERISKCONFIGS._serialized_start = 813
-    _ASTERISKCONFIGS._serialized_end = 1075
-    _CREATEVTSIPROJECTREQUEST._serialized_start = 1077
-    _CREATEVTSIPROJECTREQUEST._serialized_end = 1174
-    _CREATEVTSIPROJECTRESPONSE._serialized_start = 1176
-    _CREATEVTSIPROJECTRESPONSE._serialized_end = 1274
-    _GETVTSIPROJECTREQUEST._serialized_start = 1276
-    _GETVTSIPROJECTREQUEST._serialized_end = 1313
-    _UPDATEVTSIPROJECTREQUEST._serialized_start = 1315
-    _UPDATEVTSIPROJECTREQUEST._serialized_end = 1389
-    _UPDATEVTSIPROJECTRESPONSE._serialized_start = 1391
-    _UPDATEVTSIPROJECTRESPONSE._serialized_end = 1455
-    _DELETEVTSIPROJECTREQUEST._serialized_start = 1457
-    _DELETEVTSIPROJECTREQUEST._serialized_end = 1497
-    _DELETEVTSIPROJECTRESPONSE._serialized_start = 1499
-    _DELETEVTSIPROJECTRESPONSE._serialized_end = 1563
-    _DEPLOYVTSIPROJECTREQUEST._serialized_start = 1565
-    _DEPLOYVTSIPROJECTREQUEST._serialized_end = 1605
-    _DEPLOYVTSIPROJECTRESPONSE._serialized_start = 1607
-    _DEPLOYVTSIPROJECTRESPONSE._serialized_end = 1671
-    _UNDEPLOYVTSIPROJECTREQUEST._serialized_start = 1673
-    _UNDEPLOYVTSIPROJECTREQUEST._serialized_end = 1715
-    _UNDEPLOYVTSIPROJECTRESPONSE._serialized_start = 1717
-    _UNDEPLOYVTSIPROJECTRESPONSE._serialized_end = 1783
-    _PROJECTS._serialized_start = 1928
-    _PROJECTS._serialized_end = 2524
+    _VTSIPROJECTSTATUS._serialized_start=1987
+    _VTSIPROJECTSTATUS._serialized_end=2126
+    _VTSIPROJECTVIEW._serialized_start=2129
+    _VTSIPROJECTVIEW._serialized_end=2271
+    _VTSIPROJECT._serialized_start=107
+    _VTSIPROJECT._serialized_end=455
+    _ASTERISKCONFIGSVARIABLES._serialized_start=458
+    _ASTERISKCONFIGSVARIABLES._serialized_end=651
+    _ASTERISKCONFIGSFILES._serialized_start=654
+    _ASTERISKCONFIGSFILES._serialized_end=810
+    _ASTERISKCONFIGS._serialized_start=813
+    _ASTERISKCONFIGS._serialized_end=1075
+    _CREATEVTSIPROJECTREQUEST._serialized_start=1077
+    _CREATEVTSIPROJECTREQUEST._serialized_end=1174
+    _CREATEVTSIPROJECTRESPONSE._serialized_start=1176
+    _CREATEVTSIPROJECTRESPONSE._serialized_end=1274
+    _GETVTSIPROJECTREQUEST._serialized_start=1276
+    _GETVTSIPROJECTREQUEST._serialized_end=1313
+    _LISTVTSIPROJECTSREQUEST._serialized_start=1315
+    _LISTVTSIPROJECTSREQUEST._serialized_end=1412
+    _LISTVTSIPROJECTSRESPONSE._serialized_start=1414
+    _LISTVTSIPROJECTSRESPONSE._serialized_end=1514
+    _UPDATEVTSIPROJECTREQUEST._serialized_start=1516
+    _UPDATEVTSIPROJECTREQUEST._serialized_end=1590
+    _UPDATEVTSIPROJECTRESPONSE._serialized_start=1592
+    _UPDATEVTSIPROJECTRESPONSE._serialized_end=1656
+    _DELETEVTSIPROJECTREQUEST._serialized_start=1658
+    _DELETEVTSIPROJECTREQUEST._serialized_end=1698
+    _DELETEVTSIPROJECTRESPONSE._serialized_start=1700
+    _DELETEVTSIPROJECTRESPONSE._serialized_end=1764
+    _DEPLOYVTSIPROJECTREQUEST._serialized_start=1766
+    _DEPLOYVTSIPROJECTREQUEST._serialized_end=1806
+    _DEPLOYVTSIPROJECTRESPONSE._serialized_start=1808
+    _DEPLOYVTSIPROJECTRESPONSE._serialized_end=1872
+    _UNDEPLOYVTSIPROJECTREQUEST._serialized_start=1874
+    _UNDEPLOYVTSIPROJECTREQUEST._serialized_end=1916
+    _UNDEPLOYVTSIPROJECTRESPONSE._serialized_start=1918
+    _UNDEPLOYVTSIPROJECTRESPONSE._serialized_end=1984
+    _PROJECTS._serialized_start=2274
+    _PROJECTS._serialized_end=2967
 # @@protoc_insertion_point(module_scope)

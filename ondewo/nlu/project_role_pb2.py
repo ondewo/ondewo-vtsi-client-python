@@ -103,24 +103,24 @@ if _descriptor._USE_C_DESCRIPTORS == False:
     _PROJECTROLES.methods_by_name['UpdateProjectRole']._serialized_options = b'\202\323\344\223\00202+/v2/{parent=projects/*/agent}/project_roles:\001*'
     _PROJECTROLES.methods_by_name['ListProjectRoles']._options = None
     _PROJECTROLES.methods_by_name['ListProjectRoles']._serialized_options = b'\202\323\344\223\002-\022+/v2/{parent=projects/*/agent}/project_roles'
-    _DEFAULTPROJECTROLE._serialized_start = 981
-    _DEFAULTPROJECTROLE._serialized_end = 1130
-    _PROJECTROLEVIEW._serialized_start = 1132
-    _PROJECTROLEVIEW._serialized_end = 1243
-    _PROJECTROLE._serialized_start = 138
-    _PROJECTROLE._serialized_end = 203
-    _CREATEPROJECTROLEREQUEST._serialized_start = 206
-    _CREATEPROJECTROLEREQUEST._serialized_end = 343
-    _UPDATEPROJECTROLEREQUEST._serialized_start = 346
-    _UPDATEPROJECTROLEREQUEST._serialized_end = 532
-    _GETPROJECTROLEREQUEST._serialized_start = 535
-    _GETPROJECTROLEREQUEST._serialized_end = 697
-    _DELETEPROJECTROLEREQUEST._serialized_start = 699
-    _DELETEPROJECTROLEREQUEST._serialized_end = 758
-    _LISTPROJECTROLESREQUEST._serialized_start = 760
-    _LISTPROJECTROLESREQUEST._serialized_end = 877
-    _LISTPROJECTROLESRESPONSE._serialized_start = 879
-    _LISTPROJECTROLESRESPONSE._serialized_end = 978
-    _PROJECTROLES._serialized_start = 1246
-    _PROJECTROLES._serialized_end = 1984
+    _DEFAULTPROJECTROLE._serialized_start=981
+    _DEFAULTPROJECTROLE._serialized_end=1130
+    _PROJECTROLEVIEW._serialized_start=1132
+    _PROJECTROLEVIEW._serialized_end=1243
+    _PROJECTROLE._serialized_start=138
+    _PROJECTROLE._serialized_end=203
+    _CREATEPROJECTROLEREQUEST._serialized_start=206
+    _CREATEPROJECTROLEREQUEST._serialized_end=343
+    _UPDATEPROJECTROLEREQUEST._serialized_start=346
+    _UPDATEPROJECTROLEREQUEST._serialized_end=532
+    _GETPROJECTROLEREQUEST._serialized_start=535
+    _GETPROJECTROLEREQUEST._serialized_end=697
+    _DELETEPROJECTROLEREQUEST._serialized_start=699
+    _DELETEPROJECTROLEREQUEST._serialized_end=758
+    _LISTPROJECTROLESREQUEST._serialized_start=760
+    _LISTPROJECTROLESREQUEST._serialized_end=877
+    _LISTPROJECTROLESRESPONSE._serialized_start=879
+    _LISTPROJECTROLESRESPONSE._serialized_end=978
+    _PROJECTROLES._serialized_start=1246
+    _PROJECTROLES._serialized_end=1984
 # @@protoc_insertion_point(module_scope)

@@ -89,20 +89,20 @@ if _descriptor._USE_C_DESCRIPTORS == False:
     _OPERATIONS.methods_by_name['DeleteOperation']._serialized_options = b'\202\323\344\223\002\032*\030/v1/{name=operations/**}'
     _OPERATIONS.methods_by_name['CancelOperation']._options = None
     _OPERATIONS.methods_by_name['CancelOperation']._serialized_options = b'\202\323\344\223\002$\"\037/v1/{name=operations/**}:cancel:\001*'
-    _OPERATION._serialized_start = 225
-    _OPERATION._serialized_end = 402
-    _GETOPERATIONREQUEST._serialized_start = 404
-    _GETOPERATIONREQUEST._serialized_end = 439
-    _LISTOPERATIONSREQUEST._serialized_start = 442
-    _LISTOPERATIONSREQUEST._serialized_end = 589
-    _OPERATIONFILTER._serialized_start = 592
-    _OPERATIONFILTER._serialized_end = 904
-    _LISTOPERATIONSRESPONSE._serialized_start = 906
-    _LISTOPERATIONSRESPONSE._serialized_end = 998
-    _CANCELOPERATIONREQUEST._serialized_start = 1000
-    _CANCELOPERATIONREQUEST._serialized_end = 1038
-    _DELETEOPERATIONREQUEST._serialized_start = 1040
-    _DELETEOPERATIONREQUEST._serialized_end = 1078
-    _OPERATIONS._serialized_start = 1081
-    _OPERATIONS._serialized_end = 1555
+    _OPERATION._serialized_start=225
+    _OPERATION._serialized_end=402
+    _GETOPERATIONREQUEST._serialized_start=404
+    _GETOPERATIONREQUEST._serialized_end=439
+    _LISTOPERATIONSREQUEST._serialized_start=442
+    _LISTOPERATIONSREQUEST._serialized_end=589
+    _OPERATIONFILTER._serialized_start=592
+    _OPERATIONFILTER._serialized_end=904
+    _LISTOPERATIONSRESPONSE._serialized_start=906
+    _LISTOPERATIONSRESPONSE._serialized_end=998
+    _CANCELOPERATIONREQUEST._serialized_start=1000
+    _CANCELOPERATIONREQUEST._serialized_end=1038
+    _DELETEOPERATIONREQUEST._serialized_start=1040
+    _DELETEOPERATIONREQUEST._serialized_end=1078
+    _OPERATIONS._serialized_start=1081
+    _OPERATIONS._serialized_end=1555
 # @@protoc_insertion_point(module_scope)

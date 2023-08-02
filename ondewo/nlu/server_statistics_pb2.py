@@ -36,8 +36,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
     _SERVERSTATISTICS.methods_by_name['GetUserProjectCount']._serialized_options = b'\202\323\344\223\002+\022)/users/{user_identifier=*}/projects:count'
     _SERVERSTATISTICS.methods_by_name['GetUserCount']._options = None
     _SERVERSTATISTICS.methods_by_name['GetUserCount']._serialized_options = b'\202\323\344\223\002\016\022\014/users:count'
-    _GETUSERPROJECTCOUNTREQUEST._serialized_start = 134
-    _GETUSERPROJECTCOUNTREQUEST._serialized_end = 179
-    _SERVERSTATISTICS._serialized_start = 182
-    _SERVERSTATISTICS._serialized_end = 523
+    _GETUSERPROJECTCOUNTREQUEST._serialized_start=134
+    _GETUSERPROJECTCOUNTREQUEST._serialized_end=179
+    _SERVERSTATISTICS._serialized_start=182
+    _SERVERSTATISTICS._serialized_end=523
 # @@protoc_insertion_point(module_scope)

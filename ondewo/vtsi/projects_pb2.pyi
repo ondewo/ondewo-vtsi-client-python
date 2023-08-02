@@ -4,6 +4,7 @@ isort:skip_file
 """
 import builtins
 import google.protobuf.descriptor
+import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
@@ -70,6 +71,52 @@ DELETED: VtsiProjectStatus.ValueType  # 7
 """Project is deleted"""
 
 global___VtsiProjectStatus = VtsiProjectStatus
+
+
+class _VtsiProjectView:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _VtsiProjectViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VtsiProjectView.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    VTSI_PROJECT_VIEW_UNSPECIFIED: _VtsiProjectView.ValueType  # 0
+    """Unspecified VTSI_PROJECT view: the view is defined by the call:
+    - CreateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
+    - UpdateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
+    - GetVTSI_PROJECT: VTSI_PROJECT_VIEW_FULL
+    - ListVTSI_PROJECTs: VTSI_PROJECT_VIEW_SHALLOW
+    """
+
+    VTSI_PROJECT_VIEW_FULL: _VtsiProjectView.ValueType  # 1
+    """Full VTSI_PROJECT view: populate all the fields of the VTSI_PROJECT message including configs."""
+
+    VTSI_PROJECT_VIEW_SHALLOW: _VtsiProjectView.ValueType  # 2
+    """Shallow VTSI_PROJECT view: populates all the fields except configs."""
+
+    VTSI_PROJECT_VIEW_MINIMUM: _VtsiProjectView.ValueType  # 3
+    """Minimum view including only VTSI_PROJECT UUID and VTSI_PROJECT display name"""
+
+class VtsiProjectView(_VtsiProjectView, metaclass=_VtsiProjectViewEnumTypeWrapper):
+    """Structure of VTSI_PROJECT view"""
+    pass
+
+VTSI_PROJECT_VIEW_UNSPECIFIED: VtsiProjectView.ValueType  # 0
+"""Unspecified VTSI_PROJECT view: the view is defined by the call:
+- CreateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
+- UpdateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
+- GetVTSI_PROJECT: VTSI_PROJECT_VIEW_FULL
+- ListVTSI_PROJECTs: VTSI_PROJECT_VIEW_SHALLOW
+"""
+
+VTSI_PROJECT_VIEW_FULL: VtsiProjectView.ValueType  # 1
+"""Full VTSI_PROJECT view: populate all the fields of the VTSI_PROJECT message including configs."""
+
+VTSI_PROJECT_VIEW_SHALLOW: VtsiProjectView.ValueType  # 2
+"""Shallow VTSI_PROJECT view: populates all the fields except configs."""
+
+VTSI_PROJECT_VIEW_MINIMUM: VtsiProjectView.ValueType  # 3
+"""Minimum view including only VTSI_PROJECT UUID and VTSI_PROJECT display name"""
+
+global___VtsiProjectView = VtsiProjectView
 
 
 class VtsiProject(google.protobuf.message.Message):
@@ -295,6 +342,47 @@ class GetVtsiProjectRequest(google.protobuf.message.Message):
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
 global___GetVtsiProjectRequest = GetVtsiProjectRequest
+
+class ListVtsiProjectsRequest(google.protobuf.message.Message):
+    """Request to get the list of agents"""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    PROJECT_VIEW_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    project_view: global___VtsiProjectView.ValueType
+    """Optional. Specify the view of the returned VtsiProject (full view by default)"""
+
+    page_token: typing.Text
+    """Optional. The next_page_token value returned from a previous list request."""
+
+    def __init__(self,
+        *,
+        project_view: global___VtsiProjectView.ValueType = ...,
+        page_token: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["page_token",b"page_token","project_view",b"project_view"]) -> None: ...
+global___ListVtsiProjectsRequest = ListVtsiProjectsRequest
+
+class ListVtsiProjectsResponse(google.protobuf.message.Message):
+    """Get list of vtsi projects"""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    VTSI_PROJECTS_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def vtsi_projects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiProject]:
+        """The list of vtsi projects"""
+        pass
+    next_page_token: typing.Text
+    """Token to retrieve the next page of results, or empty if there are no
+    more results in the list.
+    """
+
+    def __init__(self,
+        *,
+        vtsi_projects: typing.Optional[typing.Iterable[global___VtsiProject]] = ...,
+        next_page_token: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["next_page_token",b"next_page_token","vtsi_projects",b"vtsi_projects"]) -> None: ...
+global___ListVtsiProjectsResponse = ListVtsiProjectsResponse
 
 class UpdateVtsiProjectRequest(google.protobuf.message.Message):
     """Request to updated VTSI project"""
