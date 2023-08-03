@@ -168,6 +168,9 @@ class VtsiProject(google.protobuf.message.Message):
     CREATED_AT_FIELD_NUMBER: builtins.int
     MODIFIED_BY_FIELD_NUMBER: builtins.int
     MODIFIED_AT_FIELD_NUMBER: builtins.int
+    ACTIVE_CALLERS_FIELD_NUMBER: builtins.int
+    ACTIVE_LISTENERS_FIELD_NUMBER: builtins.int
+    ASTERISK_PORT_FIELD_NUMBER: builtins.int
     name: typing.Text
     """Required. The project name. Format: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Only when a new VtsiProject is created the name can be undefined/empty
@@ -187,6 +190,8 @@ class VtsiProject(google.protobuf.message.Message):
         """Configs to start the asterisk server."""
         pass
     vtsi_project_status: global___VtsiProjectStatus.ValueType
+    """The status of the VTSI project."""
+
     created_by: typing.Text
     """The user who created the vtsi project. Readonly."""
 
@@ -201,6 +206,15 @@ class VtsiProject(google.protobuf.message.Message):
     def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """Modification time of the vtsi project. Readonly."""
         pass
+    active_callers: builtins.int
+    """The number of active callers in this project."""
+
+    active_listeners: builtins.int
+    """The number of active listeners in this project."""
+
+    asterisk_port: builtins.int
+    """The port of the asterisk server"""
+
     def __init__(self,
         *,
         name: typing.Text = ...,
@@ -213,9 +227,12 @@ class VtsiProject(google.protobuf.message.Message):
         created_at: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
         modified_by: typing.Text = ...,
         modified_at: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        active_callers: builtins.int = ...,
+        active_listeners: builtins.int = ...,
+        asterisk_port: builtins.int = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["asterisk_configs",b"asterisk_configs","created_at",b"created_at","modified_at",b"modified_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["asterisk_configs",b"asterisk_configs","created_at",b"created_at","created_by",b"created_by","display_name",b"display_name","max_callers",b"max_callers","max_listeners",b"max_listeners","modified_at",b"modified_at","modified_by",b"modified_by","name",b"name","vtsi_project_status",b"vtsi_project_status"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active_callers",b"active_callers","active_listeners",b"active_listeners","asterisk_configs",b"asterisk_configs","asterisk_port",b"asterisk_port","created_at",b"created_at","created_by",b"created_by","display_name",b"display_name","max_callers",b"max_callers","max_listeners",b"max_listeners","modified_at",b"modified_at","modified_by",b"modified_by","name",b"name","vtsi_project_status",b"vtsi_project_status"]) -> None: ...
 global___VtsiProject = VtsiProject
 
 class AsteriskConfigsVariables(google.protobuf.message.Message):
