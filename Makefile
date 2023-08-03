@@ -314,7 +314,8 @@ fetch_build_commit_push_new_vtsi_api:
 	git -C ondewo-vtsi-api pull
 	make build
 	git add ondewo/vtsi
-	message="$$(git --no-pager -C ondewo-vtsi-api log -3 --pretty=%B | tail -3 | tr -d '[:space:]')"; git commit -m "$$message"
+	# message="$$(git --no-pager -C ondewo-vtsi-api log -3 --pretty=%B | tail -3 | tr -d '[:space:]')"; git commit -m "$$message"
+	git commit -m "Generated new vtsi python library files"
 	git push
 
 # execute in conda environment
