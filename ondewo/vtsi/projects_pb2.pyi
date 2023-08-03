@@ -384,18 +384,27 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     VTSI_PROJECT_VIEW_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_SORTING_FIELD_NUMBER: builtins.int
     vtsi_project_view: global___VtsiProjectView.ValueType
     """Optional. Specify the view of the returned VtsiProject (full view by default)"""
 
     page_token: typing.Text
     """Optional. The next_page_token value returned from a previous list request."""
 
+    @property
+    def vtsi_project_sorting(self) -> global___VtsiProjectSorting:
+        """Optional field to define the sorting of the list of VTSI projects in the response.
+        If not specified, the default behavior is to have no sorting.
+        """
+        pass
     def __init__(self,
         *,
         vtsi_project_view: global___VtsiProjectView.ValueType = ...,
         page_token: typing.Text = ...,
+        vtsi_project_sorting: typing.Optional[global___VtsiProjectSorting] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["page_token",b"page_token","vtsi_project_view",b"vtsi_project_view"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["vtsi_project_sorting",b"vtsi_project_sorting"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["page_token",b"page_token","vtsi_project_sorting",b"vtsi_project_sorting","vtsi_project_view",b"vtsi_project_view"]) -> None: ...
 global___ListVtsiProjectsRequest = ListVtsiProjectsRequest
 
 class ListVtsiProjectsResponse(google.protobuf.message.Message):
@@ -403,7 +412,6 @@ class ListVtsiProjectsResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     VTSI_PROJECTS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_SORTING_FIELD_NUMBER: builtins.int
     @property
     def vtsi_projects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiProject]:
         """The list of VTSI projects returned in the response.
@@ -416,20 +424,12 @@ class ListVtsiProjectsResponse(google.protobuf.message.Message):
     If there are no more results in the list, this field will be empty.
     """
 
-    @property
-    def vtsi_project_sorting(self) -> global___VtsiProjectSorting:
-        """Optional field to define the sorting of the list of VTSI projects in the response.
-        If not specified, the default behavior is to have no sorting.
-        """
-        pass
     def __init__(self,
         *,
         vtsi_projects: typing.Optional[typing.Iterable[global___VtsiProject]] = ...,
         next_page_token: typing.Text = ...,
-        vtsi_project_sorting: typing.Optional[global___VtsiProjectSorting] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["vtsi_project_sorting",b"vtsi_project_sorting"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["next_page_token",b"next_page_token","vtsi_project_sorting",b"vtsi_project_sorting","vtsi_projects",b"vtsi_projects"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["next_page_token",b"next_page_token","vtsi_projects",b"vtsi_projects"]) -> None: ...
 global___ListVtsiProjectsResponse = ListVtsiProjectsResponse
 
 class VtsiProjectSorting(google.protobuf.message.Message):
