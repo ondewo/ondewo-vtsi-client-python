@@ -73,6 +73,42 @@ DELETED: VtsiProjectStatus.ValueType  # 7
 global___VtsiProjectStatus = VtsiProjectStatus
 
 
+class _VtsiProjectSortingMode:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _VtsiProjectSortingModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VtsiProjectSortingMode.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    ASCENDING: _VtsiProjectSortingMode.ValueType  # 0
+    """The ascending sorting mode.
+    When sorting using this mode, VtsiProject objects will be arranged
+    in ascending order based on the specified criteria.
+    """
+
+    DESCENDING: _VtsiProjectSortingMode.ValueType  # 1
+    """The descending sorting mode.
+    When sorting using this mode, VtsiProject objects will be arranged
+    in descending order based on the specified criteria.
+    """
+
+class VtsiProjectSortingMode(_VtsiProjectSortingMode, metaclass=_VtsiProjectSortingModeEnumTypeWrapper):
+    """Sorting mode"""
+    pass
+
+ASCENDING: VtsiProjectSortingMode.ValueType  # 0
+"""The ascending sorting mode.
+When sorting using this mode, VtsiProject objects will be arranged
+in ascending order based on the specified criteria.
+"""
+
+DESCENDING: VtsiProjectSortingMode.ValueType  # 1
+"""The descending sorting mode.
+When sorting using this mode, VtsiProject objects will be arranged
+in descending order based on the specified criteria.
+"""
+
+global___VtsiProjectSortingMode = VtsiProjectSortingMode
+
+
 class _VtsiProjectView:
     ValueType = typing.NewType('ValueType', builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -363,26 +399,97 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
 global___ListVtsiProjectsRequest = ListVtsiProjectsRequest
 
 class ListVtsiProjectsResponse(google.protobuf.message.Message):
-    """Get list of vtsi projects"""
+    """This is a protobuf message definition for the response of getting a list of VTSI projects."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     VTSI_PROJECTS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_SORTING_FIELD_NUMBER: builtins.int
     @property
     def vtsi_projects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiProject]:
-        """The list of vtsi projects"""
+        """The list of VTSI projects returned in the response.
+        Use the 'repeated' keyword to indicate that this field can contain multiple instances of VtsiProject.
+        """
         pass
     next_page_token: typing.Text
-    """Token to retrieve the next page of results, or empty if there are no
-    more results in the list.
+    """Token to retrieve the next page of results.
+    This field is a string that holds a token for fetching the next page of results.
+    If there are no more results in the list, this field will be empty.
     """
 
+    @property
+    def vtsi_project_sorting(self) -> global___VtsiProjectSorting:
+        """Optional field to define the sorting of the list of VTSI projects in the response.
+        If not specified, the default behavior is to have no sorting.
+        """
+        pass
     def __init__(self,
         *,
         vtsi_projects: typing.Optional[typing.Iterable[global___VtsiProject]] = ...,
         next_page_token: typing.Text = ...,
+        vtsi_project_sorting: typing.Optional[global___VtsiProjectSorting] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["next_page_token",b"next_page_token","vtsi_projects",b"vtsi_projects"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["vtsi_project_sorting",b"vtsi_project_sorting"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["next_page_token",b"next_page_token","vtsi_project_sorting",b"vtsi_project_sorting","vtsi_projects",b"vtsi_projects"]) -> None: ...
 global___ListVtsiProjectsResponse = ListVtsiProjectsResponse
+
+class VtsiProjectSorting(google.protobuf.message.Message):
+    """This protobuf message defines the sorting order for VTSI (Virtual Test System Infrastructure) projects."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    class _VtsiProjectSortingField:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _VtsiProjectSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[VtsiProjectSorting._VtsiProjectSortingField.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        NO_VTSI_PROJECT_SORTING: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 0
+        """No sorting"""
+
+        SORT_VTSI_PROJECT_BY_NAME: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 1
+        """Sort by project name such as <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>."""
+
+        SORT_VTSI_PROJECT_BY_DISPLAY_NAME: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 2
+        """Sort by display name"""
+
+        SORT_VTSI_PROJECT_BY_CREATION_DATE: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 3
+        """Sort by creation date"""
+
+        SORT_VTSI_PROJECT_BY_LAST_MODIFIED: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 4
+        """Sort by last modified date"""
+
+    class VtsiProjectSortingField(_VtsiProjectSortingField, metaclass=_VtsiProjectSortingFieldEnumTypeWrapper):
+        """Enum to specify the sorting field for VTSI projects."""
+        pass
+
+    NO_VTSI_PROJECT_SORTING: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 0
+    """No sorting"""
+
+    SORT_VTSI_PROJECT_BY_NAME: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 1
+    """Sort by project name such as <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>."""
+
+    SORT_VTSI_PROJECT_BY_DISPLAY_NAME: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 2
+    """Sort by display name"""
+
+    SORT_VTSI_PROJECT_BY_CREATION_DATE: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 3
+    """Sort by creation date"""
+
+    SORT_VTSI_PROJECT_BY_LAST_MODIFIED: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 4
+    """Sort by last modified date"""
+
+
+    SORTING_FIELD_FIELD_NUMBER: builtins.int
+    SORTING_MODE_FIELD_NUMBER: builtins.int
+    sorting_field: global___VtsiProjectSorting.VtsiProjectSortingField.ValueType
+    """sorting field for vtsi projects sorting"""
+
+    sorting_mode: global___VtsiProjectSortingMode.ValueType
+    """Sorting mode"""
+
+    def __init__(self,
+        *,
+        sorting_field: global___VtsiProjectSorting.VtsiProjectSortingField.ValueType = ...,
+        sorting_mode: global___VtsiProjectSortingMode.ValueType = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["sorting_field",b"sorting_field","sorting_mode",b"sorting_mode"]) -> None: ...
+global___VtsiProjectSorting = VtsiProjectSorting
 
 class UpdateVtsiProjectRequest(google.protobuf.message.Message):
     """Request to updated VTSI project"""
