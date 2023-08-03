@@ -306,3 +306,18 @@ spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 	@if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
 	@if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
 #	@if test "$(setuppy_version)" != "version='${ONDEWO_VTSI_VERSION}',"; then echo "-- Test 3: Setup.py not updated!!" & exit 1; else echo "-- Test 3: Setup.py is fine";fi
+
+########################################################
+#		DEVELOPMENT-AUTOMATION
+fetch_build_commit_push_new_vtsi_api:
+	git -C ondewo-vtsi-api fetch --all
+	git -C ondewo-vtsi-api pull
+	make build
+	git add ondewo/vtsi
+	message="$$(git --no-pager -C ondewo-vtsi-api log -3 --pretty=%B | tail -3 | tr -d '[:space:]')"; git commit -m "$$message"
+	git push
+
+# execute in conda environment
+update_vtsi_python_client_in_vtsi_and_install_master_version: fetch_build_commit_push_new_vtsi_api
+	-cd ~/ondewo/ondewo-vtsi && yes | pip uninstall ondewo-vtsi-client
+	-cd ~/ondewo/ondewo-vtsi && yes | pip install git+https://github.com/ondewo/ondewo-vtsi-client-python.git@master#egg=ondewo-vtsi-client
