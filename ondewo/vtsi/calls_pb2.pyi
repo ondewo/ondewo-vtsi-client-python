@@ -1428,6 +1428,8 @@ class ListCallsRequest(google.protobuf.message.Message):
     CALL_VIEW_FIELD_NUMBER: builtins.int
     CALL_TYPE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    ACTIVE_FIELD_NUMBER: builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
     vtsi_project_name: typing.Text
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
 
@@ -1442,14 +1444,22 @@ class ListCallsRequest(google.protobuf.message.Message):
     Example: "current_index-1--page_size-20"
     """
 
+    active: builtins.bool
+    """Optional. Filter based on active or inactive calls"""
+
+    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    """Optional. Filter based on sip status type"""
+
     def __init__(self,
         *,
         vtsi_project_name: typing.Text = ...,
         call_view: global___CallView.ValueType = ...,
         call_type: global___CallType.ValueType = ...,
         page_token: typing.Text = ...,
+        active: builtins.bool = ...,
+        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_type",b"call_type","call_view",b"call_view","page_token",b"page_token","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active",b"active","call_type",b"call_type","call_view",b"call_view","page_token",b"page_token","sip_status_type",b"sip_status_type","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___ListCallsRequest = ListCallsRequest
 
 class ListCallsResponse(google.protobuf.message.Message):
