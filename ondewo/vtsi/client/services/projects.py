@@ -59,3 +59,9 @@ class Projects(BaseServicesInterface):
         request: projects_pb2.UndeployVtsiProjectRequest
     ) -> projects_pb2.UndeployVtsiProjectResponse:
         return self.stub.UndeployVtsiProject(request=request)
+
+    def list_vtsi_projects(
+        self,
+        request: projects_pb2.ListVtsiProjectsRequest
+    ) -> projects_pb2.ListVtsiProjectsResponse:
+        return self.stub.ListVtsiProjects(request=request)
