@@ -25,6 +25,16 @@ class CallsStub(object):
             request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartCallersRequest.SerializeToString,
             response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartCallersResponse.FromString,
         )
+        self.ListCallers = channel.unary_unary(
+            '/ondewo.vtsi.Calls/ListCallers',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallersRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallersResponse.FromString,
+        )
+        self.GetCaller = channel.unary_unary(
+            '/ondewo.vtsi.Calls/GetCaller',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallerRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.Caller.FromString,
+        )
         self.StartListener = channel.unary_unary(
             '/ondewo.vtsi.Calls/StartListener',
             request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartListenerRequest.SerializeToString,
@@ -34,6 +44,16 @@ class CallsStub(object):
             '/ondewo.vtsi.Calls/StartListeners',
             request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartListenersRequest.SerializeToString,
             response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartListenersResponse.FromString,
+        )
+        self.ListListeners = channel.unary_unary(
+            '/ondewo.vtsi.Calls/ListListeners',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListListenersRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListListenersResponse.FromString,
+        )
+        self.GetListener = channel.unary_unary(
+            '/ondewo.vtsi.Calls/GetListener',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetListenerRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.Listener.FromString,
         )
         self.StartScheduledCaller = channel.unary_unary(
             '/ondewo.vtsi.Calls/StartScheduledCaller',
@@ -70,15 +90,15 @@ class CallsStub(object):
             request_serializer=ondewo_dot_vtsi_dot_calls__pb2.TransferCallsRequest.SerializeToString,
             response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.TransferCallsResponse.FromString,
         )
-        self.GetCallInfo = channel.unary_unary(
-            '/ondewo.vtsi.Calls/GetCallInfo',
-            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallInfoRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallInfoResponse.FromString,
+        self.GetCall = channel.unary_unary(
+            '/ondewo.vtsi.Calls/GetCall',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.Call.FromString,
         )
-        self.ListCallInfo = channel.unary_unary(
-            '/ondewo.vtsi.Calls/ListCallInfo',
-            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallInfoRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallInfoResponse.FromString,
+        self.ListCalls = channel.unary_unary(
+            '/ondewo.vtsi.Calls/ListCalls',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsResponse.FromString,
         )
         self.GetAudioFile = channel.unary_unary(
             '/ondewo.vtsi.Calls/GetAudioFile',
@@ -114,6 +134,20 @@ class CallsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListCallers(self, request, context):
+        """lists all available callers
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCaller(self, request, context):
+        """gets a caller
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StartListener(self, request, context):
         """start single listener instance for a specific nlu-project.
         """
@@ -123,6 +157,20 @@ class CallsServicer(object):
 
     def StartListeners(self, request, context):
         """start multiple ondewo-sip listeners instances for a specific nlu-project.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListListeners(self, request, context):
+        """lists all available listeners
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetListener(self, request, context):
+        """gets a listener
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -179,14 +227,14 @@ class CallsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetCallInfo(self, request, context):
+    def GetCall(self, request, context):
         """get call log for single call instance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ListCallInfo(self, request, context):
+    def ListCalls(self, request, context):
         """get call log for all call instances
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -220,6 +268,16 @@ def add_CallsServicer_to_server(servicer, server):
             request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartCallersRequest.FromString,
             response_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartCallersResponse.SerializeToString,
         ),
+        'ListCallers': grpc.unary_unary_rpc_method_handler(
+            servicer.ListCallers,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallersRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallersResponse.SerializeToString,
+        ),
+        'GetCaller': grpc.unary_unary_rpc_method_handler(
+            servicer.GetCaller,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallerRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.Caller.SerializeToString,
+        ),
         'StartListener': grpc.unary_unary_rpc_method_handler(
             servicer.StartListener,
             request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartListenerRequest.FromString,
@@ -229,6 +287,16 @@ def add_CallsServicer_to_server(servicer, server):
             servicer.StartListeners,
             request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartListenersRequest.FromString,
             response_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartListenersResponse.SerializeToString,
+        ),
+        'ListListeners': grpc.unary_unary_rpc_method_handler(
+            servicer.ListListeners,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListListenersRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListListenersResponse.SerializeToString,
+        ),
+        'GetListener': grpc.unary_unary_rpc_method_handler(
+            servicer.GetListener,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetListenerRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.Listener.SerializeToString,
         ),
         'StartScheduledCaller': grpc.unary_unary_rpc_method_handler(
             servicer.StartScheduledCaller,
@@ -265,15 +333,15 @@ def add_CallsServicer_to_server(servicer, server):
             request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.TransferCallsRequest.FromString,
             response_serializer=ondewo_dot_vtsi_dot_calls__pb2.TransferCallsResponse.SerializeToString,
         ),
-        'GetCallInfo': grpc.unary_unary_rpc_method_handler(
-            servicer.GetCallInfo,
-            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallInfoRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallInfoResponse.SerializeToString,
+        'GetCall': grpc.unary_unary_rpc_method_handler(
+            servicer.GetCall,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.Call.SerializeToString,
         ),
-        'ListCallInfo': grpc.unary_unary_rpc_method_handler(
-            servicer.ListCallInfo,
-            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallInfoRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallInfoResponse.SerializeToString,
+        'ListCalls': grpc.unary_unary_rpc_method_handler(
+            servicer.ListCalls,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsResponse.SerializeToString,
         ),
         'GetAudioFile': grpc.unary_unary_rpc_method_handler(
             servicer.GetAudioFile,
@@ -332,6 +400,40 @@ class Calls(object):
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def ListCallers(request,
+                    target,
+                    options=(),
+                    channel_credentials=None,
+                    call_credentials=None,
+                    insecure=False,
+                    compression=None,
+                    wait_for_ready=None,
+                    timeout=None,
+                    metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/ListCallers',
+                                             ondewo_dot_vtsi_dot_calls__pb2.ListCallersRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.ListCallersResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetCaller(request,
+                  target,
+                  options=(),
+                  channel_credentials=None,
+                  call_credentials=None,
+                  insecure=False,
+                  compression=None,
+                  wait_for_ready=None,
+                  timeout=None,
+                  metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/GetCaller',
+                                             ondewo_dot_vtsi_dot_calls__pb2.GetCallerRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.Caller.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def StartListener(request,
                       target,
                       options=(),
@@ -362,6 +464,40 @@ class Calls(object):
         return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/StartListeners',
                                              ondewo_dot_vtsi_dot_calls__pb2.StartListenersRequest.SerializeToString,
                                              ondewo_dot_vtsi_dot_calls__pb2.StartListenersResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListListeners(request,
+                      target,
+                      options=(),
+                      channel_credentials=None,
+                      call_credentials=None,
+                      insecure=False,
+                      compression=None,
+                      wait_for_ready=None,
+                      timeout=None,
+                      metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/ListListeners',
+                                             ondewo_dot_vtsi_dot_calls__pb2.ListListenersRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.ListListenersResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetListener(request,
+                    target,
+                    options=(),
+                    channel_credentials=None,
+                    call_credentials=None,
+                    insecure=False,
+                    compression=None,
+                    wait_for_ready=None,
+                    timeout=None,
+                    metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/GetListener',
+                                             ondewo_dot_vtsi_dot_calls__pb2.GetListenerRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.Listener.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -485,36 +621,36 @@ class Calls(object):
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetCallInfo(request,
-                    target,
-                    options=(),
-                    channel_credentials=None,
-                    call_credentials=None,
-                    insecure=False,
-                    compression=None,
-                    wait_for_ready=None,
-                    timeout=None,
-                    metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/GetCallInfo',
-                                             ondewo_dot_vtsi_dot_calls__pb2.GetCallInfoRequest.SerializeToString,
-                                             ondewo_dot_vtsi_dot_calls__pb2.GetCallInfoResponse.FromString,
+    def GetCall(request,
+                target,
+                options=(),
+                channel_credentials=None,
+                call_credentials=None,
+                insecure=False,
+                compression=None,
+                wait_for_ready=None,
+                timeout=None,
+                metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/GetCall',
+                                             ondewo_dot_vtsi_dot_calls__pb2.GetCallRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.Call.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ListCallInfo(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/ListCallInfo',
-                                             ondewo_dot_vtsi_dot_calls__pb2.ListCallInfoRequest.SerializeToString,
-                                             ondewo_dot_vtsi_dot_calls__pb2.ListCallInfoResponse.FromString,
+    def ListCalls(request,
+                  target,
+                  options=(),
+                  channel_credentials=None,
+                  call_credentials=None,
+                  insecure=False,
+                  compression=None,
+                  wait_for_ready=None,
+                  timeout=None,
+                  metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/ListCalls',
+                                             ondewo_dot_vtsi_dot_calls__pb2.ListCallsRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.ListCallsResponse.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

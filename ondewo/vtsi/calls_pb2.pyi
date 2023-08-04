@@ -17,28 +17,28 @@ import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-class _CallInfoView:
+class _CallView:
     ValueType = typing.NewType('ValueType', builtins.int)
     V: typing_extensions.TypeAlias = ValueType
-class _CallInfoViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallInfoView.ValueType], builtins.type):
+class _CallViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallView.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-    SHALLOW: _CallInfoView.ValueType  # 0
+    SHALLOW: _CallView.ValueType  # 0
     """Gives you all basic info like call name, start_time, end_time, current sip status"""
 
-    FULL: _CallInfoView.ValueType  # 1
+    FULL: _CallView.ValueType  # 1
     """Gives you the full info with status history and the services statuses"""
 
-class CallInfoView(_CallInfoView, metaclass=_CallInfoViewEnumTypeWrapper):
-    """CallInfo view options"""
+class CallView(_CallView, metaclass=_CallViewEnumTypeWrapper):
+    """Call view options"""
     pass
 
-SHALLOW: CallInfoView.ValueType  # 0
+SHALLOW: CallView.ValueType  # 0
 """Gives you all basic info like call name, start_time, end_time, current sip status"""
 
-FULL: CallInfoView.ValueType  # 1
+FULL: CallView.ValueType  # 1
 """Gives you the full info with status history and the services statuses"""
 
-global___CallInfoView = CallInfoView
+global___CallView = CallView
 
 
 class _CallType:
@@ -46,27 +46,27 @@ class _CallType:
     V: typing_extensions.TypeAlias = ValueType
 class _CallTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallType.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-    both: _CallType.ValueType  # 0
+    BOTH: _CallType.ValueType  # 0
     """both listeners and callers"""
 
-    listener: _CallType.ValueType  # 1
-    """voip call listeners"""
+    LISTENER: _CallType.ValueType  # 1
+    """listeners"""
 
-    caller: _CallType.ValueType  # 2
-    """voip call callers"""
+    CALLER: _CallType.ValueType  # 2
+    """caller"""
 
 class CallType(_CallType, metaclass=_CallTypeEnumTypeWrapper):
     """CallType"""
     pass
 
-both: CallType.ValueType  # 0
+BOTH: CallType.ValueType  # 0
 """both listeners and callers"""
 
-listener: CallType.ValueType  # 1
-"""voip call listeners"""
+LISTENER: CallType.ValueType  # 1
+"""listeners"""
 
-caller: CallType.ValueType  # 2
-"""voip call callers"""
+CALLER: CallType.ValueType  # 2
+"""caller"""
 
 global___CallType = CallType
 
@@ -868,6 +868,122 @@ class StartCallersResponse(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["caller_responses",b"caller_responses","error_message",b"error_message","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___StartCallersResponse = StartCallersResponse
 
+class ListCallersRequest(google.protobuf.message.Message):
+    """Represents a request to list callers."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    vtsi_project_name: typing.Text
+    """VTSI project name for which to perform the call.
+    The format is: "projects/<project_uuid>/project".
+    """
+
+    page_token: typing.Text
+    """Optional. The next_page_token value returned from a previous list request.
+    Example: "current_index-1--page_size-20"
+    """
+
+    def __init__(self,
+        *,
+        vtsi_project_name: typing.Text = ...,
+        page_token: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["page_token",b"page_token","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+global___ListCallersRequest = ListCallersRequest
+
+class ListCallersResponse(google.protobuf.message.Message):
+    """Represents the response for listing callers."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    CALLERS_FIELD_NUMBER: builtins.int
+    @property
+    def callers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Caller]:
+        """The list of callers."""
+        pass
+    def __init__(self,
+        *,
+        callers: typing.Optional[typing.Iterable[global___Caller]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["callers",b"callers"]) -> None: ...
+global___ListCallersResponse = ListCallersResponse
+
+class GetCallerRequest(google.protobuf.message.Message):
+    """Represents a request to get a specific caller."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    CALLERS_FIELD_NUMBER: builtins.int
+    @property
+    def callers(self) -> global___Caller:
+        """The caller to retrieve."""
+        pass
+    def __init__(self,
+        *,
+        callers: typing.Optional[global___Caller] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["callers",b"callers"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["callers",b"callers"]) -> None: ...
+global___GetCallerRequest = GetCallerRequest
+
+class ListListenersRequest(google.protobuf.message.Message):
+    """Represents a request to list listeners."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    vtsi_project_name: typing.Text
+    """VTSI project name for which to perform the call.
+    The format is: "projects/<project_uuid>/project".
+    """
+
+    page_token: typing.Text
+    """Optional. The next_page_token value returned from a previous list request.
+    Example: "current_index-1--page_size-20"
+    """
+
+    def __init__(self,
+        *,
+        vtsi_project_name: typing.Text = ...,
+        page_token: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["page_token",b"page_token","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+global___ListListenersRequest = ListListenersRequest
+
+class ListListenersResponse(google.protobuf.message.Message):
+    """Represents the response for listing listeners."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    LISTENERS_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    @property
+    def listeners(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Listener]:
+        """The list of listeners."""
+        pass
+    next_page_token: typing.Text
+    """Token to retrieve the next page of results.
+    This field is a string that holds a token for fetching the next page of results.
+    If there are no more results in the list, this field will be empty.
+    """
+
+    def __init__(self,
+        *,
+        listeners: typing.Optional[typing.Iterable[global___Listener]] = ...,
+        next_page_token: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["listeners",b"listeners","next_page_token",b"next_page_token"]) -> None: ...
+global___ListListenersResponse = ListListenersResponse
+
+class GetListenerRequest(google.protobuf.message.Message):
+    """Represents a request to get a specific listener."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    LISTENERS_FIELD_NUMBER: builtins.int
+    @property
+    def listeners(self) -> global___Listener:
+        """The listener to retrieve."""
+        pass
+    def __init__(self,
+        *,
+        listeners: typing.Optional[global___Listener] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["listeners",b"listeners"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["listeners",b"listeners"]) -> None: ...
+global___GetListenerRequest = GetListenerRequest
+
 class StartScheduledCallerRequest(google.protobuf.message.Message):
     """request for starting a scheduled call"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -1213,12 +1329,12 @@ class TransferCallsResponse(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","transfer_call_responses",b"transfer_call_responses","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___TransferCallsResponse = TransferCallsResponse
 
-class GetCallInfoRequest(google.protobuf.message.Message):
+class GetCallRequest(google.protobuf.message.Message):
     """request to get a call instance's call logs"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALL_NAME_FIELD_NUMBER: builtins.int
-    CALL_INFO_VIEW_FIELD_NUMBER: builtins.int
+    CALL_VIEW_FIELD_NUMBER: builtins.int
     vtsi_project_name: typing.Text
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
 
@@ -1228,41 +1344,19 @@ class GetCallInfoRequest(google.protobuf.message.Message):
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
 
-    call_info_view: global___CallInfoView.ValueType
+    call_view: global___CallView.ValueType
     """you can specify the view to be shallow or full .. see above for more info"""
 
     def __init__(self,
         *,
         vtsi_project_name: typing.Text = ...,
         call_name: typing.Text = ...,
-        call_info_view: global___CallInfoView.ValueType = ...,
+        call_view: global___CallView.ValueType = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_info_view",b"call_info_view","call_name",b"call_name","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
-global___GetCallInfoRequest = GetCallInfoRequest
+    def ClearField(self, field_name: typing_extensions.Literal["call_name",b"call_name","call_view",b"call_view","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+global___GetCallRequest = GetCallRequest
 
-class GetCallInfoResponse(google.protobuf.message.Message):
-    """response with call logs"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    ACTIVE_LOG_FIELD_NUMBER: builtins.int
-    DONE_LOGS_FIELD_NUMBER: builtins.int
-    @property
-    def active_log(self) -> global___CallInfo:
-        """CallInfo to view active logs of calls"""
-        pass
-    @property
-    def done_logs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallInfo]:
-        """logs of calls associated with call instance"""
-        pass
-    def __init__(self,
-        *,
-        active_log: typing.Optional[global___CallInfo] = ...,
-        done_logs: typing.Optional[typing.Iterable[global___CallInfo]] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["active_log",b"active_log"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active_log",b"active_log","done_logs",b"done_logs"]) -> None: ...
-global___GetCallInfoResponse = GetCallInfoResponse
-
-class CallInfo(google.protobuf.message.Message):
+class Call(google.protobuf.message.Message):
     """Call log"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     CALL_NAME_FIELD_NUMBER: builtins.int
@@ -1326,45 +1420,60 @@ class CallInfo(google.protobuf.message.Message):
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["end_time",b"end_time","services_statuses",b"services_statuses","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["call_name",b"call_name","call_type",b"call_type","container_name",b"container_name","end_time",b"end_time","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> None: ...
-global___CallInfo = CallInfo
+global___Call = Call
 
-class ListCallInfoRequest(google.protobuf.message.Message):
+class ListCallsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_INFO_VIEW_FIELD_NUMBER: builtins.int
+    CALL_VIEW_FIELD_NUMBER: builtins.int
     CALL_TYPE_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
     vtsi_project_name: typing.Text
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
 
-    call_info_view: global___CallInfoView.ValueType
+    call_view: global___CallView.ValueType
     """you can specify the view to be shallow or full .. see above for more info"""
 
     call_type: global___CallType.ValueType
     """both by default, or only listeners, or only callers"""
 
+    page_token: typing.Text
+    """Optional. The next_page_token value returned from a previous list request.
+    Example: "current_index-1--page_size-20"
+    """
+
     def __init__(self,
         *,
         vtsi_project_name: typing.Text = ...,
-        call_info_view: global___CallInfoView.ValueType = ...,
+        call_view: global___CallView.ValueType = ...,
         call_type: global___CallType.ValueType = ...,
+        page_token: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_info_view",b"call_info_view","call_type",b"call_type","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
-global___ListCallInfoRequest = ListCallInfoRequest
+    def ClearField(self, field_name: typing_extensions.Literal["call_type",b"call_type","call_view",b"call_view","page_token",b"page_token","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+global___ListCallsRequest = ListCallsRequest
 
-class ListCallInfoResponse(google.protobuf.message.Message):
+class ListCallsResponse(google.protobuf.message.Message):
     """Response to list all VoipInfos"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    CALL_INFOS_FIELD_NUMBER: builtins.int
+    CALLS_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     @property
-    def call_infos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallInfo]:
+    def calls(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Call]:
         """VoipInfos"""
         pass
+    next_page_token: typing.Text
+    """Token to retrieve the next page of results.
+    This field is a string that holds a token for fetching the next page of results.
+    If there are no more results in the list, this field will be empty.
+    """
+
     def __init__(self,
         *,
-        call_infos: typing.Optional[typing.Iterable[global___CallInfo]] = ...,
+        calls: typing.Optional[typing.Iterable[global___Call]] = ...,
+        next_page_token: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_infos",b"call_infos"]) -> None: ...
-global___ListCallInfoResponse = ListCallInfoResponse
+    def ClearField(self, field_name: typing_extensions.Literal["calls",b"calls","next_page_token",b"next_page_token"]) -> None: ...
+global___ListCallsResponse = ListCallsResponse
 
 class AllServicesStatuses(google.protobuf.message.Message):
     """status of ondewo-sip instance"""

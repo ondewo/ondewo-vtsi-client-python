@@ -406,7 +406,9 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
     """Optional. Specify the view of the returned VtsiProject (full view by default)"""
 
     page_token: typing.Text
-    """Optional. The next_page_token value returned from a previous list request."""
+    """Optional. The next_page_token value returned from a previous list request.
+    Example: "current_index-1--page_size-20"
+    """
 
     @property
     def vtsi_project_sorting(self) -> global___VtsiProjectSorting:

@@ -20,17 +20,17 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17ondewo/vtsi/calls.proto\x12\x0bondewo.vtsi\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x18ondewo/nlu/context.proto\x1a\x1fondewo/s2t/speech-to-text.proto\x1a\x1fondewo/t2s/text-to-speech.proto\x1a\x14ondewo/sip/sip.proto\"B\n\x11\x42\x61seServiceConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x11\n\tgrpc_cert\x18\x03 \x01(\t\"5\n\x0b\x43redentials\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\xaa\x02\n\rNluVtsiConfig\x12\x37\n\x0fnlu_base_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12/\n\x0b\x63redentials\x18\x02 \x01(\x0b\x32\x18.ondewo.vtsi.CredentialsH\x00\x12\x14\n\nauth_token\x18\x03 \x01(\tH\x00\x12\x12\n\nagent_name\x18\x04 \x01(\t\x12\x15\n\rlanguage_code\x18\x05 \x01(\t\x12\x16\n\x0einitial_intent\x18\x06 \x01(\t\x12%\n\x08\x63ontexts\x18\x07 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x1d\n\x15http_basic_auth_token\x18\x08 \x01(\tB\x10\n\x0e\x61uthentication\"\x7f\n\rT2sVtsiConfig\x12\x37\n\x0ft2s_base_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12\x35\n\x12t2s_request_config\x18\x02 \x01(\x0b\x32\x19.ondewo.t2s.RequestConfig\"\x94\x01\n\rS2tVtsiConfig\x12\x37\n\x0fs2t_base_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12J\n\x1ds2t_transcribe_request_config\x18\x02 \x01(\x0b\x32#.ondewo.s2t.TranscribeRequestConfig\"N\n\x0e\x41steriskConfig\x12<\n\x14\x61sterisk_base_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\"\xea\x01\n\x14\x43ommonServicesConfig\x12\x33\n\x0fs2t_vtsi_config\x18\x01 \x01(\x0b\x32\x1a.ondewo.vtsi.S2tVtsiConfig\x12\x33\n\x0fnlu_vtsi_config\x18\x02 \x01(\x0b\x32\x1a.ondewo.vtsi.NluVtsiConfig\x12\x33\n\x0ft2s_vtsi_config\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.T2sVtsiConfig\x12\x33\n\x0f\x63si_vtsi_config\x18\x04 \x01(\x0b\x32\x1a.ondewo.vtsi.CsiVtsiConfig\"(\n\rSipBaseConfig\x12\x17\n\x0fsip_sim_version\x18\x01 \x01(\t\"\xcf\x01\n\x0fSipCallerConfig\x12\x33\n\x0fsip_base_config\x18\x01 \x01(\x0b\x32\x1a.ondewo.vtsi.SipBaseConfig\x12\x11\n\tcallee_id\x18\x02 \x01(\t\x12\x41\n\x0bsip_headers\x18\x03 \x03(\x0b\x32,.ondewo.vtsi.SipCallerConfig.SipHeadersEntry\x1a\x31\n\x0fSipHeadersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xee\x02\n\rCsiVtsiConfig\x12\x39\n\x12s2t_vtsi_callbacks\x18\x01 \x01(\x0b\x32\x1d.ondewo.vtsi.S2tVtsiCallbacks\x12\x39\n\x12nlu_vtsi_callbacks\x18\x02 \x01(\x0b\x32\x1d.ondewo.vtsi.NluVtsiCallbacks\x12\x39\n\x12t2s_vtsi_callbacks\x18\x03 \x01(\x0b\x32\x1d.ondewo.vtsi.T2sVtsiCallbacks\x12H\n\x19\x61udio_object_store_config\x18\x04 \x01(\x0b\x32%.ondewo.vtsi.AudioObjectStorageConfig\x12?\n\x15message_broker_config\x18\x05 \x01(\x0b\x32 .ondewo.vtsi.MessageBrokerConfig\x12!\n\x19\x61\x63tivate_control_messages\x18\x06 \x01(\x08\"\xfd\x01\n\x18\x41udioObjectStorageConfig\x12%\n\x1d\x61\x63tivate_audio_object_storage\x18\x01 \x01(\x08\x12p\n/audio_object_storage_services_activation_config\x18\x02 \x01(\x0b\x32\x37.ondewo.vtsi.AudioObjectStorageServicesActivationConfig\x12\x30\n\x0cminio_config\x18\x03 \x01(\x0b\x32\x18.ondewo.vtsi.MinioConfigH\x00\x42\x16\n\x14\x61udio_storage_config\"X\n*AudioObjectStorageServicesActivationConfig\x12\x14\n\x0c\x61\x63tivate_s2t\x18\x01 \x01(\x08\x12\x14\n\x0c\x61\x63tivate_t2s\x18\x02 \x01(\x08\"\xef\x01\n\x13MessageBrokerConfig\x12\x1f\n\x17\x61\x63tivate_message_broker\x18\x01 \x01(\x08\x12\x65\n)message_broker_services_activation_config\x18\x02 \x01(\x0b\x32\x32.ondewo.vtsi.MessageBrokerServicesActivationConfig\x12\x37\n\x10rabbit_mq_config\x18\x03 \x01(\x0b\x32\x1b.ondewo.vtsi.RabbitMqConfigH\x00\x42\x17\n\x15message_broker_config\"\x7f\n%MessageBrokerServicesActivationConfig\x12\x14\n\x0c\x61\x63tivate_s2t\x18\x01 \x01(\x08\x12\x14\n\x0c\x61\x63tivate_nlu\x18\x02 \x01(\x08\x12\x14\n\x0c\x61\x63tivate_t2s\x18\x03 \x01(\x08\x12\x14\n\x0c\x61\x63tivate_sip\x18\x04 \x01(\x08\"\\\n\x0eRabbitMqConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x0e\n\x06port_2\x18\x03 \x01(\x05\x12\x0c\n\x04user\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\"x\n\x0bMinioConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x12\n\naccess_key\x18\x03 \x01(\t\x12\x12\n\nsecret_key\x18\x04 \x01(\t\x12\x0e\n\x06secure\x18\x05 \x01(\x08\x12\x15\n\rsession_token\x18\x06 \x01(\t\"I\n\x10S2tVtsiCallbacks\x12\x19\n\x11pre_s2t_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_s2t_callbacks\x18\x02 \x03(\t\"I\n\x10NluVtsiCallbacks\x12\x19\n\x11pre_nlu_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_nlu_callbacks\x18\x02 \x03(\t\"I\n\x10T2sVtsiCallbacks\x12\x19\n\x11pre_t2s_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_t2s_callbacks\x18\x02 \x03(\t\"\xa3\x01\n\x08Listener\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x33\n\x0fsip_base_config\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.SipBaseConfig\x12\x41\n\x16\x63ommon_services_config\x18\x04 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\"\xa5\x01\n\x06\x43\x61ller\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x37\n\x11sip_caller_config\x18\x03 \x01(\x0b\x32\x1c.ondewo.vtsi.SipCallerConfig\x12\x41\n\x16\x63ommon_services_config\x18\x04 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\"\xa9\x01\n\x14StartListenerRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x33\n\x0fsip_base_config\x18\x02 \x01(\x0b\x32\x1a.ondewo.vtsi.SipBaseConfig\x12\x41\n\x16\x63ommon_services_config\x18\x03 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\"r\n\x15StartListenerResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\'\n\x08listener\x18\x02 \x01(\x0b\x32\x15.ondewo.vtsi.Listener\x12\x15\n\rerror_message\x18\x03 \x01(\t\"p\n\x15StartListenersRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12<\n\x11listener_requests\x18\x02 \x03(\x0b\x32!.ondewo.vtsi.StartListenerRequest\"\x8a\x01\n\x16StartListenersResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12>\n\x12listener_responses\x18\x02 \x03(\x0b\x32\".ondewo.vtsi.StartListenerResponse\x12\x15\n\rerror_message\x18\x03 \x01(\t\"\xab\x01\n\x12StartCallerRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x37\n\x11sip_caller_config\x18\x02 \x01(\x0b\x32\x1c.ondewo.vtsi.SipCallerConfig\x12\x41\n\x16\x63ommon_services_config\x18\x03 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\"l\n\x13StartCallerResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12#\n\x06\x63\x61ller\x18\x02 \x01(\x0b\x32\x13.ondewo.vtsi.Caller\x12\x15\n\rerror_message\x18\x03 \x01(\t\"j\n\x13StartCallersRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x38\n\x0f\x63\x61ller_requests\x18\x02 \x03(\x0b\x32\x1f.ondewo.vtsi.StartCallerRequest\"\x84\x01\n\x14StartCallersResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12:\n\x10\x63\x61ller_responses\x18\x02 \x03(\x0b\x32 .ondewo.vtsi.StartCallerResponse\x12\x15\n\rerror_message\x18\x03 \x01(\t\"\x9e\x01\n\x1bStartScheduledCallerRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x30\n\x07request\x18\x02 \x01(\x0b\x32\x1f.ondewo.vtsi.StartCallerRequest\x12\x32\n\x0escheduled_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x86\x01\n\x1cStartScheduledCallersRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12K\n\x19scheduled_caller_requests\x18\x02 \x03(\x0b\x32(.ondewo.vtsi.StartScheduledCallerRequest\"\x89\x01\n\x1dStartScheduledCallersResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12M\n\x1ascheduled_caller_responses\x18\x02 \x03(\x0b\x32).ondewo.vtsi.StartScheduledCallerResponse\"\x88\x01\n\x1cStartScheduledCallerResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x36\n\x10scheduled_caller\x18\x02 \x01(\x0b\x32\x1c.ondewo.vtsi.ScheduledCaller\x12\x15\n\rerror_message\x18\x03 \x01(\t\"\xd9\x01\n\x0fScheduledCaller\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12.\n\nsip_config\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.SipBaseConfig\x12\x41\n\x16\x63ommon_services_config\x18\x04 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\x12\x32\n\x0escheduled_time\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"?\n\x0fStopCallRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\"W\n\x10StopCallResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x15\n\rerror_message\x18\x03 \x01(\t\"A\n\x10StopCallsRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x12\n\ncall_names\x18\x02 \x03(\t\"f\n\x11StopCallsResponse\x12:\n\x13stop_call_responses\x18\x01 \x03(\x0b\x32\x1d.ondewo.vtsi.StopCallResponse\x12\x15\n\rerror_message\x18\x02 \x01(\t\"0\n\x13StopAllCallsRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\"X\n\x13TransferCallRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x13\n\x0btransfer_id\x18\x03 \x03(\t\"p\n\x14TransferCallResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x13\n\x0btransfer_id\x18\x03 \x01(\t\x12\x15\n\rerror_message\x18\x04 \x01(\t\"s\n\x14TransferCallsRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12@\n\x16transfer_call_requests\x18\x02 \x03(\x0b\x32 .ondewo.vtsi.TransferCallRequest\"\x8d\x01\n\x15TransferCallsResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x42\n\x17transfer_call_responses\x18\x02 \x03(\x0b\x32!.ondewo.vtsi.TransferCallResponse\x12\x15\n\rerror_message\x18\x03 \x01(\t\"u\n\x12GetCallInfoRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x31\n\x0e\x63\x61ll_info_view\x18\x03 \x01(\x0e\x32\x19.ondewo.vtsi.CallInfoView\"j\n\x13GetCallInfoResponse\x12)\n\nactive_log\x18\x01 \x01(\x0b\x32\x15.ondewo.vtsi.CallInfo\x12(\n\tdone_logs\x18\x02 \x03(\x0b\x32\x15.ondewo.vtsi.CallInfo\"\x92\x03\n\x08\x43\x61llInfo\x12\x11\n\tcall_name\x18\x01 \x01(\t\x12\x13\n\x0bsip_account\x18\x02 \x01(\t\x12\x16\n\x0e\x63ontainer_name\x18\x03 \x01(\t\x12(\n\tcall_type\x18\x04 \x01(\x0e\x32\x15.ondewo.vtsi.CallType\x12\x14\n\x0cphone_number\x18\x05 \x01(\t\x12.\n\nstart_time\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12)\n\nsip_status\x18\x08 \x01(\x0b\x32\x15.ondewo.sip.SipStatus\x12@\n\x12sip_status_history\x18\t \x01(\x0b\x32$.ondewo.sip.SipStatusHistoryResponse\x12;\n\x11services_statuses\x18\n \x01(\x0b\x32 .ondewo.vtsi.AllServicesStatuses\"\x8d\x01\n\x13ListCallInfoRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x31\n\x0e\x63\x61ll_info_view\x18\x02 \x01(\x0e\x32\x19.ondewo.vtsi.CallInfoView\x12(\n\tcall_type\x18\x03 \x01(\x0e\x32\x15.ondewo.vtsi.CallType\"A\n\x14ListCallInfoResponse\x12)\n\ncall_infos\x18\x01 \x03(\x0b\x32\x15.ondewo.vtsi.CallInfo\"\x8a\x02\n\x13\x41llServicesStatuses\x12.\n\nstatus_sip\x18\x01 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12\x33\n\x0fstatus_asterisk\x18\x02 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_nlu\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_stt\x18\x04 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_tts\x18\x05 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\"7\n\rServiceStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\"o\n\x13GetAudioFileRequest\x12\x13\n\x0b\x62ucket_name\x18\x01 \x01(\t\x12\x13\n\x0bobject_name\x18\x02 \x01(\t\x12.\n\x0cminio_config\x18\x03 \x01(\x0b\x32\x18.ondewo.vtsi.MinioConfig\"%\n\x14GetAudioFileResponse\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\"\x80\x01\n#GetFullConversationAudioFileRequest\x12\x13\n\x0b\x62ucket_name\x18\x01 \x01(\t\x12\x14\n\x0cobject_names\x18\x02 \x03(\t\x12.\n\x0cminio_config\x18\x03 \x01(\x0b\x32\x18.ondewo.vtsi.MinioConfig\"5\n$GetFullConversationAudioFileResponse\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c*%\n\x0c\x43\x61llInfoView\x12\x0b\n\x07SHALLOW\x10\x00\x12\x08\n\x04\x46ULL\x10\x01*.\n\x08\x43\x61llType\x12\x08\n\x04\x62oth\x10\x00\x12\x0c\n\x08listener\x10\x01\x12\n\n\x06\x63\x61ller\x10\x02\x32\xd6\n\n\x05\x43\x61lls\x12P\n\x0bStartCaller\x12\x1f.ondewo.vtsi.StartCallerRequest\x1a .ondewo.vtsi.StartCallerResponse\x12S\n\x0cStartCallers\x12 .ondewo.vtsi.StartCallersRequest\x1a!.ondewo.vtsi.StartCallersResponse\x12V\n\rStartListener\x12!.ondewo.vtsi.StartListenerRequest\x1a\".ondewo.vtsi.StartListenerResponse\x12Y\n\x0eStartListeners\x12\".ondewo.vtsi.StartListenersRequest\x1a#.ondewo.vtsi.StartListenersResponse\x12k\n\x14StartScheduledCaller\x12(.ondewo.vtsi.StartScheduledCallerRequest\x1a).ondewo.vtsi.StartScheduledCallerResponse\x12n\n\x15StartScheduledCallers\x12).ondewo.vtsi.StartScheduledCallersRequest\x1a*.ondewo.vtsi.StartScheduledCallersResponse\x12G\n\x08StopCall\x12\x1c.ondewo.vtsi.StopCallRequest\x1a\x1d.ondewo.vtsi.StopCallResponse\x12J\n\tStopCalls\x12\x1d.ondewo.vtsi.StopCallsRequest\x1a\x1e.ondewo.vtsi.StopCallsResponse\x12P\n\x0cStopAllCalls\x12 .ondewo.vtsi.StopAllCallsRequest\x1a\x1e.ondewo.vtsi.StopCallsResponse\x12S\n\x0cTransferCall\x12 .ondewo.vtsi.TransferCallRequest\x1a!.ondewo.vtsi.TransferCallResponse\x12V\n\rTransferCalls\x12!.ondewo.vtsi.TransferCallsRequest\x1a\".ondewo.vtsi.TransferCallsResponse\x12P\n\x0bGetCallInfo\x12\x1f.ondewo.vtsi.GetCallInfoRequest\x1a .ondewo.vtsi.GetCallInfoResponse\x12S\n\x0cListCallInfo\x12 .ondewo.vtsi.ListCallInfoRequest\x1a!.ondewo.vtsi.ListCallInfoResponse\x12S\n\x0cGetAudioFile\x12 .ondewo.vtsi.GetAudioFileRequest\x1a!.ondewo.vtsi.GetAudioFileResponse\x12\x85\x01\n\x1cGetFullConversationAudioFile\x12\x30.ondewo.vtsi.GetFullConversationAudioFileRequest\x1a\x31.ondewo.vtsi.GetFullConversationAudioFileResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17ondewo/vtsi/calls.proto\x12\x0bondewo.vtsi\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x18ondewo/nlu/context.proto\x1a\x1fondewo/s2t/speech-to-text.proto\x1a\x1fondewo/t2s/text-to-speech.proto\x1a\x14ondewo/sip/sip.proto\"B\n\x11\x42\x61seServiceConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x11\n\tgrpc_cert\x18\x03 \x01(\t\"5\n\x0b\x43redentials\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\xaa\x02\n\rNluVtsiConfig\x12\x37\n\x0fnlu_base_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12/\n\x0b\x63redentials\x18\x02 \x01(\x0b\x32\x18.ondewo.vtsi.CredentialsH\x00\x12\x14\n\nauth_token\x18\x03 \x01(\tH\x00\x12\x12\n\nagent_name\x18\x04 \x01(\t\x12\x15\n\rlanguage_code\x18\x05 \x01(\t\x12\x16\n\x0einitial_intent\x18\x06 \x01(\t\x12%\n\x08\x63ontexts\x18\x07 \x03(\x0b\x32\x13.ondewo.nlu.Context\x12\x1d\n\x15http_basic_auth_token\x18\x08 \x01(\tB\x10\n\x0e\x61uthentication\"\x7f\n\rT2sVtsiConfig\x12\x37\n\x0ft2s_base_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12\x35\n\x12t2s_request_config\x18\x02 \x01(\x0b\x32\x19.ondewo.t2s.RequestConfig\"\x94\x01\n\rS2tVtsiConfig\x12\x37\n\x0fs2t_base_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\x12J\n\x1ds2t_transcribe_request_config\x18\x02 \x01(\x0b\x32#.ondewo.s2t.TranscribeRequestConfig\"N\n\x0e\x41steriskConfig\x12<\n\x14\x61sterisk_base_config\x18\x01 \x01(\x0b\x32\x1e.ondewo.vtsi.BaseServiceConfig\"\xea\x01\n\x14\x43ommonServicesConfig\x12\x33\n\x0fs2t_vtsi_config\x18\x01 \x01(\x0b\x32\x1a.ondewo.vtsi.S2tVtsiConfig\x12\x33\n\x0fnlu_vtsi_config\x18\x02 \x01(\x0b\x32\x1a.ondewo.vtsi.NluVtsiConfig\x12\x33\n\x0ft2s_vtsi_config\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.T2sVtsiConfig\x12\x33\n\x0f\x63si_vtsi_config\x18\x04 \x01(\x0b\x32\x1a.ondewo.vtsi.CsiVtsiConfig\"(\n\rSipBaseConfig\x12\x17\n\x0fsip_sim_version\x18\x01 \x01(\t\"\xcf\x01\n\x0fSipCallerConfig\x12\x33\n\x0fsip_base_config\x18\x01 \x01(\x0b\x32\x1a.ondewo.vtsi.SipBaseConfig\x12\x11\n\tcallee_id\x18\x02 \x01(\t\x12\x41\n\x0bsip_headers\x18\x03 \x03(\x0b\x32,.ondewo.vtsi.SipCallerConfig.SipHeadersEntry\x1a\x31\n\x0fSipHeadersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xee\x02\n\rCsiVtsiConfig\x12\x39\n\x12s2t_vtsi_callbacks\x18\x01 \x01(\x0b\x32\x1d.ondewo.vtsi.S2tVtsiCallbacks\x12\x39\n\x12nlu_vtsi_callbacks\x18\x02 \x01(\x0b\x32\x1d.ondewo.vtsi.NluVtsiCallbacks\x12\x39\n\x12t2s_vtsi_callbacks\x18\x03 \x01(\x0b\x32\x1d.ondewo.vtsi.T2sVtsiCallbacks\x12H\n\x19\x61udio_object_store_config\x18\x04 \x01(\x0b\x32%.ondewo.vtsi.AudioObjectStorageConfig\x12?\n\x15message_broker_config\x18\x05 \x01(\x0b\x32 .ondewo.vtsi.MessageBrokerConfig\x12!\n\x19\x61\x63tivate_control_messages\x18\x06 \x01(\x08\"\xfd\x01\n\x18\x41udioObjectStorageConfig\x12%\n\x1d\x61\x63tivate_audio_object_storage\x18\x01 \x01(\x08\x12p\n/audio_object_storage_services_activation_config\x18\x02 \x01(\x0b\x32\x37.ondewo.vtsi.AudioObjectStorageServicesActivationConfig\x12\x30\n\x0cminio_config\x18\x03 \x01(\x0b\x32\x18.ondewo.vtsi.MinioConfigH\x00\x42\x16\n\x14\x61udio_storage_config\"X\n*AudioObjectStorageServicesActivationConfig\x12\x14\n\x0c\x61\x63tivate_s2t\x18\x01 \x01(\x08\x12\x14\n\x0c\x61\x63tivate_t2s\x18\x02 \x01(\x08\"\xef\x01\n\x13MessageBrokerConfig\x12\x1f\n\x17\x61\x63tivate_message_broker\x18\x01 \x01(\x08\x12\x65\n)message_broker_services_activation_config\x18\x02 \x01(\x0b\x32\x32.ondewo.vtsi.MessageBrokerServicesActivationConfig\x12\x37\n\x10rabbit_mq_config\x18\x03 \x01(\x0b\x32\x1b.ondewo.vtsi.RabbitMqConfigH\x00\x42\x17\n\x15message_broker_config\"\x7f\n%MessageBrokerServicesActivationConfig\x12\x14\n\x0c\x61\x63tivate_s2t\x18\x01 \x01(\x08\x12\x14\n\x0c\x61\x63tivate_nlu\x18\x02 \x01(\x08\x12\x14\n\x0c\x61\x63tivate_t2s\x18\x03 \x01(\x08\x12\x14\n\x0c\x61\x63tivate_sip\x18\x04 \x01(\x08\"\\\n\x0eRabbitMqConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x0e\n\x06port_2\x18\x03 \x01(\x05\x12\x0c\n\x04user\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\"x\n\x0bMinioConfig\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\x12\n\naccess_key\x18\x03 \x01(\t\x12\x12\n\nsecret_key\x18\x04 \x01(\t\x12\x0e\n\x06secure\x18\x05 \x01(\x08\x12\x15\n\rsession_token\x18\x06 \x01(\t\"I\n\x10S2tVtsiCallbacks\x12\x19\n\x11pre_s2t_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_s2t_callbacks\x18\x02 \x03(\t\"I\n\x10NluVtsiCallbacks\x12\x19\n\x11pre_nlu_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_nlu_callbacks\x18\x02 \x03(\t\"I\n\x10T2sVtsiCallbacks\x12\x19\n\x11pre_t2s_callbacks\x18\x01 \x03(\t\x12\x1a\n\x12post_t2s_callbacks\x18\x02 \x03(\t\"\xa3\x01\n\x08Listener\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x33\n\x0fsip_base_config\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.SipBaseConfig\x12\x41\n\x16\x63ommon_services_config\x18\x04 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\"\xa5\x01\n\x06\x43\x61ller\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x37\n\x11sip_caller_config\x18\x03 \x01(\x0b\x32\x1c.ondewo.vtsi.SipCallerConfig\x12\x41\n\x16\x63ommon_services_config\x18\x04 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\"\xa9\x01\n\x14StartListenerRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x33\n\x0fsip_base_config\x18\x02 \x01(\x0b\x32\x1a.ondewo.vtsi.SipBaseConfig\x12\x41\n\x16\x63ommon_services_config\x18\x03 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\"r\n\x15StartListenerResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\'\n\x08listener\x18\x02 \x01(\x0b\x32\x15.ondewo.vtsi.Listener\x12\x15\n\rerror_message\x18\x03 \x01(\t\"p\n\x15StartListenersRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12<\n\x11listener_requests\x18\x02 \x03(\x0b\x32!.ondewo.vtsi.StartListenerRequest\"\x8a\x01\n\x16StartListenersResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12>\n\x12listener_responses\x18\x02 \x03(\x0b\x32\".ondewo.vtsi.StartListenerResponse\x12\x15\n\rerror_message\x18\x03 \x01(\t\"\xab\x01\n\x12StartCallerRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x37\n\x11sip_caller_config\x18\x02 \x01(\x0b\x32\x1c.ondewo.vtsi.SipCallerConfig\x12\x41\n\x16\x63ommon_services_config\x18\x03 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\"l\n\x13StartCallerResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12#\n\x06\x63\x61ller\x18\x02 \x01(\x0b\x32\x13.ondewo.vtsi.Caller\x12\x15\n\rerror_message\x18\x03 \x01(\t\"j\n\x13StartCallersRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x38\n\x0f\x63\x61ller_requests\x18\x02 \x03(\x0b\x32\x1f.ondewo.vtsi.StartCallerRequest\"\x84\x01\n\x14StartCallersResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12:\n\x10\x63\x61ller_responses\x18\x02 \x03(\x0b\x32 .ondewo.vtsi.StartCallerResponse\x12\x15\n\rerror_message\x18\x03 \x01(\t\"C\n\x12ListCallersRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x12\n\npage_token\x18\x02 \x01(\t\";\n\x13ListCallersResponse\x12$\n\x07\x63\x61llers\x18\x01 \x03(\x0b\x32\x13.ondewo.vtsi.Caller\"8\n\x10GetCallerRequest\x12$\n\x07\x63\x61llers\x18\x01 \x01(\x0b\x32\x13.ondewo.vtsi.Caller\"E\n\x14ListListenersRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x12\n\npage_token\x18\x02 \x01(\t\"Z\n\x15ListListenersResponse\x12(\n\tlisteners\x18\x01 \x03(\x0b\x32\x15.ondewo.vtsi.Listener\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\">\n\x12GetListenerRequest\x12(\n\tlisteners\x18\x01 \x01(\x0b\x32\x15.ondewo.vtsi.Listener\"\x9e\x01\n\x1bStartScheduledCallerRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x30\n\x07request\x18\x02 \x01(\x0b\x32\x1f.ondewo.vtsi.StartCallerRequest\x12\x32\n\x0escheduled_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x86\x01\n\x1cStartScheduledCallersRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12K\n\x19scheduled_caller_requests\x18\x02 \x03(\x0b\x32(.ondewo.vtsi.StartScheduledCallerRequest\"\x89\x01\n\x1dStartScheduledCallersResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12M\n\x1ascheduled_caller_responses\x18\x02 \x03(\x0b\x32).ondewo.vtsi.StartScheduledCallerResponse\"\x88\x01\n\x1cStartScheduledCallerResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x36\n\x10scheduled_caller\x18\x02 \x01(\x0b\x32\x1c.ondewo.vtsi.ScheduledCaller\x12\x15\n\rerror_message\x18\x03 \x01(\t\"\xd9\x01\n\x0fScheduledCaller\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12.\n\nsip_config\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.SipBaseConfig\x12\x41\n\x16\x63ommon_services_config\x18\x04 \x01(\x0b\x32!.ondewo.vtsi.CommonServicesConfig\x12\x32\n\x0escheduled_time\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"?\n\x0fStopCallRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\"W\n\x10StopCallResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x15\n\rerror_message\x18\x03 \x01(\t\"A\n\x10StopCallsRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x12\n\ncall_names\x18\x02 \x03(\t\"f\n\x11StopCallsResponse\x12:\n\x13stop_call_responses\x18\x01 \x03(\x0b\x32\x1d.ondewo.vtsi.StopCallResponse\x12\x15\n\rerror_message\x18\x02 \x01(\t\"0\n\x13StopAllCallsRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\"X\n\x13TransferCallRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x13\n\x0btransfer_id\x18\x03 \x03(\t\"p\n\x14TransferCallResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12\x13\n\x0btransfer_id\x18\x03 \x01(\t\x12\x15\n\rerror_message\x18\x04 \x01(\t\"s\n\x14TransferCallsRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12@\n\x16transfer_call_requests\x18\x02 \x03(\x0b\x32 .ondewo.vtsi.TransferCallRequest\"\x8d\x01\n\x15TransferCallsResponse\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x42\n\x17transfer_call_responses\x18\x02 \x03(\x0b\x32!.ondewo.vtsi.TransferCallResponse\x12\x15\n\rerror_message\x18\x03 \x01(\t\"h\n\x0eGetCallRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12\x11\n\tcall_name\x18\x02 \x01(\t\x12(\n\tcall_view\x18\x03 \x01(\x0e\x32\x15.ondewo.vtsi.CallView\"\x8e\x03\n\x04\x43\x61ll\x12\x11\n\tcall_name\x18\x01 \x01(\t\x12\x13\n\x0bsip_account\x18\x02 \x01(\t\x12\x16\n\x0e\x63ontainer_name\x18\x03 \x01(\t\x12(\n\tcall_type\x18\x04 \x01(\x0e\x32\x15.ondewo.vtsi.CallType\x12\x14\n\x0cphone_number\x18\x05 \x01(\t\x12.\n\nstart_time\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12)\n\nsip_status\x18\x08 \x01(\x0b\x32\x15.ondewo.sip.SipStatus\x12@\n\x12sip_status_history\x18\t \x01(\x0b\x32$.ondewo.sip.SipStatusHistoryResponse\x12;\n\x11services_statuses\x18\n \x01(\x0b\x32 .ondewo.vtsi.AllServicesStatuses\"\x95\x01\n\x10ListCallsRequest\x12\x19\n\x11vtsi_project_name\x18\x01 \x01(\t\x12(\n\tcall_view\x18\x02 \x01(\x0e\x32\x15.ondewo.vtsi.CallView\x12(\n\tcall_type\x18\x03 \x01(\x0e\x32\x15.ondewo.vtsi.CallType\x12\x12\n\npage_token\x18\x04 \x01(\t\"N\n\x11ListCallsResponse\x12 \n\x05\x63\x61lls\x18\x01 \x03(\x0b\x32\x11.ondewo.vtsi.Call\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"\x8a\x02\n\x13\x41llServicesStatuses\x12.\n\nstatus_sip\x18\x01 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12\x33\n\x0fstatus_asterisk\x18\x02 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_nlu\x18\x03 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_stt\x18\x04 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\x12.\n\nstatus_tts\x18\x05 \x01(\x0b\x32\x1a.ondewo.vtsi.ServiceStatus\"7\n\rServiceStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\"o\n\x13GetAudioFileRequest\x12\x13\n\x0b\x62ucket_name\x18\x01 \x01(\t\x12\x13\n\x0bobject_name\x18\x02 \x01(\t\x12.\n\x0cminio_config\x18\x03 \x01(\x0b\x32\x18.ondewo.vtsi.MinioConfig\"%\n\x14GetAudioFileResponse\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\"\x80\x01\n#GetFullConversationAudioFileRequest\x12\x13\n\x0b\x62ucket_name\x18\x01 \x01(\t\x12\x14\n\x0cobject_names\x18\x02 \x03(\t\x12.\n\x0cminio_config\x18\x03 \x01(\x0b\x32\x18.ondewo.vtsi.MinioConfig\"5\n$GetFullConversationAudioFileResponse\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c*!\n\x08\x43\x61llView\x12\x0b\n\x07SHALLOW\x10\x00\x12\x08\n\x04\x46ULL\x10\x01*.\n\x08\x43\x61llType\x12\x08\n\x04\x42OTH\x10\x00\x12\x0c\n\x08LISTENER\x10\x01\x12\n\n\x06\x43\x41LLER\x10\x02\x32\xe8\x0c\n\x05\x43\x61lls\x12P\n\x0bStartCaller\x12\x1f.ondewo.vtsi.StartCallerRequest\x1a .ondewo.vtsi.StartCallerResponse\x12S\n\x0cStartCallers\x12 .ondewo.vtsi.StartCallersRequest\x1a!.ondewo.vtsi.StartCallersResponse\x12P\n\x0bListCallers\x12\x1f.ondewo.vtsi.ListCallersRequest\x1a .ondewo.vtsi.ListCallersResponse\x12?\n\tGetCaller\x12\x1d.ondewo.vtsi.GetCallerRequest\x1a\x13.ondewo.vtsi.Caller\x12V\n\rStartListener\x12!.ondewo.vtsi.StartListenerRequest\x1a\".ondewo.vtsi.StartListenerResponse\x12Y\n\x0eStartListeners\x12\".ondewo.vtsi.StartListenersRequest\x1a#.ondewo.vtsi.StartListenersResponse\x12V\n\rListListeners\x12!.ondewo.vtsi.ListListenersRequest\x1a\".ondewo.vtsi.ListListenersResponse\x12\x45\n\x0bGetListener\x12\x1f.ondewo.vtsi.GetListenerRequest\x1a\x15.ondewo.vtsi.Listener\x12k\n\x14StartScheduledCaller\x12(.ondewo.vtsi.StartScheduledCallerRequest\x1a).ondewo.vtsi.StartScheduledCallerResponse\x12n\n\x15StartScheduledCallers\x12).ondewo.vtsi.StartScheduledCallersRequest\x1a*.ondewo.vtsi.StartScheduledCallersResponse\x12G\n\x08StopCall\x12\x1c.ondewo.vtsi.StopCallRequest\x1a\x1d.ondewo.vtsi.StopCallResponse\x12J\n\tStopCalls\x12\x1d.ondewo.vtsi.StopCallsRequest\x1a\x1e.ondewo.vtsi.StopCallsResponse\x12P\n\x0cStopAllCalls\x12 .ondewo.vtsi.StopAllCallsRequest\x1a\x1e.ondewo.vtsi.StopCallsResponse\x12S\n\x0cTransferCall\x12 .ondewo.vtsi.TransferCallRequest\x1a!.ondewo.vtsi.TransferCallResponse\x12V\n\rTransferCalls\x12!.ondewo.vtsi.TransferCallsRequest\x1a\".ondewo.vtsi.TransferCallsResponse\x12\x39\n\x07GetCall\x12\x1b.ondewo.vtsi.GetCallRequest\x1a\x11.ondewo.vtsi.Call\x12J\n\tListCalls\x12\x1d.ondewo.vtsi.ListCallsRequest\x1a\x1e.ondewo.vtsi.ListCallsResponse\x12S\n\x0cGetAudioFile\x12 .ondewo.vtsi.GetAudioFileRequest\x1a!.ondewo.vtsi.GetAudioFileResponse\x12\x85\x01\n\x1cGetFullConversationAudioFile\x12\x30.ondewo.vtsi.GetFullConversationAudioFileRequest\x1a\x31.ondewo.vtsi.GetFullConversationAudioFileResponse\"\x00\x62\x06proto3')
 
-_CALLINFOVIEW = DESCRIPTOR.enum_types_by_name['CallInfoView']
-CallInfoView = enum_type_wrapper.EnumTypeWrapper(_CALLINFOVIEW)
+_CALLVIEW = DESCRIPTOR.enum_types_by_name['CallView']
+CallView = enum_type_wrapper.EnumTypeWrapper(_CALLVIEW)
 _CALLTYPE = DESCRIPTOR.enum_types_by_name['CallType']
 CallType = enum_type_wrapper.EnumTypeWrapper(_CALLTYPE)
 SHALLOW = 0
 FULL = 1
-both = 0
-listener = 1
-caller = 2
+BOTH = 0
+LISTENER = 1
+CALLER = 2
 
 
 _BASESERVICECONFIG = DESCRIPTOR.message_types_by_name['BaseServiceConfig']
@@ -63,6 +63,12 @@ _STARTCALLERREQUEST = DESCRIPTOR.message_types_by_name['StartCallerRequest']
 _STARTCALLERRESPONSE = DESCRIPTOR.message_types_by_name['StartCallerResponse']
 _STARTCALLERSREQUEST = DESCRIPTOR.message_types_by_name['StartCallersRequest']
 _STARTCALLERSRESPONSE = DESCRIPTOR.message_types_by_name['StartCallersResponse']
+_LISTCALLERSREQUEST = DESCRIPTOR.message_types_by_name['ListCallersRequest']
+_LISTCALLERSRESPONSE = DESCRIPTOR.message_types_by_name['ListCallersResponse']
+_GETCALLERREQUEST = DESCRIPTOR.message_types_by_name['GetCallerRequest']
+_LISTLISTENERSREQUEST = DESCRIPTOR.message_types_by_name['ListListenersRequest']
+_LISTLISTENERSRESPONSE = DESCRIPTOR.message_types_by_name['ListListenersResponse']
+_GETLISTENERREQUEST = DESCRIPTOR.message_types_by_name['GetListenerRequest']
 _STARTSCHEDULEDCALLERREQUEST = DESCRIPTOR.message_types_by_name['StartScheduledCallerRequest']
 _STARTSCHEDULEDCALLERSREQUEST = DESCRIPTOR.message_types_by_name['StartScheduledCallersRequest']
 _STARTSCHEDULEDCALLERSRESPONSE = DESCRIPTOR.message_types_by_name['StartScheduledCallersResponse']
@@ -77,11 +83,10 @@ _TRANSFERCALLREQUEST = DESCRIPTOR.message_types_by_name['TransferCallRequest']
 _TRANSFERCALLRESPONSE = DESCRIPTOR.message_types_by_name['TransferCallResponse']
 _TRANSFERCALLSREQUEST = DESCRIPTOR.message_types_by_name['TransferCallsRequest']
 _TRANSFERCALLSRESPONSE = DESCRIPTOR.message_types_by_name['TransferCallsResponse']
-_GETCALLINFOREQUEST = DESCRIPTOR.message_types_by_name['GetCallInfoRequest']
-_GETCALLINFORESPONSE = DESCRIPTOR.message_types_by_name['GetCallInfoResponse']
-_CALLINFO = DESCRIPTOR.message_types_by_name['CallInfo']
-_LISTCALLINFOREQUEST = DESCRIPTOR.message_types_by_name['ListCallInfoRequest']
-_LISTCALLINFORESPONSE = DESCRIPTOR.message_types_by_name['ListCallInfoResponse']
+_GETCALLREQUEST = DESCRIPTOR.message_types_by_name['GetCallRequest']
+_CALL = DESCRIPTOR.message_types_by_name['Call']
+_LISTCALLSREQUEST = DESCRIPTOR.message_types_by_name['ListCallsRequest']
+_LISTCALLSRESPONSE = DESCRIPTOR.message_types_by_name['ListCallsResponse']
 _ALLSERVICESSTATUSES = DESCRIPTOR.message_types_by_name['AllServicesStatuses']
 _SERVICESTATUS = DESCRIPTOR.message_types_by_name['ServiceStatus']
 _GETAUDIOFILEREQUEST = DESCRIPTOR.message_types_by_name['GetAudioFileRequest']
@@ -298,6 +303,48 @@ StartCallersResponse = _reflection.GeneratedProtocolMessageType('StartCallersRes
 })
 _sym_db.RegisterMessage(StartCallersResponse)
 
+ListCallersRequest = _reflection.GeneratedProtocolMessageType('ListCallersRequest', (_message.Message,), {
+    'DESCRIPTOR': _LISTCALLERSREQUEST,
+    '__module__': 'ondewo.vtsi.calls_pb2'
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListCallersRequest)
+})
+_sym_db.RegisterMessage(ListCallersRequest)
+
+ListCallersResponse = _reflection.GeneratedProtocolMessageType('ListCallersResponse', (_message.Message,), {
+    'DESCRIPTOR': _LISTCALLERSRESPONSE,
+    '__module__': 'ondewo.vtsi.calls_pb2'
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListCallersResponse)
+})
+_sym_db.RegisterMessage(ListCallersResponse)
+
+GetCallerRequest = _reflection.GeneratedProtocolMessageType('GetCallerRequest', (_message.Message,), {
+    'DESCRIPTOR': _GETCALLERREQUEST,
+    '__module__': 'ondewo.vtsi.calls_pb2'
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.GetCallerRequest)
+})
+_sym_db.RegisterMessage(GetCallerRequest)
+
+ListListenersRequest = _reflection.GeneratedProtocolMessageType('ListListenersRequest', (_message.Message,), {
+    'DESCRIPTOR': _LISTLISTENERSREQUEST,
+    '__module__': 'ondewo.vtsi.calls_pb2'
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListListenersRequest)
+})
+_sym_db.RegisterMessage(ListListenersRequest)
+
+ListListenersResponse = _reflection.GeneratedProtocolMessageType('ListListenersResponse', (_message.Message,), {
+    'DESCRIPTOR': _LISTLISTENERSRESPONSE,
+    '__module__': 'ondewo.vtsi.calls_pb2'
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListListenersResponse)
+})
+_sym_db.RegisterMessage(ListListenersResponse)
+
+GetListenerRequest = _reflection.GeneratedProtocolMessageType('GetListenerRequest', (_message.Message,), {
+    'DESCRIPTOR': _GETLISTENERREQUEST,
+    '__module__': 'ondewo.vtsi.calls_pb2'
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.GetListenerRequest)
+})
+_sym_db.RegisterMessage(GetListenerRequest)
+
 StartScheduledCallerRequest = _reflection.GeneratedProtocolMessageType('StartScheduledCallerRequest', (_message.Message,), {
     'DESCRIPTOR': _STARTSCHEDULEDCALLERREQUEST,
     '__module__': 'ondewo.vtsi.calls_pb2'
@@ -396,40 +443,33 @@ TransferCallsResponse = _reflection.GeneratedProtocolMessageType('TransferCallsR
 })
 _sym_db.RegisterMessage(TransferCallsResponse)
 
-GetCallInfoRequest = _reflection.GeneratedProtocolMessageType('GetCallInfoRequest', (_message.Message,), {
-    'DESCRIPTOR': _GETCALLINFOREQUEST,
+GetCallRequest = _reflection.GeneratedProtocolMessageType('GetCallRequest', (_message.Message,), {
+    'DESCRIPTOR': _GETCALLREQUEST,
     '__module__': 'ondewo.vtsi.calls_pb2'
-    # @@protoc_insertion_point(class_scope:ondewo.vtsi.GetCallInfoRequest)
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.GetCallRequest)
 })
-_sym_db.RegisterMessage(GetCallInfoRequest)
+_sym_db.RegisterMessage(GetCallRequest)
 
-GetCallInfoResponse = _reflection.GeneratedProtocolMessageType('GetCallInfoResponse', (_message.Message,), {
-    'DESCRIPTOR': _GETCALLINFORESPONSE,
+Call = _reflection.GeneratedProtocolMessageType('Call', (_message.Message,), {
+    'DESCRIPTOR': _CALL,
     '__module__': 'ondewo.vtsi.calls_pb2'
-    # @@protoc_insertion_point(class_scope:ondewo.vtsi.GetCallInfoResponse)
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.Call)
 })
-_sym_db.RegisterMessage(GetCallInfoResponse)
+_sym_db.RegisterMessage(Call)
 
-CallInfo = _reflection.GeneratedProtocolMessageType('CallInfo', (_message.Message,), {
-    'DESCRIPTOR': _CALLINFO,
+ListCallsRequest = _reflection.GeneratedProtocolMessageType('ListCallsRequest', (_message.Message,), {
+    'DESCRIPTOR': _LISTCALLSREQUEST,
     '__module__': 'ondewo.vtsi.calls_pb2'
-    # @@protoc_insertion_point(class_scope:ondewo.vtsi.CallInfo)
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListCallsRequest)
 })
-_sym_db.RegisterMessage(CallInfo)
+_sym_db.RegisterMessage(ListCallsRequest)
 
-ListCallInfoRequest = _reflection.GeneratedProtocolMessageType('ListCallInfoRequest', (_message.Message,), {
-    'DESCRIPTOR': _LISTCALLINFOREQUEST,
+ListCallsResponse = _reflection.GeneratedProtocolMessageType('ListCallsResponse', (_message.Message,), {
+    'DESCRIPTOR': _LISTCALLSRESPONSE,
     '__module__': 'ondewo.vtsi.calls_pb2'
-    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListCallInfoRequest)
+    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListCallsResponse)
 })
-_sym_db.RegisterMessage(ListCallInfoRequest)
-
-ListCallInfoResponse = _reflection.GeneratedProtocolMessageType('ListCallInfoResponse', (_message.Message,), {
-    'DESCRIPTOR': _LISTCALLINFORESPONSE,
-    '__module__': 'ondewo.vtsi.calls_pb2'
-    # @@protoc_insertion_point(class_scope:ondewo.vtsi.ListCallInfoResponse)
-})
-_sym_db.RegisterMessage(ListCallInfoResponse)
+_sym_db.RegisterMessage(ListCallsResponse)
 
 AllServicesStatuses = _reflection.GeneratedProtocolMessageType('AllServicesStatuses', (_message.Message,), {
     'DESCRIPTOR': _ALLSERVICESSTATUSES,
@@ -479,10 +519,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
     DESCRIPTOR._options = None
     _SIPCALLERCONFIG_SIPHEADERSENTRY._options = None
     _SIPCALLERCONFIG_SIPHEADERSENTRY._serialized_options = b'8\001'
-    _CALLINFOVIEW._serialized_start=7594
-    _CALLINFOVIEW._serialized_end=7631
-    _CALLTYPE._serialized_start=7633
-    _CALLTYPE._serialized_end=7679
+    _CALLVIEW._serialized_start=7905
+    _CALLVIEW._serialized_end=7938
+    _CALLTYPE._serialized_start=7940
+    _CALLTYPE._serialized_end=7986
     _BASESERVICECONFIG._serialized_start=246
     _BASESERVICECONFIG._serialized_end=312
     _CREDENTIALS._serialized_start=314
@@ -543,56 +583,66 @@ if _descriptor._USE_C_DESCRIPTORS == False:
     _STARTCALLERSREQUEST._serialized_end=4313
     _STARTCALLERSRESPONSE._serialized_start=4316
     _STARTCALLERSRESPONSE._serialized_end=4448
-    _STARTSCHEDULEDCALLERREQUEST._serialized_start=4451
-    _STARTSCHEDULEDCALLERREQUEST._serialized_end=4609
-    _STARTSCHEDULEDCALLERSREQUEST._serialized_start=4612
-    _STARTSCHEDULEDCALLERSREQUEST._serialized_end=4746
-    _STARTSCHEDULEDCALLERSRESPONSE._serialized_start=4749
-    _STARTSCHEDULEDCALLERSRESPONSE._serialized_end=4886
-    _STARTSCHEDULEDCALLERRESPONSE._serialized_start=4889
-    _STARTSCHEDULEDCALLERRESPONSE._serialized_end=5025
-    _SCHEDULEDCALLER._serialized_start=5028
-    _SCHEDULEDCALLER._serialized_end=5245
-    _STOPCALLREQUEST._serialized_start=5247
-    _STOPCALLREQUEST._serialized_end=5310
-    _STOPCALLRESPONSE._serialized_start=5312
-    _STOPCALLRESPONSE._serialized_end=5399
-    _STOPCALLSREQUEST._serialized_start=5401
-    _STOPCALLSREQUEST._serialized_end=5466
-    _STOPCALLSRESPONSE._serialized_start=5468
-    _STOPCALLSRESPONSE._serialized_end=5570
-    _STOPALLCALLSREQUEST._serialized_start=5572
-    _STOPALLCALLSREQUEST._serialized_end=5620
-    _TRANSFERCALLREQUEST._serialized_start=5622
-    _TRANSFERCALLREQUEST._serialized_end=5710
-    _TRANSFERCALLRESPONSE._serialized_start=5712
-    _TRANSFERCALLRESPONSE._serialized_end=5824
-    _TRANSFERCALLSREQUEST._serialized_start=5826
-    _TRANSFERCALLSREQUEST._serialized_end=5941
-    _TRANSFERCALLSRESPONSE._serialized_start=5944
-    _TRANSFERCALLSRESPONSE._serialized_end=6085
-    _GETCALLINFOREQUEST._serialized_start=6087
-    _GETCALLINFOREQUEST._serialized_end=6204
-    _GETCALLINFORESPONSE._serialized_start=6206
-    _GETCALLINFORESPONSE._serialized_end=6312
-    _CALLINFO._serialized_start=6315
-    _CALLINFO._serialized_end=6717
-    _LISTCALLINFOREQUEST._serialized_start=6720
-    _LISTCALLINFOREQUEST._serialized_end=6861
-    _LISTCALLINFORESPONSE._serialized_start=6863
-    _LISTCALLINFORESPONSE._serialized_end=6928
-    _ALLSERVICESSTATUSES._serialized_start=6931
-    _ALLSERVICESSTATUSES._serialized_end=7197
-    _SERVICESTATUS._serialized_start=7199
-    _SERVICESTATUS._serialized_end=7254
-    _GETAUDIOFILEREQUEST._serialized_start=7256
-    _GETAUDIOFILEREQUEST._serialized_end=7367
-    _GETAUDIOFILERESPONSE._serialized_start=7369
-    _GETAUDIOFILERESPONSE._serialized_end=7406
-    _GETFULLCONVERSATIONAUDIOFILEREQUEST._serialized_start=7409
-    _GETFULLCONVERSATIONAUDIOFILEREQUEST._serialized_end=7537
-    _GETFULLCONVERSATIONAUDIOFILERESPONSE._serialized_start=7539
-    _GETFULLCONVERSATIONAUDIOFILERESPONSE._serialized_end=7592
-    _CALLS._serialized_start=7682
-    _CALLS._serialized_end=9048
+    _LISTCALLERSREQUEST._serialized_start=4450
+    _LISTCALLERSREQUEST._serialized_end=4517
+    _LISTCALLERSRESPONSE._serialized_start=4519
+    _LISTCALLERSRESPONSE._serialized_end=4578
+    _GETCALLERREQUEST._serialized_start=4580
+    _GETCALLERREQUEST._serialized_end=4636
+    _LISTLISTENERSREQUEST._serialized_start=4638
+    _LISTLISTENERSREQUEST._serialized_end=4707
+    _LISTLISTENERSRESPONSE._serialized_start=4709
+    _LISTLISTENERSRESPONSE._serialized_end=4799
+    _GETLISTENERREQUEST._serialized_start=4801
+    _GETLISTENERREQUEST._serialized_end=4863
+    _STARTSCHEDULEDCALLERREQUEST._serialized_start=4866
+    _STARTSCHEDULEDCALLERREQUEST._serialized_end=5024
+    _STARTSCHEDULEDCALLERSREQUEST._serialized_start=5027
+    _STARTSCHEDULEDCALLERSREQUEST._serialized_end=5161
+    _STARTSCHEDULEDCALLERSRESPONSE._serialized_start=5164
+    _STARTSCHEDULEDCALLERSRESPONSE._serialized_end=5301
+    _STARTSCHEDULEDCALLERRESPONSE._serialized_start=5304
+    _STARTSCHEDULEDCALLERRESPONSE._serialized_end=5440
+    _SCHEDULEDCALLER._serialized_start=5443
+    _SCHEDULEDCALLER._serialized_end=5660
+    _STOPCALLREQUEST._serialized_start=5662
+    _STOPCALLREQUEST._serialized_end=5725
+    _STOPCALLRESPONSE._serialized_start=5727
+    _STOPCALLRESPONSE._serialized_end=5814
+    _STOPCALLSREQUEST._serialized_start=5816
+    _STOPCALLSREQUEST._serialized_end=5881
+    _STOPCALLSRESPONSE._serialized_start=5883
+    _STOPCALLSRESPONSE._serialized_end=5985
+    _STOPALLCALLSREQUEST._serialized_start=5987
+    _STOPALLCALLSREQUEST._serialized_end=6035
+    _TRANSFERCALLREQUEST._serialized_start=6037
+    _TRANSFERCALLREQUEST._serialized_end=6125
+    _TRANSFERCALLRESPONSE._serialized_start=6127
+    _TRANSFERCALLRESPONSE._serialized_end=6239
+    _TRANSFERCALLSREQUEST._serialized_start=6241
+    _TRANSFERCALLSREQUEST._serialized_end=6356
+    _TRANSFERCALLSRESPONSE._serialized_start=6359
+    _TRANSFERCALLSRESPONSE._serialized_end=6500
+    _GETCALLREQUEST._serialized_start=6502
+    _GETCALLREQUEST._serialized_end=6606
+    _CALL._serialized_start=6609
+    _CALL._serialized_end=7007
+    _LISTCALLSREQUEST._serialized_start=7010
+    _LISTCALLSREQUEST._serialized_end=7159
+    _LISTCALLSRESPONSE._serialized_start=7161
+    _LISTCALLSRESPONSE._serialized_end=7239
+    _ALLSERVICESSTATUSES._serialized_start=7242
+    _ALLSERVICESSTATUSES._serialized_end=7508
+    _SERVICESTATUS._serialized_start=7510
+    _SERVICESTATUS._serialized_end=7565
+    _GETAUDIOFILEREQUEST._serialized_start=7567
+    _GETAUDIOFILEREQUEST._serialized_end=7678
+    _GETAUDIOFILERESPONSE._serialized_start=7680
+    _GETAUDIOFILERESPONSE._serialized_end=7717
+    _GETFULLCONVERSATIONAUDIOFILEREQUEST._serialized_start=7720
+    _GETFULLCONVERSATIONAUDIOFILEREQUEST._serialized_end=7848
+    _GETFULLCONVERSATIONAUDIOFILERESPONSE._serialized_start=7850
+    _GETFULLCONVERSATIONAUDIOFILERESPONSE._serialized_end=7903
+    _CALLS._serialized_start=7989
+    _CALLS._serialized_end=9629
 # @@protoc_insertion_point(module_scope)
