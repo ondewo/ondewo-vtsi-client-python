@@ -917,15 +917,20 @@ global___ListCallersResponse = ListCallersResponse
 class GetCallerRequest(google.protobuf.message.Message):
     """Represents a request to get a specific caller."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
+    vtsi_project_name: typing.Text
+    """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+
     name: typing.Text
     """The name of caller to retrieve."""
 
     def __init__(self,
         *,
+        vtsi_project_name: typing.Text = ...,
         name: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___GetCallerRequest = GetCallerRequest
 
 class ListListenersRequest(google.protobuf.message.Message):
@@ -979,15 +984,20 @@ global___ListListenersResponse = ListListenersResponse
 class GetListenerRequest(google.protobuf.message.Message):
     """Represents a request to get a specific listener."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
+    vtsi_project_name: typing.Text
+    """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+
     name: typing.Text
     """The name of listener to retrieve."""
 
     def __init__(self,
         *,
+        vtsi_project_name: typing.Text = ...,
         name: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___GetListenerRequest = GetListenerRequest
 
 class StartScheduledCallerRequest(google.protobuf.message.Message):
