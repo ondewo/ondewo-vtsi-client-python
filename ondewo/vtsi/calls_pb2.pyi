@@ -1372,6 +1372,7 @@ class Call(google.protobuf.message.Message):
     PHONE_NUMBER_FIELD_NUMBER: builtins.int
     START_TIME_FIELD_NUMBER: builtins.int
     END_TIME_FIELD_NUMBER: builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
     SIP_STATUS_FIELD_NUMBER: builtins.int
     SIP_STATUS_HISTORY_FIELD_NUMBER: builtins.int
     SERVICES_STATUSES_FIELD_NUMBER: builtins.int
@@ -1404,6 +1405,9 @@ class Call(google.protobuf.message.Message):
     def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """end time of log"""
         pass
+    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    """current sip status type"""
+
     @property
     def sip_status(self) -> ondewo.sip.sip_pb2.SipStatus:
         """current sip status"""
@@ -1441,17 +1445,30 @@ class Call(google.protobuf.message.Message):
         phone_number: typing.Text = ...,
         start_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
         end_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
         sip_status: typing.Optional[ondewo.sip.sip_pb2.SipStatus] = ...,
         sip_status_history: typing.Optional[ondewo.sip.sip_pb2.SipStatusHistoryResponse] = ...,
         services_statuses: typing.Optional[global___AllServicesStatuses] = ...,
         active: builtins.bool = ...,
         vtsi_project_name: typing.Text = ...,
         common_services_config: typing.Optional[global___CommonServicesConfig] = ...,
-        sip_port: builtins.int = ...,
-        csi_port: builtins.int = ...,
+        sip_port: typing.Optional[builtins.int] = ...,
+        csi_port: typing.Optional[builtins.int] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["common_services_config",b"common_services_config","end_time",b"end_time","services_statuses",b"services_statuses","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active",b"active","call_type",b"call_type","common_services_config",b"common_services_config","container_name",b"container_name","csi_port",b"csi_port","end_time",b"end_time","name",b"name","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","common_services_config",b"common_services_config","csi_port",b"csi_port","end_time",b"end_time","services_statuses",b"services_statuses","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","active",b"active","call_type",b"call_type","common_services_config",b"common_services_config","container_name",b"container_name","csi_port",b"csi_port","end_time",b"end_time","name",b"name","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","sip_status_type",b"sip_status_type","start_time",b"start_time","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_common_services_config",b"_common_services_config"]) -> typing.Optional[typing_extensions.Literal["common_services_config"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_csi_port",b"_csi_port"]) -> typing.Optional[typing_extensions.Literal["csi_port"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_services_statuses",b"_services_statuses"]) -> typing.Optional[typing_extensions.Literal["services_statuses"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_sip_port",b"_sip_port"]) -> typing.Optional[typing_extensions.Literal["sip_port"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_sip_status",b"_sip_status"]) -> typing.Optional[typing_extensions.Literal["sip_status"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_sip_status_history",b"_sip_status_history"]) -> typing.Optional[typing_extensions.Literal["sip_status_history"]]: ...
 global___Call = Call
 
 class ListCallsRequest(google.protobuf.message.Message):
