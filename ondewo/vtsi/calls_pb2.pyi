@@ -22,20 +22,26 @@ class _CallView:
     V: typing_extensions.TypeAlias = ValueType
 class _CallViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallView.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-    SHALLOW: _CallView.ValueType  # 0
-    """Gives you all basic info like call name, start_time, end_time, current sip status"""
+    MINIMUM: _CallView.ValueType  # 0
+    """Gives only minimum info about the call"""
 
-    FULL: _CallView.ValueType  # 1
+    SHALLOW: _CallView.ValueType  # 1
+    """Gives further basic info like call name, start_time, end_time, current sip status"""
+
+    FULL: _CallView.ValueType  # 2
     """Gives you the full info with status history and the services statuses"""
 
 class CallView(_CallView, metaclass=_CallViewEnumTypeWrapper):
     """Call view options"""
     pass
 
-SHALLOW: CallView.ValueType  # 0
-"""Gives you all basic info like call name, start_time, end_time, current sip status"""
+MINIMUM: CallView.ValueType  # 0
+"""Gives only minimum info about the call"""
 
-FULL: CallView.ValueType  # 1
+SHALLOW: CallView.ValueType  # 1
+"""Gives further basic info like call name, start_time, end_time, current sip status"""
+
+FULL: CallView.ValueType  # 2
 """Gives you the full info with status history and the services statuses"""
 
 global___CallView = CallView
@@ -1369,6 +1375,11 @@ class Call(google.protobuf.message.Message):
     SIP_STATUS_FIELD_NUMBER: builtins.int
     SIP_STATUS_HISTORY_FIELD_NUMBER: builtins.int
     SERVICES_STATUSES_FIELD_NUMBER: builtins.int
+    ACTIVE_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
+    SIP_PORT_FIELD_NUMBER: builtins.int
+    CSI_PORT_FIELD_NUMBER: builtins.int
     call_name: typing.Text
     """call name
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
@@ -1405,6 +1416,22 @@ class Call(google.protobuf.message.Message):
     def services_statuses(self) -> global___AllServicesStatuses:
         """All container health statuses"""
         pass
+    active: builtins.bool
+    """Is a call active or not"""
+
+    vtsi_project_name: typing.Text
+    """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+
+    @property
+    def common_services_config(self) -> global___CommonServicesConfig:
+        """Detailed configuration of the services used for the call such as S2T, T2S, NLU, SIP and CSI"""
+        pass
+    sip_port: builtins.int
+    """SIP port of the call"""
+
+    csi_port: builtins.int
+    """CSi port of the call"""
+
     def __init__(self,
         *,
         call_name: typing.Text = ...,
@@ -1417,9 +1444,14 @@ class Call(google.protobuf.message.Message):
         sip_status: typing.Optional[ondewo.sip.sip_pb2.SipStatus] = ...,
         sip_status_history: typing.Optional[ondewo.sip.sip_pb2.SipStatusHistoryResponse] = ...,
         services_statuses: typing.Optional[global___AllServicesStatuses] = ...,
+        active: builtins.bool = ...,
+        vtsi_project_name: typing.Text = ...,
+        common_services_config: typing.Optional[global___CommonServicesConfig] = ...,
+        sip_port: builtins.int = ...,
+        csi_port: builtins.int = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["end_time",b"end_time","services_statuses",b"services_statuses","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["call_name",b"call_name","call_type",b"call_type","container_name",b"container_name","end_time",b"end_time","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["common_services_config",b"common_services_config","end_time",b"end_time","services_statuses",b"services_statuses","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active",b"active","call_name",b"call_name","call_type",b"call_type","common_services_config",b"common_services_config","container_name",b"container_name","csi_port",b"csi_port","end_time",b"end_time","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___Call = Call
 
 class ListCallsRequest(google.protobuf.message.Message):
