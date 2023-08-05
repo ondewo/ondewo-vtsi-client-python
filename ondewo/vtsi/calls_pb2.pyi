@@ -917,17 +917,15 @@ global___ListCallersResponse = ListCallersResponse
 class GetCallerRequest(google.protobuf.message.Message):
     """Represents a request to get a specific caller."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    CALLERS_FIELD_NUMBER: builtins.int
-    @property
-    def callers(self) -> global___Caller:
-        """The caller to retrieve."""
-        pass
+    NAME_FIELD_NUMBER: builtins.int
+    name: typing.Text
+    """The name of caller to retrieve."""
+
     def __init__(self,
         *,
-        callers: typing.Optional[global___Caller] = ...,
+        name: typing.Text = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["callers",b"callers"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["callers",b"callers"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
 global___GetCallerRequest = GetCallerRequest
 
 class ListListenersRequest(google.protobuf.message.Message):
@@ -981,17 +979,15 @@ global___ListListenersResponse = ListListenersResponse
 class GetListenerRequest(google.protobuf.message.Message):
     """Represents a request to get a specific listener."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    LISTENERS_FIELD_NUMBER: builtins.int
-    @property
-    def listeners(self) -> global___Listener:
-        """The listener to retrieve."""
-        pass
+    NAME_FIELD_NUMBER: builtins.int
+    name: typing.Text
+    """The name of listener to retrieve."""
+
     def __init__(self,
         *,
-        listeners: typing.Optional[global___Listener] = ...,
+        name: typing.Text = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["listeners",b"listeners"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["listeners",b"listeners"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
 global___GetListenerRequest = GetListenerRequest
 
 class StartScheduledCallerRequest(google.protobuf.message.Message):
