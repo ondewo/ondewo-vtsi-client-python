@@ -16,7 +16,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="ondewo-vtsi-client",
-    version='6.3.1',
+    version='6.4.0',
     author="Ondewo GbmH",
     author_email="office@ondewo.com",
     description="exposes the ondewo-vtsi endpoints in a user-friendly way",
