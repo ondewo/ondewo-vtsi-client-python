@@ -171,6 +171,7 @@ class VtsiProject(google.protobuf.message.Message):
     ACTIVE_CALLERS_FIELD_NUMBER: builtins.int
     ACTIVE_LISTENERS_FIELD_NUMBER: builtins.int
     ASTERISK_PORT_FIELD_NUMBER: builtins.int
+    NLU_AGENT_NAMES_FIELD_NUMBER: builtins.int
     name: typing.Text
     """Required. The project name. Format: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Only when a new VtsiProject is created the name can be undefined/empty
@@ -215,6 +216,12 @@ class VtsiProject(google.protobuf.message.Message):
     asterisk_port: builtins.int
     """The port of the asterisk server"""
 
+    @property
+    def nlu_agent_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """associated NLU agents
+        Format: `projects/<Project ID>/agent`.
+        """
+        pass
     def __init__(self,
         *,
         name: typing.Text = ...,
@@ -230,9 +237,10 @@ class VtsiProject(google.protobuf.message.Message):
         active_callers: builtins.int = ...,
         active_listeners: builtins.int = ...,
         asterisk_port: builtins.int = ...,
+        nlu_agent_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["asterisk_configs",b"asterisk_configs","created_at",b"created_at","modified_at",b"modified_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active_callers",b"active_callers","active_listeners",b"active_listeners","asterisk_configs",b"asterisk_configs","asterisk_port",b"asterisk_port","created_at",b"created_at","created_by",b"created_by","display_name",b"display_name","max_callers",b"max_callers","max_listeners",b"max_listeners","modified_at",b"modified_at","modified_by",b"modified_by","name",b"name","vtsi_project_status",b"vtsi_project_status"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active_callers",b"active_callers","active_listeners",b"active_listeners","asterisk_configs",b"asterisk_configs","asterisk_port",b"asterisk_port","created_at",b"created_at","created_by",b"created_by","display_name",b"display_name","max_callers",b"max_callers","max_listeners",b"max_listeners","modified_at",b"modified_at","modified_by",b"modified_by","name",b"name","nlu_agent_names",b"nlu_agent_names","vtsi_project_status",b"vtsi_project_status"]) -> None: ...
 global___VtsiProject = VtsiProject
 
 class AsteriskConfigsVariables(google.protobuf.message.Message):
@@ -402,6 +410,7 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
     VTSI_PROJECT_VIEW_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     VTSI_PROJECT_SORTING_FIELD_NUMBER: builtins.int
+    NLU_AGENT_NAMES_FIELD_NUMBER: builtins.int
     vtsi_project_view: global___VtsiProjectView.ValueType
     """Optional. Specify the view of the returned VtsiProject (full view by default)"""
 
@@ -412,8 +421,14 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
 
     @property
     def vtsi_project_sorting(self) -> global___VtsiProjectSorting:
-        """Optional field to define the sorting of the list of VTSI projects in the response.
+        """Optional. Field to define the sorting of the list of VTSI projects in the response.
         If not specified, the default behavior is to have no sorting.
+        """
+        pass
+    @property
+    def nlu_agent_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional. Filter based on associated NLU agents
+        Format: `projects/<Project ID>/agent`.
         """
         pass
     def __init__(self,
@@ -421,9 +436,10 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
         vtsi_project_view: global___VtsiProjectView.ValueType = ...,
         page_token: typing.Optional[typing.Text] = ...,
         vtsi_project_sorting: typing.Optional[global___VtsiProjectSorting] = ...,
+        nlu_agent_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["_page_token",b"_page_token","_vtsi_project_sorting",b"_vtsi_project_sorting","page_token",b"page_token","vtsi_project_sorting",b"vtsi_project_sorting"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["_page_token",b"_page_token","_vtsi_project_sorting",b"_vtsi_project_sorting","page_token",b"page_token","vtsi_project_sorting",b"vtsi_project_sorting","vtsi_project_view",b"vtsi_project_view"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_page_token",b"_page_token","_vtsi_project_sorting",b"_vtsi_project_sorting","nlu_agent_names",b"nlu_agent_names","page_token",b"page_token","vtsi_project_sorting",b"vtsi_project_sorting","vtsi_project_view",b"vtsi_project_view"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_page_token",b"_page_token"]) -> typing.Optional[typing_extensions.Literal["page_token"]]: ...
     @typing.overload
