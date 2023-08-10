@@ -100,6 +100,38 @@ class Calls(BaseServicesInterface):
         """
         return self.stub.GetCaller(request=request)
 
+    def delete_caller(
+        self,
+        request: calls_pb2.DeleteCallersRequest,
+    ) -> calls_pb2.DeleteCallersResponse:
+        """
+        Delete multiple callers.
+
+        Args:
+            request (calls_pb2.DeleteCallersRequest): The request message to delete multiple callers.
+
+        Returns:
+            calls_pb2.DeleteCallersResponse: The response message containing the IDs and
+            other details for the deleted callers.
+        """
+        return self.stub.DeleteCallers(request=request)
+
+    def delete_callers(
+        self,
+        request: calls_pb2.DeleteCallersRequest,
+    ) -> calls_pb2.DeleteCallersResponse:
+        """
+        Delete multiple callers.
+
+        Args:
+            request (calls_pb2.DeleteCallersRequest): The request message to delete multiple callers.
+
+        Returns:
+            calls_pb2.DeleteCallersResponse: The response message containing the IDs and
+            other details for the deleted callers.
+        """
+        return self.stub.DeleteCallers(request=request)
+
     def start_listener(
         self,
         request: calls_pb2.StartListenerRequest,
@@ -161,6 +193,38 @@ class Calls(BaseServicesInterface):
             calls_pb2.Listener: The response message containing the details of the specified listener.
         """
         return self.stub.GetListener(request=request)
+
+    def delete_listener(
+        self,
+        request: calls_pb2.DeleteListenersRequest,
+    ) -> calls_pb2.DeleteListenersResponse:
+        """
+        Delete multiple listeners.
+
+        Args:
+            request (calls_pb2.DeleteListenersRequest): The request message to delete multiple listeners.
+
+        Returns:
+            calls_pb2.DeleteListenersResponse: The response message containing the IDs and
+            other details for the deleted listeners.
+        """
+        return self.stub.DeleteListeners(request=request)
+
+    def delete_listeners(
+        self,
+        request: calls_pb2.DeleteListenersRequest,
+    ) -> calls_pb2.DeleteListenersResponse:
+        """
+        Delete multiple listeners.
+
+        Args:
+            request (calls_pb2.DeleteListenersRequest): The request message to delete multiple listeners.
+
+        Returns:
+            calls_pb2.DeleteListenersResponse: The response message containing the IDs and
+            other details for the deleted listeners.
+        """
+        return self.stub.DeleteListeners(request=request)
 
     def start_scheduled_caller(
         self,
