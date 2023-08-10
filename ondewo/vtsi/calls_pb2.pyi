@@ -1000,6 +1000,140 @@ class GetListenerRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["name",b"name","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___GetListenerRequest = GetListenerRequest
 
+class DeleteListenerRequest(google.protobuf.message.Message):
+    """Represents a request to delete a specific listener."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    NAME_FIELD_NUMBER: builtins.int
+    name: typing.Text
+    """The name of the listener to delete in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
+
+    def __init__(self,
+        *,
+        name: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
+global___DeleteListenerRequest = DeleteListenerRequest
+
+class DeleteListenerResponse(google.protobuf.message.Message):
+    """Represents a request to delete a specific listener."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    NAME_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    name: typing.Text
+    """The name of the deleted listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
+
+    error_message: typing.Text
+    """error message if there are any."""
+
+    def __init__(self,
+        *,
+        name: typing.Text = ...,
+        error_message: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","name",b"name"]) -> None: ...
+global___DeleteListenerResponse = DeleteListenerResponse
+
+class DeleteListenersRequest(google.protobuf.message.Message):
+    """Represents a request to delete multiple listeners."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    NAME_FIELD_NUMBER: builtins.int
+    @property
+    def name(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """The name of the listener to delete in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
+        pass
+    def __init__(self,
+        *,
+        name: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
+global___DeleteListenersRequest = DeleteListenersRequest
+
+class DeleteListenersResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DELETE_LISTENER_RESPONSES_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    @property
+    def delete_listener_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeleteListenerResponse]:
+        """responses to delete listeners"""
+        pass
+    error_message: typing.Text
+    """error message if there are any."""
+
+    def __init__(self,
+        *,
+        delete_listener_responses: typing.Optional[typing.Iterable[global___DeleteListenerResponse]] = ...,
+        error_message: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delete_listener_responses",b"delete_listener_responses","error_message",b"error_message"]) -> None: ...
+global___DeleteListenersResponse = DeleteListenersResponse
+
+class DeleteCallerRequest(google.protobuf.message.Message):
+    """Represents a request to delete a specific caller."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    NAME_FIELD_NUMBER: builtins.int
+    name: typing.Text
+    """The name of the caller to delete in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
+
+    def __init__(self,
+        *,
+        name: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
+global___DeleteCallerRequest = DeleteCallerRequest
+
+class DeleteCallerResponse(google.protobuf.message.Message):
+    """Represents a request to delete a specific caller."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    NAME_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    name: typing.Text
+    """The name of the deleted caller in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
+
+    error_message: typing.Text
+    """error message if there are any."""
+
+    def __init__(self,
+        *,
+        name: typing.Text = ...,
+        error_message: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","name",b"name"]) -> None: ...
+global___DeleteCallerResponse = DeleteCallerResponse
+
+class DeleteCallersRequest(google.protobuf.message.Message):
+    """Represents a request to delete multiple callers."""
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    NAME_FIELD_NUMBER: builtins.int
+    @property
+    def name(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """The name of the caller to delete in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
+        pass
+    def __init__(self,
+        *,
+        name: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
+global___DeleteCallersRequest = DeleteCallersRequest
+
+class DeleteCallersResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DELETE_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    @property
+    def delete_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeleteCallerResponse]:
+        """responses to delete callers"""
+        pass
+    error_message: typing.Text
+    """error message if there are any."""
+
+    def __init__(self,
+        *,
+        delete_caller_responses: typing.Optional[typing.Iterable[global___DeleteCallerResponse]] = ...,
+        error_message: typing.Text = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["delete_caller_responses",b"delete_caller_responses","error_message",b"error_message"]) -> None: ...
+global___DeleteCallersResponse = DeleteCallersResponse
+
 class StartScheduledCallerRequest(google.protobuf.message.Message):
     """request for starting a scheduled call"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -1216,7 +1350,9 @@ class StopCallsResponse(google.protobuf.message.Message):
     STOP_CALL_RESPONSES_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
     @property
-    def stop_call_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopCallResponse]: ...
+    def stop_call_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopCallResponse]:
+        """responses to stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project."""
+        pass
     error_message: typing.Text
     """overall error message if you have any so if it's unhealthy"""
 

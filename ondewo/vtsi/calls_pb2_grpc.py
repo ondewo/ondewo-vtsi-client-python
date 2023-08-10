@@ -35,6 +35,16 @@ class CallsStub(object):
             request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallerRequest.SerializeToString,
             response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.Caller.FromString,
         )
+        self.DeleteCaller = channel.unary_unary(
+            '/ondewo.vtsi.Calls/DeleteCaller',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallerRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallerResponse.FromString,
+        )
+        self.DeleteCallers = channel.unary_unary(
+            '/ondewo.vtsi.Calls/DeleteCallers',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersResponse.FromString,
+        )
         self.StartListener = channel.unary_unary(
             '/ondewo.vtsi.Calls/StartListener',
             request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartListenerRequest.SerializeToString,
@@ -54,6 +64,16 @@ class CallsStub(object):
             '/ondewo.vtsi.Calls/GetListener',
             request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetListenerRequest.SerializeToString,
             response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.Listener.FromString,
+        )
+        self.DeleteListener = channel.unary_unary(
+            '/ondewo.vtsi.Calls/DeleteListener',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteListenerRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteListenerResponse.FromString,
+        )
+        self.DeleteListeners = channel.unary_unary(
+            '/ondewo.vtsi.Calls/DeleteListeners',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteListenersRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteListenersResponse.FromString,
         )
         self.StartScheduledCaller = channel.unary_unary(
             '/ondewo.vtsi.Calls/StartScheduledCaller',
@@ -148,6 +168,20 @@ class CallsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DeleteCaller(self, request, context):
+        """deletes a caller
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteCallers(self, request, context):
+        """deletes multiple callers
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StartListener(self, request, context):
         """start single listener instance for a specific nlu-project.
         """
@@ -171,6 +205,20 @@ class CallsServicer(object):
 
     def GetListener(self, request, context):
         """gets a listener
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteListener(self, request, context):
+        """deletes a listener
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteListeners(self, request, context):
+        """deletes multiple listeners
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -278,6 +326,16 @@ def add_CallsServicer_to_server(servicer, server):
             request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallerRequest.FromString,
             response_serializer=ondewo_dot_vtsi_dot_calls__pb2.Caller.SerializeToString,
         ),
+        'DeleteCaller': grpc.unary_unary_rpc_method_handler(
+            servicer.DeleteCaller,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallerRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallerResponse.SerializeToString,
+        ),
+        'DeleteCallers': grpc.unary_unary_rpc_method_handler(
+            servicer.DeleteCallers,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersResponse.SerializeToString,
+        ),
         'StartListener': grpc.unary_unary_rpc_method_handler(
             servicer.StartListener,
             request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartListenerRequest.FromString,
@@ -297,6 +355,16 @@ def add_CallsServicer_to_server(servicer, server):
             servicer.GetListener,
             request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetListenerRequest.FromString,
             response_serializer=ondewo_dot_vtsi_dot_calls__pb2.Listener.SerializeToString,
+        ),
+        'DeleteListener': grpc.unary_unary_rpc_method_handler(
+            servicer.DeleteListener,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteListenerRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteListenerResponse.SerializeToString,
+        ),
+        'DeleteListeners': grpc.unary_unary_rpc_method_handler(
+            servicer.DeleteListeners,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteListenersRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteListenersResponse.SerializeToString,
         ),
         'StartScheduledCaller': grpc.unary_unary_rpc_method_handler(
             servicer.StartScheduledCaller,
@@ -434,6 +502,40 @@ class Calls(object):
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def DeleteCaller(request,
+                     target,
+                     options=(),
+                     channel_credentials=None,
+                     call_credentials=None,
+                     insecure=False,
+                     compression=None,
+                     wait_for_ready=None,
+                     timeout=None,
+                     metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/DeleteCaller',
+                                             ondewo_dot_vtsi_dot_calls__pb2.DeleteCallerRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.DeleteCallerResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteCallers(request,
+                      target,
+                      options=(),
+                      channel_credentials=None,
+                      call_credentials=None,
+                      insecure=False,
+                      compression=None,
+                      wait_for_ready=None,
+                      timeout=None,
+                      metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/DeleteCallers',
+                                             ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def StartListener(request,
                       target,
                       options=(),
@@ -498,6 +600,40 @@ class Calls(object):
         return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/GetListener',
                                              ondewo_dot_vtsi_dot_calls__pb2.GetListenerRequest.SerializeToString,
                                              ondewo_dot_vtsi_dot_calls__pb2.Listener.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteListener(request,
+                       target,
+                       options=(),
+                       channel_credentials=None,
+                       call_credentials=None,
+                       insecure=False,
+                       compression=None,
+                       wait_for_ready=None,
+                       timeout=None,
+                       metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/DeleteListener',
+                                             ondewo_dot_vtsi_dot_calls__pb2.DeleteListenerRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.DeleteListenerResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteListeners(request,
+                        target,
+                        options=(),
+                        channel_credentials=None,
+                        call_credentials=None,
+                        insecure=False,
+                        compression=None,
+                        wait_for_ready=None,
+                        timeout=None,
+                        metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/DeleteListeners',
+                                             ondewo_dot_vtsi_dot_calls__pb2.DeleteListenersRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.DeleteListenersResponse.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
