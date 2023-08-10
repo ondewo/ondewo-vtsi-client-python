@@ -1036,16 +1036,16 @@ global___DeleteListenerResponse = DeleteListenerResponse
 class DeleteListenersRequest(google.protobuf.message.Message):
     """Represents a request to delete multiple listeners."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    NAME_FIELD_NUMBER: builtins.int
+    NAMES_FIELD_NUMBER: builtins.int
     @property
-    def name(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
-        """The name of the listener to delete in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
+    def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """The names of the listeners to delete in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
         pass
     def __init__(self,
         *,
-        name: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___DeleteListenersRequest = DeleteListenersRequest
 
 class DeleteListenersResponse(google.protobuf.message.Message):
@@ -1103,16 +1103,16 @@ global___DeleteCallerResponse = DeleteCallerResponse
 class DeleteCallersRequest(google.protobuf.message.Message):
     """Represents a request to delete multiple callers."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    NAME_FIELD_NUMBER: builtins.int
+    NAMES_FIELD_NUMBER: builtins.int
     @property
-    def name(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+    def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
         """The name of the caller to delete in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
         pass
     def __init__(self,
         *,
-        name: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["names",b"names"]) -> None: ...
 global___DeleteCallersRequest = DeleteCallersRequest
 
 class DeleteCallersResponse(google.protobuf.message.Message):
@@ -1511,7 +1511,7 @@ class GetCallRequest(google.protobuf.message.Message):
 global___GetCallRequest = GetCallRequest
 
 class Call(google.protobuf.message.Message):
-    """Call log"""
+    """Call"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAME_FIELD_NUMBER: builtins.int
     SIP_ACCOUNT_FIELD_NUMBER: builtins.int
@@ -1620,6 +1620,7 @@ class Call(google.protobuf.message.Message):
 global___Call = Call
 
 class ListCallsRequest(google.protobuf.message.Message):
+    """Request to list calls"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALL_VIEW_FIELD_NUMBER: builtins.int
