@@ -1529,6 +1529,7 @@ class Call(google.protobuf.message.Message):
     COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
     SIP_PORT_FIELD_NUMBER: builtins.int
     CSI_PORT_FIELD_NUMBER: builtins.int
+    NLU_SESSION_NAME_FIELD_NUMBER: builtins.int
     name: typing.Text
     """call name
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
@@ -1545,6 +1546,8 @@ class Call(google.protobuf.message.Message):
     """Listener or caller enum .. if not specified"""
 
     phone_number: typing.Text
+    """callee voip id or callee phone number"""
+
     @property
     def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """start time of log"""
@@ -1582,7 +1585,10 @@ class Call(google.protobuf.message.Message):
     """SIP port of the call"""
 
     csi_port: builtins.int
-    """CSi port of the call"""
+    """CSI port of the call"""
+
+    nlu_session_name: typing.Text
+    """NLU session name"""
 
     def __init__(self,
         *,
@@ -1602,13 +1608,16 @@ class Call(google.protobuf.message.Message):
         common_services_config: typing.Optional[global___CommonServicesConfig] = ...,
         sip_port: typing.Optional[builtins.int] = ...,
         csi_port: typing.Optional[builtins.int] = ...,
+        nlu_session_name: typing.Optional[typing.Text] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","common_services_config",b"common_services_config","csi_port",b"csi_port","end_time",b"end_time","services_statuses",b"services_statuses","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","active",b"active","call_type",b"call_type","common_services_config",b"common_services_config","container_name",b"container_name","csi_port",b"csi_port","end_time",b"end_time","name",b"name","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","sip_status_type",b"sip_status_type","start_time",b"start_time","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_nlu_session_name",b"_nlu_session_name","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","common_services_config",b"common_services_config","csi_port",b"csi_port","end_time",b"end_time","nlu_session_name",b"nlu_session_name","services_statuses",b"services_statuses","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_nlu_session_name",b"_nlu_session_name","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","active",b"active","call_type",b"call_type","common_services_config",b"common_services_config","container_name",b"container_name","csi_port",b"csi_port","end_time",b"end_time","name",b"name","nlu_session_name",b"nlu_session_name","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","sip_status_type",b"sip_status_type","start_time",b"start_time","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_common_services_config",b"_common_services_config"]) -> typing.Optional[typing_extensions.Literal["common_services_config"]]: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_csi_port",b"_csi_port"]) -> typing.Optional[typing_extensions.Literal["csi_port"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_nlu_session_name",b"_nlu_session_name"]) -> typing.Optional[typing_extensions.Literal["nlu_session_name"]]: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_services_statuses",b"_services_statuses"]) -> typing.Optional[typing_extensions.Literal["services_statuses"]]: ...
     @typing.overload
