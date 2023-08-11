@@ -17,7 +17,7 @@ export
 
 # MUST BE THE SAME AS API in Mayor and Minor Version Number
 # example: API 2.9.0 --> Client 2.9.X
-ONDEWO_VTSI_VERSION = 6.5.0
+ONDEWO_VTSI_VERSION = 6.6.0
 PYPI_USERNAME?=ENTER_HERE_YOUR_PYPI_USERNAME
 PYPI_PASSWORD?=ENTER_HERE_YOUR_PYPI_PASSWORD
 
@@ -31,7 +31,8 @@ CURRENT_RELEASE_NOTES=`cat RELEASE.md \
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"
 DEVOPS_ACCOUNT_DIR="./${DEVOPS_ACCOUNT_GIT}"
-ONDEWO_VTSI_API_GIT_BRANCH=tags/6.5.0
+#ONDEWO_VTSI_API_GIT_BRANCH=tags/6.5.0
+ONDEWO_VTSI_API_GIT_BRANCH=master
 ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/4.6.0
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 ONDEWO_VTSI_API_DIR=ondewo-vtsi-api
@@ -309,9 +310,15 @@ spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 ########################################################
 #		DEVELOPMENT-AUTOMATION
 fetch_build_commit_push_new_vtsi_api:
-	git -C ondewo-vtsi-api fetch --all
-	git -C ondewo-vtsi-api pull
+#	git -C ondewo-vtsi-api fetch --all
+#	git -C ondewo-vtsi-api pull
 	make build
+	git add Makefile
+	git add ondewo/nlu
+	git add ondewo/qa
+	git add ondewo/s2t
+	git add ondewo/sip
+	git add ondewo/t2s
 	git add ondewo/vtsi
 	git add ondewo-vtsi-api
 	# message="$$(git --no-pager -C ondewo-vtsi-api log -3 --pretty=%B | tail -3 | tr -d '[:space:]')"; git commit -m "$$message"
