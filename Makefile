@@ -310,8 +310,8 @@ spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 ########################################################
 #		DEVELOPMENT-AUTOMATION
 fetch_build_commit_push_new_vtsi_api:
-#	git -C ondewo-vtsi-api fetch --all
-#	git -C ondewo-vtsi-api pull
+	-git -C ondewo-vtsi-api fetch --all
+	-git -C ondewo-vtsi-api pull
 	make build
 	git add Makefile
 	git add setup.py

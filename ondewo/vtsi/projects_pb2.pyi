@@ -115,12 +115,7 @@ class _VtsiProjectView:
 class _VtsiProjectViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VtsiProjectView.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     VTSI_PROJECT_VIEW_UNSPECIFIED: _VtsiProjectView.ValueType  # 0
-    """Unspecified VTSI_PROJECT view: the view is defined by the call:
-    - CreateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
-    - UpdateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
-    - GetVTSI_PROJECT: VTSI_PROJECT_VIEW_FULL
-    - ListVTSI_PROJECTs: VTSI_PROJECT_VIEW_SHALLOW
-    """
+    """Unspecified VTSI_PROJECT view: the view is defined by the call:"""
 
     VTSI_PROJECT_VIEW_FULL: _VtsiProjectView.ValueType  # 1
     """Full VTSI_PROJECT view: populate all the fields of the VTSI_PROJECT message including configs."""
@@ -132,16 +127,16 @@ class _VtsiProjectViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper
     """Minimum view including only VTSI_PROJECT UUID and VTSI_PROJECT display name"""
 
 class VtsiProjectView(_VtsiProjectView, metaclass=_VtsiProjectViewEnumTypeWrapper):
-    """Structure of VTSI_PROJECT view"""
+    """Structure of VTSI_PROJECT view
+    - CreateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
+    - UpdateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
+    - GetVTSI_PROJECT: VTSI_PROJECT_VIEW_FULL
+    - ListVTSI_PROJECTs: VTSI_PROJECT_VIEW_SHALLOW
+    """
     pass
 
 VTSI_PROJECT_VIEW_UNSPECIFIED: VtsiProjectView.ValueType  # 0
-"""Unspecified VTSI_PROJECT view: the view is defined by the call:
-- CreateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
-- UpdateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
-- GetVTSI_PROJECT: VTSI_PROJECT_VIEW_FULL
-- ListVTSI_PROJECTs: VTSI_PROJECT_VIEW_SHALLOW
-"""
+"""Unspecified VTSI_PROJECT view: the view is defined by the call:"""
 
 VTSI_PROJECT_VIEW_FULL: VtsiProjectView.ValueType  # 1
 """Full VTSI_PROJECT view: populate all the fields of the VTSI_PROJECT message including configs."""

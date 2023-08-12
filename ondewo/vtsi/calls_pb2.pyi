@@ -61,6 +61,9 @@ class _CallTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     CALLER: _CallType.ValueType  # 2
     """caller"""
 
+    SCHEDULED_CALLER: _CallType.ValueType  # 3
+    """scheduled caller"""
+
 class CallType(_CallType, metaclass=_CallTypeEnumTypeWrapper):
     """CallType"""
     pass
@@ -73,6 +76,9 @@ LISTENER: CallType.ValueType  # 1
 
 CALLER: CallType.ValueType  # 2
 """caller"""
+
+SCHEDULED_CALLER: CallType.ValueType  # 3
+"""scheduled caller"""
 
 global___CallType = CallType
 
