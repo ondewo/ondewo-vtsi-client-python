@@ -314,6 +314,7 @@ fetch_build_commit_push_new_vtsi_api:
 #	git -C ondewo-vtsi-api pull
 	make build
 	git add Makefile
+	git add setup.py
 	git add ondewo/nlu
 	git add ondewo/qa
 	git add ondewo/s2t

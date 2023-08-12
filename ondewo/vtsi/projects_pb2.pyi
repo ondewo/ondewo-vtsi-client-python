@@ -394,14 +394,19 @@ class GetVtsiProjectRequest(google.protobuf.message.Message):
     """Request to retrieve a VTSI project"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_VIEW_FIELD_NUMBER: builtins.int
     name: typing.Text
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+
+    vtsi_project_view: global___VtsiProjectView.ValueType
+    """Optional. Specify the view of the returned VtsiProject (full view by default)"""
 
     def __init__(self,
         *,
         name: typing.Text = ...,
+        vtsi_project_view: global___VtsiProjectView.ValueType = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name",b"name"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name",b"name","vtsi_project_view",b"vtsi_project_view"]) -> None: ...
 global___GetVtsiProjectRequest = GetVtsiProjectRequest
 
 class ListVtsiProjectsRequest(google.protobuf.message.Message):
