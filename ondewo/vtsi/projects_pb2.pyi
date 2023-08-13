@@ -263,7 +263,7 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     """Transfer number host."""
 
     sip_trunk_phone_number: typing.Text
-    """SIP trunk phone number."""
+    """SIP trunk phone number / caller id."""
 
     def __init__(self,
         *,
