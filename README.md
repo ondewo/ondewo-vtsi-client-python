@@ -66,6 +66,9 @@ make setup_developer_environment_locally
 │   │   ├── aiservices_pb2_grpc.py
 │   │   ├── aiservices_pb2.py
 │   │   ├── aiservices_pb2.pyi
+│   │   ├── ccai_project_pb2_grpc.py
+│   │   ├── ccai_project_pb2.py
+│   │   ├── ccai_project_pb2.pyi
 │   │   ├── common_pb2_grpc.py
 │   │   ├── common_pb2.py
 │   │   ├── common_pb2.pyi
