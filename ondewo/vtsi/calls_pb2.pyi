@@ -9,6 +9,7 @@ import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
 import ondewo.nlu.context_pb2
+import ondewo.nlu.intent_pb2
 import ondewo.s2t.speech_to_text_pb2
 import ondewo.sip.sip_pb2
 import ondewo.t2s.text_to_speech_pb2
@@ -387,7 +388,6 @@ class AudioObjectStorageConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ACTIVATE_AUDIO_OBJECT_STORAGE_FIELD_NUMBER: builtins.int
     AUDIO_OBJECT_STORAGE_SERVICES_ACTIVATION_CONFIG_FIELD_NUMBER: builtins.int
-    MINIO_CONFIG_FIELD_NUMBER: builtins.int
     activate_audio_object_storage: builtins.bool
     """Audio storage should be activated or not"""
 
@@ -395,17 +395,13 @@ class AudioObjectStorageConfig(google.protobuf.message.Message):
     def audio_object_storage_services_activation_config(self) -> global___AudioObjectStorageServicesActivationConfig:
         """Configuration of the Minio Audio Object Store"""
         pass
-    @property
-    def minio_config(self) -> global___MinioConfig: ...
     def __init__(self,
         *,
         activate_audio_object_storage: builtins.bool = ...,
         audio_object_storage_services_activation_config: typing.Optional[global___AudioObjectStorageServicesActivationConfig] = ...,
-        minio_config: typing.Optional[global___MinioConfig] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config","audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["activate_audio_object_storage",b"activate_audio_object_storage","audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config","audio_storage_config",b"audio_storage_config","minio_config",b"minio_config"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["audio_storage_config",b"audio_storage_config"]) -> typing.Optional[typing_extensions.Literal["minio_config"]]: ...
+    def HasField(self, field_name: typing_extensions.Literal["audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activate_audio_object_storage",b"activate_audio_object_storage","audio_object_storage_services_activation_config",b"audio_object_storage_services_activation_config"]) -> None: ...
 global___AudioObjectStorageConfig = AudioObjectStorageConfig
 
 class AudioObjectStorageServicesActivationConfig(google.protobuf.message.Message):
@@ -515,45 +511,6 @@ class RabbitMqConfig(google.protobuf.message.Message):
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["host",b"host","password",b"password","port",b"port","port_2",b"port_2","user",b"user"]) -> None: ...
 global___RabbitMqConfig = RabbitMqConfig
-
-class MinioConfig(google.protobuf.message.Message):
-    """Configuration of the Minio Audio Object Store"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    HOST_FIELD_NUMBER: builtins.int
-    PORT_FIELD_NUMBER: builtins.int
-    ACCESS_KEY_FIELD_NUMBER: builtins.int
-    SECRET_KEY_FIELD_NUMBER: builtins.int
-    SECURE_FIELD_NUMBER: builtins.int
-    SESSION_TOKEN_FIELD_NUMBER: builtins.int
-    host: typing.Text
-    """host"""
-
-    port: builtins.int
-    """port"""
-
-    access_key: typing.Text
-    """access key of server"""
-
-    secret_key: typing.Text
-    """secret key of server"""
-
-    secure: builtins.bool
-    """if you need to do a secure connection "ssl" """
-
-    session_token: typing.Text
-    """session_token in case you need secure connection"""
-
-    def __init__(self,
-        *,
-        host: typing.Text = ...,
-        port: builtins.int = ...,
-        access_key: typing.Text = ...,
-        secret_key: typing.Text = ...,
-        secure: builtins.bool = ...,
-        session_token: typing.Text = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["access_key",b"access_key","host",b"host","port",b"port","secret_key",b"secret_key","secure",b"secure","session_token",b"session_token"]) -> None: ...
-global___MinioConfig = MinioConfig
 
 class S2tVtsiCallbacks(google.protobuf.message.Message):
     """Callback for the Speech-2-Text platform"""
@@ -1399,15 +1356,14 @@ class TransferCallRequest(google.protobuf.message.Message):
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
 
-    @property
-    def transfer_id(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
-        """transfer_id to transfer the call to, so the number or voip number you want to be transferred too"""
-        pass
+    transfer_id: typing.Text
+    """transfer_id to transfer the call to, so the number or voip number you want to be transferred too"""
+
     def __init__(self,
         *,
         vtsi_project_name: typing.Text = ...,
         call_name: typing.Text = ...,
-        transfer_id: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        transfer_id: typing.Text = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["call_name",b"call_name","transfer_id",b"transfer_id","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
 global___TransferCallRequest = TransferCallRequest
@@ -1536,6 +1492,7 @@ class Call(google.protobuf.message.Message):
     SIP_PORT_FIELD_NUMBER: builtins.int
     CSI_PORT_FIELD_NUMBER: builtins.int
     NLU_SESSION_NAME_FIELD_NUMBER: builtins.int
+    PLATFORMS_FIELD_NUMBER: builtins.int
     name: typing.Text
     """call name
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
@@ -1596,6 +1553,9 @@ class Call(google.protobuf.message.Message):
     nlu_session_name: typing.Text
     """NLU session name"""
 
+    platforms: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType
+    """Messages for each of the Intent.Message.Platform were sent to the user"""
+
     def __init__(self,
         *,
         name: typing.Text = ...,
@@ -1615,15 +1575,18 @@ class Call(google.protobuf.message.Message):
         sip_port: typing.Optional[builtins.int] = ...,
         csi_port: typing.Optional[builtins.int] = ...,
         nlu_session_name: typing.Optional[typing.Text] = ...,
+        platforms: typing.Optional[ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_nlu_session_name",b"_nlu_session_name","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","common_services_config",b"common_services_config","csi_port",b"csi_port","end_time",b"end_time","nlu_session_name",b"nlu_session_name","services_statuses",b"services_statuses","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_nlu_session_name",b"_nlu_session_name","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","active",b"active","call_type",b"call_type","common_services_config",b"common_services_config","container_name",b"container_name","csi_port",b"csi_port","end_time",b"end_time","name",b"name","nlu_session_name",b"nlu_session_name","phone_number",b"phone_number","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","sip_status_type",b"sip_status_type","start_time",b"start_time","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_nlu_session_name",b"_nlu_session_name","_platforms",b"_platforms","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","common_services_config",b"common_services_config","csi_port",b"csi_port","end_time",b"end_time","nlu_session_name",b"nlu_session_name","platforms",b"platforms","services_statuses",b"services_statuses","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","start_time",b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_common_services_config",b"_common_services_config","_csi_port",b"_csi_port","_nlu_session_name",b"_nlu_session_name","_platforms",b"_platforms","_services_statuses",b"_services_statuses","_sip_port",b"_sip_port","_sip_status",b"_sip_status","_sip_status_history",b"_sip_status_history","active",b"active","call_type",b"call_type","common_services_config",b"common_services_config","container_name",b"container_name","csi_port",b"csi_port","end_time",b"end_time","name",b"name","nlu_session_name",b"nlu_session_name","phone_number",b"phone_number","platforms",b"platforms","services_statuses",b"services_statuses","sip_account",b"sip_account","sip_port",b"sip_port","sip_status",b"sip_status","sip_status_history",b"sip_status_history","sip_status_type",b"sip_status_type","start_time",b"start_time","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_common_services_config",b"_common_services_config"]) -> typing.Optional[typing_extensions.Literal["common_services_config"]]: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_csi_port",b"_csi_port"]) -> typing.Optional[typing_extensions.Literal["csi_port"]]: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_nlu_session_name",b"_nlu_session_name"]) -> typing.Optional[typing_extensions.Literal["nlu_session_name"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_platforms",b"_platforms"]) -> typing.Optional[typing_extensions.Literal["platforms"]]: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_services_statuses",b"_services_statuses"]) -> typing.Optional[typing_extensions.Literal["services_statuses"]]: ...
     @typing.overload
@@ -1634,56 +1597,152 @@ class Call(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_sip_status_history",b"_sip_status_history"]) -> typing.Optional[typing_extensions.Literal["sip_status_history"]]: ...
 global___Call = Call
 
+class CallFilter(google.protobuf.message.Message):
+    """Definition of a CallFilter, representing filters for querying calls.
+
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    CALL_NAMES_FIELD_NUMBER: builtins.int
+    NLU_SESSION_NAMES_FIELD_NUMBER: builtins.int
+    SIP_ACCOUNTS_FIELD_NUMBER: builtins.int
+    PHONE_NUMBERS_FIELD_NUMBER: builtins.int
+    CONTAINER_NAMES_FIELD_NUMBER: builtins.int
+    SIP_PORTS_FIELD_NUMBER: builtins.int
+    CSI_PORTS_FIELD_NUMBER: builtins.int
+    CALL_TYPES_FIELD_NUMBER: builtins.int
+    SIP_STATUS_TYPES_FIELD_NUMBER: builtins.int
+    ACTIVE_FIELD_NUMBER: builtins.int
+    START_TIME_FIELD_NUMBER: builtins.int
+    END_TIME_FIELD_NUMBER: builtins.int
+    DURATION_IN_S_MIN_FIELD_NUMBER: builtins.int
+    DURATION_IN_S_MAX_FIELD_NUMBER: builtins.int
+    PLATFORMS_FIELD_NUMBER: builtins.int
+    @property
+    def call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional: Filter by call names."""
+        pass
+    @property
+    def nlu_session_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional: Filter by NLU session names."""
+        pass
+    @property
+    def sip_accounts(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional: Filter by SIP accounts."""
+        pass
+    @property
+    def phone_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional: Filter by phone numbers."""
+        pass
+    @property
+    def container_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional: Filter by container names."""
+        pass
+    @property
+    def sip_ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional: Filter by SIP ports."""
+        pass
+    @property
+    def csi_ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """Optional: Filter by CSI ports."""
+        pass
+    @property
+    def call_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CallType.ValueType]:
+        """Optional: Filter by call types (both by default, or only listeners, or only callers)."""
+        pass
+    @property
+    def sip_status_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType]:
+        """Optional: Filter based on SIP status types."""
+        pass
+    active: builtins.bool
+    """Optional: Filter based on active or inactive calls."""
+
+    @property
+    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Optional: Start time of the log."""
+        pass
+    @property
+    def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Optional: End time of the log."""
+        pass
+    duration_in_s_min: builtins.float
+    """Optional: Match only sessions for which the duration in seconds is larger or equal."""
+
+    duration_in_s_max: builtins.float
+    """Optional: Match only calls for which the duration in seconds is smaller or equal."""
+
+    @property
+    def platforms(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType]:
+        """Optional: Platform responses sent to the user. Default is text: <code>Platform.PLATFORM_UNSPECIFIED</code>."""
+        pass
+    def __init__(self,
+        *,
+        call_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        nlu_session_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        sip_accounts: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        phone_numbers: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        container_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        sip_ports: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        csi_ports: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        call_types: typing.Optional[typing.Iterable[global___CallType.ValueType]] = ...,
+        sip_status_types: typing.Optional[typing.Iterable[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType]] = ...,
+        active: typing.Optional[builtins.bool] = ...,
+        start_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        end_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        duration_in_s_min: typing.Optional[builtins.float] = ...,
+        duration_in_s_max: typing.Optional[builtins.float] = ...,
+        platforms: typing.Optional[typing.Iterable[ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType]] = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_active",b"_active","_duration_in_s_max",b"_duration_in_s_max","_duration_in_s_min",b"_duration_in_s_min","_end_time",b"_end_time","_start_time",b"_start_time","active",b"active","duration_in_s_max",b"duration_in_s_max","duration_in_s_min",b"duration_in_s_min","end_time",b"end_time","start_time",b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_active",b"_active","_duration_in_s_max",b"_duration_in_s_max","_duration_in_s_min",b"_duration_in_s_min","_end_time",b"_end_time","_start_time",b"_start_time","active",b"active","call_names",b"call_names","call_types",b"call_types","container_names",b"container_names","csi_ports",b"csi_ports","duration_in_s_max",b"duration_in_s_max","duration_in_s_min",b"duration_in_s_min","end_time",b"end_time","nlu_session_names",b"nlu_session_names","phone_numbers",b"phone_numbers","platforms",b"platforms","sip_accounts",b"sip_accounts","sip_ports",b"sip_ports","sip_status_types",b"sip_status_types","start_time",b"start_time"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_active",b"_active"]) -> typing.Optional[typing_extensions.Literal["active"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_duration_in_s_max",b"_duration_in_s_max"]) -> typing.Optional[typing_extensions.Literal["duration_in_s_max"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_duration_in_s_min",b"_duration_in_s_min"]) -> typing.Optional[typing_extensions.Literal["duration_in_s_min"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_end_time",b"_end_time"]) -> typing.Optional[typing_extensions.Literal["end_time"]]: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_start_time",b"_start_time"]) -> typing.Optional[typing_extensions.Literal["start_time"]]: ...
+global___CallFilter = CallFilter
+
 class ListCallsRequest(google.protobuf.message.Message):
     """Request to list calls"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALL_VIEW_FIELD_NUMBER: builtins.int
-    CALL_TYPE_FIELD_NUMBER: builtins.int
+    CALL_FILTER_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    ACTIVE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
     vtsi_project_name: typing.Text
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
 
     call_view: global___CallView.ValueType
     """you can specify the view to be shallow or full .. see above for more info"""
 
-    call_type: global___CallType.ValueType
-    """both by default, or only listeners, or only callers"""
-
+    @property
+    def call_filter(self) -> global___CallFilter:
+        """Optional. A filter to narrow the response down to sessions of interest."""
+        pass
     page_token: typing.Text
     """Optional. The next_page_token value returned from a previous list request.
     Example: "current_index-1--page_size-20"
     """
 
-    active: builtins.bool
-    """Optional. Filter based on active or inactive calls"""
-
-    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
-    """Optional. Filter based on sip status type"""
-
     def __init__(self,
         *,
         vtsi_project_name: typing.Text = ...,
         call_view: typing.Optional[global___CallView.ValueType] = ...,
-        call_type: typing.Optional[global___CallType.ValueType] = ...,
+        call_filter: typing.Optional[global___CallFilter] = ...,
         page_token: typing.Optional[typing.Text] = ...,
-        active: typing.Optional[builtins.bool] = ...,
-        sip_status_type: typing.Optional[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["_active",b"_active","_call_type",b"_call_type","_call_view",b"_call_view","_page_token",b"_page_token","_sip_status_type",b"_sip_status_type","active",b"active","call_type",b"call_type","call_view",b"call_view","page_token",b"page_token","sip_status_type",b"sip_status_type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["_active",b"_active","_call_type",b"_call_type","_call_view",b"_call_view","_page_token",b"_page_token","_sip_status_type",b"_sip_status_type","active",b"active","call_type",b"call_type","call_view",b"call_view","page_token",b"page_token","sip_status_type",b"sip_status_type","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_call_filter",b"_call_filter","_call_view",b"_call_view","_page_token",b"_page_token","call_filter",b"call_filter","call_view",b"call_view","page_token",b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_call_filter",b"_call_filter","_call_view",b"_call_view","_page_token",b"_page_token","call_filter",b"call_filter","call_view",b"call_view","page_token",b"page_token","vtsi_project_name",b"vtsi_project_name"]) -> None: ...
     @typing.overload
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["_active",b"_active"]) -> typing.Optional[typing_extensions.Literal["active"]]: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["_call_type",b"_call_type"]) -> typing.Optional[typing_extensions.Literal["call_type"]]: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_call_filter",b"_call_filter"]) -> typing.Optional[typing_extensions.Literal["call_filter"]]: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_call_view",b"_call_view"]) -> typing.Optional[typing_extensions.Literal["call_view"]]: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_page_token",b"_page_token"]) -> typing.Optional[typing_extensions.Literal["page_token"]]: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["_sip_status_type",b"_sip_status_type"]) -> typing.Optional[typing_extensions.Literal["sip_status_type"]]: ...
 global___ListCallsRequest = ListCallsRequest
 
 class ListCallsResponse(google.protobuf.message.Message):
@@ -1767,84 +1826,3 @@ class ServiceStatus(google.protobuf.message.Message):
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["error_message",b"error_message","healthy",b"healthy"]) -> None: ...
 global___ServiceStatus = ServiceStatus
-
-class GetAudioFileRequest(google.protobuf.message.Message):
-    """Request to retrieve audio files"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    BUCKET_NAME_FIELD_NUMBER: builtins.int
-    OBJECT_NAME_FIELD_NUMBER: builtins.int
-    MINIO_CONFIG_FIELD_NUMBER: builtins.int
-    bucket_name: typing.Text
-    """name of the bucket in Minio Audio Object Store"""
-
-    object_name: typing.Text
-    """name of the object in Minio Audio Object Store, format is UUID"""
-
-    @property
-    def minio_config(self) -> global___MinioConfig:
-        """Optional to add if you want to retrieve it from a specific minio server"""
-        pass
-    def __init__(self,
-        *,
-        bucket_name: typing.Text = ...,
-        object_name: typing.Text = ...,
-        minio_config: typing.Optional[global___MinioConfig] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["minio_config",b"minio_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bucket_name",b"bucket_name","minio_config",b"minio_config","object_name",b"object_name"]) -> None: ...
-global___GetAudioFileRequest = GetAudioFileRequest
-
-class GetAudioFileResponse(google.protobuf.message.Message):
-    """Response to retrieve the bytes of the audio file requested from Minio"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    AUDIO_FIELD_NUMBER: builtins.int
-    audio: builtins.bytes
-    """audio bytes from Minio Audio Object Store"""
-
-    def __init__(self,
-        *,
-        audio: builtins.bytes = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["audio",b"audio"]) -> None: ...
-global___GetAudioFileResponse = GetAudioFileResponse
-
-class GetFullConversationAudioFileRequest(google.protobuf.message.Message):
-    """Request to retrieve one audio file with all audio files combined into one"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    BUCKET_NAME_FIELD_NUMBER: builtins.int
-    OBJECT_NAMES_FIELD_NUMBER: builtins.int
-    MINIO_CONFIG_FIELD_NUMBER: builtins.int
-    bucket_name: typing.Text
-    """name of the bucket in Minio Audio Object Store"""
-
-    @property
-    def object_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
-        """names of the objects in Minio Audio Object Store belonging to a whole NLU "conversation" session"""
-        pass
-    @property
-    def minio_config(self) -> global___MinioConfig:
-        """Optional to add if you want to retrieve it from a specific minio server"""
-        pass
-    def __init__(self,
-        *,
-        bucket_name: typing.Text = ...,
-        object_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
-        minio_config: typing.Optional[global___MinioConfig] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["minio_config",b"minio_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bucket_name",b"bucket_name","minio_config",b"minio_config","object_names",b"object_names"]) -> None: ...
-global___GetFullConversationAudioFileRequest = GetFullConversationAudioFileRequest
-
-class GetFullConversationAudioFileResponse(google.protobuf.message.Message):
-    """Retrieve one audio file with all audio files combined into one"""
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    AUDIO_FIELD_NUMBER: builtins.int
-    audio: builtins.bytes
-    """audio bytes from Minio Audio Object Store"""
-
-    def __init__(self,
-        *,
-        audio: builtins.bytes = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["audio",b"audio"]) -> None: ...
-global___GetFullConversationAudioFileResponse = GetFullConversationAudioFileResponse

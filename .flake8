@@ -9,6 +9,8 @@ exclude =
     ./ondewo/nlu/agent_pb2.py,
     ./ondewo/nlu/aiservices_pb2_grpc.py,
     ./ondewo/nlu/aiservices_pb2.py,
+    ./ondewo/nlu/ccai_project_pb2.py,
+    ./ondewo/nlu/ccai_project_pb2_grpc.py,
     ./ondewo/nlu/common_pb2_grpc.py,
     ./ondewo/nlu/common_pb2.py,
     ./ondewo/nlu/context_pb2_grpc.py,

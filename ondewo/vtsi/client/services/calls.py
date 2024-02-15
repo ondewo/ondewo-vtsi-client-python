@@ -362,35 +362,3 @@ class Calls(BaseServicesInterface):
             calls_pb2.ListCallsResponse: The response message containing a list of active calls.
         """
         return self.stub.ListCalls(request=request)
-
-    def get_audio_file(
-        self,
-        request: calls_pb2.GetAudioFileRequest,
-    ) -> calls_pb2.GetAudioFileResponse:
-        """
-        Get the audio file for a specific call.
-
-        Args:
-            request (calls_pb2.GetAudioFileRequest): The request message to get the audio file for a call.
-
-        Returns:
-            calls_pb2.GetAudioFileResponse: The response message containing the audio file for the specified call.
-        """
-        return self.stub.GetAudioFile(request=request)
-
-    def get_full_conversation_audio_file(
-        self,
-        request: calls_pb2.GetFullConversationAudioFileRequest,
-    ) -> calls_pb2.GetFullConversationAudioFileResponse:
-        """
-        Get the full conversation audio file for a specific call.
-
-        Args:
-            request (calls_pb2.GetFullConversationAudioFileRequest): The request message to get the
-                full conversation audio file for a call.
-
-        Returns:
-            calls_pb2.GetFullConversationAudioFileResponse: The response message containing the
-            full conversation audio file for the specified call.
-        """
-        return self.stub.GetFullConversationAudioFile(request=request)
