@@ -1072,6 +1072,166 @@ class GetListenerRequest(google.protobuf.message.Message):
 global___GetListenerRequest = GetListenerRequest
 
 @typing_extensions.final
+class StopListenerRequest(google.protobuf.message.Message):
+    """Represents a request to stop a specific listener."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """The name of the listener to stop in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name", b"name"]) -> None: ...
+
+global___StopListenerRequest = StopListenerRequest
+
+@typing_extensions.final
+class StopListenerResponse(google.protobuf.message.Message):
+    """Represents a request to stop a specific listener."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """The name of the stop listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
+    error_message: builtins.str
+    """error message if there are any."""
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        error_message: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+
+global___StopListenerResponse = StopListenerResponse
+
+@typing_extensions.final
+class StopListenersRequest(google.protobuf.message.Message):
+    """Represents a request to stop multiple listeners."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAMES_FIELD_NUMBER: builtins.int
+    @property
+    def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """The names of the listeners to stop in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
+    def __init__(
+        self,
+        *,
+        names: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["names", b"names"]) -> None: ...
+
+global___StopListenersRequest = StopListenersRequest
+
+@typing_extensions.final
+class StopListenersResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STOP_LISTENER_RESPONSES_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    @property
+    def stop_listener_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopListenerResponse]:
+        """responses to stop listeners"""
+    error_message: builtins.str
+    """error message if there are any."""
+    def __init__(
+        self,
+        *,
+        stop_listener_responses: collections.abc.Iterable[global___StopListenerResponse] | None = ...,
+        error_message: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "stop_listener_responses", b"stop_listener_responses"]) -> None: ...
+
+global___StopListenersResponse = StopListenersResponse
+
+@typing_extensions.final
+class StopCallerRequest(google.protobuf.message.Message):
+    """Represents a request to stop a specific caller."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """The name of the caller to stop in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name", b"name"]) -> None: ...
+
+global___StopCallerRequest = StopCallerRequest
+
+@typing_extensions.final
+class StopCallerResponse(google.protobuf.message.Message):
+    """Represents a request to stop a specific caller."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """The name of the stop caller in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
+    error_message: builtins.str
+    """error message if there are any."""
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        error_message: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+
+global___StopCallerResponse = StopCallerResponse
+
+@typing_extensions.final
+class StopCallersRequest(google.protobuf.message.Message):
+    """Represents a request to stop multiple callers."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAMES_FIELD_NUMBER: builtins.int
+    @property
+    def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """The names of the callers to stop in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
+    def __init__(
+        self,
+        *,
+        names: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["names", b"names"]) -> None: ...
+
+global___StopCallersRequest = StopCallersRequest
+
+@typing_extensions.final
+class StopCallersResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STOP_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    @property
+    def stop_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopCallerResponse]:
+        """responses to stop callers"""
+    error_message: builtins.str
+    """error message if there are any."""
+    def __init__(
+        self,
+        *,
+        stop_caller_responses: collections.abc.Iterable[global___StopCallerResponse] | None = ...,
+        error_message: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "stop_caller_responses", b"stop_caller_responses"]) -> None: ...
+
+global___StopCallersResponse = StopCallersResponse
+
+@typing_extensions.final
 class DeleteListenerRequest(google.protobuf.message.Message):
     """Represents a request to delete a specific listener."""
 
