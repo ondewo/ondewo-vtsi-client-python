@@ -61,6 +61,30 @@ FULL: CallView.ValueType  # 2
 """Gives you the full info with status history and the services statuses"""
 global___CallView = CallView
 
+class _CallStatus:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _CallStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallStatus.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    CALL_STATUS_UNSPECIFIED: _CallStatus.ValueType  # 0
+    """Unspecified call status"""
+    CALL_STATUS_ACTIVE: _CallStatus.ValueType  # 1
+    """Call is active"""
+    CALL_STATUS_INACTIVE: _CallStatus.ValueType  # 2
+    """Call is inactive"""
+
+class CallStatus(_CallStatus, metaclass=_CallStatusEnumTypeWrapper):
+    """Call view options"""
+
+CALL_STATUS_UNSPECIFIED: CallStatus.ValueType  # 0
+"""Unspecified call status"""
+CALL_STATUS_ACTIVE: CallStatus.ValueType  # 1
+"""Call is active"""
+CALL_STATUS_INACTIVE: CallStatus.ValueType  # 2
+"""Call is inactive"""
+global___CallStatus = CallStatus
+
 class _CallType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -68,25 +92,25 @@ class _CallType:
 class _CallTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallType.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     BOTH: _CallType.ValueType  # 0
-    """both listeners and callers"""
+    """Both listener and caller"""
     LISTENER: _CallType.ValueType  # 1
-    """listeners"""
+    """Listener"""
     CALLER: _CallType.ValueType  # 2
-    """caller"""
+    """Caller"""
     SCHEDULED_CALLER: _CallType.ValueType  # 3
-    """scheduled caller"""
+    """Scheduled Caller"""
 
 class CallType(_CallType, metaclass=_CallTypeEnumTypeWrapper):
     """CallType"""
 
 BOTH: CallType.ValueType  # 0
-"""both listeners and callers"""
+"""Both listener and caller"""
 LISTENER: CallType.ValueType  # 1
-"""listeners"""
+"""Listener"""
 CALLER: CallType.ValueType  # 2
-"""caller"""
+"""Caller"""
 SCHEDULED_CALLER: CallType.ValueType  # 3
-"""scheduled caller"""
+"""Scheduled Caller"""
 global___CallType = CallType
 
 @typing_extensions.final
@@ -1746,7 +1770,7 @@ class CallFilter(google.protobuf.message.Message):
     CSI_PORTS_FIELD_NUMBER: builtins.int
     CALL_TYPES_FIELD_NUMBER: builtins.int
     SIP_STATUS_TYPES_FIELD_NUMBER: builtins.int
-    ACTIVE_FIELD_NUMBER: builtins.int
+    CALL_STATUS_FIELD_NUMBER: builtins.int
     START_TIME_FIELD_NUMBER: builtins.int
     END_TIME_FIELD_NUMBER: builtins.int
     DURATION_IN_S_MIN_FIELD_NUMBER: builtins.int
@@ -1779,7 +1803,7 @@ class CallFilter(google.protobuf.message.Message):
     @property
     def sip_status_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType]:
         """Optional: Filter based on SIP status types."""
-    active: builtins.bool
+    call_status: global___CallStatus.ValueType
     """Optional: Filter based on active or inactive calls."""
     @property
     def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
@@ -1806,17 +1830,17 @@ class CallFilter(google.protobuf.message.Message):
         csi_ports: collections.abc.Iterable[builtins.str] | None = ...,
         call_types: collections.abc.Iterable[global___CallType.ValueType] | None = ...,
         sip_status_types: collections.abc.Iterable[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType] | None = ...,
-        active: builtins.bool | None = ...,
+        call_status: global___CallStatus.ValueType | None = ...,
         start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         duration_in_s_min: builtins.float | None = ...,
         duration_in_s_max: builtins.float | None = ...,
         platforms: collections.abc.Iterable[ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["_active", b"_active", "_duration_in_s_max", b"_duration_in_s_max", "_duration_in_s_min", b"_duration_in_s_min", "_end_time", b"_end_time", "_start_time", b"_start_time", "active", b"active", "duration_in_s_max", b"duration_in_s_max", "duration_in_s_min", b"duration_in_s_min", "end_time", b"end_time", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["_active", b"_active", "_duration_in_s_max", b"_duration_in_s_max", "_duration_in_s_min", b"_duration_in_s_min", "_end_time", b"_end_time", "_start_time", b"_start_time", "active", b"active", "call_names", b"call_names", "call_types", b"call_types", "container_names", b"container_names", "csi_ports", b"csi_ports", "duration_in_s_max", b"duration_in_s_max", "duration_in_s_min", b"duration_in_s_min", "end_time", b"end_time", "nlu_session_names", b"nlu_session_names", "phone_numbers", b"phone_numbers", "platforms", b"platforms", "sip_accounts", b"sip_accounts", "sip_ports", b"sip_ports", "sip_status_types", b"sip_status_types", "start_time", b"start_time"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_call_status", b"_call_status", "_duration_in_s_max", b"_duration_in_s_max", "_duration_in_s_min", b"_duration_in_s_min", "_end_time", b"_end_time", "_start_time", b"_start_time", "call_status", b"call_status", "duration_in_s_max", b"duration_in_s_max", "duration_in_s_min", b"duration_in_s_min", "end_time", b"end_time", "start_time", b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_call_status", b"_call_status", "_duration_in_s_max", b"_duration_in_s_max", "_duration_in_s_min", b"_duration_in_s_min", "_end_time", b"_end_time", "_start_time", b"_start_time", "call_names", b"call_names", "call_status", b"call_status", "call_types", b"call_types", "container_names", b"container_names", "csi_ports", b"csi_ports", "duration_in_s_max", b"duration_in_s_max", "duration_in_s_min", b"duration_in_s_min", "end_time", b"end_time", "nlu_session_names", b"nlu_session_names", "phone_numbers", b"phone_numbers", "platforms", b"platforms", "sip_accounts", b"sip_accounts", "sip_ports", b"sip_ports", "sip_status_types", b"sip_status_types", "start_time", b"start_time"]) -> None: ...
     @typing.overload
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["_active", b"_active"]) -> typing_extensions.Literal["active"] | None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_call_status", b"_call_status"]) -> typing_extensions.Literal["call_status"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_duration_in_s_max", b"_duration_in_s_max"]) -> typing_extensions.Literal["duration_in_s_max"] | None: ...
     @typing.overload
