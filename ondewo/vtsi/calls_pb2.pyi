@@ -934,6 +934,7 @@ class ListCallersRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    CALL_VIEW_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to perform the call.
     The format is: "projects/<project_uuid>/project".
@@ -942,14 +943,20 @@ class ListCallersRequest(google.protobuf.message.Message):
     """Optional. The next_page_token value returned from a previous list request.
     Example: "current_index-1--page_size-20"
     """
+    call_view: global___CallView.ValueType
+    """you can specify the view to be shallow or full"""
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         page_token: builtins.str | None = ...,
+        call_view: global___CallView.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["_page_token", b"_page_token", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["_page_token", b"_page_token", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_call_view", b"_call_view"]) -> typing_extensions.Literal["call_view"] | None: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_page_token", b"_page_token"]) -> typing_extensions.Literal["page_token"] | None: ...
 
 global___ListCallersRequest = ListCallersRequest
@@ -981,17 +988,23 @@ class GetCallerRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
+    CALL_VIEW_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     name: builtins.str
     """The name of caller to retrieve."""
+    call_view: global___CallView.ValueType
+    """you can specify the view to be shallow or full"""
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         name: builtins.str = ...,
+        call_view: global___CallView.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_call_view", b"_call_view", "call_view", b"call_view"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_call_view", b"_call_view", "call_view", b"call_view", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_call_view", b"_call_view"]) -> typing_extensions.Literal["call_view"] | None: ...
 
 global___GetCallerRequest = GetCallerRequest
 
@@ -1003,6 +1016,7 @@ class ListListenersRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    CALL_VIEW_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to perform the call.
     The format is: "projects/<project_uuid>/project".
@@ -1011,14 +1025,20 @@ class ListListenersRequest(google.protobuf.message.Message):
     """Optional. The next_page_token value returned from a previous list request.
     Example: "current_index-1--page_size-20"
     """
+    call_view: global___CallView.ValueType
+    """you can specify the view to be shallow or full"""
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         page_token: builtins.str | None = ...,
+        call_view: global___CallView.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["_page_token", b"_page_token", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["_page_token", b"_page_token", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_call_view", b"_call_view"]) -> typing_extensions.Literal["call_view"] | None: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["_page_token", b"_page_token"]) -> typing_extensions.Literal["page_token"] | None: ...
 
 global___ListListenersRequest = ListListenersRequest
@@ -1057,17 +1077,23 @@ class GetListenerRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
+    CALL_VIEW_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     name: builtins.str
     """The name of listener to retrieve."""
+    call_view: global___CallView.ValueType
+    """you can specify the view to be shallow or full"""
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         name: builtins.str = ...,
+        call_view: global___CallView.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_call_view", b"_call_view", "call_view", b"call_view"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_call_view", b"_call_view", "call_view", b"call_view", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_call_view", b"_call_view"]) -> typing_extensions.Literal["call_view"] | None: ...
 
 global___GetListenerRequest = GetListenerRequest
 
