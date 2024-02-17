@@ -132,6 +132,38 @@ class Calls(BaseServicesInterface):
         """
         return self.stub.DeleteCallers(request=request)
 
+    def stop_caller(
+        self,
+        request: calls_pb2.StopCallersRequest,
+    ) -> calls_pb2.StopCallersResponse:
+        """
+        Stop multiple callers.
+
+        Args:
+            request (calls_pb2.StopCallersRequest): The request message to stop multiple callers.
+
+        Returns:
+            calls_pb2.StopCallersResponse: The response message containing the IDs and
+            other details for the stopd callers.
+        """
+        return self.stub.StopCallers(request=request)
+
+    def stop_callers(
+        self,
+        request: calls_pb2.StopCallersRequest,
+    ) -> calls_pb2.StopCallersResponse:
+        """
+        Stop multiple callers.
+
+        Args:
+            request (calls_pb2.StopCallersRequest): The request message to stop multiple callers.
+
+        Returns:
+            calls_pb2.StopCallersResponse: The response message containing the IDs and
+            other details for the stopd callers.
+        """
+        return self.stub.StopCallers(request=request)
+
     def start_listener(
         self,
         request: calls_pb2.StartListenerRequest,
@@ -225,6 +257,38 @@ class Calls(BaseServicesInterface):
             other details for the deleted listeners.
         """
         return self.stub.DeleteListeners(request=request)
+
+    def stop_listener(
+        self,
+        request: calls_pb2.StopListenersRequest,
+    ) -> calls_pb2.StopListenersResponse:
+        """
+        Stop multiple listeners.
+
+        Args:
+            request (calls_pb2.StopListenersRequest): The request message to stop multiple listeners.
+
+        Returns:
+            calls_pb2.StopListenersResponse: The response message containing the IDs and
+            other details for the stopd listeners.
+        """
+        return self.stub.StopListeners(request=request)
+
+    def stop_listeners(
+        self,
+        request: calls_pb2.StopListenersRequest,
+    ) -> calls_pb2.StopListenersResponse:
+        """
+        Stop multiple listeners.
+
+        Args:
+            request (calls_pb2.StopListenersRequest): The request message to stop multiple listeners.
+
+        Returns:
+            calls_pb2.StopListenersResponse: The response message containing the IDs and
+            other details for the stopd listeners.
+        """
+        return self.stub.StopListeners(request=request)
 
     def start_scheduled_caller(
         self,

@@ -45,6 +45,16 @@ class CallsStub(object):
             request_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersRequest.SerializeToString,
             response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersResponse.FromString,
         )
+        self.StopCaller = channel.unary_unary(
+            '/ondewo.vtsi.Calls/StopCaller',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StopCallerRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StopCallerResponse.FromString,
+        )
+        self.StopCallers = channel.unary_unary(
+            '/ondewo.vtsi.Calls/StopCallers',
+            request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StopCallersRequest.SerializeToString,
+            response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StopCallersResponse.FromString,
+        )
         self.StartListener = channel.unary_unary(
             '/ondewo.vtsi.Calls/StartListener',
             request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartListenerRequest.SerializeToString,
@@ -177,6 +187,20 @@ class CallsServicer(object):
 
     def DeleteCallers(self, request, context):
         """deletes multiple callers
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StopCaller(self, request, context):
+        """stops a caller
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StopCallers(self, request, context):
+        """stops multiple callers
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -335,6 +359,16 @@ def add_CallsServicer_to_server(servicer, server):
             servicer.DeleteCallers,
             request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersRequest.FromString,
             response_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersResponse.SerializeToString,
+        ),
+        'StopCaller': grpc.unary_unary_rpc_method_handler(
+            servicer.StopCaller,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StopCallerRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.StopCallerResponse.SerializeToString,
+        ),
+        'StopCallers': grpc.unary_unary_rpc_method_handler(
+            servicer.StopCallers,
+            request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StopCallersRequest.FromString,
+            response_serializer=ondewo_dot_vtsi_dot_calls__pb2.StopCallersResponse.SerializeToString,
         ),
         'StartListener': grpc.unary_unary_rpc_method_handler(
             servicer.StartListener,
@@ -532,6 +566,40 @@ class Calls(object):
         return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/DeleteCallers',
                                              ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersRequest.SerializeToString,
                                              ondewo_dot_vtsi_dot_calls__pb2.DeleteCallersResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StopCaller(request,
+                   target,
+                   options=(),
+                   channel_credentials=None,
+                   call_credentials=None,
+                   insecure=False,
+                   compression=None,
+                   wait_for_ready=None,
+                   timeout=None,
+                   metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/StopCaller',
+                                             ondewo_dot_vtsi_dot_calls__pb2.StopCallerRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.StopCallerResponse.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StopCallers(request,
+                    target,
+                    options=(),
+                    channel_credentials=None,
+                    call_credentials=None,
+                    insecure=False,
+                    compression=None,
+                    wait_for_ready=None,
+                    timeout=None,
+                    metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ondewo.vtsi.Calls/StopCallers',
+                                             ondewo_dot_vtsi_dot_calls__pb2.StopCallersRequest.SerializeToString,
+                                             ondewo_dot_vtsi_dot_calls__pb2.StopCallersResponse.FromString,
                                              options, channel_credentials,
                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
