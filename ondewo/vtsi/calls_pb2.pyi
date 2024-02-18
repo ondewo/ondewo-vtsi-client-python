@@ -175,6 +175,7 @@ class NluVtsiConfig(google.protobuf.message.Message):
     INITIAL_INTENT_FIELD_NUMBER: builtins.int
     CONTEXTS_FIELD_NUMBER: builtins.int
     HTTP_BASIC_AUTH_TOKEN_FIELD_NUMBER: builtins.int
+    PLATFORM_FIELD_NUMBER: builtins.int
     @property
     def nlu_base_config(self) -> global___BaseServiceConfig:
         """Base config
@@ -196,6 +197,8 @@ class NluVtsiConfig(google.protobuf.message.Message):
         """ondewo-nlu list of contexts"""
     http_basic_auth_token: builtins.str
     """http basic auth token"""
+    platform: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType
+    """Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse"""
     def __init__(
         self,
         *,
@@ -207,9 +210,13 @@ class NluVtsiConfig(google.protobuf.message.Message):
         initial_intent: builtins.str = ...,
         contexts: collections.abc.Iterable[ondewo.nlu.context_pb2.Context] | None = ...,
         http_basic_auth_token: builtins.str = ...,
+        platform: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "nlu_base_config", b"nlu_base_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["agent_name", b"agent_name", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_platform", b"_platform", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "nlu_base_config", b"nlu_base_config", "platform", b"platform"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_platform", b"_platform", "agent_name", b"agent_name", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_platform", b"_platform"]) -> typing_extensions.Literal["platform"] | None: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["authentication", b"authentication"]) -> typing_extensions.Literal["credentials", "auth_token"] | None: ...
 
 global___NluVtsiConfig = NluVtsiConfig
