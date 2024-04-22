@@ -19,7 +19,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="ondewo-vtsi-client",
-    version='6.8.0',
+    version='7.0.0',
     author="ONDEWO GmbH",
     author_email="office@ondewo.com",
     description="ONDEWO Voip Telephone System Integration (VTSI) Client library for Python",
