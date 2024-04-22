@@ -1,4 +1,7 @@
-from setuptools import setup, find_packages
+from setuptools import (
+    find_packages,
+    setup,
+)
 
 with open("README.md", "r") as f:
     long_description = f.read()
@@ -17,9 +20,9 @@ with open("requirements.txt") as f:
 setup(
     name="ondewo-vtsi-client",
     version='6.8.0',
-    author="Ondewo GbmH",
+    author="ONDEWO GmbH",
     author_email="office@ondewo.com",
-    description="exposes the ondewo-vtsi endpoints in a user-friendly way",
+    description="ONDEWO Voip Telephone System Integration (VTSI) Client library for Python",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ondewo/ondewo-vtsi-client-python",
@@ -41,7 +44,7 @@ setup(
         'ondewo.sip': ['py.typed', '*.pyi'],
     },
     classifiers=[
-        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.10',
         'Operating System :: OS Independent',
         'Development Status :: 5 - Production/Stable',
         'Topic :: Software Development :: Libraries',
