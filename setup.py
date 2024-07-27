@@ -19,7 +19,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="ondewo-vtsi-client",
-    version='7.0.0',
+    version='7.0.1',
     author="ONDEWO GmbH",
     author_email="office@ondewo.com",
     description="ONDEWO Voip Telephone System Integration (VTSI) Client library for Python",
@@ -44,9 +44,15 @@ setup(
         'ondewo.sip': ['py.typed', '*.pyi'],
     },
     classifiers=[
-        'Programming Language :: Python :: 3.10',
-        'Operating System :: OS Independent',
         'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'Topic :: Software Development :: Libraries',
     ],
     python_requires='>=3',
