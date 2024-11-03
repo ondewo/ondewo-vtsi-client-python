@@ -1,11 +1,16 @@
 # release automation
 ondewo-devops-accounts
-.idea
-.mypy_cache
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
+**/__pycache__/**
+.vscode
+.idea
 ONDEWO_Voip_Client_Python.egg-info
 venv*/
 *.egg-info
+*.py[cod]
+*$py.class
 
 ondewo-nlu-api
 ondewo-vtsi-api

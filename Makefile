@@ -1,5 +1,4 @@
 export
-
 # ---------------- BEFORE RELEASE ----------------
 # 1 - Update Version Number
 # 2 - Update RELEASE.md
@@ -27,12 +26,11 @@ GITHUB_GH_TOKEN?=ENTER_YOUR_TOKEN_HERE
 CURRENT_RELEASE_NOTES=`cat RELEASE.md \
 	| sed -n '/Release ONDEWO VTSI Client Python ${ONDEWO_VTSI_VERSION}/,/\*\*/p'`
 
-
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"
 DEVOPS_ACCOUNT_DIR="./${DEVOPS_ACCOUNT_GIT}"
 ONDEWO_VTSI_API_GIT_BRANCH=master
-ONDEWO_PROTO_COMPILER_GIT_BRANCH=master
+ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.0.0
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 ONDEWO_VTSI_API_DIR=ondewo-vtsi-api
 GOOGLE_PROTOS_DIR=${ONDEWO_VTSI_API_DIR}/google
@@ -63,11 +61,19 @@ install_dependencies_locally: ## Install dependencies locally
 	pip install -r requirements-dev.txt
 	pip install -r requirements.txt
 
-flake8:
+flake8: ## Runs flake8
 	flake8 --config .flake8 .
 
 mypy: ## Run mypy static code checking
+	@echo "---------------------------------------------"
+	@echo "START: Run mypy in pre-commit hook ..."
 	pre-commit run mypy --all-files
+	@echo "DONE: Run mypy in pre-commit hook."
+	@echo "---------------------------------------------"
+	@echo "START: Run mypy directly ..."
+	mypy --config-file=mypy.ini .
+	@echo "DONE: Run mypy directly"
+	@echo "---------------------------------------------"
 
 help: ## Print usage info about help targets
 	# (first comment after target starting with double hashes ##)
@@ -170,8 +176,8 @@ setup_conda_env: ## Checks for CONDA Environment
 	&& make release || ( echo "\n CONDA ENV FOR REPO DOESNT EXIST \n" \
 	&& make create_conda_env)
 
-create_conda_env: ##Creates CONDA Environment
-	conda create -y --name ondewo-vtsi-client-python python=3.8
+create_conda_env: ## Creates CONDA Environment
+	conda create -y --name ondewo-vtsi-client-python python=3.9
 	/bin/bash -c 'source `conda info --base`/bin/activate ondewo-vtsi-client-python; make setup_developer_environment_locally && echo "\n PRECOMMIT INSTALLED \n"'
 	make release
 
@@ -258,10 +264,10 @@ push_to_pypi_via_docker_image:  ## Push source code to pypi via docker
 		${IMAGE_UTILS_NAME} make push_to_pypi
 	rm -rf dist
 
-push_to_pypi: build_package upload_package clear_package_data
+push_to_pypi: build_package upload_package clear_package_data ## Builds -> Uploads -> Clears PYPI Package
 	@echo 'YAY - Pushed to pypi : )'
 
-show_pypi: build_package
+show_pypi: build_package ## Shows PYPI Package with Dockerimage
 	tar xvfz dist/ondewo-vtsi-client-${ONDEWO_VTSI_VERSION}.tar.gz
 	tree ondewo-vtsi-client-${ONDEWO_VTSI_VERSION}
 	cat ondewo-vtsi-client-${ONDEWO_VTSI_VERSION}/ondewo_vtsi_client.egg-info/requires.txt
@@ -278,7 +284,7 @@ show_pypi_via_docker_image: build_utils_docker_image ## Push source code to pypi
 ########################################################
 #		GITHUB
 
-push_to_gh: login_to_gh build_gh_release
+push_to_gh: login_to_gh build_gh_release ## Logs into GitHub CLI and Releases
 	@echo 'Released to Github'
 
 release_to_github_via_docker_image:  ## Release to Github via docker
@@ -306,7 +312,7 @@ spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 	$(eval setuppy_version:= $(shell cat setup.py | grep "version"))
 	@if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
 	@if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
-#	@if test "$(setuppy_version)" != "version='${ONDEWO_VTSI_VERSION}',"; then echo "-- Test 3: Setup.py not updated!!" & exit 1; else echo "-- Test 3: Setup.py is fine";fi
+	#	@if test "$(setuppy_version)" != "version='${ONDEWO_VTSI_VERSION}',"; then echo "-- Test 3: Setup.py not updated!!" & exit 1; else echo "-- Test 3: Setup.py is fine";fi
 
 ########################################################
 #		DEVELOPMENT-AUTOMATION

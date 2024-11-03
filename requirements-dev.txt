@@ -4,4 +4,4 @@ mypy
 mypy-protobuf
 # pre-commit # Do not add this here
 pytest
-setuptools>=59.5.0
+setuptools

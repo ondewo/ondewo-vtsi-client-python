@@ -48,7 +48,8 @@ class Projects(BaseServicesInterface):
             request (projects_pb2.CreateVtsiProjectRequest): The request message to create a new VtsiProject.
 
         Returns:
-            projects_pb2.CreateVtsiProjectResponse: The response message containing the details of the created VtsiProject.
+            projects_pb2.CreateVtsiProjectResponse:
+                The response message containing the details of the created VtsiProject.
         """
         return self.stub.CreateVtsiProject(request=request)
 
@@ -78,7 +79,8 @@ class Projects(BaseServicesInterface):
             request (projects_pb2.UpdateVtsiProjectRequest): The request message to update an existing VtsiProject.
 
         Returns:
-            projects_pb2.UpdateVtsiProjectResponse: The response message containing the details of the updated VtsiProject.
+            projects_pb2.UpdateVtsiProjectResponse:
+                The response message containing the details of the updated VtsiProject.
         """
         return self.stub.UpdateVtsiProject(request=request)
 
@@ -90,10 +92,12 @@ class Projects(BaseServicesInterface):
         Delete an existing VtsiProject.
 
         Args:
-            request (projects_pb2.DeleteVtsiProjectRequest): The request message to delete an existing VtsiProject.
+            request (projects_pb2.DeleteVtsiProjectRequest):
+                The request message to delete an existing VtsiProject.
 
         Returns:
-            projects_pb2.DeleteVtsiProjectResponse: The response message containing the details of the deleted VtsiProject.
+            projects_pb2.DeleteVtsiProjectResponse:
+                The response message containing the details of the deleted VtsiProject.
         """
         return self.stub.DeleteVtsiProject(request=request)
 
@@ -105,10 +109,12 @@ class Projects(BaseServicesInterface):
         Deploy a VtsiProject.
 
         Args:
-            request (projects_pb2.DeployVtsiProjectRequest): The request message to deploy a VtsiProject.
+            request (projects_pb2.DeployVtsiProjectRequest):
+                The request message to deploy a VtsiProject.
 
         Returns:
-            projects_pb2.DeployVtsiProjectResponse: The response message containing the details of the deployed VtsiProject.
+            projects_pb2.DeployVtsiProjectResponse:
+                The response message containing the details of the deployed VtsiProject.
         """
         return self.stub.DeployVtsiProject(request=request)
 
@@ -120,10 +126,12 @@ class Projects(BaseServicesInterface):
         Undeploy a VtsiProject.
 
         Args:
-            request (projects_pb2.UndeployVtsiProjectRequest): The request message to undeploy a VtsiProject.
+            request (projects_pb2.UndeployVtsiProjectRequest):
+                The request message to undeploy a VtsiProject.
 
         Returns:
-            projects_pb2.UndeployVtsiProjectResponse: The response message containing the details of the undeployed VtsiProject.
+            projects_pb2.UndeployVtsiProjectResponse:
+                The response message containing the details of the undeployed VtsiProject.
         """
         return self.stub.UndeployVtsiProject(request=request)
 
