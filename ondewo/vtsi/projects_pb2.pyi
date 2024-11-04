@@ -15,6 +15,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import builtins
 import collections.abc
 import google.protobuf.descriptor
@@ -141,7 +142,7 @@ VTSI_PROJECT_VIEW_MINIMUM: VtsiProjectView.ValueType  # 3
 """Minimum view including only VTSI_PROJECT UUID and VTSI_PROJECT display name"""
 global___VtsiProjectView = VtsiProjectView
 
-@typing_extensions.final
+@typing.final
 class VtsiProject(google.protobuf.message.Message):
     """The VTSI project with its configuration setting"""
 
@@ -173,36 +174,40 @@ class VtsiProject(google.protobuf.message.Message):
     """The maximum number of callers that this project can have."""
     max_listeners: builtins.int
     """The maximum number of listeners that this project can have."""
-    @property
-    def asterisk_configs(self) -> global___AsteriskConfigs:
-        """Configs to start the asterisk server."""
     vtsi_project_status: global___VtsiProjectStatus.ValueType
     """The status of the VTSI project."""
     created_by: builtins.str
     """The user who created the vtsi project. Readonly."""
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
-        """Creation time of the vtsi project. Readonly."""
     modified_by: builtins.str
     """The user who modified the vtsi project. Readonly."""
-    @property
-    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
-        """Modification time of the vtsi project. Readonly."""
     active_callers: builtins.int
     """The number of active callers in this project."""
     active_listeners: builtins.int
     """The number of active listeners in this project."""
     asterisk_port: builtins.int
     """The port of the asterisk server"""
+    deployed_callers: builtins.int
+    """The number of deployed callers in this project."""
+    deployed_listeners: builtins.int
+    """The number of deployed listeners in this project."""
+    @property
+    def asterisk_configs(self) -> global___AsteriskConfigs:
+        """Configs to start the asterisk server."""
+
+    @property
+    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Creation time of the vtsi project. Readonly."""
+
+    @property
+    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Modification time of the vtsi project. Readonly."""
+
     @property
     def nlu_agent_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """associated NLU agents
         Format: `projects/<Project ID>/agent`.
         """
-    deployed_callers: builtins.int
-    """The number of deployed callers in this project."""
-    deployed_listeners: builtins.int
-    """The number of deployed listeners in this project."""
+
     def __init__(
         self,
         *,
@@ -223,12 +228,12 @@ class VtsiProject(google.protobuf.message.Message):
         deployed_callers: builtins.int = ...,
         deployed_listeners: builtins.int = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["asterisk_configs", b"asterisk_configs", "created_at", b"created_at", "modified_at", b"modified_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "vtsi_project_status", b"vtsi_project_status"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["asterisk_configs", b"asterisk_configs", "created_at", b"created_at", "modified_at", b"modified_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "vtsi_project_status", b"vtsi_project_status"]) -> None: ...
 
 global___VtsiProject = VtsiProject
 
-@typing_extensions.final
+@typing.final
 class AsteriskConfigsVariables(google.protobuf.message.Message):
     """Configuration variables for the Asterisk server"""
 
@@ -262,11 +267,11 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
         transfer_number_host: builtins.str = ...,
         sip_trunk_phone_number: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_username", b"sip_trunk_username", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_username", b"sip_trunk_username", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]) -> None: ...
 
 global___AsteriskConfigsVariables = AsteriskConfigsVariables
 
-@typing_extensions.final
+@typing.final
 class AsteriskConfigsFiles(google.protobuf.message.Message):
     """Configuration files for the Asterisk server"""
 
@@ -292,11 +297,11 @@ class AsteriskConfigsFiles(google.protobuf.message.Message):
         queues_conf_file_string: builtins.str = ...,
         modules_conf_file_string: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["extensions_conf_file_string", b"extensions_conf_file_string", "modules_conf_file_string", b"modules_conf_file_string", "queues_conf_file_string", b"queues_conf_file_string", "sip_conf_file_string", b"sip_conf_file_string"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["extensions_conf_file_string", b"extensions_conf_file_string", "modules_conf_file_string", b"modules_conf_file_string", "queues_conf_file_string", b"queues_conf_file_string", "sip_conf_file_string", b"sip_conf_file_string"]) -> None: ...
 
 global___AsteriskConfigsFiles = AsteriskConfigsFiles
 
-@typing_extensions.final
+@typing.final
 class AsteriskConfigs(google.protobuf.message.Message):
     """Configurations object for the Asterisk server"""
 
@@ -306,16 +311,18 @@ class AsteriskConfigs(google.protobuf.message.Message):
     ASTERISK_CONFIGS_FILES_FIELD_NUMBER: builtins.int
     ASTERISK_CONFIGS_TARGET_DIRECTORY_NAME_FIELD_NUMBER: builtins.int
     ASTERISK_PORT_FIELD_NUMBER: builtins.int
-    @property
-    def asterisk_configs_variables(self) -> global___AsteriskConfigsVariables:
-        """Configs as variables which will fill those variables using a blue print."""
-    @property
-    def asterisk_configs_files(self) -> global___AsteriskConfigsFiles:
-        """Configs as files which will set up the configs using those files."""
     asterisk_configs_target_directory_name: builtins.str
     """Configs will be mapped in from a preconfigured asterisk target directory."""
     asterisk_port: builtins.int
     """OPTIONAL: The port where Asterisk should start."""
+    @property
+    def asterisk_configs_variables(self) -> global___AsteriskConfigsVariables:
+        """Configs as variables which will fill those variables using a blue print."""
+
+    @property
+    def asterisk_configs_files(self) -> global___AsteriskConfigsFiles:
+        """Configs as files which will set up the configs using those files."""
+
     def __init__(
         self,
         *,
@@ -324,13 +331,13 @@ class AsteriskConfigs(google.protobuf.message.Message):
         asterisk_configs_target_directory_name: builtins.str = ...,
         asterisk_port: builtins.int = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables", "asterisk_port", b"asterisk_port"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["asterisk_configs_oneof", b"asterisk_configs_oneof"]) -> typing_extensions.Literal["asterisk_configs_variables", "asterisk_configs_files", "asterisk_configs_target_directory_name"] | None: ...
+    def HasField(self, field_name: typing.Literal["asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables", "asterisk_port", b"asterisk_port"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["asterisk_configs_oneof", b"asterisk_configs_oneof"]) -> typing.Literal["asterisk_configs_variables", "asterisk_configs_files", "asterisk_configs_target_directory_name"] | None: ...
 
 global___AsteriskConfigs = AsteriskConfigs
 
-@typing_extensions.final
+@typing.final
 class CreateVtsiProjectRequest(google.protobuf.message.Message):
     """Request for creating a VTSI project"""
 
@@ -338,6 +345,8 @@ class CreateVtsiProjectRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    error_message: builtins.str
+    """error message if there are any."""
     @property
     def vtsi_project(self) -> global___VtsiProject:
         """VTSI project
@@ -345,20 +354,19 @@ class CreateVtsiProjectRequest(google.protobuf.message.Message):
         If no name is given a new parent name is created. The parent has the format:
         <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>.
         """
-    error_message: builtins.str
-    """error message if there are any."""
+
     def __init__(
         self,
         *,
         vtsi_project: global___VtsiProject | None = ...,
         error_message: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "vtsi_project", b"vtsi_project"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "vtsi_project", b"vtsi_project"]) -> None: ...
 
 global___CreateVtsiProjectRequest = CreateVtsiProjectRequest
 
-@typing_extensions.final
+@typing.final
 class CreateVtsiProjectResponse(google.protobuf.message.Message):
     """Response of the create project"""
 
@@ -366,23 +374,24 @@ class CreateVtsiProjectResponse(google.protobuf.message.Message):
 
     VTSI_PROJECT_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    error_message: builtins.str
+    """error message if there are any."""
     @property
     def vtsi_project(self) -> global___VtsiProject:
         """Vtsi project"""
-    error_message: builtins.str
-    """error message if there are any."""
+
     def __init__(
         self,
         *,
         vtsi_project: global___VtsiProject | None = ...,
         error_message: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "vtsi_project", b"vtsi_project"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "vtsi_project", b"vtsi_project"]) -> None: ...
 
 global___CreateVtsiProjectResponse = CreateVtsiProjectResponse
 
-@typing_extensions.final
+@typing.final
 class GetVtsiProjectRequest(google.protobuf.message.Message):
     """Request to retrieve a VTSI project"""
 
@@ -400,11 +409,11 @@ class GetVtsiProjectRequest(google.protobuf.message.Message):
         name: builtins.str = ...,
         vtsi_project_view: global___VtsiProjectView.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
 
 global___GetVtsiProjectRequest = GetVtsiProjectRequest
 
-@typing_extensions.final
+@typing.final
 class ListVtsiProjectsRequest(google.protobuf.message.Message):
     """Request to get the list of agents"""
 
@@ -425,11 +434,13 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
         """Optional. Field to define the sorting of the list of VTSI projects in the response.
         If not specified, the default behavior is to have no sorting.
         """
+
     @property
     def nlu_agent_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """Optional. Filter based on associated NLU agents
         Format: `projects/<Project ID>/agent`.
         """
+
     def __init__(
         self,
         *,
@@ -438,16 +449,16 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
         vtsi_project_sorting: global___VtsiProjectSorting | None = ...,
         nlu_agent_names: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "nlu_agent_names", b"nlu_agent_names", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "nlu_agent_names", b"nlu_agent_names", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
     @typing.overload
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["_page_token", b"_page_token"]) -> typing_extensions.Literal["page_token"] | None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
     @typing.overload
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["_vtsi_project_sorting", b"_vtsi_project_sorting"]) -> typing_extensions.Literal["vtsi_project_sorting"] | None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_vtsi_project_sorting", b"_vtsi_project_sorting"]) -> typing.Literal["vtsi_project_sorting"] | None: ...
 
 global___ListVtsiProjectsRequest = ListVtsiProjectsRequest
 
-@typing_extensions.final
+@typing.final
 class ListVtsiProjectsResponse(google.protobuf.message.Message):
     """This is a protobuf message definition for the response of getting a list of VTSI projects."""
 
@@ -455,27 +466,28 @@ class ListVtsiProjectsResponse(google.protobuf.message.Message):
 
     VTSI_PROJECTS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    @property
-    def vtsi_projects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiProject]:
-        """The list of VTSI projects returned in the response.
-        Use the 'repeated' keyword to indicate that this field can contain multiple instances of VtsiProject.
-        """
     next_page_token: builtins.str
     """Token to retrieve the next page of results.
     This field is a string that holds a token for fetching the next page of results.
     If there are no more results in the list, this field will be empty.
     """
+    @property
+    def vtsi_projects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiProject]:
+        """The list of VTSI projects returned in the response.
+        Use the 'repeated' keyword to indicate that this field can contain multiple instances of VtsiProject.
+        """
+
     def __init__(
         self,
         *,
         vtsi_projects: collections.abc.Iterable[global___VtsiProject] | None = ...,
         next_page_token: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["next_page_token", b"next_page_token", "vtsi_projects", b"vtsi_projects"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["next_page_token", b"next_page_token", "vtsi_projects", b"vtsi_projects"]) -> None: ...
 
 global___ListVtsiProjectsResponse = ListVtsiProjectsResponse
 
-@typing_extensions.final
+@typing.final
 class VtsiProjectSorting(google.protobuf.message.Message):
     """This protobuf message defines the sorting order for VTSI (Virtual Test System Infrastructure) projects."""
 
@@ -524,16 +536,16 @@ class VtsiProjectSorting(google.protobuf.message.Message):
         sorting_field: global___VtsiProjectSorting.VtsiProjectSortingField.ValueType | None = ...,
         sorting_mode: global___VtsiProjectSortingMode.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]) -> None: ...
     @typing.overload
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["_sorting_field", b"_sorting_field"]) -> typing_extensions.Literal["sorting_field"] | None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_sorting_field", b"_sorting_field"]) -> typing.Literal["sorting_field"] | None: ...
     @typing.overload
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["_sorting_mode", b"_sorting_mode"]) -> typing_extensions.Literal["sorting_mode"] | None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_sorting_mode", b"_sorting_mode"]) -> typing.Literal["sorting_mode"] | None: ...
 
 global___VtsiProjectSorting = VtsiProjectSorting
 
-@typing_extensions.final
+@typing.final
 class UpdateVtsiProjectRequest(google.protobuf.message.Message):
     """Request to updated VTSI project"""
 
@@ -543,17 +555,18 @@ class UpdateVtsiProjectRequest(google.protobuf.message.Message):
     @property
     def vtsi_project(self) -> global___VtsiProject:
         """Project Configs."""
+
     def __init__(
         self,
         *,
         vtsi_project: global___VtsiProject | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["vtsi_project", b"vtsi_project"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> None: ...
 
 global___UpdateVtsiProjectRequest = UpdateVtsiProjectRequest
 
-@typing_extensions.final
+@typing.final
 class UpdateVtsiProjectResponse(google.protobuf.message.Message):
     """Request to updated VTSI project"""
 
@@ -571,11 +584,11 @@ class UpdateVtsiProjectResponse(google.protobuf.message.Message):
         name: builtins.str = ...,
         error_message: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
 
 global___UpdateVtsiProjectResponse = UpdateVtsiProjectResponse
 
-@typing_extensions.final
+@typing.final
 class DeleteVtsiProjectRequest(google.protobuf.message.Message):
     """Request to delete a VTSI project
     If a deployed VTSI project was deleted then it was undeployed beforehand automatically
@@ -591,11 +604,11 @@ class DeleteVtsiProjectRequest(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
 
 global___DeleteVtsiProjectRequest = DeleteVtsiProjectRequest
 
-@typing_extensions.final
+@typing.final
 class DeleteVtsiProjectResponse(google.protobuf.message.Message):
     """Response to delete a VTSI project
     If a deployed VTSI project was deleted then it was undeployed beforehand automatically
@@ -615,11 +628,11 @@ class DeleteVtsiProjectResponse(google.protobuf.message.Message):
         name: builtins.str = ...,
         error_message: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
 
 global___DeleteVtsiProjectResponse = DeleteVtsiProjectResponse
 
-@typing_extensions.final
+@typing.final
 class DeployVtsiProjectRequest(google.protobuf.message.Message):
     """Request to deploy a vtsi project"""
 
@@ -633,11 +646,11 @@ class DeployVtsiProjectRequest(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
 
 global___DeployVtsiProjectRequest = DeployVtsiProjectRequest
 
-@typing_extensions.final
+@typing.final
 class DeployVtsiProjectResponse(google.protobuf.message.Message):
     """Response to deploy a vtsi project"""
 
@@ -655,11 +668,11 @@ class DeployVtsiProjectResponse(google.protobuf.message.Message):
         name: builtins.str = ...,
         error_message: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
 
 global___DeployVtsiProjectResponse = DeployVtsiProjectResponse
 
-@typing_extensions.final
+@typing.final
 class UndeployVtsiProjectRequest(google.protobuf.message.Message):
     """ Request to undeploy a vtsi project"""
 
@@ -673,11 +686,11 @@ class UndeployVtsiProjectRequest(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
 
 global___UndeployVtsiProjectRequest = UndeployVtsiProjectRequest
 
-@typing_extensions.final
+@typing.final
 class UndeployVtsiProjectResponse(google.protobuf.message.Message):
     """Response to undeploy a vtsi project"""
 
@@ -695,6 +708,6 @@ class UndeployVtsiProjectResponse(google.protobuf.message.Message):
         name: builtins.str = ...,
         error_message: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
 
 global___UndeployVtsiProjectResponse = UndeployVtsiProjectResponse
