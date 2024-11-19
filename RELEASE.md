@@ -1,6 +1,13 @@
 # Release History
 
 *****************
+## Release ONDEWO VTSI Python Client 8.0.0
+
+### Improvements
+ * Tracking API Version [8.0.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/8.0.0) ( [Documentation](https://ondewo.github.io/ondewo-vtsi-api/) )
+
+
+*****************
 ## Release ONDEWO VTSI Python Client 7.0.1
 
 ### Improvements

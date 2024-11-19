@@ -616,8 +616,8 @@ class ListAgentsResponse(google.protobuf.message.Message):
     AGENTS_WITH_OWNERS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """Token to retrieve the next page of results, or empty if there are no
-    more results in the list.
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
     """
     @property
     def agents_with_owners(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AgentWithOwner]:
@@ -644,8 +644,8 @@ class ListAgentsOfUserResponse(google.protobuf.message.Message):
     AGENTS_OF_USER_WITH_OWNERS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """Token to retrieve the next page of results, or empty if there are no
-    more results in the list.
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
     """
     @property
     def agents_of_user_with_owners(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AgentOfUserWithOwner]:
@@ -924,7 +924,7 @@ class RankingMatchOptimizationConfig(google.protobuf.message.Message):
     RANDOM_SEED_FIELD_NUMBER: builtins.int
     INITIAL_THRESHOLDS_FIELD_NUMBER: builtins.int
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     n_splits: builtins.int
     """number of splits for optimization"""
     random_seed: builtins.int
@@ -1084,7 +1084,7 @@ class GetAgentStatisticsRequest(google.protobuf.message.Message):
     format: global___ReportFormat.ValueType
     """File formats for reports"""
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc.
     the language to calculate statistics about
     """
     type: global___ReportType.ValueType
@@ -1362,8 +1362,8 @@ class ListUsersInProjectResponse(google.protobuf.message.Message):
     USERS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """Token to retrieve the next page of results, or empty if there are no
-    more results in the list.
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
     """
     @property
     def users(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UserInProject]:
@@ -1454,8 +1454,8 @@ class ListProjectPermissionsResponse(google.protobuf.message.Message):
     PERMISSIONS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """Token to retrieve the next page of results, or empty if there are no
-    more results in the list.
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
     """
     @property
     def permissions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
@@ -1573,7 +1573,7 @@ class SetResourcesRequest(google.protobuf.message.Message):
     type: builtins.str
     resource_file: builtins.bytes
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     def __init__(
         self,
         *,
@@ -1604,7 +1604,7 @@ class DeleteResourcesRequest(google.protobuf.message.Message):
     name: builtins.str
     type: builtins.str
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     def __init__(
         self,
         *,
@@ -1634,7 +1634,7 @@ class ExportResourcesRequest(google.protobuf.message.Message):
     name: builtins.str
     type: builtins.str
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     def __init__(
         self,
         *,
@@ -1665,7 +1665,7 @@ class ExportResourcesResponse(google.protobuf.message.Message):
     name: builtins.str
     type: builtins.str
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     resource_file: builtins.bytes
     def __init__(
         self,
@@ -1696,7 +1696,7 @@ class GetModelStatusesRequest(google.protobuf.message.Message):
     """
     cache_version: builtins.int
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     model_name: builtins.str
     def __init__(
         self,
@@ -1748,7 +1748,7 @@ class ModelStatus(google.protobuf.message.Message):
     cache_version: builtins.int
     """Cache version that contains the correspondent model"""
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     model_name: builtins.str
     """The model name"""
     config: builtins.str
@@ -1937,7 +1937,7 @@ class FullTextSearchRequest(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     """What to search for in the elastic server"""
     page_token: builtins.str
@@ -2036,12 +2036,14 @@ class FullTextSearchResponseEntityType(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
     next_page_token: builtins.str
-    """The next_page_token is used to retrieve the next page of a returned result, e.g. next_page_token is current_index-2"""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def entity_type_results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTextSearchResponseEntityType.EntityTypeSearchResult]: ...
     def __init__(
@@ -2123,12 +2125,14 @@ class FullTextSearchResponseEntity(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
     next_page_token: builtins.str
-    """The next_page_token is used to retrieve the next page of a returned result, e.g. next_page_token is current_index-2"""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def entity_results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTextSearchResponseEntity.EntitySearchResult]: ...
     def __init__(
@@ -2216,12 +2220,14 @@ class FullTextSearchResponseEntitySynonym(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
     next_page_token: builtins.str
-    """The next_page_token is used to retrieve the next page of a returned result, e.g. next_page_token is current_index-2"""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def entity_synonym_results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTextSearchResponseEntitySynonym.EntitySynonymSearchResult]: ...
     def __init__(
@@ -2304,12 +2310,14 @@ class FullTextSearchResponseIntent(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
     next_page_token: builtins.str
-    """The next_page_token is used to retrieve the next page of a returned result, e.g. next_page_token is current_index-2"""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def intent_results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTextSearchResponseIntent.IntentSearchResult]: ...
     def __init__(
@@ -2392,12 +2400,14 @@ class FullTextSearchResponseIntentContextIn(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
     next_page_token: builtins.str
-    """The next_page_token is used to retrieve the next page of a returned result, e.g. next_page_token is current_index-2"""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def intent_context_in_results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTextSearchResponseIntentContextIn.IntentContextInSearchResult]: ...
     def __init__(
@@ -2480,12 +2490,14 @@ class FullTextSearchResponseIntentContextOut(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
     next_page_token: builtins.str
-    """The next_page_token is used to retrieve the next page of a returned result, e.g. next_page_token is current_index-2"""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def intent_context_out_results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTextSearchResponseIntentContextOut.IntentContextOutSearchResult]: ...
     def __init__(
@@ -2580,12 +2592,14 @@ class FullTextSearchResponseIntentUsersays(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
     next_page_token: builtins.str
-    """The next_page_token is used to retrieve the next page of a returned result, e.g. next_page_token is current_index-2"""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def intent_usersays_results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTextSearchResponseIntentUsersays.IntentUsersaysSearchResult]: ...
     def __init__(
@@ -2671,12 +2685,14 @@ class FullTextSearchResponseIntentTags(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
     next_page_token: builtins.str
-    """The next_page_token is used to retrieve the next page of a returned result, e.g. next_page_token is current_index-2"""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def intent_tags_results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTextSearchResponseIntentTags.IntentTagsSearchResult]: ...
     def __init__(
@@ -2765,7 +2781,7 @@ class FullTextSearchResponseIntentResponse(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
@@ -2880,12 +2896,14 @@ class FullTextSearchResponseIntentParameters(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents</code></pre>
     """
     language_code: builtins.str
-    """Language code specifies the language of the request, e.g. cz, de, en, es, fi, fr, it, nl, pl, pt, tr, ru"""
+    """Language code specifies the language of the request in IETF BCP 47 language tag format, e.g. de-DE, en-US, etc."""
     term: builtins.str
     elastic_query: builtins.str
     time: builtins.float
     next_page_token: builtins.str
-    """The next_page_token is used to retrieve the next page of a returned result, e.g. next_page_token is current_index-2"""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def intent_parameters_results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTextSearchResponseIntentParameters.IntentParametersSearchResult]: ...
     def __init__(

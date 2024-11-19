@@ -60,7 +60,7 @@ class _CcaiProjectStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapp
     """Project is deleted"""
 
 class CcaiProjectStatus(_CcaiProjectStatus, metaclass=_CcaiProjectStatusEnumTypeWrapper):
-    """Status of a Call Center AI (CCAI) Project."""
+    """Status of a Call Center AI (CCAI service) Project."""
 
 CCAI_PROJECT_STATUS_UNSPECIFIED: CcaiProjectStatus.ValueType  # 0
 """No status specified"""
@@ -104,7 +104,7 @@ class _CcaiServiceTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper
     """ondewo-t2s service"""
     CCAI_SERVICE_TYPE_ONDEWO_VTSI: _CcaiServiceType.ValueType  # 8
     """ondewo-vtsi service"""
-    CCAI_SERVICE_TYPE_VTSI_RABBITMQ: _CcaiServiceType.ValueType  # 9
+    CCAI_SERVICE_TYPE_ONDEWO_VTSI_RABBITMQ: _CcaiServiceType.ValueType  # 9
     """ondewo-vtsi service"""
     CCAI_SERVICE_TYPE_ONDEWO_NLU_QA: _CcaiServiceType.ValueType  # 10
     """ondewo-nlu-qa service"""
@@ -112,6 +112,16 @@ class _CcaiServiceTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper
     """ondewo-nlu-webhook service"""
     CCAI_SERVICE_TYPE_ONDEWO_SURVEY: _CcaiServiceType.ValueType  # 12
     """ondewo-survey service"""
+    CCAI_SERVICE_TYPE_ONDEWO_NLU_LLM: _CcaiServiceType.ValueType  # 13
+    """ondewo-nlu-llm service"""
+    CCAI_SERVICE_TYPE_ONDEWO_NLU_WEBSEARCH: _CcaiServiceType.ValueType  # 14
+    """ondewo-nlu-websearch service"""
+    CCAI_SERVICE_TYPE_ONDEWO_AIM_WEBCHAT: _CcaiServiceType.ValueType  # 15
+    """ondewo-aim-webchat service"""
+    CCAI_SERVICE_TYPE_ONDEWO_AIM_WEBPHONE: _CcaiServiceType.ValueType  # 16
+    """ondewo-aim-webphone service"""
+    CCAI_SERVICE_TYPE_ONDEWO_NLU_VECTORSTORE: _CcaiServiceType.ValueType  # 17
+    """ondewo-nlu-vectorstore service"""
 
 class CcaiServiceType(_CcaiServiceType, metaclass=_CcaiServiceTypeEnumTypeWrapper): ...
 
@@ -133,7 +143,7 @@ CCAI_SERVICE_TYPE_ONDEWO_T2S: CcaiServiceType.ValueType  # 7
 """ondewo-t2s service"""
 CCAI_SERVICE_TYPE_ONDEWO_VTSI: CcaiServiceType.ValueType  # 8
 """ondewo-vtsi service"""
-CCAI_SERVICE_TYPE_VTSI_RABBITMQ: CcaiServiceType.ValueType  # 9
+CCAI_SERVICE_TYPE_ONDEWO_VTSI_RABBITMQ: CcaiServiceType.ValueType  # 9
 """ondewo-vtsi service"""
 CCAI_SERVICE_TYPE_ONDEWO_NLU_QA: CcaiServiceType.ValueType  # 10
 """ondewo-nlu-qa service"""
@@ -141,7 +151,116 @@ CCAI_SERVICE_TYPE_ONDEWO_NLU_WEBHOOK: CcaiServiceType.ValueType  # 11
 """ondewo-nlu-webhook service"""
 CCAI_SERVICE_TYPE_ONDEWO_SURVEY: CcaiServiceType.ValueType  # 12
 """ondewo-survey service"""
+CCAI_SERVICE_TYPE_ONDEWO_NLU_LLM: CcaiServiceType.ValueType  # 13
+"""ondewo-nlu-llm service"""
+CCAI_SERVICE_TYPE_ONDEWO_NLU_WEBSEARCH: CcaiServiceType.ValueType  # 14
+"""ondewo-nlu-websearch service"""
+CCAI_SERVICE_TYPE_ONDEWO_AIM_WEBCHAT: CcaiServiceType.ValueType  # 15
+"""ondewo-aim-webchat service"""
+CCAI_SERVICE_TYPE_ONDEWO_AIM_WEBPHONE: CcaiServiceType.ValueType  # 16
+"""ondewo-aim-webphone service"""
+CCAI_SERVICE_TYPE_ONDEWO_NLU_VECTORSTORE: CcaiServiceType.ValueType  # 17
+"""ondewo-nlu-vectorstore service"""
 global___CcaiServiceType = CcaiServiceType
+
+class _CcaiServiceProvider:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _CcaiServiceProviderEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CcaiServiceProvider.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    NO_CCAI_SERVICE_PROVIDER: _CcaiServiceProvider.ValueType  # 0
+    """No specified provider or placeholder"""
+    CCAI_SERVICE_PROVIDER_ONDEWO: _CcaiServiceProvider.ValueType  # 1
+    """ONDEWO provider for CCAI service services"""
+    CCAI_SERVICE_PROVIDER_GOOGLE_GEMINI: _CcaiServiceProvider.ValueType  # 2
+    """Google as the CCAI service provider, utilizing Google’s conversational AI capabilities"""
+    CCAI_SERVICE_PROVIDER_MICROSOFT_AZURE_OPENAI: _CcaiServiceProvider.ValueType  # 3
+    """Microsoft Azure as the CCAI service provider, using Microsoft's Azure cognitive services"""
+    CCAI_SERVICE_PROVIDER_MICROSOFT_AUTOGEN: _CcaiServiceProvider.ValueType  # 4
+    """LangChain as the CCAI service provider"""
+    CCAI_SERVICE_PROVIDER_OLLAMA: _CcaiServiceProvider.ValueType  # 5
+    """Ollama as the CCAI service provider, typically associated with specific OLLAMA AI tools"""
+    CCAI_SERVICE_PROVIDER_OPENAI: _CcaiServiceProvider.ValueType  # 6
+    """OpenAI as the CCAI service provider, commonly used for models such as GPT"""
+    CCAI_SERVICE_PROVIDER_ANTHROPIC: _CcaiServiceProvider.ValueType  # 7
+    """Anthropic as the CCAI service provider, used with AI models from Anthropic"""
+    CCAI_SERVICE_PROVIDER_HUGGINGFACE: _CcaiServiceProvider.ValueType  # 8
+    """Hugging Face as the CCAI service provider, often used for open-source NLP models"""
+    CCAI_SERVICE_PROVIDER_IBM: _CcaiServiceProvider.ValueType  # 9
+    """IBM as the CCAI service provider, such as IBM Watson for conversational AI"""
+    CCAI_SERVICE_PROVIDER_HAYSTACK: _CcaiServiceProvider.ValueType  # 10
+    """Haystack as the CCAI service provider, e.g. for question and answering, conversations"""
+    CCAI_SERVICE_PROVIDER_LANGCHAIN: _CcaiServiceProvider.ValueType  # 11
+    """LangChain as the CCAI service provider"""
+    CCAI_SERVICE_PROVIDER_AMAZON: _CcaiServiceProvider.ValueType  # 12
+    """Amazon AWS as the CCAI service provider, using Amazon's AI/ML services"""
+    CCAI_SERVICE_PROVIDER_MISTRAL: _CcaiServiceProvider.ValueType  # 13
+    """Mistral as the CCAI service provider, using Mistrals services"""
+    CCAI_SERVICE_PROVIDER_DUCKDUCKGO: _CcaiServiceProvider.ValueType  # 14
+    """DuckDuckGo Websearch API"""
+    CCAI_SERVICE_PROVIDER_GOOGLE_PSE: _CcaiServiceProvider.ValueType  # 15
+    """Google PSE Websearch API"""
+    CCAI_SERVICE_PROVIDER_JINA: _CcaiServiceProvider.ValueType  # 16
+    """Jina Websearch API"""
+    CCAI_SERVICE_PROVIDER_TAVILY: _CcaiServiceProvider.ValueType  # 17
+    """Tavily Websearch API"""
+    CCAI_SERVICE_PROVIDER_ELASTICSEARCH: _CcaiServiceProvider.ValueType  # 18
+    """Elastic Search vector database service"""
+    CCAI_SERVICE_PROVIDER_MILVUS: _CcaiServiceProvider.ValueType  # 19
+    """Milvus vector database service"""
+    CCAI_SERVICE_PROVIDER_QDRANT: _CcaiServiceProvider.ValueType  # 20
+    """Qdrant vector database service"""
+    CCAI_SERVICE_PROVIDER_CHROMA: _CcaiServiceProvider.ValueType  # 21
+    """Chroma vector database service"""
+
+class CcaiServiceProvider(_CcaiServiceProvider, metaclass=_CcaiServiceProviderEnumTypeWrapper): ...
+
+NO_CCAI_SERVICE_PROVIDER: CcaiServiceProvider.ValueType  # 0
+"""No specified provider or placeholder"""
+CCAI_SERVICE_PROVIDER_ONDEWO: CcaiServiceProvider.ValueType  # 1
+"""ONDEWO provider for CCAI service services"""
+CCAI_SERVICE_PROVIDER_GOOGLE_GEMINI: CcaiServiceProvider.ValueType  # 2
+"""Google as the CCAI service provider, utilizing Google’s conversational AI capabilities"""
+CCAI_SERVICE_PROVIDER_MICROSOFT_AZURE_OPENAI: CcaiServiceProvider.ValueType  # 3
+"""Microsoft Azure as the CCAI service provider, using Microsoft's Azure cognitive services"""
+CCAI_SERVICE_PROVIDER_MICROSOFT_AUTOGEN: CcaiServiceProvider.ValueType  # 4
+"""LangChain as the CCAI service provider"""
+CCAI_SERVICE_PROVIDER_OLLAMA: CcaiServiceProvider.ValueType  # 5
+"""Ollama as the CCAI service provider, typically associated with specific OLLAMA AI tools"""
+CCAI_SERVICE_PROVIDER_OPENAI: CcaiServiceProvider.ValueType  # 6
+"""OpenAI as the CCAI service provider, commonly used for models such as GPT"""
+CCAI_SERVICE_PROVIDER_ANTHROPIC: CcaiServiceProvider.ValueType  # 7
+"""Anthropic as the CCAI service provider, used with AI models from Anthropic"""
+CCAI_SERVICE_PROVIDER_HUGGINGFACE: CcaiServiceProvider.ValueType  # 8
+"""Hugging Face as the CCAI service provider, often used for open-source NLP models"""
+CCAI_SERVICE_PROVIDER_IBM: CcaiServiceProvider.ValueType  # 9
+"""IBM as the CCAI service provider, such as IBM Watson for conversational AI"""
+CCAI_SERVICE_PROVIDER_HAYSTACK: CcaiServiceProvider.ValueType  # 10
+"""Haystack as the CCAI service provider, e.g. for question and answering, conversations"""
+CCAI_SERVICE_PROVIDER_LANGCHAIN: CcaiServiceProvider.ValueType  # 11
+"""LangChain as the CCAI service provider"""
+CCAI_SERVICE_PROVIDER_AMAZON: CcaiServiceProvider.ValueType  # 12
+"""Amazon AWS as the CCAI service provider, using Amazon's AI/ML services"""
+CCAI_SERVICE_PROVIDER_MISTRAL: CcaiServiceProvider.ValueType  # 13
+"""Mistral as the CCAI service provider, using Mistrals services"""
+CCAI_SERVICE_PROVIDER_DUCKDUCKGO: CcaiServiceProvider.ValueType  # 14
+"""DuckDuckGo Websearch API"""
+CCAI_SERVICE_PROVIDER_GOOGLE_PSE: CcaiServiceProvider.ValueType  # 15
+"""Google PSE Websearch API"""
+CCAI_SERVICE_PROVIDER_JINA: CcaiServiceProvider.ValueType  # 16
+"""Jina Websearch API"""
+CCAI_SERVICE_PROVIDER_TAVILY: CcaiServiceProvider.ValueType  # 17
+"""Tavily Websearch API"""
+CCAI_SERVICE_PROVIDER_ELASTICSEARCH: CcaiServiceProvider.ValueType  # 18
+"""Elastic Search vector database service"""
+CCAI_SERVICE_PROVIDER_MILVUS: CcaiServiceProvider.ValueType  # 19
+"""Milvus vector database service"""
+CCAI_SERVICE_PROVIDER_QDRANT: CcaiServiceProvider.ValueType  # 20
+"""Qdrant vector database service"""
+CCAI_SERVICE_PROVIDER_CHROMA: CcaiServiceProvider.ValueType  # 21
+"""Chroma vector database service"""
+global___CcaiServiceProvider = CcaiServiceProvider
 
 class _CcaiProjectView:
     ValueType = typing.NewType("ValueType", builtins.int)
@@ -173,7 +292,7 @@ global___CcaiProjectView = CcaiProjectView
 
 @typing.final
 class CcaiProject(google.protobuf.message.Message):
-    """Message representing a CCAI project"""
+    """Message representing a CCAI service project"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -206,7 +325,7 @@ class CcaiProject(google.protobuf.message.Message):
     MODIFIED_BY_FIELD_NUMBER: builtins.int
     NLU_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the CCAI project"""
+    """Resource name of the CCAI service project"""
     display_name: builtins.str
     """Required. The display name of this ccai project."""
     owner_name: builtins.str
@@ -256,14 +375,14 @@ global___CcaiProject = CcaiProject
 
 @typing.final
 class CcaiServiceList(google.protobuf.message.Message):
-    """Message representing a list of CCAI services"""
+    """Message representing a list of CCAI service services"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CCAI_SERVICES_FIELD_NUMBER: builtins.int
     @property
     def ccai_services(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CcaiService]:
-        """CCAI services"""
+        """CCAI service services"""
 
     def __init__(
         self,
@@ -276,7 +395,7 @@ global___CcaiServiceList = CcaiServiceList
 
 @typing.final
 class CcaiService(google.protobuf.message.Message):
-    """Definition of a Call Center AI (CCAI) Service."""
+    """Definition of a Call Center AI (CCAI service) Service."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -302,6 +421,9 @@ class CcaiService(google.protobuf.message.Message):
     MODIFIED_AT_FIELD_NUMBER: builtins.int
     CREATED_BY_FIELD_NUMBER: builtins.int
     MODIFIED_BY_FIELD_NUMBER: builtins.int
+    HEADERS_FIELD_NUMBER: builtins.int
+    CCAI_SERVICE_PROVIDER_FIELD_NUMBER: builtins.int
+    SERVICE_HIERARCHY_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Resource name of the service. Must be unique."""
     display_name: builtins.str
@@ -335,13 +457,34 @@ class CcaiService(google.protobuf.message.Message):
     api_key: builtins.str
     """API key for accessing the service, if applicable."""
     ccai_service_type: global___CcaiServiceType.ValueType
-    """Type of CCAI service (e.g., TEXT_TO_SPEECH, SPEECH_TO_TEXT)."""
+    """Type of CCAI service service (e.g., TEXT_TO_SPEECH, SPEECH_TO_TEXT)."""
     ccai_project_name: builtins.str
     """Resource name of the ccai_project the ccai_service belongs to"""
     created_by: builtins.str
     """User ID of the creator in the form of a valid UUID. Read-only field."""
     modified_by: builtins.str
     """User ID of the last modifier in the form of a valid UUID. Read-only field."""
+    ccai_service_provider: global___CcaiServiceProvider.ValueType
+    """Provider of the ccai service"""
+    service_hierarchy: builtins.str
+    """Index indicating the hierarchical position of a service within the service hierarchy.
+    The index follows a tree-like structure, where each level of depth is separated by a "_".
+    For example:
+    - "1" represents a top-level service
+    - "1_1" represents a sub-service under "1"
+    - "1_1_1" represents a sub-service under "1.1"
+    This structure allows for easy representation and organization of services in nested workflows.
+
+    If CcaiService have the same service_hierarchy they are executed in parallel.
+    For example:
+    - "1" Service A
+    - "1_1" Service B
+    - "1_1" Service C
+
+    Service B and C will be executed in parallel and the Service A receives both results of service B and C.
+    The variable for the return value of a service is {{OUTPUT_SERVICE_service_hierarchy}}. So in the example
+    above the outputs of the services are {{OUTPUT_SERVICE_1}}, {{OUTPUT_SERVICE_1_1}}, and {{OUTPUT_SERVICE_1_2}}.
+    """
     @property
     def ccai_service_config(self) -> google.protobuf.struct_pb2.Struct:
         """Detailed configuration of the CcaiService"""
@@ -353,6 +496,10 @@ class CcaiService(google.protobuf.message.Message):
     @property
     def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """Modification date and time of the service. Read-only field."""
+
+    @property
+    def headers(self) -> google.protobuf.struct_pb2.Struct:
+        """Optional. The headers of the request message"""
 
     def __init__(
         self,
@@ -379,15 +526,24 @@ class CcaiService(google.protobuf.message.Message):
         modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         created_by: builtins.str = ...,
         modified_by: builtins.str = ...,
+        headers: google.protobuf.struct_pb2.Struct | None = ...,
+        ccai_service_provider: global___CcaiServiceProvider.ValueType | None = ...,
+        service_hierarchy: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ccai_service_config", b"ccai_service_config", "created_at", b"created_at", "modified_at", b"modified_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["account_name", b"account_name", "account_password", b"account_password", "api_key", b"api_key", "ccai_project_name", b"ccai_project_name", "ccai_service_config", b"ccai_service_config", "ccai_service_type", b"ccai_service_type", "created_at", b"created_at", "created_by", b"created_by", "display_name", b"display_name", "grpc_cert", b"grpc_cert", "grpc_host", b"grpc_host", "grpc_port", b"grpc_port", "host", b"host", "http_basic_auth_token", b"http_basic_auth_token", "language_code", b"language_code", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "port", b"port", "port2", b"port2", "webgrpc_host", b"webgrpc_host", "webgrpc_port", b"webgrpc_port"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_ccai_service_provider", b"_ccai_service_provider", "_headers", b"_headers", "_service_hierarchy", b"_service_hierarchy", "ccai_service_config", b"ccai_service_config", "ccai_service_provider", b"ccai_service_provider", "created_at", b"created_at", "headers", b"headers", "modified_at", b"modified_at", "service_hierarchy", b"service_hierarchy"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_ccai_service_provider", b"_ccai_service_provider", "_headers", b"_headers", "_service_hierarchy", b"_service_hierarchy", "account_name", b"account_name", "account_password", b"account_password", "api_key", b"api_key", "ccai_project_name", b"ccai_project_name", "ccai_service_config", b"ccai_service_config", "ccai_service_provider", b"ccai_service_provider", "ccai_service_type", b"ccai_service_type", "created_at", b"created_at", "created_by", b"created_by", "display_name", b"display_name", "grpc_cert", b"grpc_cert", "grpc_host", b"grpc_host", "grpc_port", b"grpc_port", "headers", b"headers", "host", b"host", "http_basic_auth_token", b"http_basic_auth_token", "language_code", b"language_code", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "port", b"port", "port2", b"port2", "service_hierarchy", b"service_hierarchy", "webgrpc_host", b"webgrpc_host", "webgrpc_port", b"webgrpc_port"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_ccai_service_provider", b"_ccai_service_provider"]) -> typing.Literal["ccai_service_provider"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_headers", b"_headers"]) -> typing.Literal["headers"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_service_hierarchy", b"_service_hierarchy"]) -> typing.Literal["service_hierarchy"] | None: ...
 
 global___CcaiService = CcaiService
 
 @typing.final
 class CreateCcaiProjectRequest(google.protobuf.message.Message):
-    """Request to create a Call Center AI (CCAI) project."""
+    """Request to create a Call Center AI (CCAI service) project."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -399,7 +555,7 @@ class CreateCcaiProjectRequest(google.protobuf.message.Message):
     """
     @property
     def ccai_project(self) -> global___CcaiProject:
-        """The CCAI project to be created."""
+        """The CCAI service project to be created."""
 
     def __init__(
         self,
@@ -414,7 +570,7 @@ global___CreateCcaiProjectRequest = CreateCcaiProjectRequest
 
 @typing.final
 class CreateCcaiProjectResponse(google.protobuf.message.Message):
-    """Response after attempting to create a Call Center AI (CCAI) project."""
+    """Response after attempting to create a Call Center AI (CCAI service) project."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -424,7 +580,7 @@ class CreateCcaiProjectResponse(google.protobuf.message.Message):
     """Error message if the creation is unsuccessful."""
     @property
     def ccai_project(self) -> global___CcaiProject:
-        """The created CCAI project."""
+        """The created CCAI service project."""
 
     def __init__(
         self,
@@ -439,7 +595,7 @@ global___CreateCcaiProjectResponse = CreateCcaiProjectResponse
 
 @typing.final
 class GetCcaiProjectRequest(google.protobuf.message.Message):
-    """Request to retrieve a CCAI project"""
+    """Request to retrieve a CCAI service project"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -448,7 +604,7 @@ class GetCcaiProjectRequest(google.protobuf.message.Message):
     CCAI_SERVICE_FILTER_FIELD_NUMBER: builtins.int
     NLU_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """CCAI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    """CCAI service project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     ccai_project_view: global___CcaiProjectView.ValueType
     """Optional. Specify the view of the returned CcaiProject (full view by default)"""
     nlu_project_name: builtins.str
@@ -475,6 +631,32 @@ class GetCcaiProjectRequest(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing.Literal["_ccai_service_filter", b"_ccai_service_filter"]) -> typing.Literal["ccai_service_filter"] | None: ...
 
 global___GetCcaiProjectRequest = GetCcaiProjectRequest
+
+@typing.final
+class GetCcaiServiceRequest(google.protobuf.message.Message):
+    """Request to retrieve a CCAI service project"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    NLU_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """CCAI service project name with which to perform the call of the form
+    <pre><code>projects/&lt;project_uuid&gt;/ccai/services/&lt;service_uuid&gt;</code></pre>
+    """
+    nlu_project_name: builtins.str
+    """Required. The nlu agent project of this CcaiProject.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
+    """
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        nlu_project_name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "nlu_project_name", b"nlu_project_name"]) -> None: ...
+
+global___GetCcaiServiceRequest = GetCcaiServiceRequest
 
 @typing.final
 class ListCcaiProjectsRequest(google.protobuf.message.Message):
@@ -526,7 +708,7 @@ class ListCcaiProjectsRequest(google.protobuf.message.Message):
 
     @property
     def ccai_project_sorting(self) -> global___CcaiProjectSorting:
-        """Optional. Field to define the sorting of the list of CCAI projects in the response.
+        """Optional. Field to define the sorting of the list of CCAI service projects in the response.
         If not specified, the default behavior is to have no sorting.
         """
 
@@ -552,20 +734,19 @@ global___ListCcaiProjectsRequest = ListCcaiProjectsRequest
 
 @typing.final
 class ListCcaiProjectsResponse(google.protobuf.message.Message):
-    """This is a protobuf message definition for the response of getting a list of CCAI projects."""
+    """This is a protobuf message definition for the response of getting a list of CCAI service projects."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CCAI_PROJECTS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """Token to retrieve the next page of results.
-    This field is a string that holds a token for fetching the next page of results.
-    If there are no more results in the list, this field will be empty.
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
     """
     @property
     def ccai_projects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CcaiProject]:
-        """The list of CCAI projects returned in the response.
+        """The list of CCAI service projects returned in the response.
         Use the 'repeated' keyword to indicate that this field can contain multiple instances of CcaiProject.
         """
 
@@ -581,7 +762,7 @@ global___ListCcaiProjectsResponse = ListCcaiProjectsResponse
 
 @typing.final
 class CcaiProjectSorting(google.protobuf.message.Message):
-    """This protobuf message defines the sorting order for CCAI (Virtual Test System Infrastructure) projects."""
+    """This protobuf message defines the sorting order for CCAI service (Virtual Test System Infrastructure) projects."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -603,7 +784,7 @@ class CcaiProjectSorting(google.protobuf.message.Message):
         """Sort by last modified date"""
 
     class CcaiProjectSortingField(_CcaiProjectSortingField, metaclass=_CcaiProjectSortingFieldEnumTypeWrapper):
-        """Enum to specify the sorting field for CCAI projects."""
+        """Enum to specify the sorting field for CCAI service projects."""
 
     NO_CCAI_PROJECT_SORTING: CcaiProjectSorting.CcaiProjectSortingField.ValueType  # 0
     """No sorting"""
@@ -651,7 +832,7 @@ class CcaiServiceFilter(google.protobuf.message.Message):
 
     @property
     def ccai_service_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CcaiServiceType.ValueType]:
-        """Type of CCAI service"""
+        """Type of CCAI service service"""
 
     def __init__(
         self,
@@ -665,7 +846,7 @@ global___CcaiServiceFilter = CcaiServiceFilter
 
 @typing.final
 class UpdateCcaiProjectRequest(google.protobuf.message.Message):
-    """Request to updated CCAI project"""
+    """Request to updated CCAI service project"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -710,14 +891,14 @@ global___UpdateCcaiProjectRequest = UpdateCcaiProjectRequest
 
 @typing.final
 class UpdateCcaiProjectResponse(google.protobuf.message.Message):
-    """Request to updated CCAI project"""
+    """Request to updated CCAI service project"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """CCAI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    """CCAI service project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     error_message: builtins.str
     """error message if there are any."""
     def __init__(
@@ -732,8 +913,8 @@ global___UpdateCcaiProjectResponse = UpdateCcaiProjectResponse
 
 @typing.final
 class DeleteCcaiProjectRequest(google.protobuf.message.Message):
-    """Request to delete a CCAI project
-    If a deployed CCAI project was deleted then it was undeployed beforehand automatically
+    """Request to delete a CCAI service project
+    If a deployed CCAI service project was deleted then it was undeployed beforehand automatically
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -741,7 +922,7 @@ class DeleteCcaiProjectRequest(google.protobuf.message.Message):
     NAME_FIELD_NUMBER: builtins.int
     NLU_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """CCAI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    """CCAI service project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     nlu_project_name: builtins.str
     """Required. The nlu agent project of this CcaiProject.
     Format: <pre><code>projects/&lt;project_uuid&gt;/agent</code></pre>
@@ -758,8 +939,8 @@ global___DeleteCcaiProjectRequest = DeleteCcaiProjectRequest
 
 @typing.final
 class DeleteCcaiProjectResponse(google.protobuf.message.Message):
-    """Response to delete a CCAI project
-    If a deployed CCAI project was deleted then it was undeployed beforehand automatically
+    """Response to delete a CCAI service project
+    If a deployed CCAI service project was deleted then it was undeployed beforehand automatically
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -768,7 +949,7 @@ class DeleteCcaiProjectResponse(google.protobuf.message.Message):
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
     NLU_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """CCAI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    """CCAI service project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     error_message: builtins.str
     """error message if there are any."""
     nlu_project_name: builtins.str

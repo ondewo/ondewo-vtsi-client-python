@@ -344,8 +344,8 @@ class ListProjectRolesResponse(google.protobuf.message.Message):
     PROJECT_ROLES_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """Token to retrieve the next page of results, or empty if there are no
-    more results in the list.
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
     """
     @property
     def project_roles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProjectRole]:

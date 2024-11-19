@@ -333,9 +333,9 @@ class SessionEntityType(google.protobuf.message.Message):
     ENTITIES_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Required. The unique identifier of this session entity type. Format:
-    `projects/<Project ID>/agent/sessions/<Session ID>/entityTypes/<Entity Type
-    Display Name>`, or `projects/<Project ID>/agent/environments/<Environment
-    ID>/users/<User ID>/sessions/<Session ID>/entityTypes/<Entity Type Display
+    `projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;/entityTypes/<Entity Type
+    Display Name>`, or `projects/&lt;project_uuid&gt;/agent/environments/
+    <&lt;environment_uuid&gt;/users/&lt;user_uuid&gt;/sessions/&lt;session_uuid&gt;/entityTypes/<Entity Type Display
     Name>`.
     If `Environment ID` is not specified, we assume default 'draft'
     environment. If `User ID` is not specified, we assume default '-' user.
@@ -377,9 +377,9 @@ class ListSessionEntityTypesRequest(google.protobuf.message.Message):
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     parent: builtins.str
     """Required. The session to list all session entity types from.
-    Format: `projects/<Project ID>/agent/sessions/<Session ID>` or
-    `projects/<Project ID>/agent/environments/<Environment ID>/users/<User ID>/
-    sessions/<Session ID>`.
+    Format: `projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;` or
+    `projects/&lt;project_uuid&gt;/agent/environments/&lt;environment_uuid&gt;/users/&lt;user_uuid&gt;/
+    sessions/&lt;session_uuid&gt;`.
     If `Environment ID` is not specified, we assume default 'draft'
     environment. If `User ID` is not specified, we assume default '-' user.
     """
@@ -434,8 +434,8 @@ class ListSessionEntityTypesResponse(google.protobuf.message.Message):
     SESSION_ENTITY_TYPES_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """Token to retrieve the next page of results, or empty if there are no
-    more results in the list.
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
     """
     @property
     def session_entity_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SessionEntityType]:
@@ -464,9 +464,9 @@ class GetSessionEntityTypeRequest(google.protobuf.message.Message):
     NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Required. The name of the session entity type. Format:
-    `projects/<Project ID>/agent/sessions/<Session ID>/entityTypes/<Entity Type
-    Display Name>` or `projects/<Project ID>/agent/environments/<Environment
-    ID>/users/<User ID>/sessions/<Session ID>/entityTypes/<Entity Type Display
+    `projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;/entityTypes/<Entity Type
+    Display Name>` or `projects/&lt;project_uuid&gt;/agent/environments/
+    <&lt;environment_uuid&gt;/users/&lt;user_uuid&gt;/sessions/&lt;session_uuid&gt;/entityTypes/<Entity Type Display
     Name>`.
     If `Environment ID` is not specified, we assume default 'draft'
     environment. If `User ID` is not specified, we assume default '-' user.
@@ -500,8 +500,8 @@ class CreateSessionEntityTypeRequest(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;project_uuid&gt;/agents/sessions/&lt;session_uuid&gt;</code></pre>
     or
     <pre><code>projects/&lt;project_uuid&gt;/agents/sessions/&lt;session_uuid&gt;</code></pre>
-    `projects/<Project ID>/agent/environments/<Environment ID>/users/<User ID>/
-    sessions/<Session ID>`.
+    `projects/&lt;project_uuid&gt;/agent/environments/&lt;environment_uuid&gt;/users/&lt;user_uuid&gt;/
+    sessions/&lt;session_uuid&gt;`.
     If `Environment ID` is not specified, we assume default 'draft'
     environment. If `User ID` is not specified, we assume default '-' user.
     Required. The project that the agent to fetch is associated with.
@@ -564,9 +564,9 @@ class DeleteSessionEntityTypeRequest(google.protobuf.message.Message):
     NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Required. The name of the entity type to delete. Format:
-    `projects/<Project ID>/agent/sessions/<Session ID>/entityTypes/<Entity Type
-    Display Name>` or `projects/<Project ID>/agent/environments/<Environment
-    ID>/users/<User ID>/sessions/<Session ID>/entityTypes/<Entity Type Display
+    `projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;/entityTypes/<Entity Type
+    Display Name>` or `projects/&lt;project_uuid&gt;/agent/environments/
+    <&lt;environment_uuid&gt;/users/&lt;user_uuid&gt;/sessions/&lt;session_uuid&gt;/entityTypes/<Entity Type Display
     Name>`.
     If `Environment ID` is not specified, we assume default 'draft'
     environment. If `User ID` is not specified, we assume default '-' user.

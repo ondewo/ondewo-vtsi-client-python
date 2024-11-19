@@ -237,7 +237,9 @@ class ListOperationsResponse(google.protobuf.message.Message):
     OPERATIONS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """The standard List next-page token."""
+    """The next_page_token is used to retrieve the next page of a returned result,
+    e.g. next_page_token is current_index-2
+    """
     @property
     def operations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Operation]:
         """A list of operations that matches the specified filter in the request."""
