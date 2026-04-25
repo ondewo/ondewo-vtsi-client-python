@@ -126,10 +126,12 @@ class _VtsiProjectViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper
 
 class VtsiProjectView(_VtsiProjectView, metaclass=_VtsiProjectViewEnumTypeWrapper):
     """Structure of VTSI_PROJECT view
-    - CreateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
-    - UpdateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW
-    - GetVTSI_PROJECT: VTSI_PROJECT_VIEW_FULL
-    - ListVTSI_PROJECTs: VTSI_PROJECT_VIEW_SHALLOW
+    <ul>
+      <li>CreateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW</li>
+      <li>UpdateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW</li>
+      <li>GetVTSI_PROJECT: VTSI_PROJECT_VIEW_FULL</li>
+      <li>ListVTSI_PROJECTs: VTSI_PROJECT_VIEW_SHALLOW</li>
+    </ul>
     """
 
 VTSI_PROJECT_VIEW_UNSPECIFIED: VtsiProjectView.ValueType  # 0
@@ -165,7 +167,8 @@ class VtsiProject(google.protobuf.message.Message):
     DEPLOYED_CALLERS_FIELD_NUMBER: builtins.int
     DEPLOYED_LISTENERS_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Required. The project name. Format: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """Required. The project name.
+    Format: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Only when a new VtsiProject is created the name can be undefined/empty
     """
     display_name: builtins.str
@@ -204,8 +207,8 @@ class VtsiProject(google.protobuf.message.Message):
 
     @property
     def nlu_agent_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """associated NLU agents
-        Format: `projects/<Project ID>/agent`.
+        """Associated NLU agents.
+        Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
         """
 
     def __init__(
@@ -350,9 +353,9 @@ class CreateVtsiProjectRequest(google.protobuf.message.Message):
     @property
     def vtsi_project(self) -> global___VtsiProject:
         """VTSI project
-        Recommended is to leave "name" empty. The project name here is optional.
+        Recommended is to leave &quot;name&quot; empty. The project name here is optional.
         If no name is given a new parent name is created. The parent has the format:
-        <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>.
+        <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
         """
 
     def __init__(
@@ -437,8 +440,8 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
 
     @property
     def nlu_agent_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Optional. Filter based on associated NLU agents
-        Format: `projects/<Project ID>/agent`.
+        """Optional. Filter based on associated NLU agents.
+        Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
         """
 
     def __init__(
@@ -474,7 +477,7 @@ class ListVtsiProjectsResponse(google.protobuf.message.Message):
     @property
     def vtsi_projects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiProject]:
         """The list of VTSI projects returned in the response.
-        Use the 'repeated' keyword to indicate that this field can contain multiple instances of VtsiProject.
+        Use the &apos;repeated&apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
         """
 
     def __init__(
@@ -511,7 +514,9 @@ class VtsiProjectSorting(google.protobuf.message.Message):
         """Sort by last modified date"""
 
     class VtsiProjectSortingField(_VtsiProjectSortingField, metaclass=_VtsiProjectSortingFieldEnumTypeWrapper):
-        """Enum to specify the sorting field for VTSI projects."""
+        """Enum to specify the sorting field for VTSI projects.
+        Enum defining the field by which VTSI projects can be sorted
+        """
 
     NO_VTSI_PROJECT_SORTING: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 0
     """No sorting"""
@@ -674,7 +679,7 @@ global___DeployVtsiProjectResponse = DeployVtsiProjectResponse
 
 @typing.final
 class UndeployVtsiProjectRequest(google.protobuf.message.Message):
-    """ Request to undeploy a vtsi project"""
+    """Request to undeploy a vtsi project"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

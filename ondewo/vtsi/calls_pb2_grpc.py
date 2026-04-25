@@ -26,7 +26,7 @@ if _version_not_supported:
 
 
 class CallsStub(object):
-    """ONDEWO VTSI API
+    """<p>ONDEWO VTSI API</p>
     """
 
     def __init__(self, channel):
@@ -163,7 +163,7 @@ class CallsStub(object):
 
 
 class CallsServicer(object):
-    """ONDEWO VTSI API
+    """<p>ONDEWO VTSI API</p>
     """
 
     def StartCaller(self, request, context):
@@ -171,177 +171,177 @@ class CallsServicer(object):
         Caller and Listener endpoints
         ////////////////////////////////////////////////////////////////////////////
 
-        start single caller instance for a specific nlu-project.
+        <p>Start single caller instance for a specific nlu-project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StartCallers(self, request, context):
-        """start multiple ondewo-sip callers instances for a specific nlu-project.
+        """<p>Start multiple ondewo-sip callers instances for a specific nlu-project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListCallers(self, request, context):
-        """lists all available callers
+        """<p>Lists all available callers</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetCaller(self, request, context):
-        """gets a caller
+        """<p>Gets a caller</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteCaller(self, request, context):
-        """deletes a caller
+        """<p>Deletes a caller</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteCallers(self, request, context):
-        """deletes multiple callers
+        """<p>Deletes multiple callers</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StopCaller(self, request, context):
-        """stops a caller
+        """<p>Stops a caller</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StopCallers(self, request, context):
-        """stops multiple callers
+        """<p>Stops multiple callers</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StartListener(self, request, context):
-        """start single listener instance for a specific nlu-project.
+        """<p>Start single listener instance for a specific nlu-project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StartListeners(self, request, context):
-        """start multiple ondewo-sip listeners instances for a specific nlu-project.
+        """<p>Start multiple ondewo-sip listeners instances for a specific nlu-project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StopListener(self, request, context):
-        """stop a ondewo-sip listeners instances for a specific nlu-project.
+        """<p>Stop a ondewo-sip listeners instances for a specific nlu-project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StopListeners(self, request, context):
-        """stop multiple ondewo-sip listeners instances for a specific nlu-project.
+        """<p>Stop multiple ondewo-sip listeners instances for a specific nlu-project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListListeners(self, request, context):
-        """lists all available listeners
+        """<p>Lists all available listeners</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetListener(self, request, context):
-        """gets a listener
+        """<p>Gets a listener</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteListener(self, request, context):
-        """deletes a listener
+        """<p>Deletes a listener</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteListeners(self, request, context):
-        """deletes multiple listeners
+        """<p>Deletes multiple listeners</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StartScheduledCaller(self, request, context):
-        """start multiple ondewo-sip callers instances with schedules
+        """<p>Start multiple ondewo-sip callers instances with schedules</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StartScheduledCallers(self, request, context):
-        """start multiple ondewo-sip callers instances with schedules
+        """<p>Start multiple ondewo-sip callers instances with schedules</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StopCall(self, request, context):
-        """stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.
+        """<p>Stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StopCalls(self, request, context):
-        """stop/kill a list of ondewo-sip listener or caller instances for a specific vtsi-project.
-        "stops both Listener and Caller calls"
+        """<p>Stop/kill a list of ondewo-sip listener or caller instances for a specific vtsi-project.</p>
+        <p>Stops both Listener and Caller calls</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StopAllCalls(self, request, context):
-        """stop/kill all ondewo-sip listener or caller instance for a specific nlu-project.
-        "stops all Listener and Caller calls"
+        """<p>Stop/kill all ondewo-sip listener or caller instance for a specific nlu-project.</p>
+        <p>Stops all Listener and Caller calls</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def TransferCall(self, request, context):
-        """Transfer a call from a listener to another
+        """<p>Transfer a call from a listener to another</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def TransferCalls(self, request, context):
-        """Transfer a call from a listener to another
+        """<p>Transfer a call from a listener to another</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetCall(self, request, context):
-        """get call log for single call instance
+        """<p>Get call log for single call instance</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListCalls(self, request, context):
-        """get call log for all call instances
+        """<p>Get call log for all call instances</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -485,7 +485,7 @@ def add_CallsServicer_to_server(servicer, server):
 
 
 class Calls(object):
-    """ONDEWO VTSI API
+    """<p>ONDEWO VTSI API</p>
     """
 
     @staticmethod
