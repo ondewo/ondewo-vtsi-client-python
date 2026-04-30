@@ -26,7 +26,7 @@ if _version_not_supported:
 
 
 class ProjectsStub(object):
-    """ONDEWO VTSI API
+    """<p>ONDEWO VTSI API</p>
     """
 
     def __init__(self, channel):
@@ -73,7 +73,7 @@ class ProjectsStub(object):
 
 
 class ProjectsServicer(object):
-    """ONDEWO VTSI API
+    """<p>ONDEWO VTSI API</p>
     """
 
     def CreateVtsiProject(self, request, context):
@@ -81,49 +81,49 @@ class ProjectsServicer(object):
         Project endpoints
         ////////////////////////////////////////////////////////////////////////////
 
-        Create a VTSI project with configs
+        <p>Create a VTSI project with configs</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetVtsiProject(self, request, context):
-        """Get a VTSI project with configs
+        """<p>Get a VTSI project with configs</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def UpdateVtsiProject(self, request, context):
-        """Update a VTSI project with configs
+        """<p>Update a VTSI project with configs</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteVtsiProject(self, request, context):
-        """Delete a VTSI project with configs
+        """<p>Delete a VTSI project with configs</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeployVtsiProject(self, request, context):
-        """Deploy a VTSI project
+        """<p>Deploy a VTSI project</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def UndeployVtsiProject(self, request, context):
-        """Undeploy a VTSI project
+        """<p>Undeploy a VTSI project</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListVtsiProjects(self, request, context):
-        """Get a VTSI project with configs
+        """<p>Get a VTSI project with configs</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -177,7 +177,7 @@ def add_ProjectsServicer_to_server(servicer, server):
 
 
 class Projects(object):
-    """ONDEWO VTSI API
+    """<p>ONDEWO VTSI API</p>
     """
 
     @staticmethod

@@ -30,15 +30,15 @@ if _version_not_supported:
 class AgentsStub(object):
     """Agents are best described as Natural Language Understanding (NLU) modules that transform user requests into actionable data. You can include agents in your app, product, or service to determine user intent and respond to the user in a natural way.
 
-    After you create an agent, you can add [Intents][google.cloud.dialogflow.v2.Intents], [Contexts][google.cloud.dialogflow.v2.Contexts], [Entity Types][google.cloud.dialogflow.v2.EntityTypes], [Webhooks][google.cloud.dialogflow.v2.WebhookRequest], and so on to manage the flow of a conversation and match user input to predefined intents and actions.
+    After you create an agent, you can add <a href="index.html#ondewo.nlu.Intent">Intents</a>, <a href="index.html#ondewo.nlu.Context">Contexts</a>, <a href="index.html#ondewo.nlu.EntityType">Entity Types</a>, <a href="index.html#ondewo.nlu.WebhookRequest">Webhooks</a>, and so on to manage the flow of a conversation and match user input to predefined intents and actions.
 
-    You can create an agent using both Dialogflow Standard Edition and Dialogflow Enterprise Edition. For details, see [Dialogflow Editions](/dialogflow-enterprise/docs/editions).
+    You can create an agent using both Dialogflow Standard Edition and Dialogflow Enterprise Edition. For details, see <a href="https://docs.cloud.google.com/dialogflow/docs/editions">Dialogflow Editions</a>.
 
-    You can save your agent for backup or versioning by exporting the agent by using the [ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent] method. You can import a saved agent by using the [ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent] method.
+    You can save your agent for backup or versioning by exporting the agent by using the <a href="index.html#ondewo.nlu.Agents.ExportAgent">ExportAgent</a> method. You can import a saved agent by using the <a href="index.html#ondewo.nlu.Agents.ImportAgent">ImportAgent</a> method.
 
-    Dialogflow provides several [prebuilt agents](https://dialogflow.com/docs/prebuilt-agents) for common conversation scenarios such as determining a date and time, converting currency, and so on.
+    Dialogflow provides several <a href="https://dialogflow.com/docs/prebuilt-agents">prebuilt agents</a> for common conversation scenarios such as determining a date and time, converting currency, and so on.
 
-    For more information about agents, see the [Dialogflow documentation](https://dialogflow.com/docs/agents).
+    For more information about agents, see the <a href="https://dialogflow.com/docs/agents">Dialogflow documentation</a>.
     """
 
     def __init__(self, channel):
@@ -135,6 +135,11 @@ class AgentsStub(object):
         self.ImportAgent = channel.unary_unary(
             '/ondewo.nlu.Agents/ImportAgent',
             request_serializer=ondewo_dot_nlu_dot_agent__pb2.ImportAgentRequest.SerializeToString,
+            response_deserializer=ondewo_dot_nlu_dot_operations__pb2.Operation.FromString,
+            _registered_method=True)
+        self.MigrateAgent = channel.unary_unary(
+            '/ondewo.nlu.Agents/MigrateAgent',
+            request_serializer=ondewo_dot_nlu_dot_agent__pb2.MigrateAgentRequest.SerializeToString,
             response_deserializer=ondewo_dot_nlu_dot_operations__pb2.Operation.FromString,
             _registered_method=True)
         self.OptimizeRankingMatch = channel.unary_unary(
@@ -252,21 +257,21 @@ class AgentsStub(object):
 class AgentsServicer(object):
     """Agents are best described as Natural Language Understanding (NLU) modules that transform user requests into actionable data. You can include agents in your app, product, or service to determine user intent and respond to the user in a natural way.
 
-    After you create an agent, you can add [Intents][google.cloud.dialogflow.v2.Intents], [Contexts][google.cloud.dialogflow.v2.Contexts], [Entity Types][google.cloud.dialogflow.v2.EntityTypes], [Webhooks][google.cloud.dialogflow.v2.WebhookRequest], and so on to manage the flow of a conversation and match user input to predefined intents and actions.
+    After you create an agent, you can add <a href="index.html#ondewo.nlu.Intent">Intents</a>, <a href="index.html#ondewo.nlu.Context">Contexts</a>, <a href="index.html#ondewo.nlu.EntityType">Entity Types</a>, <a href="index.html#ondewo.nlu.WebhookRequest">Webhooks</a>, and so on to manage the flow of a conversation and match user input to predefined intents and actions.
 
-    You can create an agent using both Dialogflow Standard Edition and Dialogflow Enterprise Edition. For details, see [Dialogflow Editions](/dialogflow-enterprise/docs/editions).
+    You can create an agent using both Dialogflow Standard Edition and Dialogflow Enterprise Edition. For details, see <a href="https://docs.cloud.google.com/dialogflow/docs/editions">Dialogflow Editions</a>.
 
-    You can save your agent for backup or versioning by exporting the agent by using the [ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent] method. You can import a saved agent by using the [ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent] method.
+    You can save your agent for backup or versioning by exporting the agent by using the <a href="index.html#ondewo.nlu.Agents.ExportAgent">ExportAgent</a> method. You can import a saved agent by using the <a href="index.html#ondewo.nlu.Agents.ImportAgent">ImportAgent</a> method.
 
-    Dialogflow provides several [prebuilt agents](https://dialogflow.com/docs/prebuilt-agents) for common conversation scenarios such as determining a date and time, converting currency, and so on.
+    Dialogflow provides several <a href="https://dialogflow.com/docs/prebuilt-agents">prebuilt agents</a> for common conversation scenarios such as determining a date and time, converting currency, and so on.
 
-    For more information about agents, see the [Dialogflow documentation](https://dialogflow.com/docs/agents).
+    For more information about agents, see the <a href="https://dialogflow.com/docs/agents">Dialogflow documentation</a>.
     """
 
     def CreateAgent(self, request, context):
         """Creates the specified agent.
 
-        <p>Examples:</p>
+        Examples:
 
         <pre>
         grpcurl -plaintext -H 'cai-token: aimp' -d '{
@@ -300,7 +305,7 @@ class AgentsServicer(object):
     def UpdateAgent(self, request, context):
         """Updates the specified agent.
 
-        <p>Examples:</p>
+        Examples:
 
         <pre>
         grpcurl -plaintext -H 'cai-token: aimp' -d '{
@@ -339,7 +344,7 @@ class AgentsServicer(object):
     def GetAgent(self, request, context):
         """Retrieves the specified agent.
 
-        <p>Examples:</p>
+        Examples:
 
         <pre>
         grpcurl -plaintext -H 'cai-token: aimp' -d '{
@@ -368,7 +373,7 @@ class AgentsServicer(object):
     def DeleteAgent(self, request, context):
         """Deletes the specified agent.
 
-        <p>Examples:</p>
+        Examples:
 
         <pre>
         grpcurl -plaintext -H 'cai-token: aimp' -d '{
@@ -384,7 +389,7 @@ class AgentsServicer(object):
     def DeleteAllAgents(self, request, context):
         """Deletes all agents in the server (for development purposes only).
 
-        <p>Examples:</p>
+        Examples:
 
         <pre>
         grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.DeleteAllAgents
@@ -398,7 +403,7 @@ class AgentsServicer(object):
     def ListAgents(self, request, context):
         """Lists agents in the server associated to the current user
 
-        <p>Examples:</p>
+        Examples:
 
         <pre>
         grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.ListAgents
@@ -430,7 +435,7 @@ class AgentsServicer(object):
     def ListAgentsOfUser(self, request, context):
         """Lists agents in the server associated to the given user
 
-        <p>Examples:</p>
+        Examples:
 
         <pre>
         grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.ListAgentsOfUser
@@ -468,7 +473,7 @@ class AgentsServicer(object):
     def ListAllAgents(self, request, context):
         """Lists all agents in the server
 
-        <p>Examples:</p>
+        Examples:
 
         <pre>
         grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.ListAllAgents
@@ -520,6 +525,9 @@ class AgentsServicer(object):
 
     def GetPlatformInfo(self, request, context):
         """Gets information from the platform
+        <br>
+        Request parameter:
+        <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#empty">google.protobuf.Empty</a>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -535,8 +543,8 @@ class AgentsServicer(object):
     def TrainAgent(self, request, context):
         """Trains the specified agent.
 
-        Operation <response: [google.protobuf.Empty][google.protobuf.Empty],
-        metadata: [google.protobuf.Struct][google.protobuf.Struct]>
+        Operation &lt;response: <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#empty">google.protobuf.Empty</a>,
+        metadata: <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#struct">google.protobuf.Struct</a>&gt;
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -545,8 +553,8 @@ class AgentsServicer(object):
     def BuildCache(self, request, context):
         """Builds cache for the specified agent.
 
-        Operation <response: [google.protobuf.Empty][google.protobuf.Empty],
-        metadata: [google.protobuf.Struct][google.protobuf.Struct]>
+        Operation &lt;response: <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#empty">google.protobuf.Empty</a>,
+        metadata: <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#struct">google.protobuf.Struct</a>&gt;
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -554,9 +562,9 @@ class AgentsServicer(object):
 
     def ExportAgent(self, request, context):
         """Exports the specified agent to a ZIP file.
-
-        Operation <response: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse],
-        metadata: [google.protobuf.Struct][google.protobuf.Struct]>
+        <br>
+        Operation &lt;response: <a href="index.html#ondewo.nlu.ExportAgentResponse">ExportAgentResponse</a>,
+        metadata: <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#struct">google.protobuf.Struct</a>&gt;
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -572,33 +580,38 @@ class AgentsServicer(object):
 
     def ImportAgent(self, request, context):
         """Imports the specified agent from a ZIP file.
-
+        <br>
         Uploads new intents and entity types without deleting the existing ones.
         Intents and entity types with the same name are replaced with the new
         versions from ImportAgentRequest.
-
-        Operation <response: [google.protobuf.Empty][google.protobuf.Empty],
-        metadata: [google.protobuf.Struct][google.protobuf.Struct]>
+        <br>
+        Operation &lt;response: <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#empty">google.protobuf.Empty</a>,
+        metadata: <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#struct">google.protobuf.Struct</a>&gt;
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def MigrateAgent(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def OptimizeRankingMatch(self, request, context):
-        """Runs optimize ranking match
-        """
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def RestoreAgent(self, request, context):
         """Restores the specified agent from a ZIP file.
-
+        <br>
         Replaces the current agent version with a new one. All the intents and
         entity types in the older version are deleted.
-
-        Operation <response: [google.protobuf.Empty][google.protobuf.Empty],
-        metadata: [google.protobuf.Struct][google.protobuf.Struct]>
+        <br>
+        Operation &lt;response: <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#empty">google.protobuf.Empty</a>,
+        metadata: <a href="https://protobuf.dev/reference/protobuf/google.protobuf/#struct">google.protobuf.Struct</a>&gt;
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -836,6 +849,11 @@ def add_AgentsServicer_to_server(servicer, server):
             request_deserializer=ondewo_dot_nlu_dot_agent__pb2.ImportAgentRequest.FromString,
             response_serializer=ondewo_dot_nlu_dot_operations__pb2.Operation.SerializeToString,
         ),
+        'MigrateAgent': grpc.unary_unary_rpc_method_handler(
+            servicer.MigrateAgent,
+            request_deserializer=ondewo_dot_nlu_dot_agent__pb2.MigrateAgentRequest.FromString,
+            response_serializer=ondewo_dot_nlu_dot_operations__pb2.Operation.SerializeToString,
+        ),
         'OptimizeRankingMatch': grpc.unary_unary_rpc_method_handler(
             servicer.OptimizeRankingMatch,
             request_deserializer=ondewo_dot_nlu_dot_agent__pb2.OptimizeRankingMatchRequest.FromString,
@@ -958,15 +976,15 @@ def add_AgentsServicer_to_server(servicer, server):
 class Agents(object):
     """Agents are best described as Natural Language Understanding (NLU) modules that transform user requests into actionable data. You can include agents in your app, product, or service to determine user intent and respond to the user in a natural way.
 
-    After you create an agent, you can add [Intents][google.cloud.dialogflow.v2.Intents], [Contexts][google.cloud.dialogflow.v2.Contexts], [Entity Types][google.cloud.dialogflow.v2.EntityTypes], [Webhooks][google.cloud.dialogflow.v2.WebhookRequest], and so on to manage the flow of a conversation and match user input to predefined intents and actions.
+    After you create an agent, you can add <a href="index.html#ondewo.nlu.Intent">Intents</a>, <a href="index.html#ondewo.nlu.Context">Contexts</a>, <a href="index.html#ondewo.nlu.EntityType">Entity Types</a>, <a href="index.html#ondewo.nlu.WebhookRequest">Webhooks</a>, and so on to manage the flow of a conversation and match user input to predefined intents and actions.
 
-    You can create an agent using both Dialogflow Standard Edition and Dialogflow Enterprise Edition. For details, see [Dialogflow Editions](/dialogflow-enterprise/docs/editions).
+    You can create an agent using both Dialogflow Standard Edition and Dialogflow Enterprise Edition. For details, see <a href="https://docs.cloud.google.com/dialogflow/docs/editions">Dialogflow Editions</a>.
 
-    You can save your agent for backup or versioning by exporting the agent by using the [ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent] method. You can import a saved agent by using the [ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent] method.
+    You can save your agent for backup or versioning by exporting the agent by using the <a href="index.html#ondewo.nlu.Agents.ExportAgent">ExportAgent</a> method. You can import a saved agent by using the <a href="index.html#ondewo.nlu.Agents.ImportAgent">ImportAgent</a> method.
 
-    Dialogflow provides several [prebuilt agents](https://dialogflow.com/docs/prebuilt-agents) for common conversation scenarios such as determining a date and time, converting currency, and so on.
+    Dialogflow provides several <a href="https://dialogflow.com/docs/prebuilt-agents">prebuilt agents</a> for common conversation scenarios such as determining a date and time, converting currency, and so on.
 
-    For more information about agents, see the [Dialogflow documentation](https://dialogflow.com/docs/agents).
+    For more information about agents, see the <a href="https://dialogflow.com/docs/agents">Dialogflow documentation</a>.
     """
 
     @staticmethod
@@ -1444,6 +1462,33 @@ class Agents(object):
             target,
             '/ondewo.nlu.Agents/ImportAgent',
             ondewo_dot_nlu_dot_agent__pb2.ImportAgentRequest.SerializeToString,
+            ondewo_dot_nlu_dot_operations__pb2.Operation.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def MigrateAgent(request,
+                     target,
+                     options=(),
+                     channel_credentials=None,
+                     call_credentials=None,
+                     insecure=False,
+                     compression=None,
+                     wait_for_ready=None,
+                     timeout=None,
+                     metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Agents/MigrateAgent',
+            ondewo_dot_nlu_dot_agent__pb2.MigrateAgentRequest.SerializeToString,
             ondewo_dot_nlu_dot_operations__pb2.Operation.FromString,
             options,
             channel_credentials,

@@ -27,7 +27,7 @@ if _version_not_supported:
 
 
 class Speech2TextStub(object):
-    """Speech-to-text service
+    """<p>Speech-to-text service</p>
     """
 
     def __init__(self, channel):
@@ -84,7 +84,7 @@ class Speech2TextStub(object):
         self.GetServiceInfo = channel.unary_unary(
             '/ondewo.s2t.Speech2Text/GetServiceInfo',
             request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_s2t_dot_speech__to__text__pb2.S2TGetServiceInfoResponse.FromString,
+            response_deserializer=ondewo_dot_s2t_dot_speech__to__text__pb2.S2tGetServiceInfoResponse.FromString,
             _registered_method=True)
         self.ListS2tLanguageModels = channel.unary_unary(
             '/ondewo.s2t.Speech2Text/ListS2tLanguageModels',
@@ -111,116 +111,128 @@ class Speech2TextStub(object):
             request_serializer=ondewo_dot_s2t_dot_speech__to__text__pb2.TrainUserLanguageModelRequest.SerializeToString,
             response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             _registered_method=True)
+        self.ListS2tNormalizationPipelines = channel.unary_unary(
+            '/ondewo.s2t.Speech2Text/ListS2tNormalizationPipelines',
+            request_serializer=ondewo_dot_s2t_dot_speech__to__text__pb2.ListS2tNormalizationPipelinesRequest.SerializeToString,
+            response_deserializer=ondewo_dot_s2t_dot_speech__to__text__pb2.ListS2tNormalizationPipelinesResponse.FromString,
+            _registered_method=True)
 
 
 class Speech2TextServicer(object):
-    """Speech-to-text service
+    """<p>Speech-to-text service</p>
     """
 
     def TranscribeFile(self, request, context):
-        """Transcribes an audio file
+        """<p>Transcribes an audio file</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def TranscribeStream(self, request_iterator, context):
-        """Transcribes an audio stream.
+        """<p>Transcribes an audio stream.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetS2tPipeline(self, request, context):
-        """Gets a speech to text pipeline corresponding to the id specified in S2tPipelineId. If no corresponding id is
-        found, raises ModuleNotFoundError in server.
+        """<p>Gets a speech to text pipeline corresponding to the id specified in <code>S2tPipelineId</code>. If no corresponding id is
+        found, raises <code>ModuleNotFoundError</code> in server.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateS2tPipeline(self, request, context):
-        """Creates a new speech to text pipeline from a Speech2TextConfig and registers the new pipeline in the server.
+        """<p>Creates a new speech to text pipeline from a <code>Speech2TextConfig</code> and registers the new pipeline in the server.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteS2tPipeline(self, request, context):
-        """Deletes a pipeline corresponding to the id parsed in S2TPipelineId. If no corresponding id is
-        found, raises ModuleNotFoundError in server.
+        """<p>Deletes a pipeline corresponding to the id parsed in <code>S2tPipelineId</code>. If no corresponding id is
+        found, raises <code>ModuleNotFoundError</code> in server.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def UpdateS2tPipeline(self, request, context):
-        """Updates a pipeline with the id specified in Speech2TextConfig with the new config. If no corresponding id is
-        found, raises ModuleNotFoundError in server.
+        """<p>Updates a pipeline with the id specified in <code>Speech2TextConfig</code> with the new config. If no corresponding id is
+        found, raises <code>ModuleNotFoundError</code> in server.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListS2tPipelines(self, request, context):
-        """Lists all speech to text pipelines.
+        """<p>Lists all speech to text pipelines.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListS2tLanguages(self, request, context):
-        """Returns a message containing a list of all languages for which there exist pipelines.
+        """<p>Returns a message containing a list of all languages for which there exist pipelines.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListS2tDomains(self, request, context):
-        """Returns a message containing a list of all domains for which there exist pipelines.
+        """<p>Returns a message containing a list of all domains for which there exist pipelines.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetServiceInfo(self, request, context):
-        """Returns a message containing the version of the running speech to text server.
+        """<p>Returns a message containing the version of the running speech to text server.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListS2tLanguageModels(self, request, context):
-        """Given a list of pipeline ids, returns a list of LanguageModelPipelineId messages containing the pipeline
-        id and a list of the language models loaded in the pipeline.
+        """<p>Given a list of pipeline ids, returns a list of <code>LanguageModelPipelineId</code> messages containing the pipeline
+        id and a list of the language models loaded in the pipeline.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateUserLanguageModel(self, request, context):
-        """Create a user language model.
+        """<p>Create a user language model.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteUserLanguageModel(self, request, context):
-        """Delete a user language model.
+        """<p>Delete a user language model.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def AddDataToUserLanguageModel(self, request, context):
-        """Add data to a user language model.
+        """<p>Add data to a user language model.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def TrainUserLanguageModel(self, request, context):
-        """Train a user language model.
+        """<p>Train a user language model.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListS2tNormalizationPipelines(self, request, context):
+        """<p>Retrieves a list of normalization pipelines based on specific requirements.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -277,7 +289,7 @@ def add_Speech2TextServicer_to_server(servicer, server):
         'GetServiceInfo': grpc.unary_unary_rpc_method_handler(
             servicer.GetServiceInfo,
             request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_s2t_dot_speech__to__text__pb2.S2TGetServiceInfoResponse.SerializeToString,
+            response_serializer=ondewo_dot_s2t_dot_speech__to__text__pb2.S2tGetServiceInfoResponse.SerializeToString,
         ),
         'ListS2tLanguageModels': grpc.unary_unary_rpc_method_handler(
             servicer.ListS2tLanguageModels,
@@ -304,6 +316,11 @@ def add_Speech2TextServicer_to_server(servicer, server):
             request_deserializer=ondewo_dot_s2t_dot_speech__to__text__pb2.TrainUserLanguageModelRequest.FromString,
             response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
         ),
+        'ListS2tNormalizationPipelines': grpc.unary_unary_rpc_method_handler(
+            servicer.ListS2tNormalizationPipelines,
+            request_deserializer=ondewo_dot_s2t_dot_speech__to__text__pb2.ListS2tNormalizationPipelinesRequest.FromString,
+            response_serializer=ondewo_dot_s2t_dot_speech__to__text__pb2.ListS2tNormalizationPipelinesResponse.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
         'ondewo.s2t.Speech2Text', rpc_method_handlers)
@@ -314,7 +331,7 @@ def add_Speech2TextServicer_to_server(servicer, server):
 
 
 class Speech2Text(object):
-    """Speech-to-text service
+    """<p>Speech-to-text service</p>
     """
 
     @staticmethod
@@ -576,7 +593,7 @@ class Speech2Text(object):
             target,
             '/ondewo.s2t.Speech2Text/GetServiceInfo',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            ondewo_dot_s2t_dot_speech__to__text__pb2.S2TGetServiceInfoResponse.FromString,
+            ondewo_dot_s2t_dot_speech__to__text__pb2.S2tGetServiceInfoResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -712,6 +729,33 @@ class Speech2Text(object):
             '/ondewo.s2t.Speech2Text/TrainUserLanguageModel',
             ondewo_dot_s2t_dot_speech__to__text__pb2.TrainUserLanguageModelRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListS2tNormalizationPipelines(request,
+                                      target,
+                                      options=(),
+                                      channel_credentials=None,
+                                      call_credentials=None,
+                                      insecure=False,
+                                      compression=None,
+                                      wait_for_ready=None,
+                                      timeout=None,
+                                      metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.s2t.Speech2Text/ListS2tNormalizationPipelines',
+            ondewo_dot_s2t_dot_speech__to__text__pb2.ListS2tNormalizationPipelinesRequest.SerializeToString,
+            ondewo_dot_s2t_dot_speech__to__text__pb2.ListS2tNormalizationPipelinesResponse.FromString,
             options,
             channel_credentials,
             insecure,

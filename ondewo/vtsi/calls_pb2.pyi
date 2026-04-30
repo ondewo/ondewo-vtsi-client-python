@@ -116,7 +116,7 @@ global___CallType = CallType
 
 @typing.final
 class BaseServiceConfig(google.protobuf.message.Message):
-    """base configuration of services (ondewo-nlu, text-to-speech, speech-to-text, asterisk)"""
+    """Base configuration of services (ondewo-nlu, text-to-speech, speech-to-text, asterisk)"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -180,7 +180,9 @@ class NluVtsiConfig(google.protobuf.message.Message):
     auth_token: builtins.str
     """Authentication token"""
     agent_name: builtins.str
-    """the resource name of the agent. Format: `projects/<uuid>/agent`"""
+    """The resource name of the agent.
+    Format: <pre><code>projects/&lt;uuid&gt;/agent</code></pre>
+    """
     language_code: builtins.str
     """language code in a two letter iso code, e.g. de, en, etc."""
     initial_intent: builtins.str
@@ -302,9 +304,7 @@ global___AsteriskConfig = AsteriskConfig
 
 @typing.final
 class CommonServicesConfig(google.protobuf.message.Message):
-    """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
-    which are common for both listener and caller
-    """
+    """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI which are common for both listener and caller"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -343,7 +343,7 @@ global___CommonServicesConfig = CommonServicesConfig
 
 @typing.final
 class SipBaseConfig(google.protobuf.message.Message):
-    """The base config is for both the listener and caller .. If you only provide it you will get a listener
+    """The base config is for both the listener and caller. If you only provide it you will get a listener
     You will need to provide <code>SipCallerConfig</code> for the caller
     """
 
@@ -422,8 +422,10 @@ class CsiVtsiConfig(google.protobuf.message.Message):
     ACTIVATE_CONTROL_MESSAGES_FIELD_NUMBER: builtins.int
     activate_control_messages: builtins.bool
     """Setting to activate if it is possible to send control messages
-    a.) via RabbitMQ to remote control the system
-    b.) via embeddings in NLU text responses
+    <ul>
+      <li>via RabbitMQ to remote control the system</li>
+      <li>via embeddings in NLU text responses</li>
+    </ul>
     """
     @property
     def s2t_vtsi_callbacks(self) -> global___S2tVtsiCallbacks:
@@ -520,10 +522,12 @@ class MessageBrokerConfig(google.protobuf.message.Message):
     """Should the broker be activated or not"""
     @property
     def message_broker_services_activation_config(self) -> global___MessageBrokerServicesActivationConfig:
-        """Configuration of the RabbitMQ Message Broker"""
+        """Configuration of the Broker service activation"""
 
     @property
-    def rabbit_mq_config(self) -> global___RabbitMqConfig: ...
+    def rabbit_mq_config(self) -> global___RabbitMqConfig:
+        """Configuration of the RabbitMQ Message Broker"""
+
     def __init__(
         self,
         *,
@@ -583,7 +587,7 @@ class RabbitMqConfig(google.protobuf.message.Message):
     port: builtins.int
     """port where the rabbit mq server runs"""
     port_2: builtins.int
-    """port where the rabbit mq server runs"""
+    """secondary port where the rabbit mq server runs"""
     user: builtins.str
     """user of server"""
     password: builtins.str
@@ -681,6 +685,8 @@ global___T2sVtsiCallbacks = T2sVtsiCallbacks
 
 @typing.final
 class Listener(google.protobuf.message.Message):
+    """Listener represents a listener instance that waits for incoming calls"""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -689,7 +695,7 @@ class Listener(google.protobuf.message.Message):
     COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
     name: builtins.str
     """VTSI project name with which to perform the call of the form
-    <code>projects/<project_uuid>/listeners/<listener_uuid></code>
+    <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
     """
     call_name: builtins.str
     """The call name that was assigned to the call
@@ -718,6 +724,8 @@ global___Listener = Listener
 
 @typing.final
 class Caller(google.protobuf.message.Message):
+    """Caller represents a caller instance that initiates outbound calls"""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -755,7 +763,7 @@ global___Caller = Caller
 
 @typing.final
 class StartListenerRequest(google.protobuf.message.Message):
-    """request for starting a listener"""
+    """Request for starting a listener"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -798,7 +806,9 @@ class StartListenerResponse(google.protobuf.message.Message):
     error_message: builtins.str
     """error message if you have any so if it's unhealthy"""
     @property
-    def listener(self) -> global___Listener: ...
+    def listener(self) -> global___Listener:
+        """The listener that was started"""
+
     def __init__(
         self,
         *,
@@ -865,7 +875,7 @@ global___StartListenersResponse = StartListenersResponse
 
 @typing.final
 class StartCallerRequest(google.protobuf.message.Message):
-    """request for starting a caller"""
+    """Request for starting a caller"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -908,7 +918,9 @@ class StartCallerResponse(google.protobuf.message.Message):
     error_message: builtins.str
     """error message if you have any so if it's unhealthy"""
     @property
-    def caller(self) -> global___Caller: ...
+    def caller(self) -> global___Caller:
+        """The caller that was started"""
+
     def __init__(
         self,
         *,
@@ -984,7 +996,7 @@ class ListCallersRequest(google.protobuf.message.Message):
     CALL_VIEW_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to perform the call.
-    The format is: "projects/<project_uuid>/project".
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
     page_token: builtins.str
     """Optional. The next_page_token value returned from a previous list request.
@@ -1067,7 +1079,7 @@ class ListListenersRequest(google.protobuf.message.Message):
     CALL_VIEW_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to perform the call.
-    The format is: "projects/<project_uuid>/project".
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
     page_token: builtins.str
     """Optional. The next_page_token value returned from a previous list request.
@@ -1208,6 +1220,8 @@ global___StopListenersRequest = StopListenersRequest
 
 @typing.final
 class StopListenersResponse(google.protobuf.message.Message):
+    """Response to stop multiple listeners"""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     STOP_LISTENER_RESPONSES_FIELD_NUMBER: builtins.int
@@ -1290,6 +1304,8 @@ global___StopCallersRequest = StopCallersRequest
 
 @typing.final
 class StopCallersResponse(google.protobuf.message.Message):
+    """Response to stop multiple callers"""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     STOP_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
@@ -1372,6 +1388,8 @@ global___DeleteListenersRequest = DeleteListenersRequest
 
 @typing.final
 class DeleteListenersResponse(google.protobuf.message.Message):
+    """Response to delete multiple listeners"""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DELETE_LISTENER_RESPONSES_FIELD_NUMBER: builtins.int
@@ -1454,6 +1472,8 @@ global___DeleteCallersRequest = DeleteCallersRequest
 
 @typing.final
 class DeleteCallersResponse(google.protobuf.message.Message):
+    """Response to delete multiple callers"""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DELETE_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
@@ -1476,7 +1496,7 @@ global___DeleteCallersResponse = DeleteCallersResponse
 
 @typing.final
 class StartScheduledCallerRequest(google.protobuf.message.Message):
-    """request for starting a scheduled call"""
+    """Request for starting a scheduled call"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1569,7 +1589,9 @@ class StartScheduledCallerResponse(google.protobuf.message.Message):
     error_message: builtins.str
     """error message if you have any so if it's unhealthy"""
     @property
-    def scheduled_caller(self) -> global___ScheduledCaller: ...
+    def scheduled_caller(self) -> global___ScheduledCaller:
+        """The scheduled caller that was created"""
+
     def __init__(
         self,
         *,
@@ -1853,7 +1875,9 @@ class TransferCallsResponse(google.protobuf.message.Message):
     error_message: builtins.str
     """overall error message if you have any so if it's unhealthy"""
     @property
-    def transfer_call_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TransferCallResponse]: ...
+    def transfer_call_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TransferCallResponse]:
+        """The responses for each transfer call request"""
+
     def __init__(
         self,
         *,
@@ -1867,7 +1891,7 @@ global___TransferCallsResponse = TransferCallsResponse
 
 @typing.final
 class GetCallRequest(google.protobuf.message.Message):
-    """request to get a call instance's call logs"""
+    """Request to get a call instance&apos;s call logs"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2087,7 +2111,7 @@ class CallFilter(google.protobuf.message.Message):
 
     @property
     def platforms(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType]:
-        """Optional: Platform responses sent to the user. Default is text: <code>Platform.PLATFORM_UNSPECIFIED</code>."""
+        """Optional: Platform responses sent to the user. Default is text: <code>Platform.PLATFORM_UNSPECIFIED</code>"""
 
     def __init__(
         self,
@@ -2179,7 +2203,7 @@ class ListCallsResponse(google.protobuf.message.Message):
     """
     @property
     def calls(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Call]:
-        """VoipInfos"""
+        """The list of calls returned in the response"""
 
     def __init__(
         self,
@@ -2193,7 +2217,7 @@ global___ListCallsResponse = ListCallsResponse
 
 @typing.final
 class AllServicesStatuses(google.protobuf.message.Message):
-    """status of ondewo-sip instance"""
+    """Status of ondewo-sip instance"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2238,7 +2262,7 @@ global___AllServicesStatuses = AllServicesStatuses
 
 @typing.final
 class ServiceStatus(google.protobuf.message.Message):
-    """status of service"""
+    """Status of service"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

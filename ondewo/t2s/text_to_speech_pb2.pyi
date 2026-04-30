@@ -55,7 +55,7 @@ class _PcmEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWr
     """Floating-point (64-bit) pulse-code modulation."""
 
 class Pcm(_Pcm, metaclass=_PcmEnumTypeWrapper):
-    """Represents a pulse-code modulation technique."""
+    """<p>Represents a pulse-code modulation technique.</p>"""
 
 PCM_16: Pcm.ValueType  # 0
 """16-bit pulse-code modulation."""
@@ -95,7 +95,7 @@ class _AudioFormatEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
     """Windows Media Audio (WMA)"""
 
 class AudioFormat(_AudioFormat, metaclass=_AudioFormatEnumTypeWrapper):
-    """AudioFormat enum represents various audio file formats for storing digital audio data."""
+    """<p>AudioFormat enum represents various audio file formats for storing digital audio data.</p>"""
 
 wav: AudioFormat.ValueType  # 0
 """Waveform Audio File Format (WAV)"""
@@ -115,8 +115,8 @@ global___AudioFormat = AudioFormat
 
 @typing.final
 class SynthesizeRequest(google.protobuf.message.Message):
-    """Represents a Synthesize Request.
-    A Synthesize Request contains the information need to perform a text to speech conversion.
+    """<p>Represents a Synthesize Request.</p>
+    <p>A Synthesize Request contains the information need to perform a text to speech conversion.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -125,30 +125,22 @@ class SynthesizeRequest(google.protobuf.message.Message):
     CONFIG_FIELD_NUMBER: builtins.int
     text: builtins.str
     """Required. Represents the text that will be transformed to speech.
-
-    <p> Synthesize text: </p>
-
-    - Simple text: <pre><code>Hello, how are you?</code></pre>
-
-    <p>Examples to modulate the voice based on SSML tags and Arpabet phonemes:</p>
-
-    - SSML Tag Phone: <pre><code>&lt;say-as interpret-as="phone">+12354321&lt;/say-as&gt;</code></pre>
-
-    - SSML Tag Email: <pre><code>&lt;say-as interpret-as="email">voices@ondewo.com&lt;/say-as&gt;</code></pre>
-
-    - SSML Tag URL: <pre><code>&lt;say-as interpret-as="url">ondewo.com/en/&lt;/say-as&gt;</code></pre>
-
-    - SSML Tag Spell: <pre><code>&lt;say-as interpret-as="spell">AP732&lt;/say-as&gt;</code></pre>
-
-    - SSML Tag Spell With Names: <pre><code>&lt;say-as interpret-as="spell-with-names">AHO32&lt;/say-as&gt;</code></pre>
-
-    - SSML Tag Callsigns Short: <pre><code>&lt;say-as interpret-as="callsign-short">AUA439&lt;/say-as&gt;</code></pre>
-
-    - SSML Tag Callsigns Long: <pre><code>&lt;say-as interpret-as="callsign-long">AAL439&lt;/say-as&gt;</code></pre>
-
-    - SSML Tag Break Tag: <pre><code>I am going to take a 2 seconds break <break time="2.0"/> done</code></pre>
-
-    - Arpabet Phonemes: <pre><code>Hello I am {AE2 L EH0 G Z AE1 N D R AH0}</code></pre>
+    Synthesize text:
+    <ul>
+      <li>Simple text: <pre><code>Hello, how are you?</code></pre></li>
+    </ul>
+    Examples to modulate the voice based on SSML tags and Arpabet phonemes:
+    <ul>
+      <li>SSML Tag Phone: <pre><code>&lt;say-as interpret-as=&quot;phone&quot;&gt;+12354321&lt;/say-as&gt;</code></pre></li>
+      <li>SSML Tag Email: <pre><code>&lt;say-as interpret-as=&quot;email&quot;&gt;voices@ondewo.com&lt;/say-as&gt;</code></pre></li>
+      <li>SSML Tag URL: <pre><code>&lt;say-as interpret-as=&quot;url&quot;&gt;ondewo.com/en/&lt;/say-as&gt;</code></pre></li>
+      <li>SSML Tag Spell: <pre><code>&lt;say-as interpret-as=&quot;spell&quot;&gt;AP732&lt;/say-as&gt;</code></pre></li>
+      <li>SSML Tag Spell With Names: <pre><code>&lt;say-as interpret-as=&quot;spell-with-names&quot;&gt;AHO32&lt;/say-as&gt;</code></pre></li>
+      <li>SSML Tag Callsigns Short: <pre><code>&lt;say-as interpret-as=&quot;callsign-short&quot;&gt;AUA439&lt;/say-as&gt;</code></pre></li>
+      <li>SSML Tag Callsigns Long: <pre><code>&lt;say-as interpret-as=&quot;callsign-long&quot;&gt;AAL439&lt;/say-as&gt;</code></pre></li>
+      <li>SSML Tag Break Tag: <pre><code>I am going to take a 2 seconds break &lt;break time=&quot;2.0&quot;/&gt; done</code></pre></li>
+      <li>Arpabet Phonemes: <pre><code>Hello I am {AE2 L EH0 G Z AE1 N D R AH0}</code></pre></li>
+    </ul>
     """
     @property
     def config(self) -> global___RequestConfig:
@@ -167,7 +159,7 @@ global___SynthesizeRequest = SynthesizeRequest
 
 @typing.final
 class BatchSynthesizeRequest(google.protobuf.message.Message):
-    """BatchSynthesizeRequest message is used to send a batch request for synthesis."""
+    """<p>BatchSynthesizeRequest message is used to send a batch request for synthesis.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -186,8 +178,35 @@ class BatchSynthesizeRequest(google.protobuf.message.Message):
 global___BatchSynthesizeRequest = BatchSynthesizeRequest
 
 @typing.final
+class StreamingSynthesizeRequest(google.protobuf.message.Message):
+    """<p>StreamingSynthesizeRequest is used to perform streaming synthesize.</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEXT_FIELD_NUMBER: builtins.int
+    CONFIG_FIELD_NUMBER: builtins.int
+    text: builtins.str
+    """Required. Represents the text that will be transformed to speech.
+    All the properties according to the input text in SynthesizeRequest can be also applied here.
+    """
+    @property
+    def config(self) -> global___RequestConfig:
+        """Required. Represents the specifications needed to do the text to speech transformation."""
+
+    def __init__(
+        self,
+        *,
+        text: builtins.str = ...,
+        config: global___RequestConfig | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["config", b"config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["config", b"config", "text", b"text"]) -> None: ...
+
+global___StreamingSynthesizeRequest = StreamingSynthesizeRequest
+
+@typing.final
 class BatchSynthesizeResponse(google.protobuf.message.Message):
-    """BatchSynthesizeResponse message is used to store the responses for a batch synthesis request."""
+    """<p>BatchSynthesizeResponse message is used to store the responses for a batch synthesis request.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -207,7 +226,7 @@ global___BatchSynthesizeResponse = BatchSynthesizeResponse
 
 @typing.final
 class RequestConfig(google.protobuf.message.Message):
-    """Represents a Configuration for the text to speech conversion."""
+    """<p>Represents a Configuration for the text to speech conversion.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -218,9 +237,11 @@ class RequestConfig(google.protobuf.message.Message):
     PCM_FIELD_NUMBER: builtins.int
     AUDIO_FORMAT_FIELD_NUMBER: builtins.int
     USE_CACHE_FIELD_NUMBER: builtins.int
-    NORMALIZER_FIELD_NUMBER: builtins.int
     T2S_SERVICE_CONFIG_FIELD_NUMBER: builtins.int
     T2S_CLOUD_PROVIDER_CONFIG_FIELD_NUMBER: builtins.int
+    T2S_NORMALIZATION_FIELD_NUMBER: builtins.int
+    WORD_TO_PHONEME_MAPPING_FIELD_NUMBER: builtins.int
+    INSTRUCTION_FIELD_NUMBER: builtins.int
     t2s_pipeline_id: builtins.str
     """Required. Represents the pipeline id of the model configuration that will be used."""
     length_scale: builtins.float
@@ -250,14 +271,47 @@ class RequestConfig(google.protobuf.message.Message):
     """Optional. Define if cache should be used or not.
     The default value is False.
     """
-    normalizer: builtins.str
-    """Optional. Define what normalizer to synthesize the text with.
-    The default value is the language of the pipeline.
-    """
+    instruction: builtins.str
+    """Optional. Define an instruction or prompt to be passed to the TTS/LLM backend for this request."""
     @property
     def t2s_service_config(self) -> google.protobuf.struct_pb2.Struct:
-        """t2s_service_config provides the configuration of the service such as API key, bearer tokens, JWT,
-        and other header information as key value pairs, e.g., <pre><code>MY_API_KEY='LKJDIFe244LKJOI'</code></pre>
+        """Optional. t2s_service_config provides the configuration of the service such as API key, bearer tokens, JWT,
+        and other header information as key value pairs, e.g., <pre><code>MY_API_KEY=&apos;LKJDIFe244LKJOI&apos;</code></pre>
+
+        A. For Amazon T2S service, the following arguments should be passed:
+        <ul>
+          <li>A1. <code>aws_access_key_id</code> (required) Access key id to access Amazon WEB Service.</li>
+          <li>A2. <code>aws_secret_access_key</code> (required) Secret access key to access Amazon WEB Service.</li>
+          <li>A3. <code>region</code> (required) Region name of Amazon Server.</li>
+        </ul>
+        Example:
+        <pre><code>t2s_config_service={&apos;aws_access_key_id&apos;: &apos;YOUR_AWS_ACCESS_KEY_ID&apos;, &apos;aws_secret_access_key&apos;: &apos;YOUR_AWS_SECRET_ACCESS_KEY&apos;, &apos;region&apos;: &apos;YOUR_AMAZON_SERVER_REGION_NAME&apos;}</code></pre>
+
+        B. For ElevenLabs T2s service, the following arguments should be passed:
+        <ul>
+          <li>B1. <code>api_key</code> (required) API key of ElevenLabs cloud provider to access its T2S service.</li>
+        </ul>
+        Example:
+        <pre><code>t2s_config_service={&apos;api_key&apos;: &apos;YOUR_ELEVENLABS_API_KEY&apos;}</code></pre>
+
+        C. For Google cloud T2S service, the following arguments should be passed:
+        <ul>
+          <li>C1. <code>api_key</code> (required) API key of Google cloud provider to access its T2S service.</li>
+          <li>C2. <code>api_endpoint</code> (optional) Regional API endpoint of Google cloud T2S service.
+            (Defaults to &apos;eu-texttospeech.googleapis.com&apos;)</li>
+        </ul>
+        Example:
+        <pre><code>t2s_config_service={&apos;api_key&apos;: &apos;YOUR_GOOGLE_CLOUD_API_KEY&apos;, &apos;api_endpoint&apos;: &apos;YOUR_GOOGLE_CLOUD_API_ENDPOINT&apos;}</code></pre>
+
+        D. For Microsoft Azure T2s service, the following arguments should be passed:
+        <ul>
+          <li>D1. <code>subscription_key</code> (required) Subscription key to access Microsoft Azure Service.</li>
+          <li>D2. <code>region</code> (required) Region name of Microsoft Azure Server.</li>
+        </ul>
+        Example:
+        <pre><code>t2s_config_service={&apos;subscription_key&apos;: &apos;YOUR_MICROSOFT_AZURE_SUBSCRIPTION_KEY&apos;, &apos;region&apos;: &apos;YOUR_MICROSOFT_AZURE_SERVER_REGION_NAME&apos;}</code></pre>
+
+        Note: ondewo-t2s will raise an error if you don&apos;t pass any of the required arguments above.
         """
 
     @property
@@ -265,6 +319,17 @@ class RequestConfig(google.protobuf.message.Message):
         """Optional. Defines the cloud provider's specific configuration for using text to speech cloud services
         The default value is None.
         """
+
+    @property
+    def t2s_normalization(self) -> global___T2SNormalization:
+        """Optional. Define t2s_normalization config parameters for this specific request.
+        The default values are set in the config file and the values set via RequestConfig are set just for
+        this specific request and will not update the pipeline.
+        """
+
+    @property
+    def word_to_phoneme_mapping(self) -> google.protobuf.struct_pb2.Struct:
+        """Optional. Define a dict which specifies the phonemes for a special word."""
 
     def __init__(
         self,
@@ -276,16 +341,22 @@ class RequestConfig(google.protobuf.message.Message):
         pcm: global___Pcm.ValueType = ...,
         audio_format: global___AudioFormat.ValueType = ...,
         use_cache: builtins.bool = ...,
-        normalizer: builtins.str = ...,
         t2s_service_config: google.protobuf.struct_pb2.Struct | None = ...,
         t2s_cloud_provider_config: global___T2sCloudProviderConfig | None = ...,
+        t2s_normalization: global___T2SNormalization | None = ...,
+        word_to_phoneme_mapping: google.protobuf.struct_pb2.Struct | None = ...,
+        instruction: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_t2s_cloud_provider_config", b"_t2s_cloud_provider_config", "_t2s_service_config", b"_t2s_service_config", "audio_format", b"audio_format", "length_scale", b"length_scale", "noise_scale", b"noise_scale", "normalizer", b"normalizer", "oneof_AudioFormat", b"oneof_AudioFormat", "oneof_Pcm", b"oneof_Pcm", "oneof_length_scale", b"oneof_length_scale", "oneof_noise_scale", b"oneof_noise_scale", "oneof_normalizer", b"oneof_normalizer", "oneof_sample_rate", b"oneof_sample_rate", "oneof_use_cache", b"oneof_use_cache", "pcm", b"pcm", "sample_rate", b"sample_rate", "t2s_cloud_provider_config", b"t2s_cloud_provider_config", "t2s_service_config", b"t2s_service_config", "use_cache", b"use_cache"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_t2s_cloud_provider_config", b"_t2s_cloud_provider_config", "_t2s_service_config", b"_t2s_service_config", "audio_format", b"audio_format", "length_scale", b"length_scale", "noise_scale", b"noise_scale", "normalizer", b"normalizer", "oneof_AudioFormat", b"oneof_AudioFormat", "oneof_Pcm", b"oneof_Pcm", "oneof_length_scale", b"oneof_length_scale", "oneof_noise_scale", b"oneof_noise_scale", "oneof_normalizer", b"oneof_normalizer", "oneof_sample_rate", b"oneof_sample_rate", "oneof_use_cache", b"oneof_use_cache", "pcm", b"pcm", "sample_rate", b"sample_rate", "t2s_cloud_provider_config", b"t2s_cloud_provider_config", "t2s_pipeline_id", b"t2s_pipeline_id", "t2s_service_config", b"t2s_service_config", "use_cache", b"use_cache"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_instruction", b"_instruction", "_t2s_cloud_provider_config", b"_t2s_cloud_provider_config", "_t2s_service_config", b"_t2s_service_config", "_word_to_phoneme_mapping", b"_word_to_phoneme_mapping", "audio_format", b"audio_format", "instruction", b"instruction", "length_scale", b"length_scale", "noise_scale", b"noise_scale", "oneof_AudioFormat", b"oneof_AudioFormat", "oneof_Pcm", b"oneof_Pcm", "oneof_length_scale", b"oneof_length_scale", "oneof_noise_scale", b"oneof_noise_scale", "oneof_sample_rate", b"oneof_sample_rate", "oneof_t2s_normalization", b"oneof_t2s_normalization", "oneof_use_cache", b"oneof_use_cache", "pcm", b"pcm", "sample_rate", b"sample_rate", "t2s_cloud_provider_config", b"t2s_cloud_provider_config", "t2s_normalization", b"t2s_normalization", "t2s_service_config", b"t2s_service_config", "use_cache", b"use_cache", "word_to_phoneme_mapping", b"word_to_phoneme_mapping"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_instruction", b"_instruction", "_t2s_cloud_provider_config", b"_t2s_cloud_provider_config", "_t2s_service_config", b"_t2s_service_config", "_word_to_phoneme_mapping", b"_word_to_phoneme_mapping", "audio_format", b"audio_format", "instruction", b"instruction", "length_scale", b"length_scale", "noise_scale", b"noise_scale", "oneof_AudioFormat", b"oneof_AudioFormat", "oneof_Pcm", b"oneof_Pcm", "oneof_length_scale", b"oneof_length_scale", "oneof_noise_scale", b"oneof_noise_scale", "oneof_sample_rate", b"oneof_sample_rate", "oneof_t2s_normalization", b"oneof_t2s_normalization", "oneof_use_cache", b"oneof_use_cache", "pcm", b"pcm", "sample_rate", b"sample_rate", "t2s_cloud_provider_config", b"t2s_cloud_provider_config", "t2s_normalization", b"t2s_normalization", "t2s_pipeline_id", b"t2s_pipeline_id", "t2s_service_config", b"t2s_service_config", "use_cache", b"use_cache", "word_to_phoneme_mapping", b"word_to_phoneme_mapping"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_instruction", b"_instruction"]) -> typing.Literal["instruction"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_t2s_cloud_provider_config", b"_t2s_cloud_provider_config"]) -> typing.Literal["t2s_cloud_provider_config"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_t2s_service_config", b"_t2s_service_config"]) -> typing.Literal["t2s_service_config"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_word_to_phoneme_mapping", b"_word_to_phoneme_mapping"]) -> typing.Literal["word_to_phoneme_mapping"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["oneof_AudioFormat", b"oneof_AudioFormat"]) -> typing.Literal["audio_format"] | None: ...
     @typing.overload
@@ -295,9 +366,9 @@ class RequestConfig(google.protobuf.message.Message):
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["oneof_noise_scale", b"oneof_noise_scale"]) -> typing.Literal["noise_scale"] | None: ...
     @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["oneof_normalizer", b"oneof_normalizer"]) -> typing.Literal["normalizer"] | None: ...
-    @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["oneof_sample_rate", b"oneof_sample_rate"]) -> typing.Literal["sample_rate"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["oneof_t2s_normalization", b"oneof_t2s_normalization"]) -> typing.Literal["t2s_normalization"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["oneof_use_cache", b"oneof_use_cache"]) -> typing.Literal["use_cache"] | None: ...
 
@@ -305,7 +376,7 @@ global___RequestConfig = RequestConfig
 
 @typing.final
 class T2sCloudProviderConfig(google.protobuf.message.Message):
-    """Configuration for cloud provider settings for Text-to-Speech (T2S)."""
+    """<p>Configuration for cloud provider settings for Text-to-Speech (T2S).</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -338,7 +409,7 @@ global___T2sCloudProviderConfig = T2sCloudProviderConfig
 
 @typing.final
 class T2sCloudProviderConfigElevenLabs(google.protobuf.message.Message):
-    """Configuration details specific to the Eleven Labs text-to-speech provider."""
+    """<p>Configuration details specific to the Eleven Labs text-to-speech provider.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -348,15 +419,17 @@ class T2sCloudProviderConfigElevenLabs(google.protobuf.message.Message):
     USE_SPEAKER_BOOST_FIELD_NUMBER: builtins.int
     APPLY_TEXT_NORMALIZATION_FIELD_NUMBER: builtins.int
     stability: builtins.float
-    """Stability level for inference, influencing consistency of generated speech."""
+    """Stability level for inference, influencing consistency of generated speech. It is in the range [0.0, 1.0]."""
     similarity_boost: builtins.float
-    """Boost value for similarity to enhance the similarity of the generated voice to a target voice."""
+    """Boost value for similarity to enhance the similarity of the generated voice to a target voice.
+    It is in the range [0.0, 1.0].
+    """
     style: builtins.float
-    """Style parameter to control the expression or emotion in speech."""
+    """Style parameter to control the expression or emotion in speech. It is in the range [0.0, 1.0]."""
     use_speaker_boost: builtins.bool
     """Enables or disables speaker boost for emphasis on clarity and loudness."""
     apply_text_normalization: builtins.str
-    """Specifies type of text normalization to apply during processing."""
+    """Specifies type of text normalization to apply during processing. Available options are 'auto', 'on', and 'off'."""
     def __init__(
         self,
         *,
@@ -372,7 +445,7 @@ global___T2sCloudProviderConfigElevenLabs = T2sCloudProviderConfigElevenLabs
 
 @typing.final
 class T2sCloudProviderConfigMicrosoft(google.protobuf.message.Message):
-    """Configuration details specific to the Microsoft text-to-speech provider."""
+    """<p>Configuration details specific to the Microsoft text-to-speech provider.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -390,7 +463,7 @@ global___T2sCloudProviderConfigMicrosoft = T2sCloudProviderConfigMicrosoft
 
 @typing.final
 class T2sCloudProviderConfigGoogle(google.protobuf.message.Message):
-    """Configuration details specific to the Google text-to-speech provider."""
+    """<p>Configuration details specific to the Google text-to-speech provider.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -398,11 +471,11 @@ class T2sCloudProviderConfigGoogle(google.protobuf.message.Message):
     VOLUME_GAIN_DB_FIELD_NUMBER: builtins.int
     PITCH_FIELD_NUMBER: builtins.int
     speaking_rate: builtins.float
-    """Speaking rate for inference, controlling the speed of generated speech."""
+    """Speaking rate for inference, controlling the speed of generated speech. It is in the range [0.25, 4.0]."""
     volume_gain_db: builtins.float
-    """Volume gain in dB applied to the generated speech."""
+    """Volume gain in dB applied to the generated speech. It is in the range [-96.0, 16.0]."""
     pitch: builtins.float
-    """Pitch adjustment for inference, allowing control over voice pitch."""
+    """Pitch adjustment for inference, allowing control over voice pitch. It is in the range in the range [-20.0, 20.0]."""
     def __init__(
         self,
         *,
@@ -416,8 +489,8 @@ global___T2sCloudProviderConfigGoogle = T2sCloudProviderConfigGoogle
 
 @typing.final
 class SynthesizeResponse(google.protobuf.message.Message):
-    """Represents a Synthesize Response.
-    A Synthesize Request contains the converted text to audio and the requested configuration.
+    """<p>Represents a Synthesize Response.</p>
+    <p>A Synthesize Response contains the generated audio, requested text and all other properties of this generated audio.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -429,6 +502,7 @@ class SynthesizeResponse(google.protobuf.message.Message):
     TEXT_FIELD_NUMBER: builtins.int
     CONFIG_FIELD_NUMBER: builtins.int
     NORMALIZED_TEXT_FIELD_NUMBER: builtins.int
+    SAMPLE_RATE_FIELD_NUMBER: builtins.int
     audio_uuid: builtins.str
     """Required. Represents the pipeline id of the model configuration that will be used."""
     audio: builtins.bytes
@@ -441,6 +515,8 @@ class SynthesizeResponse(google.protobuf.message.Message):
     """Required. Text from which audio was generated."""
     normalized_text: builtins.str
     """Optional. Normalized text."""
+    sample_rate: builtins.float
+    """Optional. Value of sampling rate"""
     @property
     def config(self) -> global___RequestConfig:
         """Required. Configuration from which audio was generated."""
@@ -455,11 +531,64 @@ class SynthesizeResponse(google.protobuf.message.Message):
         text: builtins.str = ...,
         config: global___RequestConfig | None = ...,
         normalized_text: builtins.str = ...,
+        sample_rate: builtins.float = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["config", b"config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["audio", b"audio", "audio_length", b"audio_length", "audio_uuid", b"audio_uuid", "config", b"config", "generation_time", b"generation_time", "normalized_text", b"normalized_text", "text", b"text"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["audio", b"audio", "audio_length", b"audio_length", "audio_uuid", b"audio_uuid", "config", b"config", "generation_time", b"generation_time", "normalized_text", b"normalized_text", "sample_rate", b"sample_rate", "text", b"text"]) -> None: ...
 
 global___SynthesizeResponse = SynthesizeResponse
+
+@typing.final
+class StreamingSynthesizeResponse(google.protobuf.message.Message):
+    """<p>Represents a Streaming Synthesize Response.</p>
+    <p>A Streaming Synthesize Response contains the generated audio, requested text and and
+    all other properties of this generated audio.</p>
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    AUDIO_UUID_FIELD_NUMBER: builtins.int
+    AUDIO_FIELD_NUMBER: builtins.int
+    GENERATION_TIME_FIELD_NUMBER: builtins.int
+    AUDIO_LENGTH_FIELD_NUMBER: builtins.int
+    TEXT_FIELD_NUMBER: builtins.int
+    CONFIG_FIELD_NUMBER: builtins.int
+    NORMALIZED_TEXT_FIELD_NUMBER: builtins.int
+    SAMPLE_RATE_FIELD_NUMBER: builtins.int
+    audio_uuid: builtins.str
+    """Required. Represents the pipeline id of the model configuration that will be used."""
+    audio: builtins.bytes
+    """Required. Generated file with the parameters described in request."""
+    generation_time: builtins.float
+    """Required. Time to generate audio."""
+    audio_length: builtins.float
+    """Required. Audio length."""
+    text: builtins.str
+    """Required. Text from which audio was generated."""
+    normalized_text: builtins.str
+    """Optional. Normalized text."""
+    sample_rate: builtins.float
+    """Optional. Value of sampling rate"""
+    @property
+    def config(self) -> global___RequestConfig:
+        """Required. Configuration from which audio was generated."""
+
+    def __init__(
+        self,
+        *,
+        audio_uuid: builtins.str = ...,
+        audio: builtins.bytes = ...,
+        generation_time: builtins.float = ...,
+        audio_length: builtins.float = ...,
+        text: builtins.str = ...,
+        config: global___RequestConfig | None = ...,
+        normalized_text: builtins.str = ...,
+        sample_rate: builtins.float = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["config", b"config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["audio", b"audio", "audio_length", b"audio_length", "audio_uuid", b"audio_uuid", "config", b"config", "generation_time", b"generation_time", "normalized_text", b"normalized_text", "sample_rate", b"sample_rate", "text", b"text"]) -> None: ...
+
+global___StreamingSynthesizeResponse = StreamingSynthesizeResponse
 
 @typing.final
 class NormalizeTextRequest(google.protobuf.message.Message):
@@ -467,7 +596,7 @@ class NormalizeTextRequest(google.protobuf.message.Message):
     NORMALIZE //
     /////////////
 
-    NormalizeTextRequest message is used to request text normalization.
+    <p>NormalizeTextRequest message is used to request text normalization.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -490,7 +619,7 @@ global___NormalizeTextRequest = NormalizeTextRequest
 
 @typing.final
 class NormalizeTextResponse(google.protobuf.message.Message):
-    """NormalizeTextResponse message is used to store the normalized text response."""
+    """<p>NormalizeTextResponse message is used to store the normalized text response.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -512,7 +641,7 @@ class T2SGetServiceInfoResponse(google.protobuf.message.Message):
     GET SERVICE INFO //
     ////////////////////
 
-    Version information of the service
+    <p>Version information of the service</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -535,9 +664,9 @@ class ListT2sPipelinesRequest(google.protobuf.message.Message):
     LIST T2S PIPELINES //
     //////////////////////
 
-    Pipeline Request representation.
-    The request message for ListT2sPipelines.
-    Filter pipelines by attributed in request.
+    <p>Pipeline Request representation.</p>
+    <p>The request message for ListT2sPipelines.</p>
+    <p>Filter pipelines by attributed in request.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -582,8 +711,8 @@ global___ListT2sPipelinesRequest = ListT2sPipelinesRequest
 
 @typing.final
 class ListT2sPipelinesResponse(google.protobuf.message.Message):
-    """Pipeline Response representation.
-    The response message for ListT2sPipelines.
+    """<p>Pipeline Response representation.</p>
+    <p>The response message for ListT2sPipelines.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -611,9 +740,9 @@ class ListT2sLanguagesRequest(google.protobuf.message.Message):
     LIST T2S LANGUAGES //
     //////////////////////
 
-    Language Request representation.
-    The request message for ListT2sLanguages.
-    Filter languages of pipelines by attributed in request.
+    <p>Language Request representation.</p>
+    <p>The request message for ListT2sLanguages.</p>
+    <p>Filter languages of pipelines by attributed in request.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -652,8 +781,8 @@ global___ListT2sLanguagesRequest = ListT2sLanguagesRequest
 
 @typing.final
 class ListT2sLanguagesResponse(google.protobuf.message.Message):
-    """Language Response representation.
-    The response message for ListT2sLanguages.
+    """<p>Language Response representation.</p>
+    <p>The response message for ListT2sLanguages.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -680,9 +809,9 @@ class ListT2sDomainsRequest(google.protobuf.message.Message):
     LIST T2S DOMAINS //
     ////////////////////
 
-    Domain Request representation.
-    The request message for ListT2sDomains.
-    Filter domains of pipelines by attributed in request.
+    <p>Domain Request representation.</p>
+    <p>The request message for ListT2sDomains.</p>
+    <p>Filter domains of pipelines by attributed in request.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -721,8 +850,8 @@ global___ListT2sDomainsRequest = ListT2sDomainsRequest
 
 @typing.final
 class ListT2sDomainsResponse(google.protobuf.message.Message):
-    """Domains Response representation.
-    The response message for ListT2sDomains.
+    """<p>Domains Response representation.</p>
+    <p>The response message for ListT2sDomains.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -744,13 +873,62 @@ class ListT2sDomainsResponse(google.protobuf.message.Message):
 global___ListT2sDomainsResponse = ListT2sDomainsResponse
 
 @typing.final
+class ListT2sNormalizationPipelinesRequest(google.protobuf.message.Message):
+    """//////////////////////
+    LIST T2S NORMALIZATION PIPELINES //
+    //////////////////////
+
+    <p>The request message for ListT2sNormalizationPipelines.</p>
+    <p>Filter pipelines by attributed in request.</p>
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LANGUAGE_FIELD_NUMBER: builtins.int
+    language: builtins.str
+    """Optional. Define the language."""
+    def __init__(
+        self,
+        *,
+        language: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["language", b"language"]) -> None: ...
+
+global___ListT2sNormalizationPipelinesRequest = ListT2sNormalizationPipelinesRequest
+
+@typing.final
+class ListT2sNormalizationPipelinesResponse(google.protobuf.message.Message):
+    """<p>Pipeline Response representation.</p>
+    <p>The response message for ListT2sNormalizationPipelines.</p>
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    T2S_NORMALIZATION_PIPELINES_FIELD_NUMBER: builtins.int
+    @property
+    def t2s_normalization_pipelines(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Required. Representation of a list of normalization pipelines configurations.
+        Retrieved by ListT2sNormalizationPipelines, containing the configurations of
+        normalization pipelines with the specifications received in the ListT2sNormalizationPipelinesRequest.
+        """
+
+    def __init__(
+        self,
+        *,
+        t2s_normalization_pipelines: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["t2s_normalization_pipelines", b"t2s_normalization_pipelines"]) -> None: ...
+
+global___ListT2sNormalizationPipelinesResponse = ListT2sNormalizationPipelinesResponse
+
+@typing.final
 class T2sPipelineId(google.protobuf.message.Message):
     """///////////////////////
     UPDATE T2S PIPELINE //
     ///////////////////////
 
-    Pipeline Id representation.
-    Used in the creation, deletion and getter of pipelines.
+    <p>Pipeline Id representation.</p>
+    <p>Used in the creation, deletion and getter of pipelines.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -773,7 +951,7 @@ class Text2SpeechConfig(google.protobuf.message.Message):
     Text-to-Speech Config //
     /////////////////////////
 
-    Configuration of text-to-speech models representation.
+    <p>Configuration of text-to-speech models representation.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -821,7 +999,7 @@ global___Text2SpeechConfig = Text2SpeechConfig
 
 @typing.final
 class T2SDescription(google.protobuf.message.Message):
-    """T2SDescription message is used to describe the text-to-speech service."""
+    """<p>T2SDescription message is used to describe the text-to-speech service.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -859,7 +1037,7 @@ global___T2SDescription = T2SDescription
 
 @typing.final
 class T2SInference(google.protobuf.message.Message):
-    """T2SInference message is used to specify the text-to-speech inference settings."""
+    """<p>T2SInference message is used to specify the text-to-speech inference settings.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -896,7 +1074,7 @@ global___T2SInference = T2SInference
 
 @typing.final
 class CompositeInference(google.protobuf.message.Message):
-    """CompositeInference message combines text-to-mel and mel-to-audio inference settings."""
+    """<p>CompositeInference message combines text-to-mel and mel-to-audio inference settings.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -923,7 +1101,7 @@ global___CompositeInference = CompositeInference
 
 @typing.final
 class SingleInference(google.protobuf.message.Message):
-    """SingleInference message inference settings of text2audio models."""
+    """<p>SingleInference message inference settings of text2audio models.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -944,7 +1122,7 @@ global___SingleInference = SingleInference
 
 @typing.final
 class Text2Mel(google.protobuf.message.Message):
-    """Text2Mel message contains settings for text-to-mel inference."""
+    """<p>Text2Mel message contains settings for text-to-mel inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -975,7 +1153,7 @@ global___Text2Mel = Text2Mel
 
 @typing.final
 class Text2Audio(google.protobuf.message.Message):
-    """Text2Audio message contains settings for text-to-audio inference."""
+    """<p>Text2Audio message contains settings for text-to-audio inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -986,6 +1164,8 @@ class Text2Audio(google.protobuf.message.Message):
     T2S_CLOUD_SERVICE_AMAZON_FIELD_NUMBER: builtins.int
     T2S_CLOUD_SERVICE_GOOGLE_FIELD_NUMBER: builtins.int
     T2S_CLOUD_SERVICE_MICROSOFT_FIELD_NUMBER: builtins.int
+    QWEN3_TTS_CUSTOM_VOICE_FIELD_NUMBER: builtins.int
+    QWEN3_TTS_BASE_FIELD_NUMBER: builtins.int
     type: builtins.str
     """The type of text-to-audio inference."""
     @property
@@ -1012,6 +1192,14 @@ class Text2Audio(google.protobuf.message.Message):
     def t2s_cloud_service_microsoft(self) -> global___T2sCloudServiceMicrosoft:
         """Microsoft cloud service inference settings."""
 
+    @property
+    def qwen3_tts_custom_voice(self) -> global___Qwen3TtsCustomVoice:
+        """Qwen3-TTS-custom-voice inference settings."""
+
+    @property
+    def qwen3_tts_base(self) -> global___Qwen3TtsBase:
+        """Qwen3-TTS-base inference settings for voice cloning."""
+
     def __init__(
         self,
         *,
@@ -1022,15 +1210,17 @@ class Text2Audio(google.protobuf.message.Message):
         t2s_cloud_service_amazon: global___T2sCloudServiceAmazon | None = ...,
         t2s_cloud_service_google: global___T2sCloudServiceGoogle | None = ...,
         t2s_cloud_service_microsoft: global___T2sCloudServiceMicrosoft | None = ...,
+        qwen3_tts_custom_voice: global___Qwen3TtsCustomVoice | None = ...,
+        qwen3_tts_base: global___Qwen3TtsBase | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["t2s_cloud_service_amazon", b"t2s_cloud_service_amazon", "t2s_cloud_service_elevenlabs", b"t2s_cloud_service_elevenlabs", "t2s_cloud_service_google", b"t2s_cloud_service_google", "t2s_cloud_service_microsoft", b"t2s_cloud_service_microsoft", "vits", b"vits", "vits_triton", b"vits_triton"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["t2s_cloud_service_amazon", b"t2s_cloud_service_amazon", "t2s_cloud_service_elevenlabs", b"t2s_cloud_service_elevenlabs", "t2s_cloud_service_google", b"t2s_cloud_service_google", "t2s_cloud_service_microsoft", b"t2s_cloud_service_microsoft", "type", b"type", "vits", b"vits", "vits_triton", b"vits_triton"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["qwen3_tts_base", b"qwen3_tts_base", "qwen3_tts_custom_voice", b"qwen3_tts_custom_voice", "t2s_cloud_service_amazon", b"t2s_cloud_service_amazon", "t2s_cloud_service_elevenlabs", b"t2s_cloud_service_elevenlabs", "t2s_cloud_service_google", b"t2s_cloud_service_google", "t2s_cloud_service_microsoft", b"t2s_cloud_service_microsoft", "vits", b"vits", "vits_triton", b"vits_triton"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["qwen3_tts_base", b"qwen3_tts_base", "qwen3_tts_custom_voice", b"qwen3_tts_custom_voice", "t2s_cloud_service_amazon", b"t2s_cloud_service_amazon", "t2s_cloud_service_elevenlabs", b"t2s_cloud_service_elevenlabs", "t2s_cloud_service_google", b"t2s_cloud_service_google", "t2s_cloud_service_microsoft", b"t2s_cloud_service_microsoft", "type", b"type", "vits", b"vits", "vits_triton", b"vits_triton"]) -> None: ...
 
 global___Text2Audio = Text2Audio
 
 @typing.final
 class GlowTTS(google.protobuf.message.Message):
-    """GlowTTS message contains settings for the GlowTTS inference."""
+    """<p>GlowTTS message contains settings for the GlowTTS inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1074,7 +1264,7 @@ global___GlowTTS = GlowTTS
 
 @typing.final
 class GlowTTSTriton(google.protobuf.message.Message):
-    """GlowTTSTriton message contains settings for the GlowTTS Triton inference."""
+    """<p>GlowTTSTriton message contains settings for the GlowTTS Triton inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1126,6 +1316,8 @@ global___GlowTTSTriton = GlowTTSTriton
 
 @typing.final
 class Vits(google.protobuf.message.Message):
+    """<p>Vits message contains settings for the Vits inference.</p>"""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     BATCH_SIZE_FIELD_NUMBER: builtins.int
@@ -1168,7 +1360,7 @@ global___Vits = Vits
 
 @typing.final
 class VitsTriton(google.protobuf.message.Message):
-    """VitsTriton message contains settings for the Vits Triton inference."""
+    """<p>VitsTriton message contains settings for the Vits Triton inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1220,7 +1412,7 @@ global___VitsTriton = VitsTriton
 
 @typing.final
 class T2sCloudServiceElevenLabs(google.protobuf.message.Message):
-    """T2sCloudServiceElevenLabs message contains settings for the ElevenLabs Cloud service inference."""
+    """<p>T2sCloudServiceElevenLabs message contains settings for the ElevenLabs Cloud service inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1257,7 +1449,7 @@ global___T2sCloudServiceElevenLabs = T2sCloudServiceElevenLabs
 
 @typing.final
 class VoiceSettings(google.protobuf.message.Message):
-    """VoiceSettings message contains settings for ElevenLabs inference."""
+    """<p>VoiceSettings message contains settings for ElevenLabs inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1287,7 +1479,7 @@ global___VoiceSettings = VoiceSettings
 
 @typing.final
 class T2sCloudServiceAmazon(google.protobuf.message.Message):
-    """T2sCloudServiceAmazon message contains settings for the Amazon Cloud service inference."""
+    """<p>T2sCloudServiceAmazon message contains settings for the Amazon Cloud service inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1309,7 +1501,7 @@ global___T2sCloudServiceAmazon = T2sCloudServiceAmazon
 
 @typing.final
 class T2sCloudServiceGoogle(google.protobuf.message.Message):
-    """T2sCloudServiceGoogle message contains settings for the Google Cloud service inference."""
+    """<p>T2sCloudServiceGoogle message contains settings for the Google Cloud service inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1339,7 +1531,7 @@ global___T2sCloudServiceGoogle = T2sCloudServiceGoogle
 
 @typing.final
 class T2sCloudServiceMicrosoft(google.protobuf.message.Message):
-    """T2sCloudServiceMicrosoft message contains settings for the Microsoft Cloud service inference."""
+    """<p>T2sCloudServiceMicrosoft message contains settings for the Microsoft Cloud service inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1360,8 +1552,92 @@ class T2sCloudServiceMicrosoft(google.protobuf.message.Message):
 global___T2sCloudServiceMicrosoft = T2sCloudServiceMicrosoft
 
 @typing.final
+class Qwen3TtsCustomVoice(google.protobuf.message.Message):
+    """<p>Qwen3TtsCustomVoice message contains settings for inference of qwen3-TTS-CustomVoice model.</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VOICE_ID_FIELD_NUMBER: builtins.int
+    MODEL_NAME_FIELD_NUMBER: builtins.int
+    LANGUAGE_FIELD_NUMBER: builtins.int
+    QWEN3_TTS_SERVER_HOST_FIELD_NUMBER: builtins.int
+    QWEN3_TTS_SERVER_PORT_FIELD_NUMBER: builtins.int
+    QWEN3_TTS_SERVER_HEADER_FIELD_NUMBER: builtins.int
+    voice_id: builtins.str
+    """Voice id indicating the speaker name"""
+    model_name: builtins.str
+    """Model name for the inference server."""
+    language: builtins.str
+    """Language for inference server"""
+    qwen3_tts_server_host: builtins.str
+    """Host name for the inference server"""
+    qwen3_tts_server_port: builtins.int
+    """Port of the inference server"""
+    @property
+    def qwen3_tts_server_header(self) -> google.protobuf.struct_pb2.Struct:
+        """Authorization headers for the inference server"""
+
+    def __init__(
+        self,
+        *,
+        voice_id: builtins.str = ...,
+        model_name: builtins.str = ...,
+        language: builtins.str = ...,
+        qwen3_tts_server_host: builtins.str = ...,
+        qwen3_tts_server_port: builtins.int = ...,
+        qwen3_tts_server_header: google.protobuf.struct_pb2.Struct | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_qwen3_tts_server_header", b"_qwen3_tts_server_header", "qwen3_tts_server_header", b"qwen3_tts_server_header"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_qwen3_tts_server_header", b"_qwen3_tts_server_header", "language", b"language", "model_name", b"model_name", "qwen3_tts_server_header", b"qwen3_tts_server_header", "qwen3_tts_server_host", b"qwen3_tts_server_host", "qwen3_tts_server_port", b"qwen3_tts_server_port", "voice_id", b"voice_id"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_qwen3_tts_server_header", b"_qwen3_tts_server_header"]) -> typing.Literal["qwen3_tts_server_header"] | None: ...
+
+global___Qwen3TtsCustomVoice = Qwen3TtsCustomVoice
+
+@typing.final
+class Qwen3TtsBase(google.protobuf.message.Message):
+    """<p>Qwen3TtsBase message contains settings for inference of qwen3-TTS-Base model.</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MODEL_NAME_FIELD_NUMBER: builtins.int
+    LANGUAGE_FIELD_NUMBER: builtins.int
+    EMBEDDING_PATH_FIELD_NUMBER: builtins.int
+    QWEN3_TTS_SERVER_HOST_FIELD_NUMBER: builtins.int
+    QWEN3_TTS_SERVER_PORT_FIELD_NUMBER: builtins.int
+    QWEN3_TTS_SERVER_HEADER_FIELD_NUMBER: builtins.int
+    model_name: builtins.str
+    """Model name for the inference server."""
+    language: builtins.str
+    """Language for inference server"""
+    embedding_path: builtins.str
+    """Path of the embedding file"""
+    qwen3_tts_server_host: builtins.str
+    """Host name for the inference server"""
+    qwen3_tts_server_port: builtins.int
+    """Port of the inference server"""
+    @property
+    def qwen3_tts_server_header(self) -> google.protobuf.struct_pb2.Struct:
+        """Authorization headers for the inference server"""
+
+    def __init__(
+        self,
+        *,
+        model_name: builtins.str = ...,
+        language: builtins.str = ...,
+        embedding_path: builtins.str = ...,
+        qwen3_tts_server_host: builtins.str = ...,
+        qwen3_tts_server_port: builtins.int = ...,
+        qwen3_tts_server_header: google.protobuf.struct_pb2.Struct | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_qwen3_tts_server_header", b"_qwen3_tts_server_header", "qwen3_tts_server_header", b"qwen3_tts_server_header"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_qwen3_tts_server_header", b"_qwen3_tts_server_header", "embedding_path", b"embedding_path", "language", b"language", "model_name", b"model_name", "qwen3_tts_server_header", b"qwen3_tts_server_header", "qwen3_tts_server_host", b"qwen3_tts_server_host", "qwen3_tts_server_port", b"qwen3_tts_server_port"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_qwen3_tts_server_header", b"_qwen3_tts_server_header"]) -> typing.Literal["qwen3_tts_server_header"] | None: ...
+
+global___Qwen3TtsBase = Qwen3TtsBase
+
+@typing.final
 class Mel2Audio(google.protobuf.message.Message):
-    """Mel2Audio message contains settings for mel-to-audio inference."""
+    """<p>Mel2Audio message contains settings for mel-to-audio inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1398,7 +1674,7 @@ global___Mel2Audio = Mel2Audio
 
 @typing.final
 class HiFiGan(google.protobuf.message.Message):
-    """HiFiGan message contains settings for the HiFiGan inference."""
+    """<p>HiFiGan message contains settings for the HiFiGan inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1428,7 +1704,7 @@ global___HiFiGan = HiFiGan
 
 @typing.final
 class HiFiGanTriton(google.protobuf.message.Message):
-    """HiFiGanTriton message contains settings for the HiFiGan Triton inference."""
+    """<p>HiFiGanTriton message contains settings for the HiFiGan Triton inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1458,7 +1734,7 @@ global___HiFiGanTriton = HiFiGanTriton
 
 @typing.final
 class MbMelganTriton(google.protobuf.message.Message):
-    """MbMelganTriton message contains settings for the MbMelgan Triton inference."""
+    """<p>MbMelganTriton message contains settings for the MbMelgan Triton inference.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1492,7 +1768,7 @@ global___MbMelganTriton = MbMelganTriton
 
 @typing.final
 class Caching(google.protobuf.message.Message):
-    """Caching message contains settings for caching."""
+    """<p>Caching message contains settings for caching.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1530,7 +1806,7 @@ global___Caching = Caching
 
 @typing.final
 class T2SNormalization(google.protobuf.message.Message):
-    """Represents the configuration for text-to-speech normalization."""
+    """<p>Represents the configuration for text-to-speech normalization.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1581,7 +1857,7 @@ global___T2SNormalization = T2SNormalization
 
 @typing.final
 class Postprocessing(google.protobuf.message.Message):
-    """Postprocessing message contains settings for postprocessing."""
+    """<p>Postprocessing message contains settings for postprocessing.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1624,7 +1900,7 @@ global___Postprocessing = Postprocessing
 
 @typing.final
 class Logmnse(google.protobuf.message.Message):
-    """Logmnse message contains settings for Logmnse postprocessing."""
+    """<p>Logmnse message contains settings for Logmnse postprocessing.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1650,7 +1926,7 @@ global___Logmnse = Logmnse
 
 @typing.final
 class Wiener(google.protobuf.message.Message):
-    """Wiener message contains settings for Wiener postprocessing."""
+    """<p>Wiener message contains settings for Wiener postprocessing.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1684,7 +1960,7 @@ global___Wiener = Wiener
 
 @typing.final
 class Apodization(google.protobuf.message.Message):
-    """Apodization message contains settings for apodization postprocessing."""
+    """<p>Apodization message contains settings for apodization postprocessing.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1702,7 +1978,7 @@ global___Apodization = Apodization
 
 @typing.final
 class T2SCustomLengthScales(google.protobuf.message.Message):
-    """T2SCustomLengthScales message contains custom length scales for text types."""
+    """<p>T2SCustomLengthScales message contains custom length scales for text types.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1748,7 +2024,7 @@ global___T2SCustomLengthScales = T2SCustomLengthScales
 
 @typing.final
 class PhonemizerId(google.protobuf.message.Message):
-    """PhonemizerId message represents the ID of a phonemizer."""
+    """<p>PhonemizerId message represents the ID of a phonemizer.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1766,7 +2042,7 @@ global___PhonemizerId = PhonemizerId
 
 @typing.final
 class CustomPhonemizerProto(google.protobuf.message.Message):
-    """CustomPhonemizerProto message represents a custom phonemizer."""
+    """<p>CustomPhonemizerProto message represents a custom phonemizer.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1790,7 +2066,7 @@ global___CustomPhonemizerProto = CustomPhonemizerProto
 
 @typing.final
 class Map(google.protobuf.message.Message):
-    """Map message represents a word-to-phoneme mapping in a custom phonemizer."""
+    """<p>Map message represents a word-to-phoneme mapping in a custom phonemizer.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1812,7 +2088,7 @@ global___Map = Map
 
 @typing.final
 class ListCustomPhonemizerResponse(google.protobuf.message.Message):
-    """ListCustomPhonemizerResponse message represents the response for listing custom phonemizers."""
+    """<p>ListCustomPhonemizerResponse message represents the response for listing custom phonemizers.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1832,7 +2108,7 @@ global___ListCustomPhonemizerResponse = ListCustomPhonemizerResponse
 
 @typing.final
 class ListCustomPhonemizerRequest(google.protobuf.message.Message):
-    """ListCustomPhonemizerRequest message represents the request for listing custom phonemizers."""
+    """<p>ListCustomPhonemizerRequest message represents the request for listing custom phonemizers.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1852,7 +2128,7 @@ global___ListCustomPhonemizerRequest = ListCustomPhonemizerRequest
 
 @typing.final
 class UpdateCustomPhonemizerRequest(google.protobuf.message.Message):
-    """UpdateCustomPhonemizerRequest message represents the request for updating a custom phonemizer."""
+    """<p>UpdateCustomPhonemizerRequest message represents the request for updating a custom phonemizer.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1870,7 +2146,9 @@ class UpdateCustomPhonemizerRequest(google.protobuf.message.Message):
         """Replace all words in the phonemizer with new ones."""
 
     class UpdateMethod(_UpdateMethod, metaclass=_UpdateMethodEnumTypeWrapper):
-        """The update method to be used."""
+        """The update method to be used.
+        UpdateMethod enum defines the method for updating custom phonemizers.
+        """
 
     extend_hard: UpdateCustomPhonemizerRequest.UpdateMethod.ValueType  # 0
     """Add new words, replacing existing ones."""
@@ -1903,7 +2181,7 @@ global___UpdateCustomPhonemizerRequest = UpdateCustomPhonemizerRequest
 
 @typing.final
 class CreateCustomPhonemizerRequest(google.protobuf.message.Message):
-    """CreateCustomPhonemizerRequest message represents the request for creating a custom phonemizer."""
+    """<p>CreateCustomPhonemizerRequest message represents the request for creating a custom phonemizer.</p>"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

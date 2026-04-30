@@ -27,7 +27,7 @@ if _version_not_supported:
 
 
 class Text2SpeechStub(object):
-    """Text2Speech service provides endpoints for text-to-speech generation.
+    """<p>Text2Speech service provides endpoints for text-to-speech generation.</p>
     """
 
     def __init__(self, channel):
@@ -45,6 +45,11 @@ class Text2SpeechStub(object):
             '/ondewo.t2s.Text2Speech/BatchSynthesize',
             request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeRequest.SerializeToString,
             response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeResponse.FromString,
+            _registered_method=True)
+        self.StreamingSynthesize = channel.stream_stream(
+            '/ondewo.t2s.Text2Speech/StreamingSynthesize',
+            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeRequest.SerializeToString,
+            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeResponse.FromString,
             _registered_method=True)
         self.NormalizeText = channel.unary_unary(
             '/ondewo.t2s.Text2Speech/NormalizeText',
@@ -86,6 +91,11 @@ class Text2SpeechStub(object):
             request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsRequest.SerializeToString,
             response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsResponse.FromString,
             _registered_method=True)
+        self.ListT2sNormalizationPipelines = channel.unary_unary(
+            '/ondewo.t2s.Text2Speech/ListT2sNormalizationPipelines',
+            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesRequest.SerializeToString,
+            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesResponse.FromString,
+            _registered_method=True)
         self.GetServiceInfo = channel.unary_unary(
             '/ondewo.t2s.Text2Speech/GetServiceInfo',
             request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
@@ -119,152 +129,134 @@ class Text2SpeechStub(object):
 
 
 class Text2SpeechServicer(object):
-    """Text2Speech service provides endpoints for text-to-speech generation.
+    """<p>Text2Speech service provides endpoints for text-to-speech generation.</p>
     """
 
     def Synthesize(self, request, context):
-        """Synthesize RPC
-
-        Synthesizes a specific text sent in the request with the provided configuration requirements
-        and retrieves a response that includes the synthesized text as audio and the requested configuration.
+        """<p>Synthesizes a specific text sent in the request with the provided configuration requirements
+        and retrieves a response that includes the synthesized text as audio and the requested configuration.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def BatchSynthesize(self, request, context):
-        """BatchSynthesize RPC
+        """<p>Performs batch synthesis by accepting a batch of synthesis requests and returning a batch response.
+        This can be more efficient for generating predictions on the AI model in bulk.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-        Performs batch synthesis by accepting a batch of synthesis requests and returning a batch response.
-        This can be more efficient for generating predictions on the AI model in bulk.
+    def StreamingSynthesize(self, request_iterator, context):
+        """<p>Performs streaming synthesis by accepting stream of input text and returning a stream of generated audio.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def NormalizeText(self, request, context):
-        """NormalizeText RPC
-
-        Normalizes a text according to the specific pipeline's normalization rules.
+        """<p>Normalizes a text according to the specific pipeline&apos;s normalization rules.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetT2sPipeline(self, request, context):
-        """GetT2sPipeline RPC
-
-        Retrieves the configuration of the specified text-to-speech pipeline.
+        """<p>Retrieves the configuration of the specified text-to-speech pipeline.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateT2sPipeline(self, request, context):
-        """CreateT2sPipeline RPC
-
-        Creates a new text-to-speech pipeline with the provided configuration and returns its pipeline ID.
+        """<p>Creates a new text-to-speech pipeline with the provided configuration and returns its pipeline ID.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteT2sPipeline(self, request, context):
-        """DeleteT2sPipeline RPC
-
-        Deletes the specified text-to-speech pipeline.
+        """<p>Deletes the specified text-to-speech pipeline.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def UpdateT2sPipeline(self, request, context):
-        """UpdateT2sPipeline RPC
-
-        Updates the specified text-to-speech pipeline with the given configuration.
+        """<p>Updates the specified text-to-speech pipeline with the given configuration.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListT2sPipelines(self, request, context):
-        """ListT2sPipelines RPC
-
-        Retrieves a list of text-to-speech pipelines based on specific requirements.
+        """<p>Retrieves a list of text-to-speech pipelines based on specific requirements.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListT2sLanguages(self, request, context):
-        """ListT2sLanguages RPC
-
-        Retrieves a list of languages available based on specific configuration requirements.
+        """<p>Retrieves a list of languages available based on specific configuration requirements.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListT2sDomains(self, request, context):
-        """ListT2sDomains RPC
+        """<p>Retrieves a list of domains available based on specific configuration requirements.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-        Retrieves a list of domains available based on specific configuration requirements.
+    def ListT2sNormalizationPipelines(self, request, context):
+        """<p>Retrieves a list of normalization pipelines based on specific requirements.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetServiceInfo(self, request, context):
-        """GetServiceInfo RPC
-
-        Retrieves the version information of the running text-to-speech server.
+        """<p>Retrieves the version information of the running text-to-speech server.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetCustomPhonemizer(self, request, context):
-        """GetCustomPhonemizer RPC
-
-        Retrieves a custom phonemizer based on the provided PhonemizerId.
+        """<p>Retrieves a custom phonemizer based on the provided PhonemizerId.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateCustomPhonemizer(self, request, context):
-        """CreateCustomPhonemizer RPC
-
-        Creates a custom phonemizer based on the provided CreateCustomPhonemizerRequest.
-        Returns the PhonemizerId associated with the created custom phonemizer.
+        """<p>Creates a custom phonemizer based on the provided CreateCustomPhonemizerRequest.
+        Returns the PhonemizerId associated with the created custom phonemizer.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteCustomPhonemizer(self, request, context):
-        """DeleteCustomPhonemizer RPC
-
-        Deletes a custom phonemizer based on the provided PhonemizerId.
-        Returns an Empty response upon successful deletion.
+        """<p>Deletes a custom phonemizer based on the provided PhonemizerId.
+        Returns an Empty response upon successful deletion.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def UpdateCustomPhonemizer(self, request, context):
-        """UpdateCustomPhonemizer RPC
-
-        Updates the specified custom phonemizer with the provided configuration.
+        """<p>Updates the specified custom phonemizer with the provided configuration.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListCustomPhonemizer(self, request, context):
-        """ListCustomPhonemizer RPC
-
-        Retrieves a list of custom phonemizers based on specific requirements.
+        """<p>Retrieves a list of custom phonemizers based on specific requirements.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -282,6 +274,11 @@ def add_Text2SpeechServicer_to_server(servicer, server):
             servicer.BatchSynthesize,
             request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeRequest.FromString,
             response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeResponse.SerializeToString,
+        ),
+        'StreamingSynthesize': grpc.stream_stream_rpc_method_handler(
+            servicer.StreamingSynthesize,
+            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeRequest.FromString,
+            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeResponse.SerializeToString,
         ),
         'NormalizeText': grpc.unary_unary_rpc_method_handler(
             servicer.NormalizeText,
@@ -323,6 +320,11 @@ def add_Text2SpeechServicer_to_server(servicer, server):
             request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsRequest.FromString,
             response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsResponse.SerializeToString,
         ),
+        'ListT2sNormalizationPipelines': grpc.unary_unary_rpc_method_handler(
+            servicer.ListT2sNormalizationPipelines,
+            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesRequest.FromString,
+            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesResponse.SerializeToString,
+        ),
         'GetServiceInfo': grpc.unary_unary_rpc_method_handler(
             servicer.GetServiceInfo,
             request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
@@ -363,7 +365,7 @@ def add_Text2SpeechServicer_to_server(servicer, server):
 
 
 class Text2Speech(object):
-    """Text2Speech service provides endpoints for text-to-speech generation.
+    """<p>Text2Speech service provides endpoints for text-to-speech generation.</p>
     """
 
     @staticmethod
@@ -410,6 +412,33 @@ class Text2Speech(object):
             '/ondewo.t2s.Text2Speech/BatchSynthesize',
             ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeRequest.SerializeToString,
             ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamingSynthesize(request_iterator,
+                            target,
+                            options=(),
+                            channel_credentials=None,
+                            call_credentials=None,
+                            insecure=False,
+                            compression=None,
+                            wait_for_ready=None,
+                            timeout=None,
+                            metadata=None):
+        return grpc.experimental.stream_stream(
+            request_iterator,
+            target,
+            '/ondewo.t2s.Text2Speech/StreamingSynthesize',
+            ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeRequest.SerializeToString,
+            ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -626,6 +655,33 @@ class Text2Speech(object):
             '/ondewo.t2s.Text2Speech/ListT2sDomains',
             ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsRequest.SerializeToString,
             ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListT2sNormalizationPipelines(request,
+                                      target,
+                                      options=(),
+                                      channel_credentials=None,
+                                      call_credentials=None,
+                                      insecure=False,
+                                      compression=None,
+                                      wait_for_ready=None,
+                                      timeout=None,
+                                      metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.t2s.Text2Speech/ListT2sNormalizationPipelines',
+            ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesRequest.SerializeToString,
+            ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesResponse.FromString,
             options,
             channel_credentials,
             insecure,
