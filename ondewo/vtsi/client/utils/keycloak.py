@@ -610,6 +610,8 @@ def _require_keycloak_config(config: ClientConfig) -> Tuple[str, str, str, str, 
     client_id: Optional[str] = config.client_id
     username: Optional[str] = config.username
     password: Optional[str] = config.password
-    if not (keycloak_url and realm and client_id and username and password):
+    if not (keycloak_url and realm and client_id and username and password):  # pragma: no cover
+        # Unreachable via the public ClientConfig constructor: __post_init__ already validated the
+        # full set (see comment above); this guard exists only to narrow Optional[str] -> str for mypy.
         raise ValueError("ClientConfig Keycloak (D18) auth fields are incompletely configured.")
     return keycloak_url, realm, client_id, username, password
