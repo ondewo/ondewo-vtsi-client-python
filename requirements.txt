@@ -8,3 +8,4 @@ mypy-protobuf
 ondewo-client-utils>=3.1.0
 polling
 regex
+requests
