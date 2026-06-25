@@ -30,7 +30,10 @@ PASSWORD: str = "s3cret-pw"
 
 
 class TestNoKeycloak:
+    """Tests for a `ClientConfig` that does not opt into the D18 Keycloak auth path."""
+
     def test_config_without_keycloak_fields_is_valid(self) -> None:
+        """A config with no Keycloak fields is valid, un-flagged, and carries no legacy `http_token`."""
         config = ClientConfig(host=HOST, port=PORT)
 
         assert config.is_keycloak_auth_configured is False
@@ -38,6 +41,7 @@ class TestNoKeycloak:
         assert not hasattr(config, "http_token")
 
     def test_config_without_keycloak_fields_has_no_keycloak_values(self) -> None:
+        """A config with no Keycloak fields leaves every D18 field at its `None` default."""
         config = ClientConfig(host=HOST, port=PORT)
 
         assert config.keycloak_url is None
@@ -49,7 +53,10 @@ class TestNoKeycloak:
 
 
 class TestKeycloakPath:
+    """Tests for the all-or-nothing validation triggered when any D18 Keycloak field is set."""
+
     def test_full_keycloak_config_is_valid_and_flagged(self) -> None:
+        """A fully-populated Keycloak field set validates and flips `is_keycloak_auth_configured` on."""
         config = ClientConfig(
             host=HOST,
             port=PORT,
@@ -64,6 +71,7 @@ class TestKeycloakPath:
         assert config.client_id == CLIENT_ID
 
     def test_full_keycloak_config_with_positive_token_expiration_is_valid(self) -> None:
+        """A positive `token_expiration_in_s` alongside the full field set passes validation."""
         token_expiration_in_s: int = 3600
         config = ClientConfig(
             host=HOST,
@@ -80,6 +88,7 @@ class TestKeycloakPath:
         assert config.token_expiration_in_s == token_expiration_in_s
 
     def test_partial_keycloak_config_missing_password_raises(self) -> None:
+        """Omitting `password` while the other Keycloak fields are set raises `ValueError`."""
         with pytest.raises(ValueError, match="password"):
             ClientConfig(
                 host=HOST,
@@ -92,12 +101,14 @@ class TestKeycloakPath:
             )
 
     def test_single_keycloak_field_set_triggers_all_or_nothing_validation(self) -> None:
+        """Setting a single Keycloak field triggers validation that reports all four missing fields."""
         # Setting only keycloak_url flips `is_keycloak_auth_configured` on, so the full set is
         # validated and the four missing fields are reported.
         with pytest.raises(ValueError, match="realm, client_id, username, password"):
             ClientConfig(host=HOST, port=PORT, keycloak_url=KEYCLOAK_URL)
 
     def test_empty_string_keycloak_field_is_treated_as_missing(self) -> None:
+        """An empty-string Keycloak field counts as set (triggers validation) yet as missing (fails it)."""
         # An empty string is set (not None) so it triggers validation but counts as missing.
         with pytest.raises(ValueError, match="keycloak_url"):
             ClientConfig(
@@ -112,7 +123,10 @@ class TestKeycloakPath:
 
 
 class TestTokenExpirationValidation:
+    """Tests for the positive-value constraint on `token_expiration_in_s`."""
+
     def test_zero_token_expiration_raises(self) -> None:
+        """A `token_expiration_in_s` of zero is rejected with `ValueError`."""
         with pytest.raises(ValueError, match="token_expiration_in_s"):
             ClientConfig(
                 host=HOST,
@@ -126,6 +140,7 @@ class TestTokenExpirationValidation:
             )
 
     def test_negative_token_expiration_raises(self) -> None:
+        """A negative `token_expiration_in_s` is rejected with `ValueError`."""
         with pytest.raises(ValueError, match="token_expiration_in_s"):
             ClientConfig(
                 host=HOST,
@@ -140,7 +155,10 @@ class TestTokenExpirationValidation:
 
 
 class TestNoClientSecret:
+    """Tests guarding the public-client (Q1) invariant: the config carries no `client_secret`."""
+
     def test_config_has_no_client_secret_field(self) -> None:
+        """A fully-configured Keycloak config exposes no `client_secret` attribute (public client)."""
         # Q1: the SDK client is PUBLIC — there must be no client_secret on the config.
         config = ClientConfig(
             host=HOST,
