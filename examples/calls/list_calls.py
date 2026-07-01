@@ -12,32 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """
-Minimal example: fetch a single VTSI project through the Projects service.
+Minimal example: list the calls of a VTSI project through the Calls service.
 
 Run it against a local, insecure server::
 
-    python -m examples.projects.get_vtsi_project \\
+    python -m examples.calls.list_calls \\
         --host localhost --port 50200 \\
-        --name "projects/<project_uuid>/project"
+        --vtsi-project-name "projects/<project_uuid>/project"
 
-Authentication (D18 Keycloak offline-token flow)
-------------------------------------------------
-The ONDEWO platform authenticates SDK calls with a Keycloak *offline-token* (bearer)
-flow that is configured on :class:`ondewo.vtsi.client.client_config.ClientConfig`: set
-``keycloak_url`` / ``realm`` / ``client_id`` / ``username`` / ``password`` (the SDK client
-is *public*, so there is no ``client_secret``). The legacy ``http_token`` (HTTP-Basic)
-credential has been removed. When those fields are omitted the config is still valid, which
-is convenient for a local, insecure dev server.
+Authentication is the D18 Keycloak offline-token (bearer) flow configured on
+:class:`ondewo.vtsi.client.client_config.ClientConfig`; see
+``examples/projects/get_vtsi_project.py`` for the full auth notes.
 """
 import argparse
 from typing import Optional
 
+from ondewo.vtsi.calls_pb2 import (
+    ListCallsRequest,
+    ListCallsResponse,
+)
 from ondewo.vtsi.client.client import Client
 from ondewo.vtsi.client.client_config import ClientConfig
-from ondewo.vtsi.projects_pb2 import (
-    GetVtsiProjectRequest,
-    VtsiProject,
-)
 
 
 def build_config(
@@ -54,8 +49,7 @@ def build_config(
     Build a :class:`ClientConfig` for the VTSI client.
 
     When the Keycloak fields are all provided the config opts into the D18 offline-token
-    (bearer) auth flow; when they are all omitted a plain host/port config is returned
-    (handy for a local insecure server).
+    (bearer) auth flow; when they are all omitted a plain host/port config is returned.
 
     Args:
         host (str):
@@ -63,7 +57,7 @@ def build_config(
         port (str):
             Port of the ONDEWO VTSI server, e.g. ``"50200"``.
         keycloak_url (Optional[str]):
-            Base URL of the Keycloak server (e.g. ``"https://keycloak.example.com/auth"``).
+            Base URL of the Keycloak server.
         realm (Optional[str]):
             Keycloak realm name.
         client_id (Optional[str]):
@@ -91,9 +85,9 @@ def build_config(
     )
 
 
-def get_vtsi_project(client: Client, vtsi_project_name: str) -> VtsiProject:
+def list_calls(client: Client, vtsi_project_name: str) -> ListCallsResponse:
     """
-    Fetch a single VTSI project by name and return it.
+    List the calls belonging to a VTSI project.
 
     Args:
         client (Client):
@@ -102,20 +96,20 @@ def get_vtsi_project(client: Client, vtsi_project_name: str) -> VtsiProject:
             Resource name of the project, e.g. ``"projects/<project_uuid>/project"``.
 
     Returns:
-        VtsiProject:
-            The requested project.
+        ListCallsResponse:
+            The response carrying the project's calls and the next-page token.
     """
-    request: GetVtsiProjectRequest = GetVtsiProjectRequest(name=vtsi_project_name)
-    vtsi_project: VtsiProject = client.services.projects.get_vtsi_project(request=request)
-    return vtsi_project
+    request: ListCallsRequest = ListCallsRequest(vtsi_project_name=vtsi_project_name)
+    response: ListCallsResponse = client.services.calls.list_calls(request=request)
+    return response
 
 
 def _parse_args() -> argparse.Namespace:
     """Parse the command-line arguments for the example."""
-    parser = argparse.ArgumentParser(description="Fetch a single VTSI project.")
+    parser = argparse.ArgumentParser(description="List the calls of a VTSI project.")
     parser.add_argument("--host", default="localhost", help="VTSI server host.")
     parser.add_argument("--port", default="50200", help="VTSI server port.")
-    parser.add_argument("--name", required=True, help="Resource name of the VTSI project to fetch.")
+    parser.add_argument("--vtsi-project-name", required=True, help="Resource name of the VTSI project.")
     parser.add_argument("--keycloak-url", default=None, help="Keycloak base URL (D18 auth).")
     parser.add_argument("--realm", default=None, help="Keycloak realm (D18 auth).")
     parser.add_argument("--client-id", default=None, help="Public Keycloak client id (D18 auth).")
@@ -130,7 +124,7 @@ def _parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    """Entry point: build the client, fetch the project, and print its display name."""
+    """Entry point: build the client, list the project's calls, and print how many were returned."""
     args: argparse.Namespace = _parse_args()
     config: ClientConfig = build_config(
         host=args.host,
@@ -142,8 +136,8 @@ def main() -> None:
         password=args.password,
     )
     client: Client = Client(config=config, use_secure_channel=args.secure)
-    vtsi_project: VtsiProject = get_vtsi_project(client=client, vtsi_project_name=args.name)
-    print(f"Fetched VTSI project: name={vtsi_project.name!r} display_name={vtsi_project.display_name!r}")
+    response: ListCallsResponse = list_calls(client=client, vtsi_project_name=args.vtsi_project_name)
+    print(f"Listed {len(response.calls)} call(s) for project {args.vtsi_project_name!r}.")
 
 
 if __name__ == "__main__":
