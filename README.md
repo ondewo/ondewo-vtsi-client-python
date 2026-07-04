@@ -185,7 +185,7 @@ required. The service wrappers under `ondewo/vtsi/client/services/` sit on top o
 code stays clean. Without a wrapper the same call would attach the token manually:
 
 ```python
-metadata = [("Authorization", "Bearer <token>")]
+metadata = [("authorization", "Bearer <token>")]
 stub.StartCaller(request, metadata=metadata)
 ```
 
