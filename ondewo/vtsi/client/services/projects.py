@@ -11,13 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from ondewo.utils.base_services_interface import BaseServicesInterface
-
 from ondewo.vtsi import projects_pb2
 from ondewo.vtsi.projects_pb2_grpc import ProjectsStub
+from ondewo.vtsi.client.services_interface import ServicesInterface
 
 
-class Projects(BaseServicesInterface):
+class Projects(ServicesInterface):
     """
     A class representing the Projects service interface.
 
@@ -51,7 +50,7 @@ class Projects(BaseServicesInterface):
             projects_pb2.CreateVtsiProjectResponse:
                 The response message containing the details of the created VtsiProject.
         """
-        return self.stub.CreateVtsiProject(request=request)
+        return self.stub.CreateVtsiProject(request=request, metadata=self.metadata)
 
     def get_vtsi_project(
         self,
@@ -66,7 +65,7 @@ class Projects(BaseServicesInterface):
         Returns:
             projects_pb2.VtsiProject: The response message containing the details of the specified VtsiProject.
         """
-        return self.stub.GetVtsiProject(request=request)
+        return self.stub.GetVtsiProject(request=request, metadata=self.metadata)
 
     def update_vtsi_project(
         self,
@@ -82,7 +81,7 @@ class Projects(BaseServicesInterface):
             projects_pb2.UpdateVtsiProjectResponse:
                 The response message containing the details of the updated VtsiProject.
         """
-        return self.stub.UpdateVtsiProject(request=request)
+        return self.stub.UpdateVtsiProject(request=request, metadata=self.metadata)
 
     def delete_vtsi_project(
         self,
@@ -99,7 +98,7 @@ class Projects(BaseServicesInterface):
             projects_pb2.DeleteVtsiProjectResponse:
                 The response message containing the details of the deleted VtsiProject.
         """
-        return self.stub.DeleteVtsiProject(request=request)
+        return self.stub.DeleteVtsiProject(request=request, metadata=self.metadata)
 
     def deploy_vtsi_project(
         self,
@@ -116,7 +115,7 @@ class Projects(BaseServicesInterface):
             projects_pb2.DeployVtsiProjectResponse:
                 The response message containing the details of the deployed VtsiProject.
         """
-        return self.stub.DeployVtsiProject(request=request)
+        return self.stub.DeployVtsiProject(request=request, metadata=self.metadata)
 
     def undeploy_vtsi_project(
         self,
@@ -133,7 +132,7 @@ class Projects(BaseServicesInterface):
             projects_pb2.UndeployVtsiProjectResponse:
                 The response message containing the details of the undeployed VtsiProject.
         """
-        return self.stub.UndeployVtsiProject(request=request)
+        return self.stub.UndeployVtsiProject(request=request, metadata=self.metadata)
 
     def list_vtsi_projects(
         self,
@@ -148,4 +147,4 @@ class Projects(BaseServicesInterface):
         Returns:
             projects_pb2.ListVtsiProjectsResponse: The response message containing a list of all VtsiProjects.
         """
-        return self.stub.ListVtsiProjects(request=request)
+        return self.stub.ListVtsiProjects(request=request, metadata=self.metadata)

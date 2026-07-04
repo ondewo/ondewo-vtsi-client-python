@@ -19,8 +19,8 @@ from typing import (
 )
 
 from ondewo.utils.base_client import BaseClient
-from ondewo.utils.base_client_config import BaseClientConfig
 
+from ondewo.vtsi.client.client_config import ClientConfig
 from ondewo.vtsi.client.services.calls import Calls
 from ondewo.vtsi.client.services.projects import Projects
 from ondewo.vtsi.client.services_container import ServicesContainer
@@ -33,7 +33,7 @@ class Client(BaseClient):
 
     def _initialize_services(
         self,
-        config: BaseClientConfig,
+        config: ClientConfig,
         use_secure_channel: bool,
         options: Optional[Set[Tuple[str, Any]]] = None,
     ) -> None:

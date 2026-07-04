@@ -11,13 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from ondewo.utils.async_base_services_interface import AsyncBaseServicesInterface
-
 from ondewo.vtsi import projects_pb2
 from ondewo.vtsi.projects_pb2_grpc import ProjectsStub
+from ondewo.vtsi.client.async_services_interface import AsyncServicesInterface
 
 
-class Projects(AsyncBaseServicesInterface):
+class Projects(AsyncServicesInterface):
     """
     A class representing the Projects service interface.
 
@@ -50,7 +49,7 @@ class Projects(AsyncBaseServicesInterface):
             projects_pb2.CreateVtsiProjectResponse:
                 The response message containing the details of the created VtsiProject.
         """
-        return await self.stub.CreateVtsiProject(request=request)
+        return await self.stub.CreateVtsiProject(request=request, metadata=self.metadata)
 
     async def get_vtsi_project(self, request: projects_pb2.GetVtsiProjectRequest) -> projects_pb2.VtsiProject:
         """
@@ -62,7 +61,7 @@ class Projects(AsyncBaseServicesInterface):
         Returns:
             projects_pb2.VtsiProject: The response message containing the details of the specified VtsiProject.
         """
-        return await self.stub.GetVtsiProject(request=request)
+        return await self.stub.GetVtsiProject(request=request, metadata=self.metadata)
 
     async def update_vtsi_project(
         self, request: projects_pb2.UpdateVtsiProjectRequest
@@ -77,7 +76,7 @@ class Projects(AsyncBaseServicesInterface):
             projects_pb2.UpdateVtsiProjectResponse:
                 The response message containing the details of the updated VtsiProject.
         """
-        return await self.stub.UpdateVtsiProject(request=request)
+        return await self.stub.UpdateVtsiProject(request=request, metadata=self.metadata)
 
     async def delete_vtsi_project(
         self, request: projects_pb2.DeleteVtsiProjectRequest
@@ -93,7 +92,7 @@ class Projects(AsyncBaseServicesInterface):
             projects_pb2.DeleteVtsiProjectResponse:
                 The response message containing the details of the deleted VtsiProject.
         """
-        return await self.stub.DeleteVtsiProject(request=request)
+        return await self.stub.DeleteVtsiProject(request=request, metadata=self.metadata)
 
     async def deploy_vtsi_project(
         self, request: projects_pb2.DeployVtsiProjectRequest
@@ -109,7 +108,7 @@ class Projects(AsyncBaseServicesInterface):
             projects_pb2.DeployVtsiProjectResponse:
                 The response message containing the details of the deployed VtsiProject.
         """
-        return await self.stub.DeployVtsiProject(request=request)
+        return await self.stub.DeployVtsiProject(request=request, metadata=self.metadata)
 
     async def undeploy_vtsi_project(
         self, request: projects_pb2.UndeployVtsiProjectRequest
@@ -125,7 +124,7 @@ class Projects(AsyncBaseServicesInterface):
             projects_pb2.UndeployVtsiProjectResponse:
                 The response message containing the details of the undeployed VtsiProject.
         """
-        return await self.stub.UndeployVtsiProject(request=request)
+        return await self.stub.UndeployVtsiProject(request=request, metadata=self.metadata)
 
     async def list_vtsi_projects(
         self, request: projects_pb2.ListVtsiProjectsRequest
@@ -139,4 +138,4 @@ class Projects(AsyncBaseServicesInterface):
         Returns:
             projects_pb2.ListVtsiProjectsResponse: The response message containing a list of all VtsiProjects.
         """
-        return await self.stub.ListVtsiProjects(request=request)
+        return await self.stub.ListVtsiProjects(request=request, metadata=self.metadata)

@@ -166,14 +166,28 @@ It will generate a `_pb2.py`, `_pb2.pyi` and `_pb2_grpc.py` file for every `.pro
 
 ## Examples
 
-The `/examples` folder provides a possible implementation of this library. To run an example, simple execute it like any other python file. To specify the server and credentials, you need to provide an environment file with the following variables:
+The `/examples` folder provides a possible implementation of this library. To run an example, simple execute it like any other python file. To specify the server and credentials, you need to provide the following values:
 
 - host `// The hostname of the Server - e.g. 127.0.0.1`
 - port `// Port of the Server - e.g. 6600`
-- user_name `// Username - same as you would use in AIM`
-- password `// Password of the user`
-- http_token `// Token to allow access through`
-- grpc_cert `// gRPC Certificate of the server`
+- grpc_cert `// gRPC Certificate of the server (required for a secure channel)`
+- keycloak_url `// Base URL of the Keycloak server (D18 auth) - e.g. https://keycloak.example.com/auth`
+- realm `// Keycloak realm name (D18 auth)`
+- client_id `// Id of the public Keycloak SDK client (D18 auth) - no client secret`
+- username `// Username / email of the (2FA-exempt technical) user for the ROPC grant (D18 auth)`
+- password `// Password of that user`
+
+The client authenticates with the D18 Keycloak offline-token (bearer) flow: it logs in once against a
+**public** Keycloak client with `grant_type=password` + `scope=offline_access`, then auto-refreshes the
+short-lived access token. The legacy `http_token` (`Authorization: Basic`) is removed (D5) and is no longer
+required. The service wrappers under `ondewo/vtsi/client/services/` sit on top of the generated
+`_pb2_grpc.py` stubs and inject the freshly refreshed token via `self.metadata` on every call, so application
+code stays clean. Without a wrapper the same call would attach the token manually:
+
+```python
+metadata = [("Authorization", "Bearer <token>")]
+stub.StartCaller(request, metadata=metadata)
+```
 
 ## Automatic Release Process
 
