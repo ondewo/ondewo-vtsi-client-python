@@ -13,10 +13,10 @@
 # limitations under the License.
 from ondewo.vtsi import projects_pb2
 from ondewo.vtsi.projects_pb2_grpc import ProjectsStub
-from ondewo.vtsi.client.async_services_interface import AsyncServicesInterface
+from ondewo.vtsi.client.services_interface import ServicesInterface
 
 
-class Projects(AsyncServicesInterface):
+class Projects(ServicesInterface):
     """
     A class representing the Projects service interface.
 
