@@ -13,10 +13,10 @@
 # limitations under the License.
 from ondewo.vtsi import calls_pb2
 from ondewo.vtsi.calls_pb2_grpc import CallsStub
-from ondewo.vtsi.client.services_interface import ServicesInterface
+from ondewo.vtsi.client.async_services_interface import AsyncServicesInterface
 
 
-class Calls(ServicesInterface):
+class Calls(AsyncServicesInterface):
     """
     A class representing the Calls service interface.
 
