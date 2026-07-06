@@ -40,14 +40,26 @@ HOST: str = "localhost"
 PORT: str = "50200"
 PROJECT_NAME: str = "projects/22222222-2222-2222-2222-222222222222/project"
 CALL_NAME: str = "projects/22222222-2222-2222-2222-222222222222/calls/abc"
+_KEYCLOAK_ENV_VARS = (
+    "KEYCLOAK_URL",
+    "KEYCLOAK_REALM",
+    "KEYCLOAK_CLIENT_ID",
+    "KEYCLOAK_USER_NAME",
+    "KEYCLOAK_PASSWORD",
+)
 
 
 class TestBuildConfig:
     """Tests for the ``build_config`` helper's default (no-Keycloak) mode."""
 
-    def test_without_keycloak_fields_is_valid_and_unflagged(self) -> None:
+    def test_without_keycloak_fields_is_valid_and_unflagged(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """Omitting the Keycloak fields yields a valid config that does not opt into D18 auth."""
-        config = build_config(host=HOST, port=PORT)
+        monkeypatch.setenv("ONDEWO_HOST", HOST)
+        monkeypatch.setenv("ONDEWO_PORT", PORT)
+        for name in _KEYCLOAK_ENV_VARS:
+            monkeypatch.delenv(name, raising=False)
+
+        config = build_config()
 
         assert config.host == HOST
         assert config.port == PORT
@@ -75,17 +87,18 @@ class TestListCalls:
 class TestMain:
     """End-to-end test of ``main`` with the ``Client`` class patched out."""
 
-    def test_main_constructs_client_and_prints_call_count(
+    def test_main_constructs_client_and_lists_calls(
         self,
         monkeypatch: pytest.MonkeyPatch,
-        capsys: pytest.CaptureFixture[str],
     ) -> None:
-        """``main`` builds an insecure client, lists the calls, and prints how many were returned."""
+        """``main`` reads the environment, builds an insecure client, and lists the calls."""
         expected_response = ListCallsResponse(calls=[Call(name=CALL_NAME)])
-        monkeypatch.setattr(
-            "sys.argv",
-            ["list_calls.py", "--host", HOST, "--port", PORT, "--vtsi-project-name", PROJECT_NAME],
-        )
+        monkeypatch.setenv("ONDEWO_HOST", HOST)
+        monkeypatch.setenv("ONDEWO_PORT", PORT)
+        monkeypatch.setenv("ONDEWO_USE_SECURE_CHANNEL", "false")
+        monkeypatch.setenv("ONDEWO_VTSI_PROJECT_NAME", PROJECT_NAME)
+        for name in _KEYCLOAK_ENV_VARS:
+            monkeypatch.delenv(name, raising=False)
 
         with mock.patch("examples.calls.list_calls.Client") as client_cls:
             client_cls.return_value.services.calls.list_calls.return_value = expected_response
@@ -98,7 +111,3 @@ class TestMain:
         list_calls_stub.assert_called_once()
         sent_request: Any = list_calls_stub.call_args.kwargs["request"]
         assert sent_request.vtsi_project_name == PROJECT_NAME
-
-        captured = capsys.readouterr()
-        assert "1 call(s)" in captured.out
-        assert PROJECT_NAME in captured.out
