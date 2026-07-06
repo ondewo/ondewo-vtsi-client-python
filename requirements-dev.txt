@@ -1,8 +1,10 @@
 -r requirements.txt
 flake8
+loguru
 mypy
 mypy-protobuf
 # pre-commit # Do not add this here
 pytest
+python-dotenv
 setuptools
 typing_extensions
