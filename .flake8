@@ -27,6 +27,8 @@ exclude =
     ./ondewo/nlu/project_role_pb2.py,
     ./ondewo/nlu/project_statistics_pb2_grpc.py,
     ./ondewo/nlu/project_statistics_pb2.py,
+    ./ondewo/nlu/rag_pb2_grpc.py,
+    ./ondewo/nlu/rag_pb2.py,
     ./ondewo/nlu/server_statistics_pb2_grpc.py,
     ./ondewo/nlu/server_statistics_pb2.py,
     ./ondewo/nlu/session_pb2_grpc.py,

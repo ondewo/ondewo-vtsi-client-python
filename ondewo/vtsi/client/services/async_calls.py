@@ -11,13 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from ondewo.utils.async_base_services_interface import AsyncBaseServicesInterface
-
 from ondewo.vtsi import calls_pb2
 from ondewo.vtsi.calls_pb2_grpc import CallsStub
+from ondewo.vtsi.client.async_services_interface import AsyncServicesInterface
 
 
-class Calls(AsyncBaseServicesInterface):
+class Calls(AsyncServicesInterface):
     """
     A class representing the Calls service interface.
 
@@ -52,7 +51,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StartCallerResponse: The response message containing the caller ID and
             other details for the started caller.
         """
-        return await self.stub.StartCaller(request=request)
+        return await self.stub.StartCaller(request=request, metadata=self.metadata)
 
     async def start_callers(
         self,
@@ -68,7 +67,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StartCallersResponse: The response message containing the IDs and
             other details for the started callers.
         """
-        return await self.stub.StartCallers(request=request)
+        return await self.stub.StartCallers(request=request, metadata=self.metadata)
 
     async def list_callers(
         self,
@@ -83,7 +82,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.ListCallersResponse: The response message containing a list of active callers.
         """
-        return await self.stub.ListCallers(request=request)
+        return await self.stub.ListCallers(request=request, metadata=self.metadata)
 
     async def get_caller(
         self,
@@ -98,7 +97,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.Caller: The response message containing the details of the specified caller.
         """
-        return await self.stub.GetCaller(request=request)
+        return await self.stub.GetCaller(request=request, metadata=self.metadata)
 
     async def delete_caller(
         self,
@@ -114,7 +113,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.DeleteCallersResponse: The response message containing the IDs and
             other details for the deleted callers.
         """
-        return await self.stub.DeleteCallers(request=request)
+        return await self.stub.DeleteCallers(request=request, metadata=self.metadata)
 
     async def delete_callers(
         self,
@@ -130,7 +129,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.DeleteCallersResponse: The response message containing the IDs and
             other details for the deleted callers.
         """
-        return await self.stub.DeleteCallers(request=request)
+        return await self.stub.DeleteCallers(request=request, metadata=self.metadata)
 
     async def stop_caller(
         self,
@@ -146,7 +145,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StopCallersResponse: The response message containing the IDs and
             other details for the stopd callers.
         """
-        return await self.stub.StopCallers(request=request)
+        return await self.stub.StopCallers(request=request, metadata=self.metadata)
 
     async def stop_callers(
         self,
@@ -162,7 +161,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StopCallersResponse: The response message containing the IDs and
             other details for the stopd callers.
         """
-        return await self.stub.StopCallers(request=request)
+        return await self.stub.StopCallers(request=request, metadata=self.metadata)
 
     async def start_listener(
         self,
@@ -178,7 +177,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StartListenerResponse: The response message containing the listener ID and
             other details for the started listener.
         """
-        return await self.stub.StartListener(request=request)
+        return await self.stub.StartListener(request=request, metadata=self.metadata)
 
     async def start_listeners(
         self,
@@ -194,7 +193,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StartListenersResponse: The response message containing the IDs and
             other details for the started listeners.
         """
-        return await self.stub.StartListeners(request=request)
+        return await self.stub.StartListeners(request=request, metadata=self.metadata)
 
     async def list_listeners(
         self,
@@ -209,7 +208,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.ListListenersResponse: The response message containing a list of active listeners.
         """
-        return await self.stub.ListListeners(request=request)
+        return await self.stub.ListListeners(request=request, metadata=self.metadata)
 
     async def get_listener(
         self,
@@ -224,7 +223,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.Listener: The response message containing the details of the specified listener.
         """
-        return await self.stub.GetListener(request=request)
+        return await self.stub.GetListener(request=request, metadata=self.metadata)
 
     async def delete_listener(
         self,
@@ -240,7 +239,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.DeleteListenersResponse: The response message containing the IDs and
             other details for the deleted listeners.
         """
-        return await self.stub.DeleteListeners(request=request)
+        return await self.stub.DeleteListeners(request=request, metadata=self.metadata)
 
     async def delete_listeners(
         self,
@@ -256,7 +255,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.DeleteListenersResponse: The response message containing the IDs and
             other details for the deleted listeners.
         """
-        return await self.stub.DeleteListeners(request=request)
+        return await self.stub.DeleteListeners(request=request, metadata=self.metadata)
 
     async def stop_listener(
         self,
@@ -272,7 +271,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StopListenersResponse: The response message containing the IDs and
             other details for the stopd listeners.
         """
-        return await self.stub.StopListeners(request=request)
+        return await self.stub.StopListeners(request=request, metadata=self.metadata)
 
     async def stop_listeners(
         self,
@@ -288,7 +287,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StopListenersResponse: The response message containing the IDs and
             other details for the stopd listeners.
         """
-        return await self.stub.StopListeners(request=request)
+        return await self.stub.StopListeners(request=request, metadata=self.metadata)
 
     async def start_scheduled_caller(
         self, request: calls_pb2.StartScheduledCallerRequest
@@ -303,7 +302,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StartScheduledCallerResponse: The response message containing the scheduled caller ID and
             other details for the started scheduled caller.
         """
-        return await self.stub.StartScheduledCaller(request=request)
+        return await self.stub.StartScheduledCaller(request=request, metadata=self.metadata)
 
     async def start_scheduled_callers(
         self,
@@ -319,7 +318,7 @@ class Calls(AsyncBaseServicesInterface):
             calls_pb2.StartScheduledCallersResponse: The response message containing the IDs and
             other details for the started scheduled callers.
         """
-        return await self.stub.StartScheduledCallers(request=request)
+        return await self.stub.StartScheduledCallers(request=request, metadata=self.metadata)
 
     async def stop_call(
         self,
@@ -334,7 +333,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.StopCallResponse: The response message containing the details of the stopped call.
         """
-        return await self.stub.StopCall(request=request)
+        return await self.stub.StopCall(request=request, metadata=self.metadata)
 
     async def stop_calls(
         self,
@@ -349,7 +348,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.StopCallsResponse: The response message containing the details of the stopped calls.
         """
-        return await self.stub.StopCalls(request=request)
+        return await self.stub.StopCalls(request=request, metadata=self.metadata)
 
     async def stop_all_calls(
         self,
@@ -364,7 +363,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.StopCallsResponse: The response message containing the details of the stopped calls.
         """
-        return await self.stub.StopAllCalls(request=request)
+        return await self.stub.StopAllCalls(request=request, metadata=self.metadata)
 
     async def transfer_call(
         self,
@@ -379,7 +378,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.TransferCallResponse: The response message containing the details of the transferred call.
         """
-        return await self.stub.TransferCall(request=request)
+        return await self.stub.TransferCall(request=request, metadata=self.metadata)
 
     async def transfer_calls(
         self,
@@ -394,7 +393,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.TransferCallsResponse: The response message containing the details of the transferred calls.
         """
-        return await self.stub.TransferCalls(request=request)
+        return await self.stub.TransferCalls(request=request, metadata=self.metadata)
 
     async def get_call(self, request: calls_pb2.GetCallRequest) -> calls_pb2.Call:
         """
@@ -406,7 +405,7 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.Call: The response message containing the details of the specified call.
         """
-        return await self.stub.GetCall(request=request)
+        return await self.stub.GetCall(request=request, metadata=self.metadata)
 
     async def list_calls(
         self,
@@ -421,4 +420,4 @@ class Calls(AsyncBaseServicesInterface):
         Returns:
             calls_pb2.ListCallsResponse: The response message containing a list of active calls.
         """
-        return await self.stub.ListCalls(request=request)
+        return await self.stub.ListCalls(request=request, metadata=self.metadata)

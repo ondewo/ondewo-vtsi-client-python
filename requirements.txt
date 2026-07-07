@@ -5,6 +5,7 @@ grpcio
 grpcio-reflection
 grpcio-tools
 mypy-protobuf
-ondewo-client-utils>=3.1.0
+ondewo-client-utils>=3.2.0
 polling
 regex
+requests

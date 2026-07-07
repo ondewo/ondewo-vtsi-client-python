@@ -21,19 +21,19 @@ from typing import (
 from ondewo.utils.async_base_client import AsyncBaseClient
 
 from ondewo.vtsi.client.async_services_container import AsyncServicesContainer
-from ondewo.vtsi.client.client_config import BaseClientConfig
+from ondewo.vtsi.client.client_config import ClientConfig
 from ondewo.vtsi.client.services.async_calls import Calls
 from ondewo.vtsi.client.services.async_projects import Projects
 
 
 class AsyncClient(AsyncBaseClient):
     """
-    The core asynchronous Python client for interacting with ONDEWO s2t services.
+    The core asynchronous Python client for interacting with ONDEWO VTSI services.
     """
 
     def _initialize_services(
         self,
-        config: BaseClientConfig,
+        config: ClientConfig,
         use_secure_channel: bool,
         options: Optional[Set[Tuple[str, Any]]] = None,
     ) -> None:

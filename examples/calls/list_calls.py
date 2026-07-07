@@ -12,23 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """
-Minimal example: fetch a single VTSI project through the Projects service.
+Minimal example: list the calls of a VTSI project through the Calls service.
 
 Configuration is read from ``examples/environment.env`` (loaded via python-dotenv
 relative to this script, so the current working directory does not matter). Run it
 against a local, insecure server by setting ``ONDEWO_HOST`` / ``ONDEWO_PORT`` /
 ``ONDEWO_VTSI_PROJECT_NAME`` there and then::
 
-    python -m examples.projects.get_vtsi_project
+    python -m examples.calls.list_calls
 
-Authentication (D18 Keycloak offline-token flow)
-------------------------------------------------
-The ONDEWO platform authenticates SDK calls with a Keycloak *offline-token* (bearer)
-flow that is configured on :class:`ondewo.vtsi.client.client_config.ClientConfig`: set
-the ``KEYCLOAK_URL`` / ``KEYCLOAK_REALM`` / ``KEYCLOAK_CLIENT_ID`` / ``KEYCLOAK_USER_NAME``
-/ ``KEYCLOAK_PASSWORD`` env vars (the SDK client is *public*, so there is no client
-secret). The legacy HTTP-Basic credential has been removed. When those vars are left
-blank the config is still valid, which is convenient for a local, insecure dev server.
+Authentication is the D18 Keycloak offline-token (bearer) flow configured on
+:class:`ondewo.vtsi.client.client_config.ClientConfig` via the ``KEYCLOAK_*`` env
+vars; see ``examples/projects/get_vtsi_project.py`` for the full auth notes.
 """
 import os
 import sys
@@ -39,12 +34,12 @@ import grpc
 from dotenv import load_dotenv
 from loguru import logger as log
 
+from ondewo.vtsi.calls_pb2 import (
+    ListCallsRequest,
+    ListCallsResponse,
+)
 from ondewo.vtsi.client.client import Client
 from ondewo.vtsi.client.client_config import ClientConfig
-from ondewo.vtsi.projects_pb2 import (
-    GetVtsiProjectRequest,
-    VtsiProject,
-)
 
 load_dotenv(Path(__file__).resolve().parent.parent / "environment.env")
 
@@ -93,8 +88,7 @@ def build_config() -> ClientConfig:
 
     Reads the canonical ``ONDEWO_*`` / ``KEYCLOAK_*`` variables. When the Keycloak
     fields are provided the config opts into the D18 offline-token (bearer) auth
-    flow; when they are all omitted a plain host/port config is returned (handy for
-    a local insecure server).
+    flow; when they are all omitted a plain host/port config is returned.
 
     Returns:
         ClientConfig:
@@ -113,9 +107,9 @@ def build_config() -> ClientConfig:
     )
 
 
-def get_vtsi_project(client: Client, vtsi_project_name: str) -> VtsiProject:
+def list_calls(client: Client, vtsi_project_name: str) -> ListCallsResponse:
     """
-    Fetch a single VTSI project by name and return it.
+    List the calls belonging to a VTSI project.
 
     Args:
         client (Client):
@@ -124,39 +118,39 @@ def get_vtsi_project(client: Client, vtsi_project_name: str) -> VtsiProject:
             Resource name of the project, e.g. ``"projects/<project_uuid>/project"``.
 
     Returns:
-        VtsiProject:
-            The requested project.
+        ListCallsResponse:
+            The response carrying the project's calls and the next-page token.
 
     Raises:
         grpc.RpcError:
-            If the Projects service call fails.
+            If the Calls service call fails.
     """
-    log.info(f"START: get_vtsi_project: vtsi_project_name={vtsi_project_name!r}")
-    request: GetVtsiProjectRequest = GetVtsiProjectRequest(name=vtsi_project_name)
+    log.info(f"START: list_calls: vtsi_project_name={vtsi_project_name!r}")
+    request: ListCallsRequest = ListCallsRequest(vtsi_project_name=vtsi_project_name)
     try:
-        vtsi_project: VtsiProject = client.services.projects.get_vtsi_project(request=request)
+        response: ListCallsResponse = client.services.calls.list_calls(request=request)
     except grpc.RpcError as rpc_error:
-        log.error(f"gRPC GetVtsiProject failed: code={rpc_error.code()} details={rpc_error.details()}")
+        log.error(f"gRPC ListCalls failed: code={rpc_error.code()} details={rpc_error.details()}")
         raise
-    log.info(f"DONE: get_vtsi_project: name={vtsi_project.name!r}")
-    return vtsi_project
+    log.info(f"DONE: list_calls: received {len(response.calls)} call(s)")
+    return response
 
 
 def main() -> None:
-    """Entry point: build the client, fetch the project, and log its display name."""
+    """Entry point: build the client, list the project's calls, and log how many were returned."""
     config: ClientConfig = build_config()
     use_secure_channel: bool = _env_bool("ONDEWO_USE_SECURE_CHANNEL", default=False)
     vtsi_project_name: str = os.environ["ONDEWO_VTSI_PROJECT_NAME"]
 
     log.info(f"Connecting to VTSI at {config.host}:{config.port} (secure={use_secure_channel})")
     client: Client = Client(config=config, use_secure_channel=use_secure_channel)
-    vtsi_project: VtsiProject = get_vtsi_project(client=client, vtsi_project_name=vtsi_project_name)
-    log.info(f"Fetched VTSI project: name={vtsi_project.name!r} display_name={vtsi_project.display_name!r}")
+    response: ListCallsResponse = list_calls(client=client, vtsi_project_name=vtsi_project_name)
+    log.info(f"Listed {len(response.calls)} call(s) for project {vtsi_project_name!r}.")
 
 
 if __name__ == "__main__":
     try:
         main()
     except Exception:
-        log.exception("Failed to fetch VTSI project.")
+        log.exception("Failed to list VTSI calls.")
         sys.exit(1)
