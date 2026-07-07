@@ -24,7 +24,7 @@ PYPI_PASSWORD?=ENTER_HERE_YOUR_PYPI_PASSWORD
 GITHUB_GH_TOKEN?=ENTER_YOUR_TOKEN_HERE
 
 CURRENT_RELEASE_NOTES=`cat RELEASE.md \
-	| sed -n '/Release ONDEWO VTSI Client Python ${ONDEWO_VTSI_VERSION}/,/\*\*/p'`
+	| perl -ne 'print if /Release ONDEWO VTSI Client Python ${ONDEWO_VTSI_VERSION}/../\*\*/'`
 
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"
@@ -95,7 +95,7 @@ check_build: ## Checks if all built proto-code is there
 		echo $${proto} | cut -d "/" -f 4 | cut -d "." -f 1 >> build_check.txt; \
 	done
 	@echo "`sort build_check.txt | uniq`" > build_check.txt
-	@sed -i "s/\-/\_/g" build_check.txt
+	@perl -i -pe "s/\-/\_/g" build_check.txt
 	@for file in `cat build_check.txt`;\
 	do \
 		find ondewo -iname "*pb*" | grep -q $${file}; \
@@ -109,8 +109,8 @@ check_build: ## Checks if all built proto-code is there
 #		Build
 
 update_setup: ## Update Version in setup.py
-	@sed -i "s/version='[0-9]*.[0-9]*.[0-9]*'/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
-	@sed -i "s/version=\"[0-9]*.[0-9]*.[0-9]*\"/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
+	@perl -i -pe "s/version='[0-9]*.[0-9]*.[0-9]*'/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
+	@perl -i -pe "s/version=\"[0-9]*.[0-9]*.[0-9]*\"/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
 
 build: clear_package_data prepare_submodules build_compiler generate_all_protos create_async_services update_setup ## Build source code
 
@@ -191,12 +191,7 @@ create_async_services: ## Create async services for all synchronous services
 	        cp "$$file" "$$dir/async_$$filename"; \
 	    done; \
 	    for file in "$$dir"/async_*.py; do \
-	        sed -i -E \
-	            -e '/def stub/b' -e 's/^([[:space:]]*)def /\1async def /g' \
-	            -e 's/self\.stub/await self.stub/g' \
-	            -e 's/\(BaseServicesInterface\)/\(AsyncBaseServicesInterface\)/g' \
-	            -e 's/base_services_interface/async_base_services_interface/g' \
-	            -e 's/import BaseServicesInterface/import AsyncBaseServicesInterface/g' \
+	        perl -i -pe 'unless(/def stub/){ s/^([[:space:]]*)def /$$1async def /g; s/self\.stub/await self.stub/g; s/\(BaseServicesInterface\)/(AsyncBaseServicesInterface)/g; s/base_services_interface/async_base_services_interface/g; s/import BaseServicesInterface/import AsyncBaseServicesInterface/g; }' \
 	            "$$file"; \
 	    done; \
 	done
