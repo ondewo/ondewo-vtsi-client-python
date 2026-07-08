@@ -108,9 +108,8 @@ check_build: ## Checks if all built proto-code is there
 ########################################################
 #		Build
 
-update_setup: ## Update Version in setup.py
-	@perl -i -pe "s/version='[0-9]*.[0-9]*.[0-9]*'/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
-	@perl -i -pe "s/version=\"[0-9]*.[0-9]*.[0-9]*\"/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
+update_setup: ## Update Version in pyproject.toml
+	@perl -i -pe 's/^version = "[0-9]+\.[0-9]+\.[0-9]+"/version = "${ONDEWO_VTSI_VERSION}"/' pyproject.toml
 
 build: clear_package_data prepare_submodules build_compiler generate_all_protos create_async_services update_setup ## Build source code
 
@@ -210,7 +209,7 @@ release: ## Automate the entire release process
 	git add ondewo
 	git add Makefile
 	git add RELEASE.md
-	git add setup.py
+	git add pyproject.toml uv.lock
 	git add ${ONDEWO_PROTO_COMPILER_DIR}
 	git add ${ONDEWO_VTSI_API_DIR}
 	git add ondewo-vtsi-api
@@ -261,7 +260,7 @@ install: init_submodules
 #		PYPI
 
 build_package: ## Builds PYPI Package
-	python setup.py sdist bdist_wheel
+	python -m build --no-isolation
 	chmod a+rw dist -R
 
 upload_package:
@@ -285,9 +284,9 @@ push_to_pypi: build_package upload_package clear_package_data ## Builds -> Uploa
 	@echo 'YAY - Pushed to pypi : )'
 
 show_pypi: build_package ## Shows PYPI Package with Dockerimage
-	tar xvfz dist/ondewo-vtsi-client-${ONDEWO_VTSI_VERSION}.tar.gz
-	tree ondewo-vtsi-client-${ONDEWO_VTSI_VERSION}
-	cat ondewo-vtsi-client-${ONDEWO_VTSI_VERSION}/ondewo_vtsi_client.egg-info/requires.txt
+	tar xvfz dist/ondewo_vtsi_client-${ONDEWO_VTSI_VERSION}.tar.gz
+	tree ondewo_vtsi_client-${ONDEWO_VTSI_VERSION}
+	cat ondewo_vtsi_client-${ONDEWO_VTSI_VERSION}/ondewo_vtsi_client.egg-info/requires.txt
 
 show_pypi_via_docker_image: build_utils_docker_image ## Push source code to pypi via docker
 	[ -d $(OUTPUT_DIR) ] || mkdir -p $(OUTPUT_DIR)
@@ -326,7 +325,7 @@ run_release_with_devops:
 spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 	$(eval filtered_branches:= $(shell git branch --all | grep "release/${ONDEWO_VTSI_VERSION}"))
 	$(eval filtered_tags:= $(shell git tag --list | grep "${ONDEWO_VTSI_VERSION}"))
-	$(eval setuppy_version:= $(shell cat setup.py | grep "version"))
+	$(eval setuppy_version:= $(shell cat pyproject.toml | grep "^version"))
 	@if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
 	@if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
 	#	@if test "$(setuppy_version)" != "version='${ONDEWO_VTSI_VERSION}',"; then echo "-- Test 3: Setup.py not updated!!" & exit 1; else echo "-- Test 3: Setup.py is fine";fi
@@ -338,7 +337,7 @@ fetch_build_commit_push_new_vtsi_api:
 	-git -C ondewo-vtsi-api pull
 	make build
 	git add Makefile
-	git add setup.py
+	git add pyproject.toml uv.lock
 	git add ondewo/nlu
 	git add ondewo/qa
 	git add ondewo/s2t
