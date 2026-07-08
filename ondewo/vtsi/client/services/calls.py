@@ -290,8 +290,7 @@ class Calls(ServicesInterface):
         return self.stub.StopListeners(request=request, metadata=self.metadata)
 
     def start_scheduled_caller(
-        self,
-        request: calls_pb2.StartScheduledCallerRequest
+        self, request: calls_pb2.StartScheduledCallerRequest
     ) -> calls_pb2.StartScheduledCallerResponse:
         """
         Start a new scheduled caller.
@@ -337,8 +336,8 @@ class Calls(ServicesInterface):
         return self.stub.StopCall(request=request, metadata=self.metadata)
 
     def stop_calls(
-        self, request:
-        calls_pb2.StopCallsRequest,
+        self,
+        request: calls_pb2.StopCallsRequest,
     ) -> calls_pb2.StopCallsResponse:
         """
         Stop multiple active calls.
@@ -396,10 +395,7 @@ class Calls(ServicesInterface):
         """
         return self.stub.TransferCalls(request=request, metadata=self.metadata)
 
-    def get_call(
-        self,
-        request: calls_pb2.GetCallRequest
-    ) -> calls_pb2.Call:
+    def get_call(self, request: calls_pb2.GetCallRequest) -> calls_pb2.Call:
         """
         Get details of a specific call.
 

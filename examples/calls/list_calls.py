@@ -25,6 +25,7 @@ Authentication is the D18 Keycloak offline-token (bearer) flow configured on
 :class:`ondewo.vtsi.client.client_config.ClientConfig` via the ``KEYCLOAK_*`` env
 vars; see ``examples/projects/get_vtsi_project.py`` for the full auth notes.
 """
+
 import os
 import sys
 from pathlib import Path

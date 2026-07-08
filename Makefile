@@ -46,34 +46,32 @@ IMAGE_UTILS_NAME=ondewo-vtsi-client-utils-python:${ONDEWO_VTSI_VERSION}
 #       ONDEWO Standard Make Targets
 ########################################################
 
-setup_developer_environment_locally: install_precommit_hooks install_dependencies_locally
+setup_developer_environment_locally: install_uv install_dependencies_locally install_precommit_hooks ## Ready a fresh laptop: install uv, sync runtime+dev deps into .venv, install pre-commit hooks
 
-install_precommit_hooks: ## Installs pre-commit hooks and sets them up for the ondewo-csi-client repo
-	-pip install pre-commit
-	-conda -y install pre-commit
-	pre-commit install
-	pre-commit install --hook-type commit-msg
+install_uv: ## Install the uv package manager if it is not already available
+	@command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
+
+install_precommit_hooks: ## Installs pre-commit hooks and sets them up for the ondewo-vtsi-client-python repo
+	uv run pre-commit install
+	uv run pre-commit install --hook-type commit-msg
 
 precommit_hooks_run_all_files: ## Runs all pre-commit hooks on all files and not just the changed ones
-	pre-commit run --all-file
+	uv run pre-commit run --all-files
 
-install_dependencies_locally: ## Install dependencies locally
-	pip install -r requirements-dev.txt
-	pip install -r requirements.txt
+install_dependencies_locally: ## Install runtime + dev dependencies locally into the uv-managed .venv
+	uv sync --extra dev
 
-flake8: ## Runs flake8
-	flake8 --config .flake8 .
+ruff: ## Lint with ruff (replaces flake8)
+	uv run ruff check .
+
+ruff_fix: ## Lint with ruff and auto-fix fixable issues
+	uv run ruff check --fix .
+
+ruff_format: ## Format the codebase with ruff (replaces black + autopep8)
+	uv run ruff format .
 
 mypy: ## Run mypy static code checking
-	@echo "---------------------------------------------"
-	@echo "START: Run mypy in pre-commit hook ..."
-	pre-commit run mypy --all-files
-	@echo "DONE: Run mypy in pre-commit hook."
-	@echo "---------------------------------------------"
-	@echo "START: Run mypy directly ..."
-	mypy --config-file=mypy.ini .
-	@echo "DONE: Run mypy directly"
-	@echo "---------------------------------------------"
+	uv run mypy ondewo/ tests/
 
 help: ## Print usage info about help targets
 	# (first comment after target starting with double hashes ##)
@@ -169,17 +167,6 @@ generate_vtsi_protos:
 build_utils_docker_image:  ## Build utils docker image
 	docker build -f Dockerfile.utils -t ${IMAGE_UTILS_NAME} .
 
-setup_conda_env: ## Checks for CONDA Environment
-	@echo "\n START SETTING UP CONDA ENV \n"
-	@conda env list | grep -q ondewo-vtsi-client-python \
-	&& make release || ( echo "\n CONDA ENV FOR REPO DOESNT EXIST \n" \
-	&& make create_conda_env)
-
-create_conda_env: ## Creates CONDA Environment
-	conda create -y --name ondewo-vtsi-client-python python=3.9
-	/bin/bash -c 'source `conda info --base`/bin/activate ondewo-vtsi-client-python; make setup_developer_environment_locally && echo "\n PRECOMMIT INSTALLED \n"'
-	make release
-
 create_async_services: ## Create async services for all synchronous services
 	@find ondewo -type d -name "services" ! -path "*/.*/*" | while read -r dir; do \
 	    for file in "$$dir"/*.py; do \
@@ -203,7 +190,7 @@ create_async_services: ## Create async services for all synchronous services
 release: ## Automate the entire release process
 	@echo "Start Release"
 	make build
-	/bin/bash -c 'source `conda info --base`/bin/activate ondewo-vtsi-client-python; make precommit_hooks_run_all_files || echo "PRECOMMIT FOUND SOMETHING"'
+	-make precommit_hooks_run_all_files
 	git status
 	make check_build
 	git add ondewo
@@ -254,13 +241,13 @@ checkout_defined_submodule_versions:
 	@echo "DONE checking out submodules"
 
 install: init_submodules
-	pip install -e .
+	uv pip install -e .
 
 ########################################################
 #		PYPI
 
 build_package: ## Builds PYPI Package
-	python -m build --no-isolation
+	uv build
 	chmod a+rw dist -R
 
 upload_package:
@@ -349,7 +336,6 @@ fetch_build_commit_push_new_vtsi_api:
 	git commit -m "Generated new vtsi python library files"
 	git push
 
-# execute in conda environment
 update_vtsi_python_client_in_vtsi_and_install_master_version: fetch_build_commit_push_new_vtsi_api
-	-cd ~/ondewo/ondewo-vtsi && yes | pip uninstall ondewo-vtsi-client
-	-cd ~/ondewo/ondewo-vtsi && yes | pip install git+https://github.com/ondewo/ondewo-vtsi-client-python.git@master#egg=ondewo-vtsi-client
+	-cd ~/ondewo/ondewo-vtsi && uv pip uninstall ondewo-vtsi-client
+	-cd ~/ondewo/ondewo-vtsi && uv pip install git+https://github.com/ondewo/ondewo-vtsi-client-python.git@master#egg=ondewo-vtsi-client

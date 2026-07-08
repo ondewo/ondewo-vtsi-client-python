@@ -18,6 +18,7 @@ No live server is contacted: the VTSI :class:`Client` (and the gRPC stub underne
 replaced with a :class:`unittest.mock.MagicMock`, so the tests assert only that the example
 builds the correct request message and returns / prints the handled response.
 """
+
 from typing import Any
 from unittest import mock
 

@@ -22,6 +22,7 @@ sync :class:`ServicesInterface` and the async :class:`AsyncServicesInterface`:
   metadata from :meth:`KeycloakTokenProvider.bearer_metadata`;
 * no provider (no Keycloak auth) -> an empty list.
 """
+
 from typing import (
     Any,
     List,
