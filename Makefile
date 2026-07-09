@@ -201,7 +201,7 @@ release: ## Automate the entire release process
 	git add ${ONDEWO_VTSI_API_DIR}
 	git add ondewo-vtsi-api
 	git status
-	-git commit -m "PREPARING FOR RELEASE ${ONDEWO_VTSI_VERSION}"
+	-git commit --no-verify -m "PREPARING FOR RELEASE ${ONDEWO_VTSI_VERSION}"
 	git push
 	make create_release_branch
 	make create_release_tag
