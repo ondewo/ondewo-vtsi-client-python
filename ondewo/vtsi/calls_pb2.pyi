@@ -312,6 +312,7 @@ class CommonServicesConfig(google.protobuf.message.Message):
     NLU_VTSI_CONFIG_FIELD_NUMBER: builtins.int
     T2S_VTSI_CONFIG_FIELD_NUMBER: builtins.int
     CSI_VTSI_CONFIG_FIELD_NUMBER: builtins.int
+    VOICE_INTERACTION_CONFIG_FIELD_NUMBER: builtins.int
     @property
     def s2t_vtsi_config(self) -> global___S2tVtsiConfig:
         """speech-to-text service configuration"""
@@ -328,6 +329,10 @@ class CommonServicesConfig(google.protobuf.message.Message):
     def csi_vtsi_config(self) -> global___CsiVtsiConfig:
         """CSI service configuration"""
 
+    @property
+    def voice_interaction_config(self) -> global___VoiceInteractionConfig:
+        """Voice interaction configuration for turn detection, interruption (barge-in) handling and response timing"""
+
     def __init__(
         self,
         *,
@@ -335,11 +340,303 @@ class CommonServicesConfig(google.protobuf.message.Message):
         nlu_vtsi_config: global___NluVtsiConfig | None = ...,
         t2s_vtsi_config: global___T2sVtsiConfig | None = ...,
         csi_vtsi_config: global___CsiVtsiConfig | None = ...,
+        voice_interaction_config: global___VoiceInteractionConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]) -> None: ...
 
 global___CommonServicesConfig = CommonServicesConfig
+
+@typing.final
+class VoiceInteractionConfig(google.protobuf.message.Message):
+    """Configuration of the voice interaction behavior of a call:
+    turn detection, interruption (barge-in) handling and response timing
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TURN_DETECTION_CONFIG_FIELD_NUMBER: builtins.int
+    INTERRUPTION_HANDLING_CONFIG_FIELD_NUMBER: builtins.int
+    RESPONSE_TIMING_CONFIG_FIELD_NUMBER: builtins.int
+    @property
+    def turn_detection_config(self) -> global___TurnDetectionConfig:
+        """Configuration of the turn detection"""
+
+    @property
+    def interruption_handling_config(self) -> global___InterruptionHandlingConfig:
+        """Configuration of the interruption (barge-in) handling"""
+
+    @property
+    def response_timing_config(self) -> global___ResponseTimingConfig:
+        """Configuration of the response timing"""
+
+    def __init__(
+        self,
+        *,
+        turn_detection_config: global___TurnDetectionConfig | None = ...,
+        interruption_handling_config: global___InterruptionHandlingConfig | None = ...,
+        response_timing_config: global___ResponseTimingConfig | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> None: ...
+
+global___VoiceInteractionConfig = VoiceInteractionConfig
+
+@typing.final
+class TurnDetectionConfig(google.protobuf.message.Message):
+    """Configuration of the turn detection, i.e. deciding when the caller has finished speaking"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _TurnDetectionMode:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _TurnDetectionModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TurnDetectionConfig._TurnDetectionMode.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        TURN_DETECTION_MODE_UNSPECIFIED: TurnDetectionConfig._TurnDetectionMode.ValueType  # 0
+        """Unspecified turn detection mode defaults to SEMANTIC_MODEL"""
+        VAD: TurnDetectionConfig._TurnDetectionMode.ValueType  # 1
+        """Turn detection based on voice activity detection, i.e. pauses in the caller audio (fallback mode)"""
+        SEMANTIC_MODEL: TurnDetectionConfig._TurnDetectionMode.ValueType  # 2
+        """Turn detection based on a semantic (LLM) turn detection model of the speech-to-text service (default)"""
+        AUDIO_MODEL: TurnDetectionConfig._TurnDetectionMode.ValueType  # 3
+        """Turn detection based on an audio-native turn detection model"""
+
+    class TurnDetectionMode(_TurnDetectionMode, metaclass=_TurnDetectionModeEnumTypeWrapper):
+        """Mode of the turn detection"""
+
+    TURN_DETECTION_MODE_UNSPECIFIED: TurnDetectionConfig.TurnDetectionMode.ValueType  # 0
+    """Unspecified turn detection mode defaults to SEMANTIC_MODEL"""
+    VAD: TurnDetectionConfig.TurnDetectionMode.ValueType  # 1
+    """Turn detection based on voice activity detection, i.e. pauses in the caller audio (fallback mode)"""
+    SEMANTIC_MODEL: TurnDetectionConfig.TurnDetectionMode.ValueType  # 2
+    """Turn detection based on a semantic (LLM) turn detection model of the speech-to-text service (default)"""
+    AUDIO_MODEL: TurnDetectionConfig.TurnDetectionMode.ValueType  # 3
+    """Turn detection based on an audio-native turn detection model"""
+
+    class _TurnEagerness:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _TurnEagernessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TurnDetectionConfig._TurnEagerness.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        TURN_EAGERNESS_UNSPECIFIED: TurnDetectionConfig._TurnEagerness.ValueType  # 0
+        """Unspecified turn eagerness defaults to NORMAL"""
+        PATIENT: TurnDetectionConfig._TurnEagerness.ValueType  # 1
+        """Patient turn taking: scales the endpointing delays by a factor of 1.7"""
+        NORMAL: TurnDetectionConfig._TurnEagerness.ValueType  # 2
+        """Normal turn taking: keeps the endpointing delays unchanged (factor 1.0)"""
+        EAGER: TurnDetectionConfig._TurnEagerness.ValueType  # 3
+        """Eager turn taking: scales the endpointing delays by a factor of 0.6"""
+
+    class TurnEagerness(_TurnEagerness, metaclass=_TurnEagernessEnumTypeWrapper):
+        """Eagerness of the turn detection"""
+
+    TURN_EAGERNESS_UNSPECIFIED: TurnDetectionConfig.TurnEagerness.ValueType  # 0
+    """Unspecified turn eagerness defaults to NORMAL"""
+    PATIENT: TurnDetectionConfig.TurnEagerness.ValueType  # 1
+    """Patient turn taking: scales the endpointing delays by a factor of 1.7"""
+    NORMAL: TurnDetectionConfig.TurnEagerness.ValueType  # 2
+    """Normal turn taking: keeps the endpointing delays unchanged (factor 1.0)"""
+    EAGER: TurnDetectionConfig.TurnEagerness.ValueType  # 3
+    """Eager turn taking: scales the endpointing delays by a factor of 0.6"""
+
+    MODE_FIELD_NUMBER: builtins.int
+    MIN_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: builtins.int
+    MAX_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: builtins.int
+    TURN_EAGERNESS_FIELD_NUMBER: builtins.int
+    TURN_DETECTION_SYSTEM_PROMPT_FIELD_NUMBER: builtins.int
+    TURN_DETECTION_USER_PROMPT_FIELD_NUMBER: builtins.int
+    mode: global___TurnDetectionConfig.TurnDetectionMode.ValueType
+    """Mode of the turn detection. Defaults to SEMANTIC_MODEL if unspecified"""
+    min_endpointing_delay_seconds: builtins.float
+    """Optional: Minimum delay in seconds before a confidently detected end of turn is committed (default: 0.5)"""
+    max_endpointing_delay_seconds: builtins.float
+    """Optional: Maximum delay in seconds to wait for an end of turn before the turn is committed
+    from the latest stable partial transcription (default: 3.0)
+    """
+    turn_eagerness: global___TurnDetectionConfig.TurnEagerness.ValueType
+    """Eagerness of the turn detection: scales both endpointing delays. Defaults to NORMAL if unspecified"""
+    turn_detection_system_prompt: builtins.str
+    """System prompt for the semantic (LLM) turn detection model of the speech-to-text service"""
+    turn_detection_user_prompt: builtins.str
+    """User prompt for the semantic (LLM) turn detection model of the speech-to-text service"""
+    def __init__(
+        self,
+        *,
+        mode: global___TurnDetectionConfig.TurnDetectionMode.ValueType = ...,
+        min_endpointing_delay_seconds: builtins.float | None = ...,
+        max_endpointing_delay_seconds: builtins.float | None = ...,
+        turn_eagerness: global___TurnDetectionConfig.TurnEagerness.ValueType = ...,
+        turn_detection_system_prompt: builtins.str = ...,
+        turn_detection_user_prompt: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "mode", b"mode", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "turn_eagerness", b"turn_eagerness"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds"]) -> typing.Literal["max_endpointing_delay_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds"]) -> typing.Literal["min_endpointing_delay_seconds"] | None: ...
+
+global___TurnDetectionConfig = TurnDetectionConfig
+
+@typing.final
+class InterruptionHandlingConfig(google.protobuf.message.Message):
+    """Configuration of the interruption (barge-in) handling, i.e. the caller speaking while the bot is speaking"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENABLED_FIELD_NUMBER: builtins.int
+    MIN_INTERRUPTION_DURATION_SECONDS_FIELD_NUMBER: builtins.int
+    MIN_INTERRUPTION_WORDS_FIELD_NUMBER: builtins.int
+    FALSE_INTERRUPTION_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
+    RESUME_AFTER_FALSE_INTERRUPTION_FIELD_NUMBER: builtins.int
+    BACKOFF_SECONDS_FIELD_NUMBER: builtins.int
+    FIRST_MESSAGE_PROTECTED_SECONDS_FIELD_NUMBER: builtins.int
+    TRANSCRIBE_ON_DISABLED_INTERRUPTIONS_FIELD_NUMBER: builtins.int
+    enabled: builtins.bool
+    """Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking"""
+    min_interruption_duration_seconds: builtins.float
+    """Optional: Minimum duration in seconds of caller speech while the bot is speaking
+    to trigger an interruption (noise gate) (default: 0.5)
+    """
+    min_interruption_words: builtins.int
+    """Optional: Minimum number of transcribed words of caller speech while the bot is speaking
+    to trigger an interruption (default: 2)
+    """
+    false_interruption_timeout_seconds: builtins.float
+    """Optional: Time in seconds after an interruption trigger without a committed transcription
+    after which the interruption is classified as a false interruption (default: 2.0)
+    """
+    resume_after_false_interruption: builtins.bool
+    """Optional: Resume the paused bot response after a false interruption,
+    e.g. a cough or brief background noise (default: true)
+    """
+    backoff_seconds: builtins.float
+    """Optional: Silence in seconds after a real interruption before the next bot response is played (default: 1.0)"""
+    first_message_protected_seconds: builtins.float
+    """Optional: Protect the first bot message from interruptions
+    for the given number of seconds (default: 0 = no protection)
+    """
+    transcribe_on_disabled_interruptions: builtins.bool
+    """Transcribe caller speech while the bot is speaking even if interruptions are disabled"""
+    def __init__(
+        self,
+        *,
+        enabled: builtins.bool | None = ...,
+        min_interruption_duration_seconds: builtins.float | None = ...,
+        min_interruption_words: builtins.int | None = ...,
+        false_interruption_timeout_seconds: builtins.float | None = ...,
+        resume_after_false_interruption: builtins.bool | None = ...,
+        backoff_seconds: builtins.float | None = ...,
+        first_message_protected_seconds: builtins.float | None = ...,
+        transcribe_on_disabled_interruptions: builtins.bool = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_backoff_seconds", b"_backoff_seconds"]) -> typing.Literal["backoff_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds"]) -> typing.Literal["false_interruption_timeout_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_first_message_protected_seconds", b"_first_message_protected_seconds"]) -> typing.Literal["first_message_protected_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_min_interruption_duration_seconds", b"_min_interruption_duration_seconds"]) -> typing.Literal["min_interruption_duration_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_min_interruption_words", b"_min_interruption_words"]) -> typing.Literal["min_interruption_words"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_resume_after_false_interruption", b"_resume_after_false_interruption"]) -> typing.Literal["resume_after_false_interruption"] | None: ...
+
+global___InterruptionHandlingConfig = InterruptionHandlingConfig
+
+@typing.final
+class ResponseTimingConfig(google.protobuf.message.Message):
+    """Configuration of the response timing, i.e. when and how the bot responds"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TURN_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
+    SILENCE_END_CALL_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
+    SOFT_TIMEOUT_CONFIG_FIELD_NUMBER: builtins.int
+    PREEMPTIVE_GENERATION_ENABLED_FIELD_NUMBER: builtins.int
+    T2S_CHUNKED_STREAMING_ENABLED_FIELD_NUMBER: builtins.int
+    turn_timeout_seconds: builtins.float
+    """Optional: Seconds of caller silence after a bot response until a follow-up event
+    is triggered (default: 20.0, valid range: 1.0 - 30.0)
+    """
+    silence_end_call_timeout_seconds: builtins.float
+    """Optional: Seconds of caller silence until the call is ended.
+    Unset = off (-1 is also accepted as explicit off)
+    """
+    preemptive_generation_enabled: builtins.bool
+    """Optional: Enable preemptive response generation on an eagerly detected end of turn (default: false)"""
+    t2s_chunked_streaming_enabled: builtins.bool
+    """Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)"""
+    @property
+    def soft_timeout_config(self) -> global___SoftTimeoutConfig:
+        """Configuration of the soft timeout filler messages"""
+
+    def __init__(
+        self,
+        *,
+        turn_timeout_seconds: builtins.float | None = ...,
+        silence_end_call_timeout_seconds: builtins.float | None = ...,
+        soft_timeout_config: global___SoftTimeoutConfig | None = ...,
+        preemptive_generation_enabled: builtins.bool | None = ...,
+        t2s_chunked_streaming_enabled: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled"]) -> typing.Literal["preemptive_generation_enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds"]) -> typing.Literal["silence_end_call_timeout_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled"]) -> typing.Literal["t2s_chunked_streaming_enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_turn_timeout_seconds", b"_turn_timeout_seconds"]) -> typing.Literal["turn_timeout_seconds"] | None: ...
+
+global___ResponseTimingConfig = ResponseTimingConfig
+
+@typing.final
+class SoftTimeoutConfig(google.protobuf.message.Message):
+    """Configuration of the soft timeout, i.e. filler messages played
+    when the response generation takes longer than the timeout
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
+    MESSAGES_FIELD_NUMBER: builtins.int
+    MAX_PER_GENERATION_FIELD_NUMBER: builtins.int
+    timeout_seconds: builtins.float
+    """Optional: Seconds after which a filler message is played while the response is still being generated.
+    Unset = off (-1 is also accepted as explicit off). Recommended: 3.0
+    """
+    max_per_generation: builtins.int
+    """Optional: Maximum number of filler messages per response generation (default: 1)"""
+    @property
+    def messages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Filler messages, rotated per soft timeout (maximum 7 messages, each 1 - 200 characters)"""
+
+    def __init__(
+        self,
+        *,
+        timeout_seconds: builtins.float | None = ...,
+        messages: collections.abc.Iterable[builtins.str] | None = ...,
+        max_per_generation: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_max_per_generation", b"_max_per_generation", "_timeout_seconds", b"_timeout_seconds", "max_per_generation", b"max_per_generation", "timeout_seconds", b"timeout_seconds"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_max_per_generation", b"_max_per_generation", "_timeout_seconds", b"_timeout_seconds", "max_per_generation", b"max_per_generation", "messages", b"messages", "timeout_seconds", b"timeout_seconds"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_max_per_generation", b"_max_per_generation"]) -> typing.Literal["max_per_generation"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_timeout_seconds", b"_timeout_seconds"]) -> typing.Literal["timeout_seconds"] | None: ...
+
+global___SoftTimeoutConfig = SoftTimeoutConfig
 
 @typing.final
 class SipBaseConfig(google.protobuf.message.Message):
