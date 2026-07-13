@@ -162,6 +162,11 @@ class AgentsStub(object):
             request_serializer=ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsRequest.SerializeToString,
             response_deserializer=ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsResponse.FromString,
             _registered_method=True)
+        self.GetSessionsStatisticsTimeSeries = channel.unary_unary(
+            '/ondewo.nlu.Agents/GetSessionsStatisticsTimeSeries',
+            request_serializer=ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsTimeSeriesRequest.SerializeToString,
+            response_deserializer=ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsTimeSeriesResponse.FromString,
+            _registered_method=True)
         self.SetAgentStatus = channel.unary_unary(
             '/ondewo.nlu.Agents/SetAgentStatus',
             request_serializer=ondewo_dot_nlu_dot_agent__pb2.SetAgentStatusRequest.SerializeToString,
@@ -252,6 +257,26 @@ class AgentsStub(object):
             request_serializer=ondewo_dot_nlu_dot_agent__pb2.ReindexAgentRequest.SerializeToString,
             response_deserializer=ondewo_dot_nlu_dot_operations__pb2.Operation.FromString,
             _registered_method=True)
+        self.CreateProjectTechnicalUser = channel.unary_unary(
+            '/ondewo.nlu.Agents/CreateProjectTechnicalUser',
+            request_serializer=ondewo_dot_nlu_dot_agent__pb2.CreateProjectTechnicalUserRequest.SerializeToString,
+            response_deserializer=ondewo_dot_nlu_dot_agent__pb2.CreateProjectTechnicalUserResponse.FromString,
+            _registered_method=True)
+        self.ListProjectTechnicalUsers = channel.unary_unary(
+            '/ondewo.nlu.Agents/ListProjectTechnicalUsers',
+            request_serializer=ondewo_dot_nlu_dot_agent__pb2.ListProjectTechnicalUsersRequest.SerializeToString,
+            response_deserializer=ondewo_dot_nlu_dot_agent__pb2.ListProjectTechnicalUsersResponse.FromString,
+            _registered_method=True)
+        self.DeleteProjectTechnicalUser = channel.unary_unary(
+            '/ondewo.nlu.Agents/DeleteProjectTechnicalUser',
+            request_serializer=ondewo_dot_nlu_dot_agent__pb2.DeleteProjectTechnicalUserRequest.SerializeToString,
+            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            _registered_method=True)
+        self.RotateProjectTechnicalUserPassword = channel.unary_unary(
+            '/ondewo.nlu.Agents/RotateProjectTechnicalUserPassword',
+            request_serializer=ondewo_dot_nlu_dot_agent__pb2.RotateProjectTechnicalUserPasswordRequest.SerializeToString,
+            response_deserializer=ondewo_dot_nlu_dot_agent__pb2.RotateProjectTechnicalUserPasswordResponse.FromString,
+            _registered_method=True)
 
 
 class AgentsServicer(object):
@@ -274,7 +299,7 @@ class AgentsServicer(object):
         Examples:
 
         <pre>
-        grpcurl -plaintext -H 'cai-token: aimp' -d '{
+        grpcurl -plaintext -H 'Authorization: Bearer <jwt>' -d '{
         "agent": {
         "display_name": "My Pizza Bot",
         "default_language_code": "en",
@@ -308,7 +333,7 @@ class AgentsServicer(object):
         Examples:
 
         <pre>
-        grpcurl -plaintext -H 'cai-token: aimp' -d '{
+        grpcurl -plaintext -H 'Authorization: Bearer <jwt>' -d '{
         "agent": {
         "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent",
         "display_name": "Pizza Bot 2",
@@ -347,7 +372,7 @@ class AgentsServicer(object):
         Examples:
 
         <pre>
-        grpcurl -plaintext -H 'cai-token: aimp' -d '{
+        grpcurl -plaintext -H 'Authorization: Bearer <jwt>' -d '{
         "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent"
         }' localhost:50055 ondewo.nlu.Agents.GetAgent
         </pre>
@@ -376,7 +401,7 @@ class AgentsServicer(object):
         Examples:
 
         <pre>
-        grpcurl -plaintext -H 'cai-token: aimp' -d '{
+        grpcurl -plaintext -H 'Authorization: Bearer <jwt>' -d '{
         "parent": "projects/76aaf4f3-a1f6-4fda-b4b3-351c64e65bc4/agent"
         }' localhost:50055 ondewo.nlu.Agents.DeleteAgent
         </pre>
@@ -392,7 +417,7 @@ class AgentsServicer(object):
         Examples:
 
         <pre>
-        grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.DeleteAllAgents
+        grpcurl -plaintext -H 'Authorization: Bearer <jwt>' localhost:50055 ondewo.nlu.Agents.DeleteAllAgents
         </pre>
         <samp>{}</samp>
         """
@@ -406,7 +431,7 @@ class AgentsServicer(object):
         Examples:
 
         <pre>
-        grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.ListAgents
+        grpcurl -plaintext -H 'Authorization: Bearer <jwt>' localhost:50055 ondewo.nlu.Agents.ListAgents
         </pre>
         <samp>{
         "agents_with_owners": [
@@ -438,7 +463,7 @@ class AgentsServicer(object):
         Examples:
 
         <pre>
-        grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.ListAgentsOfUser
+        grpcurl -plaintext -H 'Authorization: Bearer <jwt>' localhost:50055 ondewo.nlu.Agents.ListAgentsOfUser
         </pre>
         <samp>{
         "agents_of_user_with_owners": [
@@ -476,7 +501,7 @@ class AgentsServicer(object):
         Examples:
 
         <pre>
-        grpcurl -plaintext -H 'cai-token: aimp' localhost:50055 ondewo.nlu.Agents.ListAllAgents
+        grpcurl -plaintext -H 'Authorization: Bearer <jwt>' localhost:50055 ondewo.nlu.Agents.ListAllAgents
         </pre>
         <samp>{
         "agents_with_owners": [
@@ -630,6 +655,14 @@ class AgentsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetSessionsStatisticsTimeSeries(self, request, context):
+        """Gets LLM telemetry statistics for sessions bucketed over time (time series).
+        Supports LLM-typed report types (SESSION_LLM_*) only.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SetAgentStatus(self, request, context):
         """Sets status for the agent
         """
@@ -756,6 +789,39 @@ class AgentsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreateProjectTechnicalUser(self, request, context):
+        """Creates a project-scoped technical user (a normal, 2FA-exempt account holding
+        PROJECT_EXECUTOR on this one project) for headless/machine access (e.g.
+        ondewo-sip/csi/vtsi) via the ROPC login bridge. The generated password is
+        returned ONCE in the response and is not retrievable afterwards.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListProjectTechnicalUsers(self, request, context):
+        """Lists the project-scoped technical users of the project (agent).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteProjectTechnicalUser(self, request, context):
+        """Deletes a project-scoped technical user (removes the Keycloak user and the
+        project membership/projection rows).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RotateProjectTechnicalUserPassword(self, request, context):
+        """Rotates the password of a project-scoped technical user. Invalidates the old
+        password and returns the new generated password ONCE in the response.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AgentsServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -874,6 +940,11 @@ def add_AgentsServicer_to_server(servicer, server):
             request_deserializer=ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsRequest.FromString,
             response_serializer=ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsResponse.SerializeToString,
         ),
+        'GetSessionsStatisticsTimeSeries': grpc.unary_unary_rpc_method_handler(
+            servicer.GetSessionsStatisticsTimeSeries,
+            request_deserializer=ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsTimeSeriesRequest.FromString,
+            response_serializer=ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsTimeSeriesResponse.SerializeToString,
+        ),
         'SetAgentStatus': grpc.unary_unary_rpc_method_handler(
             servicer.SetAgentStatus,
             request_deserializer=ondewo_dot_nlu_dot_agent__pb2.SetAgentStatusRequest.FromString,
@@ -963,6 +1034,26 @@ def add_AgentsServicer_to_server(servicer, server):
             servicer.ReindexAgent,
             request_deserializer=ondewo_dot_nlu_dot_agent__pb2.ReindexAgentRequest.FromString,
             response_serializer=ondewo_dot_nlu_dot_operations__pb2.Operation.SerializeToString,
+        ),
+        'CreateProjectTechnicalUser': grpc.unary_unary_rpc_method_handler(
+            servicer.CreateProjectTechnicalUser,
+            request_deserializer=ondewo_dot_nlu_dot_agent__pb2.CreateProjectTechnicalUserRequest.FromString,
+            response_serializer=ondewo_dot_nlu_dot_agent__pb2.CreateProjectTechnicalUserResponse.SerializeToString,
+        ),
+        'ListProjectTechnicalUsers': grpc.unary_unary_rpc_method_handler(
+            servicer.ListProjectTechnicalUsers,
+            request_deserializer=ondewo_dot_nlu_dot_agent__pb2.ListProjectTechnicalUsersRequest.FromString,
+            response_serializer=ondewo_dot_nlu_dot_agent__pb2.ListProjectTechnicalUsersResponse.SerializeToString,
+        ),
+        'DeleteProjectTechnicalUser': grpc.unary_unary_rpc_method_handler(
+            servicer.DeleteProjectTechnicalUser,
+            request_deserializer=ondewo_dot_nlu_dot_agent__pb2.DeleteProjectTechnicalUserRequest.FromString,
+            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        ),
+        'RotateProjectTechnicalUserPassword': grpc.unary_unary_rpc_method_handler(
+            servicer.RotateProjectTechnicalUserPassword,
+            request_deserializer=ondewo_dot_nlu_dot_agent__pb2.RotateProjectTechnicalUserPasswordRequest.FromString,
+            response_serializer=ondewo_dot_nlu_dot_agent__pb2.RotateProjectTechnicalUserPasswordResponse.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1609,6 +1700,33 @@ class Agents(object):
             _registered_method=True)
 
     @staticmethod
+    def GetSessionsStatisticsTimeSeries(request,
+                                        target,
+                                        options=(),
+                                        channel_credentials=None,
+                                        call_credentials=None,
+                                        insecure=False,
+                                        compression=None,
+                                        wait_for_ready=None,
+                                        timeout=None,
+                                        metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Agents/GetSessionsStatisticsTimeSeries',
+            ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsTimeSeriesRequest.SerializeToString,
+            ondewo_dot_nlu_dot_agent__pb2.GetSessionsStatisticsTimeSeriesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def SetAgentStatus(request,
                        target,
                        options=(),
@@ -2084,6 +2202,114 @@ class Agents(object):
             '/ondewo.nlu.Agents/ReindexAgent',
             ondewo_dot_nlu_dot_agent__pb2.ReindexAgentRequest.SerializeToString,
             ondewo_dot_nlu_dot_operations__pb2.Operation.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateProjectTechnicalUser(request,
+                                   target,
+                                   options=(),
+                                   channel_credentials=None,
+                                   call_credentials=None,
+                                   insecure=False,
+                                   compression=None,
+                                   wait_for_ready=None,
+                                   timeout=None,
+                                   metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Agents/CreateProjectTechnicalUser',
+            ondewo_dot_nlu_dot_agent__pb2.CreateProjectTechnicalUserRequest.SerializeToString,
+            ondewo_dot_nlu_dot_agent__pb2.CreateProjectTechnicalUserResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListProjectTechnicalUsers(request,
+                                  target,
+                                  options=(),
+                                  channel_credentials=None,
+                                  call_credentials=None,
+                                  insecure=False,
+                                  compression=None,
+                                  wait_for_ready=None,
+                                  timeout=None,
+                                  metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Agents/ListProjectTechnicalUsers',
+            ondewo_dot_nlu_dot_agent__pb2.ListProjectTechnicalUsersRequest.SerializeToString,
+            ondewo_dot_nlu_dot_agent__pb2.ListProjectTechnicalUsersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteProjectTechnicalUser(request,
+                                   target,
+                                   options=(),
+                                   channel_credentials=None,
+                                   call_credentials=None,
+                                   insecure=False,
+                                   compression=None,
+                                   wait_for_ready=None,
+                                   timeout=None,
+                                   metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Agents/DeleteProjectTechnicalUser',
+            ondewo_dot_nlu_dot_agent__pb2.DeleteProjectTechnicalUserRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RotateProjectTechnicalUserPassword(request,
+                                           target,
+                                           options=(),
+                                           channel_credentials=None,
+                                           call_credentials=None,
+                                           insecure=False,
+                                           compression=None,
+                                           wait_for_ready=None,
+                                           timeout=None,
+                                           metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Agents/RotateProjectTechnicalUserPassword',
+            ondewo_dot_nlu_dot_agent__pb2.RotateProjectTechnicalUserPasswordRequest.SerializeToString,
+            ondewo_dot_nlu_dot_agent__pb2.RotateProjectTechnicalUserPasswordResponse.FromString,
             options,
             channel_credentials,
             insecure,
