@@ -19,11 +19,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/nlu/server_statistics_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/nlu/server_statistics_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -38,20 +38,20 @@ class ServerStatisticsStub(object):
             channel: A grpc.Channel.
         """
         self.GetProjectCount = channel.unary_unary(
-            '/ondewo.nlu.ServerStatistics/GetProjectCount',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ServerStatistics/GetProjectCount',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
         self.GetUserProjectCount = channel.unary_unary(
-            '/ondewo.nlu.ServerStatistics/GetUserProjectCount',
-            request_serializer=ondewo_dot_nlu_dot_server__statistics__pb2.GetUserProjectCountRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ServerStatistics/GetUserProjectCount',
+                request_serializer=ondewo_dot_nlu_dot_server__statistics__pb2.GetUserProjectCountRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
         self.GetUserCount = channel.unary_unary(
-            '/ondewo.nlu.ServerStatistics/GetUserCount',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ServerStatistics/GetUserCount',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
 
 
 class ServerStatisticsServicer(object):
@@ -82,45 +82,44 @@ class ServerStatisticsServicer(object):
 
 def add_ServerStatisticsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'GetProjectCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetProjectCount,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
-        'GetUserProjectCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetUserProjectCount,
-            request_deserializer=ondewo_dot_nlu_dot_server__statistics__pb2.GetUserProjectCountRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
-        'GetUserCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetUserCount,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
+            'GetProjectCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetProjectCount,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
+            'GetUserProjectCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserProjectCount,
+                    request_deserializer=ondewo_dot_nlu_dot_server__statistics__pb2.GetUserProjectCountRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
+            'GetUserCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserCount,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.nlu.ServerStatistics', rpc_method_handlers)
+            'ondewo.nlu.ServerStatistics', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.nlu.ServerStatistics', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class ServerStatistics(object):
     """Server project statistics
     """
 
     @staticmethod
     def GetProjectCount(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -139,15 +138,15 @@ class ServerStatistics(object):
 
     @staticmethod
     def GetUserProjectCount(request,
-                            target,
-                            options=(),
-                            channel_credentials=None,
-                            call_credentials=None,
-                            insecure=False,
-                            compression=None,
-                            wait_for_ready=None,
-                            timeout=None,
-                            metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -166,15 +165,15 @@ class ServerStatistics(object):
 
     @staticmethod
     def GetUserCount(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,

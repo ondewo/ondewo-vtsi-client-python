@@ -18,11 +18,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/nlu/operations_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/nlu/operations_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -39,25 +39,45 @@ class OperationsStub(object):
             channel: A grpc.Channel.
         """
         self.ListOperations = channel.unary_unary(
-            '/ondewo.nlu.Operations/ListOperations',
-            request_serializer=ondewo_dot_nlu_dot_operations__pb2.ListOperationsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_operations__pb2.ListOperationsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Operations/ListOperations',
+                request_serializer=ondewo_dot_nlu_dot_operations__pb2.ListOperationsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_operations__pb2.ListOperationsResponse.FromString,
+                _registered_method=True)
         self.GetOperation = channel.unary_unary(
-            '/ondewo.nlu.Operations/GetOperation',
-            request_serializer=ondewo_dot_nlu_dot_operations__pb2.GetOperationRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_operations__pb2.Operation.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Operations/GetOperation',
+                request_serializer=ondewo_dot_nlu_dot_operations__pb2.GetOperationRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_operations__pb2.Operation.FromString,
+                _registered_method=True)
         self.DeleteOperation = channel.unary_unary(
-            '/ondewo.nlu.Operations/DeleteOperation',
-            request_serializer=ondewo_dot_nlu_dot_operations__pb2.DeleteOperationRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Operations/DeleteOperation',
+                request_serializer=ondewo_dot_nlu_dot_operations__pb2.DeleteOperationRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.CancelOperation = channel.unary_unary(
-            '/ondewo.nlu.Operations/CancelOperation',
-            request_serializer=ondewo_dot_nlu_dot_operations__pb2.CancelOperationRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Operations/CancelOperation',
+                request_serializer=ondewo_dot_nlu_dot_operations__pb2.CancelOperationRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.StreamRemoteOperationContainerLogs = channel.unary_stream(
+                '/ondewo.nlu.Operations/StreamRemoteOperationContainerLogs',
+                request_serializer=ondewo_dot_nlu_dot_operations__pb2.StreamRemoteOperationContainerLogsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_operations__pb2.RemoteOperationContainerLogLine.FromString,
+                _registered_method=True)
+        self.GetRemoteOperationContainerLogs = channel.unary_unary(
+                '/ondewo.nlu.Operations/GetRemoteOperationContainerLogs',
+                request_serializer=ondewo_dot_nlu_dot_operations__pb2.GetRemoteOperationContainerLogsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_operations__pb2.GetRemoteOperationContainerLogsResponse.FromString,
+                _registered_method=True)
+        self.GetRemoteOperationContainerStatus = channel.unary_unary(
+                '/ondewo.nlu.Operations/GetRemoteOperationContainerStatus',
+                request_serializer=ondewo_dot_nlu_dot_operations__pb2.GetRemoteOperationContainerStatusRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_operations__pb2.RemoteOperationContainerStatus.FromString,
+                _registered_method=True)
+        self.ListRemoteOperationContainers = channel.unary_unary(
+                '/ondewo.nlu.Operations/ListRemoteOperationContainers',
+                request_serializer=ondewo_dot_nlu_dot_operations__pb2.ListRemoteOperationContainersRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_operations__pb2.ListRemoteOperationContainersResponse.FromString,
+                _registered_method=True)
 
 
 class OperationsServicer(object):
@@ -112,38 +132,96 @@ class OperationsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamRemoteOperationContainerLogs(self, request, context):
+        """Streams the live container logs of a remote-operation container (LLM evaluation, simulation,
+        crawl, training) as they are produced, in the manner of <code>docker logs --follow</code>.
+        The stream stays open until the container exits or the client disconnects. Each message is a
+        single parsed log line. Secrets in the log text are redacted server-side before streaming.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetRemoteOperationContainerLogs(self, request, context):
+        """Returns a bounded, filtered snapshot of a remote-operation container&apos;s logs. Supports a
+        time window (<code>start_time</code> / <code>end_time</code>), a minimum loguru log level,
+        a regular-expression match on the message, and a cap on the number of returned lines. Secrets
+        in the log text are redacted server-side before the response is returned.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetRemoteOperationContainerStatus(self, request, context):
+        """Returns the health and lifecycle status of a remote-operation container: whether it still
+        exists, whether it is running/exited, its exit code, OOM-kill flag and Docker health status.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListRemoteOperationContainers(self, request, context):
+        """Lists every docker container that a remote operation started (a single operation may run several
+        containers sequentially, e.g. hardware-check, GPU pre-allocation, build-cache and one training
+        container per algorithm). When <code>include_sub_operations</code> is set, the containers of the
+        operation&apos;s sub-operations are included as well. Each entry carries the container id + name,
+        its host, lifecycle state and whether logs are still available (live or persisted).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_OperationsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'ListOperations': grpc.unary_unary_rpc_method_handler(
-            servicer.ListOperations,
-            request_deserializer=ondewo_dot_nlu_dot_operations__pb2.ListOperationsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_operations__pb2.ListOperationsResponse.SerializeToString,
-        ),
-        'GetOperation': grpc.unary_unary_rpc_method_handler(
-            servicer.GetOperation,
-            request_deserializer=ondewo_dot_nlu_dot_operations__pb2.GetOperationRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_operations__pb2.Operation.SerializeToString,
-        ),
-        'DeleteOperation': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteOperation,
-            request_deserializer=ondewo_dot_nlu_dot_operations__pb2.DeleteOperationRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'CancelOperation': grpc.unary_unary_rpc_method_handler(
-            servicer.CancelOperation,
-            request_deserializer=ondewo_dot_nlu_dot_operations__pb2.CancelOperationRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
+            'ListOperations': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListOperations,
+                    request_deserializer=ondewo_dot_nlu_dot_operations__pb2.ListOperationsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_operations__pb2.ListOperationsResponse.SerializeToString,
+            ),
+            'GetOperation': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetOperation,
+                    request_deserializer=ondewo_dot_nlu_dot_operations__pb2.GetOperationRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_operations__pb2.Operation.SerializeToString,
+            ),
+            'DeleteOperation': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteOperation,
+                    request_deserializer=ondewo_dot_nlu_dot_operations__pb2.DeleteOperationRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'CancelOperation': grpc.unary_unary_rpc_method_handler(
+                    servicer.CancelOperation,
+                    request_deserializer=ondewo_dot_nlu_dot_operations__pb2.CancelOperationRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'StreamRemoteOperationContainerLogs': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamRemoteOperationContainerLogs,
+                    request_deserializer=ondewo_dot_nlu_dot_operations__pb2.StreamRemoteOperationContainerLogsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_operations__pb2.RemoteOperationContainerLogLine.SerializeToString,
+            ),
+            'GetRemoteOperationContainerLogs': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetRemoteOperationContainerLogs,
+                    request_deserializer=ondewo_dot_nlu_dot_operations__pb2.GetRemoteOperationContainerLogsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_operations__pb2.GetRemoteOperationContainerLogsResponse.SerializeToString,
+            ),
+            'GetRemoteOperationContainerStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetRemoteOperationContainerStatus,
+                    request_deserializer=ondewo_dot_nlu_dot_operations__pb2.GetRemoteOperationContainerStatusRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_operations__pb2.RemoteOperationContainerStatus.SerializeToString,
+            ),
+            'ListRemoteOperationContainers': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListRemoteOperationContainers,
+                    request_deserializer=ondewo_dot_nlu_dot_operations__pb2.ListRemoteOperationContainersRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_operations__pb2.ListRemoteOperationContainersResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.nlu.Operations', rpc_method_handlers)
+            'ondewo.nlu.Operations', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.nlu.Operations', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class Operations(object):
     """Manages long-running operations with an API service.
 
@@ -152,15 +230,15 @@ class Operations(object):
 
     @staticmethod
     def ListOperations(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -179,15 +257,15 @@ class Operations(object):
 
     @staticmethod
     def GetOperation(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -206,15 +284,15 @@ class Operations(object):
 
     @staticmethod
     def DeleteOperation(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -233,21 +311,129 @@ class Operations(object):
 
     @staticmethod
     def CancelOperation(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
             '/ondewo.nlu.Operations/CancelOperation',
             ondewo_dot_nlu_dot_operations__pb2.CancelOperationRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamRemoteOperationContainerLogs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/ondewo.nlu.Operations/StreamRemoteOperationContainerLogs',
+            ondewo_dot_nlu_dot_operations__pb2.StreamRemoteOperationContainerLogsRequest.SerializeToString,
+            ondewo_dot_nlu_dot_operations__pb2.RemoteOperationContainerLogLine.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetRemoteOperationContainerLogs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Operations/GetRemoteOperationContainerLogs',
+            ondewo_dot_nlu_dot_operations__pb2.GetRemoteOperationContainerLogsRequest.SerializeToString,
+            ondewo_dot_nlu_dot_operations__pb2.GetRemoteOperationContainerLogsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetRemoteOperationContainerStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Operations/GetRemoteOperationContainerStatus',
+            ondewo_dot_nlu_dot_operations__pb2.GetRemoteOperationContainerStatusRequest.SerializeToString,
+            ondewo_dot_nlu_dot_operations__pb2.RemoteOperationContainerStatus.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListRemoteOperationContainers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Operations/ListRemoteOperationContainers',
+            ondewo_dot_nlu_dot_operations__pb2.ListRemoteOperationContainersRequest.SerializeToString,
+            ondewo_dot_nlu_dot_operations__pb2.ListRemoteOperationContainersResponse.FromString,
             options,
             channel_credentials,
             insecure,

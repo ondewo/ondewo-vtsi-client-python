@@ -8,8 +8,11 @@
 #    pre-commit run autopep8 --files mal_formatted_file.py                                  #
 #    pre-commit clean   and pre-commit autoupdate => clean environment for pre-commit hook  #
 #############################################################################################
-exclude: '^$'
-# "exclude: '^$'" specifies the global file exclude pattern; '^$' excludes
+# Never lint/format the generated protobuf/gRPC stubs. autopep8's E402 fix reorders the
+# dependency imports that protoc emits after `_sym_db = ...`, which makes the embedded
+# ondewo/nlu/*_pb2.py copies diverge byte-for-byte from ondewo-nlu-client-python's copies.
+# Same global exclude as ondewo-nlu-client-python.
+exclude: '(.*_pb2\.pyi?$|.*_pb2_grpc\.py$)'
 
 fail_fast: false
 # "fail_fast: false" means pre-commit continues to run hooks after the first failure

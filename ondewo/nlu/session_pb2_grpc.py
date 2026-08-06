@@ -19,11 +19,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/nlu/session_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/nlu/session_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -38,205 +38,255 @@ class SessionsStub(object):
             channel: A grpc.Channel.
         """
         self.DetectIntent = channel.unary_unary(
-            '/ondewo.nlu.Sessions/DetectIntent',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.DetectIntentRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.DetectIntentResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/DetectIntent',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.DetectIntentRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.DetectIntentResponse.FromString,
+                _registered_method=True)
         self.StreamingDetectIntent = channel.stream_stream(
-            '/ondewo.nlu.Sessions/StreamingDetectIntent',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.StreamingDetectIntentRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.StreamingDetectIntentResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/StreamingDetectIntent',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.StreamingDetectIntentRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.StreamingDetectIntentResponse.FromString,
+                _registered_method=True)
         self.ListSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionsResponse.FromString,
+                _registered_method=True)
         self.GetSession = channel.unary_unary(
-            '/ondewo.nlu.Sessions/GetSession',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.GetSessionRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/GetSession',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.GetSessionRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
+                _registered_method=True)
         self.CreateSession = channel.unary_unary(
-            '/ondewo.nlu.Sessions/CreateSession',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/CreateSession',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
+                _registered_method=True)
         self.CreateSessionStep = channel.unary_unary(
-            '/ondewo.nlu.Sessions/CreateSessionStep',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionStepRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/CreateSessionStep',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionStepRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.FromString,
+                _registered_method=True)
         self.GetSessionStep = channel.unary_unary(
-            '/ondewo.nlu.Sessions/GetSessionStep',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.GetSessionStepRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/GetSessionStep',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.GetSessionStepRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.FromString,
+                _registered_method=True)
         self.UpdateSessionStep = channel.unary_unary(
-            '/ondewo.nlu.Sessions/UpdateSessionStep',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionStepRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/UpdateSessionStep',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionStepRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.FromString,
+                _registered_method=True)
         self.DeleteSessionStep = channel.unary_unary(
-            '/ondewo.nlu.Sessions/DeleteSessionStep',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionStepRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/DeleteSessionStep',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionStepRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.DeleteSession = channel.unary_unary(
-            '/ondewo.nlu.Sessions/DeleteSession',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/DeleteSession',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.ListSessionLabels = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListSessionLabels',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListSessionLabels',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsResponse.FromString,
+                _registered_method=True)
         self.ListSessionLabelsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListSessionLabelsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListSessionLabelsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsResponse.FromString,
+                _registered_method=True)
         self.ListLanguageCodesOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListLanguageCodesOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListLanguageCodesOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListLanguageCodesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListLanguageCodesOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListLanguageCodesOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListLanguageCodesResponse.FromString,
+                _registered_method=True)
         self.ListMatchedIntentsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListMatchedIntentsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedIntentsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedIntentsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListMatchedIntentsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedIntentsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedIntentsResponse.FromString,
+                _registered_method=True)
         self.ListMatchedEntityTypesOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListMatchedEntityTypesOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedEntityTypesOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedEntityTypesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListMatchedEntityTypesOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedEntityTypesOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedEntityTypesResponse.FromString,
+                _registered_method=True)
         self.ListUserIdsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListUserIdsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListUserIdsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListUserIdsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListUserIdsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListUserIdsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListUserIdsResponse.FromString,
+                _registered_method=True)
         self.ListIdentifiedUserIdsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListIdentifiedUserIdsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListIdentifiedUserIdsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListIdentifiedUserIdsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListIdentifiedUserIdsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListIdentifiedUserIdsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListIdentifiedUserIdsResponse.FromString,
+                _registered_method=True)
         self.ListTagsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListTagsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListTagsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListTagsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListTagsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListTagsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListTagsResponse.FromString,
+                _registered_method=True)
         self.ListInputContextsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListInputContextsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListInputContextsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListInputContextsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListInputContextsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListInputContextsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListInputContextsResponse.FromString,
+                _registered_method=True)
         self.ListOutputContextsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListOutputContextsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListOutputContextsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListOutputContextsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListOutputContextsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListOutputContextsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListOutputContextsResponse.FromString,
+                _registered_method=True)
         self.ListPlatformsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListPlatformsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListPlatformsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListPlatformsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListPlatformsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListPlatformsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListPlatformsResponse.FromString,
+                _registered_method=True)
         self.ListAccountIdsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListAccountIdsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListAccountIdsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListAccountIdsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListAccountIdsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListAccountIdsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListAccountIdsResponse.FromString,
+                _registered_method=True)
         self.ListPropertyIdsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListPropertyIdsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListPropertyIdsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListPropertyIdsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListPropertyIdsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListPropertyIdsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListPropertyIdsResponse.FromString,
+                _registered_method=True)
         self.ListDatastreamIdsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListDatastreamIdsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListDatastreamIdsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListDatastreamIdsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListDatastreamIdsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListDatastreamIdsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListDatastreamIdsResponse.FromString,
+                _registered_method=True)
         self.ListOriginIdsOfAllSessions = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListOriginIdsOfAllSessions',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListOriginIdsOfAllSessionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListOriginIdsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListOriginIdsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListOriginIdsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListOriginIdsResponse.FromString,
+                _registered_method=True)
         self.AddSessionLabels = channel.unary_unary(
-            '/ondewo.nlu.Sessions/AddSessionLabels',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.AddSessionLabelsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/AddSessionLabels',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.AddSessionLabelsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
+                _registered_method=True)
         self.DeleteSessionLabels = channel.unary_unary(
-            '/ondewo.nlu.Sessions/DeleteSessionLabels',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionLabelsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/DeleteSessionLabels',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionLabelsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
+                _registered_method=True)
         self.AddSessionComment = channel.unary_unary(
-            '/ondewo.nlu.Sessions/AddSessionComment',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.AddSessionCommentRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.Comment.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/AddSessionComment',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.AddSessionCommentRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.Comment.FromString,
+                _registered_method=True)
         self.DeleteSessionComments = channel.unary_unary(
-            '/ondewo.nlu.Sessions/DeleteSessionComments',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionCommentsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/DeleteSessionComments',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionCommentsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
+                _registered_method=True)
         self.UpdateSessionComments = channel.unary_unary(
-            '/ondewo.nlu.Sessions/UpdateSessionComments',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionCommentsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/UpdateSessionComments',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionCommentsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.Session.FromString,
+                _registered_method=True)
         self.ListSessionComments = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListSessionComments',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListSessionComments',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsResponse.FromString,
+                _registered_method=True)
+        self.ListSessionCommentsOfAllSessions = channel.unary_unary(
+                '/ondewo.nlu.Sessions/ListSessionCommentsOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsResponse.FromString,
+                _registered_method=True)
+        self.AddSessionFeedback = channel.unary_unary(
+                '/ondewo.nlu.Sessions/AddSessionFeedback',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.AddSessionFeedbackRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionFeedback.FromString,
+                _registered_method=True)
+        self.AddSessionStepFeedback = channel.unary_unary(
+                '/ondewo.nlu.Sessions/AddSessionStepFeedback',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.AddSessionStepFeedbackRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionFeedback.FromString,
+                _registered_method=True)
+        self.GetSessionFeedback = channel.unary_unary(
+                '/ondewo.nlu.Sessions/GetSessionFeedback',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.GetSessionFeedbackRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionFeedback.FromString,
+                _registered_method=True)
+        self.UpdateSessionFeedback = channel.unary_unary(
+                '/ondewo.nlu.Sessions/UpdateSessionFeedback',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionFeedbackRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionFeedback.FromString,
+                _registered_method=True)
+        self.DeleteSessionFeedback = channel.unary_unary(
+                '/ondewo.nlu.Sessions/DeleteSessionFeedback',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionFeedbackRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.ListSessionFeedback = channel.unary_unary(
+                '/ondewo.nlu.Sessions/ListSessionFeedback',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackResponse.FromString,
+                _registered_method=True)
+        self.ListSessionFeedbackOfAllSessions = channel.unary_unary(
+                '/ondewo.nlu.Sessions/ListSessionFeedbackOfAllSessions',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackOfAllSessionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackResponse.FromString,
+                _registered_method=True)
+        self.GetFeedbackStatistics = channel.unary_unary(
+                '/ondewo.nlu.Sessions/GetFeedbackStatistics',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsResponse.FromString,
+                _registered_method=True)
+        self.GetFeedbackStatisticsTimeSeries = channel.unary_unary(
+                '/ondewo.nlu.Sessions/GetFeedbackStatisticsTimeSeries',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsTimeSeriesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsTimeSeriesResponse.FromString,
+                _registered_method=True)
         self.ListSessionReviews = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListSessionReviews',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionReviewsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionReviewsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListSessionReviews',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionReviewsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionReviewsResponse.FromString,
+                _registered_method=True)
         self.GetSessionReview = channel.unary_unary(
-            '/ondewo.nlu.Sessions/GetSessionReview',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.GetSessionReviewRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/GetSessionReview',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.GetSessionReviewRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.FromString,
+                _registered_method=True)
         self.GetLatestSessionReview = channel.unary_unary(
-            '/ondewo.nlu.Sessions/GetLatestSessionReview',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.GetLatestSessionReviewRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/GetLatestSessionReview',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.GetLatestSessionReviewRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.FromString,
+                _registered_method=True)
         self.CreateSessionReview = channel.unary_unary(
-            '/ondewo.nlu.Sessions/CreateSessionReview',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionReviewRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/CreateSessionReview',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionReviewRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.FromString,
+                _registered_method=True)
         self.GetAudioFiles = channel.unary_unary(
-            '/ondewo.nlu.Sessions/GetAudioFiles',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFilesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFilesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/GetAudioFiles',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFilesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFilesResponse.FromString,
+                _registered_method=True)
         self.AddAudioFiles = channel.unary_unary(
-            '/ondewo.nlu.Sessions/AddAudioFiles',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.AddAudioFilesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.AddAudioFilesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/AddAudioFiles',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.AddAudioFilesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.AddAudioFilesResponse.FromString,
+                _registered_method=True)
         self.DeleteAudioFiles = channel.unary_unary(
-            '/ondewo.nlu.Sessions/DeleteAudioFiles',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteAudioFilesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteAudioFilesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/DeleteAudioFiles',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteAudioFilesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteAudioFilesResponse.FromString,
+                _registered_method=True)
         self.GetAudioFileOfSession = channel.unary_unary(
-            '/ondewo.nlu.Sessions/GetAudioFileOfSession',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFileOfSessionRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.AudioFileResource.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/GetAudioFileOfSession',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFileOfSessionRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.AudioFileResource.FromString,
+                _registered_method=True)
         self.ListAudioFiles = channel.unary_unary(
-            '/ondewo.nlu.Sessions/ListAudioFiles',
-            request_serializer=ondewo_dot_nlu_dot_session__pb2.ListAudioFilesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListAudioFilesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Sessions/ListAudioFiles',
+                request_serializer=ondewo_dot_nlu_dot_session__pb2.ListAudioFilesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_session__pb2.ListAudioFilesResponse.FromString,
+                _registered_method=True)
 
 
 class SessionsServicer(object):
@@ -463,7 +513,84 @@ class SessionsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ListSessionComments(self, request, context):
-        """Lists the comments attached to a session with pagination support.
+        """Lists the comments attached to a session with pagination support, optionally narrowed by resolved status.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListSessionCommentsOfAllSessions(self, request, context):
+        """Lists the comments attached to all sessions of the agent with pagination support,
+        optionally narrowed by a SessionFilter and by resolved status.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddSessionFeedback(self, request, context):
+        """*** SESSION-FEEDBACK RELATED ENDPOINTS *** //
+
+        Records user feedback (thumbs up/down + optional comment + optional score/categorical value) about a
+        whole session and returns the persisted feedback. Works for authenticated reviewers/test users and,
+        where enabled, anonymous production end-users (webchat/webphone).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddSessionStepFeedback(self, request, context):
+        """Records user feedback about a single session step (turn), pinned to the exact response, and returns
+        the persisted feedback.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSessionFeedback(self, request, context):
+        """Returns a single session/step feedback by its resource name.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateSessionFeedback(self, request, context):
+        """Updates an existing feedback (a user revising their thumbs / comment) and returns it.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteSessionFeedback(self, request, context):
+        """Deletes a feedback (a user withdrawing their feedback).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListSessionFeedback(self, request, context):
+        """Lists all feedback (session-level and step-level) attached to a session with pagination support.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListSessionFeedbackOfAllSessions(self, request, context):
+        """Lists feedback across all sessions of the agent, optionally narrowed by a SessionFilter.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetFeedbackStatistics(self, request, context):
+        """Returns aggregated feedback statistics for an agent (thumbs up/down counts + breakdowns), optionally
+        rolling up existing session reviews and comments as additional quality signals.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetFeedbackStatisticsTimeSeries(self, request, context):
+        """Returns feedback statistics bucketed over time for trend charts.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -551,230 +678,279 @@ class SessionsServicer(object):
 
 def add_SessionsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'DetectIntent': grpc.unary_unary_rpc_method_handler(
-            servicer.DetectIntent,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.DetectIntentRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.DetectIntentResponse.SerializeToString,
-        ),
-        'StreamingDetectIntent': grpc.stream_stream_rpc_method_handler(
-            servicer.StreamingDetectIntent,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.StreamingDetectIntentRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.StreamingDetectIntentResponse.SerializeToString,
-        ),
-        'ListSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionsResponse.SerializeToString,
-        ),
-        'GetSession': grpc.unary_unary_rpc_method_handler(
-            servicer.GetSession,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetSessionRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
-        ),
-        'CreateSession': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateSession,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
-        ),
-        'CreateSessionStep': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateSessionStep,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionStepRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.SerializeToString,
-        ),
-        'GetSessionStep': grpc.unary_unary_rpc_method_handler(
-            servicer.GetSessionStep,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetSessionStepRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.SerializeToString,
-        ),
-        'UpdateSessionStep': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateSessionStep,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionStepRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.SerializeToString,
-        ),
-        'DeleteSessionStep': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteSessionStep,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionStepRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'DeleteSession': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteSession,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'ListSessionLabels': grpc.unary_unary_rpc_method_handler(
-            servicer.ListSessionLabels,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsResponse.SerializeToString,
-        ),
-        'ListSessionLabelsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListSessionLabelsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsResponse.SerializeToString,
-        ),
-        'ListLanguageCodesOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListLanguageCodesOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListLanguageCodesOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListLanguageCodesResponse.SerializeToString,
-        ),
-        'ListMatchedIntentsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListMatchedIntentsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedIntentsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedIntentsResponse.SerializeToString,
-        ),
-        'ListMatchedEntityTypesOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListMatchedEntityTypesOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedEntityTypesOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedEntityTypesResponse.SerializeToString,
-        ),
-        'ListUserIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListUserIdsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListUserIdsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListUserIdsResponse.SerializeToString,
-        ),
-        'ListIdentifiedUserIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListIdentifiedUserIdsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListIdentifiedUserIdsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListIdentifiedUserIdsResponse.SerializeToString,
-        ),
-        'ListTagsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListTagsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListTagsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListTagsResponse.SerializeToString,
-        ),
-        'ListInputContextsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListInputContextsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListInputContextsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListInputContextsResponse.SerializeToString,
-        ),
-        'ListOutputContextsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListOutputContextsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListOutputContextsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListOutputContextsResponse.SerializeToString,
-        ),
-        'ListPlatformsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListPlatformsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListPlatformsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListPlatformsResponse.SerializeToString,
-        ),
-        'ListAccountIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListAccountIdsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListAccountIdsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListAccountIdsResponse.SerializeToString,
-        ),
-        'ListPropertyIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListPropertyIdsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListPropertyIdsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListPropertyIdsResponse.SerializeToString,
-        ),
-        'ListDatastreamIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListDatastreamIdsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListDatastreamIdsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListDatastreamIdsResponse.SerializeToString,
-        ),
-        'ListOriginIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListOriginIdsOfAllSessions,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListOriginIdsOfAllSessionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListOriginIdsResponse.SerializeToString,
-        ),
-        'AddSessionLabels': grpc.unary_unary_rpc_method_handler(
-            servicer.AddSessionLabels,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.AddSessionLabelsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
-        ),
-        'DeleteSessionLabels': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteSessionLabels,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionLabelsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
-        ),
-        'AddSessionComment': grpc.unary_unary_rpc_method_handler(
-            servicer.AddSessionComment,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.AddSessionCommentRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.Comment.SerializeToString,
-        ),
-        'DeleteSessionComments': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteSessionComments,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionCommentsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
-        ),
-        'UpdateSessionComments': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateSessionComments,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionCommentsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
-        ),
-        'ListSessionComments': grpc.unary_unary_rpc_method_handler(
-            servicer.ListSessionComments,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsResponse.SerializeToString,
-        ),
-        'ListSessionReviews': grpc.unary_unary_rpc_method_handler(
-            servicer.ListSessionReviews,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionReviewsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionReviewsResponse.SerializeToString,
-        ),
-        'GetSessionReview': grpc.unary_unary_rpc_method_handler(
-            servicer.GetSessionReview,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetSessionReviewRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.SerializeToString,
-        ),
-        'GetLatestSessionReview': grpc.unary_unary_rpc_method_handler(
-            servicer.GetLatestSessionReview,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetLatestSessionReviewRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.SerializeToString,
-        ),
-        'CreateSessionReview': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateSessionReview,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionReviewRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.SerializeToString,
-        ),
-        'GetAudioFiles': grpc.unary_unary_rpc_method_handler(
-            servicer.GetAudioFiles,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFilesRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFilesResponse.SerializeToString,
-        ),
-        'AddAudioFiles': grpc.unary_unary_rpc_method_handler(
-            servicer.AddAudioFiles,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.AddAudioFilesRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.AddAudioFilesResponse.SerializeToString,
-        ),
-        'DeleteAudioFiles': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteAudioFiles,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteAudioFilesRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteAudioFilesResponse.SerializeToString,
-        ),
-        'GetAudioFileOfSession': grpc.unary_unary_rpc_method_handler(
-            servicer.GetAudioFileOfSession,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFileOfSessionRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.AudioFileResource.SerializeToString,
-        ),
-        'ListAudioFiles': grpc.unary_unary_rpc_method_handler(
-            servicer.ListAudioFiles,
-            request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListAudioFilesRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_session__pb2.ListAudioFilesResponse.SerializeToString,
-        ),
+            'DetectIntent': grpc.unary_unary_rpc_method_handler(
+                    servicer.DetectIntent,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.DetectIntentRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.DetectIntentResponse.SerializeToString,
+            ),
+            'StreamingDetectIntent': grpc.stream_stream_rpc_method_handler(
+                    servicer.StreamingDetectIntent,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.StreamingDetectIntentRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.StreamingDetectIntentResponse.SerializeToString,
+            ),
+            'ListSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionsResponse.SerializeToString,
+            ),
+            'GetSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSession,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetSessionRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
+            ),
+            'CreateSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateSession,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
+            ),
+            'CreateSessionStep': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateSessionStep,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionStepRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.SerializeToString,
+            ),
+            'GetSessionStep': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSessionStep,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetSessionStepRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.SerializeToString,
+            ),
+            'UpdateSessionStep': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateSessionStep,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionStepRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionStep.SerializeToString,
+            ),
+            'DeleteSessionStep': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteSessionStep,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionStepRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteSession,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ListSessionLabels': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSessionLabels,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsResponse.SerializeToString,
+            ),
+            'ListSessionLabelsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSessionLabelsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionLabelsResponse.SerializeToString,
+            ),
+            'ListLanguageCodesOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListLanguageCodesOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListLanguageCodesOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListLanguageCodesResponse.SerializeToString,
+            ),
+            'ListMatchedIntentsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListMatchedIntentsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedIntentsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedIntentsResponse.SerializeToString,
+            ),
+            'ListMatchedEntityTypesOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListMatchedEntityTypesOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedEntityTypesOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListMatchedEntityTypesResponse.SerializeToString,
+            ),
+            'ListUserIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListUserIdsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListUserIdsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListUserIdsResponse.SerializeToString,
+            ),
+            'ListIdentifiedUserIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListIdentifiedUserIdsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListIdentifiedUserIdsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListIdentifiedUserIdsResponse.SerializeToString,
+            ),
+            'ListTagsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListTagsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListTagsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListTagsResponse.SerializeToString,
+            ),
+            'ListInputContextsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListInputContextsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListInputContextsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListInputContextsResponse.SerializeToString,
+            ),
+            'ListOutputContextsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListOutputContextsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListOutputContextsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListOutputContextsResponse.SerializeToString,
+            ),
+            'ListPlatformsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListPlatformsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListPlatformsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListPlatformsResponse.SerializeToString,
+            ),
+            'ListAccountIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListAccountIdsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListAccountIdsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListAccountIdsResponse.SerializeToString,
+            ),
+            'ListPropertyIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListPropertyIdsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListPropertyIdsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListPropertyIdsResponse.SerializeToString,
+            ),
+            'ListDatastreamIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListDatastreamIdsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListDatastreamIdsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListDatastreamIdsResponse.SerializeToString,
+            ),
+            'ListOriginIdsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListOriginIdsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListOriginIdsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListOriginIdsResponse.SerializeToString,
+            ),
+            'AddSessionLabels': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddSessionLabels,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.AddSessionLabelsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
+            ),
+            'DeleteSessionLabels': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteSessionLabels,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionLabelsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
+            ),
+            'AddSessionComment': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddSessionComment,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.AddSessionCommentRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.Comment.SerializeToString,
+            ),
+            'DeleteSessionComments': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteSessionComments,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionCommentsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
+            ),
+            'UpdateSessionComments': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateSessionComments,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionCommentsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.Session.SerializeToString,
+            ),
+            'ListSessionComments': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSessionComments,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsResponse.SerializeToString,
+            ),
+            'ListSessionCommentsOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSessionCommentsOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsResponse.SerializeToString,
+            ),
+            'AddSessionFeedback': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddSessionFeedback,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.AddSessionFeedbackRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionFeedback.SerializeToString,
+            ),
+            'AddSessionStepFeedback': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddSessionStepFeedback,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.AddSessionStepFeedbackRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionFeedback.SerializeToString,
+            ),
+            'GetSessionFeedback': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSessionFeedback,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetSessionFeedbackRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionFeedback.SerializeToString,
+            ),
+            'UpdateSessionFeedback': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateSessionFeedback,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.UpdateSessionFeedbackRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionFeedback.SerializeToString,
+            ),
+            'DeleteSessionFeedback': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteSessionFeedback,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteSessionFeedbackRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ListSessionFeedback': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSessionFeedback,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackResponse.SerializeToString,
+            ),
+            'ListSessionFeedbackOfAllSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSessionFeedbackOfAllSessions,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackOfAllSessionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackResponse.SerializeToString,
+            ),
+            'GetFeedbackStatistics': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFeedbackStatistics,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsResponse.SerializeToString,
+            ),
+            'GetFeedbackStatisticsTimeSeries': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFeedbackStatisticsTimeSeries,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsTimeSeriesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsTimeSeriesResponse.SerializeToString,
+            ),
+            'ListSessionReviews': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSessionReviews,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListSessionReviewsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListSessionReviewsResponse.SerializeToString,
+            ),
+            'GetSessionReview': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSessionReview,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetSessionReviewRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.SerializeToString,
+            ),
+            'GetLatestSessionReview': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLatestSessionReview,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetLatestSessionReviewRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.SerializeToString,
+            ),
+            'CreateSessionReview': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateSessionReview,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.CreateSessionReviewRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.SessionReview.SerializeToString,
+            ),
+            'GetAudioFiles': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAudioFiles,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFilesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFilesResponse.SerializeToString,
+            ),
+            'AddAudioFiles': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddAudioFiles,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.AddAudioFilesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.AddAudioFilesResponse.SerializeToString,
+            ),
+            'DeleteAudioFiles': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteAudioFiles,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.DeleteAudioFilesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.DeleteAudioFilesResponse.SerializeToString,
+            ),
+            'GetAudioFileOfSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAudioFileOfSession,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.GetAudioFileOfSessionRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.AudioFileResource.SerializeToString,
+            ),
+            'ListAudioFiles': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListAudioFiles,
+                    request_deserializer=ondewo_dot_nlu_dot_session__pb2.ListAudioFilesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_session__pb2.ListAudioFilesResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.nlu.Sessions', rpc_method_handlers)
+            'ondewo.nlu.Sessions', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.nlu.Sessions', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class Sessions(object):
     """A session represents an interaction with a user. You retrieve user input and pass it to the <a href="index.html#ondewo.nlu.Sessions.DetectIntent">DetectIntent</a> (or <a href="index.html#ondewo.nlu.Sessions.StreamingDetectIntent">StreamingDetectIntent</a>) method to determine user intent and respond.
     """
 
     @staticmethod
     def DetectIntent(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -793,15 +969,15 @@ class Sessions(object):
 
     @staticmethod
     def StreamingDetectIntent(request_iterator,
-                              target,
-                              options=(),
-                              channel_credentials=None,
-                              call_credentials=None,
-                              insecure=False,
-                              compression=None,
-                              wait_for_ready=None,
-                              timeout=None,
-                              metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.stream_stream(
             request_iterator,
             target,
@@ -820,15 +996,15 @@ class Sessions(object):
 
     @staticmethod
     def ListSessions(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -847,15 +1023,15 @@ class Sessions(object):
 
     @staticmethod
     def GetSession(request,
-                   target,
-                   options=(),
-                   channel_credentials=None,
-                   call_credentials=None,
-                   insecure=False,
-                   compression=None,
-                   wait_for_ready=None,
-                   timeout=None,
-                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -874,15 +1050,15 @@ class Sessions(object):
 
     @staticmethod
     def CreateSession(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -901,15 +1077,15 @@ class Sessions(object):
 
     @staticmethod
     def CreateSessionStep(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -928,15 +1104,15 @@ class Sessions(object):
 
     @staticmethod
     def GetSessionStep(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -955,15 +1131,15 @@ class Sessions(object):
 
     @staticmethod
     def UpdateSessionStep(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -982,15 +1158,15 @@ class Sessions(object):
 
     @staticmethod
     def DeleteSessionStep(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1009,15 +1185,15 @@ class Sessions(object):
 
     @staticmethod
     def DeleteSession(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1036,15 +1212,15 @@ class Sessions(object):
 
     @staticmethod
     def ListSessionLabels(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1063,15 +1239,15 @@ class Sessions(object):
 
     @staticmethod
     def ListSessionLabelsOfAllSessions(request,
-                                       target,
-                                       options=(),
-                                       channel_credentials=None,
-                                       call_credentials=None,
-                                       insecure=False,
-                                       compression=None,
-                                       wait_for_ready=None,
-                                       timeout=None,
-                                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1090,15 +1266,15 @@ class Sessions(object):
 
     @staticmethod
     def ListLanguageCodesOfAllSessions(request,
-                                       target,
-                                       options=(),
-                                       channel_credentials=None,
-                                       call_credentials=None,
-                                       insecure=False,
-                                       compression=None,
-                                       wait_for_ready=None,
-                                       timeout=None,
-                                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1117,15 +1293,15 @@ class Sessions(object):
 
     @staticmethod
     def ListMatchedIntentsOfAllSessions(request,
-                                        target,
-                                        options=(),
-                                        channel_credentials=None,
-                                        call_credentials=None,
-                                        insecure=False,
-                                        compression=None,
-                                        wait_for_ready=None,
-                                        timeout=None,
-                                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1144,15 +1320,15 @@ class Sessions(object):
 
     @staticmethod
     def ListMatchedEntityTypesOfAllSessions(request,
-                                            target,
-                                            options=(),
-                                            channel_credentials=None,
-                                            call_credentials=None,
-                                            insecure=False,
-                                            compression=None,
-                                            wait_for_ready=None,
-                                            timeout=None,
-                                            metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1171,15 +1347,15 @@ class Sessions(object):
 
     @staticmethod
     def ListUserIdsOfAllSessions(request,
-                                 target,
-                                 options=(),
-                                 channel_credentials=None,
-                                 call_credentials=None,
-                                 insecure=False,
-                                 compression=None,
-                                 wait_for_ready=None,
-                                 timeout=None,
-                                 metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1198,15 +1374,15 @@ class Sessions(object):
 
     @staticmethod
     def ListIdentifiedUserIdsOfAllSessions(request,
-                                           target,
-                                           options=(),
-                                           channel_credentials=None,
-                                           call_credentials=None,
-                                           insecure=False,
-                                           compression=None,
-                                           wait_for_ready=None,
-                                           timeout=None,
-                                           metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1225,15 +1401,15 @@ class Sessions(object):
 
     @staticmethod
     def ListTagsOfAllSessions(request,
-                              target,
-                              options=(),
-                              channel_credentials=None,
-                              call_credentials=None,
-                              insecure=False,
-                              compression=None,
-                              wait_for_ready=None,
-                              timeout=None,
-                              metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1252,15 +1428,15 @@ class Sessions(object):
 
     @staticmethod
     def ListInputContextsOfAllSessions(request,
-                                       target,
-                                       options=(),
-                                       channel_credentials=None,
-                                       call_credentials=None,
-                                       insecure=False,
-                                       compression=None,
-                                       wait_for_ready=None,
-                                       timeout=None,
-                                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1279,15 +1455,15 @@ class Sessions(object):
 
     @staticmethod
     def ListOutputContextsOfAllSessions(request,
-                                        target,
-                                        options=(),
-                                        channel_credentials=None,
-                                        call_credentials=None,
-                                        insecure=False,
-                                        compression=None,
-                                        wait_for_ready=None,
-                                        timeout=None,
-                                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1306,15 +1482,15 @@ class Sessions(object):
 
     @staticmethod
     def ListPlatformsOfAllSessions(request,
-                                   target,
-                                   options=(),
-                                   channel_credentials=None,
-                                   call_credentials=None,
-                                   insecure=False,
-                                   compression=None,
-                                   wait_for_ready=None,
-                                   timeout=None,
-                                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1333,15 +1509,15 @@ class Sessions(object):
 
     @staticmethod
     def ListAccountIdsOfAllSessions(request,
-                                    target,
-                                    options=(),
-                                    channel_credentials=None,
-                                    call_credentials=None,
-                                    insecure=False,
-                                    compression=None,
-                                    wait_for_ready=None,
-                                    timeout=None,
-                                    metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1360,15 +1536,15 @@ class Sessions(object):
 
     @staticmethod
     def ListPropertyIdsOfAllSessions(request,
-                                     target,
-                                     options=(),
-                                     channel_credentials=None,
-                                     call_credentials=None,
-                                     insecure=False,
-                                     compression=None,
-                                     wait_for_ready=None,
-                                     timeout=None,
-                                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1387,15 +1563,15 @@ class Sessions(object):
 
     @staticmethod
     def ListDatastreamIdsOfAllSessions(request,
-                                       target,
-                                       options=(),
-                                       channel_credentials=None,
-                                       call_credentials=None,
-                                       insecure=False,
-                                       compression=None,
-                                       wait_for_ready=None,
-                                       timeout=None,
-                                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1414,15 +1590,15 @@ class Sessions(object):
 
     @staticmethod
     def ListOriginIdsOfAllSessions(request,
-                                   target,
-                                   options=(),
-                                   channel_credentials=None,
-                                   call_credentials=None,
-                                   insecure=False,
-                                   compression=None,
-                                   wait_for_ready=None,
-                                   timeout=None,
-                                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1441,15 +1617,15 @@ class Sessions(object):
 
     @staticmethod
     def AddSessionLabels(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1468,15 +1644,15 @@ class Sessions(object):
 
     @staticmethod
     def DeleteSessionLabels(request,
-                            target,
-                            options=(),
-                            channel_credentials=None,
-                            call_credentials=None,
-                            insecure=False,
-                            compression=None,
-                            wait_for_ready=None,
-                            timeout=None,
-                            metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1495,15 +1671,15 @@ class Sessions(object):
 
     @staticmethod
     def AddSessionComment(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1522,15 +1698,15 @@ class Sessions(object):
 
     @staticmethod
     def DeleteSessionComments(request,
-                              target,
-                              options=(),
-                              channel_credentials=None,
-                              call_credentials=None,
-                              insecure=False,
-                              compression=None,
-                              wait_for_ready=None,
-                              timeout=None,
-                              metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1549,15 +1725,15 @@ class Sessions(object):
 
     @staticmethod
     def UpdateSessionComments(request,
-                              target,
-                              options=(),
-                              channel_credentials=None,
-                              call_credentials=None,
-                              insecure=False,
-                              compression=None,
-                              wait_for_ready=None,
-                              timeout=None,
-                              metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1576,15 +1752,15 @@ class Sessions(object):
 
     @staticmethod
     def ListSessionComments(request,
-                            target,
-                            options=(),
-                            channel_credentials=None,
-                            call_credentials=None,
-                            insecure=False,
-                            compression=None,
-                            wait_for_ready=None,
-                            timeout=None,
-                            metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1602,16 +1778,286 @@ class Sessions(object):
             _registered_method=True)
 
     @staticmethod
+    def ListSessionCommentsOfAllSessions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/ListSessionCommentsOfAllSessions',
+            ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsOfAllSessionsRequest.SerializeToString,
+            ondewo_dot_nlu_dot_session__pb2.ListSessionCommentsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddSessionFeedback(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/AddSessionFeedback',
+            ondewo_dot_nlu_dot_session__pb2.AddSessionFeedbackRequest.SerializeToString,
+            ondewo_dot_nlu_dot_session__pb2.SessionFeedback.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddSessionStepFeedback(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/AddSessionStepFeedback',
+            ondewo_dot_nlu_dot_session__pb2.AddSessionStepFeedbackRequest.SerializeToString,
+            ondewo_dot_nlu_dot_session__pb2.SessionFeedback.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetSessionFeedback(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/GetSessionFeedback',
+            ondewo_dot_nlu_dot_session__pb2.GetSessionFeedbackRequest.SerializeToString,
+            ondewo_dot_nlu_dot_session__pb2.SessionFeedback.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateSessionFeedback(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/UpdateSessionFeedback',
+            ondewo_dot_nlu_dot_session__pb2.UpdateSessionFeedbackRequest.SerializeToString,
+            ondewo_dot_nlu_dot_session__pb2.SessionFeedback.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteSessionFeedback(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/DeleteSessionFeedback',
+            ondewo_dot_nlu_dot_session__pb2.DeleteSessionFeedbackRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListSessionFeedback(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/ListSessionFeedback',
+            ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackRequest.SerializeToString,
+            ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListSessionFeedbackOfAllSessions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/ListSessionFeedbackOfAllSessions',
+            ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackOfAllSessionsRequest.SerializeToString,
+            ondewo_dot_nlu_dot_session__pb2.ListSessionFeedbackResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetFeedbackStatistics(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/GetFeedbackStatistics',
+            ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsRequest.SerializeToString,
+            ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetFeedbackStatisticsTimeSeries(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Sessions/GetFeedbackStatisticsTimeSeries',
+            ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsTimeSeriesRequest.SerializeToString,
+            ondewo_dot_nlu_dot_session__pb2.GetFeedbackStatisticsTimeSeriesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def ListSessionReviews(request,
-                           target,
-                           options=(),
-                           channel_credentials=None,
-                           call_credentials=None,
-                           insecure=False,
-                           compression=None,
-                           wait_for_ready=None,
-                           timeout=None,
-                           metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1630,15 +2076,15 @@ class Sessions(object):
 
     @staticmethod
     def GetSessionReview(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1657,15 +2103,15 @@ class Sessions(object):
 
     @staticmethod
     def GetLatestSessionReview(request,
-                               target,
-                               options=(),
-                               channel_credentials=None,
-                               call_credentials=None,
-                               insecure=False,
-                               compression=None,
-                               wait_for_ready=None,
-                               timeout=None,
-                               metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1684,15 +2130,15 @@ class Sessions(object):
 
     @staticmethod
     def CreateSessionReview(request,
-                            target,
-                            options=(),
-                            channel_credentials=None,
-                            call_credentials=None,
-                            insecure=False,
-                            compression=None,
-                            wait_for_ready=None,
-                            timeout=None,
-                            metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1711,15 +2157,15 @@ class Sessions(object):
 
     @staticmethod
     def GetAudioFiles(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1738,15 +2184,15 @@ class Sessions(object):
 
     @staticmethod
     def AddAudioFiles(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1765,15 +2211,15 @@ class Sessions(object):
 
     @staticmethod
     def DeleteAudioFiles(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1792,15 +2238,15 @@ class Sessions(object):
 
     @staticmethod
     def GetAudioFileOfSession(request,
-                              target,
-                              options=(),
-                              channel_credentials=None,
-                              call_credentials=None,
-                              insecure=False,
-                              compression=None,
-                              wait_for_ready=None,
-                              timeout=None,
-                              metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1819,15 +2265,15 @@ class Sessions(object):
 
     @staticmethod
     def ListAudioFiles(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,

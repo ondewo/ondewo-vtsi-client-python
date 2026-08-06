@@ -18,11 +18,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/sip/sip_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/sip/sip_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -38,60 +38,60 @@ class SipStub(object):
             channel: A grpc.Channel.
         """
         self.SipStartSession = channel.unary_unary(
-            '/ondewo.sip.Sip/SipStartSession',
-            request_serializer=ondewo_dot_sip_dot_sip__pb2.SipStartSessionRequest.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipStartSession',
+                request_serializer=ondewo_dot_sip_dot_sip__pb2.SipStartSessionRequest.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
         self.SipEndSession = channel.unary_unary(
-            '/ondewo.sip.Sip/SipEndSession',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipEndSession',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
         self.SipStartCall = channel.unary_unary(
-            '/ondewo.sip.Sip/SipStartCall',
-            request_serializer=ondewo_dot_sip_dot_sip__pb2.SipStartCallRequest.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipStartCall',
+                request_serializer=ondewo_dot_sip_dot_sip__pb2.SipStartCallRequest.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
         self.SipEndCall = channel.unary_unary(
-            '/ondewo.sip.Sip/SipEndCall',
-            request_serializer=ondewo_dot_sip_dot_sip__pb2.SipEndCallRequest.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipEndCall',
+                request_serializer=ondewo_dot_sip_dot_sip__pb2.SipEndCallRequest.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
         self.SipTransferCall = channel.unary_unary(
-            '/ondewo.sip.Sip/SipTransferCall',
-            request_serializer=ondewo_dot_sip_dot_sip__pb2.SipTransferCallRequest.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipTransferCall',
+                request_serializer=ondewo_dot_sip_dot_sip__pb2.SipTransferCallRequest.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
         self.SipRegisterAccount = channel.unary_unary(
-            '/ondewo.sip.Sip/SipRegisterAccount',
-            request_serializer=ondewo_dot_sip_dot_sip__pb2.SipRegisterAccountRequest.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipRegisterAccount',
+                request_serializer=ondewo_dot_sip_dot_sip__pb2.SipRegisterAccountRequest.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
         self.SipGetSipStatus = channel.unary_unary(
-            '/ondewo.sip.Sip/SipGetSipStatus',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipGetSipStatus',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
         self.SipGetSipStatusHistory = channel.unary_unary(
-            '/ondewo.sip.Sip/SipGetSipStatusHistory',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatusHistoryResponse.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipGetSipStatusHistory',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatusHistoryResponse.FromString,
+                _registered_method=True)
         self.SipPlayWavFiles = channel.unary_unary(
-            '/ondewo.sip.Sip/SipPlayWavFiles',
-            request_serializer=ondewo_dot_sip_dot_sip__pb2.SipPlayWavFilesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipPlayWavFiles',
+                request_serializer=ondewo_dot_sip_dot_sip__pb2.SipPlayWavFilesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
         self.SipMute = channel.unary_unary(
-            '/ondewo.sip.Sip/SipMute',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipMute',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
         self.SipUnMute = channel.unary_unary(
-            '/ondewo.sip.Sip/SipUnMute',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
-            _registered_method=True)
+                '/ondewo.sip.Sip/SipUnMute',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.FromString,
+                _registered_method=True)
 
 
 class SipServicer(object):
@@ -180,70 +180,69 @@ class SipServicer(object):
 
 def add_SipServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'SipStartSession': grpc.unary_unary_rpc_method_handler(
-            servicer.SipStartSession,
-            request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStartSessionRequest.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
-        'SipEndSession': grpc.unary_unary_rpc_method_handler(
-            servicer.SipEndSession,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
-        'SipStartCall': grpc.unary_unary_rpc_method_handler(
-            servicer.SipStartCall,
-            request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStartCallRequest.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
-        'SipEndCall': grpc.unary_unary_rpc_method_handler(
-            servicer.SipEndCall,
-            request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipEndCallRequest.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
-        'SipTransferCall': grpc.unary_unary_rpc_method_handler(
-            servicer.SipTransferCall,
-            request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipTransferCallRequest.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
-        'SipRegisterAccount': grpc.unary_unary_rpc_method_handler(
-            servicer.SipRegisterAccount,
-            request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipRegisterAccountRequest.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
-        'SipGetSipStatus': grpc.unary_unary_rpc_method_handler(
-            servicer.SipGetSipStatus,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
-        'SipGetSipStatusHistory': grpc.unary_unary_rpc_method_handler(
-            servicer.SipGetSipStatusHistory,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatusHistoryResponse.SerializeToString,
-        ),
-        'SipPlayWavFiles': grpc.unary_unary_rpc_method_handler(
-            servicer.SipPlayWavFiles,
-            request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipPlayWavFilesRequest.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
-        'SipMute': grpc.unary_unary_rpc_method_handler(
-            servicer.SipMute,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
-        'SipUnMute': grpc.unary_unary_rpc_method_handler(
-            servicer.SipUnMute,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
-        ),
+            'SipStartSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipStartSession,
+                    request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStartSessionRequest.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
+            'SipEndSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipEndSession,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
+            'SipStartCall': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipStartCall,
+                    request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipStartCallRequest.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
+            'SipEndCall': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipEndCall,
+                    request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipEndCallRequest.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
+            'SipTransferCall': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipTransferCall,
+                    request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipTransferCallRequest.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
+            'SipRegisterAccount': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipRegisterAccount,
+                    request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipRegisterAccountRequest.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
+            'SipGetSipStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipGetSipStatus,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
+            'SipGetSipStatusHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipGetSipStatusHistory,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatusHistoryResponse.SerializeToString,
+            ),
+            'SipPlayWavFiles': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipPlayWavFiles,
+                    request_deserializer=ondewo_dot_sip_dot_sip__pb2.SipPlayWavFilesRequest.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
+            'SipMute': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipMute,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
+            'SipUnMute': grpc.unary_unary_rpc_method_handler(
+                    servicer.SipUnMute,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_sip_dot_sip__pb2.SipStatus.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.sip.Sip', rpc_method_handlers)
+            'ondewo.sip.Sip', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.sip.Sip', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class Sip(object):
     """ONDEWO-SIP API available at <a href="https://github.com/ondewo/ondewo-sip-api>">GitHub</a>
     SIP LifeCycle is explained at <a href="https://thanhloi2603.wordpress.com/2017/06/10/sip-lifecycle-overview/">here</a>
@@ -251,15 +250,15 @@ class Sip(object):
 
     @staticmethod
     def SipStartSession(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -278,15 +277,15 @@ class Sip(object):
 
     @staticmethod
     def SipEndSession(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -305,15 +304,15 @@ class Sip(object):
 
     @staticmethod
     def SipStartCall(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -332,15 +331,15 @@ class Sip(object):
 
     @staticmethod
     def SipEndCall(request,
-                   target,
-                   options=(),
-                   channel_credentials=None,
-                   call_credentials=None,
-                   insecure=False,
-                   compression=None,
-                   wait_for_ready=None,
-                   timeout=None,
-                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -359,15 +358,15 @@ class Sip(object):
 
     @staticmethod
     def SipTransferCall(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -386,15 +385,15 @@ class Sip(object):
 
     @staticmethod
     def SipRegisterAccount(request,
-                           target,
-                           options=(),
-                           channel_credentials=None,
-                           call_credentials=None,
-                           insecure=False,
-                           compression=None,
-                           wait_for_ready=None,
-                           timeout=None,
-                           metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -413,15 +412,15 @@ class Sip(object):
 
     @staticmethod
     def SipGetSipStatus(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -440,15 +439,15 @@ class Sip(object):
 
     @staticmethod
     def SipGetSipStatusHistory(request,
-                               target,
-                               options=(),
-                               channel_credentials=None,
-                               call_credentials=None,
-                               insecure=False,
-                               compression=None,
-                               wait_for_ready=None,
-                               timeout=None,
-                               metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -467,15 +466,15 @@ class Sip(object):
 
     @staticmethod
     def SipPlayWavFiles(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -494,15 +493,15 @@ class Sip(object):
 
     @staticmethod
     def SipMute(request,
-                target,
-                options=(),
-                channel_credentials=None,
-                call_credentials=None,
-                insecure=False,
-                compression=None,
-                wait_for_ready=None,
-                timeout=None,
-                metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -521,15 +520,15 @@ class Sip(object):
 
     @staticmethod
     def SipUnMute(request,
-                  target,
-                  options=(),
-                  channel_credentials=None,
-                  call_credentials=None,
-                  insecure=False,
-                  compression=None,
-                  wait_for_ready=None,
-                  timeout=None,
-                  metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,

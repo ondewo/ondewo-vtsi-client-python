@@ -17,11 +17,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/vtsi/projects_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/vtsi/projects_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -36,40 +36,40 @@ class ProjectsStub(object):
             channel: A grpc.Channel.
         """
         self.CreateVtsiProject = channel.unary_unary(
-            '/ondewo.vtsi.Projects/CreateVtsiProject',
-            request_serializer=ondewo_dot_vtsi_dot_projects__pb2.CreateVtsiProjectRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.CreateVtsiProjectResponse.FromString,
-            _registered_method=True)
+                '/ondewo.vtsi.Projects/CreateVtsiProject',
+                request_serializer=ondewo_dot_vtsi_dot_projects__pb2.CreateVtsiProjectRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.CreateVtsiProjectResponse.FromString,
+                _registered_method=True)
         self.GetVtsiProject = channel.unary_unary(
-            '/ondewo.vtsi.Projects/GetVtsiProject',
-            request_serializer=ondewo_dot_vtsi_dot_projects__pb2.GetVtsiProjectRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.VtsiProject.FromString,
-            _registered_method=True)
+                '/ondewo.vtsi.Projects/GetVtsiProject',
+                request_serializer=ondewo_dot_vtsi_dot_projects__pb2.GetVtsiProjectRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.VtsiProject.FromString,
+                _registered_method=True)
         self.UpdateVtsiProject = channel.unary_unary(
-            '/ondewo.vtsi.Projects/UpdateVtsiProject',
-            request_serializer=ondewo_dot_vtsi_dot_projects__pb2.UpdateVtsiProjectRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.UpdateVtsiProjectResponse.FromString,
-            _registered_method=True)
+                '/ondewo.vtsi.Projects/UpdateVtsiProject',
+                request_serializer=ondewo_dot_vtsi_dot_projects__pb2.UpdateVtsiProjectRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.UpdateVtsiProjectResponse.FromString,
+                _registered_method=True)
         self.DeleteVtsiProject = channel.unary_unary(
-            '/ondewo.vtsi.Projects/DeleteVtsiProject',
-            request_serializer=ondewo_dot_vtsi_dot_projects__pb2.DeleteVtsiProjectRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.DeleteVtsiProjectResponse.FromString,
-            _registered_method=True)
+                '/ondewo.vtsi.Projects/DeleteVtsiProject',
+                request_serializer=ondewo_dot_vtsi_dot_projects__pb2.DeleteVtsiProjectRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.DeleteVtsiProjectResponse.FromString,
+                _registered_method=True)
         self.DeployVtsiProject = channel.unary_unary(
-            '/ondewo.vtsi.Projects/DeployVtsiProject',
-            request_serializer=ondewo_dot_vtsi_dot_projects__pb2.DeployVtsiProjectRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.DeployVtsiProjectResponse.FromString,
-            _registered_method=True)
+                '/ondewo.vtsi.Projects/DeployVtsiProject',
+                request_serializer=ondewo_dot_vtsi_dot_projects__pb2.DeployVtsiProjectRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.DeployVtsiProjectResponse.FromString,
+                _registered_method=True)
         self.UndeployVtsiProject = channel.unary_unary(
-            '/ondewo.vtsi.Projects/UndeployVtsiProject',
-            request_serializer=ondewo_dot_vtsi_dot_projects__pb2.UndeployVtsiProjectRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.UndeployVtsiProjectResponse.FromString,
-            _registered_method=True)
+                '/ondewo.vtsi.Projects/UndeployVtsiProject',
+                request_serializer=ondewo_dot_vtsi_dot_projects__pb2.UndeployVtsiProjectRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.UndeployVtsiProjectResponse.FromString,
+                _registered_method=True)
         self.ListVtsiProjects = channel.unary_unary(
-            '/ondewo.vtsi.Projects/ListVtsiProjects',
-            request_serializer=ondewo_dot_vtsi_dot_projects__pb2.ListVtsiProjectsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.ListVtsiProjectsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.vtsi.Projects/ListVtsiProjects',
+                request_serializer=ondewo_dot_vtsi_dot_projects__pb2.ListVtsiProjectsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_projects__pb2.ListVtsiProjectsResponse.FromString,
+                _registered_method=True)
 
 
 class ProjectsServicer(object):
@@ -132,65 +132,64 @@ class ProjectsServicer(object):
 
 def add_ProjectsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'CreateVtsiProject': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateVtsiProject,
-            request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.CreateVtsiProjectRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_projects__pb2.CreateVtsiProjectResponse.SerializeToString,
-        ),
-        'GetVtsiProject': grpc.unary_unary_rpc_method_handler(
-            servicer.GetVtsiProject,
-            request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.GetVtsiProjectRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_projects__pb2.VtsiProject.SerializeToString,
-        ),
-        'UpdateVtsiProject': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateVtsiProject,
-            request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.UpdateVtsiProjectRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_projects__pb2.UpdateVtsiProjectResponse.SerializeToString,
-        ),
-        'DeleteVtsiProject': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteVtsiProject,
-            request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.DeleteVtsiProjectRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_projects__pb2.DeleteVtsiProjectResponse.SerializeToString,
-        ),
-        'DeployVtsiProject': grpc.unary_unary_rpc_method_handler(
-            servicer.DeployVtsiProject,
-            request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.DeployVtsiProjectRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_projects__pb2.DeployVtsiProjectResponse.SerializeToString,
-        ),
-        'UndeployVtsiProject': grpc.unary_unary_rpc_method_handler(
-            servicer.UndeployVtsiProject,
-            request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.UndeployVtsiProjectRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_projects__pb2.UndeployVtsiProjectResponse.SerializeToString,
-        ),
-        'ListVtsiProjects': grpc.unary_unary_rpc_method_handler(
-            servicer.ListVtsiProjects,
-            request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.ListVtsiProjectsRequest.FromString,
-            response_serializer=ondewo_dot_vtsi_dot_projects__pb2.ListVtsiProjectsResponse.SerializeToString,
-        ),
+            'CreateVtsiProject': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateVtsiProject,
+                    request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.CreateVtsiProjectRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_projects__pb2.CreateVtsiProjectResponse.SerializeToString,
+            ),
+            'GetVtsiProject': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetVtsiProject,
+                    request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.GetVtsiProjectRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_projects__pb2.VtsiProject.SerializeToString,
+            ),
+            'UpdateVtsiProject': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateVtsiProject,
+                    request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.UpdateVtsiProjectRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_projects__pb2.UpdateVtsiProjectResponse.SerializeToString,
+            ),
+            'DeleteVtsiProject': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteVtsiProject,
+                    request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.DeleteVtsiProjectRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_projects__pb2.DeleteVtsiProjectResponse.SerializeToString,
+            ),
+            'DeployVtsiProject': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeployVtsiProject,
+                    request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.DeployVtsiProjectRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_projects__pb2.DeployVtsiProjectResponse.SerializeToString,
+            ),
+            'UndeployVtsiProject': grpc.unary_unary_rpc_method_handler(
+                    servicer.UndeployVtsiProject,
+                    request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.UndeployVtsiProjectRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_projects__pb2.UndeployVtsiProjectResponse.SerializeToString,
+            ),
+            'ListVtsiProjects': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListVtsiProjects,
+                    request_deserializer=ondewo_dot_vtsi_dot_projects__pb2.ListVtsiProjectsRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_projects__pb2.ListVtsiProjectsResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.vtsi.Projects', rpc_method_handlers)
+            'ondewo.vtsi.Projects', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.vtsi.Projects', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class Projects(object):
     """<p>ONDEWO VTSI API</p>
     """
 
     @staticmethod
     def CreateVtsiProject(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -209,15 +208,15 @@ class Projects(object):
 
     @staticmethod
     def GetVtsiProject(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -236,15 +235,15 @@ class Projects(object):
 
     @staticmethod
     def UpdateVtsiProject(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -263,15 +262,15 @@ class Projects(object):
 
     @staticmethod
     def DeleteVtsiProject(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -290,15 +289,15 @@ class Projects(object):
 
     @staticmethod
     def DeployVtsiProject(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -317,15 +316,15 @@ class Projects(object):
 
     @staticmethod
     def UndeployVtsiProject(request,
-                            target,
-                            options=(),
-                            channel_credentials=None,
-                            call_credentials=None,
-                            insecure=False,
-                            compression=None,
-                            wait_for_ready=None,
-                            timeout=None,
-                            metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -344,15 +343,15 @@ class Projects(object):
 
     @staticmethod
     def ListVtsiProjects(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,

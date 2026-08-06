@@ -18,11 +18,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/qa/qa_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/qa/qa_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -37,40 +37,40 @@ class QAStub(object):
             channel: A grpc.Channel.
         """
         self.GetAnswer = channel.unary_unary(
-            '/ondewo.qa.QA/GetAnswer',
-            request_serializer=ondewo_dot_qa_dot_qa__pb2.GetAnswerRequest.SerializeToString,
-            response_deserializer=ondewo_dot_qa_dot_qa__pb2.GetAnswerResponse.FromString,
-            _registered_method=True)
+                '/ondewo.qa.QA/GetAnswer',
+                request_serializer=ondewo_dot_qa_dot_qa__pb2.GetAnswerRequest.SerializeToString,
+                response_deserializer=ondewo_dot_qa_dot_qa__pb2.GetAnswerResponse.FromString,
+                _registered_method=True)
         self.RunScraper = channel.unary_unary(
-            '/ondewo.qa.QA/RunScraper',
-            request_serializer=ondewo_dot_qa_dot_qa__pb2.RunScraperRequest.SerializeToString,
-            response_deserializer=ondewo_dot_qa_dot_qa__pb2.RunScraperResponse.FromString,
-            _registered_method=True)
+                '/ondewo.qa.QA/RunScraper',
+                request_serializer=ondewo_dot_qa_dot_qa__pb2.RunScraperRequest.SerializeToString,
+                response_deserializer=ondewo_dot_qa_dot_qa__pb2.RunScraperResponse.FromString,
+                _registered_method=True)
         self.UpdateDatabase = channel.unary_unary(
-            '/ondewo.qa.QA/UpdateDatabase',
-            request_serializer=ondewo_dot_qa_dot_qa__pb2.UpdateDatabaseRequest.SerializeToString,
-            response_deserializer=ondewo_dot_qa_dot_qa__pb2.UpdateDatabaseResponse.FromString,
-            _registered_method=True)
+                '/ondewo.qa.QA/UpdateDatabase',
+                request_serializer=ondewo_dot_qa_dot_qa__pb2.UpdateDatabaseRequest.SerializeToString,
+                response_deserializer=ondewo_dot_qa_dot_qa__pb2.UpdateDatabaseResponse.FromString,
+                _registered_method=True)
         self.RunTraining = channel.unary_unary(
-            '/ondewo.qa.QA/RunTraining',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_qa_dot_qa__pb2.RunTrainingResponse.FromString,
-            _registered_method=True)
+                '/ondewo.qa.QA/RunTraining',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_qa_dot_qa__pb2.RunTrainingResponse.FromString,
+                _registered_method=True)
         self.GetServerState = channel.unary_unary(
-            '/ondewo.qa.QA/GetServerState',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_qa_dot_qa__pb2.GetServerStateResponse.FromString,
-            _registered_method=True)
+                '/ondewo.qa.QA/GetServerState',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_qa_dot_qa__pb2.GetServerStateResponse.FromString,
+                _registered_method=True)
         self.ListProjectIds = channel.unary_unary(
-            '/ondewo.qa.QA/ListProjectIds',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_qa_dot_qa__pb2.ListProjectIdsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.qa.QA/ListProjectIds',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_qa_dot_qa__pb2.ListProjectIdsResponse.FromString,
+                _registered_method=True)
         self.GetProjectConfig = channel.unary_unary(
-            '/ondewo.qa.QA/GetProjectConfig',
-            request_serializer=ondewo_dot_qa_dot_qa__pb2.GetProjectConfigRequest.SerializeToString,
-            response_deserializer=ondewo_dot_qa_dot_qa__pb2.GetProjectConfigResponse.FromString,
-            _registered_method=True)
+                '/ondewo.qa.QA/GetProjectConfig',
+                request_serializer=ondewo_dot_qa_dot_qa__pb2.GetProjectConfigRequest.SerializeToString,
+                response_deserializer=ondewo_dot_qa_dot_qa__pb2.GetProjectConfigResponse.FromString,
+                _registered_method=True)
 
 
 class QAServicer(object):
@@ -129,65 +129,64 @@ class QAServicer(object):
 
 def add_QAServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'GetAnswer': grpc.unary_unary_rpc_method_handler(
-            servicer.GetAnswer,
-            request_deserializer=ondewo_dot_qa_dot_qa__pb2.GetAnswerRequest.FromString,
-            response_serializer=ondewo_dot_qa_dot_qa__pb2.GetAnswerResponse.SerializeToString,
-        ),
-        'RunScraper': grpc.unary_unary_rpc_method_handler(
-            servicer.RunScraper,
-            request_deserializer=ondewo_dot_qa_dot_qa__pb2.RunScraperRequest.FromString,
-            response_serializer=ondewo_dot_qa_dot_qa__pb2.RunScraperResponse.SerializeToString,
-        ),
-        'UpdateDatabase': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateDatabase,
-            request_deserializer=ondewo_dot_qa_dot_qa__pb2.UpdateDatabaseRequest.FromString,
-            response_serializer=ondewo_dot_qa_dot_qa__pb2.UpdateDatabaseResponse.SerializeToString,
-        ),
-        'RunTraining': grpc.unary_unary_rpc_method_handler(
-            servicer.RunTraining,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_qa_dot_qa__pb2.RunTrainingResponse.SerializeToString,
-        ),
-        'GetServerState': grpc.unary_unary_rpc_method_handler(
-            servicer.GetServerState,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_qa_dot_qa__pb2.GetServerStateResponse.SerializeToString,
-        ),
-        'ListProjectIds': grpc.unary_unary_rpc_method_handler(
-            servicer.ListProjectIds,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_qa_dot_qa__pb2.ListProjectIdsResponse.SerializeToString,
-        ),
-        'GetProjectConfig': grpc.unary_unary_rpc_method_handler(
-            servicer.GetProjectConfig,
-            request_deserializer=ondewo_dot_qa_dot_qa__pb2.GetProjectConfigRequest.FromString,
-            response_serializer=ondewo_dot_qa_dot_qa__pb2.GetProjectConfigResponse.SerializeToString,
-        ),
+            'GetAnswer': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAnswer,
+                    request_deserializer=ondewo_dot_qa_dot_qa__pb2.GetAnswerRequest.FromString,
+                    response_serializer=ondewo_dot_qa_dot_qa__pb2.GetAnswerResponse.SerializeToString,
+            ),
+            'RunScraper': grpc.unary_unary_rpc_method_handler(
+                    servicer.RunScraper,
+                    request_deserializer=ondewo_dot_qa_dot_qa__pb2.RunScraperRequest.FromString,
+                    response_serializer=ondewo_dot_qa_dot_qa__pb2.RunScraperResponse.SerializeToString,
+            ),
+            'UpdateDatabase': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateDatabase,
+                    request_deserializer=ondewo_dot_qa_dot_qa__pb2.UpdateDatabaseRequest.FromString,
+                    response_serializer=ondewo_dot_qa_dot_qa__pb2.UpdateDatabaseResponse.SerializeToString,
+            ),
+            'RunTraining': grpc.unary_unary_rpc_method_handler(
+                    servicer.RunTraining,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_qa_dot_qa__pb2.RunTrainingResponse.SerializeToString,
+            ),
+            'GetServerState': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServerState,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_qa_dot_qa__pb2.GetServerStateResponse.SerializeToString,
+            ),
+            'ListProjectIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListProjectIds,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_qa_dot_qa__pb2.ListProjectIdsResponse.SerializeToString,
+            ),
+            'GetProjectConfig': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetProjectConfig,
+                    request_deserializer=ondewo_dot_qa_dot_qa__pb2.GetProjectConfigRequest.FromString,
+                    response_serializer=ondewo_dot_qa_dot_qa__pb2.GetProjectConfigResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.qa.QA', rpc_method_handlers)
+            'ondewo.qa.QA', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.qa.QA', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class QA(object):
     """gRPC service for QA functionalities.
     """
 
     @staticmethod
     def GetAnswer(request,
-                  target,
-                  options=(),
-                  channel_credentials=None,
-                  call_credentials=None,
-                  insecure=False,
-                  compression=None,
-                  wait_for_ready=None,
-                  timeout=None,
-                  metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -206,15 +205,15 @@ class QA(object):
 
     @staticmethod
     def RunScraper(request,
-                   target,
-                   options=(),
-                   channel_credentials=None,
-                   call_credentials=None,
-                   insecure=False,
-                   compression=None,
-                   wait_for_ready=None,
-                   timeout=None,
-                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -233,15 +232,15 @@ class QA(object):
 
     @staticmethod
     def UpdateDatabase(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -260,15 +259,15 @@ class QA(object):
 
     @staticmethod
     def RunTraining(request,
-                    target,
-                    options=(),
-                    channel_credentials=None,
-                    call_credentials=None,
-                    insecure=False,
-                    compression=None,
-                    wait_for_ready=None,
-                    timeout=None,
-                    metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -287,15 +286,15 @@ class QA(object):
 
     @staticmethod
     def GetServerState(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -314,15 +313,15 @@ class QA(object):
 
     @staticmethod
     def ListProjectIds(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -341,15 +340,15 @@ class QA(object):
 
     @staticmethod
     def GetProjectConfig(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
