@@ -149,6 +149,42 @@ Raises:
 - Prefer region comments for grouping methods in files that already use them.
 - End edited Markdown and YAML files with a trailing newline.
 
+## This client VENDORS other services' protos — regenerate in lockstep
+
+Unlike the sibling clients, this package does not ship only its own protos. It installs:
+
+| Directory | Tracked files | Also shipped by |
+|---|---|---|
+| `ondewo/vtsi` | 22 | — (ours) |
+| `ondewo/nlu` | **55** | `ondewo-nlu-client` |
+| `ondewo/s2t` | 4 | `ondewo-s2t-client` |
+| `ondewo/t2s` | 4 | `ondewo-t2s-client` |
+| `ondewo/sip` | 4 | `ondewo-sip-client` |
+| `ondewo/qa` | 4 | `ondewo-nlu-client` |
+
+(Verified against the installed `.dist-info/RECORD` files in a consumer venv, not inferred. For
+contrast: `ondewo-csi-client` ships `ondewo/csi` **only** and depends on the nlu-client wheel
+instead — so it has none of the problems below.)
+
+Every one of those 71 non-`vtsi` files is claimed by two distributions at once, and there are two
+different failure modes when the copies disagree:
+
+- **`ondewo/nlu` skew crashes loudly.** Importing both this client and `ondewo-nlu-client` registers
+  the same proto file twice in one descriptor pool → duplicate-file `TypeError` at import.
+  ondewo-vtsi guards this with a subprocess test that imports both, in both orders
+  (`TestProtoDescriptorConsistency`).
+- **`ondewo/s2t`, `ondewo/t2s` and `ondewo/sip` skew fails SILENTLY, which is worse.** Two dists claim
+  the same path, so only **one physical copy survives on disk** — last writer wins at install time.
+  The result is install-order-dependent schema loss with no exception anywhere. Consumers are safe
+  today only because they hard-pin `ondewo-s2t-client==7.3.1` and `ondewo-t2s-client==6.2.0`, at
+  which versions the copies are byte-identical.
+
+**The rule:** regenerate this client against the SAME `ondewo-*-api` versions that the service
+clients your consumers pin were built from. Current alignment: `ondewo-nlu-api` **7.0.0** /
+`ondewo-nlu-client` **7.0.1**, `ondewo-s2t-client` 7.3.1, `ondewo-t2s-client` 6.2.0,
+`ondewo-sip-client` 5.3.0. Consumers pin this repo by git rev — `ondewo-vtsi` currently pins
+**`132df199`** — so never rebase or force-push a commit a pin references.
+
 ## Jenkins — never trigger a multibranch scan or branch indexing
 
 **NEVER trigger a Jenkins multibranch scan or branch indexing.** Do not call a multibranch/folder job's
