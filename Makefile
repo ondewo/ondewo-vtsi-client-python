@@ -181,16 +181,28 @@ create_conda_env: ## Creates CONDA Environment
 	/bin/bash -c 'source `conda info --base`/bin/activate ondewo-vtsi-client-python; make setup_developer_environment_locally && echo "\n PRECOMMIT INSTALLED \n"'
 	make release
 
+HAND_WRITTEN_ASYNC_MARKER=ondewo:hand-written-async-service
+
 create_async_services: ## Create async services for all synchronous services
+	# The rewrite below turns every `self.stub.Rpc(...)` into `await self.stub.Rpc(...)`, which is
+	# correct for a unary RPC (grpc.aio returns an awaitable UnaryUnaryCall) and WRONG for a
+	# server-streaming one (UnaryStreamCall is an async ITERATOR and must not be awaited). A generated
+	# async streaming wrapper therefore fails at runtime, silently, on the first call. An async_*.py
+	# carrying ${HAND_WRITTEN_ASYNC_MARKER} is maintained by hand and is left alone.
 	@find ondewo -type d -name "services" ! -path "*/.*/*" | while read -r dir; do \
 	    for file in "$$dir"/*.py; do \
 	        filename=$$(basename -- "$$file"); \
 	        case "$$filename" in \
 	            "__init__.py"|async_*) continue ;; \
 	        esac; \
+	        if [ -f "$$dir/async_$$filename" ] && grep -q "${HAND_WRITTEN_ASYNC_MARKER}" "$$dir/async_$$filename"; then \
+	            echo "create_async_services: keeping hand-written $$dir/async_$$filename"; \
+	            continue; \
+	        fi; \
 	        cp "$$file" "$$dir/async_$$filename"; \
 	    done; \
 	    for file in "$$dir"/async_*.py; do \
+	        if grep -q "${HAND_WRITTEN_ASYNC_MARKER}" "$$file"; then continue; fi; \
 	        perl -i -pe 'unless(/def stub/){ s/^([[:space:]]*)def /$$1async def /g; s/self\.stub/await self.stub/g; s/\(BaseServicesInterface\)/(AsyncBaseServicesInterface)/g; s/base_services_interface/async_base_services_interface/g; s/import BaseServicesInterface/import AsyncBaseServicesInterface/g; s/services_interface import ServicesInterface/async_services_interface import AsyncServicesInterface/g; s/\((?<!Async)ServicesInterface\)/(AsyncServicesInterface)/g; }' \
 	            "$$file"; \
 	    done; \

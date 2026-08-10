@@ -23,6 +23,7 @@ from ondewo.utils.async_base_client import AsyncBaseClient
 from ondewo.vtsi.client.async_services_container import AsyncServicesContainer
 from ondewo.vtsi.client.client_config import ClientConfig
 from ondewo.vtsi.client.services.async_calls import Calls
+from ondewo.vtsi.client.services.async_logs import Logs
 from ondewo.vtsi.client.services.async_projects import Projects
 
 
@@ -49,4 +50,5 @@ class AsyncClient(AsyncBaseClient):
         self.services: AsyncServicesContainer = AsyncServicesContainer(
             projects=Projects(config=config, use_secure_channel=use_secure_channel, options=options),
             calls=Calls(config=config, use_secure_channel=use_secure_channel, options=options),
+            logs=Logs(config=config, use_secure_channel=use_secure_channel, options=options),
         )
