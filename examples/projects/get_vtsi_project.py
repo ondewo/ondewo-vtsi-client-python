@@ -30,6 +30,7 @@ the ``KEYCLOAK_URL`` / ``KEYCLOAK_REALM`` / ``KEYCLOAK_CLIENT_ID`` / ``KEYCLOAK_
 secret). The legacy HTTP-Basic credential has been removed. When those vars are left
 blank the config is still valid, which is convenient for a local, insecure dev server.
 """
+
 import os
 import sys
 from pathlib import Path

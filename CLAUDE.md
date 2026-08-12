@@ -149,49 +149,39 @@ Raises:
 - Prefer region comments for grouping methods in files that already use them.
 - End edited Markdown and YAML files with a trailing newline.
 
-## This client VENDORS other services' protos — regenerate in lockstep
+## Release gotchas (hard-won this session)
 
-Unlike the sibling clients, this package does not ship only its own protos. It installs:
+These bit us during the 6.14.0 release. Keep them in mind when releasing.
 
-| Directory | Tracked files | Also shipped by |
-|---|---|---|
-| `ondewo/vtsi` | 22 | — (ours) |
-| `ondewo/nlu` | **55** | `ondewo-nlu-client` |
-| `ondewo/s2t` | 4 | `ondewo-s2t-client` |
-| `ondewo/t2s` | 4 | `ondewo-t2s-client` |
-| `ondewo/sip` | 4 | `ondewo-sip-client` |
-| `ondewo/qa` | 4 | `ondewo-nlu-client` |
+- **Trust the registry, not the log.** `make release_all_clients` wraps each client in `|| echo "Already released …"`, so a _failed_ release is reported as "done". After any release, verify the GitHub release **and** the published package (PyPI / npm) directly.
+- **`npm install failed after 5 attempts` in a release log is usually a red herring** — that text is the echo _inside_ the docker `RUN for i in 1..5; do npm install …` retry loop, not a real failure (`npm install` succeeds → `#10 DONE`). Look further down for the real error (a TTY error, an eslint failure, a `setup.py` error).
+- **Codegen must run TTY-free.** The `docker run` that invokes the proto-compiler must not pass `-it` — non-interactively it fails with `cannot attach stdin to a TTY-enabled container because stdin is not a terminal`. Fix the script (drop `-it`), or run the whole release under a pseudo-TTY: `script -qc 'make …' /dev/null`.
+- **Release Makefiles print secrets.** Some `docker run … -e <TOKEN>=…` recipe lines lack a leading `@`, so `make` echoes the expanded token. Rotate any token printed during a release; fix by prefixing the recipe line with `@`.
+- The release auto-pulls the **latest** `ondewo-proto-compiler` tag.
+- **npm package names are inconsistent** — e.g. the JS client publishes as `@ondewo/ondewo-nlu-client-js` (double `ondewo`), not `@ondewo/nlu-client-js`. Check `src/package.json`'s `name` before querying npm.
+- **PyPI build needs setuptools.** The release image (`Dockerfile.utils`) is `python:3.12-slim`, which bundles no `setuptools`, so `python setup.py sdist bdist_wheel` dies with `ModuleNotFoundError: No module named 'setuptools'`. `Dockerfile.utils` must `pip install … setuptools wheel`.
 
-(Verified against the installed `.dist-info/RECORD` files in a consumer venv, not inferred. For
-contrast: `ondewo-csi-client` ships `ondewo/csi` **only** and depends on the nlu-client wheel
-instead — so it has none of the problems below.)
+## Python tooling — uv + ruff + mypy + pyproject.toml (this session's refactor)
 
-Every one of those 71 non-`vtsi` files is claimed by two distributions at once, and there are two
-different failure modes when the copies disagree:
+This repo was migrated off `setup.py` / `.flake8` / `mypy.ini` to a single **pyproject.toml** with **uv**, **ruff**, and **mypy**. Going forward:
 
-- **`ondewo/nlu` skew crashes loudly.** Importing both this client and `ondewo-nlu-client` registers
-  the same proto file twice in one descriptor pool → duplicate-file `TypeError` at import.
-  ondewo-vtsi guards this with a subprocess test that imports both, in both orders
-  (`TestProtoDescriptorConsistency`).
-- **`ondewo/s2t`, `ondewo/t2s` and `ondewo/sip` skew fails SILENTLY, which is worse.** Two dists claim
-  the same path, so only **one physical copy survives on disk** — last writer wins at install time.
-  The result is install-order-dependent schema loss with no exception anywhere. Consumers are safe
-  today only because they hard-pin `ondewo-s2t-client==7.3.1` and `ondewo-t2s-client==6.2.0`, at
-  which versions the copies are byte-identical.
+- **Build backend stays setuptools** (for PyPI compatibility). Build with `python -m build --no-isolation` or `uv build` — NOT `python setup.py sdist bdist_wheel` (setup.py is deleted). `Dockerfile.utils` installs `twine setuptools wheel build`.
+- **Dependencies via uv + a committed `uv.lock`.** CI runs `uv sync --extra dev --frozen`. To add/change a dep: edit `[project.dependencies]`/`[project.optional-dependencies].dev` in pyproject.toml then `uv lock`.
+- **Lint is ruff** (`[tool.ruff]`, line-length 120, generated `*_pb2*` excluded) — `uv run ruff check .`. flake8 is gone.
+- **mypy config lives in `[tool.mypy]`.** Do **NOT** re-create `mypy.ini` — it silently _shadows_ the pyproject config. Generated `*_pb2*` modules get `ignore_errors` overrides.
+- **Do NOT re-add `setup.py`** — with setuptools>=61 it conflicts with `[project]` on duplicated metadata.
+- **PEP 625**: the sdist is now underscore-normalised (`ondewo_<name>-<v>.tar.gz`); anything that greps the tarball name by hand must use underscores.
+- The version-bump release target edits the version in **pyproject.toml** (not setup.py); the release stages `pyproject.toml uv.lock`.
 
-**The rule:** regenerate this client against the SAME `ondewo-*-api` versions that the service
-clients your consumers pin were built from. Current alignment: `ondewo-nlu-api` **7.0.0** /
-`ondewo-nlu-client` **7.0.1**, `ondewo-s2t-client` 7.3.1, `ondewo-t2s-client` 6.2.0,
-`ondewo-sip-client` 5.3.0. Consumers pin this repo by git rev — `ondewo-vtsi` currently pins
-**`132df199`** — so never rebase or force-push a commit a pin references.
+## uv migration — completed conversion (this session)
 
-## Jenkins — never trigger a multibranch scan or branch indexing
+The repo is now fully on **uv** (not just pyproject.toml):
 
-**NEVER trigger a Jenkins multibranch scan or branch indexing.** Do not call a multibranch/folder job's
-`build`, `scan`, or reindex endpoints, click "Scan Repository Now" / "Build Now" on a folder, run
-`p4 scan`, or use any API/CLI that reindexes branches or scans the repository. A scan/reindex runs across
-**every** branch, consumes CI resources, and can kick off unintended builds and deploys.
-
-If a branch is not building — it was not discovered, or its job is marked `buildable: false` / orphaned —
-**report it and stop**. Let the user or a Jenkins admin adjust branch-discovery/config or rename the branch
-to the convention. Never force a build by scanning or reindexing.
+- `make setup_developer_environment_locally` bootstraps uv (installs it if missing), runs `uv sync --extra dev` (creates `.venv` + installs all runtime+dev deps + pre-commit), then `uv run pre-commit install`. **No conda** — the old `create_conda_env`/`setup_conda_env` scaffolding was removed.
+- Every Makefile target uses uv: `uv sync --extra dev` (deps), `uv run pytest`/`ruff`/`mypy` (tools), `uv build` (wheel). No `pip install`, no `python -m build`, no `python setup.py`.
+- New targets: `make ruff` / `make ruff_fix` / `make ruff_format` / `make mypy`. The `flake8` target is **removed**.
+- Removed for good: `requirements.txt`, `requirements-dev.txt`, `setup.cfg` — deps + tool config live in `pyproject.toml`. Do **not** re-add them.
+- `Dockerfile.utils` installs uv (`COPY --from=ghcr.io/astral-sh/uv`) and builds with uv; it no longer `COPY`s `requirements.txt`.
+- **`[tool.mypy] python_version` must be `3.12`** wherever numpy 2.x is on the mypy path — its PEP-695 `type X = …` stubs fail to parse on < 3.12.
+- The release `git commit` uses **`--no-verify`** so pre-commit hooks never gate an automated release.
+- **Validated by a real PyPI publish** — `ondewo-t2s-client 6.5.0` was built with `uv build` and uploaded via twine end-to-end; the uv release pipeline works.

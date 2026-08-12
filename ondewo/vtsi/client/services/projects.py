@@ -37,8 +37,7 @@ class Projects(ServicesInterface):
         return stub
 
     def create_vtsi_project(
-        self,
-        request: projects_pb2.CreateVtsiProjectRequest
+        self, request: projects_pb2.CreateVtsiProjectRequest
     ) -> projects_pb2.CreateVtsiProjectResponse:
         """
         Create a new VtsiProject.
@@ -52,10 +51,7 @@ class Projects(ServicesInterface):
         """
         return self.stub.CreateVtsiProject(request=request, metadata=self.metadata)
 
-    def get_vtsi_project(
-        self,
-        request: projects_pb2.GetVtsiProjectRequest
-    ) -> projects_pb2.VtsiProject:
+    def get_vtsi_project(self, request: projects_pb2.GetVtsiProjectRequest) -> projects_pb2.VtsiProject:
         """
         Get details of a specific VtsiProject.
 
@@ -68,8 +64,7 @@ class Projects(ServicesInterface):
         return self.stub.GetVtsiProject(request=request, metadata=self.metadata)
 
     def update_vtsi_project(
-        self,
-        request: projects_pb2.UpdateVtsiProjectRequest
+        self, request: projects_pb2.UpdateVtsiProjectRequest
     ) -> projects_pb2.UpdateVtsiProjectResponse:
         """
         Update an existing VtsiProject.
@@ -84,8 +79,7 @@ class Projects(ServicesInterface):
         return self.stub.UpdateVtsiProject(request=request, metadata=self.metadata)
 
     def delete_vtsi_project(
-        self,
-        request: projects_pb2.DeleteVtsiProjectRequest
+        self, request: projects_pb2.DeleteVtsiProjectRequest
     ) -> projects_pb2.DeleteVtsiProjectResponse:
         """
         Delete an existing VtsiProject.
@@ -101,8 +95,7 @@ class Projects(ServicesInterface):
         return self.stub.DeleteVtsiProject(request=request, metadata=self.metadata)
 
     def deploy_vtsi_project(
-        self,
-        request: projects_pb2.DeployVtsiProjectRequest
+        self, request: projects_pb2.DeployVtsiProjectRequest
     ) -> projects_pb2.DeployVtsiProjectResponse:
         """
         Deploy a VtsiProject.
@@ -118,8 +111,7 @@ class Projects(ServicesInterface):
         return self.stub.DeployVtsiProject(request=request, metadata=self.metadata)
 
     def undeploy_vtsi_project(
-        self,
-        request: projects_pb2.UndeployVtsiProjectRequest
+        self, request: projects_pb2.UndeployVtsiProjectRequest
     ) -> projects_pb2.UndeployVtsiProjectResponse:
         """
         Undeploy a VtsiProject.
@@ -135,8 +127,7 @@ class Projects(ServicesInterface):
         return self.stub.UndeployVtsiProject(request=request, metadata=self.metadata)
 
     def list_vtsi_projects(
-        self,
-        request: projects_pb2.ListVtsiProjectsRequest
+        self, request: projects_pb2.ListVtsiProjectsRequest
     ) -> projects_pb2.ListVtsiProjectsResponse:
         """
         List all VtsiProjects.

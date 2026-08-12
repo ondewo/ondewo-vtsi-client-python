@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Unit tests for `ClientConfig` validation of the D18 Keycloak offline-token auth fields."""
+
 from __future__ import annotations
 
 import pytest
