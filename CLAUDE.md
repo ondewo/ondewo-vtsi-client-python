@@ -228,6 +228,12 @@ exact PyPI version, and none of those four has released the fix. `git tag --cont
 empty here too and the version string still reads `8.2.0`, so anyone installing `ondewo-vtsi-client==8.2.0`
 from PyPI still gets the leaking repr. Never rebase or force-push a commit that a rev pin references.
 
+## `optional` proto3 scalars: ask `HasField`, never the attribute
+
+`AsteriskConfigs.asterisk_version` is the first generated field here declared `optional string`. The keyword compiles to a synthetic one-member oneof (`_asterisk_version`), so `HasField("asterisk_version")` becomes legal and `WhichOneof("_asterisk_version")` appears in the stub. **Reading the attribute cannot distinguish "unset" from "explicitly empty"** — both yield `''` — and for this field the two are different requests: unset means "use the VTSI server's `ONDEWO_VTSI_ASTERISK_IMAGE_TAG` default", the empty string is rejected with `INVALID_ARGUMENT`.
+
+`tests/unit/vtsi/test_asterisk_configs_asterisk_version.py` pins both directions plus a premise test on the descriptor: `asterisk_port`, the plain proto3 scalar one field number below, must report `has_presence is False` and no containing oneof. Dropping `optional` upstream moves `asterisk_version` into that column and every assertion becomes a `ValueError` rather than a silent pass. Note the synthetic oneof does NOT join `asterisk_configs_oneof`, which the server reads to decide which configuration variant the caller sent.
+
 ## The two commit-msg hooks must run in this order
 
 `.pre-commit-config.yaml` lists `conventional-pre-commit` **before** `giticket`, and the order is the whole
