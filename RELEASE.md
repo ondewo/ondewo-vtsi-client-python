@@ -4,6 +4,17 @@
 
 ## Unreleased
 
+### Improvements
+
+* Regenerated against [ondewo-vtsi-api](https://github.com/ondewo/ondewo-vtsi-api) with the new optional field
+  `AsteriskConfigs.asterisk_version`, which carries the docker image tag of the ONDEWO Asterisk image a VTSI project
+  should start (e.g. `alpine-3.18-18.20.2`). The Asterisk version is therefore a per-project setting rather than a
+  server-wide one.
+* The field has **explicit presence**: leave it unset and the server keeps its configured default
+  (`ONDEWO_VTSI_ASTERISK_IMAGE_TAG`); send an empty string and the server rejects the request. Ask
+  `asterisk_configs.HasField("asterisk_version")` — reading the attribute returns `''` in both cases and cannot tell
+  them apart.
+
 ### Bug Fixes
 
 * `ClientConfig` no longer prints its credentials. `@dataclass` generates a `__repr__` that renders every field, so `log.debug(f"...{config}")` — or any traceback carrying locals — wrote the Keycloak password and the gRPC certificate to the logs in clear text. `repr()` and `str()` now render `password` and `grpc_cert` as `***REDACTED***`. An unset or empty value still renders as `None` / `''`: the marker reads as "set and sensitive", which misleads when the real fault is that nobody set it.
