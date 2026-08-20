@@ -18,11 +18,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/t2s/text_to_speech_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/t2s/text_to_speech_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -37,95 +37,100 @@ class Text2SpeechStub(object):
             channel: A grpc.Channel.
         """
         self.Synthesize = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/Synthesize',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.SynthesizeRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.SynthesizeResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/Synthesize',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.SynthesizeRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.SynthesizeResponse.FromString,
+                _registered_method=True)
         self.BatchSynthesize = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/BatchSynthesize',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/BatchSynthesize',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeResponse.FromString,
+                _registered_method=True)
         self.StreamingSynthesize = channel.stream_stream(
-            '/ondewo.t2s.Text2Speech/StreamingSynthesize',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/StreamingSynthesize',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeResponse.FromString,
+                _registered_method=True)
         self.NormalizeText = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/NormalizeText',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.NormalizeTextRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.NormalizeTextResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/NormalizeText',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.NormalizeTextRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.NormalizeTextResponse.FromString,
+                _registered_method=True)
         self.GetT2sPipeline = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/GetT2sPipeline',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/GetT2sPipeline',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.FromString,
+                _registered_method=True)
         self.CreateT2sPipeline = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/CreateT2sPipeline',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/CreateT2sPipeline',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.FromString,
+                _registered_method=True)
         self.DeleteT2sPipeline = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/DeleteT2sPipeline',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/DeleteT2sPipeline',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.UpdateT2sPipeline = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/UpdateT2sPipeline',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/UpdateT2sPipeline',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.ListT2sPipelines = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/ListT2sPipelines',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sPipelinesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sPipelinesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/ListT2sPipelines',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sPipelinesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sPipelinesResponse.FromString,
+                _registered_method=True)
         self.ListT2sLanguages = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/ListT2sLanguages',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sLanguagesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sLanguagesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/ListT2sLanguages',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sLanguagesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sLanguagesResponse.FromString,
+                _registered_method=True)
         self.ListT2sDomains = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/ListT2sDomains',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/ListT2sDomains',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsResponse.FromString,
+                _registered_method=True)
         self.ListT2sNormalizationPipelines = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/ListT2sNormalizationPipelines',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/ListT2sNormalizationPipelines',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesResponse.FromString,
+                _registered_method=True)
         self.GetServiceInfo = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/GetServiceInfo',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2SGetServiceInfoResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/GetServiceInfo',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2SGetServiceInfoResponse.FromString,
+                _registered_method=True)
         self.GetCustomPhonemizer = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/GetCustomPhonemizer',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CustomPhonemizerProto.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/GetCustomPhonemizer',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CustomPhonemizerProto.FromString,
+                _registered_method=True)
         self.CreateCustomPhonemizer = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/CreateCustomPhonemizer',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CreateCustomPhonemizerRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/CreateCustomPhonemizer',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CreateCustomPhonemizerRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.FromString,
+                _registered_method=True)
         self.DeleteCustomPhonemizer = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/DeleteCustomPhonemizer',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/DeleteCustomPhonemizer',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.UpdateCustomPhonemizer = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/UpdateCustomPhonemizer',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.UpdateCustomPhonemizerRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CustomPhonemizerProto.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/UpdateCustomPhonemizer',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.UpdateCustomPhonemizerRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CustomPhonemizerProto.FromString,
+                _registered_method=True)
         self.ListCustomPhonemizer = channel.unary_unary(
-            '/ondewo.t2s.Text2Speech/ListCustomPhonemizer',
-            request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerRequest.SerializeToString,
-            response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerResponse.FromString,
-            _registered_method=True)
+                '/ondewo.t2s.Text2Speech/ListCustomPhonemizer',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerRequest.SerializeToString,
+                response_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerResponse.FromString,
+                _registered_method=True)
+        self.VoiceCloning = channel.unary_unary(
+                '/ondewo.t2s.Text2Speech/VoiceCloning',
+                request_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.VoiceCloningRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
 
 
 class Text2SpeechServicer(object):
@@ -262,123 +267,135 @@ class Text2SpeechServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def VoiceCloning(self, request, context):
+        """<p>Clones a voice based on a sample audio of the speaker and its transcription.
+        The cloned voice can afterwards be used for synthesis by referencing the given speaker name.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_Text2SpeechServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'Synthesize': grpc.unary_unary_rpc_method_handler(
-            servicer.Synthesize,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.SynthesizeRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.SynthesizeResponse.SerializeToString,
-        ),
-        'BatchSynthesize': grpc.unary_unary_rpc_method_handler(
-            servicer.BatchSynthesize,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeResponse.SerializeToString,
-        ),
-        'StreamingSynthesize': grpc.stream_stream_rpc_method_handler(
-            servicer.StreamingSynthesize,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeResponse.SerializeToString,
-        ),
-        'NormalizeText': grpc.unary_unary_rpc_method_handler(
-            servicer.NormalizeText,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.NormalizeTextRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.NormalizeTextResponse.SerializeToString,
-        ),
-        'GetT2sPipeline': grpc.unary_unary_rpc_method_handler(
-            servicer.GetT2sPipeline,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.SerializeToString,
-        ),
-        'CreateT2sPipeline': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateT2sPipeline,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.SerializeToString,
-        ),
-        'DeleteT2sPipeline': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteT2sPipeline,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'UpdateT2sPipeline': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateT2sPipeline,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'ListT2sPipelines': grpc.unary_unary_rpc_method_handler(
-            servicer.ListT2sPipelines,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sPipelinesRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sPipelinesResponse.SerializeToString,
-        ),
-        'ListT2sLanguages': grpc.unary_unary_rpc_method_handler(
-            servicer.ListT2sLanguages,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sLanguagesRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sLanguagesResponse.SerializeToString,
-        ),
-        'ListT2sDomains': grpc.unary_unary_rpc_method_handler(
-            servicer.ListT2sDomains,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsResponse.SerializeToString,
-        ),
-        'ListT2sNormalizationPipelines': grpc.unary_unary_rpc_method_handler(
-            servicer.ListT2sNormalizationPipelines,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesResponse.SerializeToString,
-        ),
-        'GetServiceInfo': grpc.unary_unary_rpc_method_handler(
-            servicer.GetServiceInfo,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2SGetServiceInfoResponse.SerializeToString,
-        ),
-        'GetCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
-            servicer.GetCustomPhonemizer,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CustomPhonemizerProto.SerializeToString,
-        ),
-        'CreateCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateCustomPhonemizer,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CreateCustomPhonemizerRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.SerializeToString,
-        ),
-        'DeleteCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteCustomPhonemizer,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'UpdateCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateCustomPhonemizer,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.UpdateCustomPhonemizerRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CustomPhonemizerProto.SerializeToString,
-        ),
-        'ListCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
-            servicer.ListCustomPhonemizer,
-            request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerRequest.FromString,
-            response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerResponse.SerializeToString,
-        ),
+            'Synthesize': grpc.unary_unary_rpc_method_handler(
+                    servicer.Synthesize,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.SynthesizeRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.SynthesizeResponse.SerializeToString,
+            ),
+            'BatchSynthesize': grpc.unary_unary_rpc_method_handler(
+                    servicer.BatchSynthesize,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.BatchSynthesizeResponse.SerializeToString,
+            ),
+            'StreamingSynthesize': grpc.stream_stream_rpc_method_handler(
+                    servicer.StreamingSynthesize,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.StreamingSynthesizeResponse.SerializeToString,
+            ),
+            'NormalizeText': grpc.unary_unary_rpc_method_handler(
+                    servicer.NormalizeText,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.NormalizeTextRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.NormalizeTextResponse.SerializeToString,
+            ),
+            'GetT2sPipeline': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetT2sPipeline,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.SerializeToString,
+            ),
+            'CreateT2sPipeline': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateT2sPipeline,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.SerializeToString,
+            ),
+            'DeleteT2sPipeline': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteT2sPipeline,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2sPipelineId.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateT2sPipeline': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateT2sPipeline,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.Text2SpeechConfig.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ListT2sPipelines': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListT2sPipelines,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sPipelinesRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sPipelinesResponse.SerializeToString,
+            ),
+            'ListT2sLanguages': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListT2sLanguages,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sLanguagesRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sLanguagesResponse.SerializeToString,
+            ),
+            'ListT2sDomains': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListT2sDomains,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sDomainsResponse.SerializeToString,
+            ),
+            'ListT2sNormalizationPipelines': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListT2sNormalizationPipelines,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListT2sNormalizationPipelinesResponse.SerializeToString,
+            ),
+            'GetServiceInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServiceInfo,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.T2SGetServiceInfoResponse.SerializeToString,
+            ),
+            'GetCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCustomPhonemizer,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CustomPhonemizerProto.SerializeToString,
+            ),
+            'CreateCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateCustomPhonemizer,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CreateCustomPhonemizerRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.SerializeToString,
+            ),
+            'DeleteCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteCustomPhonemizer,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.PhonemizerId.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateCustomPhonemizer,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.UpdateCustomPhonemizerRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.CustomPhonemizerProto.SerializeToString,
+            ),
+            'ListCustomPhonemizer': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListCustomPhonemizer,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerRequest.FromString,
+                    response_serializer=ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerResponse.SerializeToString,
+            ),
+            'VoiceCloning': grpc.unary_unary_rpc_method_handler(
+                    servicer.VoiceCloning,
+                    request_deserializer=ondewo_dot_t2s_dot_text__to__speech__pb2.VoiceCloningRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.t2s.Text2Speech', rpc_method_handlers)
+            'ondewo.t2s.Text2Speech', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.t2s.Text2Speech', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class Text2Speech(object):
     """<p>Text2Speech service provides endpoints for text-to-speech generation.</p>
     """
 
     @staticmethod
     def Synthesize(request,
-                   target,
-                   options=(),
-                   channel_credentials=None,
-                   call_credentials=None,
-                   insecure=False,
-                   compression=None,
-                   wait_for_ready=None,
-                   timeout=None,
-                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -397,15 +414,15 @@ class Text2Speech(object):
 
     @staticmethod
     def BatchSynthesize(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -424,15 +441,15 @@ class Text2Speech(object):
 
     @staticmethod
     def StreamingSynthesize(request_iterator,
-                            target,
-                            options=(),
-                            channel_credentials=None,
-                            call_credentials=None,
-                            insecure=False,
-                            compression=None,
-                            wait_for_ready=None,
-                            timeout=None,
-                            metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.stream_stream(
             request_iterator,
             target,
@@ -451,15 +468,15 @@ class Text2Speech(object):
 
     @staticmethod
     def NormalizeText(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -478,15 +495,15 @@ class Text2Speech(object):
 
     @staticmethod
     def GetT2sPipeline(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -505,15 +522,15 @@ class Text2Speech(object):
 
     @staticmethod
     def CreateT2sPipeline(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -532,15 +549,15 @@ class Text2Speech(object):
 
     @staticmethod
     def DeleteT2sPipeline(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -559,15 +576,15 @@ class Text2Speech(object):
 
     @staticmethod
     def UpdateT2sPipeline(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -586,15 +603,15 @@ class Text2Speech(object):
 
     @staticmethod
     def ListT2sPipelines(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -613,15 +630,15 @@ class Text2Speech(object):
 
     @staticmethod
     def ListT2sLanguages(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -640,15 +657,15 @@ class Text2Speech(object):
 
     @staticmethod
     def ListT2sDomains(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -667,15 +684,15 @@ class Text2Speech(object):
 
     @staticmethod
     def ListT2sNormalizationPipelines(request,
-                                      target,
-                                      options=(),
-                                      channel_credentials=None,
-                                      call_credentials=None,
-                                      insecure=False,
-                                      compression=None,
-                                      wait_for_ready=None,
-                                      timeout=None,
-                                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -694,15 +711,15 @@ class Text2Speech(object):
 
     @staticmethod
     def GetServiceInfo(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -721,15 +738,15 @@ class Text2Speech(object):
 
     @staticmethod
     def GetCustomPhonemizer(request,
-                            target,
-                            options=(),
-                            channel_credentials=None,
-                            call_credentials=None,
-                            insecure=False,
-                            compression=None,
-                            wait_for_ready=None,
-                            timeout=None,
-                            metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -748,15 +765,15 @@ class Text2Speech(object):
 
     @staticmethod
     def CreateCustomPhonemizer(request,
-                               target,
-                               options=(),
-                               channel_credentials=None,
-                               call_credentials=None,
-                               insecure=False,
-                               compression=None,
-                               wait_for_ready=None,
-                               timeout=None,
-                               metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -775,15 +792,15 @@ class Text2Speech(object):
 
     @staticmethod
     def DeleteCustomPhonemizer(request,
-                               target,
-                               options=(),
-                               channel_credentials=None,
-                               call_credentials=None,
-                               insecure=False,
-                               compression=None,
-                               wait_for_ready=None,
-                               timeout=None,
-                               metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -802,15 +819,15 @@ class Text2Speech(object):
 
     @staticmethod
     def UpdateCustomPhonemizer(request,
-                               target,
-                               options=(),
-                               channel_credentials=None,
-                               call_credentials=None,
-                               insecure=False,
-                               compression=None,
-                               wait_for_ready=None,
-                               timeout=None,
-                               metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -829,21 +846,48 @@ class Text2Speech(object):
 
     @staticmethod
     def ListCustomPhonemizer(request,
-                             target,
-                             options=(),
-                             channel_credentials=None,
-                             call_credentials=None,
-                             insecure=False,
-                             compression=None,
-                             wait_for_ready=None,
-                             timeout=None,
-                             metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
             '/ondewo.t2s.Text2Speech/ListCustomPhonemizer',
             ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerRequest.SerializeToString,
             ondewo_dot_t2s_dot_text__to__speech__pb2.ListCustomPhonemizerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def VoiceCloning(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.t2s.Text2Speech/VoiceCloning',
+            ondewo_dot_t2s_dot_text__to__speech__pb2.VoiceCloningRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

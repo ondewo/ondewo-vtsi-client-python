@@ -18,11 +18,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/nlu/project_statistics_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/nlu/project_statistics_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -37,45 +37,45 @@ class ProjectStatisticsStub(object):
             channel: A grpc.Channel.
         """
         self.GetIntentCount = channel.unary_unary(
-            '/ondewo.nlu.ProjectStatistics/GetIntentCount',
-            request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetIntentCountRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ProjectStatistics/GetIntentCount',
+                request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetIntentCountRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
         self.GetEntityTypeCount = channel.unary_unary(
-            '/ondewo.nlu.ProjectStatistics/GetEntityTypeCount',
-            request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetEntityTypeCountRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ProjectStatistics/GetEntityTypeCount',
+                request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetEntityTypeCountRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
         self.GetUserCount = channel.unary_unary(
-            '/ondewo.nlu.ProjectStatistics/GetUserCount',
-            request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectStatRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ProjectStatistics/GetUserCount',
+                request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectStatRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
         self.GetSessionCount = channel.unary_unary(
-            '/ondewo.nlu.ProjectStatistics/GetSessionCount',
-            request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectStatRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ProjectStatistics/GetSessionCount',
+                request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectStatRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
         self.GetTrainingPhraseCount = channel.unary_unary(
-            '/ondewo.nlu.ProjectStatistics/GetTrainingPhraseCount',
-            request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ProjectStatistics/GetTrainingPhraseCount',
+                request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
         self.GetResponseCount = channel.unary_unary(
-            '/ondewo.nlu.ProjectStatistics/GetResponseCount',
-            request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ProjectStatistics/GetResponseCount',
+                request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
         self.GetEntityValueCount = channel.unary_unary(
-            '/ondewo.nlu.ProjectStatistics/GetEntityValueCount',
-            request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ProjectStatistics/GetEntityValueCount',
+                request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
         self.GetEntitySynonymCount = channel.unary_unary(
-            '/ondewo.nlu.ProjectStatistics/GetEntitySynonymCount',
-            request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.ProjectStatistics/GetEntitySynonymCount',
+                request_serializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.FromString,
+                _registered_method=True)
 
 
 class ProjectStatisticsServicer(object):
@@ -141,70 +141,69 @@ class ProjectStatisticsServicer(object):
 
 def add_ProjectStatisticsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'GetIntentCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetIntentCount,
-            request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetIntentCountRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
-        'GetEntityTypeCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetEntityTypeCount,
-            request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetEntityTypeCountRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
-        'GetUserCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetUserCount,
-            request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectStatRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
-        'GetSessionCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetSessionCount,
-            request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectStatRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
-        'GetTrainingPhraseCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetTrainingPhraseCount,
-            request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
-        'GetResponseCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetResponseCount,
-            request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
-        'GetEntityValueCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetEntityValueCount,
-            request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
-        'GetEntitySynonymCount': grpc.unary_unary_rpc_method_handler(
-            servicer.GetEntitySynonymCount,
-            request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
-        ),
+            'GetIntentCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetIntentCount,
+                    request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetIntentCountRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
+            'GetEntityTypeCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetEntityTypeCount,
+                    request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetEntityTypeCountRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
+            'GetUserCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserCount,
+                    request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectStatRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
+            'GetSessionCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSessionCount,
+                    request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectStatRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
+            'GetTrainingPhraseCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTrainingPhraseCount,
+                    request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
+            'GetResponseCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetResponseCount,
+                    request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
+            'GetEntityValueCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetEntityValueCount,
+                    request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
+            'GetEntitySynonymCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetEntitySynonymCount,
+                    request_deserializer=ondewo_dot_nlu_dot_project__statistics__pb2.GetProjectElementStatRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.StatResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.nlu.ProjectStatistics', rpc_method_handlers)
+            'ondewo.nlu.ProjectStatistics', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.nlu.ProjectStatistics', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class ProjectStatistics(object):
     """Project Root Statistics
     """
 
     @staticmethod
     def GetIntentCount(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -223,15 +222,15 @@ class ProjectStatistics(object):
 
     @staticmethod
     def GetEntityTypeCount(request,
-                           target,
-                           options=(),
-                           channel_credentials=None,
-                           call_credentials=None,
-                           insecure=False,
-                           compression=None,
-                           wait_for_ready=None,
-                           timeout=None,
-                           metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -250,15 +249,15 @@ class ProjectStatistics(object):
 
     @staticmethod
     def GetUserCount(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -277,15 +276,15 @@ class ProjectStatistics(object):
 
     @staticmethod
     def GetSessionCount(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -304,15 +303,15 @@ class ProjectStatistics(object):
 
     @staticmethod
     def GetTrainingPhraseCount(request,
-                               target,
-                               options=(),
-                               channel_credentials=None,
-                               call_credentials=None,
-                               insecure=False,
-                               compression=None,
-                               wait_for_ready=None,
-                               timeout=None,
-                               metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -331,15 +330,15 @@ class ProjectStatistics(object):
 
     @staticmethod
     def GetResponseCount(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -358,15 +357,15 @@ class ProjectStatistics(object):
 
     @staticmethod
     def GetEntityValueCount(request,
-                            target,
-                            options=(),
-                            channel_credentials=None,
-                            call_credentials=None,
-                            insecure=False,
-                            compression=None,
-                            wait_for_ready=None,
-                            timeout=None,
-                            metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -385,15 +384,15 @@ class ProjectStatistics(object):
 
     @staticmethod
     def GetEntitySynonymCount(request,
-                              target,
-                              options=(),
-                              channel_credentials=None,
-                              call_credentials=None,
-                              insecure=False,
-                              compression=None,
-                              wait_for_ready=None,
-                              timeout=None,
-                              metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,

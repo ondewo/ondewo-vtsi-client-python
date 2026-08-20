@@ -19,11 +19,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/nlu/user_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/nlu/user_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -38,115 +38,135 @@ class UsersStub(object):
             channel: A grpc.Channel.
         """
         self.CreateUser = channel.unary_unary(
-            '/ondewo.nlu.Users/CreateUser',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.CreateUserRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.User.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/CreateUser',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.CreateUserRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.User.FromString,
+                _registered_method=True)
         self.GetUser = channel.unary_unary(
-            '/ondewo.nlu.Users/GetUser',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.User.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/GetUser',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.User.FromString,
+                _registered_method=True)
         self.GetUserInfo = channel.unary_unary(
-            '/ondewo.nlu.Users/GetUserInfo',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.UserInfo.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/GetUserInfo',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.UserInfo.FromString,
+                _registered_method=True)
         self.DeleteUser = channel.unary_unary(
-            '/ondewo.nlu.Users/DeleteUser',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/DeleteUser',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.UpdateUser = channel.unary_unary(
-            '/ondewo.nlu.Users/UpdateUser',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.UpdateUserRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.User.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/UpdateUser',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.UpdateUserRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.User.FromString,
+                _registered_method=True)
         self.ListUsers = channel.unary_unary(
-            '/ondewo.nlu.Users/ListUsers',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.ListUsersRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.ListUsersResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/ListUsers',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.ListUsersRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.ListUsersResponse.FromString,
+                _registered_method=True)
         self.ListUserInfos = channel.unary_unary(
-            '/ondewo.nlu.Users/ListUserInfos',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.ListUsersRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.ListUserInfosResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/ListUserInfos',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.ListUsersRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.ListUserInfosResponse.FromString,
+                _registered_method=True)
         self.CreateServerRole = channel.unary_unary(
-            '/ondewo.nlu.Users/CreateServerRole',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.CreateServerRoleRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/CreateServerRole',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.CreateServerRoleRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.FromString,
+                _registered_method=True)
         self.GetServerRole = channel.unary_unary(
-            '/ondewo.nlu.Users/GetServerRole',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.GetServerRoleRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/GetServerRole',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.GetServerRoleRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.FromString,
+                _registered_method=True)
         self.DeleteServerRole = channel.unary_unary(
-            '/ondewo.nlu.Users/DeleteServerRole',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteServerRoleRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/DeleteServerRole',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteServerRoleRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.UpdateServerRole = channel.unary_unary(
-            '/ondewo.nlu.Users/UpdateServerRole',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.UpdateServerRoleRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/UpdateServerRole',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.UpdateServerRoleRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.FromString,
+                _registered_method=True)
         self.ListServerRoles = channel.unary_unary(
-            '/ondewo.nlu.Users/ListServerRoles',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.ListServerRolesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.ListServerRolesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/ListServerRoles',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.ListServerRolesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.ListServerRolesResponse.FromString,
+                _registered_method=True)
         self.ListServerPermissions = channel.unary_unary(
-            '/ondewo.nlu.Users/ListServerPermissions',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.ListServerPermissionsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.ListServerPermissionsResponse.FromString,
-            _registered_method=True)
-        self.Login = channel.unary_unary(
-            '/ondewo.nlu.Users/Login',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.LoginRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.LoginResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/ListServerPermissions',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.ListServerPermissionsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.ListServerPermissionsResponse.FromString,
+                _registered_method=True)
         self.CheckLogin = channel.unary_unary(
-            '/ondewo.nlu.Users/CheckLogin',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/CheckLogin',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.ListNotifications = channel.unary_unary(
-            '/ondewo.nlu.Users/ListNotifications',
-            request_serializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/ListNotifications',
+                request_serializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.FromString,
+                _registered_method=True)
         self.SetNotificationsFlaggedStatus = channel.unary_unary(
-            '/ondewo.nlu.Users/SetNotificationsFlaggedStatus',
-            request_serializer=ondewo_dot_nlu_dot_common__pb2.SetNotificationsFlaggedStatusRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/SetNotificationsFlaggedStatus',
+                request_serializer=ondewo_dot_nlu_dot_common__pb2.SetNotificationsFlaggedStatusRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.FromString,
+                _registered_method=True)
         self.SetNotificationsReadStatus = channel.unary_unary(
-            '/ondewo.nlu.Users/SetNotificationsReadStatus',
-            request_serializer=ondewo_dot_nlu_dot_common__pb2.SetNotificationsReadStatusRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/SetNotificationsReadStatus',
+                request_serializer=ondewo_dot_nlu_dot_common__pb2.SetNotificationsReadStatusRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.FromString,
+                _registered_method=True)
+        self.AddNotifications = channel.unary_unary(
+                '/ondewo.nlu.Users/AddNotifications',
+                request_serializer=ondewo_dot_nlu_dot_common__pb2.AddNotificationsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.AddNotificationsResponse.FromString,
+                _registered_method=True)
+        self.GetNotification = channel.unary_unary(
+                '/ondewo.nlu.Users/GetNotification',
+                request_serializer=ondewo_dot_nlu_dot_common__pb2.GetNotificationRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.Notification.FromString,
+                _registered_method=True)
+        self.UpdateNotification = channel.unary_unary(
+                '/ondewo.nlu.Users/UpdateNotification',
+                request_serializer=ondewo_dot_nlu_dot_common__pb2.UpdateNotificationRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.Notification.FromString,
+                _registered_method=True)
+        self.DeleteNotifications = channel.unary_unary(
+                '/ondewo.nlu.Users/DeleteNotifications',
+                request_serializer=ondewo_dot_nlu_dot_common__pb2.DeleteNotificationsRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.StreamNotifications = channel.unary_stream(
+                '/ondewo.nlu.Users/StreamNotifications',
+                request_serializer=ondewo_dot_nlu_dot_common__pb2.StreamNotificationsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_common__pb2.Notification.FromString,
+                _registered_method=True)
         self.GetUserPreferences = channel.unary_unary(
-            '/ondewo.nlu.Users/GetUserPreferences',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserPreferencesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserPreferencesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/GetUserPreferences',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserPreferencesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserPreferencesResponse.FromString,
+                _registered_method=True)
         self.SetUserPreferences = channel.unary_unary(
-            '/ondewo.nlu.Users/SetUserPreferences',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.SetUserPreferencesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.SetUserPreferencesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/SetUserPreferences',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.SetUserPreferencesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.SetUserPreferencesResponse.FromString,
+                _registered_method=True)
         self.DeleteUserPreferences = channel.unary_unary(
-            '/ondewo.nlu.Users/DeleteUserPreferences',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/DeleteUserPreferences',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesResponse.FromString,
+                _registered_method=True)
         self.DeleteAllUserPreferences = channel.unary_unary(
-            '/ondewo.nlu.Users/DeleteAllUserPreferences',
-            request_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteAllUserPreferencesRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Users/DeleteAllUserPreferences',
+                request_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteAllUserPreferencesRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesResponse.FromString,
+                _registered_method=True)
 
 
 class UsersServicer(object):
@@ -244,13 +264,6 @@ class UsersServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Login(self, request, context):
-        """Requests login.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def CheckLogin(self, request, context):
         """Checks login.
         """
@@ -274,6 +287,45 @@ class UsersServicer(object):
 
     def SetNotificationsReadStatus(self, request, context):
         """Sets the read status for multiple notifications.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddNotifications(self, request, context):
+        """Adds one or more notifications.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetNotification(self, request, context):
+        """Retrieves a single notification by its resource name.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateNotification(self, request, context):
+        """Updates a single notification, applying only the fields named in the update mask.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteNotifications(self, request, context):
+        """Deletes one or more notifications by their resource names.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamNotifications(self, request, context):
+        """Streams notifications for the authenticated caller in real time: each newly-added notification that
+        matches the request filter is pushed to the client as it is created (backed server-side by a
+        Postgres LISTEN/NOTIFY channel). The stream stays open until the client disconnects. When
+        <code>include_existing</code> is set the currently-stored matching notifications are replayed first
+        (newest last) before switching to the live tail.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -310,140 +362,159 @@ class UsersServicer(object):
 
 def add_UsersServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'CreateUser': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateUser,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.CreateUserRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.User.SerializeToString,
-        ),
-        'GetUser': grpc.unary_unary_rpc_method_handler(
-            servicer.GetUser,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.User.SerializeToString,
-        ),
-        'GetUserInfo': grpc.unary_unary_rpc_method_handler(
-            servicer.GetUserInfo,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.UserInfo.SerializeToString,
-        ),
-        'DeleteUser': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteUser,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'UpdateUser': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateUser,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.UpdateUserRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.User.SerializeToString,
-        ),
-        'ListUsers': grpc.unary_unary_rpc_method_handler(
-            servicer.ListUsers,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.ListUsersRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.ListUsersResponse.SerializeToString,
-        ),
-        'ListUserInfos': grpc.unary_unary_rpc_method_handler(
-            servicer.ListUserInfos,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.ListUsersRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.ListUserInfosResponse.SerializeToString,
-        ),
-        'CreateServerRole': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateServerRole,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.CreateServerRoleRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.SerializeToString,
-        ),
-        'GetServerRole': grpc.unary_unary_rpc_method_handler(
-            servicer.GetServerRole,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetServerRoleRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.SerializeToString,
-        ),
-        'DeleteServerRole': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteServerRole,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteServerRoleRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'UpdateServerRole': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateServerRole,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.UpdateServerRoleRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.SerializeToString,
-        ),
-        'ListServerRoles': grpc.unary_unary_rpc_method_handler(
-            servicer.ListServerRoles,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.ListServerRolesRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.ListServerRolesResponse.SerializeToString,
-        ),
-        'ListServerPermissions': grpc.unary_unary_rpc_method_handler(
-            servicer.ListServerPermissions,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.ListServerPermissionsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.ListServerPermissionsResponse.SerializeToString,
-        ),
-        'Login': grpc.unary_unary_rpc_method_handler(
-            servicer.Login,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.LoginRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.LoginResponse.SerializeToString,
-        ),
-        'CheckLogin': grpc.unary_unary_rpc_method_handler(
-            servicer.CheckLogin,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'ListNotifications': grpc.unary_unary_rpc_method_handler(
-            servicer.ListNotifications,
-            request_deserializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.SerializeToString,
-        ),
-        'SetNotificationsFlaggedStatus': grpc.unary_unary_rpc_method_handler(
-            servicer.SetNotificationsFlaggedStatus,
-            request_deserializer=ondewo_dot_nlu_dot_common__pb2.SetNotificationsFlaggedStatusRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.SerializeToString,
-        ),
-        'SetNotificationsReadStatus': grpc.unary_unary_rpc_method_handler(
-            servicer.SetNotificationsReadStatus,
-            request_deserializer=ondewo_dot_nlu_dot_common__pb2.SetNotificationsReadStatusRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.SerializeToString,
-        ),
-        'GetUserPreferences': grpc.unary_unary_rpc_method_handler(
-            servicer.GetUserPreferences,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserPreferencesRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserPreferencesResponse.SerializeToString,
-        ),
-        'SetUserPreferences': grpc.unary_unary_rpc_method_handler(
-            servicer.SetUserPreferences,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.SetUserPreferencesRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.SetUserPreferencesResponse.SerializeToString,
-        ),
-        'DeleteUserPreferences': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteUserPreferences,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesResponse.SerializeToString,
-        ),
-        'DeleteAllUserPreferences': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteAllUserPreferences,
-            request_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteAllUserPreferencesRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesResponse.SerializeToString,
-        ),
+            'CreateUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateUser,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.CreateUserRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.User.SerializeToString,
+            ),
+            'GetUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUser,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.User.SerializeToString,
+            ),
+            'GetUserInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserInfo,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.UserInfo.SerializeToString,
+            ),
+            'DeleteUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteUser,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateUser,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.UpdateUserRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.User.SerializeToString,
+            ),
+            'ListUsers': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListUsers,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.ListUsersRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.ListUsersResponse.SerializeToString,
+            ),
+            'ListUserInfos': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListUserInfos,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.ListUsersRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.ListUserInfosResponse.SerializeToString,
+            ),
+            'CreateServerRole': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateServerRole,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.CreateServerRoleRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.SerializeToString,
+            ),
+            'GetServerRole': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServerRole,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetServerRoleRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.SerializeToString,
+            ),
+            'DeleteServerRole': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteServerRole,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteServerRoleRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateServerRole': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateServerRole,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.UpdateServerRoleRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.ServerRole.SerializeToString,
+            ),
+            'ListServerRoles': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListServerRoles,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.ListServerRolesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.ListServerRolesResponse.SerializeToString,
+            ),
+            'ListServerPermissions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListServerPermissions,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.ListServerPermissionsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.ListServerPermissionsResponse.SerializeToString,
+            ),
+            'CheckLogin': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckLogin,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ListNotifications': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListNotifications,
+                    request_deserializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.SerializeToString,
+            ),
+            'SetNotificationsFlaggedStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetNotificationsFlaggedStatus,
+                    request_deserializer=ondewo_dot_nlu_dot_common__pb2.SetNotificationsFlaggedStatusRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.SerializeToString,
+            ),
+            'SetNotificationsReadStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetNotificationsReadStatus,
+                    request_deserializer=ondewo_dot_nlu_dot_common__pb2.SetNotificationsReadStatusRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.ListNotificationsResponse.SerializeToString,
+            ),
+            'AddNotifications': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddNotifications,
+                    request_deserializer=ondewo_dot_nlu_dot_common__pb2.AddNotificationsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.AddNotificationsResponse.SerializeToString,
+            ),
+            'GetNotification': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetNotification,
+                    request_deserializer=ondewo_dot_nlu_dot_common__pb2.GetNotificationRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.Notification.SerializeToString,
+            ),
+            'UpdateNotification': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateNotification,
+                    request_deserializer=ondewo_dot_nlu_dot_common__pb2.UpdateNotificationRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.Notification.SerializeToString,
+            ),
+            'DeleteNotifications': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteNotifications,
+                    request_deserializer=ondewo_dot_nlu_dot_common__pb2.DeleteNotificationsRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'StreamNotifications': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamNotifications,
+                    request_deserializer=ondewo_dot_nlu_dot_common__pb2.StreamNotificationsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_common__pb2.Notification.SerializeToString,
+            ),
+            'GetUserPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserPreferences,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.GetUserPreferencesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.GetUserPreferencesResponse.SerializeToString,
+            ),
+            'SetUserPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetUserPreferences,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.SetUserPreferencesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.SetUserPreferencesResponse.SerializeToString,
+            ),
+            'DeleteUserPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteUserPreferences,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesResponse.SerializeToString,
+            ),
+            'DeleteAllUserPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteAllUserPreferences,
+                    request_deserializer=ondewo_dot_nlu_dot_user__pb2.DeleteAllUserPreferencesRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_user__pb2.DeleteUserPreferencesResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.nlu.Users', rpc_method_handlers)
+            'ondewo.nlu.Users', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.nlu.Users', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class Users(object):
     """gRPC service for managing users and server roles.
     """
 
     @staticmethod
     def CreateUser(request,
-                   target,
-                   options=(),
-                   channel_credentials=None,
-                   call_credentials=None,
-                   insecure=False,
-                   compression=None,
-                   wait_for_ready=None,
-                   timeout=None,
-                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -462,15 +533,15 @@ class Users(object):
 
     @staticmethod
     def GetUser(request,
-                target,
-                options=(),
-                channel_credentials=None,
-                call_credentials=None,
-                insecure=False,
-                compression=None,
-                wait_for_ready=None,
-                timeout=None,
-                metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -489,15 +560,15 @@ class Users(object):
 
     @staticmethod
     def GetUserInfo(request,
-                    target,
-                    options=(),
-                    channel_credentials=None,
-                    call_credentials=None,
-                    insecure=False,
-                    compression=None,
-                    wait_for_ready=None,
-                    timeout=None,
-                    metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -516,15 +587,15 @@ class Users(object):
 
     @staticmethod
     def DeleteUser(request,
-                   target,
-                   options=(),
-                   channel_credentials=None,
-                   call_credentials=None,
-                   insecure=False,
-                   compression=None,
-                   wait_for_ready=None,
-                   timeout=None,
-                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -543,15 +614,15 @@ class Users(object):
 
     @staticmethod
     def UpdateUser(request,
-                   target,
-                   options=(),
-                   channel_credentials=None,
-                   call_credentials=None,
-                   insecure=False,
-                   compression=None,
-                   wait_for_ready=None,
-                   timeout=None,
-                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -570,15 +641,15 @@ class Users(object):
 
     @staticmethod
     def ListUsers(request,
-                  target,
-                  options=(),
-                  channel_credentials=None,
-                  call_credentials=None,
-                  insecure=False,
-                  compression=None,
-                  wait_for_ready=None,
-                  timeout=None,
-                  metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -597,15 +668,15 @@ class Users(object):
 
     @staticmethod
     def ListUserInfos(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -624,15 +695,15 @@ class Users(object):
 
     @staticmethod
     def CreateServerRole(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -651,15 +722,15 @@ class Users(object):
 
     @staticmethod
     def GetServerRole(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -678,15 +749,15 @@ class Users(object):
 
     @staticmethod
     def DeleteServerRole(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -705,15 +776,15 @@ class Users(object):
 
     @staticmethod
     def UpdateServerRole(request,
-                         target,
-                         options=(),
-                         channel_credentials=None,
-                         call_credentials=None,
-                         insecure=False,
-                         compression=None,
-                         wait_for_ready=None,
-                         timeout=None,
-                         metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -732,15 +803,15 @@ class Users(object):
 
     @staticmethod
     def ListServerRoles(request,
-                        target,
-                        options=(),
-                        channel_credentials=None,
-                        call_credentials=None,
-                        insecure=False,
-                        compression=None,
-                        wait_for_ready=None,
-                        timeout=None,
-                        metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -759,15 +830,15 @@ class Users(object):
 
     @staticmethod
     def ListServerPermissions(request,
-                              target,
-                              options=(),
-                              channel_credentials=None,
-                              call_credentials=None,
-                              insecure=False,
-                              compression=None,
-                              wait_for_ready=None,
-                              timeout=None,
-                              metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -785,43 +856,16 @@ class Users(object):
             _registered_method=True)
 
     @staticmethod
-    def Login(request,
-              target,
-              options=(),
-              channel_credentials=None,
-              call_credentials=None,
-              insecure=False,
-              compression=None,
-              wait_for_ready=None,
-              timeout=None,
-              metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/ondewo.nlu.Users/Login',
-            ondewo_dot_nlu_dot_user__pb2.LoginRequest.SerializeToString,
-            ondewo_dot_nlu_dot_user__pb2.LoginResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def CheckLogin(request,
-                   target,
-                   options=(),
-                   channel_credentials=None,
-                   call_credentials=None,
-                   insecure=False,
-                   compression=None,
-                   wait_for_ready=None,
-                   timeout=None,
-                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -840,15 +884,15 @@ class Users(object):
 
     @staticmethod
     def ListNotifications(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -867,15 +911,15 @@ class Users(object):
 
     @staticmethod
     def SetNotificationsFlaggedStatus(request,
-                                      target,
-                                      options=(),
-                                      channel_credentials=None,
-                                      call_credentials=None,
-                                      insecure=False,
-                                      compression=None,
-                                      wait_for_ready=None,
-                                      timeout=None,
-                                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -894,15 +938,15 @@ class Users(object):
 
     @staticmethod
     def SetNotificationsReadStatus(request,
-                                   target,
-                                   options=(),
-                                   channel_credentials=None,
-                                   call_credentials=None,
-                                   insecure=False,
-                                   compression=None,
-                                   wait_for_ready=None,
-                                   timeout=None,
-                                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -920,16 +964,151 @@ class Users(object):
             _registered_method=True)
 
     @staticmethod
+    def AddNotifications(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Users/AddNotifications',
+            ondewo_dot_nlu_dot_common__pb2.AddNotificationsRequest.SerializeToString,
+            ondewo_dot_nlu_dot_common__pb2.AddNotificationsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetNotification(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Users/GetNotification',
+            ondewo_dot_nlu_dot_common__pb2.GetNotificationRequest.SerializeToString,
+            ondewo_dot_nlu_dot_common__pb2.Notification.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateNotification(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Users/UpdateNotification',
+            ondewo_dot_nlu_dot_common__pb2.UpdateNotificationRequest.SerializeToString,
+            ondewo_dot_nlu_dot_common__pb2.Notification.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteNotifications(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.nlu.Users/DeleteNotifications',
+            ondewo_dot_nlu_dot_common__pb2.DeleteNotificationsRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamNotifications(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/ondewo.nlu.Users/StreamNotifications',
+            ondewo_dot_nlu_dot_common__pb2.StreamNotificationsRequest.SerializeToString,
+            ondewo_dot_nlu_dot_common__pb2.Notification.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetUserPreferences(request,
-                           target,
-                           options=(),
-                           channel_credentials=None,
-                           call_credentials=None,
-                           insecure=False,
-                           compression=None,
-                           wait_for_ready=None,
-                           timeout=None,
-                           metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -948,15 +1127,15 @@ class Users(object):
 
     @staticmethod
     def SetUserPreferences(request,
-                           target,
-                           options=(),
-                           channel_credentials=None,
-                           call_credentials=None,
-                           insecure=False,
-                           compression=None,
-                           wait_for_ready=None,
-                           timeout=None,
-                           metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -975,15 +1154,15 @@ class Users(object):
 
     @staticmethod
     def DeleteUserPreferences(request,
-                              target,
-                              options=(),
-                              channel_credentials=None,
-                              call_credentials=None,
-                              insecure=False,
-                              compression=None,
-                              wait_for_ready=None,
-                              timeout=None,
-                              metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -1002,15 +1181,15 @@ class Users(object):
 
     @staticmethod
     def DeleteAllUserPreferences(request,
-                                 target,
-                                 options=(),
-                                 channel_credentials=None,
-                                 call_credentials=None,
-                                 insecure=False,
-                                 compression=None,
-                                 wait_for_ready=None,
-                                 timeout=None,
-                                 metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,

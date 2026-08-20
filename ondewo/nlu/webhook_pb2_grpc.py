@@ -18,11 +18,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/nlu/webhook_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/nlu/webhook_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -37,35 +37,35 @@ class WebhookStub(object):
             channel: A grpc.Channel.
         """
         self.ResponseRefinement = channel.unary_unary(
-            '/ondewo.nlu.Webhook/ResponseRefinement',
-            request_serializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Webhook/ResponseRefinement',
+                request_serializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookResponse.FromString,
+                _registered_method=True)
         self.SlotFilling = channel.unary_unary(
-            '/ondewo.nlu.Webhook/SlotFilling',
-            request_serializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Webhook/SlotFilling',
+                request_serializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookResponse.FromString,
+                _registered_method=True)
         self.Ping = channel.unary_unary(
-            '/ondewo.nlu.Webhook/Ping',
-            request_serializer=ondewo_dot_nlu_dot_webhook__pb2.PingRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.PingResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Webhook/Ping',
+                request_serializer=ondewo_dot_nlu_dot_webhook__pb2.PingRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.PingResponse.FromString,
+                _registered_method=True)
         self.CreateSessionEntityType = channel.unary_unary(
-            '/ondewo.nlu.Webhook/CreateSessionEntityType',
-            request_serializer=ondewo_dot_nlu_dot_webhook__pb2.CreateSessionEntityTypeRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.SessionEntityType.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Webhook/CreateSessionEntityType',
+                request_serializer=ondewo_dot_nlu_dot_webhook__pb2.CreateSessionEntityTypeRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.SessionEntityType.FromString,
+                _registered_method=True)
         self.UpdateSessionEntityType = channel.unary_unary(
-            '/ondewo.nlu.Webhook/UpdateSessionEntityType',
-            request_serializer=ondewo_dot_nlu_dot_webhook__pb2.UpdateSessionEntityTypeRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.SessionEntityType.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Webhook/UpdateSessionEntityType',
+                request_serializer=ondewo_dot_nlu_dot_webhook__pb2.UpdateSessionEntityTypeRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_webhook__pb2.SessionEntityType.FromString,
+                _registered_method=True)
         self.DeleteSessionEntityType = channel.unary_unary(
-            '/ondewo.nlu.Webhook/DeleteSessionEntityType',
-            request_serializer=ondewo_dot_nlu_dot_webhook__pb2.DeleteSessionEntityTypeRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Webhook/DeleteSessionEntityType',
+                request_serializer=ondewo_dot_nlu_dot_webhook__pb2.DeleteSessionEntityTypeRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
 
 
 class WebhookServicer(object):
@@ -136,60 +136,59 @@ class WebhookServicer(object):
 
 def add_WebhookServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'ResponseRefinement': grpc.unary_unary_rpc_method_handler(
-            servicer.ResponseRefinement,
-            request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookResponse.SerializeToString,
-        ),
-        'SlotFilling': grpc.unary_unary_rpc_method_handler(
-            servicer.SlotFilling,
-            request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookResponse.SerializeToString,
-        ),
-        'Ping': grpc.unary_unary_rpc_method_handler(
-            servicer.Ping,
-            request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.PingRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_webhook__pb2.PingResponse.SerializeToString,
-        ),
-        'CreateSessionEntityType': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateSessionEntityType,
-            request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.CreateSessionEntityTypeRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_webhook__pb2.SessionEntityType.SerializeToString,
-        ),
-        'UpdateSessionEntityType': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateSessionEntityType,
-            request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.UpdateSessionEntityTypeRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_webhook__pb2.SessionEntityType.SerializeToString,
-        ),
-        'DeleteSessionEntityType': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteSessionEntityType,
-            request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.DeleteSessionEntityTypeRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
+            'ResponseRefinement': grpc.unary_unary_rpc_method_handler(
+                    servicer.ResponseRefinement,
+                    request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookResponse.SerializeToString,
+            ),
+            'SlotFilling': grpc.unary_unary_rpc_method_handler(
+                    servicer.SlotFilling,
+                    request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_webhook__pb2.WebhookResponse.SerializeToString,
+            ),
+            'Ping': grpc.unary_unary_rpc_method_handler(
+                    servicer.Ping,
+                    request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.PingRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_webhook__pb2.PingResponse.SerializeToString,
+            ),
+            'CreateSessionEntityType': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateSessionEntityType,
+                    request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.CreateSessionEntityTypeRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_webhook__pb2.SessionEntityType.SerializeToString,
+            ),
+            'UpdateSessionEntityType': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateSessionEntityType,
+                    request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.UpdateSessionEntityTypeRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_webhook__pb2.SessionEntityType.SerializeToString,
+            ),
+            'DeleteSessionEntityType': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteSessionEntityType,
+                    request_deserializer=ondewo_dot_nlu_dot_webhook__pb2.DeleteSessionEntityTypeRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.nlu.Webhook', rpc_method_handlers)
+            'ondewo.nlu.Webhook', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.nlu.Webhook', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class Webhook(object):
     """service to send requests to a webhook server
     """
 
     @staticmethod
     def ResponseRefinement(request,
-                           target,
-                           options=(),
-                           channel_credentials=None,
-                           call_credentials=None,
-                           insecure=False,
-                           compression=None,
-                           wait_for_ready=None,
-                           timeout=None,
-                           metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -208,15 +207,15 @@ class Webhook(object):
 
     @staticmethod
     def SlotFilling(request,
-                    target,
-                    options=(),
-                    channel_credentials=None,
-                    call_credentials=None,
-                    insecure=False,
-                    compression=None,
-                    wait_for_ready=None,
-                    timeout=None,
-                    metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -235,15 +234,15 @@ class Webhook(object):
 
     @staticmethod
     def Ping(request,
-             target,
-             options=(),
-             channel_credentials=None,
-             call_credentials=None,
-             insecure=False,
-             compression=None,
-             wait_for_ready=None,
-             timeout=None,
-             metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -262,15 +261,15 @@ class Webhook(object):
 
     @staticmethod
     def CreateSessionEntityType(request,
-                                target,
-                                options=(),
-                                channel_credentials=None,
-                                call_credentials=None,
-                                insecure=False,
-                                compression=None,
-                                wait_for_ready=None,
-                                timeout=None,
-                                metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -289,15 +288,15 @@ class Webhook(object):
 
     @staticmethod
     def UpdateSessionEntityType(request,
-                                target,
-                                options=(),
-                                channel_credentials=None,
-                                call_credentials=None,
-                                insecure=False,
-                                compression=None,
-                                wait_for_ready=None,
-                                timeout=None,
-                                metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -316,15 +315,15 @@ class Webhook(object):
 
     @staticmethod
     def DeleteSessionEntityType(request,
-                                target,
-                                options=(),
-                                channel_credentials=None,
-                                call_credentials=None,
-                                insecure=False,
-                                compression=None,
-                                wait_for_ready=None,
-                                timeout=None,
-                                metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,

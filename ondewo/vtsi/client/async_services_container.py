@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from ondewo.utils.base_service_container import BaseServicesContainer
 
 from ondewo.vtsi.client.services.async_calls import Calls
+from ondewo.vtsi.client.services.async_logs import Logs
 from ondewo.vtsi.client.services.async_projects import Projects
 
 
@@ -24,3 +25,4 @@ from ondewo.vtsi.client.services.async_projects import Projects
 class AsyncServicesContainer(BaseServicesContainer):
     projects: Projects
     calls: Calls
+    logs: Logs

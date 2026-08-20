@@ -18,11 +18,11 @@ except ImportError:
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},' +
-        f' but the generated code in ondewo/nlu/context_pb2_grpc.py depends on' +
-        f' grpcio>={GRPC_GENERATED_VERSION}.' +
-        f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}' +
-        f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in ondewo/nlu/context_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -41,35 +41,35 @@ class ContextsStub(object):
             channel: A grpc.Channel.
         """
         self.ListContexts = channel.unary_unary(
-            '/ondewo.nlu.Contexts/ListContexts',
-            request_serializer=ondewo_dot_nlu_dot_context__pb2.ListContextsRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_context__pb2.ListContextsResponse.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Contexts/ListContexts',
+                request_serializer=ondewo_dot_nlu_dot_context__pb2.ListContextsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_context__pb2.ListContextsResponse.FromString,
+                _registered_method=True)
         self.GetContext = channel.unary_unary(
-            '/ondewo.nlu.Contexts/GetContext',
-            request_serializer=ondewo_dot_nlu_dot_context__pb2.GetContextRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_context__pb2.Context.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Contexts/GetContext',
+                request_serializer=ondewo_dot_nlu_dot_context__pb2.GetContextRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_context__pb2.Context.FromString,
+                _registered_method=True)
         self.CreateContext = channel.unary_unary(
-            '/ondewo.nlu.Contexts/CreateContext',
-            request_serializer=ondewo_dot_nlu_dot_context__pb2.CreateContextRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_context__pb2.Context.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Contexts/CreateContext',
+                request_serializer=ondewo_dot_nlu_dot_context__pb2.CreateContextRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_context__pb2.Context.FromString,
+                _registered_method=True)
         self.UpdateContext = channel.unary_unary(
-            '/ondewo.nlu.Contexts/UpdateContext',
-            request_serializer=ondewo_dot_nlu_dot_context__pb2.UpdateContextRequest.SerializeToString,
-            response_deserializer=ondewo_dot_nlu_dot_context__pb2.Context.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Contexts/UpdateContext',
+                request_serializer=ondewo_dot_nlu_dot_context__pb2.UpdateContextRequest.SerializeToString,
+                response_deserializer=ondewo_dot_nlu_dot_context__pb2.Context.FromString,
+                _registered_method=True)
         self.DeleteContext = channel.unary_unary(
-            '/ondewo.nlu.Contexts/DeleteContext',
-            request_serializer=ondewo_dot_nlu_dot_context__pb2.DeleteContextRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Contexts/DeleteContext',
+                request_serializer=ondewo_dot_nlu_dot_context__pb2.DeleteContextRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
         self.DeleteAllContexts = channel.unary_unary(
-            '/ondewo.nlu.Contexts/DeleteAllContexts',
-            request_serializer=ondewo_dot_nlu_dot_context__pb2.DeleteAllContextsRequest.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            _registered_method=True)
+                '/ondewo.nlu.Contexts/DeleteAllContexts',
+                request_serializer=ondewo_dot_nlu_dot_context__pb2.DeleteAllContextsRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
 
 
 class ContextsServicer(object):
@@ -125,45 +125,44 @@ class ContextsServicer(object):
 
 def add_ContextsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'ListContexts': grpc.unary_unary_rpc_method_handler(
-            servicer.ListContexts,
-            request_deserializer=ondewo_dot_nlu_dot_context__pb2.ListContextsRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_context__pb2.ListContextsResponse.SerializeToString,
-        ),
-        'GetContext': grpc.unary_unary_rpc_method_handler(
-            servicer.GetContext,
-            request_deserializer=ondewo_dot_nlu_dot_context__pb2.GetContextRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_context__pb2.Context.SerializeToString,
-        ),
-        'CreateContext': grpc.unary_unary_rpc_method_handler(
-            servicer.CreateContext,
-            request_deserializer=ondewo_dot_nlu_dot_context__pb2.CreateContextRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_context__pb2.Context.SerializeToString,
-        ),
-        'UpdateContext': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateContext,
-            request_deserializer=ondewo_dot_nlu_dot_context__pb2.UpdateContextRequest.FromString,
-            response_serializer=ondewo_dot_nlu_dot_context__pb2.Context.SerializeToString,
-        ),
-        'DeleteContext': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteContext,
-            request_deserializer=ondewo_dot_nlu_dot_context__pb2.DeleteContextRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
-        'DeleteAllContexts': grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteAllContexts,
-            request_deserializer=ondewo_dot_nlu_dot_context__pb2.DeleteAllContextsRequest.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
+            'ListContexts': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListContexts,
+                    request_deserializer=ondewo_dot_nlu_dot_context__pb2.ListContextsRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_context__pb2.ListContextsResponse.SerializeToString,
+            ),
+            'GetContext': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetContext,
+                    request_deserializer=ondewo_dot_nlu_dot_context__pb2.GetContextRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_context__pb2.Context.SerializeToString,
+            ),
+            'CreateContext': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateContext,
+                    request_deserializer=ondewo_dot_nlu_dot_context__pb2.CreateContextRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_context__pb2.Context.SerializeToString,
+            ),
+            'UpdateContext': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateContext,
+                    request_deserializer=ondewo_dot_nlu_dot_context__pb2.UpdateContextRequest.FromString,
+                    response_serializer=ondewo_dot_nlu_dot_context__pb2.Context.SerializeToString,
+            ),
+            'DeleteContext': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteContext,
+                    request_deserializer=ondewo_dot_nlu_dot_context__pb2.DeleteContextRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteAllContexts': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteAllContexts,
+                    request_deserializer=ondewo_dot_nlu_dot_context__pb2.DeleteAllContextsRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'ondewo.nlu.Contexts', rpc_method_handlers)
+            'ondewo.nlu.Contexts', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('ondewo.nlu.Contexts', rpc_method_handlers)
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class Contexts(object):
     """A context represents additional information included with user input or with an intent returned by the Dialogflow API. Contexts are helpful for differentiating user input which may be vague or have a different meaning depending on additional details from your application such as user setting and preferences, previous user input, where the user is in your application, geographic location, and so on.
 
@@ -174,15 +173,15 @@ class Contexts(object):
 
     @staticmethod
     def ListContexts(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -201,15 +200,15 @@ class Contexts(object):
 
     @staticmethod
     def GetContext(request,
-                   target,
-                   options=(),
-                   channel_credentials=None,
-                   call_credentials=None,
-                   insecure=False,
-                   compression=None,
-                   wait_for_ready=None,
-                   timeout=None,
-                   metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -228,15 +227,15 @@ class Contexts(object):
 
     @staticmethod
     def CreateContext(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -255,15 +254,15 @@ class Contexts(object):
 
     @staticmethod
     def UpdateContext(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -282,15 +281,15 @@ class Contexts(object):
 
     @staticmethod
     def DeleteContext(request,
-                      target,
-                      options=(),
-                      channel_credentials=None,
-                      call_credentials=None,
-                      insecure=False,
-                      compression=None,
-                      wait_for_ready=None,
-                      timeout=None,
-                      metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -309,15 +308,15 @@ class Contexts(object):
 
     @staticmethod
     def DeleteAllContexts(request,
-                          target,
-                          options=(),
-                          channel_credentials=None,
-                          call_credentials=None,
-                          insecure=False,
-                          compression=None,
-                          wait_for_ready=None,
-                          timeout=None,
-                          metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,

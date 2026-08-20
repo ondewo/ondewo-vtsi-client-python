@@ -314,10 +314,20 @@ class AsteriskConfigs(google.protobuf.message.Message):
     ASTERISK_CONFIGS_FILES_FIELD_NUMBER: builtins.int
     ASTERISK_CONFIGS_TARGET_DIRECTORY_NAME_FIELD_NUMBER: builtins.int
     ASTERISK_PORT_FIELD_NUMBER: builtins.int
+    ASTERISK_VERSION_FIELD_NUMBER: builtins.int
     asterisk_configs_target_directory_name: builtins.str
     """Configs will be mapped in from a preconfigured asterisk target directory."""
     asterisk_port: builtins.int
     """OPTIONAL: The port where Asterisk should start."""
+    asterisk_version: builtins.str
+    """OPTIONAL: The Asterisk version to start, given as the docker image tag of the ONDEWO
+    Asterisk image, e.g. <pre><code>alpine-3.18-18.20.2</code></pre>.
+    The tag must match the docker tag grammar
+    <pre><code>[A-Za-z0-9_][A-Za-z0-9._-]{0,127}</code></pre>.
+    Explicitly optional: when the field is not set, the server keeps using its configured
+    default (the <pre><code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code></pre> environment variable).
+    Sending an empty string is NOT the same as leaving it unset and is rejected.
+    """
     @property
     def asterisk_configs_variables(self) -> global___AsteriskConfigsVariables:
         """Configs as variables which will fill those variables using a blue print."""
@@ -333,9 +343,13 @@ class AsteriskConfigs(google.protobuf.message.Message):
         asterisk_configs_files: global___AsteriskConfigsFiles | None = ...,
         asterisk_configs_target_directory_name: builtins.str = ...,
         asterisk_port: builtins.int = ...,
+        asterisk_version: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables", "asterisk_port", b"asterisk_port"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_asterisk_version", b"_asterisk_version", "asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables", "asterisk_version", b"asterisk_version"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_asterisk_version", b"_asterisk_version", "asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables", "asterisk_port", b"asterisk_port", "asterisk_version", b"asterisk_version"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_asterisk_version", b"_asterisk_version"]) -> typing.Literal["asterisk_version"] | None: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["asterisk_configs_oneof", b"asterisk_configs_oneof"]) -> typing.Literal["asterisk_configs_variables", "asterisk_configs_files", "asterisk_configs_target_directory_name"] | None: ...
 
 global___AsteriskConfigs = AsteriskConfigs
