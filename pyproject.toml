@@ -137,6 +137,8 @@ module = [
     "ondewo.nlu.entity_type_pb2_grpc",
     "ondewo.nlu.intent_pb2",
     "ondewo.nlu.intent_pb2_grpc",
+    "ondewo.nlu.llm_evaluation_pb2",
+    "ondewo.nlu.llm_evaluation_pb2_grpc",
     "ondewo.nlu.operation_metadata_pb2",
     "ondewo.nlu.operation_metadata_pb2_grpc",
     "ondewo.nlu.operations_pb2",
@@ -167,6 +169,8 @@ module = [
     "ondewo.t2s.text_to_speech_pb2_grpc",
     "ondewo.vtsi.calls_pb2",
     "ondewo.vtsi.calls_pb2_grpc",
+    "ondewo.vtsi.logs_pb2",
+    "ondewo.vtsi.logs_pb2_grpc",
     "ondewo.vtsi.projects_pb2",
     "ondewo.vtsi.projects_pb2_grpc",
 ]
