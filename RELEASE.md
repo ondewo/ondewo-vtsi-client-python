@@ -2,6 +2,15 @@
 
 *****************
 
+## Release ONDEWO VTSI Client Python 8.3.0
+
+### Bug Fixes
+
+* [[OND221-2830]](https://ondewo.atlassian.net/browse/OND221-2830) Regenerated with [ondewo-proto-compiler 5.13.0](https://github.com/ondewo/ondewo-proto-compiler/releases/tag/5.13.0), tracking ondewo-vtsi-api 8.3.0 in line with the angular, js, nodejs and typescript clients of this release.
+* [[OND221-2830]](https://ondewo.atlassian.net/browse/OND221-2830) Tooling: `conventional-pre-commit` now runs before `giticket` at the commit-msg stage - with giticket first, its `[OND221-2830] fix: ...` rewrite was no longer valid Conventional Commits and every commit on a ticket branch failed.
+
+*****************
+
 ## Unreleased
 
 ### Improvements
