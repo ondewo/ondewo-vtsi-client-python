@@ -16,7 +16,7 @@ export
 
 # MUST BE THE SAME AS API in Mayor and Minor Version Number
 # example: API 2.9.0 --> Client 2.9.X
-ONDEWO_VTSI_VERSION = 8.3.0
+ONDEWO_VTSI_VERSION=8.3.0
 PYPI_USERNAME?=ENTER_HERE_YOUR_PYPI_USERNAME
 PYPI_PASSWORD?=ENTER_HERE_YOUR_PYPI_PASSWORD
 
@@ -24,7 +24,7 @@ PYPI_PASSWORD?=ENTER_HERE_YOUR_PYPI_PASSWORD
 GITHUB_GH_TOKEN?=ENTER_YOUR_TOKEN_HERE
 
 CURRENT_RELEASE_NOTES=`cat RELEASE.md \
-	| perl -ne 'print if /Release ONDEWO VTSI Client Python ${ONDEWO_VTSI_VERSION}/../\*\*/'`
+	| perl -ne 'print if /Release ONDEWO VTSI Client Python ${ONDEWO_VTSI_VERSION}/../^\*{5}/'`
 
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"
@@ -227,7 +227,7 @@ release: ## Automate the entire release process
 	git add ${ONDEWO_VTSI_API_DIR}
 	git add ondewo-vtsi-api
 	git status
-	-git commit -m "PREPARING FOR RELEASE ${ONDEWO_VTSI_VERSION}"
+	-git commit --no-verify -m "PREPARING FOR RELEASE ${ONDEWO_VTSI_VERSION}"
 	git push
 	make create_release_branch
 	make create_release_tag
