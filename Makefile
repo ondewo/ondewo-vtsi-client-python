@@ -222,7 +222,7 @@ release: ## Automate the entire release process
 	git add ondewo
 	git add Makefile
 	git add RELEASE.md
-	git add setup.py
+	git add pyproject.toml uv.lock
 	git add ${ONDEWO_PROTO_COMPILER_DIR}
 	git add ${ONDEWO_VTSI_API_DIR}
 	git add ondewo-vtsi-api
@@ -350,7 +350,7 @@ fetch_build_commit_push_new_vtsi_api:
 	-git -C ondewo-vtsi-api pull
 	make build
 	git add Makefile
-	git add setup.py
+	git add pyproject.toml uv.lock
 	git add ondewo/nlu
 	git add ondewo/qa
 	git add ondewo/s2t
