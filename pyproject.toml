@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ondewo-vtsi-client"
-version = "8.3.0"
+version = "8.4.0"
 description = "ONDEWO Voip Telephone System Integration (VTSI) Client library for Python"
 readme = "README.md"
 requires-python = ">=3.9"
