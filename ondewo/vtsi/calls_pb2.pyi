@@ -1324,6 +1324,12 @@ class ListCallersResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CALLERS_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    next_page_token: builtins.str
+    """Token to retrieve the next page of results.
+    This field is a string that holds a token for fetching the next page of results.
+    If there are no more results in the list, this field will be empty.
+    """
     @property
     def callers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Caller]:
         """The list of callers."""
@@ -1332,8 +1338,9 @@ class ListCallersResponse(google.protobuf.message.Message):
         self,
         *,
         callers: collections.abc.Iterable[global___Caller] | None = ...,
+        next_page_token: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["callers", b"callers"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["callers", b"callers", "next_page_token", b"next_page_token"]) -> None: ...
 
 global___ListCallersResponse = ListCallersResponse
 
