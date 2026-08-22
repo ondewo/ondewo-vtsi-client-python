@@ -108,9 +108,8 @@ check_build: ## Checks if all built proto-code is there
 ########################################################
 #		Build
 
-update_setup: ## Update Version in setup.py
-	@perl -i -pe "s/version='[0-9]*.[0-9]*.[0-9]*'/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
-	@perl -i -pe "s/version=\"[0-9]*.[0-9]*.[0-9]*\"/version='${ONDEWO_VTSI_VERSION}'/g" setup.py
+update_setup: ## Update Version in pyproject.toml
+	@perl -i -pe 's/^version = "\d+\.\d+\.\d+"/version = "${ONDEWO_VTSI_VERSION}"/' pyproject.toml
 
 build: clear_package_data prepare_submodules build_compiler generate_all_protos create_async_services update_setup ## Build source code
 
@@ -272,8 +271,11 @@ install: init_submodules
 ########################################################
 #		PYPI
 
+# PEP 517 build: setup.py no longer exists (pyproject.toml declares the setuptools backend).
+# uv is the frontend because Dockerfile.utils already ships uv and twine; the `build` package
+# is not installed there.
 build_package: ## Builds PYPI Package
-	python setup.py sdist bdist_wheel
+	uv build --sdist --wheel --out-dir dist
 	chmod a+rw dist -R
 
 upload_package:
