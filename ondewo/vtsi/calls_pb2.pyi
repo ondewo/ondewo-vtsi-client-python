@@ -759,6 +759,12 @@ class CsiVtsiConfig(google.protobuf.message.Message):
       <li>via RabbitMQ to remote control the system</li>
       <li>via embeddings in NLU text responses</li>
     </ul>
+    Explicitly optional: leaving the field unset means the caller expresses no preference and the
+    server keeps its own configured default. That is NOT the same as sending
+    <pre><code>false</code></pre>, which is a request to switch control messages off. A
+    presence-less bool cannot tell the two apart, so an unset field arrived as
+    <pre><code>false</code></pre> and silently disabled control messages for callers that never
+    mentioned them.
     """
     @property
     def s2t_vtsi_callbacks(self) -> global___S2tVtsiCallbacks:
@@ -788,10 +794,11 @@ class CsiVtsiConfig(google.protobuf.message.Message):
         t2s_vtsi_callbacks: global___T2sVtsiCallbacks | None = ...,
         audio_object_store_config: global___AudioObjectStorageConfig | None = ...,
         message_broker_config: global___MessageBrokerConfig | None = ...,
-        activate_control_messages: builtins.bool = ...,
+        activate_control_messages: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_activate_control_messages", b"_activate_control_messages"]) -> typing.Literal["activate_control_messages"] | None: ...
 
 global___CsiVtsiConfig = CsiVtsiConfig
 

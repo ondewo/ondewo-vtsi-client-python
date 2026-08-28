@@ -19,6 +19,7 @@ limitations under the License.
 import builtins
 import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.field_mask_pb2
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
@@ -571,17 +572,52 @@ class UpdateVtsiProjectRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VTSI_PROJECT_FIELD_NUMBER: builtins.int
+    UPDATE_MASK_FIELD_NUMBER: builtins.int
     @property
     def vtsi_project(self) -> global___VtsiProject:
         """Project Configs."""
+
+    @property
+    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """OPTIONAL: The mask to control which fields get updated.
+        Paths are field paths within <pre><code>vtsi_project</code></pre> and carry no leading
+        <pre><code>vtsi_project.</code></pre> prefix, e.g. <pre><code>display_name</code></pre>,
+        <pre><code>max_callers</code></pre>, <pre><code>nlu_agent_names</code></pre> or
+        <pre><code>asterisk_configs.asterisk_version</code></pre>.
+        Semantics:
+        <ul>
+          <li>Mask unset or empty: the update is merged additively over the stored project, which is
+              the behaviour of every release before this field existed.</li>
+          <li>Path in the mask and set in <pre><code>vtsi_project</code></pre>: the field is written
+              with the value sent.</li>
+          <li>Path in the mask but NOT set in <pre><code>vtsi_project</code></pre>: the field is
+              CLEARED, i.e. reset to its default. This is the only way to unset a field: a scalar
+              carries no presence, so an additive merge cannot distinguish
+              &quot;reset this to the default&quot; from &quot;say nothing about it&quot;, and the
+              stored value survives. It is what makes an <pre><code>asterisk_version</code></pre>
+              that has once been pinned track the deployment default again.</li>
+          <li>Path absent from the mask: the field is left untouched, whether or not
+              <pre><code>vtsi_project</code></pre> carries a value for it.</li>
+          <li>Path the server does not recognise: the request is REFUSED with
+              <pre><code>INVALID_ARGUMENT</code></pre> naming the path. It is never ignored.
+              This matters most for the one mistake this surface invites: ONDEWO's own
+              <pre><code>ondewo.nlu.UpdateAgentRequest</code></pre> documents the PREFIXED form
+              (<pre><code>agent.display_name</code></pre>), so a caller who copies that sibling will
+              send <pre><code>vtsi_project.display_name</code></pre> here. Silently ignoring it would
+              leave the field un-cleared while the call reported success - the exact failure this
+              field exists to remove - so an unrecognised path fails loudly at the first request
+              instead.</li>
+        </ul>
+        """
 
     def __init__(
         self,
         *,
         vtsi_project: global___VtsiProject | None = ...,
+        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["update_mask", b"update_mask", "vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["update_mask", b"update_mask", "vtsi_project", b"vtsi_project"]) -> None: ...
 
 global___UpdateVtsiProjectRequest = UpdateVtsiProjectRequest
 
