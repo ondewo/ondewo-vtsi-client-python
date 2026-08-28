@@ -38,6 +38,42 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class _ScheduledCallerStatus:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _ScheduledCallerStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ScheduledCallerStatus.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    SCHEDULED_CALLER_STATUS_UNSPECIFIED: _ScheduledCallerStatus.ValueType  # 0
+    """Unspecified status"""
+    SCHEDULED_CALLER_STATUS_PENDING: _ScheduledCallerStatus.ValueType  # 1
+    """Created and waiting for its scheduled_time to arrive"""
+    SCHEDULED_CALLER_STATUS_FIRING: _ScheduledCallerStatus.ValueType  # 2
+    """Claimed by a server replica and being dialled right now"""
+    SCHEDULED_CALLER_STATUS_DONE: _ScheduledCallerStatus.ValueType  # 3
+    """The call was started successfully"""
+    SCHEDULED_CALLER_STATUS_FAILED: _ScheduledCallerStatus.ValueType  # 4
+    """Starting the call failed; see error_message"""
+    SCHEDULED_CALLER_STATUS_CANCELLED: _ScheduledCallerStatus.ValueType  # 5
+    """Cancelled before it fired"""
+
+class ScheduledCallerStatus(_ScheduledCallerStatus, metaclass=_ScheduledCallerStatusEnumTypeWrapper):
+    """Lifecycle state of a ScheduledCaller"""
+
+SCHEDULED_CALLER_STATUS_UNSPECIFIED: ScheduledCallerStatus.ValueType  # 0
+"""Unspecified status"""
+SCHEDULED_CALLER_STATUS_PENDING: ScheduledCallerStatus.ValueType  # 1
+"""Created and waiting for its scheduled_time to arrive"""
+SCHEDULED_CALLER_STATUS_FIRING: ScheduledCallerStatus.ValueType  # 2
+"""Claimed by a server replica and being dialled right now"""
+SCHEDULED_CALLER_STATUS_DONE: ScheduledCallerStatus.ValueType  # 3
+"""The call was started successfully"""
+SCHEDULED_CALLER_STATUS_FAILED: ScheduledCallerStatus.ValueType  # 4
+"""Starting the call failed; see error_message"""
+SCHEDULED_CALLER_STATUS_CANCELLED: ScheduledCallerStatus.ValueType  # 5
+"""Cancelled before it fired"""
+global___ScheduledCallerStatus = ScheduledCallerStatus
+
 class _CallView:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -1919,6 +1955,12 @@ class ScheduledCaller(google.protobuf.message.Message):
     SIP_CONFIG_FIELD_NUMBER: builtins.int
     COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
     SCHEDULED_TIME_FIELD_NUMBER: builtins.int
+    SIP_CALLER_CONFIG_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CREATED_AT_FIELD_NUMBER: builtins.int
+    FIRED_AT_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Resource name of the scheduled caller
     <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
@@ -1928,9 +1970,18 @@ class ScheduledCaller(google.protobuf.message.Message):
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
+    status: global___ScheduledCallerStatus.ValueType
+    """Lifecycle state of this scheduled caller"""
+    vtsi_project_name: builtins.str
+    """VTSI project name that owns this scheduled caller of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    error_message: builtins.str
+    """Why starting the call failed. Only populated when the status is SCHEDULED_CALLER_STATUS_FAILED"""
     @property
     def sip_config(self) -> global___SipBaseConfig:
-        """SIP service configuration"""
+        """SIP service configuration.
+        This is the sip_base_config half of sip_caller_config below and is kept for wire compatibility
+        with clients built before field 6 existed
+        """
 
     @property
     def common_services_config(self) -> global___CommonServicesConfig:
@@ -1942,6 +1993,23 @@ class ScheduledCaller(google.protobuf.message.Message):
         TODO to be refactored with a more complex scheduling object
         """
 
+    @property
+    def sip_caller_config(self) -> global___SipCallerConfig:
+        """Full SIP caller configuration, including the callee_id that will be dialled and the sip_headers
+        that will be sent. sip_config (field 3) carries only the sip_base_config half of this message
+        """
+
+    @property
+    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Time the scheduled caller was created"""
+
+    @property
+    def fired_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Time the call was actually started, or the attempt failed. Unset while the status is
+        SCHEDULED_CALLER_STATUS_PENDING, SCHEDULED_CALLER_STATUS_FIRING or
+        SCHEDULED_CALLER_STATUS_CANCELLED
+        """
+
     def __init__(
         self,
         *,
@@ -1950,11 +2018,178 @@ class ScheduledCaller(google.protobuf.message.Message):
         sip_config: global___SipBaseConfig | None = ...,
         common_services_config: global___CommonServicesConfig | None = ...,
         scheduled_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        sip_caller_config: global___SipCallerConfig | None = ...,
+        status: global___ScheduledCallerStatus.ValueType = ...,
+        vtsi_project_name: builtins.str = ...,
+        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        fired_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        error_message: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "scheduled_time", b"scheduled_time", "sip_config", b"sip_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "common_services_config", b"common_services_config", "name", b"name", "scheduled_time", b"scheduled_time", "sip_config", b"sip_config"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "created_at", b"created_at", "fired_at", b"fired_at", "scheduled_time", b"scheduled_time", "sip_caller_config", b"sip_caller_config", "sip_config", b"sip_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "common_services_config", b"common_services_config", "created_at", b"created_at", "error_message", b"error_message", "fired_at", b"fired_at", "name", b"name", "scheduled_time", b"scheduled_time", "sip_caller_config", b"sip_caller_config", "sip_config", b"sip_config", "status", b"status", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___ScheduledCaller = ScheduledCaller
+
+@typing.final
+class GetScheduledCallerRequest(google.protobuf.message.Message):
+    """Represents a request to get a specific scheduled caller."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    CALL_VIEW_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    name: builtins.str
+    """The name of the scheduled caller to retrieve of the form
+    <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+    """
+    call_view: global___CallView.ValueType
+    """you can specify the view to be shallow or full"""
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        name: builtins.str = ...,
+        call_view: global___CallView.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_view", b"call_view"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
+
+global___GetScheduledCallerRequest = GetScheduledCallerRequest
+
+@typing.final
+class ListScheduledCallersRequest(google.protobuf.message.Message):
+    """Represents a request to list the scheduled callers of a vtsi-project."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    CALL_VIEW_FIELD_NUMBER: builtins.int
+    STATUSES_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name for which to perform the call.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
+    page_token: builtins.str
+    """Optional. The next_page_token value returned from a previous list request.
+    Example: "current_index-1--page_size-20"
+    """
+    call_view: global___CallView.ValueType
+    """you can specify the view to be shallow or full"""
+    @property
+    def statuses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ScheduledCallerStatus.ValueType]:
+        """Optional. Only return scheduled callers in one of these states.
+        An empty list returns every state.
+        """
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        page_token: builtins.str | None = ...,
+        call_view: global___CallView.ValueType | None = ...,
+        statuses: collections.abc.Iterable[global___ScheduledCallerStatus.ValueType] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token", "statuses", b"statuses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+
+global___ListScheduledCallersRequest = ListScheduledCallersRequest
+
+@typing.final
+class ListScheduledCallersResponse(google.protobuf.message.Message):
+    """Represents the response for listing scheduled callers."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SCHEDULED_CALLERS_FIELD_NUMBER: builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    next_page_token: builtins.str
+    """Token to retrieve the next page of results.
+    This field is a string that holds a token for fetching the next page of results.
+    If there are no more results in the list, this field will be empty.
+    """
+    @property
+    def scheduled_callers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ScheduledCaller]:
+        """The list of scheduled callers, oldest scheduled_time first."""
+
+    def __init__(
+        self,
+        *,
+        scheduled_callers: collections.abc.Iterable[global___ScheduledCaller] | None = ...,
+        next_page_token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["next_page_token", b"next_page_token", "scheduled_callers", b"scheduled_callers"]) -> None: ...
+
+global___ListScheduledCallersResponse = ListScheduledCallersResponse
+
+@typing.final
+class CancelScheduledCallerRequest(google.protobuf.message.Message):
+    """Represents a request to cancel a scheduled caller that has not fired yet."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    name: builtins.str
+    """The name of the scheduled caller to cancel of the form
+    <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+    """
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___CancelScheduledCallerRequest = CancelScheduledCallerRequest
+
+@typing.final
+class CancelScheduledCallerResponse(google.protobuf.message.Message):
+    """Response to cancelling a scheduled caller."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    CANCELLED_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """The name of the scheduled caller of the form
+    <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+    """
+    status: global___ScheduledCallerStatus.ValueType
+    """The state of the scheduled caller AFTER this request. A scheduled caller that was already
+    firing, done, failed or cancelled keeps the state it had
+    """
+    cancelled: builtins.bool
+    """True when this request performed the transition to SCHEDULED_CALLER_STATUS_CANCELLED.
+    False means the scheduled caller was already in a state it cannot be cancelled from -
+    read status to find out which one, this is not an error
+    """
+    error_message: builtins.str
+    """error message if you have any so if it's unhealthy"""
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        status: global___ScheduledCallerStatus.ValueType = ...,
+        cancelled: builtins.bool = ...,
+        error_message: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cancelled", b"cancelled", "error_message", b"error_message", "name", b"name", "status", b"status"]) -> None: ...
+
+global___CancelScheduledCallerResponse = CancelScheduledCallerResponse
 
 @typing.final
 class StopCallRequest(google.protobuf.message.Message):

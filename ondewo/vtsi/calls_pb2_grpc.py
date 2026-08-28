@@ -125,6 +125,21 @@ class CallsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersResponse.FromString,
                 _registered_method=True)
+        self.GetScheduledCaller = channel.unary_unary(
+                '/ondewo.vtsi.Calls/GetScheduledCaller',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetScheduledCallerRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ScheduledCaller.FromString,
+                _registered_method=True)
+        self.ListScheduledCallers = channel.unary_unary(
+                '/ondewo.vtsi.Calls/ListScheduledCallers',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListScheduledCallersRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListScheduledCallersResponse.FromString,
+                _registered_method=True)
+        self.CancelScheduledCaller = channel.unary_unary(
+                '/ondewo.vtsi.Calls/CancelScheduledCaller',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.CancelScheduledCallerRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.CancelScheduledCallerResponse.FromString,
+                _registered_method=True)
         self.StopCall = channel.unary_unary(
                 '/ondewo.vtsi.Calls/StopCall',
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StopCallRequest.SerializeToString,
@@ -283,14 +298,35 @@ class CallsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StartScheduledCaller(self, request, context):
-        """<p>Start multiple ondewo-sip callers instances with schedules</p>
+        """<p>Start a single ondewo-sip caller instance at a scheduled time</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StartScheduledCallers(self, request, context):
-        """<p>Start multiple ondewo-sip callers instances with schedules</p>
+        """<p>Start multiple ondewo-sip caller instances, each at its own scheduled time</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetScheduledCaller(self, request, context):
+        """<p>Gets a scheduled caller</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListScheduledCallers(self, request, context):
+        """<p>Lists the scheduled callers of a vtsi-project</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CancelScheduledCaller(self, request, context):
+        """<p>Cancels a scheduled caller that has not fired yet</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -439,6 +475,21 @@ def add_CallsServicer_to_server(servicer, server):
                     servicer.StartScheduledCallers,
                     request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersResponse.SerializeToString,
+            ),
+            'GetScheduledCaller': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetScheduledCaller,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetScheduledCallerRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.ScheduledCaller.SerializeToString,
+            ),
+            'ListScheduledCallers': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListScheduledCallers,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListScheduledCallersRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListScheduledCallersResponse.SerializeToString,
+            ),
+            'CancelScheduledCaller': grpc.unary_unary_rpc_method_handler(
+                    servicer.CancelScheduledCaller,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.CancelScheduledCallerRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.CancelScheduledCallerResponse.SerializeToString,
             ),
             'StopCall': grpc.unary_unary_rpc_method_handler(
                     servicer.StopCall,
@@ -963,6 +1014,87 @@ class Calls(object):
             '/ondewo.vtsi.Calls/StartScheduledCallers',
             ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersRequest.SerializeToString,
             ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetScheduledCaller(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/GetScheduledCaller',
+            ondewo_dot_vtsi_dot_calls__pb2.GetScheduledCallerRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.ScheduledCaller.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListScheduledCallers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/ListScheduledCallers',
+            ondewo_dot_vtsi_dot_calls__pb2.ListScheduledCallersRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.ListScheduledCallersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CancelScheduledCaller(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/CancelScheduledCaller',
+            ondewo_dot_vtsi_dot_calls__pb2.CancelScheduledCallerRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.CancelScheduledCallerResponse.FromString,
             options,
             channel_credentials,
             insecure,
