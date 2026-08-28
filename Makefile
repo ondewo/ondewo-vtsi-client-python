@@ -243,7 +243,7 @@ create_release_tag: ## Create Release Tag and push it to origin
 	git push origin ${ONDEWO_VTSI_VERSION}
 
 login_to_gh: ## Login to Github CLI with Access Token
-	echo $(GITHUB_GH_TOKEN) | gh auth login -p ssh --with-token
+	@echo $(GITHUB_GH_TOKEN) | gh auth login -p ssh --with-token
 
 build_gh_release: ## Generate Github Release with CLI
 	gh release create --repo $(GH_REPO) "$(ONDEWO_VTSI_VERSION)" -n "$(CURRENT_RELEASE_NOTES)" -t "Release ${ONDEWO_VTSI_VERSION}"
@@ -279,7 +279,7 @@ build_package: ## Builds PYPI Package
 	chmod a+rw dist -R
 
 upload_package:
-	twine upload --verbose -r pypi dist/* -u${PYPI_USERNAME} -p${PYPI_PASSWORD}
+	@twine upload --verbose -r pypi dist/* -u${PYPI_USERNAME} -p${PYPI_PASSWORD}
 
 clear_package_data: ## Clears PYPI Package
 	echo "Waiting 5s so directory for removal is not busy anymore"
@@ -288,7 +288,7 @@ clear_package_data: ## Clears PYPI Package
 
 push_to_pypi_via_docker_image:  ## Push source code to pypi via docker
 	[ -d $(OUTPUT_DIR) ] || mkdir -p $(OUTPUT_DIR)
-	docker run --rm \
+	@docker run --rm \
 		-v ${shell pwd}/dist:/home/ondewo/dist \
 		-e PYPI_USERNAME=${PYPI_USERNAME} \
 		-e PYPI_PASSWORD=${PYPI_PASSWORD} \
@@ -305,7 +305,7 @@ show_pypi: build_package ## Shows PYPI Package with Dockerimage
 
 show_pypi_via_docker_image: build_utils_docker_image ## Push source code to pypi via docker
 	[ -d $(OUTPUT_DIR) ] || mkdir -p $(OUTPUT_DIR)
-	docker run --rm \
+	@docker run --rm \
 		-v ${shell pwd}/dist:/home/ondewo/dist \
 		-e PYPI_USERNAME=${PYPI_USERNAME} \
 		-e PYPI_PASSWORD=${PYPI_PASSWORD} \
@@ -319,7 +319,7 @@ push_to_gh: login_to_gh build_gh_release ## Logs into GitHub CLI and Releases
 	@echo 'Released to Github'
 
 release_to_github_via_docker_image:  ## Release to Github via docker
-	docker run --rm \
+	@docker run --rm \
 		-e GITHUB_GH_TOKEN=${GITHUB_GH_TOKEN} \
 		${IMAGE_UTILS_NAME} make push_to_gh
 
@@ -335,7 +335,7 @@ clone_devops_accounts: ## Clones devops-accounts repo
 
 run_release_with_devops:
 	$(eval info:= $(shell cat ${DEVOPS_ACCOUNT_DIR}/account_github.env | grep GITHUB_GH & cat ${DEVOPS_ACCOUNT_DIR}/account_pypi.env | grep PYPI_USERNAME & cat ${DEVOPS_ACCOUNT_DIR}/account_pypi.env | grep PYPI_PASSWORD))
-	make release $(info)
+	@make release $(info)
 
 spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 	$(eval filtered_branches:= $(shell git branch --all | grep "release/${ONDEWO_VTSI_VERSION}"))
