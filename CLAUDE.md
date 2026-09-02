@@ -250,3 +250,74 @@ Never write the `[TICKET]` prefix yourself — that yields `[OND211-2418] [OND21
 
 One cosmetic leftover: an orphaned `# Enforce Conventional Commits on the commit message.` comment sits at
 the end of the file, where the hook used to be. It documents nothing now.
+
+## The GitHub Actions `tests` workflow is the gate — reproduce it with `--frozen`, never by hand
+
+`.github/workflows/tests.yml` runs on **`push` to every branch** (`branches: ["**"]`) and on every
+`pull_request`. It is the merge gate for this repository, not advisory decoration: there is no Jenkins job
+here, so a red `tests` run is the only thing standing between a broken client and PyPI. Run it locally
+**before** you push, with the workflow's own commands copied verbatim:
+
+```bash
+uv python install 3.12
+uv sync --extra dev --frozen
+uv run --frozen ruff check .
+uv run --frozen mypy ondewo
+uv run --frozen pytest tests/unit -q \
+  --cov=ondewo.vtsi.client.utils.keycloak \
+  --cov=ondewo.vtsi.client.client_config \
+  --cov=ondewo.vtsi.client.services_interface \
+  --cov=ondewo.vtsi.client.async_services_interface \
+  --cov-report=term-missing \
+  --cov-report=xml \
+  --cov-fail-under=100
+```
+
+Five things that are not obvious from reading the file, each measured here rather than assumed:
+
+- **`--frozen` is load-bearing, and it does NOT validate the lock — it only refuses to touch it.** Measured
+  by declaring a dependency in `pyproject.toml` that `uv.lock` had never seen: `uv sync --extra dev --frozen`
+  **succeeded silently**, installed the lock's old package set, skipped the new dependency and left `uv.lock`
+  byte-identical, with no warning. The same command _without_ `--frozen` re-resolved, installed the new
+  package and **rewrote `uv.lock`**. So dropping `--frozen` locally is not a shortcut: it makes your green run
+  a statement about a package set CI will never install, and it mutates a committed file while doing it. The
+  command that actually reports staleness is `uv lock --check` (exit 1,
+  `The lockfile at 'uv.lock' needs to be updated`) — that, plus the `uv-lock` pre-commit hook, is what keeps
+  the lock honest. After any `pyproject.toml` edit: `uv lock`, then re-run the four steps.
+- **The coverage gate FAILS OPEN — naming a module in `--cov=` is not the same as covering it.** The gate is
+  built from four dotted `--cov=<module>` arguments; there is deliberately no `[tool.coverage]` section in
+  `pyproject.toml` to fall back on. Measured by adding `--cov=ondewo.vtsi.client.async_client`, a module the
+  suite never imports: it produced `CoverageWarning: Module ondewo.vtsi.client.async_client was never
+  imported` and then **vanished from the report** — it did not score 0%, and the total was computed over the
+  modules that remained. The four listed modules are genuinely at 100% only because the suite imports all
+  four. So when you add hand-written code, adding the `--cov=` line buys nothing on its own: add a test that
+  **imports** the module, then confirm the module is really printed in the `term-missing` table. A file
+  missing from that table is unmeasured, not perfect.
+- **CI pins Python 3.12; your checkout probably will not.** The workflow runs `uv python install 3.12`, but
+  this repo has no `.python-version`, so a local `uv run --frozen` takes whatever interpreter uv finds first
+  (3.14.6 here). Both pass, but they are different measurements — `keycloak.py` is 154 statements under 3.14
+  and 155 under 3.12 — so passing on one is not proof of the other. Append `--python 3.12` to each `uv`
+  command (or point `UV_PROJECT_ENVIRONMENT` at a throwaway venv) when you need real CI parity.
+- **The pytest step dirties a TRACKED file.** `.coverage` is committed in this repository, so every local run
+  of the gate shows up as `M .coverage`, and `--cov-report=xml` drops an untracked `coverage.xml` next to it.
+  Restore and remove them (`git checkout -- .coverage && rm -f coverage.xml`) before staging, or they ride
+  along in an unrelated commit.
+- **Do not try to reproduce the gate through the Makefile — its dev targets did not survive the uv/pyproject
+  migration.** `make mypy` dies on its first line with `make: pre-commit: No such file or directory` (it calls
+  `pre-commit`, not `uv run pre-commit`), and its second half runs `mypy --config-file=mypy.ini .` against a
+  file this repo deleted (`mypy: error: Cannot find config file 'mypy.ini'`). `make flake8` and
+  `make install_dependencies_locally` likewise name `.flake8` and `requirements*.txt`, all three gone. The
+  "Every Makefile target uses uv" claim in the uv-migration section above holds for `build_package` and
+  nothing else. The workflow file is the source of truth for the gate; the Makefile is not.
+
+Two scoping facts worth knowing before you read a green run as broader than it is. `mypy ondewo` type-checks
+the package only — `tests/` and `examples/` are outside the type gate (they are clean today, verified with
+`uv run --frozen mypy tests examples`), while `ruff check .` covers everything except `[tool.ruff]
+extend-exclude`. And `actions/checkout@v5` is used **without** `submodules:`, so `ondewo-vtsi-api` and
+`ondewo-proto-compiler` do not exist on the runner: CI lints and tests the 75 **committed** `*_pb2*` stubs,
+and regeneration (`make build`) is gated by nobody. A locally dirty submodule pointer therefore cannot turn
+the workflow red — and a stale committed stub cannot turn it red either.
+
+Status when this section was written (commit `7204310`): the GitHub API reports two `tests` runs for that
+SHA, both `completed` / `success`, and all four steps reproduce green locally — ruff clean, mypy
+`Success: no issues found in 74 source files`, `77 passed`, `Required test coverage of 100% reached`.
