@@ -19,3 +19,9 @@ ondewo-sip-api
 ondewo-csi-api
 ondewo-t2s-api
 grpc_cert
+
+# Coverage artifacts left behind by the pytest gate (.github/workflows/tests.yml).
+# Anchored to the repository root on purpose: an unanchored pattern matches at any
+# depth, and ruff honours .gitignore, so it could silently hide real source files.
+/.coverage
+/coverage.xml
