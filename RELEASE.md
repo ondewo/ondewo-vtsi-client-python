@@ -2,6 +2,30 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 8.7.0
+
+### Improvements
+
+* Built against [ondewo-vtsi-api 8.7.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/8.7.0),
+  which re-vendors [ondewo-nlu-api 7.1.0](https://github.com/ondewo/ondewo-nlu-api/releases/tag/7.1.0)
+  (was 7.0.0) and [ondewo-s2t-api 7.5.0](https://github.com/ondewo/ondewo-s2t-api/releases/tag/7.5.0)
+  (was 7.4.0). `ondewo/vtsi/**` is unchanged in that API release, so the VTSI service surface is
+  identical and this client stays wire-compatible with 8.6.0.
+* **This release exists for the vendored surface, not for the VTSI one.** This package ships
+  `ondewo/vtsi` *plus* vendored copies of `ondewo/nlu` and `ondewo/{s2t,t2s,sip,qa}`, and those land on
+  the same module paths as `ondewo-nlu-client` and `ondewo-s2t-client` in one site-packages. Measured
+  against the 8.6.0 wheel: its `ondewo/nlu` tree differed from `ondewo-nlu-client` 7.1.2 in exactly
+  `rag_pb2.py` / `.pyi`, and its `ondewo/s2t` tree from `ondewo-s2t-client` 7.5.0 in exactly
+  `speech_to_text_pb2.py` / `.pyi`. A consumer pinning 8.6.0 next to those clients therefore resolved
+  the skew by install order rather than by an error, which is the failure mode this lockstep bump
+  exists to prevent.
+* What the vendored surface gains: `speech-to-text.proto` adds the `VadMethod` and `TsdMethod` enums
+  and the `Silero` and `WespeakerTsd` messages; `rag.proto` adds `RagCrawlerIncrementalConfig`.
+  `RagCrawlerFilters` re-declares four fields as `[deprecated = true]` -- every field number, name and
+  type preserved, so nothing on the wire changes.
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 8.6.0
 
 ### Improvements
