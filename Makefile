@@ -23,8 +23,27 @@ PYPI_PASSWORD?=ENTER_HERE_YOUR_PYPI_PASSWORD
 # You need to setup an access token at https://github.com/settings/tokens - permissions are important
 GITHUB_GH_TOKEN?=ENTER_YOUR_TOKEN_HERE
 
+# The heading wording is the one the ondewo-vtsi-api release generator WRITES, not a free choice.
+# `release_client` in ondewo-vtsi-api's Makefile emits `## Release ONDEWO VTSI Python Client <version>`
+# and greps RELEASE.md for exactly that form before deciding whether to insert its boilerplate entry.
+# This slice pattern read `... Client Python ...` - the same three words the other way round - so it
+# matched nothing, the slice was EMPTY, and `gh release create -n ""` published a release with no body
+# and no error anywhere. Measured against the published releases: 6.9.0, 7.0.0, 7.0.1, 8.0.0, 8.1.0,
+# 8.2.0, 8.4.0, 8.5.0, 8.6.0 and 8.7.0 all have a body of length 0, and the ONLY non-empty one (8.3.0,
+# 668 bytes) is the ONLY entry in RELEASE.md whose heading was written with the old `Client Python`
+# wording. RELEASE.md (20 headings) and README.md's release instructions both use the generator's
+# wording, so the PATTERN is what moves. Rewriting the headings instead would make the generator's own
+# guard miss, insert a second heading for the same version, and trip markdownlint MD024 - which does
+# not auto-fix, so the client's pre-commit fails and the release aborts mid-publish.
+#
+# Terminate on the ***** separator that delimits release entries, NOT on /\*\*/ - that matched the first
+# markdown **bold** span inside an entry and truncated the notes there, again with no error. All
+# separators in RELEASE.md are exactly 17 asterisks, so ^\*{5} cannot match anything but a separator.
+#
+# Keep the version reference and the `=` on SEPARATE lines: at release time the generator rewrites,
+# wholesale, any line that names ONDEWO_VTSI_VERSION and also carries an equals sign.
 CURRENT_RELEASE_NOTES=`cat RELEASE.md \
-	| perl -ne 'print if /Release ONDEWO VTSI Client Python ${ONDEWO_VTSI_VERSION}/../^\*{5}/'`
+	| perl -ne 'print if /Release ONDEWO VTSI Python Client ${ONDEWO_VTSI_VERSION}/../^\*{5}/'`
 
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"

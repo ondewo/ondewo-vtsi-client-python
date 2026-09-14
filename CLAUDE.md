@@ -356,27 +356,44 @@ want=$(git ls-tree master <submodule> | awk '{print $3}')
 git -C <submodule> checkout -q "$want" && git add <submodule>
 ```
 
-### The release notes are sliced by an EXACTLY-CASED heading
+### The release notes are sliced by an EXACTLY-CASED heading, and the API generator owns the wording
 
 `CURRENT_RELEASE_NOTES` slices `RELEASE.md` with a perl range. In THIS repo the opening
 pattern is, verbatim:
 
 ```text
-Release ONDEWO VTSI Client Python ${ONDEWO_VTSI_VERSION}
+Release ONDEWO VTSI Python Client ${ONDEWO_VTSI_VERSION}
 ```
 
-So the heading of a new entry must read exactly `## Release ONDEWO VTSI Client Python <version>`. **This wording is
-not consistent across the ONDEWO repos** — some say `... <Name> Client`, some `... Client
-<Name>` with the words reversed, the API repos say `... API` with no `Client` at all, and the
-casing varies (`Js`, `Nodejs`, `Typescript`, `Survey`). Do not carry a heading over from a
-sibling repo. Copy the PREVIOUS entry in this file and change only the version, or read the
-pattern above out of the Makefile.
+So the heading of a new entry must read exactly `## Release ONDEWO VTSI Python Client <version>`. That wording
+is **not a free choice**: ondewo-vtsi-api's `release_client` target WRITES
+`## Release ONDEWO VTSI <Name> Client <version>` into each client's RELEASE.md, and greps for exactly that form
+before deciding whether to insert its boilerplate entry. `RELEASE.md` here (20 of its 35 headings) and
+README.md's release instructions both follow the generator; the Makefile pattern did not.
 
-A heading that does not match yields an **empty slice**, and the GitHub release is then
-created with empty notes or fails outright. Verify before releasing:
+**This section said the opposite until 2026-09-14, and the published releases show what that cost.** The slice
+pattern read `... Client Python ...` — the same three words the other way round — so it matched nothing and the
+slice was empty. Measured: 6.9.0, 7.0.0, 7.0.1, 8.0.0, 8.1.0, 8.2.0, 8.4.0, 8.5.0, 8.6.0 and 8.7.0 all have a
+GitHub release body of length 0, while the ONE non-empty body (8.3.0, 668 bytes) belongs to the ONE entry ever
+written with the reversed wording; the other four VTSI clients return ~1150 bytes for 8.7.0. The MAKEFILE is
+what moved. Do not "fix" it back by rewriting the headings: a heading the generator does not recognise makes it
+insert a SECOND one for the same version, which buries the curated entry (the slice takes the FIRST match) and
+trips markdownlint MD024, which does not auto-fix — so the client's own pre-commit fails and the release aborts
+mid-publish.
+
+The wording is still **not consistent across the ONDEWO repos** — the API repos say `... API` with no `Client`
+at all, and the casing varies (`Js`, `Nodejs`, `Typescript`, `Survey`). Do not carry a heading over from a
+sibling repo. Copy the PREVIOUS entry in this file and change only the version, or read the pattern above out
+of the Makefile.
+
+A heading that does not match yields an **empty slice**, and `gh release create -n ""` then succeeds with an
+empty body and no error anywhere. `tests/unit/test_release_notes_slice.py` is the guard that can see it: it
+re-derives both halves of the range from the Makefile and fails when the current version's slice is empty,
+unterminated, or nothing but a heading. Verify before releasing:
 
 ```bash
-grep -c '^## Release ONDEWO VTSI Client Python ' RELEASE.md     # must be >= 1 for your new version
+grep -c '^## Release ONDEWO VTSI Python Client ' RELEASE.md     # must be >= 1 for your new version
+uv run --frozen pytest tests/unit/test_release_notes_slice.py -q
 ```
 
 ### Publish order decides how a partial failure is recovered
@@ -470,10 +487,12 @@ advisory; `spc` still refuses an existing branch or tag, so the guard cannot mas
 `CURRENT_RELEASE_NOTES` slices RELEASE.md between the heading naming this exact version and the next
 `*****` separator. No heading means an EMPTY slice, `gh release create -n ""` succeeds, and you get a
 release with no notes and no error anywhere. ondewo-nlu-client-js and -typescript 7.1.1 shipped that
-way and had to be repaired after the fact.
+way and had to be repaired after the fact -- and so did every release of THIS client from 6.9.0 to 8.7.0
+except 8.3.0, for the heading-wording reason above.
 
 ```bash
-cat RELEASE.md | perl -ne 'print if /<the exact heading> <version>/../^\*{5}/' | wc -l   # must be > 0
+cat RELEASE.md \
+  | perl -ne 'print if /Release ONDEWO VTSI Python Client 8.7.0/../^\*{5}/' | wc -l   # must be > 0
 ```
 
 ### Verify the three artefacts separately -- they fail independently
