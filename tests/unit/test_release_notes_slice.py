@@ -22,10 +22,14 @@ produces a published release with an EMPTY body and no error anywhere in the log
 
 That is not hypothetical here. The opening pattern read ``Release ONDEWO VTSI Client Python`` while
 the ondewo-vtsi-api generator writes, and ``RELEASE.md`` uses, ``Release ONDEWO VTSI Python Client``
--- the same three words the other way round. Measured over the published releases of this client:
-6.9.0, 7.0.0, 7.0.1, 8.0.0, 8.1.0, 8.2.0, 8.4.0, 8.5.0, 8.6.0 and 8.7.0 all have a body of length 0,
-and the single non-empty one (8.3.0, 668 bytes) is the single entry ever written with the reversed
-wording.
+-- the same three words the other way round. Measured 2026-09-15 over all 31 published releases of
+this client, body length against the wording of the matching heading: the 9 releases whose heading
+uses the old ``Client Python`` wording (2.2.0, 2.3.0, 3.0.0-3.5.0 and 8.3.0) all have a NON-EMPTY
+body of 44-668 bytes, and the 20 whose heading uses the generator's wording all have a body of
+length 0, as do 4.0.0 and 6.3.1, which carry no entry at all. So the pattern was right for 3.5.0 and
+older and went stale when the wording flipped at 5.0.0; 8.3.0 is the one entry written with the old
+wording AFTER that flip, not -- as this file claimed until 2026-09-15 -- the only one in the file.
+15 of the 37 headings still use it, and they are deliberately left alone.
 
 These tests re-derive BOTH halves of the range from the ``Makefile`` rather than restating them, so
 they cannot drift from the command that actually runs, and they fail when the current version's
@@ -60,10 +64,24 @@ RANGE_RE: re.Pattern = re.compile(r"perl -ne 'print if /(?P<start>[^/]*)/\.\./(?
 # from the clone URL and emits `## Release ONDEWO VTSI Python Client <version>`.
 GENERATOR_HEADING = "## Release ONDEWO VTSI Python Client {version}"
 
-# The entry separator every release note block ends with. Terminating on `/\*\*/` instead -- the bug
-# ondewo-vtsi-api fixed in ab9158e -- matches the first markdown **bold** span INSIDE an entry and
-# truncates the notes there, mid-sentence, with no error.
-EXPECTED_TERMINATOR = r"^\*{5}"
+# The generator's OWN guard, transcribed from ondewo-vtsi-api's Makefile:
+#     grep -qE "^#+ Release ONDEWO VTSI ${UPPER_REPO_NAME} Client ${ONDEWO_VTSI_API_VERSION}$$"
+# It is ANCHORED at both ends, so a heading carrying trailing whitespace is invisible to it and the
+# generator inserts a SECOND heading for the same version. This guard must therefore be at least as
+# strict: comparing `line.strip()` would accept exactly the heading the generator cannot see, making
+# the guard weaker than the thing it guards.
+GENERATOR_GREP = r"^#+ Release ONDEWO VTSI Python Client {version}$"
+
+# This guard's OWN notion of the entry separator, deliberately independent of the Makefile's
+# terminator -- it is what the terminator is checked AGAINST, so deriving it from the Makefile would
+# make the check circular.
+SEPARATOR_RE: re.Pattern = re.compile(r"^\*{5,}$")
+
+# The shape the terminator must NOT match: a markdown **bold** span inside an entry. Terminating on
+# `/\*\*/` -- the bug ondewo-vtsi-api fixed in ab9158e -- truncates the notes at the first one of
+# these, mid-sentence, with no error. Kept as a literal probe so this half of the property stays
+# falsifiable even for a release entry that happens to contain no bold text at all.
+BOLD_SPAN_PROBE = "and type `string` do not change and no `json_name` override is added**, so the change is"
 
 # A generated boilerplate entry (heading, blank, `### Improvements`, blank, one bullet, blank,
 # separator) is 7 lines, so the floor is deliberately below that: a bar of 10 would fail a release
@@ -164,12 +182,85 @@ def _slice_release_notes(start: str, end: str) -> List[str]:
     return collected
 
 
-def test_the_release_notes_terminator_is_the_entry_separator() -> None:
-    """The range must end on `*****`, not on the first markdown bold span inside the entry."""
+def _entry_separator_lines() -> List[str]:
+    """
+    Every ``*****`` entry separator in RELEASE.md, found WITHOUT the Makefile's terminator.
+
+    Returns:
+        List[str]:
+            The separator lines, verbatim.
+
+    Raises:
+        AssertionError:
+            When fewer than two are found, which would leave the terminator checks inspecting
+            nothing -- an inspection of nothing must never read as a pass.
+    """
+    lines = [line for line in _read(RELEASE_NOTES).splitlines() if SEPARATOR_RE.match(line)]
+    assert len(lines) >= 2, (
+        f"RELEASE.md carries {len(lines)} `*****` entry separators; this guard cannot tell a working "
+        "release-notes terminator from a broken one without them"
+    )
+    return lines
+
+
+def _current_entry_body() -> List[str]:
+    """
+    The current version's entry, from its heading to the next separator, found WITHOUT the terminator.
+
+    The Makefile's terminator is the thing under test here, so the entry is delimited by this
+    module's own ``SEPARATOR_RE`` instead -- using the terminator to find the lines the terminator
+    must not match would make the check circular.
+
+    Returns:
+        List[str]:
+            The lines strictly between the version's heading and the next separator.
+
+    Raises:
+        AssertionError:
+            When the heading is absent, when no separator follows it, or when the entry has no body.
+    """
+    version = _release_version()
+    heading_re = re.compile(GENERATOR_GREP.format(version=re.escape(version)))
+    lines = _read(RELEASE_NOTES).splitlines()
+
+    opened = [index for index, line in enumerate(lines) if heading_re.match(line)]
+    assert opened, f"RELEASE.md carries no anchored {GENERATOR_HEADING.format(version=version)!r} heading"
+
+    rest = lines[opened[0] + 1 :]
+    terminators = [index for index, line in enumerate(rest) if SEPARATOR_RE.match(line)]
+    assert terminators, f"the {version} entry in RELEASE.md is not followed by a `*****` separator"
+
+    body = rest[: terminators[0]]
+    assert [line for line in body if line.strip()], f"the {version} entry in RELEASE.md has no body"
+    return body
+
+
+def test_the_release_notes_terminator_matches_every_entry_separator() -> None:
+    """The terminator must END a slice: it has to match the separator lines RELEASE.md really carries."""
     _, end = _release_notes_range()
-    assert end == EXPECTED_TERMINATOR, (
-        f"release-notes slice terminates on /{end}/, not /{EXPECTED_TERMINATOR}/ -- "
-        "/\\*\\*/ matches the first **bold** span inside an entry and truncates the notes there"
+    end_re = re.compile(end)
+    unmatched = [line for line in _entry_separator_lines() if not end_re.search(line)]
+    assert not unmatched, (
+        f"the release-notes terminator /{end}/ does not match {len(unmatched)} of the `*****` entry "
+        f"separators in RELEASE.md, e.g. {unmatched[0]!r} -- the slice would run to the end of the "
+        "file and the release body would carry every older entry too"
+    )
+
+
+def test_the_release_notes_terminator_matches_nothing_inside_an_entry() -> None:
+    r"""The terminator must not fire EARLY: `/\*\*/` truncates at the first **bold** span in the entry."""
+    _, end = _release_notes_range()
+    end_re = re.compile(end)
+
+    assert not end_re.search(BOLD_SPAN_PROBE), (
+        f"the release-notes terminator /{end}/ matches a markdown **bold** span ({BOLD_SPAN_PROBE!r}), "
+        "so it truncates the notes mid-entry -- the bug ondewo-vtsi-api fixed in ab9158e"
+    )
+
+    premature = [line for line in _current_entry_body() if end_re.search(line)]
+    assert not premature, (
+        f"the release-notes terminator /{end}/ matches {len(premature)} line(s) INSIDE the entry being "
+        f"released, e.g. {premature[0]!r}, so the published body would stop there, mid-entry, with no error"
     )
 
 
@@ -189,7 +280,23 @@ def test_release_md_documents_the_version_being_released_exactly_once() -> None:
     """The curated entry must exist, and exist once -- the slice takes the FIRST match."""
     version = _release_version()
     heading = GENERATOR_HEADING.format(version=version)
-    headings = [line for line in _read(RELEASE_NOTES).splitlines() if line.strip() == heading]
+    lines = _read(RELEASE_NOTES).splitlines()
+
+    # Matched the way the generator matches it: the RAW line against an ANCHORED pattern. Comparing
+    # `line.strip()` would pass a heading carrying trailing whitespace, which the generator's own
+    # `grep -qE "...${VERSION}$"` cannot see -- so the guard would be weaker than the thing it guards.
+    heading_re = re.compile(GENERATOR_GREP.format(version=re.escape(version)))
+    headings = [line for line in lines if heading_re.match(line)]
+
+    if not headings:
+        untrimmed = [line for line in lines if heading_re.match(line.strip()) and line != line.strip()]
+        assert not untrimmed, (
+            f"RELEASE.md carries the {version} heading with trailing whitespace ({untrimmed[0]!r}). The "
+            "perl slice would still match it, but the generator greps for an ANCHORED "
+            f'"^#+ ... Client {version}$" and would not -- so it inserts a SECOND heading for the same '
+            "version, burying this entry and tripping markdownlint MD024."
+        )
+
     assert len(headings) == 1, (
         f"RELEASE.md carries {len(headings)} {heading!r} headings, expected exactly 1. None means "
         "an empty release body; two means the generator inserted its boilerplate on top of a "
