@@ -368,18 +368,32 @@ Release ONDEWO VTSI Python Client ${ONDEWO_VTSI_VERSION}
 So the heading of a new entry must read exactly `## Release ONDEWO VTSI Python Client <version>`. That wording
 is **not a free choice**: ondewo-vtsi-api's `release_client` target WRITES
 `## Release ONDEWO VTSI <Name> Client <version>` into each client's RELEASE.md, and greps for exactly that form
-before deciding whether to insert its boilerplate entry. `RELEASE.md` here (20 of its 35 headings) and
-README.md's release instructions both follow the generator; the Makefile pattern did not.
+before deciding whether to insert its boilerplate entry. `RELEASE.md` here (21 of its 37 `## Release` headings)
+and README.md's release instructions both follow the generator; the Makefile pattern did not.
 
 **This section said the opposite until 2026-09-14, and the published releases show what that cost.** The slice
 pattern read `... Client Python ...` — the same three words the other way round — so it matched nothing and the
-slice was empty. Measured: 6.9.0, 7.0.0, 7.0.1, 8.0.0, 8.1.0, 8.2.0, 8.4.0, 8.5.0, 8.6.0 and 8.7.0 all have a
-GitHub release body of length 0, while the ONE non-empty body (8.3.0, 668 bytes) belongs to the ONE entry ever
-written with the reversed wording; the other four VTSI clients return ~1150 bytes for 8.7.0. The MAKEFILE is
-what moved. Do not "fix" it back by rewriting the headings: a heading the generator does not recognise makes it
-insert a SECOND one for the same version, which buries the curated entry (the slice takes the FIRST match) and
-trips markdownlint MD024, which does not auto-fix — so the client's own pre-commit fails and the release aborts
-mid-publish.
+slice was empty. **Measured 2026-09-15 over all 31 published releases of this client**, body length against the
+wording of the matching heading, and the correlation is exact:
+
+| Heading wording in `RELEASE.md` | Releases | GitHub release body |
+| --- | --- | --- |
+| `Client Python` (2.2.0, 2.3.0, 3.0.0–3.5.0, 8.3.0) | 9 | **non-empty**, 44–668 bytes |
+| `Python Client` (5.0.0 through 8.7.0, minus 8.3.0) | 20 | length **0**, every one |
+| no entry at all (4.0.0, 6.3.1) | 2 | length **0** |
+
+So the pattern was **correct for 3.5.0 and older** and went stale when the heading wording flipped at 5.0.0.
+8.3.0 is the one entry written with the old wording AFTER that flip, which is why it is the only non-empty body
+from 4.0.0 onwards — it is **not** the only old-wording entry in the file: 15 of the 37 headings use it, 8.3.0
+and everything 3.5.0 and older. Those 15 are deliberately LEFT ALONE. The generator greps only for the version
+being released, so rewriting shipped entries fixes nothing, and the earlier claim that 8.3.0 was the only one
+"ever" written that way was measurably false — a wrong measurement in this file is worse than none, because the
+next reader acts on it. The other four VTSI clients return ~1150 bytes for 8.7.0.
+
+The MAKEFILE is what moved. Do not "fix" it back by rewriting the CURRENT version's heading: a heading the
+generator does not recognise makes it insert a SECOND one for the same version, which buries the curated entry
+(the slice takes the FIRST match) and trips markdownlint MD024, which does not auto-fix — so the client's own
+pre-commit fails and the release aborts mid-publish.
 
 The wording is still **not consistent across the ONDEWO repos** — the API repos say `... API` with no `Client`
 at all, and the casing varies (`Js`, `Nodejs`, `Typescript`, `Survey`). Do not carry a heading over from a

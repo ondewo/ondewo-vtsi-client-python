@@ -28,12 +28,24 @@ GITHUB_GH_TOKEN?=ENTER_YOUR_TOKEN_HERE
 # and greps RELEASE.md for exactly that form before deciding whether to insert its boilerplate entry.
 # This slice pattern read `... Client Python ...` - the same three words the other way round - so it
 # matched nothing, the slice was EMPTY, and `gh release create -n ""` published a release with no body
-# and no error anywhere. Measured against the published releases: 6.9.0, 7.0.0, 7.0.1, 8.0.0, 8.1.0,
-# 8.2.0, 8.4.0, 8.5.0, 8.6.0 and 8.7.0 all have a body of length 0, and the ONLY non-empty one (8.3.0,
-# 668 bytes) is the ONLY entry in RELEASE.md whose heading was written with the old `Client Python`
-# wording. RELEASE.md (20 headings) and README.md's release instructions both use the generator's
-# wording, so the PATTERN is what moves. Rewriting the headings instead would make the generator's own
-# guard miss, insert a second heading for the same version, and trip markdownlint MD024 - which does
+# and no error anywhere.
+#
+# MEASURED 2026-09-15 over all 31 published releases of this client - `gh api .../releases` body length
+# against the wording of the matching RELEASE.md heading - and the correlation is exact. Old `Client
+# Python` wording: 2.2.0, 2.3.0, 3.0.0, 3.1.0, 3.2.0, 3.3.0, 3.4.0, 3.5.0 and 8.3.0, nine releases,
+# every one with a NON-EMPTY body of 44-668 bytes. Generator wording: twenty releases, every one with a
+# body of length 0 - as are 4.0.0 and 6.3.1, which carry no RELEASE.md entry at all. So this pattern was
+# CORRECT for 3.5.0 and older and went stale when the heading wording flipped at 5.0.0; 8.3.0 is the one
+# entry written with the old wording AFTER that flip, which is why it is the only non-empty body from
+# 4.0.0 onwards. It is not the only old-wording entry in the file.
+#
+# RELEASE.md carries 37 `## Release` headings today: 21 in the generator's wording, 15 in the old one,
+# 1 template. README.md's release instructions use the generator's wording. The 15 old headings are
+# deliberately LEFT ALONE - the generator greps only for the version being released, so rewriting
+# shipped entries fixes nothing and destroys the measurement above.
+#
+# The PATTERN is what moves. Rewriting the CURRENT version's heading instead would make the generator's
+# own guard miss, insert a second heading for the same version, and trip markdownlint MD024 - which does
 # not auto-fix, so the client's pre-commit fails and the release aborts mid-publish.
 #
 # Terminate on the ***** separator that delimits release entries, NOT on /\*\*/ - that matched the first
