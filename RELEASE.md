@@ -2,6 +2,80 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 9.0.0
+
+### Breaking changes
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Regenerated against
+  [ondewo-vtsi-api 9.0.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.0.0), which renames
+  `AsteriskConfigsFiles.sip_conf_file_string` to `pjsip_conf_file_string`. The `chan_sip` channel driver the old
+  name referred to was removed in Asterisk 21, and the configuration file an Asterisk 22 server reads is
+  `pjsip.conf`, so the field carried a name that described a file no supported Asterisk parses. **Field number 1
+  and type `string` do not change and no `json_name` override is added**, so the change is binary wire-compatible
+  in both directions and source-breaking only. In this client the name moves in three places in
+  `ondewo/vtsi/projects_pb2.pyi` -- the attribute, the `AsteriskConfigsFiles` constructor keyword and the
+  `ClearField` literal -- and in the serialized descriptor in `ondewo/vtsi/projects_pb2.py`. Rename the attribute
+  and the keyword argument; nothing about the encoded bytes moves. The three sibling fields keep their names:
+  `extensions.conf`, `queues.conf` and `modules.conf` exist unchanged under `res_pjsip` and only their CONTENT
+  changes. The field deliberately does NOT gain the `optional` keyword -- on the create path `""` and unset are
+  the same instruction, so presence would add a third state no server reads.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) **The JSON key moves with it.** With no
+  `json_name` override, `protoc` derives the key from the field name, so `MessageToJson` and `ParseDict` go from
+  `sipConfFileString` to `pjsipConfFileString`. Any hand-written JSON mapping must move in the same step.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Eleven singular scalars in
+  `ondewo/vtsi/calls.proto` gained the `optional` keyword, so that "the caller said nothing" stops being
+  indistinguishable from "the caller said the default":
+  `InterruptionHandlingConfig.transcribe_on_disabled_interruptions`,
+  `TurnDetectionConfig.turn_detection_system_prompt`, `TurnDetectionConfig.turn_detection_user_prompt`,
+  `AudioObjectStorageConfig.activate_audio_object_storage`,
+  `AudioObjectStorageServicesActivationConfig.activate_s2t` and `.activate_t2s`,
+  `MessageBrokerConfig.activate_message_broker`, and `MessageBrokerServicesActivationConfig.activate_s2t`,
+  `.activate_nlu`, `.activate_t2s` and `.activate_sip`. Each keeps its field number and wire type; `optional`
+  only adds explicit presence, which compiles to a synthetic one-member oneof that exists in the descriptor and
+  not on the wire.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) What that presence change means for Python
+  callers, measured against the 8.7.0 stubs in this package. `HasField` on those eleven names currently RAISES
+  (`ValueError: Field ondewo.vtsi.MessageBrokerConfig.activate_message_broker does not have presence.`) and
+  `FieldDescriptor.has_presence` is `False` for all eleven; from 9.0.0 both answer normally. And an explicitly
+  assigned default now reaches the wire: `MessageBrokerConfig(activate_message_broker=False)` serialises to
+  `b''` on the 8.7.0 stubs and to `b'\x08\x00'` on the 9.0.0 ones. Regenerate before relying on an explicit
+  `False` arriving as an explicit `False` -- an un-regenerated client sends nothing, and a 9.0.0 server cannot
+  tell that apart from unset. When you need to detect the difference in code, read
+  `FieldDescriptor.has_presence`; a `HasField` probe raises on exactly the messages it is meant to classify.
+
+### New features
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) `AsteriskConfigsVariables` gained two fields on
+  the next free numbers, 7 and 8, making the SIP trunk's transport a per-project choice instead of a property of
+  the image:
+  * `SipTrunkTransport sip_trunk_transport = 7` -- `SIP_TRUNK_TRANSPORT_UNSPECIFIED` (0),
+    `SIP_TRUNK_TRANSPORT_TLS` (1), `SIP_TRUNK_TRANSPORT_UDP` (2), `SIP_TRUNK_TRANSPORT_TCP` (3). Unset ==
+    `UNSPECIFIED` == `TLS`, so **the zero value is the encrypted one** and a caller that says nothing gets an
+    encrypted trunk. It takes no `optional` keyword: an enum whose zero IS a documented `*_UNSPECIFIED` sentinel
+    already carries the third state.
+  * `optional string sip_trunk_source_cidr = 8` -- the source address or CIDR the carrier sends from, e.g.
+    `203.0.113.7/32`. REQUIRED when the transport is `UDP` or `TCP`, where the trunk is matched by source address
+    rather than authenticated by a certificate, and ignored otherwise. A hostname is refused with
+    `INVALID_ARGUMENT`. This one DOES take `optional`, so an explicit empty CIDR stays distinguishable from
+    nothing sent and an `update_mask` can CLEAR it rather than assign `""`.
+
+  Both are additive: an 8.x peer decoding a 9.0.0 message skips them as unknown fields.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) The comment on `ScheduledCaller.call_name` lost
+  the words "asterisk sip", matching its `Caller` and `Listener` siblings. Listed only because it is
+  source-visible: it moves no descriptor byte.
+
+### Bug Fixes
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) The GitHub release body is no longer empty. The
+  `Makefile` sliced `RELEASE.md` for a heading reading `Release ONDEWO VTSI Client Python <version>` while this
+  file, `README.md` and the ondewo-vtsi-api release generator all write `Release ONDEWO VTSI Python Client
+  <version>` -- the same three words the other way round -- so the slice matched nothing and
+  `gh release create -n ""` published a release with no notes and no error. Every release from 6.9.0 to 8.7.0
+  except 8.3.0 shipped with a body of length 0. `tests/unit/test_release_notes_slice.py` now re-derives the
+  pattern from the `Makefile` and fails when the current version's slice is empty, unterminated or heading-only.
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 8.7.0
 
 ### Improvements
