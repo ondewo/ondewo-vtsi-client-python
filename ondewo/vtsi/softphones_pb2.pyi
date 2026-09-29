@@ -50,11 +50,16 @@ class _SoftphoneTransportSecurityEnumTypeWrapper(google.protobuf.internal.enum_t
     """Mutual TLS. The softphone connects to the project&apos;s internal TLS port, which requires a client
     certificate, and presents the certificate VTSI issued for this account from the project&apos;s
     SOFTPHONE certificate authority. SIP digest authentication is required in addition.
+    The Asterisk cannot bind an account to one port: the account&apos;s PASSWORD alone can still
+    REGISTER over the external TLS port and so receive the account&apos;s incoming calls, while every
+    call it places that did not arrive over TLS on the internal port is refused with 403. Treat the
+    password as a full credential of the account.
     """
     SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY: _SoftphoneTransportSecurity.ValueType  # 2
     """Server-authenticated TLS only. The softphone connects to the project&apos;s external TLS port, which
     does not ask for a client certificate, and authenticates with SIP digest alone. Intended for
-    softphone editions without client-certificate support, e.g. some Zoiper editions.
+    softphone editions without client-certificate support, e.g. some Zoiper editions. A call it places
+    over a cleartext transport is refused with 403.
     """
 
 class SoftphoneTransportSecurity(_SoftphoneTransportSecurity, metaclass=_SoftphoneTransportSecurityEnumTypeWrapper):
@@ -77,11 +82,16 @@ SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE: SoftphoneTransportSecurity.Valu
 """Mutual TLS. The softphone connects to the project&apos;s internal TLS port, which requires a client
 certificate, and presents the certificate VTSI issued for this account from the project&apos;s
 SOFTPHONE certificate authority. SIP digest authentication is required in addition.
+The Asterisk cannot bind an account to one port: the account&apos;s PASSWORD alone can still
+REGISTER over the external TLS port and so receive the account&apos;s incoming calls, while every
+call it places that did not arrive over TLS on the internal port is refused with 403. Treat the
+password as a full credential of the account.
 """
 SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY: SoftphoneTransportSecurity.ValueType  # 2
 """Server-authenticated TLS only. The softphone connects to the project&apos;s external TLS port, which
 does not ask for a client certificate, and authenticates with SIP digest alone. Intended for
-softphone editions without client-certificate support, e.g. some Zoiper editions.
+softphone editions without client-certificate support, e.g. some Zoiper editions. A call it places
+over a cleartext transport is refused with 403.
 """
 global___SoftphoneTransportSecurity = SoftphoneTransportSecurity
 
@@ -97,15 +107,19 @@ class _SoftphoneCertificateStatusEnumTypeWrapper(google.protobuf.internal.enum_t
     """
     SOFTPHONE_CERTIFICATE_STATUS_ACTIVE: _SoftphoneCertificateStatus.ValueType  # 1
     """The account&apos;s current certificate. It is accepted by the project&apos;s Asterisk until it
-    expires. An account holds at most one ACTIVE certificate.
+    expires, or until the project&apos;s Asterisk port changes: the certificate authorities belong to
+    the port, so a port change voids every issued certificate (the stored status is not changed; rotate
+    the certificate). An account holds at most one ACTIVE certificate.
     """
     SOFTPHONE_CERTIFICATE_STATUS_SUPERSEDED: _SoftphoneCertificateStatus.ValueType  # 2
-    """Replaced by a newer certificate through <code>RotateSoftphoneCredentials</code>. No longer
-    accepted.
+    """Replaced by a newer certificate through <code>RotateSoftphoneCredentials</code>, which rotated the
+    account&apos;s password with it. Still completes a TLS handshake until it expires, but no longer
+    gets its holder the account.
     """
     SOFTPHONE_CERTIFICATE_STATUS_REVOKED: _SoftphoneCertificateStatus.ValueType  # 3
     """Explicitly revoked through <code>RevokeSoftphoneCertificate</code>, or because its account was
-    deleted. No longer accepted.
+    deleted. Still completes a TLS handshake until it expires (the Asterisk has no revocation list),
+    but no longer gets its holder the account.
     """
 
 class SoftphoneCertificateStatus(_SoftphoneCertificateStatus, metaclass=_SoftphoneCertificateStatusEnumTypeWrapper):
@@ -117,15 +131,19 @@ SOFTPHONE_CERTIFICATE_STATUS_UNSPECIFIED: SoftphoneCertificateStatus.ValueType  
 """
 SOFTPHONE_CERTIFICATE_STATUS_ACTIVE: SoftphoneCertificateStatus.ValueType  # 1
 """The account&apos;s current certificate. It is accepted by the project&apos;s Asterisk until it
-expires. An account holds at most one ACTIVE certificate.
+expires, or until the project&apos;s Asterisk port changes: the certificate authorities belong to
+the port, so a port change voids every issued certificate (the stored status is not changed; rotate
+the certificate). An account holds at most one ACTIVE certificate.
 """
 SOFTPHONE_CERTIFICATE_STATUS_SUPERSEDED: SoftphoneCertificateStatus.ValueType  # 2
-"""Replaced by a newer certificate through <code>RotateSoftphoneCredentials</code>. No longer
-accepted.
+"""Replaced by a newer certificate through <code>RotateSoftphoneCredentials</code>, which rotated the
+account&apos;s password with it. Still completes a TLS handshake until it expires, but no longer
+gets its holder the account.
 """
 SOFTPHONE_CERTIFICATE_STATUS_REVOKED: SoftphoneCertificateStatus.ValueType  # 3
 """Explicitly revoked through <code>RevokeSoftphoneCertificate</code>, or because its account was
-deleted. No longer accepted.
+deleted. Still completes a TLS handshake until it expires (the Asterisk has no revocation list),
+but no longer gets its holder the account.
 """
 global___SoftphoneCertificateStatus = SoftphoneCertificateStatus
 
@@ -430,8 +448,8 @@ class SoftphoneCredentials(google.protobuf.message.Message):
     PKCS12_PASSWORD_FIELD_NUMBER: builtins.int
     CERTIFICATE_FIELD_NUMBER: builtins.int
     sip_password: builtins.str
-    """The SIP digest password. Set on create and when the password was rotated, empty otherwise. At least
-    32 characters from a URL-safe alphabet.
+    """The SIP digest password. Set on create and on every rotation (a certificate rotation rotates the
+    password too). At least 32 characters from a URL-safe alphabet.
     """
     pkcs12_bundle: builtins.bytes
     """The client private key, the client certificate and the issuing SOFTPHONE CA certificate as a
@@ -514,8 +532,8 @@ class SoftphoneProvisioning(google.protobuf.message.Message):
     sip_transport: builtins.str
     """Signalling transport. Always <code>TLS</code>."""
     outbound_proxy: builtins.str
-    """Outbound proxy as <code>host:port</code>. Empty when the softphone connects to
-    <code>sip_server_host</code> directly. Zoiper: <i>Outbound proxy</i>.
+    """Outbound proxy as <code>host:port</code>: <code>sip_server_host</code> and
+    <code>sip_server_port</code>. Zoiper: <i>Outbound proxy</i>.
     """
     username: builtins.str
     """The SIP user. Zoiper: <i>Username</i>."""
@@ -526,8 +544,11 @@ class SoftphoneProvisioning(google.protobuf.message.Message):
     srtp_mode: global___SoftphoneSrtpMode.ValueType
     """Media encryption the softphone must use."""
     server_ca_certificate_pem: builtins.str
-    """The certificate authority that issued the Asterisk&apos;s TLS server certificate, PEM encoded.
-    Import it as a trusted CA in the softphone, or the TLS handshake fails verification.
+    """The certificate to trust for the Asterisk&apos;s TLS server, PEM encoded: its self-signed server
+    certificate, which is its own certificate authority. Import it as a trusted CA in the softphone, or
+    the TLS handshake fails verification. For a
+    <code>SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY</code> account on a deployment that configured
+    its own certificate for the external TLS port, this is that certificate (chain) as configured.
     """
     server_certificate_sha256_fingerprint: builtins.str
     """SHA-256 fingerprint of the Asterisk&apos;s TLS server certificate (colon-separated upper-case hex),
@@ -1083,8 +1104,8 @@ class RotateSoftphoneCredentialsRequest(google.protobuf.message.Message):
     rotate_sip_password: builtins.bool
     """Generate a new SIP password. The old one stops working immediately."""
     rotate_certificate: builtins.bool
-    """Issue a new client certificate and key. The previous ACTIVE certificate, if any, becomes
-    <code>SOFTPHONE_CERTIFICATE_STATUS_SUPERSEDED</code> and is no longer accepted.
+    """Issue a new client certificate and key, and a new SIP password with them. The previous ACTIVE
+    certificate, if any, becomes <code>SOFTPHONE_CERTIFICATE_STATUS_SUPERSEDED</code>.
     """
     def __init__(
         self,
@@ -1113,7 +1134,9 @@ class RotateSoftphoneCredentialsResponse(google.protobuf.message.Message):
 
     @property
     def credentials(self) -> global___SoftphoneCredentials:
-        """ONE-TIME secrets: only the rotated parts are set."""
+        """ONE-TIME secrets: <code>sip_password</code> always, the PKCS#12 bundle, its password and the
+        certificate only when <code>rotate_certificate</code> was set.
+        """
 
     def __init__(
         self,

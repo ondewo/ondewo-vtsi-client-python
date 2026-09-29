@@ -45,7 +45,14 @@ class SoftphonesStub(object):
     <code>NOT_FOUND</code> for an unknown project, account or certificate;
     <code>ALREADY_EXISTS</code> for a <code>sip_username</code> already taken in the project;
     <code>FAILED_PRECONDITION</code> when the project or the account is in a state that does not allow the
-    operation (each RPC names its cases).</p>
+    operation (each RPC names its cases); <code>ABORTED</code> when a concurrent change to the same account
+    won, in which case nothing was stored and the request can be retried.</p>
+    <p><b>A change that reduces access is enforced before it is acknowledged.</b> When
+    <code>UpdateSoftphoneAccount</code>, <code>DeleteSoftphoneAccount</code> or
+    <code>RevokeSoftphoneCertificate</code> is stored but the running Asterisk of a deployed project could
+    not be updated, the RPC fails with <code>FAILED_PRECONDITION</code>; the stored change is applied by
+    the next successful change or deployment. <code>CreateSoftphoneAccount</code> and
+    <code>RotateSoftphoneCredentials</code> return their one-time secrets even then.</p>
     """
 
     def __init__(self, channel):
@@ -126,7 +133,14 @@ class SoftphonesServicer(object):
     <code>NOT_FOUND</code> for an unknown project, account or certificate;
     <code>ALREADY_EXISTS</code> for a <code>sip_username</code> already taken in the project;
     <code>FAILED_PRECONDITION</code> when the project or the account is in a state that does not allow the
-    operation (each RPC names its cases).</p>
+    operation (each RPC names its cases); <code>ABORTED</code> when a concurrent change to the same account
+    won, in which case nothing was stored and the request can be retried.</p>
+    <p><b>A change that reduces access is enforced before it is acknowledged.</b> When
+    <code>UpdateSoftphoneAccount</code>, <code>DeleteSoftphoneAccount</code> or
+    <code>RevokeSoftphoneCertificate</code> is stored but the running Asterisk of a deployed project could
+    not be updated, the RPC fails with <code>FAILED_PRECONDITION</code>; the stored change is applied by
+    the next successful change or deployment. <code>CreateSoftphoneAccount</code> and
+    <code>RotateSoftphoneCredentials</code> return their one-time secrets even then.</p>
     """
 
     def CreateSoftphoneAccount(self, request, context):
@@ -142,7 +156,9 @@ class SoftphonesServicer(object):
         <p>Errors: <code>NOT_FOUND</code> if the project does not exist; <code>ALREADY_EXISTS</code> if the
         <code>sip_username</code> is taken in the project; <code>INVALID_ARGUMENT</code> for an invalid or
         reserved <code>sip_username</code>, an output-only field that was set, or an out-of-range value;
-        <code>FAILED_PRECONDITION</code> if the project is being deleted.</p>
+        <code>FAILED_PRECONDITION</code> if the project is being deleted, or, for
+        <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, if the project has no Asterisk port yet
+        or its SOFTPHONE certificate authority is unusable (a redeployment mints a new one).</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -164,7 +180,7 @@ class SoftphonesServicer(object):
         empty mask, an unknown, output-only or immutable path, or an out-of-range value;
         <code>FAILED_PRECONDITION</code> when switching to
         <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> while the account has no
-        <code>SOFTPHONE_CERTIFICATE_STATUS_ACTIVE</code> certificate.</p>
+        <code>SOFTPHONE_CERTIFICATE_STATUS_ACTIVE</code> certificate, or if the project is being deleted.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -192,15 +208,23 @@ class SoftphonesServicer(object):
 
     def RotateSoftphoneCredentials(self, request, context):
         """<p>Rotates the SIP password and/or the client certificate of a softphone account and returns the new
-        ONE-TIME secrets. A rotated password takes effect immediately and drops the account&apos;s current
+        ONE-TIME secrets. <b>Every rotation rotates the SIP password</b>, including one that asked only for
+        <code>rotate_certificate</code>: the Asterisk has no certificate revocation list, so a previous
+        certificate stops being usable for this account only because the password it was issued with
+        stops working. The new password takes effect immediately and drops the account&apos;s current
         registrations, so every softphone using it must be reconfigured. A rotated certificate moves the
         previous <code>SOFTPHONE_CERTIFICATE_STATUS_ACTIVE</code> certificate to
-        <code>SOFTPHONE_CERTIFICATE_STATUS_SUPERSEDED</code>, after which it is no longer accepted.</p>
+        <code>SOFTPHONE_CERTIFICATE_STATUS_SUPERSEDED</code>. A rotation also unlocks an account that
+        <code>RevokeSoftphoneCertificate</code> locked (a <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>
+        account only once it again holds an ACTIVE certificate).</p>
         <p>Rotating the certificate of a <code>SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY</code> account is
         allowed: it issues the certificate that a later switch to
-        <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> requires.</p>
+        <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> requires, and rotates the password too.</p>
         <p>Errors: <code>NOT_FOUND</code> if the account does not exist; <code>INVALID_ARGUMENT</code> if
-        neither <code>rotate_sip_password</code> nor <code>rotate_certificate</code> is set.</p>
+        neither <code>rotate_sip_password</code> nor <code>rotate_certificate</code> is set;
+        <code>FAILED_PRECONDITION</code> if the project is being deleted, or, for
+        <code>rotate_certificate</code>, if the project has no Asterisk port yet or its SOFTPHONE
+        certificate authority is unusable.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -232,12 +256,19 @@ class SoftphonesServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def RevokeSoftphoneCertificate(self, request, context):
-        """<p>Revokes a softphone client certificate: it is no longer accepted by the project&apos;s Asterisk.
-        Revoking the ACTIVE certificate of a <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>
-        account leaves that account unable to connect until <code>RotateSoftphoneCredentials</code> issues a
-        new one. Revoking an already revoked certificate is idempotent and keeps the original revocation
-        time and reason.</p>
-        <p>Errors: <code>NOT_FOUND</code> if the certificate does not exist.</p>
+        """<p>Revokes a softphone client certificate. The Asterisk has no certificate revocation list, so
+        revocation is enforced on the account&apos;s SIP password rather than on the certificate: a revoked
+        certificate still completes the TLS handshake on the project&apos;s mutual-TLS port, but it no longer
+        gets its holder an account.</p>
+        <p>Revoking the ACTIVE certificate of an account LOCKS the account, whatever its transport
+        security: it is removed from the Asterisk and its registrations are dropped until
+        <code>RotateSoftphoneCredentials</code> issues a new password (and, for
+        <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, a new certificate). Revoking a
+        SUPERSEDED certificate records the revocation only; its password was already rotated away.
+        Revoking an already revoked certificate is idempotent and keeps the original revocation time and
+        reason.</p>
+        <p>Errors: <code>NOT_FOUND</code> if the certificate does not exist; <code>INVALID_ARGUMENT</code>
+        for a malformed name or an over-long reason.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -343,7 +374,14 @@ class Softphones(object):
     <code>NOT_FOUND</code> for an unknown project, account or certificate;
     <code>ALREADY_EXISTS</code> for a <code>sip_username</code> already taken in the project;
     <code>FAILED_PRECONDITION</code> when the project or the account is in a state that does not allow the
-    operation (each RPC names its cases).</p>
+    operation (each RPC names its cases); <code>ABORTED</code> when a concurrent change to the same account
+    won, in which case nothing was stored and the request can be retried.</p>
+    <p><b>A change that reduces access is enforced before it is acknowledged.</b> When
+    <code>UpdateSoftphoneAccount</code>, <code>DeleteSoftphoneAccount</code> or
+    <code>RevokeSoftphoneCertificate</code> is stored but the running Asterisk of a deployed project could
+    not be updated, the RPC fails with <code>FAILED_PRECONDITION</code>; the stored change is applied by
+    the next successful change or deployment. <code>CreateSoftphoneAccount</code> and
+    <code>RotateSoftphoneCredentials</code> return their one-time secrets even then.</p>
     """
 
     @staticmethod
