@@ -18,6 +18,7 @@ from ondewo.utils.base_service_container import BaseServicesContainer
 from ondewo.vtsi.client.services.calls import Calls
 from ondewo.vtsi.client.services.logs import Logs
 from ondewo.vtsi.client.services.projects import Projects
+from ondewo.vtsi.client.services.softphones import Softphones
 
 
 @dataclass
@@ -25,3 +26,4 @@ class ServicesContainer(BaseServicesContainer):
     projects: Projects
     calls: Calls
     logs: Logs
+    softphones: Softphones

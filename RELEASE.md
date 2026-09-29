@@ -63,6 +63,16 @@
 * [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) The comment on `ScheduledCaller.call_name` lost
   the words "asterisk sip", matching its `Caller` and `Listener` siblings. Listed only because it is
   source-visible: it moves no descriptor byte.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) New `Softphones` service (unreleased, in
+  development): the generated `ondewo/vtsi/softphones_pb2.py`, `.pyi` and `softphones_pb2_grpc.py`, plus the
+  wrappers `ondewo.vtsi.client.services.softphones.Softphones` and its async twin, exposed as
+  `client.services.softphones` on both `Client` and `AsyncClient`. Ten RPCs manage softphone accounts
+  (create/get/update/delete/list with field masks, a structured filter, paging and sorting), rotate their
+  credentials, list/get/revoke their client certificates and return Zoiper provisioning. The SIP password
+  and the PKCS#12 bundle are returned ONLY by `create_softphone_account` and
+  `rotate_softphone_credentials`; never log those responses. `SoftphoneAccount.enabled` carries explicit
+  presence: ask `HasField("enabled")`, since an unset value means `true` on create. New example
+  `examples/softphones/create_softphone_account.py`.
 
 ### Bug Fixes
 

@@ -78,6 +78,38 @@ DELETED: VtsiProjectStatus.ValueType  # 7
 """Project is deleted"""
 global___VtsiProjectStatus = VtsiProjectStatus
 
+class _SipTrunkTransport:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _SipTrunkTransportEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SipTrunkTransport.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    SIP_TRUNK_TRANSPORT_UNSPECIFIED: _SipTrunkTransport.ValueType  # 0
+    """Unspecified transport: identical to <pre><code>SIP_TRUNK_TRANSPORT_TLS</code></pre>. Encryption is
+    the default, so the zero value is the secure one.
+    """
+    SIP_TRUNK_TRANSPORT_TLS: _SipTrunkTransport.ValueType  # 1
+    """TLS transport with SRTP media. The trunk is authenticated by certificate and needs no source CIDR."""
+    SIP_TRUNK_TRANSPORT_UDP: _SipTrunkTransport.ValueType  # 2
+    """Plain UDP transport. Requires <pre><code>sip_trunk_source_cidr</code></pre>."""
+    SIP_TRUNK_TRANSPORT_TCP: _SipTrunkTransport.ValueType  # 3
+    """Plain TCP transport. Requires <pre><code>sip_trunk_source_cidr</code></pre>."""
+
+class SipTrunkTransport(_SipTrunkTransport, metaclass=_SipTrunkTransportEnumTypeWrapper):
+    """Transport for the SIP trunk of an Asterisk server."""
+
+SIP_TRUNK_TRANSPORT_UNSPECIFIED: SipTrunkTransport.ValueType  # 0
+"""Unspecified transport: identical to <pre><code>SIP_TRUNK_TRANSPORT_TLS</code></pre>. Encryption is
+the default, so the zero value is the secure one.
+"""
+SIP_TRUNK_TRANSPORT_TLS: SipTrunkTransport.ValueType  # 1
+"""TLS transport with SRTP media. The trunk is authenticated by certificate and needs no source CIDR."""
+SIP_TRUNK_TRANSPORT_UDP: SipTrunkTransport.ValueType  # 2
+"""Plain UDP transport. Requires <pre><code>sip_trunk_source_cidr</code></pre>."""
+SIP_TRUNK_TRANSPORT_TCP: SipTrunkTransport.ValueType  # 3
+"""Plain TCP transport. Requires <pre><code>sip_trunk_source_cidr</code></pre>."""
+global___SipTrunkTransport = SipTrunkTransport
+
 class _VtsiProjectSortingMode:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -249,6 +281,8 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     TRANSFER_NUMBER_FIELD_NUMBER: builtins.int
     TRANSFER_NUMBER_HOST_FIELD_NUMBER: builtins.int
     SIP_TRUNK_PHONE_NUMBER_FIELD_NUMBER: builtins.int
+    SIP_TRUNK_TRANSPORT_FIELD_NUMBER: builtins.int
+    SIP_TRUNK_SOURCE_CIDR_FIELD_NUMBER: builtins.int
     sip_trunk_username: builtins.str
     """SIP trunk username."""
     sip_trunk_password: builtins.str
@@ -261,6 +295,21 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     """Transfer number host."""
     sip_trunk_phone_number: builtins.str
     """SIP trunk phone number / caller id."""
+    sip_trunk_transport: global___SipTrunkTransport.ValueType
+    """OPTIONAL: transport for the SIP trunk. Unset == <pre><code>SIP_TRUNK_TRANSPORT_UNSPECIFIED</code></pre>
+    == <pre><code>SIP_TRUNK_TRANSPORT_TLS</code></pre>: encryption is the default, so a caller that says
+    nothing gets an encrypted trunk.
+    """
+    sip_trunk_source_cidr: builtins.str
+    """OPTIONAL: the source address or CIDR the carrier sends from, e.g. <pre><code>203.0.113.7/32</code></pre>.
+    REQUIRED when <pre><code>sip_trunk_transport</code></pre> is
+    <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>,
+    where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+    otherwise. A hostname is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>: Asterisk drops a
+    <pre><code>type=identify</code></pre> section whose <pre><code>match=</code></pre> does not resolve,
+    and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+    inbound call.
+    """
     def __init__(
         self,
         *,
@@ -270,8 +319,12 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
         transfer_number: builtins.str = ...,
         transfer_number_host: builtins.str = ...,
         sip_trunk_phone_number: builtins.str = ...,
+        sip_trunk_transport: global___SipTrunkTransport.ValueType = ...,
+        sip_trunk_source_cidr: builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_username", b"sip_trunk_username", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "sip_trunk_source_cidr", b"sip_trunk_source_cidr"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_transport", b"sip_trunk_transport", "sip_trunk_username", b"sip_trunk_username", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_sip_trunk_source_cidr", b"_sip_trunk_source_cidr"]) -> typing.Literal["sip_trunk_source_cidr"] | None: ...
 
 global___AsteriskConfigsVariables = AsteriskConfigsVariables
 
@@ -281,12 +334,18 @@ class AsteriskConfigsFiles(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    SIP_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
+    PJSIP_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
     EXTENSIONS_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
     QUEUES_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
     MODULES_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
-    sip_conf_file_string: builtins.str
-    """sip.conf file as string"""
+    pjsip_conf_file_string: builtins.str
+    """pjsip.conf file as string.
+    Renamed from <pre><code>sip_conf_file_string</code></pre> in 9.0.0: the chan_sip driver this field
+    was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+    <pre><code>pjsip.conf</code></pre>. Field number 1 and type <pre><code>string</code></pre> are
+    unchanged and no <pre><code>json_name</code></pre> override was added, so the change is binary
+    wire-compatible in both directions and source-breaking only.
+    """
     extensions_conf_file_string: builtins.str
     """extensions.conf file as string"""
     queues_conf_file_string: builtins.str
@@ -296,12 +355,12 @@ class AsteriskConfigsFiles(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        sip_conf_file_string: builtins.str = ...,
+        pjsip_conf_file_string: builtins.str = ...,
         extensions_conf_file_string: builtins.str = ...,
         queues_conf_file_string: builtins.str = ...,
         modules_conf_file_string: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["extensions_conf_file_string", b"extensions_conf_file_string", "modules_conf_file_string", b"modules_conf_file_string", "queues_conf_file_string", b"queues_conf_file_string", "sip_conf_file_string", b"sip_conf_file_string"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["extensions_conf_file_string", b"extensions_conf_file_string", "modules_conf_file_string", b"modules_conf_file_string", "pjsip_conf_file_string", b"pjsip_conf_file_string", "queues_conf_file_string", b"queues_conf_file_string"]) -> None: ...
 
 global___AsteriskConfigsFiles = AsteriskConfigsFiles
 

@@ -188,6 +188,37 @@ metadata = [("authorization", "Bearer <token>")]
 stub.StartCaller(request, metadata=metadata)
 ```
 
+### Softphone accounts
+
+`client.services.softphones` manages SIP accounts on a project's Asterisk for humans using a softphone such
+as Zoiper. The create (and rotate) response is the **only** place the SIP password and the password-protected
+PKCS#12 bundle ever appear, so store them at once and never log the response; Get, List and provisioning
+return public material only. See `examples/softphones/create_softphone_account.py` for the full flow.
+
+```python
+from ondewo.vtsi.softphones_pb2 import (
+    SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE,
+    CreateSoftphoneAccountRequest,
+    GetSoftphoneProvisioningRequest,
+    SoftphoneAccount,
+)
+
+created = client.services.softphones.create_softphone_account(
+    request=CreateSoftphoneAccountRequest(
+        vtsi_project_name="projects/<project_uuid>/project",
+        softphone_account=SoftphoneAccount(
+            sip_username="support-01",
+            transport_security=SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE,
+        ),
+    ),
+)
+# created.credentials.sip_password / .pkcs12_bundle / .pkcs12_password are shown ONCE.
+provisioning = client.services.softphones.get_softphone_provisioning(
+    request=GetSoftphoneProvisioningRequest(name=created.softphone_account.name),
+)
+print(provisioning.zoiper_instructions)
+```
+
 ## Automatic Release Process
 
 The entire process is automated to make development easier. The actual steps are simple:

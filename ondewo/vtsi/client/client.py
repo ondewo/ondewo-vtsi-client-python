@@ -24,6 +24,7 @@ from ondewo.vtsi.client.client_config import ClientConfig
 from ondewo.vtsi.client.services.calls import Calls
 from ondewo.vtsi.client.services.logs import Logs
 from ondewo.vtsi.client.services.projects import Projects
+from ondewo.vtsi.client.services.softphones import Softphones
 from ondewo.vtsi.client.services_container import ServicesContainer
 
 
@@ -54,4 +55,5 @@ class Client(BaseClient):
             projects=Projects(config=config, use_secure_channel=use_secure_channel, options=options),
             calls=Calls(config=config, use_secure_channel=use_secure_channel, options=options),
             logs=Logs(config=config, use_secure_channel=use_secure_channel, options=options),
+            softphones=Softphones(config=config, use_secure_channel=use_secure_channel, options=options),
         )
