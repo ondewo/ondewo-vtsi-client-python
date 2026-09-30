@@ -394,6 +394,7 @@ class VoiceInteractionConfig(google.protobuf.message.Message):
     TURN_DETECTION_CONFIG_FIELD_NUMBER: builtins.int
     INTERRUPTION_HANDLING_CONFIG_FIELD_NUMBER: builtins.int
     RESPONSE_TIMING_CONFIG_FIELD_NUMBER: builtins.int
+    ANSWERING_MACHINE_DETECTION_CONFIG_FIELD_NUMBER: builtins.int
     @property
     def turn_detection_config(self) -> global___TurnDetectionConfig:
         """Configuration of the turn detection"""
@@ -406,15 +407,23 @@ class VoiceInteractionConfig(google.protobuf.message.Message):
     def response_timing_config(self) -> global___ResponseTimingConfig:
         """Configuration of the response timing"""
 
+    @property
+    def answering_machine_detection_config(self) -> global___AnsweringMachineDetectionConfig:
+        """Configuration of the answering machine detection (AMD) of an outbound call.
+        Only accepted for pooled persistent callers: a listener or a one-shot caller that carries it
+        is rejected with INVALID_ARGUMENT
+        """
+
     def __init__(
         self,
         *,
         turn_detection_config: global___TurnDetectionConfig | None = ...,
         interruption_handling_config: global___InterruptionHandlingConfig | None = ...,
         response_timing_config: global___ResponseTimingConfig | None = ...,
+        answering_machine_detection_config: global___AnsweringMachineDetectionConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> None: ...
 
 global___VoiceInteractionConfig = VoiceInteractionConfig
 
@@ -679,6 +688,205 @@ class SoftTimeoutConfig(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing.Literal["_timeout_seconds", b"_timeout_seconds"]) -> typing.Literal["timeout_seconds"] | None: ...
 
 global___SoftTimeoutConfig = SoftTimeoutConfig
+
+@typing.final
+class AnsweringMachineDetectionConfig(google.protobuf.message.Message):
+    """Configuration of the answering machine detection (AMD) of an outbound call, i.e. deciding in the first
+    seconds after the callee answered whether a person, an answering machine, a fax, an IVR or a network
+    announcement picked up, and hanging up on the non-human ones.
+    Detection listens first: the bot stays silent until the verdict is reached or the decision window ends.
+    Every field is optional: an unset field takes the default of the CSI container (listed per field below).
+    Only accepted for pooled persistent callers; the settings are part of the caller container configuration,
+    so callers with different AMD settings are never pooled together.
+    The verdict of a call is reported as ondewo.sip.SipStatus.amd_result, and a call ended by AMD reaches
+    the terminal status ondewo.sip.SipStatus.StatusType.OUTGOING_CALL_ANSWERING_MACHINE.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _AmdAction:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _AmdActionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AnsweringMachineDetectionConfig._AmdAction.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        AMD_ACTION_UNSPECIFIED: AnsweringMachineDetectionConfig._AmdAction.ValueType  # 0
+        """Unspecified action defaults to HANG_UP"""
+        HANG_UP: AnsweringMachineDetectionConfig._AmdAction.ValueType  # 1
+        """Hang up on a non-human verdict whose per-verdict hang-up switch is on
+        (an answering machine is always hung up on)
+        """
+        DETECT_ONLY: AnsweringMachineDetectionConfig._AmdAction.ValueType  # 2
+        """Only detect and record the verdict, never hang up: the call continues with the greeting
+        (shadow mode to calibrate the detection before enabling HANG_UP)
+        """
+
+    class AmdAction(_AmdAction, metaclass=_AmdActionEnumTypeWrapper):
+        """What to do once a non-human verdict is reached"""
+
+    AMD_ACTION_UNSPECIFIED: AnsweringMachineDetectionConfig.AmdAction.ValueType  # 0
+    """Unspecified action defaults to HANG_UP"""
+    HANG_UP: AnsweringMachineDetectionConfig.AmdAction.ValueType  # 1
+    """Hang up on a non-human verdict whose per-verdict hang-up switch is on
+    (an answering machine is always hung up on)
+    """
+    DETECT_ONLY: AnsweringMachineDetectionConfig.AmdAction.ValueType  # 2
+    """Only detect and record the verdict, never hang up: the call continues with the greeting
+    (shadow mode to calibrate the detection before enabling HANG_UP)
+    """
+
+    class _AmdSensitivity:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _AmdSensitivityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AnsweringMachineDetectionConfig._AmdSensitivity.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        AMD_SENSITIVITY_UNSPECIFIED: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 0
+        """Unspecified sensitivity defaults to LOW"""
+        LOW: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 1
+        """Most conservative towards people: only strong machine evidence leads to a machine verdict (default)"""
+        MEDIUM: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 2
+        """Balanced between missed machines and people classified as machines"""
+        HIGH: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 3
+        """Most aggressive: detects more machines at a higher risk of hanging up on a person"""
+
+    class AmdSensitivity(_AmdSensitivity, metaclass=_AmdSensitivityEnumTypeWrapper):
+        """Sensitivity of the detection: selects the enabled detection rules and their internal thresholds"""
+
+    AMD_SENSITIVITY_UNSPECIFIED: AnsweringMachineDetectionConfig.AmdSensitivity.ValueType  # 0
+    """Unspecified sensitivity defaults to LOW"""
+    LOW: AnsweringMachineDetectionConfig.AmdSensitivity.ValueType  # 1
+    """Most conservative towards people: only strong machine evidence leads to a machine verdict (default)"""
+    MEDIUM: AnsweringMachineDetectionConfig.AmdSensitivity.ValueType  # 2
+    """Balanced between missed machines and people classified as machines"""
+    HIGH: AnsweringMachineDetectionConfig.AmdSensitivity.ValueType  # 3
+    """Most aggressive: detects more machines at a higher risk of hanging up on a person"""
+
+    ACTIVE_FIELD_NUMBER: builtins.int
+    ACTION_FIELD_NUMBER: builtins.int
+    SENSITIVITY_FIELD_NUMBER: builtins.int
+    MAX_DECISION_TIME_MS_FIELD_NUMBER: builtins.int
+    MAX_MACHINE_WAIT_MS_FIELD_NUMBER: builtins.int
+    BEEP_WAIT_AFTER_GREETING_MS_FIELD_NUMBER: builtins.int
+    INITIAL_SILENCE_MS_FIELD_NUMBER: builtins.int
+    MAX_HUMAN_GREETING_MS_FIELD_NUMBER: builtins.int
+    GREETING_END_SILENCE_MS_FIELD_NUMBER: builtins.int
+    BEEP_DETECTION_ACTIVE_FIELD_NUMBER: builtins.int
+    ADDITIONAL_MACHINE_PHRASES_FIELD_NUMBER: builtins.int
+    ADDITIONAL_HUMAN_PHRASES_FIELD_NUMBER: builtins.int
+    HANG_UP_ON_FAX_FIELD_NUMBER: builtins.int
+    HANG_UP_ON_NETWORK_ANNOUNCEMENT_FIELD_NUMBER: builtins.int
+    HANG_UP_ON_IVR_FIELD_NUMBER: builtins.int
+    HANG_UP_ON_CALL_SCREENING_FIELD_NUMBER: builtins.int
+    active: builtins.bool
+    """Optional: Master switch of the answering machine detection (default: false)"""
+    action: global___AnsweringMachineDetectionConfig.AmdAction.ValueType
+    """Optional: Action on a non-human verdict (default: HANG_UP)"""
+    sensitivity: global___AnsweringMachineDetectionConfig.AmdSensitivity.ValueType
+    """Optional: Sensitivity of the detection (default: LOW)"""
+    max_decision_time_ms: builtins.int
+    """Optional: Maximum time in milliseconds after the callee answered to reach a verdict when no
+    machine-leaning evidence was seen; the verdict is UNKNOWN when it is reached
+    (default: 4000, valid range: 1500 - 10000)
+    """
+    max_machine_wait_ms: builtins.int
+    """Optional: Maximum time in milliseconds after the callee answered to reach a verdict once
+    machine-leaning evidence extended the decision window (default: 11000, valid range: 4000 - 20000)
+    """
+    beep_wait_after_greeting_ms: builtins.int
+    """Optional: Time in milliseconds to wait for a beep after a long greeting ended
+    (default: 1500, valid range: 0 - 4000)
+    """
+    initial_silence_ms: builtins.int
+    """Optional: Silence in milliseconds after the callee answered without any speech, after which the verdict
+    is NO_SPEECH, which is treated like a person (default: 3500, valid range: 1000 - 10000)
+    """
+    max_human_greeting_ms: builtins.int
+    """Optional: Continuous speech in milliseconds beyond which a greeting is machine-leaning
+    (default: 2400, valid range: 1000 - 6000)
+    """
+    greeting_end_silence_ms: builtins.int
+    """Optional: Silence in milliseconds after the first speech burst that ends a human greeting
+    (default: 900, valid range: 300 - 3000)
+    """
+    beep_detection_active: builtins.bool
+    """Optional: Enable the tone detector for the beep of an answering machine (default: true)"""
+    hang_up_on_fax: builtins.bool
+    """Optional: Hang up on a FAX verdict when the action is HANG_UP (default: true)"""
+    hang_up_on_network_announcement: builtins.bool
+    """Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. "the number is not reachable",
+    when the action is HANG_UP (default: true)
+    """
+    hang_up_on_ivr: builtins.bool
+    """Optional: Hang up on an IVR verdict, i.e. an automated menu, when the action is HANG_UP (default: false)"""
+    hang_up_on_call_screening: builtins.bool
+    """Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of
+    the call, when the action is HANG_UP (default: false)
+    """
+    @property
+    def additional_machine_phrases(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Additional phrases that indicate an answering machine, added to the built-in de and en phrase lists
+        (maximum 50 phrases, each 1 - 80 characters)
+        """
+
+    @property
+    def additional_human_phrases(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Additional phrases that indicate a person, added to the built-in de and en phrase lists
+        (maximum 50 phrases, each 1 - 80 characters)
+        """
+
+    def __init__(
+        self,
+        *,
+        active: builtins.bool | None = ...,
+        action: global___AnsweringMachineDetectionConfig.AmdAction.ValueType | None = ...,
+        sensitivity: global___AnsweringMachineDetectionConfig.AmdSensitivity.ValueType | None = ...,
+        max_decision_time_ms: builtins.int | None = ...,
+        max_machine_wait_ms: builtins.int | None = ...,
+        beep_wait_after_greeting_ms: builtins.int | None = ...,
+        initial_silence_ms: builtins.int | None = ...,
+        max_human_greeting_ms: builtins.int | None = ...,
+        greeting_end_silence_ms: builtins.int | None = ...,
+        beep_detection_active: builtins.bool | None = ...,
+        additional_machine_phrases: collections.abc.Iterable[builtins.str] | None = ...,
+        additional_human_phrases: collections.abc.Iterable[builtins.str] | None = ...,
+        hang_up_on_fax: builtins.bool | None = ...,
+        hang_up_on_network_announcement: builtins.bool | None = ...,
+        hang_up_on_ivr: builtins.bool | None = ...,
+        hang_up_on_call_screening: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_action", b"_action", "_active", b"_active", "_beep_detection_active", b"_beep_detection_active", "_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms", "_greeting_end_silence_ms", b"_greeting_end_silence_ms", "_hang_up_on_call_screening", b"_hang_up_on_call_screening", "_hang_up_on_fax", b"_hang_up_on_fax", "_hang_up_on_ivr", b"_hang_up_on_ivr", "_hang_up_on_network_announcement", b"_hang_up_on_network_announcement", "_initial_silence_ms", b"_initial_silence_ms", "_max_decision_time_ms", b"_max_decision_time_ms", "_max_human_greeting_ms", b"_max_human_greeting_ms", "_max_machine_wait_ms", b"_max_machine_wait_ms", "_sensitivity", b"_sensitivity", "action", b"action", "active", b"active", "beep_detection_active", b"beep_detection_active", "beep_wait_after_greeting_ms", b"beep_wait_after_greeting_ms", "greeting_end_silence_ms", b"greeting_end_silence_ms", "hang_up_on_call_screening", b"hang_up_on_call_screening", "hang_up_on_fax", b"hang_up_on_fax", "hang_up_on_ivr", b"hang_up_on_ivr", "hang_up_on_network_announcement", b"hang_up_on_network_announcement", "initial_silence_ms", b"initial_silence_ms", "max_decision_time_ms", b"max_decision_time_ms", "max_human_greeting_ms", b"max_human_greeting_ms", "max_machine_wait_ms", b"max_machine_wait_ms", "sensitivity", b"sensitivity"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_action", b"_action", "_active", b"_active", "_beep_detection_active", b"_beep_detection_active", "_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms", "_greeting_end_silence_ms", b"_greeting_end_silence_ms", "_hang_up_on_call_screening", b"_hang_up_on_call_screening", "_hang_up_on_fax", b"_hang_up_on_fax", "_hang_up_on_ivr", b"_hang_up_on_ivr", "_hang_up_on_network_announcement", b"_hang_up_on_network_announcement", "_initial_silence_ms", b"_initial_silence_ms", "_max_decision_time_ms", b"_max_decision_time_ms", "_max_human_greeting_ms", b"_max_human_greeting_ms", "_max_machine_wait_ms", b"_max_machine_wait_ms", "_sensitivity", b"_sensitivity", "action", b"action", "active", b"active", "additional_human_phrases", b"additional_human_phrases", "additional_machine_phrases", b"additional_machine_phrases", "beep_detection_active", b"beep_detection_active", "beep_wait_after_greeting_ms", b"beep_wait_after_greeting_ms", "greeting_end_silence_ms", b"greeting_end_silence_ms", "hang_up_on_call_screening", b"hang_up_on_call_screening", "hang_up_on_fax", b"hang_up_on_fax", "hang_up_on_ivr", b"hang_up_on_ivr", "hang_up_on_network_announcement", b"hang_up_on_network_announcement", "initial_silence_ms", b"initial_silence_ms", "max_decision_time_ms", b"max_decision_time_ms", "max_human_greeting_ms", b"max_human_greeting_ms", "max_machine_wait_ms", b"max_machine_wait_ms", "sensitivity", b"sensitivity"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_action", b"_action"]) -> typing.Literal["action"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_active", b"_active"]) -> typing.Literal["active"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_beep_detection_active", b"_beep_detection_active"]) -> typing.Literal["beep_detection_active"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms"]) -> typing.Literal["beep_wait_after_greeting_ms"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_greeting_end_silence_ms", b"_greeting_end_silence_ms"]) -> typing.Literal["greeting_end_silence_ms"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_call_screening", b"_hang_up_on_call_screening"]) -> typing.Literal["hang_up_on_call_screening"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_fax", b"_hang_up_on_fax"]) -> typing.Literal["hang_up_on_fax"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_ivr", b"_hang_up_on_ivr"]) -> typing.Literal["hang_up_on_ivr"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_network_announcement", b"_hang_up_on_network_announcement"]) -> typing.Literal["hang_up_on_network_announcement"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_initial_silence_ms", b"_initial_silence_ms"]) -> typing.Literal["initial_silence_ms"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_max_decision_time_ms", b"_max_decision_time_ms"]) -> typing.Literal["max_decision_time_ms"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_max_human_greeting_ms", b"_max_human_greeting_ms"]) -> typing.Literal["max_human_greeting_ms"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_max_machine_wait_ms", b"_max_machine_wait_ms"]) -> typing.Literal["max_machine_wait_ms"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_sensitivity", b"_sensitivity"]) -> typing.Literal["sensitivity"] | None: ...
+
+global___AnsweringMachineDetectionConfig = AnsweringMachineDetectionConfig
 
 @typing.final
 class SipBaseConfig(google.protobuf.message.Message):
@@ -2514,6 +2722,8 @@ class Call(google.protobuf.message.Message):
     CSI_PORT_FIELD_NUMBER: builtins.int
     NLU_SESSION_NAME_FIELD_NUMBER: builtins.int
     PLATFORMS_FIELD_NUMBER: builtins.int
+    REDIAL_RECOMMENDED_FIELD_NUMBER: builtins.int
+    REDIAL_REASON_FIELD_NUMBER: builtins.int
     name: builtins.str
     """call name
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
@@ -2541,6 +2751,17 @@ class Call(google.protobuf.message.Message):
     """NLU session name"""
     platforms: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType
     """Messages for each of the Intent.Message.Platform were sent to the user"""
+    redial_recommended: builtins.bool
+    """Optional: Whether the callee should be called again later, set only when the answering machine
+    detection (AMD) hung up the call: true for an answering machine or a network announcement,
+    false for a fax. Unset when AMD did not hang up the call.
+    The AMD verdict, cause and confidence of the call are in sip_status.amd_result.
+    No call is redialled automatically; the marker is for the campaign logic of the client
+    """
+    redial_reason: builtins.str
+    """Optional: Reason of redial_recommended, set together with it. One of
+    "answering_machine", "network_announcement" or "fax"
+    """
     @property
     def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """start time of log"""
@@ -2586,9 +2807,11 @@ class Call(google.protobuf.message.Message):
         csi_port: builtins.int | None = ...,
         nlu_session_name: builtins.str | None = ...,
         platforms: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType | None = ...,
+        redial_recommended: builtins.bool | None = ...,
+        redial_reason: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "common_services_config", b"common_services_config", "csi_port", b"csi_port", "end_time", b"end_time", "nlu_session_name", b"nlu_session_name", "platforms", b"platforms", "services_statuses", b"services_statuses", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "end_time", b"end_time", "name", b"name", "nlu_session_name", b"nlu_session_name", "phone_number", b"phone_number", "platforms", b"platforms", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "common_services_config", b"common_services_config", "csi_port", b"csi_port", "end_time", b"end_time", "nlu_session_name", b"nlu_session_name", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "start_time", b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "end_time", b"end_time", "name", b"name", "nlu_session_name", b"nlu_session_name", "phone_number", b"phone_number", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_common_services_config", b"_common_services_config"]) -> typing.Literal["common_services_config"] | None: ...
     @typing.overload
@@ -2597,6 +2820,10 @@ class Call(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing.Literal["_nlu_session_name", b"_nlu_session_name"]) -> typing.Literal["nlu_session_name"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_platforms", b"_platforms"]) -> typing.Literal["platforms"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_redial_reason", b"_redial_reason"]) -> typing.Literal["redial_reason"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_redial_recommended", b"_redial_recommended"]) -> typing.Literal["redial_recommended"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_services_statuses", b"_services_statuses"]) -> typing.Literal["services_statuses"] | None: ...
     @typing.overload

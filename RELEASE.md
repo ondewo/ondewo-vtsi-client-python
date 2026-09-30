@@ -73,6 +73,15 @@
   `rotate_softphone_credentials`; never log those responses. `SoftphoneAccount.enabled` carries explicit
   presence: ask `HasField("enabled")`, since an unset value means `true` on create. New example
   `examples/softphones/create_softphone_account.py`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Answering machine detection (AMD): regenerated
+  against ondewo-vtsi-api `7a3011d`, which adds `VoiceInteractionConfig.answering_machine_detection_config = 4`
+  (`AnsweringMachineDetectionConfig`, enums `AmdAction` and `AmdSensitivity`, fourteen `optional` fields and two
+  phrase lists) and `Call.redial_recommended = 19` / `Call.redial_reason = 20`. The AMD fields have explicit
+  presence: ask `HasField`, because an unset field means the CSI container default. The vendored `ondewo/sip`
+  stubs move from sip-api 5.4.0 to sip-api `2fff350` (status 22 `OUTGOING_CALL_ANSWERING_MACHINE`,
+  `AnsweringMachineDetectionResult`, `SipStatus.amd_result`, `SipEndCallRequest.end_reason` / `amd_result`) and are
+  byte-identical to those of `ondewo-sip-client` 5.5.0 generated from the same commit; install the two together, or
+  the last installed copy of `ondewo/sip` wins. Pinned by `tests/unit/vtsi/test_answering_machine_detection_config.py`.
 
 ### Bug Fixes
 
