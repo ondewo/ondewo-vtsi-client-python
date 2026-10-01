@@ -82,6 +82,15 @@
   `AnsweringMachineDetectionResult`, `SipStatus.amd_result`, `SipEndCallRequest.end_reason` / `amd_result`) and are
   byte-identical to those of `ondewo-sip-client` 5.5.0 generated from the same commit; install the two together, or
   the last installed copy of `ondewo/sip` wins. Pinned by `tests/unit/vtsi/test_answering_machine_detection_config.py`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) AMD voice message: regenerated against
+  ondewo-vtsi-api `82f84ad`. `AmdAction` gains `LEAVE_VOICE_MESSAGE = 3`; `AnsweringMachineDetectionConfig` gains
+  `voice_message_intent = 17`, `voice_message_max_beep_wait_ms = 18`, `voice_message_timeout_ms = 19`,
+  `keyword_detection_active = 20` and `cadence_detection_active = 21` (all `optional`); `Call` gains
+  `answering_machine_detection_end_description = 21`. The vendored `ondewo/sip` stubs move to sip-api `33d0367`:
+  status 22 is RENAMED `OUTGOING_CALL_ANSWERING_MACHINE_DETECTED` and is no longer terminal (an AMD-ended call ends
+  as `OUTGOING_CALL_FINISHED` with an AMD description), `ActionTaken.LEFT_VOICE_MESSAGE = 4`,
+  `EndCallReason.ANSWERING_MACHINE_VOICE_MESSAGE_LEFT = 2` and the RPC `SipReportAnsweringMachineDetected`. They are
+  byte-identical to those of `ondewo-sip-client` `ba915e2`.
 * [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Carrier TLS verification: regenerated against
   ondewo-vtsi-api `f6547bf`, which adds `AsteriskConfigsVariables.sip_trunk_ca_certificates_pem = 9` (the PEM
   bundle of the CA certificate(s) the carrier's TLS certificate chains to) and

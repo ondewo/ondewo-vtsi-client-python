@@ -19,9 +19,11 @@ Three contracts the VTSI server and the SIP/CSI containers rely on:
 * every singular ``AnsweringMachineDetectionConfig`` field carries EXPLICIT PRESENCE, because an unset field
   means "use the CSI container default" and must stay distinguishable from an explicit ``false`` / ``0``;
 * the field and enum numbers are the ones the server maps (``VoiceInteractionConfig`` field 4,
-  ``Call`` fields 19 and 20);
-* the vendored ``ondewo/sip`` stubs carry the same sip-api AMD surface as ``ondewo-sip-client`` (status 22,
-  ``SipStatus.amd_result``), because the last installed copy of ``ondewo/sip`` wins.
+  ``Call`` fields 19, 20 and 21);
+* the vendored ``ondewo/sip`` stubs carry the same sip-api AMD surface as ``ondewo-sip-client`` (the
+  non-terminal status 22 ``OUTGOING_CALL_ANSWERING_MACHINE_DETECTED``, ``SipStatus.amd_result``, the
+  voice-message action and end reason, ``SipReportAnsweringMachineDetected``), because the last installed copy
+  of ``ondewo/sip`` wins.
 
 Dropping an ``optional`` keyword, renumbering a field, or regenerating against a sip-api without AMD makes these
 tests fail.
@@ -52,6 +54,11 @@ OPTIONAL_AMD_FIELDS: Dict[str, int] = {
     "hang_up_on_network_announcement": 14,
     "hang_up_on_ivr": 15,
     "hang_up_on_call_screening": 16,
+    "voice_message_intent": 17,
+    "voice_message_max_beep_wait_ms": 18,
+    "voice_message_timeout_ms": 19,
+    "keyword_detection_active": 20,
+    "cadence_detection_active": 21,
 }
 
 #: Repeated AMD phrase-list fields and their numbers.
@@ -96,7 +103,7 @@ class TestAnsweringMachineDetectionConfig:
     def test_the_enums_have_an_unspecified_zero_and_the_planned_values(self) -> None:
         action: Dict[str, int] = dict(calls_pb2.AnsweringMachineDetectionConfig.AmdAction.items())
         sensitivity: Dict[str, int] = dict(calls_pb2.AnsweringMachineDetectionConfig.AmdSensitivity.items())
-        assert action == {"AMD_ACTION_UNSPECIFIED": 0, "HANG_UP": 1, "DETECT_ONLY": 2}
+        assert action == {"AMD_ACTION_UNSPECIFIED": 0, "HANG_UP": 1, "DETECT_ONLY": 2, "LEAVE_VOICE_MESSAGE": 3}
         assert sensitivity == {"AMD_SENSITIVITY_UNSPECIFIED": 0, "LOW": 1, "MEDIUM": 2, "HIGH": 3}
 
     def test_it_is_field_4_of_voice_interaction_config(self) -> None:
@@ -108,7 +115,14 @@ class TestAnsweringMachineDetectionConfig:
 
 
 class TestCallRedialMarker:
-    @pytest.mark.parametrize(("field_name", "number"), [("redial_recommended", 19), ("redial_reason", 20)])
+    @pytest.mark.parametrize(
+        ("field_name", "number"),
+        [
+            ("redial_recommended", 19),
+            ("redial_reason", 20),
+            ("answering_machine_detection_end_description", 21),
+        ],
+    )
     def test_the_redial_fields_have_presence_and_their_numbers(self, field_name: str, number: int) -> None:
         field: FieldDescriptor = calls_pb2.Call.DESCRIPTOR.fields_by_name[field_name]
         assert field.number == number
@@ -118,22 +132,34 @@ class TestCallRedialMarker:
     def test_the_amd_verdict_is_reachable_through_call_sip_status(self) -> None:
         call: calls_pb2.Call = calls_pb2.Call(
             sip_status=sip_pb2.SipStatus(
-                status_type=sip_pb2.SipStatus.StatusType.OUTGOING_CALL_ANSWERING_MACHINE,
+                status_type=sip_pb2.SipStatus.StatusType.OUTGOING_CALL_FINISHED,
+                description="Answering machine detected with hang up",
                 amd_result=sip_pb2.AnsweringMachineDetectionResult(
                     verdict=sip_pb2.AnsweringMachineDetectionResult.Verdict.MACHINE,
                 ),
             ),
             redial_recommended=True,
             redial_reason="answering_machine",
+            answering_machine_detection_end_description="Answering machine detected with hang up",
         )
         parsed: calls_pb2.Call = calls_pb2.Call.FromString(call.SerializeToString())
         assert parsed.sip_status.amd_result.verdict == sip_pb2.AnsweringMachineDetectionResult.Verdict.MACHINE
         assert parsed.redial_recommended is True
+        assert parsed.answering_machine_detection_end_description == "Answering machine detected with hang up"
 
 
 class TestVendoredSipProtoCarriesAmd:
-    def test_status_22_is_the_answering_machine_status(self) -> None:
-        assert sip_pb2.SipStatus.StatusType.Value("OUTGOING_CALL_ANSWERING_MACHINE") == 22
+    def test_status_22_is_the_answering_machine_detected_status(self) -> None:
+        assert sip_pb2.SipStatus.StatusType.Value("OUTGOING_CALL_ANSWERING_MACHINE_DETECTED") == 22
+        assert "OUTGOING_CALL_ANSWERING_MACHINE" not in sip_pb2.SipStatus.StatusType.keys()
+
+    def test_the_voice_message_action_and_end_reason_exist(self) -> None:
+        assert sip_pb2.AnsweringMachineDetectionResult.ActionTaken.Value("LEFT_VOICE_MESSAGE") == 4
+        assert sip_pb2.SipEndCallRequest.EndCallReason.Value("ANSWERING_MACHINE_VOICE_MESSAGE_LEFT") == 2
+
+    def test_the_detected_report_rpc_exists(self) -> None:
+        method_names: List[str] = [method.name for method in sip_pb2.DESCRIPTOR.services_by_name["Sip"].methods]
+        assert "SipReportAnsweringMachineDetected" in method_names
 
     def test_end_call_request_carries_the_reason_and_the_result(self) -> None:
         names: List[str] = [field.name for field in sip_pb2.SipEndCallRequest.DESCRIPTOR.fields]
