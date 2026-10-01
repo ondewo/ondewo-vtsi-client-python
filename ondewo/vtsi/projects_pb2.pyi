@@ -283,6 +283,8 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     SIP_TRUNK_PHONE_NUMBER_FIELD_NUMBER: builtins.int
     SIP_TRUNK_TRANSPORT_FIELD_NUMBER: builtins.int
     SIP_TRUNK_SOURCE_CIDR_FIELD_NUMBER: builtins.int
+    SIP_TRUNK_CA_CERTIFICATES_PEM_FIELD_NUMBER: builtins.int
+    SIP_TRUNK_VERIFY_SERVER_FIELD_NUMBER: builtins.int
     sip_trunk_username: builtins.str
     """SIP trunk username."""
     sip_trunk_password: builtins.str
@@ -310,6 +312,32 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     and it does so silently, so an unresolvable name would read as a working trunk that never matches an
     inbound call.
     """
+    sip_trunk_ca_certificates_pem: builtins.str
+    """OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+    or more <pre><code>-----BEGIN CERTIFICATE-----</code></pre> blocks and nothing else.
+    Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+    certificate chain and host name only when <pre><code>sip_trunk_verify_server</code></pre> is also
+    true. With verification off the bundle is validated and stored, so it can be staged before
+    verification is switched on, and the trunk behaves exactly as without it.
+    Applies only to the TLS trunk transport: setting it while <pre><code>sip_trunk_transport</code></pre>
+    is <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>
+    is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>, as is a bundle that is not PEM, contains a
+    private key or any block other than a certificate, contains a certificate that is not a CA
+    (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+    This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+    """
+    sip_trunk_verify_server: builtins.bool
+    """OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+    When true, Asterisk verifies the carrier's certificate chain against
+    <pre><code>sip_trunk_ca_certificates_pem</code></pre> and its host name against
+    <pre><code>sip_trunk_host</code></pre> (<pre><code>verify_server=yes</code></pre>), and refuses a
+    carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+    <pre><code>INVALID_ARGUMENT</code></pre>, because the verification it asks for cannot happen.
+    false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+    Applies only to the TLS trunk transport: true on a <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or
+    <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre> trunk is REFUSED with
+    <pre><code>INVALID_ARGUMENT</code></pre>; false there is accepted and changes nothing.
+    """
     def __init__(
         self,
         *,
@@ -321,10 +349,17 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
         sip_trunk_phone_number: builtins.str = ...,
         sip_trunk_transport: global___SipTrunkTransport.ValueType = ...,
         sip_trunk_source_cidr: builtins.str | None = ...,
+        sip_trunk_ca_certificates_pem: builtins.str | None = ...,
+        sip_trunk_verify_server: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "sip_trunk_source_cidr", b"sip_trunk_source_cidr"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_transport", b"sip_trunk_transport", "sip_trunk_username", b"sip_trunk_username", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem", "_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "_sip_trunk_verify_server", b"_sip_trunk_verify_server", "sip_trunk_ca_certificates_pem", b"sip_trunk_ca_certificates_pem", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_verify_server", b"sip_trunk_verify_server"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem", "_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "_sip_trunk_verify_server", b"_sip_trunk_verify_server", "sip_trunk_ca_certificates_pem", b"sip_trunk_ca_certificates_pem", "sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_transport", b"sip_trunk_transport", "sip_trunk_username", b"sip_trunk_username", "sip_trunk_verify_server", b"sip_trunk_verify_server", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem"]) -> typing.Literal["sip_trunk_ca_certificates_pem"] | None: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_sip_trunk_source_cidr", b"_sip_trunk_source_cidr"]) -> typing.Literal["sip_trunk_source_cidr"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_sip_trunk_verify_server", b"_sip_trunk_verify_server"]) -> typing.Literal["sip_trunk_verify_server"] | None: ...
 
 global___AsteriskConfigsVariables = AsteriskConfigsVariables
 

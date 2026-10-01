@@ -82,6 +82,12 @@
   `AnsweringMachineDetectionResult`, `SipStatus.amd_result`, `SipEndCallRequest.end_reason` / `amd_result`) and are
   byte-identical to those of `ondewo-sip-client` 5.5.0 generated from the same commit; install the two together, or
   the last installed copy of `ondewo/sip` wins. Pinned by `tests/unit/vtsi/test_answering_machine_detection_config.py`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Carrier TLS verification: regenerated against
+  ondewo-vtsi-api `f6547bf`, which adds `AsteriskConfigsVariables.sip_trunk_ca_certificates_pem = 9` (the PEM
+  bundle of the CA certificate(s) the carrier's TLS certificate chains to) and
+  `AsteriskConfigsVariables.sip_trunk_verify_server = 10` (default false). The server verifies the carrier's
+  certificate only when both are given. Both carry explicit presence: ask `HasField`. Pinned by
+  `tests/unit/vtsi/test_sip_trunk_tls_verification.py`.
 
 ### Bug Fixes
 
