@@ -235,6 +235,12 @@ class EventsServicer(object):
         <code>timeout</code>. <code>custom_headers</code> replaces the whole map; a value equal to the
         mask <code>********</code> keeps the stored value of that header, so a Get-modify-Update
         round trip does not overwrite secrets with the mask.</p>
+        <p>Moving the webhook to another origin (scheme, host or port of <code>url</code>) while custom
+        headers are stored requires re-sending <code>custom_headers</code> in the same request, with
+        their REAL values (or an empty map to drop them): the stored values are never carried to a new
+        origin, and an update that leaves <code>custom_headers</code> out of the mask or sends the mask
+        value <code>********</code> for any header is rejected with <code>INVALID_ARGUMENT</code> naming
+        the headers. A new path on the same origin keeps the stored values.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

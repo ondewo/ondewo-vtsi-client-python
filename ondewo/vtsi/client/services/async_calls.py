@@ -333,6 +333,44 @@ class Calls(AsyncServicesInterface):
         """
         return await self.stub.StartScheduledCallers(request=request, metadata=self.metadata)
 
+    async def add_callers_to_campaign(
+        self,
+        request: calls_pb2.AddCallersToCampaignRequest,
+    ) -> calls_pb2.AddCallersToCampaignResponse:
+        """
+        Add callers to a campaign instead of starting them; the campaign starts them.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED and starts nothing. Do not fall back to
+        StartCallers on UNIMPLEMENTED: that would start every caller at once. Retry later instead.
+
+        Args:
+            request (calls_pb2.AddCallersToCampaignRequest): The callers and the campaign assignment.
+
+        Returns:
+            calls_pb2.AddCallersToCampaignResponse: The campaign and the campaign calls created, in request order.
+        """
+        return await self.stub.AddCallersToCampaign(request=request, metadata=self.metadata)
+
+    async def add_scheduled_callers_to_campaign(
+        self,
+        request: calls_pb2.AddScheduledCallersToCampaignRequest,
+    ) -> calls_pb2.AddScheduledCallersToCampaignResponse:
+        """
+        Add scheduled callers to a campaign; each fires at or after its time AND when the campaign has a free slot.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED and starts nothing. Do not fall back to
+        StartScheduledCallers on UNIMPLEMENTED. Retry later instead.
+
+        Args:
+            request (calls_pb2.AddScheduledCallersToCampaignRequest): The scheduled callers and the campaign
+                assignment.
+
+        Returns:
+            calls_pb2.AddScheduledCallersToCampaignResponse: The scheduled callers, the campaign and the campaign
+            calls created, in request order.
+        """
+        return await self.stub.AddScheduledCallersToCampaign(request=request, metadata=self.metadata)
+
     async def stop_call(
         self,
         request: calls_pb2.StopCallRequest,

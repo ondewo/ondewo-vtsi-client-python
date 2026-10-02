@@ -125,6 +125,16 @@ class CallsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersResponse.FromString,
                 _registered_method=True)
+        self.AddCallersToCampaign = channel.unary_unary(
+                '/ondewo.vtsi.Calls/AddCallersToCampaign',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.AddCallersToCampaignRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.AddCallersToCampaignResponse.FromString,
+                _registered_method=True)
+        self.AddScheduledCallersToCampaign = channel.unary_unary(
+                '/ondewo.vtsi.Calls/AddScheduledCallersToCampaign',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.AddScheduledCallersToCampaignRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.AddScheduledCallersToCampaignResponse.FromString,
+                _registered_method=True)
         self.GetScheduledCaller = channel.unary_unary(
                 '/ondewo.vtsi.Calls/GetScheduledCaller',
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetScheduledCallerRequest.SerializeToString,
@@ -321,6 +331,26 @@ class CallsServicer(object):
 
     def StartScheduledCallers(self, request, context):
         """<p>Start multiple ondewo-sip caller instances, each at its own scheduled time</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddCallersToCampaign(self, request, context):
+        """<p>Adds callers to a campaign instead of starting them. The campaign then starts them, at most
+        <code>max_parallel_calls</code> at a time. The request is atomic: either the campaign (when new), every
+        campaign call is stored, or nothing is. Errors are gRPC status codes (see <code>CampaignAssignment</code>).</p>
+        <p>Rolling updates: a VTSI server that predates this RPC answers <code>UNIMPLEMENTED</code> and starts
+        nothing. Do not fall back to <code>StartCallers</code> on <code>UNIMPLEMENTED</code>; retry later.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddScheduledCallersToCampaign(self, request, context):
+        """<p>Adds scheduled callers to a campaign: each fires at or after its scheduled time AND when the campaign has a
+        free slot, and follows the campaign&apos;s retries, stop and hard stop. Same atomicity, errors and rolling-update
+        behaviour as <code>AddCallersToCampaign</code>.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -527,6 +557,16 @@ def add_CallsServicer_to_server(servicer, server):
                     servicer.StartScheduledCallers,
                     request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersResponse.SerializeToString,
+            ),
+            'AddCallersToCampaign': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddCallersToCampaign,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.AddCallersToCampaignRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.AddCallersToCampaignResponse.SerializeToString,
+            ),
+            'AddScheduledCallersToCampaign': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddScheduledCallersToCampaign,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.AddScheduledCallersToCampaignRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.AddScheduledCallersToCampaignResponse.SerializeToString,
             ),
             'GetScheduledCaller': grpc.unary_unary_rpc_method_handler(
                     servicer.GetScheduledCaller,
@@ -1081,6 +1121,60 @@ class Calls(object):
             '/ondewo.vtsi.Calls/StartScheduledCallers',
             ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersRequest.SerializeToString,
             ondewo_dot_vtsi_dot_calls__pb2.StartScheduledCallersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddCallersToCampaign(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/AddCallersToCampaign',
+            ondewo_dot_vtsi_dot_calls__pb2.AddCallersToCampaignRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.AddCallersToCampaignResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddScheduledCallersToCampaign(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/AddScheduledCallersToCampaign',
+            ondewo_dot_vtsi_dot_calls__pb2.AddScheduledCallersToCampaignRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.AddScheduledCallersToCampaignResponse.FromString,
             options,
             channel_credentials,
             insecure,

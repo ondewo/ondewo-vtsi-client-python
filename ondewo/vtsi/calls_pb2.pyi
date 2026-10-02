@@ -165,7 +165,11 @@ class BaseServiceConfig(google.protobuf.message.Message):
     port: builtins.int
     """service port"""
     grpc_cert: builtins.str
-    """Optional: GRPC cert for the given service"""
+    """PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
+    escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
+    server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
+    refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
+    """
     def __init__(
         self,
         *,
@@ -1589,33 +1593,19 @@ class StartCallersRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALLER_REQUESTS_FIELD_NUMBER: builtins.int
-    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     @property
     def caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerRequest]:
         """Callers that should be started"""
 
-    @property
-    def campaign_assignment(self) -> ondewo.vtsi.campaigns_pb2.CampaignAssignment:
-        """Optional. Add the callers to a campaign instead of starting them now. The campaign then
-        starts them, at most <code>max_parallel_calls</code> at a time. The project&apos;s caller limit
-        is checked per started call, not for the whole request. Unset: every caller is started by this
-        request, exactly as before. With it set, the request is atomic and every error is a gRPC
-        status code (see <code>CampaignAssignment</code>); <code>error_message</code> stays empty.
-        Do not set it before every server replica runs VTSI 9.0.0: an older replica ignores it and
-        starts every caller at once.
-        """
-
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         caller_requests: collections.abc.Iterable[global___StartCallerRequest] | None = ...,
-        campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "campaign_assignment", b"campaign_assignment", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartCallersRequest = StartCallersRequest
 
@@ -1628,8 +1618,6 @@ class StartCallersResponse(google.protobuf.message.Message):
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALLER_RESPONSES_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    CAMPAIGN_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     error_message: builtins.str
@@ -1638,30 +1626,14 @@ class StartCallersResponse(google.protobuf.message.Message):
     def caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerResponse]:
         """The call ids that were assigned to each listener"""
 
-    @property
-    def campaign(self) -> ondewo.vtsi.campaigns_pb2.Campaign:
-        """The campaign the callers were added to, when the request set
-        <code>campaign_assignment</code>. <code>caller_responses</code> is then empty: the calls are
-        started by the campaign.
-        """
-
-    @property
-    def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """The campaign calls created by this request, in request order, when the request set
-        <code>campaign_assignment</code>.
-        """
-
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         caller_responses: collections.abc.Iterable[global___StartCallerResponse] | None = ...,
         error_message: builtins.str = ...,
-        campaign: ondewo.vtsi.campaigns_pb2.Campaign | None = ...,
-        campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caller_responses", b"caller_responses", "campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["caller_responses", b"caller_responses", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartCallersResponse = StartCallersResponse
 
@@ -2222,33 +2194,19 @@ class StartScheduledCallersRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     SCHEDULED_CALLER_REQUESTS_FIELD_NUMBER: builtins.int
-    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     @property
     def scheduled_caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerRequest]:
-        """requests to start scheduled callers. With <code>campaign_assignment</code> set, a scheduled
-        caller of the campaign can be cancelled with <code>CancelScheduledCaller</code> only while its
-        campaign call has no attempt dispatching or in progress.
-        """
-
-    @property
-    def campaign_assignment(self) -> ondewo.vtsi.campaigns_pb2.CampaignAssignment:
-        """Optional. Add the scheduled callers to a campaign: each fires at or after its scheduled time
-        AND when the campaign has a free slot, and follows the campaign&apos;s retries, stop and hard
-        stop. Unset: the scheduled callers fire on their own, exactly as before. Same atomicity,
-        error and rollout rules as <code>StartCallersRequest.campaign_assignment</code>.
-        """
+        """requests to start scheduled callers"""
 
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         scheduled_caller_requests: collections.abc.Iterable[global___StartScheduledCallerRequest] | None = ...,
-        campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartScheduledCallersRequest = StartScheduledCallersRequest
 
@@ -2260,25 +2218,152 @@ class StartScheduledCallersResponse(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     SCHEDULED_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
-    CAMPAIGN_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     @property
     def scheduled_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerResponse]:
         """The call ids that were assigned to each listener"""
 
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        scheduled_caller_responses: collections.abc.Iterable[global___StartScheduledCallerResponse] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["scheduled_caller_responses", b"scheduled_caller_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___StartScheduledCallersResponse = StartScheduledCallersResponse
+
+@typing.final
+class AddCallersToCampaignRequest(google.protobuf.message.Message):
+    """The request message for <a href="index.html#ondewo.vtsi.Calls.AddCallersToCampaign">Calls.AddCallersToCampaign</a>."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALLER_REQUESTS_FIELD_NUMBER: builtins.int
+    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project of the callers and the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
+    @property
+    def caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerRequest]:
+        """Callers to add, at least one. The project&apos;s caller limit is checked per started call, not for the request."""
+
+    @property
+    def campaign_assignment(self) -> ondewo.vtsi.campaigns_pb2.CampaignAssignment:
+        """Required. Which campaign, and whether it starts dialling."""
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        caller_requests: collections.abc.Iterable[global___StartCallerRequest] | None = ...,
+        campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "campaign_assignment", b"campaign_assignment", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___AddCallersToCampaignRequest = AddCallersToCampaignRequest
+
+@typing.final
+class AddCallersToCampaignResponse(google.protobuf.message.Message):
+    """The response message for <a href="index.html#ondewo.vtsi.Calls.AddCallersToCampaign">Calls.AddCallersToCampaign</a>."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CAMPAIGN_FIELD_NUMBER: builtins.int
+    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project of the callers and the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
     @property
     def campaign(self) -> ondewo.vtsi.campaigns_pb2.Campaign:
-        """The campaign the scheduled callers were added to, when the request set
-        <code>campaign_assignment</code>.
-        """
+        """The campaign the callers were added to."""
 
     @property
     def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """The campaign calls created by this request, in request order, when the request set
-        <code>campaign_assignment</code>.
+        """The campaign calls created by this request, in request order."""
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        campaign: ondewo.vtsi.campaigns_pb2.Campaign | None = ...,
+        campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign", b"campaign"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___AddCallersToCampaignResponse = AddCallersToCampaignResponse
+
+@typing.final
+class AddScheduledCallersToCampaignRequest(google.protobuf.message.Message):
+    """The request message for
+    <a href="index.html#ondewo.vtsi.Calls.AddScheduledCallersToCampaign">Calls.AddScheduledCallersToCampaign</a>.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    SCHEDULED_CALLER_REQUESTS_FIELD_NUMBER: builtins.int
+    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project of the scheduled callers and the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
+    @property
+    def scheduled_caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerRequest]:
+        """Scheduled callers to add, at least one. A scheduled caller of a campaign can be cancelled with
+        <code>CancelScheduledCaller</code> only while its campaign call has no attempt dispatching or in progress.
         """
+
+    @property
+    def campaign_assignment(self) -> ondewo.vtsi.campaigns_pb2.CampaignAssignment:
+        """Required. Which campaign, and whether it starts dialling."""
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        scheduled_caller_requests: collections.abc.Iterable[global___StartScheduledCallerRequest] | None = ...,
+        campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___AddScheduledCallersToCampaignRequest = AddScheduledCallersToCampaignRequest
+
+@typing.final
+class AddScheduledCallersToCampaignResponse(google.protobuf.message.Message):
+    """The response message for
+    <a href="index.html#ondewo.vtsi.Calls.AddScheduledCallersToCampaign">Calls.AddScheduledCallersToCampaign</a>.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    SCHEDULED_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
+    CAMPAIGN_FIELD_NUMBER: builtins.int
+    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project of the scheduled callers and the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
+    @property
+    def scheduled_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerResponse]:
+        """The scheduled callers created, in request order."""
+
+    @property
+    def campaign(self) -> ondewo.vtsi.campaigns_pb2.Campaign:
+        """The campaign the scheduled callers were added to."""
+
+    @property
+    def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """The campaign calls created by this request, in request order."""
 
     def __init__(
         self,
@@ -2291,7 +2376,7 @@ class StartScheduledCallersResponse(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["campaign", b"campaign"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "scheduled_caller_responses", b"scheduled_caller_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
-global___StartScheduledCallersResponse = StartScheduledCallersResponse
+global___AddScheduledCallersToCampaignResponse = AddScheduledCallersToCampaignResponse
 
 @typing.final
 class StartScheduledCallerResponse(google.protobuf.message.Message):

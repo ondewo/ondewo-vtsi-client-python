@@ -32,10 +32,10 @@ class CampaignsStub(object):
     the same time. If 100 callers are added to a campaign with <code>max_parallel_calls = 10</code>,
     at any moment at most 10 of those calls are being set up or are connected; the next one starts
     when one ends.</p>
-    <p>Calls are added to a campaign by setting <code>campaign_assignment</code> on
-    <a href="index.html#ondewo.vtsi.StartCallersRequest">StartCallersRequest</a> or
-    <a href="index.html#ondewo.vtsi.StartScheduledCallersRequest">StartScheduledCallersRequest</a>;
-    a scheduled call of a campaign is started at or after its scheduled time AND when the campaign has
+    <p>Calls are added to a campaign with
+    <a href="index.html#ondewo.vtsi.Calls.AddCallersToCampaign">Calls.AddCallersToCampaign</a> or
+    <a href="index.html#ondewo.vtsi.Calls.AddScheduledCallersToCampaign">Calls.AddScheduledCallersToCampaign</a>
+    (a server that predates them answers <code>UNIMPLEMENTED</code> and starts nothing); a scheduled call of a campaign is started at or after its scheduled time AND when the campaign has
     a free slot.</p>
     <p>A call that fails is retried up to <code>max_attempts</code> times in total, waiting
     <code>retry_delay</code> between attempts. A call counts as failed only after its last attempt.
@@ -131,10 +131,10 @@ class CampaignsServicer(object):
     the same time. If 100 callers are added to a campaign with <code>max_parallel_calls = 10</code>,
     at any moment at most 10 of those calls are being set up or are connected; the next one starts
     when one ends.</p>
-    <p>Calls are added to a campaign by setting <code>campaign_assignment</code> on
-    <a href="index.html#ondewo.vtsi.StartCallersRequest">StartCallersRequest</a> or
-    <a href="index.html#ondewo.vtsi.StartScheduledCallersRequest">StartScheduledCallersRequest</a>;
-    a scheduled call of a campaign is started at or after its scheduled time AND when the campaign has
+    <p>Calls are added to a campaign with
+    <a href="index.html#ondewo.vtsi.Calls.AddCallersToCampaign">Calls.AddCallersToCampaign</a> or
+    <a href="index.html#ondewo.vtsi.Calls.AddScheduledCallersToCampaign">Calls.AddScheduledCallersToCampaign</a>
+    (a server that predates them answers <code>UNIMPLEMENTED</code> and starts nothing); a scheduled call of a campaign is started at or after its scheduled time AND when the campaign has
     a free slot.</p>
     <p>A call that fails is retried up to <code>max_attempts</code> times in total, waiting
     <code>retry_delay</code> between attempts. A call counts as failed only after its last attempt.
@@ -161,7 +161,7 @@ class CampaignsServicer(object):
         ////////////////////////////////////////////////////////////////////////////
 
         <p>Creates a campaign in state <code>CAMPAIGN_STATE_CREATED</code>. Calls are added with
-        <code>StartCallers</code> / <code>StartScheduledCallers</code>; nothing is dialled before
+        <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code>; nothing is dialled before
         <code>StartCampaign</code>.</p>
         <p>Errors: <code>NOT_FOUND</code> if the project does not exist; <code>ALREADY_EXISTS</code> if
         the <code>display_name</code> is used in the project; <code>INVALID_ARGUMENT</code> for an
@@ -379,10 +379,10 @@ class Campaigns(object):
     the same time. If 100 callers are added to a campaign with <code>max_parallel_calls = 10</code>,
     at any moment at most 10 of those calls are being set up or are connected; the next one starts
     when one ends.</p>
-    <p>Calls are added to a campaign by setting <code>campaign_assignment</code> on
-    <a href="index.html#ondewo.vtsi.StartCallersRequest">StartCallersRequest</a> or
-    <a href="index.html#ondewo.vtsi.StartScheduledCallersRequest">StartScheduledCallersRequest</a>;
-    a scheduled call of a campaign is started at or after its scheduled time AND when the campaign has
+    <p>Calls are added to a campaign with
+    <a href="index.html#ondewo.vtsi.Calls.AddCallersToCampaign">Calls.AddCallersToCampaign</a> or
+    <a href="index.html#ondewo.vtsi.Calls.AddScheduledCallersToCampaign">Calls.AddScheduledCallersToCampaign</a>
+    (a server that predates them answers <code>UNIMPLEMENTED</code> and starts nothing); a scheduled call of a campaign is started at or after its scheduled time AND when the campaign has
     a free slot.</p>
     <p>A call that fails is retried up to <code>max_attempts</code> times in total, waiting
     <code>retry_delay</code> between attempts. A call counts as failed only after its last attempt.

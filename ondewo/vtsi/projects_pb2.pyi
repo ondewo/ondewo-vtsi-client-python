@@ -285,6 +285,7 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     SIP_TRUNK_SOURCE_CIDR_FIELD_NUMBER: builtins.int
     SIP_TRUNK_CA_CERTIFICATES_PEM_FIELD_NUMBER: builtins.int
     SIP_TRUNK_VERIFY_SERVER_FIELD_NUMBER: builtins.int
+    SOFTPHONE_PERMIT_CIDRS_FIELD_NUMBER: builtins.int
     sip_trunk_username: builtins.str
     """SIP trunk username."""
     sip_trunk_password: builtins.str
@@ -338,6 +339,24 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre> trunk is REFUSED with
     <pre><code>INVALID_ARGUMENT</code></pre>; false there is accepted and changes nothing.
     """
+    @property
+    def softphone_permit_cidrs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Optional: Source addresses that may reach this project&apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+        written in full with an explicit prefix length (e.g. <code>203.0.113.0/24</code>). Every softphone account gets
+        <code>deny</code> for every IPv4 and IPv6 source plus one <code>permit</code> per entry. This is the source
+        allow-list of the project&apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+        BOTH TLS ports, because an account&apos;s ACL cannot tell ports apart and its transport restricts nothing
+        inbound. Empty: the server&apos;s <code>ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS</code>, by default the
+        private networks (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>,
+        <code>fc00::/7</code>). That server value is a CEILING: every entry here must lie inside it, so a project can
+        only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+        default route (<code>0.0.0.0/0</code>), entries that together cover a whole address family and shorthand
+        spellings are refused with <code>INVALID_ARGUMENT</code>. The list is only effective when the port sees the real
+        client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+        <code>sip_trunk_source_cidr</code> or authenticated by its registration); VTSI&apos;s own call containers are
+        scoped separately by the server. Updatable with the rest of <code>asterisk_configs</code>.
+        """
+
     def __init__(
         self,
         *,
@@ -351,9 +370,10 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
         sip_trunk_source_cidr: builtins.str | None = ...,
         sip_trunk_ca_certificates_pem: builtins.str | None = ...,
         sip_trunk_verify_server: builtins.bool | None = ...,
+        softphone_permit_cidrs: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem", "_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "_sip_trunk_verify_server", b"_sip_trunk_verify_server", "sip_trunk_ca_certificates_pem", b"sip_trunk_ca_certificates_pem", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_verify_server", b"sip_trunk_verify_server"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem", "_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "_sip_trunk_verify_server", b"_sip_trunk_verify_server", "sip_trunk_ca_certificates_pem", b"sip_trunk_ca_certificates_pem", "sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_transport", b"sip_trunk_transport", "sip_trunk_username", b"sip_trunk_username", "sip_trunk_verify_server", b"sip_trunk_verify_server", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem", "_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "_sip_trunk_verify_server", b"_sip_trunk_verify_server", "sip_trunk_ca_certificates_pem", b"sip_trunk_ca_certificates_pem", "sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_transport", b"sip_trunk_transport", "sip_trunk_username", b"sip_trunk_username", "sip_trunk_verify_server", b"sip_trunk_verify_server", "softphone_permit_cidrs", b"softphone_permit_cidrs", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem"]) -> typing.Literal["sip_trunk_ca_certificates_pem"] | None: ...
     @typing.overload

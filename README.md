@@ -223,13 +223,16 @@ print(provisioning.zoiper_instructions)
 
 `client.services.campaigns` places a set of outbound calls while keeping at most `max_parallel_calls` of them
 running at once, retries a failed call up to `max_attempts` times, and reports the progress (not started, in
-progress, completed, failed, attempts). Calls join a campaign through `campaign_assignment` on
-`StartCallersRequest` / `StartScheduledCallersRequest`. `client.services.events` manages VtsiEvent subscriptions and
-webhooks (custom header values are write-only and come back masked) and streams the events themselves.
+progress, completed, failed, attempts). Calls join a campaign through
+`client.services.calls.add_callers_to_campaign` / `add_scheduled_callers_to_campaign`. A VTSI server older than
+these RPCs answers `UNIMPLEMENTED` and starts nothing; do not fall back to `start_callers` then, because that starts
+every caller at once. `client.services.events` manages VtsiEvent subscriptions and webhooks (custom header values
+are write-only and come back masked; moving a webhook to another origin requires re-sending its headers with real
+values) and streams the events themselves.
 `client.services.calls` streams the status of callers, listeners and scheduled callers.
 
 ```python
-from ondewo.vtsi.calls_pb2 import StartCallersRequest
+from ondewo.vtsi.calls_pb2 import AddCallersToCampaignRequest
 from ondewo.vtsi.campaigns_pb2 import (
     CAMPAIGN_START_MODE_START,
     Campaign,
@@ -237,8 +240,8 @@ from ondewo.vtsi.campaigns_pb2 import (
     StreamCampaignStatusRequest,
 )
 
-response = client.services.calls.start_callers(
-    request=StartCallersRequest(
+response = client.services.calls.add_callers_to_campaign(
+    request=AddCallersToCampaignRequest(
         vtsi_project_name="projects/<project_uuid>/project",
         caller_requests=[...],  # e.g. 100 StartCallerRequest
         campaign_assignment=CampaignAssignment(

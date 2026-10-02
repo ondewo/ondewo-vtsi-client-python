@@ -157,6 +157,23 @@ CALL_STREAM_RPCS: List[Rpc] = [
     ),
 ]
 
+CALL_CAMPAIGN_RPCS: List[Rpc] = [
+    (
+        "add_callers_to_campaign",
+        "AddCallersToCampaign",
+        "AddCallersToCampaignRequest",
+        "AddCallersToCampaignResponse",
+        False,
+    ),
+    (
+        "add_scheduled_callers_to_campaign",
+        "AddScheduledCallersToCampaign",
+        "AddScheduledCallersToCampaignRequest",
+        "AddScheduledCallersToCampaignResponse",
+        False,
+    ),
+]
+
 # (service name, pb2 module, stub class, sync wrapper, async wrapper, rpcs)
 SERVICES: List[Tuple[str, ModuleType, Type[Any], Type[Any], Type[Any], List[Rpc]]] = [
     ("Campaigns", campaigns_pb2, campaigns_pb2_grpc.CampaignsStub, Campaigns, AsyncCampaigns, CAMPAIGN_RPCS),
@@ -166,7 +183,7 @@ SERVICES: List[Tuple[str, ModuleType, Type[Any], Type[Any], Type[Any], List[Rpc]
 # Every wrapper case: (sync wrapper, async wrapper, pb2 module, rpc tuple)
 WRAPPER_CASES: List[Tuple[Type[Any], Type[Any], ModuleType, Rpc]] = [
     (sync, asynchronous, module, rpc) for _, module, _, sync, asynchronous, rpcs in SERVICES for rpc in rpcs
-] + [(Calls, AsyncCalls, calls_pb2, rpc) for rpc in CALL_STREAM_RPCS]
+] + [(Calls, AsyncCalls, calls_pb2, rpc) for rpc in CALL_STREAM_RPCS + CALL_CAMPAIGN_RPCS]
 
 
 def _config() -> ClientConfig:
@@ -338,16 +355,55 @@ class TestTheWrappersDelegateToTheStub:
 class TestCampaignMessages:
     """The campaign contract a client depends on, read from the generated messages."""
 
-    def test_start_callers_and_start_scheduled_callers_take_a_campaign_assignment(self) -> None:
-        """Both batch start requests carry an optional ``campaign_assignment``; the responses the campaign."""
-        for request_type in (calls_pb2.StartCallersRequest, calls_pb2.StartScheduledCallersRequest):
+    def test_the_calls_service_carries_the_two_campaign_enrollment_rpcs(self) -> None:
+        """
+        Campaign enrollment is its own pair of unary ``Calls`` RPCs, bound to their full method paths.
+
+        A server that predates them answers ``UNIMPLEMENTED`` and starts nothing, which is the point: the
+        field on ``StartCallers`` it replaced was silently ignored by such a server, which then started every
+        caller at once.
+        """
+        service: Any = calls_pb2.DESCRIPTOR.services_by_name["Calls"]
+        methods: Dict[str, Any] = {method.name: method for method in service.methods}
+        for _, rpc, request, response, _ in CALL_CAMPAIGN_RPCS:
+            assert (methods[rpc].input_type.name, methods[rpc].output_type.name) == (request, response)
+            assert not methods[rpc].server_streaming
+        channel: MagicMock = MagicMock()
+        calls_pb2_grpc.CallsStub(channel)
+        unary: List[str] = [call.args[0] for call in channel.unary_unary.call_args_list]
+        for _, rpc, _, _, _ in CALL_CAMPAIGN_RPCS:
+            assert f"/ondewo.vtsi.Calls/{rpc}" in unary
+
+    def test_the_campaign_requests_carry_the_assignment_and_the_responses_the_campaign(self) -> None:
+        """Both enrollment requests carry a ``campaign_assignment``; both responses the campaign and its calls."""
+        for request_type in (calls_pb2.AddCallersToCampaignRequest, calls_pb2.AddScheduledCallersToCampaignRequest):
             field: Any = request_type.DESCRIPTOR.fields_by_name["campaign_assignment"]
             assert field.message_type is campaigns_pb2.CampaignAssignment.DESCRIPTOR
             assert field.has_presence
-        for response_type in (calls_pb2.StartCallersResponse, calls_pb2.StartScheduledCallersResponse):
+        for response_type in (
+            calls_pb2.AddCallersToCampaignResponse,
+            calls_pb2.AddScheduledCallersToCampaignResponse,
+        ):
             assert response_type.DESCRIPTOR.fields_by_name["campaign"].message_type is campaigns_pb2.Campaign.DESCRIPTOR
             response: Any = response_type(campaign_call_names=["a", "b"])
             assert list(response.campaign_call_names) == ["a", "b"]
+
+    def test_the_start_requests_no_longer_carry_a_campaign(self) -> None:
+        """
+        The development-only campaign fields on ``StartCallers`` / ``StartScheduledCallers`` are reserved.
+
+        Their numbers stay reserved so no later field reuses them with another meaning.
+        """
+        for message_type in (
+            calls_pb2.StartCallersRequest,
+            calls_pb2.StartCallersResponse,
+            calls_pb2.StartScheduledCallersRequest,
+            calls_pb2.StartScheduledCallersResponse,
+        ):
+            names: List[str] = [field.name for field in message_type.DESCRIPTOR.fields]
+            assert "campaign_assignment" not in names
+            assert "campaign" not in names
+            assert "campaign_call_names" not in names
 
     def test_a_campaign_assignment_selects_exactly_one_campaign(self) -> None:
         """Existing campaign by name or display name, or a new one, are alternatives of one oneof."""
@@ -361,8 +417,10 @@ class TestCampaignMessages:
         )
         assert assignment.WhichOneof("campaign_selector") == "campaign_display_name"
         assert not assignment.HasField("new_campaign")
-        request: calls_pb2.StartCallersRequest = calls_pb2.StartCallersRequest(campaign_assignment=assignment)
-        assert calls_pb2.StartCallersRequest.FromString(request.SerializeToString()) == request
+        request: calls_pb2.AddCallersToCampaignRequest = calls_pb2.AddCallersToCampaignRequest(
+            campaign_assignment=assignment
+        )
+        assert calls_pb2.AddCallersToCampaignRequest.FromString(request.SerializeToString()) == request
 
     def test_the_zero_start_mode_is_the_unspecified_sentinel(self) -> None:
         """An unset start mode is ``CAMPAIGN_START_MODE_UNSPECIFIED``, the documented default."""

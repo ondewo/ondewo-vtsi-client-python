@@ -38,6 +38,7 @@ from google.protobuf.field_mask_pb2 import FieldMask
 from google.protobuf.timestamp_pb2 import Timestamp
 
 from ondewo.vtsi import (
+    projects_pb2,
     softphones_pb2,
     softphones_pb2_grpc,
 )
@@ -317,3 +318,22 @@ class TestFieldMasks:
         request.softphone_account_name = ACCOUNT_NAME
         assert request.WhichOneof("scope") == "softphone_account_name"
         assert request.vtsi_project_name == ""
+
+
+class TestTheSoftphoneSourceAllowList:
+    """``AsteriskConfigsVariables.softphone_permit_cidrs`` is the per-project source allow-list of the TLS ports."""
+
+    def test_it_is_a_repeated_string_that_round_trips(self) -> None:
+        """A list of CIDR strings; empty means the server's ceiling, so the zero value is the safe default."""
+        field: Any = projects_pb2.AsteriskConfigsVariables.DESCRIPTOR.fields_by_name["softphone_permit_cidrs"]
+        assert field.number == 11
+        assert field.type == field.TYPE_STRING
+        assert field.label == field.LABEL_REPEATED
+        variables: projects_pb2.AsteriskConfigsVariables = projects_pb2.AsteriskConfigsVariables(
+            softphone_permit_cidrs=["203.0.113.0/24", "2001:db8::/32"],
+        )
+        parsed: projects_pb2.AsteriskConfigsVariables = projects_pb2.AsteriskConfigsVariables.FromString(
+            variables.SerializeToString()
+        )
+        assert list(parsed.softphone_permit_cidrs) == ["203.0.113.0/24", "2001:db8::/32"]
+        assert list(projects_pb2.AsteriskConfigsVariables().softphone_permit_cidrs) == []

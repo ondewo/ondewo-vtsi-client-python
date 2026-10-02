@@ -98,24 +98,44 @@
   certificate only when both are given. Both carry explicit presence: ask `HasField`. Pinned by
   `tests/unit/vtsi/test_sip_trunk_tls_verification.py`.
 * [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Campaigns, status streams and VtsiEvents:
-  regenerated against ondewo-vtsi-api `7ac2e28`. New service `Campaigns` (`ondewo/vtsi/campaigns_pb2*`, exposed as
+  regenerated against ondewo-vtsi-api `cac5f44`. New service `Campaigns` (`ondewo/vtsi/campaigns_pb2*`, exposed as
   `client.services.campaigns`): create, get, update, delete and list campaigns, their statistics and campaign
   calls (with SIP status, description and attempts), start, stop, hard stop and resume, and the server-stream
   `StreamCampaignStatus`. A campaign caps the calls running at once with `max_parallel_calls` and retries a failed
   call up to `max_attempts` times. New service `Events` (`ondewo/vtsi/events_pb2*`, exposed as
   `client.services.events`): the `VtsiEvent` enum, CRUD for event subscriptions and webhooks (custom header values
   are write-only and returned masked), `TestWebhook` and the server-stream `SubscribeVtsiEvents`. `Calls` gains
-  `campaign_assignment` on `StartCallersRequest` / `StartScheduledCallersRequest`, `campaign` and
-  `campaign_call_names` on their responses, `ScheduledCaller.campaign_name`, and the server-streams
+  the unary RPCs `AddCallersToCampaign` / `AddScheduledCallersToCampaign`
+  (`client.services.calls.add_callers_to_campaign` / `add_scheduled_callers_to_campaign`), which add callers to a
+  campaign instead of starting them, `ScheduledCaller.campaign_name`, and the server-streams
   `StreamCallerStatus`, `StreamListenerStatus` and `StreamScheduledCallerStatus` (`client.services.calls.stream_*`).
   The async wrappers of all three services are hand-written (`ondewo:hand-written-async-service`), because a
   server-streaming RPC returns an async iterator that must not be awaited; use `async for`. Pinned by
-  `tests/unit/vtsi/test_campaigns_and_events.py`. Do not set the campaign fields on `StartCallers` /
-  `StartScheduledCallers` before every VTSI replica runs 9.0.0: an older replica ignores them and starts every
-  caller at once.
+  `tests/unit/vtsi/test_campaigns_and_events.py`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) **Campaign enrollment is its own RPC so that a
+  rolling update fails closed.** Development builds of 9.0.0 carried it as a `campaign_assignment` field on
+  `StartCallersRequest` / `StartScheduledCallersRequest`; a VTSI replica older than 9.0.0 does not know that field,
+  ignores it and starts every caller at once. A replica that predates `AddCallersToCampaign` answers
+  `UNIMPLEMENTED` and starts nothing. Do not fall back to `StartCallers` on `UNIMPLEMENTED`; retry later. The old
+  field numbers (request 3, responses 3-5 / 3-4) are `reserved`, and a server refuses a request that still carries
+  one with `INVALID_ARGUMENT`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) `AsteriskConfigsVariables.softphone_permit_cidrs
+  = 11`: the source allow-list of a project's softphone accounts on both TLS ports, as full CIDRs. Empty uses the
+  server's `ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS` (by default the private networks), which is also a
+  ceiling every entry must lie inside.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Documentation carried by the regenerated stubs:
+  `UpdateWebhook` states that moving a webhook to another origin (scheme, host or port) while custom headers are
+  stored requires re-sending `custom_headers` with their real values (or an empty map), and
+  `BaseServiceConfig.grpc_cert` states that the S2T, NLU and T2S certificates of a call are required unless the
+  server runs with `ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True`.
 
 ### Bug Fixes
 
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) `make mypy` and `make flake8` run the gates that
+  exist. `make mypy` ran `mypy --config-file=mypy.ini .` against a `mypy.ini` this repository does not have, and
+  `make flake8` called a `flake8` that is installed nowhere (ruff replaced it). `make mypy` now runs mypy with the
+  pre-commit hook's configuration (`pyproject.toml`), and `make flake8` is an alias of the new `make ruff`
+  (`ruff check` + `ruff format --check`).
 * [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) The GitHub release body is no longer empty. The
   `Makefile` sliced `RELEASE.md` for a heading reading `Release ONDEWO VTSI Client Python <version>` while this
   file, `README.md` and the ondewo-vtsi-api release generator all write `Release ONDEWO VTSI Python Client

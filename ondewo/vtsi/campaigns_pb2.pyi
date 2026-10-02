@@ -194,9 +194,9 @@ class _CampaignCallSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrap
     CAMPAIGN_CALL_SOURCE_UNSPECIFIED: _CampaignCallSource.ValueType  # 0
     """Unspecified."""
     CAMPAIGN_CALL_SOURCE_CALLER: _CampaignCallSource.ValueType  # 1
-    """Added by <code>StartCallers</code>: started as soon as the campaign has a free slot."""
+    """Added by <code>AddCallersToCampaign</code>: started as soon as the campaign has a free slot."""
     CAMPAIGN_CALL_SOURCE_SCHEDULED_CALLER: _CampaignCallSource.ValueType  # 2
-    """Added by <code>StartScheduledCallers</code>: started at or after its scheduled time when the
+    """Added by <code>AddScheduledCallersToCampaign</code>: started at or after its scheduled time when the
     campaign has a free slot. Its <code>ScheduledCaller</code> follows the campaign call.
     """
 
@@ -206,9 +206,9 @@ class CampaignCallSource(_CampaignCallSource, metaclass=_CampaignCallSourceEnumT
 CAMPAIGN_CALL_SOURCE_UNSPECIFIED: CampaignCallSource.ValueType  # 0
 """Unspecified."""
 CAMPAIGN_CALL_SOURCE_CALLER: CampaignCallSource.ValueType  # 1
-"""Added by <code>StartCallers</code>: started as soon as the campaign has a free slot."""
+"""Added by <code>AddCallersToCampaign</code>: started as soon as the campaign has a free slot."""
 CAMPAIGN_CALL_SOURCE_SCHEDULED_CALLER: CampaignCallSource.ValueType  # 2
-"""Added by <code>StartScheduledCallers</code>: started at or after its scheduled time when the
+"""Added by <code>AddScheduledCallersToCampaign</code>: started at or after its scheduled time when the
 campaign has a free slot. Its <code>ScheduledCaller</code> follows the campaign call.
 """
 global___CampaignCallSource = CampaignCallSource
@@ -653,9 +653,9 @@ global___CampaignDisplayName = CampaignDisplayName
 
 @typing.final
 class CampaignAssignment(google.protobuf.message.Message):
-    """Assigns the callers of a <code>StartCallers</code> / <code>StartScheduledCallers</code> request
-    to a campaign. Set on the request: the calls are then NOT started by the request itself but
-    added to the campaign, which starts them under its <code>max_parallel_calls</code> limit.
+    """Assigns the callers of an <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code>
+    request to a campaign. The calls are NOT started by the request itself but added to the
+    campaign, which starts them under its <code>max_parallel_calls</code> limit.
     <p>The whole request is applied atomically: either the campaign (when new), every campaign call
     and every scheduled caller of the request are stored, or nothing is.</p>
     <p>Effect per state of an EXISTING campaign: <code>CREATED</code>, <code>RUNNING</code>,
@@ -663,9 +663,9 @@ class CampaignAssignment(google.protobuf.message.Message):
     <code>HARD_STOPPED</code> accept the calls as <code>NOT_STARTED</code> and keep their state (a
     stopped campaign runs them after <code>ResumeCampaign</code>; see <code>start_mode</code> for
     <code>CREATED</code>); <code>COMPLETED</code> accepts them and becomes <code>RUNNING</code>.</p>
-    <p>Errors, as gRPC status codes of the <code>StartCallers</code> / <code>StartScheduledCallers</code>
-    RPC (the response&apos;s <code>error_message</code> fields are not used for campaign requests):
-    <code>NOT_FOUND</code> for an unknown <code>campaign_name</code> / <code>campaign_display_name</code>
+    <p>Errors, as gRPC status codes of the <code>AddCallersToCampaign</code> /
+    <code>AddScheduledCallersToCampaign</code> RPC: <code>NOT_FOUND</code> for an unknown
+    <code>campaign_name</code> / <code>campaign_display_name</code>
     or a campaign deleted while the request ran; <code>INVALID_ARGUMENT</code> for a campaign of
     another project, an invalid <code>new_campaign</code> (an output-only field set, a value out of
     range) or an invalid caller entry (the message names its index); <code>ALREADY_EXISTS</code> for a

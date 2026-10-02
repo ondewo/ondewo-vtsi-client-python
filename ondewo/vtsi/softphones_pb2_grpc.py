@@ -159,6 +159,9 @@ class SoftphonesServicer(object):
         <code>FAILED_PRECONDITION</code> if the project is being deleted, or, for
         <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, if the project has no Asterisk port yet
         or its SOFTPHONE certificate authority is unusable (a redeployment mints a new one).</p>
+        <p>The account is reachable on either TLS port only from the project&apos;s
+        <code>softphone_permit_cidrs</code> (default: the server&apos;s list, private networks unless the
+        operator changed it); see <code>AsteriskConfigsVariables.softphone_permit_cidrs</code>.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -181,6 +184,9 @@ class SoftphonesServicer(object):
         <code>FAILED_PRECONDITION</code> when switching to
         <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> while the account has no
         <code>SOFTPHONE_CERTIFICATE_STATUS_ACTIVE</code> certificate, or if the project is being deleted.</p>
+        <p>The account is reachable on either TLS port only from the project&apos;s
+        <code>softphone_permit_cidrs</code> (default: the server&apos;s list, private networks unless the
+        operator changed it); see <code>AsteriskConfigsVariables.softphone_permit_cidrs</code>.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

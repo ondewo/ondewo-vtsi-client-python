@@ -60,7 +60,7 @@ CURRENT_RELEASE_NOTES=`cat RELEASE.md \
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"
 DEVOPS_ACCOUNT_DIR="./${DEVOPS_ACCOUNT_GIT}"
-ONDEWO_VTSI_API_GIT_BRANCH=7ac2e282c9cef5c39a1ea6bbaf2b3845543c5506
+ONDEWO_VTSI_API_GIT_BRANCH=cac5f44fe1d1c5a8cad1974b7e5abe39e6a1029a
 ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.15.0
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 ONDEWO_VTSI_API_DIR=ondewo-vtsi-api
@@ -92,18 +92,23 @@ install_dependencies_locally: ## Install dependencies locally
 	pip install -r requirements-dev.txt
 	pip install -r requirements.txt
 
-flake8: ## Runs flake8
-	flake8 --config .flake8 .
+# ruff replaced flake8 (config: [tool.ruff] in pyproject.toml) and mypy reads [tool.mypy] in pyproject.toml; there
+# is no .flake8 and no mypy.ini. Both run through the project .venv (uv sync --extra dev), as the CI workflow does.
+ruff: ## Runs ruff lint + format check (the flake8 replacement)
+	uv run --no-sync ruff check .
+	uv run --no-sync ruff format --check .
+
+flake8: ruff ## Alias of ruff, kept for muscle memory: flake8 itself is no longer installed
 
 mypy: ## Run mypy static code checking
 	@echo "---------------------------------------------"
-	@echo "START: Run mypy in pre-commit hook ..."
-	pre-commit run mypy --all-files
+	@echo "START: Run mypy in pre-commit hook (tests, examples) ..."
+	uv run --no-sync pre-commit run mypy --all-files
 	@echo "DONE: Run mypy in pre-commit hook."
 	@echo "---------------------------------------------"
-	@echo "START: Run mypy directly ..."
-	mypy --config-file=mypy.ini .
-	@echo "DONE: Run mypy directly"
+	@echo "START: Run mypy on the package, as the CI workflow does ..."
+	uv run --no-sync mypy --config-file=pyproject.toml ondewo
+	@echo "DONE: Run mypy on the package"
 	@echo "---------------------------------------------"
 
 help: ## Print usage info about help targets

@@ -841,7 +841,8 @@ class Webhook(google.protobuf.message.Message):
         most 128 characters; values at most 4096 characters without line breaks. Reserved and refused:
         <code>Host</code>, <code>Content-Length</code>, <code>Content-Type</code>,
         <code>Transfer-Encoding</code>, <code>Connection</code> and every <code>X-Ondewo-Vtsi-*</code>
-        name. Updatable (see <code>UpdateWebhook</code> for the mask value).
+        name. Updatable (see <code>UpdateWebhook</code> for the mask value and for moving the url to
+        another origin).
         """
 
     @property
@@ -1148,7 +1149,10 @@ class UpdateWebhookRequest(google.protobuf.message.Message):
         <code>http_method</code>, <code>custom_headers</code>, <code>disabled</code>,
         <code>timeout</code>. An empty mask or another path is rejected with
         <code>INVALID_ARGUMENT</code>. A path in the mask writes the sent value, including
-        <code>false</code>; an unset <code>timeout</code> writes the server default.
+        <code>false</code>; an unset <code>timeout</code> writes the server default. When
+        <code>url</code> moves to another origin and the webhook has stored headers,
+        <code>custom_headers</code> must be in the mask with real values (see
+        <code>UpdateWebhook</code>).
         """
 
     def __init__(
