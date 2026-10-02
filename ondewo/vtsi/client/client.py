@@ -21,7 +21,9 @@ from typing import (
 from ondewo.utils.base_client import BaseClient
 
 from ondewo.vtsi.client.client_config import ClientConfig
+from ondewo.vtsi.client.services.campaigns import Campaigns
 from ondewo.vtsi.client.services.calls import Calls
+from ondewo.vtsi.client.services.events import Events
 from ondewo.vtsi.client.services.logs import Logs
 from ondewo.vtsi.client.services.projects import Projects
 from ondewo.vtsi.client.services.softphones import Softphones
@@ -56,4 +58,6 @@ class Client(BaseClient):
             calls=Calls(config=config, use_secure_channel=use_secure_channel, options=options),
             logs=Logs(config=config, use_secure_channel=use_secure_channel, options=options),
             softphones=Softphones(config=config, use_secure_channel=use_secure_channel, options=options),
+            campaigns=Campaigns(config=config, use_secure_channel=use_secure_channel, options=options),
+            events=Events(config=config, use_secure_channel=use_secure_channel, options=options),
         )

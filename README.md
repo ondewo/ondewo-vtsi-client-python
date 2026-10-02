@@ -219,6 +219,46 @@ provisioning = client.services.softphones.get_softphone_provisioning(
 print(provisioning.zoiper_instructions)
 ```
 
+### Campaigns, status streams and VtsiEvents
+
+`client.services.campaigns` places a set of outbound calls while keeping at most `max_parallel_calls` of them
+running at once, retries a failed call up to `max_attempts` times, and reports the progress (not started, in
+progress, completed, failed, attempts). Calls join a campaign through `campaign_assignment` on
+`StartCallersRequest` / `StartScheduledCallersRequest`. `client.services.events` manages VtsiEvent subscriptions and
+webhooks (custom header values are write-only and come back masked) and streams the events themselves.
+`client.services.calls` streams the status of callers, listeners and scheduled callers.
+
+```python
+from ondewo.vtsi.calls_pb2 import StartCallersRequest
+from ondewo.vtsi.campaigns_pb2 import (
+    CAMPAIGN_START_MODE_START,
+    Campaign,
+    CampaignAssignment,
+    StreamCampaignStatusRequest,
+)
+
+response = client.services.calls.start_callers(
+    request=StartCallersRequest(
+        vtsi_project_name="projects/<project_uuid>/project",
+        caller_requests=[...],  # e.g. 100 StartCallerRequest
+        campaign_assignment=CampaignAssignment(
+            new_campaign=Campaign(max_parallel_calls=10, max_attempts=2),
+            start_mode=CAMPAIGN_START_MODE_START,
+        ),
+    ),
+)
+for update in client.services.campaigns.stream_campaign_status(
+    request=StreamCampaignStatusRequest(
+        vtsi_project_name="projects/<project_uuid>/project",
+        campaign_names=[response.campaign.name],
+    ),
+):
+    print(update)
+```
+
+With the `AsyncClient` a stream is iterated, not awaited: `async for update in
+client.services.campaigns.stream_campaign_status(request=...)`.
+
 ## Automatic Release Process
 
 The entire process is automated to make development easier. The actual steps are simple:

@@ -97,6 +97,22 @@
   `AsteriskConfigsVariables.sip_trunk_verify_server = 10` (default false). The server verifies the carrier's
   certificate only when both are given. Both carry explicit presence: ask `HasField`. Pinned by
   `tests/unit/vtsi/test_sip_trunk_tls_verification.py`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Campaigns, status streams and VtsiEvents:
+  regenerated against ondewo-vtsi-api `7ac2e28`. New service `Campaigns` (`ondewo/vtsi/campaigns_pb2*`, exposed as
+  `client.services.campaigns`): create, get, update, delete and list campaigns, their statistics and campaign
+  calls (with SIP status, description and attempts), start, stop, hard stop and resume, and the server-stream
+  `StreamCampaignStatus`. A campaign caps the calls running at once with `max_parallel_calls` and retries a failed
+  call up to `max_attempts` times. New service `Events` (`ondewo/vtsi/events_pb2*`, exposed as
+  `client.services.events`): the `VtsiEvent` enum, CRUD for event subscriptions and webhooks (custom header values
+  are write-only and returned masked), `TestWebhook` and the server-stream `SubscribeVtsiEvents`. `Calls` gains
+  `campaign_assignment` on `StartCallersRequest` / `StartScheduledCallersRequest`, `campaign` and
+  `campaign_call_names` on their responses, `ScheduledCaller.campaign_name`, and the server-streams
+  `StreamCallerStatus`, `StreamListenerStatus` and `StreamScheduledCallerStatus` (`client.services.calls.stream_*`).
+  The async wrappers of all three services are hand-written (`ondewo:hand-written-async-service`), because a
+  server-streaming RPC returns an async iterator that must not be awaited; use `async for`. Pinned by
+  `tests/unit/vtsi/test_campaigns_and_events.py`. Do not set the campaign fields on `StartCallers` /
+  `StartScheduledCallers` before every VTSI replica runs 9.0.0: an older replica ignores them and starts every
+  caller at once.
 
 ### Bug Fixes
 

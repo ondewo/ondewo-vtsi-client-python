@@ -1,0 +1,295 @@
+# Copyright 2021-2025 ONDEWO GmbH
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+from typing import Iterator
+
+from ondewo.vtsi import campaigns_pb2
+from ondewo.vtsi.campaigns_pb2_grpc import CampaignsStub
+from ondewo.vtsi.client.services_interface import ServicesInterface
+
+
+class Campaigns(ServicesInterface):
+    """
+    A class representing the Campaigns service interface.
+
+    This class provides methods to manage the campaigns of a VTSI project: CRUD, start, stop, hard stop
+    and resume, the campaign statistics and calls, and a server-stream of campaign status and progress.
+
+    Inherits from ServicesInterface.
+    """
+
+    @property
+    def stub(self) -> CampaignsStub:
+        """
+        Get the gRPC stub for the Campaigns service.
+
+        Returns:
+            CampaignsStub: The gRPC stub for the Campaigns service.
+        """
+        stub: CampaignsStub = CampaignsStub(channel=self.grpc_channel)
+        return stub
+
+    def create_campaign(
+        self,
+        request: campaigns_pb2.CreateCampaignRequest,
+    ) -> campaigns_pb2.Campaign:
+        """
+        Create a campaign in state ``CAMPAIGN_STATE_CREATED``; nothing is dialled before ``StartCampaign``.
+
+        Args:
+            request (campaigns_pb2.CreateCampaignRequest):
+                The request specifying the project and the campaign to create.
+
+        Returns:
+            campaigns_pb2.Campaign:
+                The created campaign.
+        """
+        response: campaigns_pb2.Campaign = self.stub.CreateCampaign(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def get_campaign(
+        self,
+        request: campaigns_pb2.GetCampaignRequest,
+    ) -> campaigns_pb2.Campaign:
+        """
+        Get a campaign, addressed by resource name or display name, including its statistics.
+
+        Args:
+            request (campaigns_pb2.GetCampaignRequest):
+                The request specifying the campaign.
+
+        Returns:
+            campaigns_pb2.Campaign:
+                The campaign.
+        """
+        response: campaigns_pb2.Campaign = self.stub.GetCampaign(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def update_campaign(
+        self,
+        request: campaigns_pb2.UpdateCampaignRequest,
+    ) -> campaigns_pb2.Campaign:
+        """
+        Update the fields of a campaign named in the update mask, e.g. ``max_parallel_calls``.
+
+        Args:
+            request (campaigns_pb2.UpdateCampaignRequest):
+                The request specifying the campaign, the new values and the update mask.
+
+        Returns:
+            campaigns_pb2.Campaign:
+                The updated campaign.
+        """
+        response: campaigns_pb2.Campaign = self.stub.UpdateCampaign(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def delete_campaign(
+        self,
+        request: campaigns_pb2.DeleteCampaignRequest,
+    ) -> campaigns_pb2.DeleteCampaignResponse:
+        """
+        Delete a campaign that is not running, together with its campaign calls.
+
+        Args:
+            request (campaigns_pb2.DeleteCampaignRequest):
+                The request specifying the campaign.
+
+        Returns:
+            campaigns_pb2.DeleteCampaignResponse:
+                The delete confirmation.
+        """
+        response: campaigns_pb2.DeleteCampaignResponse = self.stub.DeleteCampaign(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def list_campaigns(
+        self,
+        request: campaigns_pb2.ListCampaignsRequest,
+    ) -> campaigns_pb2.ListCampaignsResponse:
+        """
+        List the campaigns of a project, newest first, filtered and paged.
+
+        Args:
+            request (campaigns_pb2.ListCampaignsRequest):
+                The request specifying the project, the filter and the page.
+
+        Returns:
+            campaigns_pb2.ListCampaignsResponse:
+                A page of campaigns.
+        """
+        response: campaigns_pb2.ListCampaignsResponse = self.stub.ListCampaigns(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def get_campaign_statistics(
+        self,
+        request: campaigns_pb2.GetCampaignStatisticsRequest,
+    ) -> campaigns_pb2.CampaignStatistics:
+        """
+        Get the progress of a campaign: not started, in progress, completed, failed and the attempts made.
+
+        Args:
+            request (campaigns_pb2.GetCampaignStatisticsRequest):
+                The request specifying the campaign.
+
+        Returns:
+            campaigns_pb2.CampaignStatistics:
+                The campaign statistics.
+        """
+        response: campaigns_pb2.CampaignStatistics = self.stub.GetCampaignStatistics(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def list_campaign_calls(
+        self,
+        request: campaigns_pb2.ListCampaignCallsRequest,
+    ) -> campaigns_pb2.ListCampaignCallsResponse:
+        """
+        List the calls of a campaign with their SIP status and attempts, filtered and paged.
+
+        Args:
+            request (campaigns_pb2.ListCampaignCallsRequest):
+                The request specifying the campaign, the filter and the page.
+
+        Returns:
+            campaigns_pb2.ListCampaignCallsResponse:
+                A page of campaign calls.
+        """
+        response: campaigns_pb2.ListCampaignCallsResponse = self.stub.ListCampaignCalls(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def start_campaign(
+        self,
+        request: campaigns_pb2.StartCampaignRequest,
+    ) -> campaigns_pb2.Campaign:
+        """
+        Start a created campaign.
+
+        Args:
+            request (campaigns_pb2.StartCampaignRequest):
+                The request specifying the campaign.
+
+        Returns:
+            campaigns_pb2.Campaign:
+                The campaign after the transition.
+        """
+        response: campaigns_pb2.Campaign = self.stub.StartCampaign(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def stop_campaign(
+        self,
+        request: campaigns_pb2.StopCampaignRequest,
+    ) -> campaigns_pb2.Campaign:
+        """
+        Stop a campaign gracefully: ongoing calls finish, no new call is started.
+
+        Args:
+            request (campaigns_pb2.StopCampaignRequest):
+                The request specifying the campaign.
+
+        Returns:
+            campaigns_pb2.Campaign:
+                The campaign after the transition.
+        """
+        response: campaigns_pb2.Campaign = self.stub.StopCampaign(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def hard_stop_campaign(
+        self,
+        request: campaigns_pb2.HardStopCampaignRequest,
+    ) -> campaigns_pb2.Campaign:
+        """
+        Hard stop a campaign: ongoing calls are ended immediately, no new call is started.
+
+        Args:
+            request (campaigns_pb2.HardStopCampaignRequest):
+                The request specifying the campaign.
+
+        Returns:
+            campaigns_pb2.Campaign:
+                The campaign after the transition.
+        """
+        response: campaigns_pb2.Campaign = self.stub.HardStopCampaign(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def resume_campaign(
+        self,
+        request: campaigns_pb2.ResumeCampaignRequest,
+    ) -> campaigns_pb2.Campaign:
+        """
+        Resume a stopped or hard stopped campaign with the calls that have not finished yet.
+
+        Args:
+            request (campaigns_pb2.ResumeCampaignRequest):
+                The request specifying the campaign.
+
+        Returns:
+            campaigns_pb2.Campaign:
+                The campaign after the transition.
+        """
+        response: campaigns_pb2.Campaign = self.stub.ResumeCampaign(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def stream_campaign_status(
+        self,
+        request: campaigns_pb2.StreamCampaignStatusRequest,
+    ) -> Iterator[campaigns_pb2.StreamCampaignStatusResponse]:
+        """
+        Stream the status and progress of campaigns as they change.
+
+        The returned iterator is the live gRPC stream: iterating it blocks until the next message is
+        available, and cancelling it (``.cancel()``) releases the server-side stream slot.
+
+        Args:
+            request (campaigns_pb2.StreamCampaignStatusRequest):
+                The request specifying the project and the campaigns to watch.
+
+        Returns:
+            Iterator[campaigns_pb2.StreamCampaignStatusResponse]:
+                An iterator over the status envelopes.
+        """
+        response: Iterator[campaigns_pb2.StreamCampaignStatusResponse] = self.stub.StreamCampaignStatus(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response

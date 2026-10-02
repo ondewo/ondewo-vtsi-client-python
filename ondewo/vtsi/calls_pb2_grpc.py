@@ -175,6 +175,21 @@ class CallsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsResponse.FromString,
                 _registered_method=True)
+        self.StreamCallerStatus = channel.unary_stream(
+                '/ondewo.vtsi.Calls/StreamCallerStatus',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallerStatusRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallResourceStatusResponse.FromString,
+                _registered_method=True)
+        self.StreamListenerStatus = channel.unary_stream(
+                '/ondewo.vtsi.Calls/StreamListenerStatus',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StreamListenerStatusRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallResourceStatusResponse.FromString,
+                _registered_method=True)
+        self.StreamScheduledCallerStatus = channel.unary_stream(
+                '/ondewo.vtsi.Calls/StreamScheduledCallerStatus',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StreamScheduledCallerStatusRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallResourceStatusResponse.FromString,
+                _registered_method=True)
 
 
 class CallsServicer(object):
@@ -327,6 +342,11 @@ class CallsServicer(object):
 
     def CancelScheduledCaller(self, request, context):
         """<p>Cancels a scheduled caller that has not fired yet</p>
+        <p>A scheduled caller of a campaign can be cancelled while its campaign call is
+        <code>CAMPAIGN_CALL_STATE_NOT_STARTED</code> or <code>CAMPAIGN_CALL_STATE_RETRY_PENDING</code>;
+        the campaign call then becomes <code>CAMPAIGN_CALL_STATE_CANCELLED</code>. While an attempt is
+        <code>DISPATCHING</code> or <code>IN_PROGRESS</code> the request is refused:
+        <code>cancelled = false</code> and the scheduled caller keeps its status.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -378,6 +398,38 @@ class CallsServicer(object):
 
     def ListCalls(self, request, context):
         """<p>Get call log for all call instances</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamCallerStatus(self, request, context):
+        """////////////////////////////////////////////////////////////////////////////
+        Status stream endpoints
+        ////////////////////////////////////////////////////////////////////////////
+
+        <p>Streams the status of the callers of a project: a snapshot first
+        (<code>snapshot = true</code>), then every caller whose call or SIP status changed, plus
+        keep-alive messages. Ends when the client disconnects or at the server-side maximum stream
+        duration.</p>
+        <p>Errors: <code>NOT_FOUND</code> for an unknown project; <code>RESOURCE_EXHAUSTED</code> when
+        the server has no free stream slot.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamListenerStatus(self, request, context):
+        """<p>Streams the status of the listeners of a project, like <code>StreamCallerStatus</code>.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamScheduledCallerStatus(self, request, context):
+        """<p>Streams the status of the scheduled callers of a project, like
+        <code>StreamCallerStatus</code>. The snapshot holds every PENDING and FIRING scheduled caller
+        and those that finished in the last hour.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -525,6 +577,21 @@ def add_CallsServicer_to_server(servicer, server):
                     servicer.ListCalls,
                     request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsResponse.SerializeToString,
+            ),
+            'StreamCallerStatus': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamCallerStatus,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallerStatusRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallResourceStatusResponse.SerializeToString,
+            ),
+            'StreamListenerStatus': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamListenerStatus,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StreamListenerStatusRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallResourceStatusResponse.SerializeToString,
+            ),
+            'StreamScheduledCallerStatus': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamScheduledCallerStatus,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.StreamScheduledCallerStatusRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallResourceStatusResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1284,6 +1351,87 @@ class Calls(object):
             '/ondewo.vtsi.Calls/ListCalls',
             ondewo_dot_vtsi_dot_calls__pb2.ListCallsRequest.SerializeToString,
             ondewo_dot_vtsi_dot_calls__pb2.ListCallsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamCallerStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/StreamCallerStatus',
+            ondewo_dot_vtsi_dot_calls__pb2.StreamCallerStatusRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.StreamCallResourceStatusResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamListenerStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/StreamListenerStatus',
+            ondewo_dot_vtsi_dot_calls__pb2.StreamListenerStatusRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.StreamCallResourceStatusResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamScheduledCallerStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/StreamScheduledCallerStatus',
+            ondewo_dot_vtsi_dot_calls__pb2.StreamScheduledCallerStatusRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.StreamCallResourceStatusResponse.FromString,
             options,
             channel_credentials,
             insecure,

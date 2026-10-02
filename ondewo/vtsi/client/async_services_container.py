@@ -16,7 +16,9 @@ from dataclasses import dataclass
 
 from ondewo.utils.base_service_container import BaseServicesContainer
 
+from ondewo.vtsi.client.services.async_campaigns import Campaigns
 from ondewo.vtsi.client.services.async_calls import Calls
+from ondewo.vtsi.client.services.async_events import Events
 from ondewo.vtsi.client.services.async_logs import Logs
 from ondewo.vtsi.client.services.async_projects import Projects
 from ondewo.vtsi.client.services.async_softphones import Softphones
@@ -28,3 +30,5 @@ class AsyncServicesContainer(BaseServicesContainer):
     calls: Calls
     logs: Logs
     softphones: Softphones
+    campaigns: Campaigns
+    events: Events

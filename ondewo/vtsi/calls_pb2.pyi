@@ -28,6 +28,7 @@ import ondewo.nlu.intent_pb2
 import ondewo.s2t.speech_to_text_pb2
 import ondewo.sip.sip_pb2
 import ondewo.t2s.text_to_speech_pb2
+import ondewo.vtsi.campaigns_pb2
 import sys
 import typing
 
@@ -1588,19 +1589,33 @@ class StartCallersRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALLER_REQUESTS_FIELD_NUMBER: builtins.int
+    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     @property
     def caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerRequest]:
         """Callers that should be started"""
 
+    @property
+    def campaign_assignment(self) -> ondewo.vtsi.campaigns_pb2.CampaignAssignment:
+        """Optional. Add the callers to a campaign instead of starting them now. The campaign then
+        starts them, at most <code>max_parallel_calls</code> at a time. The project&apos;s caller limit
+        is checked per started call, not for the whole request. Unset: every caller is started by this
+        request, exactly as before. With it set, the request is atomic and every error is a gRPC
+        status code (see <code>CampaignAssignment</code>); <code>error_message</code> stays empty.
+        Do not set it before every server replica runs VTSI 9.0.0: an older replica ignores it and
+        starts every caller at once.
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         caller_requests: collections.abc.Iterable[global___StartCallerRequest] | None = ...,
+        campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "campaign_assignment", b"campaign_assignment", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartCallersRequest = StartCallersRequest
 
@@ -1613,6 +1628,8 @@ class StartCallersResponse(google.protobuf.message.Message):
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALLER_RESPONSES_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    CAMPAIGN_FIELD_NUMBER: builtins.int
+    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     error_message: builtins.str
@@ -1621,14 +1638,30 @@ class StartCallersResponse(google.protobuf.message.Message):
     def caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerResponse]:
         """The call ids that were assigned to each listener"""
 
+    @property
+    def campaign(self) -> ondewo.vtsi.campaigns_pb2.Campaign:
+        """The campaign the callers were added to, when the request set
+        <code>campaign_assignment</code>. <code>caller_responses</code> is then empty: the calls are
+        started by the campaign.
+        """
+
+    @property
+    def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """The campaign calls created by this request, in request order, when the request set
+        <code>campaign_assignment</code>.
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         caller_responses: collections.abc.Iterable[global___StartCallerResponse] | None = ...,
         error_message: builtins.str = ...,
+        campaign: ondewo.vtsi.campaigns_pb2.Campaign | None = ...,
+        campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["caller_responses", b"caller_responses", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign", b"campaign"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["caller_responses", b"caller_responses", "campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartCallersResponse = StartCallersResponse
 
@@ -2189,19 +2222,33 @@ class StartScheduledCallersRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     SCHEDULED_CALLER_REQUESTS_FIELD_NUMBER: builtins.int
+    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     @property
     def scheduled_caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerRequest]:
-        """requests to start scheduled callers"""
+        """requests to start scheduled callers. With <code>campaign_assignment</code> set, a scheduled
+        caller of the campaign can be cancelled with <code>CancelScheduledCaller</code> only while its
+        campaign call has no attempt dispatching or in progress.
+        """
+
+    @property
+    def campaign_assignment(self) -> ondewo.vtsi.campaigns_pb2.CampaignAssignment:
+        """Optional. Add the scheduled callers to a campaign: each fires at or after its scheduled time
+        AND when the campaign has a free slot, and follows the campaign&apos;s retries, stop and hard
+        stop. Unset: the scheduled callers fire on their own, exactly as before. Same atomicity,
+        error and rollout rules as <code>StartCallersRequest.campaign_assignment</code>.
+        """
 
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         scheduled_caller_requests: collections.abc.Iterable[global___StartScheduledCallerRequest] | None = ...,
+        campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartScheduledCallersRequest = StartScheduledCallersRequest
 
@@ -2213,19 +2260,36 @@ class StartScheduledCallersResponse(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     SCHEDULED_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
+    CAMPAIGN_FIELD_NUMBER: builtins.int
+    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     @property
     def scheduled_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerResponse]:
         """The call ids that were assigned to each listener"""
 
+    @property
+    def campaign(self) -> ondewo.vtsi.campaigns_pb2.Campaign:
+        """The campaign the scheduled callers were added to, when the request set
+        <code>campaign_assignment</code>.
+        """
+
+    @property
+    def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """The campaign calls created by this request, in request order, when the request set
+        <code>campaign_assignment</code>.
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         scheduled_caller_responses: collections.abc.Iterable[global___StartScheduledCallerResponse] | None = ...,
+        campaign: ondewo.vtsi.campaigns_pb2.Campaign | None = ...,
+        campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["scheduled_caller_responses", b"scheduled_caller_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign", b"campaign"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "scheduled_caller_responses", b"scheduled_caller_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartScheduledCallersResponse = StartScheduledCallersResponse
 
@@ -2275,6 +2339,7 @@ class ScheduledCaller(google.protobuf.message.Message):
     CREATED_AT_FIELD_NUMBER: builtins.int
     FIRED_AT_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Resource name of the scheduled caller
     <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
@@ -2290,6 +2355,15 @@ class ScheduledCaller(google.protobuf.message.Message):
     """VTSI project name that owns this scheduled caller of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     error_message: builtins.str
     """Why starting the call failed. Only populated when the status is SCHEDULED_CALLER_STATUS_FAILED"""
+    campaign_name: builtins.str
+    """Resource name of the campaign this scheduled caller belongs to. Empty when it belongs to none.
+    A campaign&apos;s scheduled caller mirrors its campaign call: <code>status</code> is
+    <code>PENDING</code> while the call is not started or waits for a retry,
+    <code>FIRING</code> while an attempt is being started or running, and <code>DONE</code> /
+    <code>FAILED</code> / <code>CANCELLED</code> when the call is completed / failed / cancelled;
+    <code>call_name</code> and <code>error_message</code> are those of the latest attempt. Its
+    own retry settings are not used; the campaign&apos;s apply.
+    """
     @property
     def sip_config(self) -> global___SipBaseConfig:
         """SIP service configuration.
@@ -2338,9 +2412,10 @@ class ScheduledCaller(google.protobuf.message.Message):
         created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         fired_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         error_message: builtins.str = ...,
+        campaign_name: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "created_at", b"created_at", "fired_at", b"fired_at", "scheduled_time", b"scheduled_time", "sip_caller_config", b"sip_caller_config", "sip_config", b"sip_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "common_services_config", b"common_services_config", "created_at", b"created_at", "error_message", b"error_message", "fired_at", b"fired_at", "name", b"name", "scheduled_time", b"scheduled_time", "sip_caller_config", b"sip_caller_config", "sip_config", b"sip_config", "status", b"status", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "campaign_name", b"campaign_name", "common_services_config", b"common_services_config", "created_at", b"created_at", "error_message", b"error_message", "fired_at", b"fired_at", "name", b"name", "scheduled_time", b"scheduled_time", "sip_caller_config", b"sip_caller_config", "sip_config", b"sip_config", "status", b"status", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___ScheduledCaller = ScheduledCaller
 
@@ -3167,3 +3242,204 @@ class ServiceStatus(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "healthy", b"healthy"]) -> None: ...
 
 global___ServiceStatus = ServiceStatus
+
+@typing.final
+class CallResourceStatus(google.protobuf.message.Message):
+    """The status of one caller, listener or scheduled caller, as streamed by the status streams."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RESOURCE_NAME_FIELD_NUMBER: builtins.int
+    CALL_TYPE_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    ACTIVE_FIELD_NUMBER: builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
+    SIP_STATUS_DESCRIPTION_FIELD_NUMBER: builtins.int
+    START_TIME_FIELD_NUMBER: builtins.int
+    END_TIME_FIELD_NUMBER: builtins.int
+    PHONE_NUMBER_FIELD_NUMBER: builtins.int
+    SCHEDULED_CALLER_STATUS_FIELD_NUMBER: builtins.int
+    SCHEDULED_TIME_FIELD_NUMBER: builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    resource_name: builtins.str
+    """The caller, listener or scheduled caller."""
+    call_type: global___CallType.ValueType
+    """CALLER, LISTENER or SCHEDULED_CALLER."""
+    call_name: builtins.str
+    """Its current or last call. Empty when it has none."""
+    active: builtins.bool
+    """Whether its call is active."""
+    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    """SIP status of its current or last call."""
+    sip_status_description: builtins.str
+    """Description of that SIP status."""
+    phone_number: builtins.str
+    """Callee or caller number of its current or last call."""
+    scheduled_caller_status: global___ScheduledCallerStatus.ValueType
+    """For SCHEDULED_CALLER: its lifecycle state."""
+    campaign_name: builtins.str
+    """The campaign it belongs to, if any."""
+    error_message: builtins.str
+    """For SCHEDULED_CALLER: why it failed."""
+    @property
+    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Start of its current or last call."""
+
+    @property
+    def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """End of its last call. Unset while a call runs."""
+
+    @property
+    def scheduled_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """For SCHEDULED_CALLER: its scheduled time."""
+
+    def __init__(
+        self,
+        *,
+        resource_name: builtins.str = ...,
+        call_type: global___CallType.ValueType = ...,
+        call_name: builtins.str = ...,
+        active: builtins.bool = ...,
+        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
+        sip_status_description: builtins.str = ...,
+        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        phone_number: builtins.str = ...,
+        scheduled_caller_status: global___ScheduledCallerStatus.ValueType = ...,
+        scheduled_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        campaign_name: builtins.str = ...,
+        error_message: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["end_time", b"end_time", "scheduled_time", b"scheduled_time", "start_time", b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["active", b"active", "call_name", b"call_name", "call_type", b"call_type", "campaign_name", b"campaign_name", "end_time", b"end_time", "error_message", b"error_message", "phone_number", b"phone_number", "resource_name", b"resource_name", "scheduled_caller_status", b"scheduled_caller_status", "scheduled_time", b"scheduled_time", "sip_status_description", b"sip_status_description", "sip_status_type", b"sip_status_type", "start_time", b"start_time"]) -> None: ...
+
+global___CallResourceStatus = CallResourceStatus
+
+@typing.final
+class StreamCallerStatusRequest(google.protobuf.message.Message):
+    """The request message for <code>Calls.StreamCallerStatus</code>."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALLER_NAMES_FIELD_NUMBER: builtins.int
+    ACTIVE_ONLY_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    active_only: builtins.bool
+    """Only callers whose call is active."""
+    @property
+    def caller_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Only these callers. Empty means every caller of the project."""
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        caller_names: collections.abc.Iterable[builtins.str] | None = ...,
+        active_only: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["active_only", b"active_only", "caller_names", b"caller_names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___StreamCallerStatusRequest = StreamCallerStatusRequest
+
+@typing.final
+class StreamListenerStatusRequest(google.protobuf.message.Message):
+    """The request message for <code>Calls.StreamListenerStatus</code>."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    LISTENER_NAMES_FIELD_NUMBER: builtins.int
+    ACTIVE_ONLY_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    active_only: builtins.bool
+    """Only listeners whose call is active."""
+    @property
+    def listener_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Only these listeners. Empty means every listener of the project."""
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        listener_names: collections.abc.Iterable[builtins.str] | None = ...,
+        active_only: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["active_only", b"active_only", "listener_names", b"listener_names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___StreamListenerStatusRequest = StreamListenerStatusRequest
+
+@typing.final
+class StreamScheduledCallerStatusRequest(google.protobuf.message.Message):
+    """The request message for <code>Calls.StreamScheduledCallerStatus</code>."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    SCHEDULED_CALLER_NAMES_FIELD_NUMBER: builtins.int
+    STATUSES_FIELD_NUMBER: builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    campaign_name: builtins.str
+    """Only scheduled callers of this campaign. Empty means any."""
+    @property
+    def scheduled_caller_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Only these scheduled callers. Empty means every scheduled caller of the project."""
+
+    @property
+    def statuses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ScheduledCallerStatus.ValueType]:
+        """Only scheduled callers in these states. Empty means every state."""
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        scheduled_caller_names: collections.abc.Iterable[builtins.str] | None = ...,
+        statuses: collections.abc.Iterable[global___ScheduledCallerStatus.ValueType] | None = ...,
+        campaign_name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["campaign_name", b"campaign_name", "scheduled_caller_names", b"scheduled_caller_names", "statuses", b"statuses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___StreamScheduledCallerStatusRequest = StreamScheduledCallerStatusRequest
+
+@typing.final
+class StreamCallResourceStatusResponse(google.protobuf.message.Message):
+    """The response message of the three status streams."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUSES_FIELD_NUMBER: builtins.int
+    REMOVED_RESOURCE_NAMES_FIELD_NUMBER: builtins.int
+    SNAPSHOT_FIELD_NUMBER: builtins.int
+    SNAPSHOT_TRUNCATED_FIELD_NUMBER: builtins.int
+    END_REASON_FIELD_NUMBER: builtins.int
+    snapshot: builtins.bool
+    """True on the first message, which carries every matching resource."""
+    snapshot_truncated: builtins.bool
+    """True when the snapshot was cut at the server limit (5000 resources)."""
+    end_reason: builtins.str
+    """Set on the last message when the server ended the stream. Empty otherwise."""
+    @property
+    def statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallResourceStatus]:
+        """Resources that changed (every matching resource in the snapshot)."""
+
+    @property
+    def removed_resource_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Resources that no longer exist or no longer match."""
+
+    def __init__(
+        self,
+        *,
+        statuses: collections.abc.Iterable[global___CallResourceStatus] | None = ...,
+        removed_resource_names: collections.abc.Iterable[builtins.str] | None = ...,
+        snapshot: builtins.bool = ...,
+        snapshot_truncated: builtins.bool = ...,
+        end_reason: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["end_reason", b"end_reason", "removed_resource_names", b"removed_resource_names", "snapshot", b"snapshot", "snapshot_truncated", b"snapshot_truncated", "statuses", b"statuses"]) -> None: ...
+
+global___StreamCallResourceStatusResponse = StreamCallResourceStatusResponse

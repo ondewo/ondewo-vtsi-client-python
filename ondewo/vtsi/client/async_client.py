@@ -22,7 +22,9 @@ from ondewo.utils.async_base_client import AsyncBaseClient
 
 from ondewo.vtsi.client.async_services_container import AsyncServicesContainer
 from ondewo.vtsi.client.client_config import ClientConfig
+from ondewo.vtsi.client.services.async_campaigns import Campaigns
 from ondewo.vtsi.client.services.async_calls import Calls
+from ondewo.vtsi.client.services.async_events import Events
 from ondewo.vtsi.client.services.async_logs import Logs
 from ondewo.vtsi.client.services.async_projects import Projects
 from ondewo.vtsi.client.services.async_softphones import Softphones
@@ -53,4 +55,6 @@ class AsyncClient(AsyncBaseClient):
             calls=Calls(config=config, use_secure_channel=use_secure_channel, options=options),
             logs=Logs(config=config, use_secure_channel=use_secure_channel, options=options),
             softphones=Softphones(config=config, use_secure_channel=use_secure_channel, options=options),
+            campaigns=Campaigns(config=config, use_secure_channel=use_secure_channel, options=options),
+            events=Events(config=config, use_secure_channel=use_secure_channel, options=options),
         )
