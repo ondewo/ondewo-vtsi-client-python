@@ -128,6 +128,16 @@
   stored requires re-sending `custom_headers` with their real values (or an empty map), and
   `BaseServiceConfig.grpc_cert` states that the S2T, NLU and T2S certificates of a call are required unless the
   server runs with `ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Request idempotency keys: regenerated against
+  ondewo-vtsi-api `8ae9487`. `StartCallersRequest` (field 4), `StartListenersRequest` (3),
+  `StartScheduledCallersRequest` (4), `AddCallersToCampaignRequest` (4) and `AddScheduledCallersToCampaignRequest`
+  (4) gain an optional `string idempotency_key`: at most 255 printable ASCII characters, no whitespace; empty means
+  no deduplication. A retry with the same key returns the response of the first successful attempt, on whichever
+  replica it reaches, instead of starting the calls again. The key is scoped to the VTSI project and the RPC and
+  retained for 24 hours by default. The same key with a different request is refused with `INVALID_ARGUMENT`; a
+  retry while the first attempt is still running is answered `ABORTED` (retry later); a failed first attempt
+  stores nothing. A replayed response carries no `common_services_config`. The single-resource RPCs take no key:
+  send a batch of one. Pinned by `tests/unit/vtsi/test_request_idempotency_key.py`.
 
 ### Bug Fixes
 

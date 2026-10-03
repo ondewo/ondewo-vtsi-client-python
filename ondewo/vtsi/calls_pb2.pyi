@@ -1481,8 +1481,20 @@ class StartListenersRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     LISTENER_REQUESTS_FIELD_NUMBER: builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    idempotency_key: builtins.str
+    """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
+    deduplication. A retry carrying the same key returns the response of the first successful attempt instead
+    of running the request a second time, whichever server replica it reaches, for as long as the server
+    retains the key (24 hours by default). The key is scoped to the VTSI project and to this RPC. Reusing a
+    key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that arrives while the
+    first attempt is still running is answered <code>ABORTED</code> and may be retried later. A first attempt
+    that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
+    no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
+    make a single caller or listener idempotent, send it as a batch of one.
+    """
     @property
     def listener_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartListenerRequest]:
         """Listeners that should be started"""
@@ -1492,8 +1504,9 @@ class StartListenersRequest(google.protobuf.message.Message):
         *,
         vtsi_project_name: builtins.str = ...,
         listener_requests: collections.abc.Iterable[global___StartListenerRequest] | None = ...,
+        idempotency_key: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["listener_requests", b"listener_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["idempotency_key", b"idempotency_key", "listener_requests", b"listener_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartListenersRequest = StartListenersRequest
 
@@ -1593,8 +1606,20 @@ class StartCallersRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALLER_REQUESTS_FIELD_NUMBER: builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    idempotency_key: builtins.str
+    """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
+    deduplication. A retry carrying the same key returns the response of the first successful attempt instead
+    of running the request a second time, whichever server replica it reaches, for as long as the server
+    retains the key (24 hours by default). The key is scoped to the VTSI project and to this RPC. Reusing a
+    key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that arrives while the
+    first attempt is still running is answered <code>ABORTED</code> and may be retried later. A first attempt
+    that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
+    no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
+    make a single caller or listener idempotent, send it as a batch of one.
+    """
     @property
     def caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerRequest]:
         """Callers that should be started"""
@@ -1604,8 +1629,9 @@ class StartCallersRequest(google.protobuf.message.Message):
         *,
         vtsi_project_name: builtins.str = ...,
         caller_requests: collections.abc.Iterable[global___StartCallerRequest] | None = ...,
+        idempotency_key: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "idempotency_key", b"idempotency_key", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartCallersRequest = StartCallersRequest
 
@@ -2194,8 +2220,20 @@ class StartScheduledCallersRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     SCHEDULED_CALLER_REQUESTS_FIELD_NUMBER: builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    idempotency_key: builtins.str
+    """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
+    deduplication. A retry carrying the same key returns the response of the first successful attempt instead
+    of running the request a second time, whichever server replica it reaches, for as long as the server
+    retains the key (24 hours by default). The key is scoped to the VTSI project and to this RPC. Reusing a
+    key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that arrives while the
+    first attempt is still running is answered <code>ABORTED</code> and may be retried later. A first attempt
+    that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
+    no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
+    make a single caller or listener idempotent, send it as a batch of one.
+    """
     @property
     def scheduled_caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerRequest]:
         """requests to start scheduled callers"""
@@ -2205,8 +2243,9 @@ class StartScheduledCallersRequest(google.protobuf.message.Message):
         *,
         vtsi_project_name: builtins.str = ...,
         scheduled_caller_requests: collections.abc.Iterable[global___StartScheduledCallerRequest] | None = ...,
+        idempotency_key: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["idempotency_key", b"idempotency_key", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___StartScheduledCallersRequest = StartScheduledCallersRequest
 
@@ -2243,9 +2282,21 @@ class AddCallersToCampaignRequest(google.protobuf.message.Message):
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALLER_REQUESTS_FIELD_NUMBER: builtins.int
     CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project of the callers and the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
+    idempotency_key: builtins.str
+    """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
+    deduplication. A retry carrying the same key returns the response of the first successful attempt instead
+    of running the request a second time, whichever server replica it reaches, for as long as the server
+    retains the key (24 hours by default). The key is scoped to the VTSI project and to this RPC. Reusing a
+    key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that arrives while the
+    first attempt is still running is answered <code>ABORTED</code> and may be retried later. A first attempt
+    that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
+    no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
+    make a single caller or listener idempotent, send it as a batch of one.
     """
     @property
     def caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerRequest]:
@@ -2261,9 +2312,10 @@ class AddCallersToCampaignRequest(google.protobuf.message.Message):
         vtsi_project_name: builtins.str = ...,
         caller_requests: collections.abc.Iterable[global___StartCallerRequest] | None = ...,
         campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
+        idempotency_key: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "campaign_assignment", b"campaign_assignment", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "campaign_assignment", b"campaign_assignment", "idempotency_key", b"idempotency_key", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___AddCallersToCampaignRequest = AddCallersToCampaignRequest
 
@@ -2311,9 +2363,21 @@ class AddScheduledCallersToCampaignRequest(google.protobuf.message.Message):
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     SCHEDULED_CALLER_REQUESTS_FIELD_NUMBER: builtins.int
     CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project of the scheduled callers and the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
+    idempotency_key: builtins.str
+    """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
+    deduplication. A retry carrying the same key returns the response of the first successful attempt instead
+    of running the request a second time, whichever server replica it reaches, for as long as the server
+    retains the key (24 hours by default). The key is scoped to the VTSI project and to this RPC. Reusing a
+    key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that arrives while the
+    first attempt is still running is answered <code>ABORTED</code> and may be retried later. A first attempt
+    that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
+    no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
+    make a single caller or listener idempotent, send it as a batch of one.
     """
     @property
     def scheduled_caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerRequest]:
@@ -2331,9 +2395,10 @@ class AddScheduledCallersToCampaignRequest(google.protobuf.message.Message):
         vtsi_project_name: builtins.str = ...,
         scheduled_caller_requests: collections.abc.Iterable[global___StartScheduledCallerRequest] | None = ...,
         campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
+        idempotency_key: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment", "idempotency_key", b"idempotency_key", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___AddScheduledCallersToCampaignRequest = AddScheduledCallersToCampaignRequest
 

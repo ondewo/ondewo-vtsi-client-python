@@ -262,6 +262,17 @@ for update in client.services.campaigns.stream_campaign_status(
 With the `AsyncClient` a stream is iterated, not awaited: `async for update in
 client.services.campaigns.stream_campaign_status(request=...)`.
 
+### Retrying a batch start safely: `idempotency_key`
+
+`StartCallersRequest`, `StartListenersRequest`, `StartScheduledCallersRequest`, `AddCallersToCampaignRequest` and
+`AddScheduledCallersToCampaignRequest` take an optional `idempotency_key` (at most 255 printable ASCII characters,
+no whitespace; empty means no deduplication). A retry carrying the same key returns the response of the first
+successful attempt, on whichever replica it reaches, instead of starting the calls a second time. The key is scoped
+to the VTSI project and the RPC and kept for 24 hours by default. Reusing a key with a different request is refused
+with `INVALID_ARGUMENT`; a retry while the first attempt is still running is answered `ABORTED` (retry later); a
+failed first attempt stores nothing. A replayed response carries no `common_services_config`. To make a single
+caller or listener idempotent, send it as a batch of one.
+
 ## Automatic Release Process
 
 The entire process is automated to make development easier. The actual steps are simple:
