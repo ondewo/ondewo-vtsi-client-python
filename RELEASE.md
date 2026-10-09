@@ -7,7 +7,7 @@
 ### Improvements
 
 * `Client` and `AsyncClient` take an opt-in keyword `use_shared_channel=True`: all services then share ONE gRPC channel built with `ondewo-client-utils`' `build_shared_channel` (one connection and one TLS handshake instead of one per service; measured in the library, 16 services over TLS: 44 ms per-service vs 6.5 ms shared). The default is unchanged. The service interfaces accept the keyword-only `grpc_channel=`.
-* Built with [ondewo-proto-compiler 5.15.2](https://github.com/ondewo/ondewo-proto-compiler/releases/tag/5.15.2)
+* Built with [ondewo-proto-compiler 5.15.3](https://github.com/ondewo/ondewo-proto-compiler/releases/tag/5.15.3)
   (was 5.14.0), still against [ondewo-vtsi-api 8.7.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/8.7.0);
   the VTSI service surface is unchanged.
 
