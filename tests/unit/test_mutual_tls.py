@@ -26,6 +26,8 @@ a refused handshake fails at once instead of being retried until the deadline.
 """
 
 import datetime
+import ipaddress
+import socket
 from concurrent import futures
 from typing import (
     Any,
@@ -59,7 +61,7 @@ TIMEOUT_IN_S: float = 10.0
 
 
 class Pki:
-    """One throwaway CA with a server leaf (SAN ``localhost``) and a client leaf, all PEM bytes."""
+    """One throwaway CA with a server leaf (SAN localhost, 127.0.0.1, ::1) and a client leaf, all PEM bytes."""
 
     def __init__(self, name: str) -> None:
         self._ca_key: ec.EllipticCurvePrivateKey = ec.generate_private_key(ec.SECP256R1())
@@ -68,7 +70,7 @@ class Pki:
         server_key: ec.EllipticCurvePrivateKey = ec.generate_private_key(ec.SECP256R1())
         self.server_key: bytes = _pem_key(server_key)
         self.server_cert: bytes = self._issue(
-            f"{name}-server", server_key.public_key(), False, ca, ExtendedKeyUsageOID.SERVER_AUTH, SERVER_NAME
+            f"{name}-server", server_key.public_key(), False, ca, ExtendedKeyUsageOID.SERVER_AUTH, san=True
         )
         client_key: ec.EllipticCurvePrivateKey = ec.generate_private_key(ec.SECP256R1())
         self.client_key: bytes = _pem_key(client_key)
@@ -83,7 +85,7 @@ class Pki:
         ca: bool,
         issuer: Optional[x509.Certificate],
         usage: Optional[x509.ObjectIdentifier] = None,
-        san: Optional[str] = None,
+        san: bool = False,
     ) -> bytes:
         now: datetime.datetime = datetime.datetime.now(datetime.timezone.utc)
         name: x509.Name = x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, subject)])
@@ -99,8 +101,17 @@ class Pki:
         )
         if usage is not None:
             builder = builder.add_extension(x509.ExtendedKeyUsage([usage]), critical=False)
-        if san is not None:
-            builder = builder.add_extension(x509.SubjectAlternativeName([x509.DNSName(san)]), critical=False)
+        if san:
+            builder = builder.add_extension(
+                x509.SubjectAlternativeName(
+                    [
+                        x509.DNSName(SERVER_NAME),
+                        x509.IPAddress(ipaddress.ip_address("127.0.0.1")),
+                        x509.IPAddress(ipaddress.ip_address("::1")),
+                    ]
+                ),
+                critical=False,
+            )
         return builder.sign(self._ca_key, hashes.SHA256()).public_bytes(serialization.Encoding.PEM)
 
 
@@ -135,13 +146,13 @@ def _credentials(pki: Pki, require_client_auth: bool) -> grpc.ServerCredentials:
 
 
 @pytest.fixture
-def server() -> Iterator[Callable[[Pki, bool], int]]:
-    """Start a servicer-less sync TLS server; ``(pki, require_client_auth) -> port``."""
+def server() -> Iterator[Callable[..., int]]:
+    """Start a servicer-less sync TLS server; ``(pki, require_client_auth, bind=SERVER_NAME) -> port``."""
     servers: List[grpc.Server] = []
 
-    def start(pki: Pki, require_client_auth: bool) -> int:
+    def start(pki: Pki, require_client_auth: bool, bind: str = SERVER_NAME) -> int:
         grpc_server: grpc.Server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
-        port: int = grpc_server.add_secure_port(f"{SERVER_NAME}:0", _credentials(pki, require_client_auth))
+        port: int = grpc_server.add_secure_port(f"{bind}:0", _credentials(pki, require_client_auth))
         grpc_server.start()
         servers.append(grpc_server)
         return port
@@ -153,12 +164,12 @@ def server() -> Iterator[Callable[[Pki, bool], int]]:
 
 @pytest_asyncio.fixture
 async def async_server() -> Any:
-    """Start a servicer-less ``grpc.aio`` TLS server; ``(pki, require_client_auth) -> port``."""
+    """Start a servicer-less ``grpc.aio`` TLS server; ``(pki, require_client_auth, bind=SERVER_NAME) -> port``."""
     servers: List[grpc.aio.Server] = []
 
-    async def start(pki: Pki, require_client_auth: bool) -> int:
+    async def start(pki: Pki, require_client_auth: bool, bind: str = SERVER_NAME) -> int:
         grpc_server: grpc.aio.Server = grpc.aio.server()
-        port: int = grpc_server.add_secure_port(f"{SERVER_NAME}:0", _credentials(pki, require_client_auth))
+        port: int = grpc_server.add_secure_port(f"{bind}:0", _credentials(pki, require_client_auth))
         await grpc_server.start()
         servers.append(grpc_server)
         return port
@@ -168,10 +179,10 @@ async def async_server() -> Any:
         await grpc_server.stop(grace=None)
 
 
-def _config(port: int, trusted: Pki, client: Optional[Pki] = None) -> ClientConfig:
+def _config(port: int, trusted: Pki, client: Optional[Pki] = None, host: str = SERVER_NAME) -> ClientConfig:
     """A config trusting ``trusted``'s CA, presenting ``client``'s leaf when given (mutual TLS)."""
     return ClientConfig(
-        host=SERVER_NAME,
+        host=host,
         port=str(port),
         grpc_cert=trusted.ca_cert.decode(),
         grpc_client_cert=None if client is None else client.client_cert.decode(),
@@ -203,6 +214,16 @@ async def _async_call(config: ClientConfig, use_shared_channel: bool) -> grpc.St
         return error.value.code()
     finally:
         await client.disconnect()
+
+
+def _ipv6_port(start: Callable[[], int]) -> int:
+    """Bind a server to ``[::1]``, or skip the test cleanly where the host has no IPv6 loopback."""
+    if not socket.has_ipv6:
+        pytest.skip("no IPv6 on this host")
+    try:
+        return start()
+    except RuntimeError:
+        pytest.skip("cannot bind [::1] on this host")
 
 
 SHARED: Any = pytest.mark.parametrize("use_shared_channel", [False, True], ids=["per-service", "shared"])
@@ -256,6 +277,15 @@ class TestSyncClient:
             Client(config=_config(1, pki, pki), use_secure_channel=False, use_shared_channel=use_shared_channel)
         assert "PRIVATE KEY" not in str(refusal.value) and "CERTIFICATE" not in str(refusal.value)
 
+    @pytest.mark.parametrize("mutual", [False, True], ids=["tls", "mtls"])
+    def test_an_ipv6_literal_host_completes_the_handshake(
+        self, server: Any, pki: Pki, use_shared_channel: bool, mutual: bool
+    ) -> None:
+        port: int = _ipv6_port(lambda: server(pki, mutual, bind="[::1]"))
+        config: ClientConfig = _config(port, pki, pki if mutual else None, host="::1")
+        assert config.host_and_port == f"[::1]:{port}"
+        assert _call(config, use_shared_channel) is grpc.StatusCode.UNIMPLEMENTED
+
 
 @SHARED
 @pytest.mark.asyncio
@@ -283,6 +313,18 @@ class TestAsyncClient:
     async def test_insecure_with_an_identity_is_refused(self, pki: Pki, use_shared_channel: bool) -> None:
         with pytest.raises(ValueError, match="use a secure channel"):
             AsyncClient(config=_config(1, pki, pki), use_secure_channel=False, use_shared_channel=use_shared_channel)
+
+    async def test_mutual_tls_over_an_ipv6_literal_host(
+        self, async_server: Any, pki: Pki, use_shared_channel: bool
+    ) -> None:
+        if not socket.has_ipv6:
+            pytest.skip("no IPv6 on this host")
+        try:
+            port: int = await async_server(pki, True, bind="[::1]")
+        except RuntimeError:
+            pytest.skip("cannot bind [::1] on this host")
+        config: ClientConfig = _config(port, pki, pki, host="::1")
+        assert await _async_call(config, use_shared_channel) is grpc.StatusCode.UNIMPLEMENTED
 
 
 class TestClientConfig:
