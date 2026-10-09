@@ -32,7 +32,8 @@ class AsyncClient(AsyncBaseClient):
     The core asynchronous Python client for interacting with ONDEWO VTSI services.
     """
 
-    def _initialize_services(
+    # Narrower than the base signature (typed since ondewo-client-utils 4): the services need the VTSI ClientConfig.
+    def _initialize_services(  # type: ignore[override]
         self,
         config: ClientConfig,
         use_secure_channel: bool,
