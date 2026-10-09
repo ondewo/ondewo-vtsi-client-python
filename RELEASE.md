@@ -71,6 +71,7 @@
   (`ONDEWO_VTSI_ASTERISK_IMAGE_TAG`); send an empty string and the server rejects the request. Ask
   `asterisk_configs.HasField("asterisk_version")` — reading the attribute returns `''` in both cases and cannot tell
   them apart.
+* `Client` and `AsyncClient` take an opt-in keyword `use_shared_channel=True`: all services then share ONE gRPC channel built with `ondewo-client-utils`' `build_shared_channel` (one connection and one TLS handshake instead of one per service; measured in the library, 16 services over TLS: 44 ms per-service vs 6.5 ms shared). The default is unchanged. The service interfaces accept the keyword-only `grpc_channel=`.
 
 ### Bug Fixes
 
