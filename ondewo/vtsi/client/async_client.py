@@ -19,6 +19,7 @@ from typing import (
 )
 
 from ondewo.utils.async_base_client import AsyncBaseClient
+from ondewo.utils.base_client_config import BaseClientConfig
 
 from ondewo.vtsi.client.async_services_container import AsyncServicesContainer
 from ondewo.vtsi.client.client_config import ClientConfig
@@ -32,10 +33,9 @@ class AsyncClient(AsyncBaseClient):
     The core asynchronous Python client for interacting with ONDEWO VTSI services.
     """
 
-    # Narrower than the base signature (typed since ondewo-client-utils 4): the services need the VTSI ClientConfig.
-    def _initialize_services(  # type: ignore[override]
+    def _initialize_services(
         self,
-        config: ClientConfig,
+        config: BaseClientConfig,
         use_secure_channel: bool,
         options: Optional[Set[Tuple[str, Any]]] = None,
     ) -> None:
@@ -44,10 +44,13 @@ class AsyncClient(AsyncBaseClient):
         and set up the services in self.services.
 
         Args:
-            config (ClientConfig): Configuration for the client.
+            config (BaseClientConfig): Configuration for the client.
             use_secure_channel (bool): Whether to use a secure gRPC channel.
             options (Optional[Set[Tuple[str, Any]]]): Additional options for the gRPC channel.
         """
+        if not isinstance(config, ClientConfig):
+            raise ValueError("The provided config must be of type `ondewo.vtsi.client.client_config.ClientConfig`")
+
         self.services: AsyncServicesContainer = AsyncServicesContainer(
             projects=Projects(config=config, use_secure_channel=use_secure_channel, options=options),
             calls=Calls(config=config, use_secure_channel=use_secure_channel, options=options),
