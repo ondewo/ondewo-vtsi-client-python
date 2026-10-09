@@ -18,7 +18,10 @@ from typing import (
     Tuple,
 )
 
+import grpc
 from ondewo.utils.base_client import BaseClient
+from ondewo.utils.base_services_interface import build_shared_channel
+from ondewo.utils.base_client_config import BaseClientConfig
 
 from ondewo.vtsi.client.client_config import ClientConfig
 from ondewo.vtsi.client.services.campaigns import Campaigns
@@ -35,9 +38,35 @@ class Client(BaseClient):
     The core python client for interacting with ONDEWO VTSI services.
     """
 
-    def _initialize_services(
+    def __init__(
         self,
         config: ClientConfig,
+        use_secure_channel: bool = True,
+        options: Optional[Set[Tuple[str, Any]]] = None,
+        *,
+        use_shared_channel: bool = False,
+    ) -> None:
+        """
+        Initialize the client and its service clients.
+
+        Args:
+            config (ClientConfig):
+                Configuration for the client.
+            use_secure_channel (bool):
+                Whether to use a secure gRPC channel. Defaults to ``True``.
+            options (Optional[Set[Tuple[str, Any]]]):
+                Additional options for the gRPC channel. Defaults to ``None``.
+            use_shared_channel (bool):
+                If ``True``, all services share ONE gRPC channel (one connection, one TLS handshake) built
+                with ``build_shared_channel``, also on every later ``connect``. Defaults to ``False``: each
+                service opens its own channel, as before.
+        """
+        self._use_shared_channel: bool = use_shared_channel
+        super().__init__(config=config, use_secure_channel=use_secure_channel, options=options)
+
+    def _initialize_services(
+        self,
+        config: BaseClientConfig,
         use_secure_channel: bool,
         options: Optional[Set[Tuple[str, Any]]] = None,
     ) -> None:
@@ -53,11 +82,32 @@ class Client(BaseClient):
             options (Optional[Set[Tuple[str, Any]]]):
                 Additional options for the gRPC channel.
         """
+        if not isinstance(config, ClientConfig):
+            raise ValueError("The provided config must be of type `ondewo.vtsi.client.client_config.ClientConfig`")
+
+        # One channel for all services when opted in; None makes every service open its own.
+        grpc_channel: Optional[grpc.Channel] = (
+            build_shared_channel(
+                config, use_secure_channel, (Projects, Calls, Logs, Softphones, Campaigns, Events), options
+            )
+            if self._use_shared_channel
+            else None
+        )
         self.services: ServicesContainer = ServicesContainer(
-            projects=Projects(config=config, use_secure_channel=use_secure_channel, options=options),
-            calls=Calls(config=config, use_secure_channel=use_secure_channel, options=options),
-            logs=Logs(config=config, use_secure_channel=use_secure_channel, options=options),
-            softphones=Softphones(config=config, use_secure_channel=use_secure_channel, options=options),
-            campaigns=Campaigns(config=config, use_secure_channel=use_secure_channel, options=options),
-            events=Events(config=config, use_secure_channel=use_secure_channel, options=options),
+            projects=Projects(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
+            calls=Calls(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
+            logs=Logs(config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel),
+            softphones=Softphones(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
+            campaigns=Campaigns(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
+            events=Events(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
         )

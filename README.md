@@ -273,6 +273,21 @@ with `INVALID_ARGUMENT`; a retry while the first attempt is still running is ans
 failed first attempt stores nothing. A replayed response carries no `common_services_config`. To make a single
 caller or listener idempotent, send it as a batch of one.
 
+### One shared gRPC channel (opt-in)
+
+By default every service (`projects`, `calls`, `logs`) opens its own gRPC channel, i.e. over TLS its own connection
+and handshake. Pass `use_shared_channel=True` to let all services share one channel, built with
+[`build_shared_channel`](https://github.com/ondewo/ondewo-client-utils-python) (each method keeps the retry policy it
+would have had on its own channel); `disconnect()` closes it once, and a later `connect()` shares again:
+
+```python
+from ondewo.vtsi.client.client import Client
+
+client = Client(config=config, use_secure_channel=True, use_shared_channel=True)
+```
+
+`AsyncClient` takes the same keyword; construct it inside the running event loop that uses it.
+
 ## Automatic Release Process
 
 The entire process is automated to make development easier. The actual steps are simple:
