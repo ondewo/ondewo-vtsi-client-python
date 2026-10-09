@@ -20,6 +20,7 @@ from typing import (
     Tuple,
 )
 
+import grpc
 from ondewo.utils.async_base_services_interface import AsyncBaseServicesInterface
 
 from ondewo.vtsi.client.client_config import ClientConfig
@@ -35,11 +36,16 @@ class AsyncServicesInterface(AsyncBaseServicesInterface, ABC):
         config: ClientConfig,
         use_secure_channel: bool,
         options: Optional[Set[Tuple[str, Any]]] = None,
+        *,
+        grpc_channel: Optional[grpc.aio.Channel] = None,
     ) -> None:
+        # grpc_channel: an already open channel (e.g. one shared by all services of an AsyncClient) used instead of
+        # opening one; `use_secure_channel` and `options` are then ignored.
         super(AsyncServicesInterface, self).__init__(
             config=config,
             use_secure_channel=use_secure_channel,
             options=options,
+            grpc_channel=grpc_channel,
         )
         # When Keycloak headless auth (D18) is configured, every call carries a freshly
         # auto-refreshed `Authorization: Bearer` token; the provider is shared per config so

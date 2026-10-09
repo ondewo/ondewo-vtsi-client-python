@@ -36,13 +36,13 @@ CONFIG_TYPE_ERROR_MESSAGE: str = "The provided config must be of type `ondewo.vt
 def test_client_rejects_a_base_config() -> None:
     """Passing the generic `BaseClientConfig` to `Client` raises `ValueError`."""
     with pytest.raises(ValueError, match=re.escape(CONFIG_TYPE_ERROR_MESSAGE)):
-        Client(config=BaseClientConfig(host=HOST, port=PORT), use_secure_channel=False)
+        Client(config=BaseClientConfig(host=HOST, port=PORT), use_secure_channel=False)  # type: ignore[arg-type]
 
 
 def test_async_client_rejects_a_base_config() -> None:
     """Passing the generic `BaseClientConfig` to `AsyncClient` raises `ValueError` before any channel is built."""
     with pytest.raises(ValueError, match=re.escape(CONFIG_TYPE_ERROR_MESSAGE)):
-        AsyncClient(config=BaseClientConfig(host=HOST, port=PORT), use_secure_channel=False)
+        AsyncClient(config=BaseClientConfig(host=HOST, port=PORT), use_secure_channel=False)  # type: ignore[arg-type]
 
 
 def test_client_accepts_its_own_config() -> None:

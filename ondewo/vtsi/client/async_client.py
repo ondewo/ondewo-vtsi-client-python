@@ -18,7 +18,9 @@ from typing import (
     Tuple,
 )
 
+import grpc
 from ondewo.utils.async_base_client import AsyncBaseClient
+from ondewo.utils.async_base_services_interface import build_shared_channel
 from ondewo.utils.base_client_config import BaseClientConfig
 
 from ondewo.vtsi.client.async_services_container import AsyncServicesContainer
@@ -32,6 +34,32 @@ class AsyncClient(AsyncBaseClient):
     """
     The core asynchronous Python client for interacting with ONDEWO VTSI services.
     """
+
+    def __init__(
+        self,
+        config: ClientConfig,
+        use_secure_channel: bool = True,
+        options: Optional[Set[Tuple[str, Any]]] = None,
+        *,
+        use_shared_channel: bool = False,
+    ) -> None:
+        """
+        Initialize the client and its service clients.
+
+        Args:
+            config (ClientConfig):
+                Configuration for the client.
+            use_secure_channel (bool):
+                Whether to use a secure gRPC channel. Defaults to ``True``.
+            options (Optional[Set[Tuple[str, Any]]]):
+                Additional options for the gRPC channel. Defaults to ``None``.
+            use_shared_channel (bool):
+                If ``True``, all services share ONE gRPC channel (one connection, one TLS handshake) built
+                with ``build_shared_channel``, also on every later ``connect``. Defaults to ``False``: each
+                service opens its own channel, as before.
+        """
+        self._use_shared_channel: bool = use_shared_channel
+        super().__init__(config=config, use_secure_channel=use_secure_channel, options=options)
 
     def _initialize_services(
         self,
@@ -51,8 +79,18 @@ class AsyncClient(AsyncBaseClient):
         if not isinstance(config, ClientConfig):
             raise ValueError("The provided config must be of type `ondewo.vtsi.client.client_config.ClientConfig`")
 
+        # One channel for all services when opted in; None makes every service open its own.
+        grpc_channel: Optional[grpc.aio.Channel] = (
+            build_shared_channel(config, use_secure_channel, (Projects, Calls, Logs), options)
+            if self._use_shared_channel
+            else None
+        )
         self.services: AsyncServicesContainer = AsyncServicesContainer(
-            projects=Projects(config=config, use_secure_channel=use_secure_channel, options=options),
-            calls=Calls(config=config, use_secure_channel=use_secure_channel, options=options),
-            logs=Logs(config=config, use_secure_channel=use_secure_channel, options=options),
+            projects=Projects(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
+            calls=Calls(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
+            logs=Logs(config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel),
         )

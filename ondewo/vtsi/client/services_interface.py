@@ -20,6 +20,7 @@ from typing import (
     Tuple,
 )
 
+import grpc
 from ondewo.utils.base_services_interface import BaseServicesInterface
 
 from ondewo.vtsi.client.client_config import ClientConfig
@@ -35,8 +36,17 @@ class ServicesInterface(BaseServicesInterface, ABC):
         config: ClientConfig,
         use_secure_channel: bool,
         options: Optional[Set[Tuple[str, Any]]] = None,
+        *,
+        grpc_channel: Optional[grpc.Channel] = None,
     ) -> None:
-        super(ServicesInterface, self).__init__(config=config, use_secure_channel=use_secure_channel, options=options)
+        # grpc_channel: an already open channel (e.g. one shared by all services of a Client) used instead of
+        # opening one; `use_secure_channel` and `options` are then ignored.
+        super(ServicesInterface, self).__init__(
+            config=config,
+            use_secure_channel=use_secure_channel,
+            options=options,
+            grpc_channel=grpc_channel,
+        )
         # When Keycloak headless auth (D18) is configured, every call carries a freshly
         # auto-refreshed `Authorization: Bearer` token; the provider is shared per config so
         # the offline-token ROPC login happens once for all services on the client.
