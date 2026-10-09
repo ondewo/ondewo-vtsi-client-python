@@ -533,3 +533,96 @@ class Calls(ServicesInterface):
             metadata=self.metadata,
         )
         return response
+
+    def invite_to_call(
+        self,
+        request: calls_pb2.InviteToCallRequest,
+    ) -> calls_pb2.InviteToCallResponse:
+        """
+        Invite a registered softphone account of the project into a connected call.
+
+        Args:
+            request (calls_pb2.InviteToCallRequest): The request message.
+
+        Returns:
+            calls_pb2.InviteToCallResponse: The response message.
+        """
+        return self.stub.InviteToCall(request=request, metadata=self.metadata)
+
+    def remove_call_participant(
+        self,
+        request: calls_pb2.RemoveCallParticipantRequest,
+    ) -> calls_pb2.RemoveCallParticipantResponse:
+        """
+        Hang up a participant (ringing or joined) of a call.
+
+        Args:
+            request (calls_pb2.RemoveCallParticipantRequest): The request message.
+
+        Returns:
+            calls_pb2.RemoveCallParticipantResponse: The response message.
+        """
+        return self.stub.RemoveCallParticipant(request=request, metadata=self.metadata)
+
+    def set_call_media_control(
+        self,
+        request: calls_pb2.SetCallMediaControlRequest,
+    ) -> calls_pb2.SetCallMediaControlResponse:
+        """
+        Mute the bot of a connected call and/or stop it listening, or undo either.
+
+        Args:
+            request (calls_pb2.SetCallMediaControlRequest): The request message.
+
+        Returns:
+            calls_pb2.SetCallMediaControlResponse: The response message.
+        """
+        return self.stub.SetCallMediaControl(request=request, metadata=self.metadata)
+
+    def stream_call_audio(
+        self,
+        request_iterator: Iterator[calls_pb2.StreamCallAudioRequest],
+    ) -> Iterator[calls_pb2.StreamCallAudioResponse]:
+        """
+        Open the bidirectional live audio stream of a connected call.
+
+        The first request must carry ``config``. The returned iterator is the live gRPC stream: iterating it
+        blocks until the next message is available, and cancelling it (``.cancel()``) ends the stream.
+
+        Args:
+            request_iterator (Iterator[calls_pb2.StreamCallAudioRequest]):
+                The requests to send: ``config`` first, then agent audio frames (TALK only).
+
+        Returns:
+            Iterator[calls_pb2.StreamCallAudioResponse]:
+                An iterator over the responses of the stream.
+        """
+        response: Iterator[calls_pb2.StreamCallAudioResponse] = self.stub.StreamCallAudio(
+            request_iterator,
+            metadata=self.metadata,
+        )
+        return response
+
+    def listen_call_audio(
+        self,
+        request: calls_pb2.ListenCallAudioRequest,
+    ) -> Iterator[calls_pb2.StreamCallAudioResponse]:
+        """
+        Listen to the live audio of a connected call (server stream, LISTEN mode only).
+
+        The returned iterator is the live gRPC stream: iterating it blocks until the next message is
+        available, and cancelling it (``.cancel()``) ends the stream.
+
+        Args:
+            request (calls_pb2.ListenCallAudioRequest):
+                The request carrying the stream configuration.
+
+        Returns:
+            Iterator[calls_pb2.StreamCallAudioResponse]:
+                An iterator over the responses of the stream.
+        """
+        response: Iterator[calls_pb2.StreamCallAudioResponse] = self.stub.ListenCallAudio(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response

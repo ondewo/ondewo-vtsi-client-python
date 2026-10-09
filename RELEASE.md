@@ -138,6 +138,18 @@
   retry while the first attempt is still running is answered `ABORTED` (retry later); a failed first attempt
   stores nothing. A replayed response carries no `common_services_config`. The single-resource RPCs take no key:
   send a batch of one. Pinned by `tests/unit/vtsi/test_request_idempotency_key.py`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Call control: regenerated against the
+  ondewo-vtsi-api 9.0.0 call-control surface and the vendored ondewo-sip-api 5.5.0 `ondewo/sip`. Five new
+  wrappers on `client.services.calls`, sync and async: `invite_to_call`, `remove_call_participant`,
+  `set_call_media_control`, `stream_call_audio` (bidirectional; takes a request iterator whose first request
+  carries `config`) and `listen_call_audio` (server stream, the grpc-web safe listen-only path). On the async
+  service the two streaming wrappers are plain methods returning the grpc.aio async iterator, never coroutines.
+  `TransferCallRequest` gains the typed `target` (`CallTarget`), `mode` (`TransferMode`), `headers` and
+  `ring_timeout_s`; `TransferCallResponse` gains `outcome` (`TransferOutcome`), `resolved_target`,
+  `sip_response_code` and `error_reason`; `Call` gains `media_control`, `participants`, `last_transfer` and
+  `sip_call_id`; `VtsiProject` gains `transfer_phone_number_allowlist`; `VtsiEvent` gains 112-121. The vendored
+  `ondewo/sip` is byte-identical to ondewo-sip-client-python 5.5.0 generated from the same sip-api commit -- install
+  both from that commit, or the last installed copy wins. Pinned by `tests/unit/vtsi/test_call_control.py`.
 
 ### Bug Fixes
 

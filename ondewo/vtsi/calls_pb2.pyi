@@ -75,6 +75,276 @@ SCHEDULED_CALLER_STATUS_CANCELLED: ScheduledCallerStatus.ValueType  # 5
 """Cancelled before it fired"""
 global___ScheduledCallerStatus = ScheduledCallerStatus
 
+class _TransferMode:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _TransferModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TransferMode.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    TRANSFER_MODE_UNSPECIFIED: _TransferMode.ValueType  # 0
+    """Same as <code>TRANSFER_MODE_BLIND</code>"""
+    TRANSFER_MODE_BLIND: _TransferMode.ValueType  # 1
+    """SIP REFER: the caller is handed to the dialplan, which dials the target. A refused REFER keeps the call with the
+    bot; once the REFER is accepted the bot leaves, and a target that is then busy or does not answer loses the
+    caller
+    """
+    TRANSFER_MODE_WARM: _TransferMode.ValueType  # 2
+    """The target is rung into the call first; the bot leaves only after the target joined, and keeps the call when the
+    target is busy or does not answer. Requires an Asterisk 22 project
+    """
+
+class TransferMode(_TransferMode, metaclass=_TransferModeEnumTypeWrapper):
+    """<p>How a call is transferred</p>"""
+
+TRANSFER_MODE_UNSPECIFIED: TransferMode.ValueType  # 0
+"""Same as <code>TRANSFER_MODE_BLIND</code>"""
+TRANSFER_MODE_BLIND: TransferMode.ValueType  # 1
+"""SIP REFER: the caller is handed to the dialplan, which dials the target. A refused REFER keeps the call with the
+bot; once the REFER is accepted the bot leaves, and a target that is then busy or does not answer loses the
+caller
+"""
+TRANSFER_MODE_WARM: TransferMode.ValueType  # 2
+"""The target is rung into the call first; the bot leaves only after the target joined, and keeps the call when the
+target is busy or does not answer. Requires an Asterisk 22 project
+"""
+global___TransferMode = TransferMode
+
+class _TransferOutcome:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _TransferOutcomeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TransferOutcome.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    TRANSFER_OUTCOME_UNSPECIFIED: _TransferOutcome.ValueType  # 0
+    """No outcome recorded"""
+    TRANSFER_OUTCOME_ACCEPTED: _TransferOutcome.ValueType  # 1
+    """BLIND: the REFER was accepted and the bot left the call. WARM: the target answered and was bridged, and the bot
+    left the call
+    """
+    TRANSFER_OUTCOME_PENDING: _TransferOutcome.ValueType  # 2
+    """WARM: the target is ringing. Follow <code>VTSI_EVENT_CALL_TRANSFERRED</code> /
+    <code>VTSI_EVENT_CALL_TRANSFER_FAILED</code> or <code>Call.last_transfer</code>
+    """
+    TRANSFER_OUTCOME_TARGET_INVALID: _TransferOutcome.ValueType  # 3
+    """Refused before anything was sent; the call is untouched. <code>error_reason</code> says why"""
+    TRANSFER_OUTCOME_REFER_REJECTED: _TransferOutcome.ValueType  # 4
+    """The SIP server refused the REFER (including an unknown target extension); the call is KEPT with the bot.
+    <code>sip_response_code</code> carries the code where known
+    """
+    TRANSFER_OUTCOME_TIMEOUT: _TransferOutcome.ValueType  # 5
+    """No answer to the REFER in time, or (WARM) the target did not answer; the call is KEPT with the bot"""
+    TRANSFER_OUTCOME_CALL_ENDED: _TransferOutcome.ValueType  # 6
+    """The far end left the call during the attempt"""
+    TRANSFER_OUTCOME_CALL_SCOPE_MISMATCH: _TransferOutcome.ValueType  # 7
+    """The call this request names is no longer the call the container is serving (e.g. the next call of a persistent
+    listener); nothing was sent
+    """
+    TRANSFER_OUTCOME_SIP_UNREACHABLE: _TransferOutcome.ValueType  # 8
+    """The call&apos;s SIP container could not be reached"""
+
+class TransferOutcome(_TransferOutcome, metaclass=_TransferOutcomeEnumTypeWrapper):
+    """<p>Outcome of a transfer</p>"""
+
+TRANSFER_OUTCOME_UNSPECIFIED: TransferOutcome.ValueType  # 0
+"""No outcome recorded"""
+TRANSFER_OUTCOME_ACCEPTED: TransferOutcome.ValueType  # 1
+"""BLIND: the REFER was accepted and the bot left the call. WARM: the target answered and was bridged, and the bot
+left the call
+"""
+TRANSFER_OUTCOME_PENDING: TransferOutcome.ValueType  # 2
+"""WARM: the target is ringing. Follow <code>VTSI_EVENT_CALL_TRANSFERRED</code> /
+<code>VTSI_EVENT_CALL_TRANSFER_FAILED</code> or <code>Call.last_transfer</code>
+"""
+TRANSFER_OUTCOME_TARGET_INVALID: TransferOutcome.ValueType  # 3
+"""Refused before anything was sent; the call is untouched. <code>error_reason</code> says why"""
+TRANSFER_OUTCOME_REFER_REJECTED: TransferOutcome.ValueType  # 4
+"""The SIP server refused the REFER (including an unknown target extension); the call is KEPT with the bot.
+<code>sip_response_code</code> carries the code where known
+"""
+TRANSFER_OUTCOME_TIMEOUT: TransferOutcome.ValueType  # 5
+"""No answer to the REFER in time, or (WARM) the target did not answer; the call is KEPT with the bot"""
+TRANSFER_OUTCOME_CALL_ENDED: TransferOutcome.ValueType  # 6
+"""The far end left the call during the attempt"""
+TRANSFER_OUTCOME_CALL_SCOPE_MISMATCH: TransferOutcome.ValueType  # 7
+"""The call this request names is no longer the call the container is serving (e.g. the next call of a persistent
+listener); nothing was sent
+"""
+TRANSFER_OUTCOME_SIP_UNREACHABLE: TransferOutcome.ValueType  # 8
+"""The call&apos;s SIP container could not be reached"""
+global___TransferOutcome = TransferOutcome
+
+class _CallMediaSetting:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _CallMediaSettingEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallMediaSetting.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    CALL_MEDIA_SETTING_UNCHANGED: _CallMediaSetting.ValueType  # 0
+    """Leave the flag as it is"""
+    CALL_MEDIA_SETTING_ON: _CallMediaSetting.ValueType  # 1
+    """On: the bot speaks (<code>bot_voice</code>) or listens (<code>bot_listening</code>)"""
+    CALL_MEDIA_SETTING_OFF: _CallMediaSetting.ValueType  # 2
+    """Off: the bot is muted (<code>bot_voice</code>) or does not listen (<code>bot_listening</code>)"""
+
+class CallMediaSetting(_CallMediaSetting, metaclass=_CallMediaSettingEnumTypeWrapper):
+    """<p>Desired setting of one media control flag of a call</p>"""
+
+CALL_MEDIA_SETTING_UNCHANGED: CallMediaSetting.ValueType  # 0
+"""Leave the flag as it is"""
+CALL_MEDIA_SETTING_ON: CallMediaSetting.ValueType  # 1
+"""On: the bot speaks (<code>bot_voice</code>) or listens (<code>bot_listening</code>)"""
+CALL_MEDIA_SETTING_OFF: CallMediaSetting.ValueType  # 2
+"""Off: the bot is muted (<code>bot_voice</code>) or does not listen (<code>bot_listening</code>)"""
+global___CallMediaSetting = CallMediaSetting
+
+class _ParticipantMode:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _ParticipantModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ParticipantMode.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    PARTICIPANT_MODE_UNSPECIFIED: _ParticipantMode.ValueType  # 0
+    """Same as <code>PARTICIPANT_MODE_CONFERENCE</code>"""
+    PARTICIPANT_MODE_CONFERENCE: _ParticipantMode.ValueType  # 1
+    """The participant is joined into the call: Asterisk mixes the caller, the bot and the participant"""
+    PARTICIPANT_MODE_MONITOR: _ParticipantMode.ValueType  # 2
+    """The participant listens only; the caller and the bot do not hear it"""
+
+class ParticipantMode(_ParticipantMode, metaclass=_ParticipantModeEnumTypeWrapper):
+    """<p>How an invited participant takes part in a call</p>"""
+
+PARTICIPANT_MODE_UNSPECIFIED: ParticipantMode.ValueType  # 0
+"""Same as <code>PARTICIPANT_MODE_CONFERENCE</code>"""
+PARTICIPANT_MODE_CONFERENCE: ParticipantMode.ValueType  # 1
+"""The participant is joined into the call: Asterisk mixes the caller, the bot and the participant"""
+PARTICIPANT_MODE_MONITOR: ParticipantMode.ValueType  # 2
+"""The participant listens only; the caller and the bot do not hear it"""
+global___ParticipantMode = ParticipantMode
+
+class _BotPolicyOnJoin:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _BotPolicyOnJoinEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_BotPolicyOnJoin.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    BOT_POLICY_ON_JOIN_UNSPECIFIED: _BotPolicyOnJoin.ValueType  # 0
+    """Same as <code>BOT_POLICY_ON_JOIN_KEEP</code>: the bot keeps talking"""
+    BOT_POLICY_ON_JOIN_PAUSE: _BotPolicyOnJoin.ValueType  # 1
+    """The bot is muted and does not listen while at least one participant is ringing or joined"""
+    BOT_POLICY_ON_JOIN_PAUSE_LISTENING: _BotPolicyOnJoin.ValueType  # 2
+    """The bot may still speak, but does not hear the participant (nor the caller)"""
+    BOT_POLICY_ON_JOIN_KEEP: _BotPolicyOnJoin.ValueType  # 3
+    """The bot keeps talking and listening, and it WILL answer what the participant says"""
+
+class BotPolicyOnJoin(_BotPolicyOnJoin, metaclass=_BotPolicyOnJoinEnumTypeWrapper):
+    """<p>What the bot does while a CONFERENCE participant is ringing or joined</p>"""
+
+BOT_POLICY_ON_JOIN_UNSPECIFIED: BotPolicyOnJoin.ValueType  # 0
+"""Same as <code>BOT_POLICY_ON_JOIN_KEEP</code>: the bot keeps talking"""
+BOT_POLICY_ON_JOIN_PAUSE: BotPolicyOnJoin.ValueType  # 1
+"""The bot is muted and does not listen while at least one participant is ringing or joined"""
+BOT_POLICY_ON_JOIN_PAUSE_LISTENING: BotPolicyOnJoin.ValueType  # 2
+"""The bot may still speak, but does not hear the participant (nor the caller)"""
+BOT_POLICY_ON_JOIN_KEEP: BotPolicyOnJoin.ValueType  # 3
+"""The bot keeps talking and listening, and it WILL answer what the participant says"""
+global___BotPolicyOnJoin = BotPolicyOnJoin
+
+class _ParticipantState:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _ParticipantStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ParticipantState.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    PARTICIPANT_STATE_UNSPECIFIED: _ParticipantState.ValueType  # 0
+    """No state recorded"""
+    PARTICIPANT_STATE_RINGING: _ParticipantState.ValueType  # 1
+    """The participant&apos;s softphone is ringing"""
+    PARTICIPANT_STATE_JOINED: _ParticipantState.ValueType  # 2
+    """The participant answered and is in the call"""
+    PARTICIPANT_STATE_FAILED: _ParticipantState.ValueType  # 3
+    """The participant never joined; <code>end_reason</code> says why"""
+    PARTICIPANT_STATE_LEFT: _ParticipantState.ValueType  # 4
+    """The participant left the call; <code>end_reason</code> says why"""
+
+class ParticipantState(_ParticipantState, metaclass=_ParticipantStateEnumTypeWrapper):
+    """<p>State of an invited participant</p>"""
+
+PARTICIPANT_STATE_UNSPECIFIED: ParticipantState.ValueType  # 0
+"""No state recorded"""
+PARTICIPANT_STATE_RINGING: ParticipantState.ValueType  # 1
+"""The participant&apos;s softphone is ringing"""
+PARTICIPANT_STATE_JOINED: ParticipantState.ValueType  # 2
+"""The participant answered and is in the call"""
+PARTICIPANT_STATE_FAILED: ParticipantState.ValueType  # 3
+"""The participant never joined; <code>end_reason</code> says why"""
+PARTICIPANT_STATE_LEFT: ParticipantState.ValueType  # 4
+"""The participant left the call; <code>end_reason</code> says why"""
+global___ParticipantState = ParticipantState
+
+class _CallAudioMode:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _CallAudioModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallAudioMode.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    CALL_AUDIO_MODE_UNSPECIFIED: _CallAudioMode.ValueType  # 0
+    """Same as <code>CALL_AUDIO_MODE_LISTEN</code>"""
+    CALL_AUDIO_MODE_LISTEN: _CallAudioMode.ValueType  # 1
+    """Receive the call audio only"""
+    CALL_AUDIO_MODE_TALK: _CallAudioMode.ValueType  # 2
+    """Receive the caller&apos;s audio and send audio to the caller. Requires <code>take_over</code>"""
+
+class CallAudioMode(_CallAudioMode, metaclass=_CallAudioModeEnumTypeWrapper):
+    """<p>Mode of a call audio stream</p>"""
+
+CALL_AUDIO_MODE_UNSPECIFIED: CallAudioMode.ValueType  # 0
+"""Same as <code>CALL_AUDIO_MODE_LISTEN</code>"""
+CALL_AUDIO_MODE_LISTEN: CallAudioMode.ValueType  # 1
+"""Receive the call audio only"""
+CALL_AUDIO_MODE_TALK: CallAudioMode.ValueType  # 2
+"""Receive the caller&apos;s audio and send audio to the caller. Requires <code>take_over</code>"""
+global___CallAudioMode = CallAudioMode
+
+class _CallAudioEndReason:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _CallAudioEndReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallAudioEndReason.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    CALL_AUDIO_END_REASON_UNSPECIFIED: _CallAudioEndReason.ValueType  # 0
+    """No reason recorded"""
+    CALL_AUDIO_END_REASON_CLIENT_CLOSED: _CallAudioEndReason.ValueType  # 1
+    """The client cancelled or half-closed the stream"""
+    CALL_AUDIO_END_REASON_CALL_ENDED: _CallAudioEndReason.ValueType  # 2
+    """The call ended"""
+    CALL_AUDIO_END_REASON_CALL_TRANSFERRED: _CallAudioEndReason.ValueType  # 3
+    """The call was transferred"""
+    CALL_AUDIO_END_REASON_MAX_DURATION: _CallAudioEndReason.ValueType  # 4
+    """The maximum duration was reached"""
+    CALL_AUDIO_END_REASON_STALLED: _CallAudioEndReason.ValueType  # 5
+    """The client did not read the audio in time"""
+    CALL_AUDIO_END_REASON_INTERNAL: _CallAudioEndReason.ValueType  # 6
+    """An internal error ended the stream"""
+
+class CallAudioEndReason(_CallAudioEndReason, metaclass=_CallAudioEndReasonEnumTypeWrapper):
+    """<p>Why a call audio stream ended</p>"""
+
+CALL_AUDIO_END_REASON_UNSPECIFIED: CallAudioEndReason.ValueType  # 0
+"""No reason recorded"""
+CALL_AUDIO_END_REASON_CLIENT_CLOSED: CallAudioEndReason.ValueType  # 1
+"""The client cancelled or half-closed the stream"""
+CALL_AUDIO_END_REASON_CALL_ENDED: CallAudioEndReason.ValueType  # 2
+"""The call ended"""
+CALL_AUDIO_END_REASON_CALL_TRANSFERRED: CallAudioEndReason.ValueType  # 3
+"""The call was transferred"""
+CALL_AUDIO_END_REASON_MAX_DURATION: CallAudioEndReason.ValueType  # 4
+"""The maximum duration was reached"""
+CALL_AUDIO_END_REASON_STALLED: CallAudioEndReason.ValueType  # 5
+"""The client did not read the audio in time"""
+CALL_AUDIO_END_REASON_INTERNAL: CallAudioEndReason.ValueType  # 6
+"""An internal error ended the stream"""
+global___CallAudioEndReason = CallAudioEndReason
+
 class _CallView:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -2859,9 +3129,29 @@ class TransferCallRequest(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    @typing.final
+    class HeadersEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        value: builtins.str
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CALL_NAME_FIELD_NUMBER: builtins.int
     TRANSFER_ID_FIELD_NUMBER: builtins.int
+    TARGET_FIELD_NUMBER: builtins.int
+    MODE_FIELD_NUMBER: builtins.int
+    HEADERS_FIELD_NUMBER: builtins.int
+    RING_TIMEOUT_S_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     call_name: builtins.str
@@ -2870,17 +3160,96 @@ class TransferCallRequest(google.protobuf.message.Message):
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
     transfer_id: builtins.str
-    """transfer_id to transfer the call to, so the number or voip number you want to be transferred too"""
+    """LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
+    <code>^\\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
+    <code>INVALID_ARGUMENT</code>
+    """
+    mode: global___TransferMode.ValueType
+    """How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>"""
+    ring_timeout_s: builtins.int
+    """WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
+    <code>30</code>
+    """
+    @property
+    def target(self) -> global___CallTarget:
+        """Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>"""
+
+    @property
+    def headers(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+        """Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
+        entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
+        dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
+        number target
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         call_name: builtins.str = ...,
         transfer_id: builtins.str = ...,
+        target: global___CallTarget | None = ...,
+        mode: global___TransferMode.ValueType = ...,
+        headers: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
+        ring_timeout_s: builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["target", b"target"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "headers", b"headers", "mode", b"mode", "ring_timeout_s", b"ring_timeout_s", "target", b"target", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___TransferCallRequest = TransferCallRequest
+
+@typing.final
+class CallTarget(google.protobuf.message.Message):
+    """<p>Target of a transfer</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PHONE_NUMBER_FIELD_NUMBER: builtins.int
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
+    LISTENER_NAME_FIELD_NUMBER: builtins.int
+    LISTENER_QUEUE_FIELD_NUMBER: builtins.int
+    phone_number: builtins.str
+    """Phone number in E.164 form, e.g. <code>+4312345678</code> (<code>^\\+[1-9][0-9]{6,14}$</code>). Any E.164 number
+    is allowed unless the project configures <code>VtsiProject.transfer_phone_number_allowlist</code>
+    """
+    softphone_account_name: builtins.str
+    """A softphone account of the same project:
+    <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;account_uuid&gt;</code></pre>. It must be enabled,
+    routed and registered
+    """
+    listener_name: builtins.str
+    """A listener of the same project: <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>.
+    The call goes to that listener&apos;s idle container; a busy listener is refused (<code>listener-busy</code>)
+    """
+    @property
+    def listener_queue(self) -> global___ListenerQueueTarget:
+        """The project&apos;s listener queue: any idle listener of the project takes the call"""
+
+    def __init__(
+        self,
+        *,
+        phone_number: builtins.str = ...,
+        softphone_account_name: builtins.str = ...,
+        listener_name: builtins.str = ...,
+        listener_queue: global___ListenerQueueTarget | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["target", b"target"]) -> typing.Literal["phone_number", "softphone_account_name", "listener_name", "listener_queue"] | None: ...
+
+global___CallTarget = CallTarget
+
+@typing.final
+class ListenerQueueTarget(google.protobuf.message.Message):
+    """<p>The project&apos;s listener queue as a transfer target. Carries no fields</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___ListenerQueueTarget = ListenerQueueTarget
 
 @typing.final
 class TransferCallResponse(google.protobuf.message.Message):
@@ -2892,6 +3261,10 @@ class TransferCallResponse(google.protobuf.message.Message):
     CALL_NAME_FIELD_NUMBER: builtins.int
     TRANSFER_ID_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    OUTCOME_FIELD_NUMBER: builtins.int
+    RESOLVED_TARGET_FIELD_NUMBER: builtins.int
+    SIP_RESPONSE_CODE_FIELD_NUMBER: builtins.int
+    ERROR_REASON_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     call_name: builtins.str
@@ -2903,6 +3276,20 @@ class TransferCallResponse(google.protobuf.message.Message):
     """transfer id to transfer the calls to, so the phone number or voip number you want to be transferred too"""
     error_message: builtins.str
     """error message if you have any so if it's unhealthy"""
+    outcome: global___TransferOutcome.ValueType
+    """Outcome of the transfer"""
+    resolved_target: builtins.str
+    """The dialplan extension the target resolved to, e.g. <code>ondewo0007</code>, a softphone user name,
+    <code>ondewoqueue</code> or the E.164 number
+    """
+    sip_response_code: builtins.int
+    """SIP response code of the REFER where known (<code>202</code> accepted, the refusal code otherwise), else
+    <code>0</code>
+    """
+    error_reason: builtins.str
+    """Stable reason token of a refusal or failure, e.g. <code>target-not-registered</code>, <code>listener-busy</code>,
+    <code>queue-empty</code>, <code>self-transfer</code>, <code>number-not-allowed</code>; empty on success
+    """
     def __init__(
         self,
         *,
@@ -2910,10 +3297,610 @@ class TransferCallResponse(google.protobuf.message.Message):
         call_name: builtins.str = ...,
         transfer_id: builtins.str = ...,
         error_message: builtins.str = ...,
+        outcome: global___TransferOutcome.ValueType = ...,
+        resolved_target: builtins.str = ...,
+        sip_response_code: builtins.int = ...,
+        error_reason: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "error_message", b"error_message", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "error_message", b"error_message", "error_reason", b"error_reason", "outcome", b"outcome", "resolved_target", b"resolved_target", "sip_response_code", b"sip_response_code", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___TransferCallResponse = TransferCallResponse
+
+@typing.final
+class CallTransferRecord(google.protobuf.message.Message):
+    """<p>Record of the last transfer attempt of a call</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TARGET_FIELD_NUMBER: builtins.int
+    RESOLVED_TARGET_FIELD_NUMBER: builtins.int
+    MODE_FIELD_NUMBER: builtins.int
+    OUTCOME_FIELD_NUMBER: builtins.int
+    SIP_RESPONSE_CODE_FIELD_NUMBER: builtins.int
+    TIME_FIELD_NUMBER: builtins.int
+    resolved_target: builtins.str
+    """The dialplan extension the target resolved to"""
+    mode: global___TransferMode.ValueType
+    """Mode of the transfer"""
+    outcome: global___TransferOutcome.ValueType
+    """Outcome of the transfer"""
+    sip_response_code: builtins.int
+    """SIP response code of the REFER where known, else <code>0</code>"""
+    @property
+    def target(self) -> global___CallTarget:
+        """Requested typed target; unset for a legacy <code>transfer_id</code> transfer"""
+
+    @property
+    def time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """When the outcome was recorded"""
+
+    def __init__(
+        self,
+        *,
+        target: global___CallTarget | None = ...,
+        resolved_target: builtins.str = ...,
+        mode: global___TransferMode.ValueType = ...,
+        outcome: global___TransferOutcome.ValueType = ...,
+        sip_response_code: builtins.int = ...,
+        time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["target", b"target", "time", b"time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["mode", b"mode", "outcome", b"outcome", "resolved_target", b"resolved_target", "sip_response_code", b"sip_response_code", "target", b"target", "time", b"time"]) -> None: ...
+
+global___CallTransferRecord = CallTransferRecord
+
+@typing.final
+class CallMediaControlState(google.protobuf.message.Message):
+    """<p>Effective media control state of a call</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BOT_MUTED_FIELD_NUMBER: builtins.int
+    LISTENING_PAUSED_FIELD_NUMBER: builtins.int
+    CONNECTED_AUDIO_STREAMS_FIELD_NUMBER: builtins.int
+    JOINED_PARTICIPANTS_FIELD_NUMBER: builtins.int
+    bot_muted: builtins.bool
+    """The bot is muted (by an operator, a TALK take-over or a participant bot policy)"""
+    listening_paused: builtins.bool
+    """The bot does not listen to the caller"""
+    connected_audio_streams: builtins.int
+    """Number of connected <code>StreamCallAudio</code> / <code>ListenCallAudio</code> streams"""
+    joined_participants: builtins.int
+    """Number of joined participants"""
+    def __init__(
+        self,
+        *,
+        bot_muted: builtins.bool = ...,
+        listening_paused: builtins.bool = ...,
+        connected_audio_streams: builtins.int = ...,
+        joined_participants: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["bot_muted", b"bot_muted", "connected_audio_streams", b"connected_audio_streams", "joined_participants", b"joined_participants", "listening_paused", b"listening_paused"]) -> None: ...
+
+global___CallMediaControlState = CallMediaControlState
+
+@typing.final
+class CallParticipant(google.protobuf.message.Message):
+    """<p>A participant invited into a call</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PARTICIPANT_ID_FIELD_NUMBER: builtins.int
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
+    MODE_FIELD_NUMBER: builtins.int
+    STATE_FIELD_NUMBER: builtins.int
+    INVITED_AT_FIELD_NUMBER: builtins.int
+    JOINED_AT_FIELD_NUMBER: builtins.int
+    LEFT_AT_FIELD_NUMBER: builtins.int
+    END_REASON_FIELD_NUMBER: builtins.int
+    INVITED_BY_FIELD_NUMBER: builtins.int
+    BOT_POLICY_FIELD_NUMBER: builtins.int
+    participant_id: builtins.str
+    """Identifier of the participant, 9 digits, unique among the project&apos;s live invites"""
+    softphone_account_name: builtins.str
+    """The invited softphone account:
+    <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;account_uuid&gt;</code></pre>
+    """
+    mode: global___ParticipantMode.ValueType
+    """How the participant takes part"""
+    state: global___ParticipantState.ValueType
+    """State of the participant"""
+    end_reason: builtins.str
+    """Why the participant failed or left: <code>NOANSWER</code>, <code>BUSY</code>, <code>CHANUNAVAIL</code>,
+    <code>CALL_ENDED</code>, <code>REMOVED</code>, <code>HANGUP</code>, <code>HANDED_OVER</code>,
+    <code>JOIN_FAILED</code> or <code>TIMEOUT</code>
+    """
+    invited_by: builtins.str
+    """Identity of who invited the participant (audit)"""
+    bot_policy: global___BotPolicyOnJoin.ValueType
+    """Bot policy applied while this participant is ringing or joined"""
+    @property
+    def invited_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """When the participant was invited"""
+
+    @property
+    def joined_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """When the participant joined; unset if it never joined"""
+
+    @property
+    def left_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """When the participant failed or left; unset while ringing or joined"""
+
+    def __init__(
+        self,
+        *,
+        participant_id: builtins.str = ...,
+        softphone_account_name: builtins.str = ...,
+        mode: global___ParticipantMode.ValueType = ...,
+        state: global___ParticipantState.ValueType = ...,
+        invited_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        joined_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        left_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        end_reason: builtins.str = ...,
+        invited_by: builtins.str = ...,
+        bot_policy: global___BotPolicyOnJoin.ValueType = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["invited_at", b"invited_at", "joined_at", b"joined_at", "left_at", b"left_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["bot_policy", b"bot_policy", "end_reason", b"end_reason", "invited_at", b"invited_at", "invited_by", b"invited_by", "joined_at", b"joined_at", "left_at", b"left_at", "mode", b"mode", "participant_id", b"participant_id", "softphone_account_name", b"softphone_account_name", "state", b"state"]) -> None: ...
+
+global___CallParticipant = CallParticipant
+
+@typing.final
+class InviteToCallRequest(google.protobuf.message.Message):
+    """<p>Request to invite a softphone account into a call</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
+    MODE_FIELD_NUMBER: builtins.int
+    RING_TIMEOUT_S_FIELD_NUMBER: builtins.int
+    BOT_POLICY_FIELD_NUMBER: builtins.int
+    CALLER_ID_DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    REQUEST_ID_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    call_name: builtins.str
+    """Name of the connected call to invite into
+    For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+    For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+    """
+    softphone_account_name: builtins.str
+    """Softphone account of the same project to invite:
+    <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;account_uuid&gt;</code></pre>
+    """
+    mode: global___ParticipantMode.ValueType
+    """How the participant takes part. Unspecified means <code>PARTICIPANT_MODE_CONFERENCE</code>"""
+    ring_timeout_s: builtins.int
+    """How long the softphone may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means <code>30</code>"""
+    bot_policy: global___BotPolicyOnJoin.ValueType
+    """What the bot does while the participant is ringing or joined. Unspecified means <code>BOT_POLICY_ON_JOIN_KEEP</code>
+    (the bot keeps talking)
+    """
+    caller_id_display_name: builtins.str
+    """Caller-ID display name shown on the softphone. Sanitized by the server; default
+    <code>ONDEWO &lt;listener or caller name&gt;</code>
+    """
+    request_id: builtins.str
+    """Optional idempotency key: a repeated request with the same <code>call_name</code> and <code>request_id</code>
+    returns the participant of the first request instead of inviting again
+    """
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        call_name: builtins.str = ...,
+        softphone_account_name: builtins.str = ...,
+        mode: global___ParticipantMode.ValueType = ...,
+        ring_timeout_s: builtins.int = ...,
+        bot_policy: global___BotPolicyOnJoin.ValueType = ...,
+        caller_id_display_name: builtins.str = ...,
+        request_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["bot_policy", b"bot_policy", "call_name", b"call_name", "caller_id_display_name", b"caller_id_display_name", "mode", b"mode", "request_id", b"request_id", "ring_timeout_s", b"ring_timeout_s", "softphone_account_name", b"softphone_account_name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___InviteToCallRequest = InviteToCallRequest
+
+@typing.final
+class InviteToCallResponse(google.protobuf.message.Message):
+    """<p>Response of <code>InviteToCall</code></p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    PARTICIPANT_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    call_name: builtins.str
+    """Name of the call"""
+    error_message: builtins.str
+    """error message if you have any"""
+    @property
+    def participant(self) -> global___CallParticipant:
+        """The invited participant"""
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        call_name: builtins.str = ...,
+        participant: global___CallParticipant | None = ...,
+        error_message: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["participant", b"participant"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "error_message", b"error_message", "participant", b"participant", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___InviteToCallResponse = InviteToCallResponse
+
+@typing.final
+class RemoveCallParticipantRequest(google.protobuf.message.Message):
+    """<p>Request to hang up a participant of a call</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    PARTICIPANT_ID_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    call_name: builtins.str
+    """Name of the call"""
+    participant_id: builtins.str
+    """Identifier of the participant (<code>CallParticipant.participant_id</code>)"""
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        call_name: builtins.str = ...,
+        participant_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "participant_id", b"participant_id", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___RemoveCallParticipantRequest = RemoveCallParticipantRequest
+
+@typing.final
+class RemoveCallParticipantResponse(google.protobuf.message.Message):
+    """<p>Response of <code>RemoveCallParticipant</code></p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    PARTICIPANT_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    call_name: builtins.str
+    """Name of the call"""
+    error_message: builtins.str
+    """error message if you have any"""
+    @property
+    def participant(self) -> global___CallParticipant:
+        """The participant after the request"""
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        call_name: builtins.str = ...,
+        participant: global___CallParticipant | None = ...,
+        error_message: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["participant", b"participant"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "error_message", b"error_message", "participant", b"participant", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___RemoveCallParticipantResponse = RemoveCallParticipantResponse
+
+@typing.final
+class SetCallMediaControlRequest(google.protobuf.message.Message):
+    """<p>Request to mute the bot of a call and/or stop it listening</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    BOT_VOICE_FIELD_NUMBER: builtins.int
+    BOT_LISTENING_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    call_name: builtins.str
+    """Name of the connected call"""
+    bot_voice: global___CallMediaSetting.ValueType
+    """<code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again"""
+    bot_listening: global___CallMediaSetting.ValueType
+    """<code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it"""
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        call_name: builtins.str = ...,
+        bot_voice: global___CallMediaSetting.ValueType = ...,
+        bot_listening: global___CallMediaSetting.ValueType = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["bot_listening", b"bot_listening", "bot_voice", b"bot_voice", "call_name", b"call_name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___SetCallMediaControlRequest = SetCallMediaControlRequest
+
+@typing.final
+class SetCallMediaControlResponse(google.protobuf.message.Message):
+    """<p>Response of <code>SetCallMediaControl</code></p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    STATE_FIELD_NUMBER: builtins.int
+    CHANGED_FIELD_NUMBER: builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    call_name: builtins.str
+    """Name of the call"""
+    changed: builtins.bool
+    """<code>true</code> if the effective state changed"""
+    error_message: builtins.str
+    """error message if you have any"""
+    @property
+    def state(self) -> global___CallMediaControlState:
+        """Effective media control state after the request"""
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        call_name: builtins.str = ...,
+        state: global___CallMediaControlState | None = ...,
+        changed: builtins.bool = ...,
+        error_message: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["state", b"state"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "changed", b"changed", "error_message", b"error_message", "state", b"state", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___SetCallMediaControlResponse = SetCallMediaControlResponse
+
+@typing.final
+class StreamCallAudioConfig(google.protobuf.message.Message):
+    """<p>Configuration of a call audio stream. The first request of <code>StreamCallAudio</code></p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    MODE_FIELD_NUMBER: builtins.int
+    SAMPLE_RATE_HZ_FIELD_NUMBER: builtins.int
+    TAKE_OVER_FIELD_NUMBER: builtins.int
+    MAX_DURATION_S_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    call_name: builtins.str
+    """Name of the connected call"""
+    mode: global___CallAudioMode.ValueType
+    """Mode of the stream. Unspecified means LISTEN"""
+    sample_rate_hz: builtins.int
+    """Sample rate in Hz in both directions: <code>8000</code> or <code>16000</code>; <code>0</code> means <code>16000</code>.
+    Audio is LINEAR16 little-endian mono in 20 ms frames
+    """
+    take_over: builtins.bool
+    """REQUIRED for TALK: the bot is muted and does not listen while the stream is connected"""
+    max_duration_s: builtins.int
+    """Maximum duration of the stream in seconds. <code>0</code> means the server maximum"""
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        call_name: builtins.str = ...,
+        mode: global___CallAudioMode.ValueType = ...,
+        sample_rate_hz: builtins.int = ...,
+        take_over: builtins.bool = ...,
+        max_duration_s: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "max_duration_s", b"max_duration_s", "mode", b"mode", "sample_rate_hz", b"sample_rate_hz", "take_over", b"take_over", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___StreamCallAudioConfig = StreamCallAudioConfig
+
+@typing.final
+class CallAudioFrame(google.protobuf.message.Message):
+    """<p>One 20 ms frame of call audio</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PCM_S16LE_FIELD_NUMBER: builtins.int
+    SEQUENCE_FIELD_NUMBER: builtins.int
+    pcm_s16le: builtins.bytes
+    """LINEAR16 little-endian mono samples, <code>sample_rate_hz * 0.02 * 2</code> bytes"""
+    sequence: builtins.int
+    """Monotonic sequence number of the frame within its direction of the stream"""
+    def __init__(
+        self,
+        *,
+        pcm_s16le: builtins.bytes = ...,
+        sequence: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["pcm_s16le", b"pcm_s16le", "sequence", b"sequence"]) -> None: ...
+
+global___CallAudioFrame = CallAudioFrame
+
+@typing.final
+class StreamCallAudioRequest(google.protobuf.message.Message):
+    """<p>Request of <code>StreamCallAudio</code></p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONFIG_FIELD_NUMBER: builtins.int
+    AUDIO_FIELD_NUMBER: builtins.int
+    AGENT_MUTED_FIELD_NUMBER: builtins.int
+    agent_muted: builtins.bool
+    """<code>true</code>: the agent&apos;s audio is not sent to the caller until set to <code>false</code>"""
+    @property
+    def config(self) -> global___StreamCallAudioConfig:
+        """Configuration; must be the first request and is accepted only once"""
+
+    @property
+    def audio(self) -> global___CallAudioFrame:
+        """Agent audio to send to the caller (TALK only)"""
+
+    def __init__(
+        self,
+        *,
+        config: global___StreamCallAudioConfig | None = ...,
+        audio: global___CallAudioFrame | None = ...,
+        agent_muted: builtins.bool = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["agent_muted", b"agent_muted", "audio", b"audio", "config", b"config", "request", b"request"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["agent_muted", b"agent_muted", "audio", b"audio", "config", b"config", "request", b"request"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["request", b"request"]) -> typing.Literal["config", "audio", "agent_muted"] | None: ...
+
+global___StreamCallAudioRequest = StreamCallAudioRequest
+
+@typing.final
+class CallAudioStarted(google.protobuf.message.Message):
+    """<p>Sent once when a call audio stream is connected</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STREAM_ID_FIELD_NUMBER: builtins.int
+    SAMPLE_RATE_HZ_FIELD_NUMBER: builtins.int
+    FRAME_MS_FIELD_NUMBER: builtins.int
+    MODE_FIELD_NUMBER: builtins.int
+    stream_id: builtins.str
+    """Identifier of the stream (audit correlation)"""
+    sample_rate_hz: builtins.int
+    """Sample rate in Hz in both directions"""
+    frame_ms: builtins.int
+    """Frame length in milliseconds"""
+    mode: global___CallAudioMode.ValueType
+    """Mode of the stream"""
+    def __init__(
+        self,
+        *,
+        stream_id: builtins.str = ...,
+        sample_rate_hz: builtins.int = ...,
+        frame_ms: builtins.int = ...,
+        mode: global___CallAudioMode.ValueType = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["frame_ms", b"frame_ms", "mode", b"mode", "sample_rate_hz", b"sample_rate_hz", "stream_id", b"stream_id"]) -> None: ...
+
+global___CallAudioStarted = CallAudioStarted
+
+@typing.final
+class CallAudioStats(google.protobuf.message.Message):
+    """<p>Counters of a call audio stream, sent periodically</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FRAMES_SENT_FIELD_NUMBER: builtins.int
+    FRAMES_DROPPED_FIELD_NUMBER: builtins.int
+    FRAMES_RECEIVED_FIELD_NUMBER: builtins.int
+    UNDERRUNS_FIELD_NUMBER: builtins.int
+    FRAMES_DISCARDED_FIELD_NUMBER: builtins.int
+    frames_sent: builtins.int
+    """Frames sent to the client"""
+    frames_dropped: builtins.int
+    """Frames to the client dropped because the client read too slowly"""
+    frames_received: builtins.int
+    """Frames received from the client"""
+    underruns: builtins.int
+    """Playback underruns of the agent audio"""
+    frames_discarded: builtins.int
+    """Frames from the client discarded because the playback buffer was full"""
+    def __init__(
+        self,
+        *,
+        frames_sent: builtins.int = ...,
+        frames_dropped: builtins.int = ...,
+        frames_received: builtins.int = ...,
+        underruns: builtins.int = ...,
+        frames_discarded: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["frames_discarded", b"frames_discarded", "frames_dropped", b"frames_dropped", "frames_received", b"frames_received", "frames_sent", b"frames_sent", "underruns", b"underruns"]) -> None: ...
+
+global___CallAudioStats = CallAudioStats
+
+@typing.final
+class CallAudioEnded(google.protobuf.message.Message):
+    """<p>Sent once when a call audio stream ends normally</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REASON_FIELD_NUMBER: builtins.int
+    DETAIL_FIELD_NUMBER: builtins.int
+    reason: global___CallAudioEndReason.ValueType
+    """Why the stream ended"""
+    detail: builtins.str
+    """Optional detail, a stable token"""
+    def __init__(
+        self,
+        *,
+        reason: global___CallAudioEndReason.ValueType = ...,
+        detail: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["detail", b"detail", "reason", b"reason"]) -> None: ...
+
+global___CallAudioEnded = CallAudioEnded
+
+@typing.final
+class StreamCallAudioResponse(google.protobuf.message.Message):
+    """<p>Response of <code>StreamCallAudio</code> and <code>ListenCallAudio</code></p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STARTED_FIELD_NUMBER: builtins.int
+    AUDIO_FIELD_NUMBER: builtins.int
+    STATS_FIELD_NUMBER: builtins.int
+    ENDED_FIELD_NUMBER: builtins.int
+    @property
+    def started(self) -> global___CallAudioStarted:
+        """The stream is connected"""
+
+    @property
+    def audio(self) -> global___CallAudioFrame:
+        """Call audio"""
+
+    @property
+    def stats(self) -> global___CallAudioStats:
+        """Stream counters"""
+
+    @property
+    def ended(self) -> global___CallAudioEnded:
+        """The stream ended"""
+
+    def __init__(
+        self,
+        *,
+        started: global___CallAudioStarted | None = ...,
+        audio: global___CallAudioFrame | None = ...,
+        stats: global___CallAudioStats | None = ...,
+        ended: global___CallAudioEnded | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["audio", b"audio", "ended", b"ended", "response", b"response", "started", b"started", "stats", b"stats"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["audio", b"audio", "ended", b"ended", "response", b"response", "started", b"started", "stats", b"stats"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["response", b"response"]) -> typing.Literal["started", "audio", "stats", "ended"] | None: ...
+
+global___StreamCallAudioResponse = StreamCallAudioResponse
+
+@typing.final
+class ListenCallAudioRequest(google.protobuf.message.Message):
+    """<p>Request of <code>ListenCallAudio</code></p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONFIG_FIELD_NUMBER: builtins.int
+    @property
+    def config(self) -> global___StreamCallAudioConfig:
+        """Configuration of the stream; <code>mode</code> must be LISTEN or unspecified and <code>take_over</code> false"""
+
+    def __init__(
+        self,
+        *,
+        config: global___StreamCallAudioConfig | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["config", b"config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["config", b"config"]) -> None: ...
+
+global___ListenCallAudioRequest = ListenCallAudioRequest
 
 @typing.final
 class TransferCallsRequest(google.protobuf.message.Message):
@@ -3025,6 +4012,10 @@ class Call(google.protobuf.message.Message):
     REDIAL_RECOMMENDED_FIELD_NUMBER: builtins.int
     REDIAL_REASON_FIELD_NUMBER: builtins.int
     ANSWERING_MACHINE_DETECTION_END_DESCRIPTION_FIELD_NUMBER: builtins.int
+    MEDIA_CONTROL_FIELD_NUMBER: builtins.int
+    PARTICIPANTS_FIELD_NUMBER: builtins.int
+    LAST_TRANSFER_FIELD_NUMBER: builtins.int
+    SIP_CALL_ID_FIELD_NUMBER: builtins.int
     name: builtins.str
     """call name
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
@@ -3073,6 +4064,10 @@ class Call(google.protobuf.message.Message):
     "Answering machine detected, call ended by the answering machine after leaving a voice message".
     Unset when AMD did not end the call
     """
+    sip_call_id: builtins.str
+    """Identifier the call&apos;s SIP container minted for the call (<code>ondewo.sip.SipStatus.call_id</code>). Empty until
+    the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then
+    """
     @property
     def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """start time of log"""
@@ -3096,6 +4091,20 @@ class Call(google.protobuf.message.Message):
     @property
     def common_services_config(self) -> global___CommonServicesConfig:
         """Detailed configuration of the services used for the call such as S2T, T2S, NLU, SIP and CSI"""
+
+    @property
+    def media_control(self) -> global___CallMediaControlState:
+        """Media control state of the call (bot muted, listening paused, connected audio streams, joined participants).
+        Set in the SHALLOW and FULL views
+        """
+
+    @property
+    def participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallParticipant]:
+        """Participants invited into the call. FULL view: all of them; SHALLOW view: those still ringing or joined"""
+
+    @property
+    def last_transfer(self) -> global___CallTransferRecord:
+        """The last transfer attempt of the call; unset if there was none"""
 
     def __init__(
         self,
@@ -3121,9 +4130,13 @@ class Call(google.protobuf.message.Message):
         redial_recommended: builtins.bool | None = ...,
         redial_reason: builtins.str | None = ...,
         answering_machine_detection_end_description: builtins.str | None = ...,
+        media_control: global___CallMediaControlState | None = ...,
+        participants: collections.abc.Iterable[global___CallParticipant] | None = ...,
+        last_transfer: global___CallTransferRecord | None = ...,
+        sip_call_id: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "common_services_config", b"common_services_config", "csi_port", b"csi_port", "end_time", b"end_time", "nlu_session_name", b"nlu_session_name", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "end_time", b"end_time", "name", b"name", "nlu_session_name", b"nlu_session_name", "phone_number", b"phone_number", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "common_services_config", b"common_services_config", "csi_port", b"csi_port", "end_time", b"end_time", "last_transfer", b"last_transfer", "media_control", b"media_control", "nlu_session_name", b"nlu_session_name", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "start_time", b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "end_time", b"end_time", "last_transfer", b"last_transfer", "media_control", b"media_control", "name", b"name", "nlu_session_name", b"nlu_session_name", "participants", b"participants", "phone_number", b"phone_number", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_call_id", b"sip_call_id", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description"]) -> typing.Literal["answering_machine_detection_end_description"] | None: ...
     @typing.overload

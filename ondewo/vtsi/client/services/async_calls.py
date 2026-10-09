@@ -22,7 +22,11 @@
 # which is an async ITERATOR and must not be awaited. A generated wrapper for them fails at runtime on the
 # first call. Because the generator no longer touches this file, a method added to ``calls.py`` must be
 # added here by hand as well.
-from typing import AsyncIterator
+from typing import (
+    AsyncIterator,
+    Iterator,
+    Union,
+)
 
 from ondewo.vtsi import calls_pb2
 from ondewo.vtsi.calls_pb2_grpc import CallsStub
@@ -543,6 +547,104 @@ class Calls(AsyncServicesInterface):
                 An async iterator over the status envelopes.
         """
         response: AsyncIterator[calls_pb2.StreamCallResourceStatusResponse] = self.stub.StreamScheduledCallerStatus(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    async def invite_to_call(
+        self,
+        request: calls_pb2.InviteToCallRequest,
+    ) -> calls_pb2.InviteToCallResponse:
+        """
+        Invite a registered softphone account of the project into a connected call.
+
+        Args:
+            request (calls_pb2.InviteToCallRequest): The request message.
+
+        Returns:
+            calls_pb2.InviteToCallResponse: The response message.
+        """
+        return await self.stub.InviteToCall(request=request, metadata=self.metadata)
+
+    async def remove_call_participant(
+        self,
+        request: calls_pb2.RemoveCallParticipantRequest,
+    ) -> calls_pb2.RemoveCallParticipantResponse:
+        """
+        Hang up a participant (ringing or joined) of a call.
+
+        Args:
+            request (calls_pb2.RemoveCallParticipantRequest): The request message.
+
+        Returns:
+            calls_pb2.RemoveCallParticipantResponse: The response message.
+        """
+        return await self.stub.RemoveCallParticipant(request=request, metadata=self.metadata)
+
+    async def set_call_media_control(
+        self,
+        request: calls_pb2.SetCallMediaControlRequest,
+    ) -> calls_pb2.SetCallMediaControlResponse:
+        """
+        Mute the bot of a connected call and/or stop it listening, or undo either.
+
+        Args:
+            request (calls_pb2.SetCallMediaControlRequest): The request message.
+
+        Returns:
+            calls_pb2.SetCallMediaControlResponse: The response message.
+        """
+        return await self.stub.SetCallMediaControl(request=request, metadata=self.metadata)
+
+    def stream_call_audio(
+        self,
+        request_iterator: Union[
+            AsyncIterator[calls_pb2.StreamCallAudioRequest],
+            Iterator[calls_pb2.StreamCallAudioRequest],
+        ],
+    ) -> AsyncIterator[calls_pb2.StreamCallAudioResponse]:
+        """
+        Open the bidirectional live audio stream of a connected call.
+
+        This method is deliberately NOT ``async def``: a bidirectional streaming call returns an async
+        iterator, not a coroutine. Use it as ``async for response in calls.stream_call_audio(requests)``, and
+        call ``.cancel()`` on the returned object to end the stream early.
+
+        Args:
+            request_iterator (Union[AsyncIterator[StreamCallAudioRequest], Iterator[StreamCallAudioRequest]]):
+                The requests (``calls_pb2.StreamCallAudioRequest``) to send: ``config`` first, then agent
+                audio frames (TALK only).
+
+        Returns:
+            AsyncIterator[calls_pb2.StreamCallAudioResponse]:
+                An async iterator over the responses of the stream.
+        """
+        response: AsyncIterator[calls_pb2.StreamCallAudioResponse] = self.stub.StreamCallAudio(
+            request_iterator,
+            metadata=self.metadata,
+        )
+        return response
+
+    def listen_call_audio(
+        self,
+        request: calls_pb2.ListenCallAudioRequest,
+    ) -> AsyncIterator[calls_pb2.StreamCallAudioResponse]:
+        """
+        Listen to the live audio of a connected call (server stream, LISTEN mode only).
+
+        This method is deliberately NOT ``async def``: a server-streaming call returns an async iterator,
+        not a coroutine. Use it as ``async for response in calls.listen_call_audio(request)``.
+
+        Args:
+            request (calls_pb2.ListenCallAudioRequest):
+                The request carrying the stream configuration.
+
+        Returns:
+            AsyncIterator[calls_pb2.StreamCallAudioResponse]:
+                An async iterator over the responses of the stream.
+        """
+        response: AsyncIterator[calls_pb2.StreamCallAudioResponse] = self.stub.ListenCallAudio(
             request=request,
             metadata=self.metadata,
         )

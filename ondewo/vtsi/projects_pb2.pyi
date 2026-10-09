@@ -199,6 +199,7 @@ class VtsiProject(google.protobuf.message.Message):
     NLU_AGENT_NAMES_FIELD_NUMBER: builtins.int
     DEPLOYED_CALLERS_FIELD_NUMBER: builtins.int
     DEPLOYED_LISTENERS_FIELD_NUMBER: builtins.int
+    TRANSFER_PHONE_NUMBER_ALLOWLIST_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Required. The project name.
     Format: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -244,6 +245,17 @@ class VtsiProject(google.protobuf.message.Message):
         Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
         """
 
+    @property
+    def transfer_phone_number_allowlist(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+        <pre><code>TransferCall</code></pre> and a <pre><code>CallTarget.phone_number</code></pre>. Each entry is an E.164
+        number or number prefix (<pre><code>^\\+[1-9][0-9]{0,14}$</code></pre>), e.g. <pre><code>+43</code></pre> or
+        <pre><code>+4312345678</code></pre>; a number is allowed when it starts with any entry. Empty: any valid E.164
+        number is allowed. A refused number answers <pre><code>TRANSFER_OUTCOME_TARGET_INVALID</code></pre> with
+        <pre><code>error_reason = number-not-allowed</code></pre> and nothing is sent.
+        Updatable with the update mask path <pre><code>transfer_phone_number_allowlist</code></pre>.
+        """
+
     def __init__(
         self,
         *,
@@ -263,9 +275,10 @@ class VtsiProject(google.protobuf.message.Message):
         nlu_agent_names: collections.abc.Iterable[builtins.str] | None = ...,
         deployed_callers: builtins.int = ...,
         deployed_listeners: builtins.int = ...,
+        transfer_phone_number_allowlist: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["asterisk_configs", b"asterisk_configs", "created_at", b"created_at", "modified_at", b"modified_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "vtsi_project_status", b"vtsi_project_status"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "transfer_phone_number_allowlist", b"transfer_phone_number_allowlist", "vtsi_project_status", b"vtsi_project_status"]) -> None: ...
 
 global___VtsiProject = VtsiProject
 

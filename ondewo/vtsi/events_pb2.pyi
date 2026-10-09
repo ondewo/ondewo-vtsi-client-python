@@ -59,11 +59,17 @@ class _VtsiEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     VTSI_EVENT_CALL_FAILED: _VtsiEvent.ValueType  # 104
     """The call failed: <code>INCOMING_CALL_FAILED</code> / <code>OUTGOING_CALL_FAILED</code>."""
     VTSI_EVENT_CALL_TRANSFER_INITIATED: _VtsiEvent.ValueType  # 105
-    """A transfer of the call started: <code>TRANSFER_CALL_INITIATED</code>."""
+    """A transfer of the call started: <code>TRANSFER_CALL_INITIATED</code>. Emitted when a BLIND transfer was
+    accepted, or when the target of a WARM transfer starts ringing.
+    """
     VTSI_EVENT_CALL_TRANSFERRED: _VtsiEvent.ValueType  # 106
-    """<code>TransferCall</code> transferred the call."""
+    """<code>TransferCall</code> transferred the call. Emitted at the call&apos;s terminal edge: a
+    <code>*_CALL_FINISHED</code> status whose description is <code>Call transferred</code>.
+    """
     VTSI_EVENT_CALL_TRANSFER_FAILED: _VtsiEvent.ValueType  # 107
-    """A transfer failed: <code>TRANSFER_CALL_FAILED</code>, or <code>TransferCall</code> failed."""
+    """A transfer failed and the call was KEPT with the bot: <code>TRANSFER_CALL_FAILED</code>, a refused or unanswered
+    REFER, or a WARM target that was busy or did not answer.
+    """
     VTSI_EVENT_CALL_HANGUP_INITIATED: _VtsiEvent.ValueType  # 108
     """A hang-up started: <code>SOFT_HANGUP_INITIATED</code> / <code>HARD_HANGUP_INITIATED</code>."""
     VTSI_EVENT_CALL_ANSWERING_MACHINE_DETECTED: _VtsiEvent.ValueType  # 109
@@ -75,6 +81,40 @@ class _VtsiEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     VTSI_EVENT_CALL_SIP_STATUS_CHANGED: _VtsiEvent.ValueType  # 111
     """The SIP status of the call changed (emitted for EVERY change, in addition to the specific
     events above). <code>previous_sip_status_type</code> holds the status before.
+    """
+    VTSI_EVENT_CALL_PARTICIPANT_INVITED: _VtsiEvent.ValueType  # 112
+    """A participant was invited into the call (<code>InviteToCall</code>). <code>attributes</code> carry
+    <code>participant_id</code>, <code>mode</code> and <code>actor</code> (who invited).
+    """
+    VTSI_EVENT_CALL_PARTICIPANT_JOINED: _VtsiEvent.ValueType  # 113
+    """An invited participant answered and joined the call. <code>attributes</code> carry <code>participant_id</code>."""
+    VTSI_EVENT_CALL_PARTICIPANT_FAILED: _VtsiEvent.ValueType  # 114
+    """An invited participant never joined (busy, no answer, unavailable, the call ended, ...).
+    <code>attributes</code> carry <code>participant_id</code> and <code>end_reason</code>.
+    """
+    VTSI_EVENT_CALL_PARTICIPANT_LEFT: _VtsiEvent.ValueType  # 115
+    """A joined participant left the call. <code>attributes</code> carry <code>participant_id</code> and
+    <code>end_reason</code>.
+    """
+    VTSI_EVENT_CALL_BOT_MUTED: _VtsiEvent.ValueType  # 116
+    """The bot of the call was muted. <code>attributes</code> carry <code>actor</code> where a person caused it."""
+    VTSI_EVENT_CALL_BOT_UNMUTED: _VtsiEvent.ValueType  # 117
+    """The bot of the call was unmuted. <code>attributes</code> carry <code>actor</code> where a person caused it."""
+    VTSI_EVENT_CALL_LISTENING_PAUSED: _VtsiEvent.ValueType  # 118
+    """The bot of the call stopped listening to the caller. <code>attributes</code> carry <code>actor</code> where a
+    person caused it.
+    """
+    VTSI_EVENT_CALL_LISTENING_RESUMED: _VtsiEvent.ValueType  # 119
+    """The bot of the call listens to the caller again. <code>attributes</code> carry <code>actor</code> where a person
+    caused it.
+    """
+    VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED: _VtsiEvent.ValueType  # 120
+    """A live call audio stream (<code>StreamCallAudio</code> / <code>ListenCallAudio</code>) connected.
+    <code>attributes</code> carry <code>stream_id</code>, <code>mode</code> and <code>actor</code>.
+    """
+    VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED: _VtsiEvent.ValueType  # 121
+    """A live call audio stream disconnected. <code>attributes</code> carry <code>stream_id</code>, <code>mode</code>,
+    <code>actor</code> and <code>end_reason</code>.
     """
     VTSI_EVENT_CALLER_STARTED: _VtsiEvent.ValueType  # 200
     """---- Callers (resource_name: the caller) ----
@@ -282,11 +322,17 @@ VTSI_EVENT_CALL_FINISHED: VtsiEvent.ValueType  # 103
 VTSI_EVENT_CALL_FAILED: VtsiEvent.ValueType  # 104
 """The call failed: <code>INCOMING_CALL_FAILED</code> / <code>OUTGOING_CALL_FAILED</code>."""
 VTSI_EVENT_CALL_TRANSFER_INITIATED: VtsiEvent.ValueType  # 105
-"""A transfer of the call started: <code>TRANSFER_CALL_INITIATED</code>."""
+"""A transfer of the call started: <code>TRANSFER_CALL_INITIATED</code>. Emitted when a BLIND transfer was
+accepted, or when the target of a WARM transfer starts ringing.
+"""
 VTSI_EVENT_CALL_TRANSFERRED: VtsiEvent.ValueType  # 106
-"""<code>TransferCall</code> transferred the call."""
+"""<code>TransferCall</code> transferred the call. Emitted at the call&apos;s terminal edge: a
+<code>*_CALL_FINISHED</code> status whose description is <code>Call transferred</code>.
+"""
 VTSI_EVENT_CALL_TRANSFER_FAILED: VtsiEvent.ValueType  # 107
-"""A transfer failed: <code>TRANSFER_CALL_FAILED</code>, or <code>TransferCall</code> failed."""
+"""A transfer failed and the call was KEPT with the bot: <code>TRANSFER_CALL_FAILED</code>, a refused or unanswered
+REFER, or a WARM target that was busy or did not answer.
+"""
 VTSI_EVENT_CALL_HANGUP_INITIATED: VtsiEvent.ValueType  # 108
 """A hang-up started: <code>SOFT_HANGUP_INITIATED</code> / <code>HARD_HANGUP_INITIATED</code>."""
 VTSI_EVENT_CALL_ANSWERING_MACHINE_DETECTED: VtsiEvent.ValueType  # 109
@@ -298,6 +344,40 @@ or a campaign hard stop.
 VTSI_EVENT_CALL_SIP_STATUS_CHANGED: VtsiEvent.ValueType  # 111
 """The SIP status of the call changed (emitted for EVERY change, in addition to the specific
 events above). <code>previous_sip_status_type</code> holds the status before.
+"""
+VTSI_EVENT_CALL_PARTICIPANT_INVITED: VtsiEvent.ValueType  # 112
+"""A participant was invited into the call (<code>InviteToCall</code>). <code>attributes</code> carry
+<code>participant_id</code>, <code>mode</code> and <code>actor</code> (who invited).
+"""
+VTSI_EVENT_CALL_PARTICIPANT_JOINED: VtsiEvent.ValueType  # 113
+"""An invited participant answered and joined the call. <code>attributes</code> carry <code>participant_id</code>."""
+VTSI_EVENT_CALL_PARTICIPANT_FAILED: VtsiEvent.ValueType  # 114
+"""An invited participant never joined (busy, no answer, unavailable, the call ended, ...).
+<code>attributes</code> carry <code>participant_id</code> and <code>end_reason</code>.
+"""
+VTSI_EVENT_CALL_PARTICIPANT_LEFT: VtsiEvent.ValueType  # 115
+"""A joined participant left the call. <code>attributes</code> carry <code>participant_id</code> and
+<code>end_reason</code>.
+"""
+VTSI_EVENT_CALL_BOT_MUTED: VtsiEvent.ValueType  # 116
+"""The bot of the call was muted. <code>attributes</code> carry <code>actor</code> where a person caused it."""
+VTSI_EVENT_CALL_BOT_UNMUTED: VtsiEvent.ValueType  # 117
+"""The bot of the call was unmuted. <code>attributes</code> carry <code>actor</code> where a person caused it."""
+VTSI_EVENT_CALL_LISTENING_PAUSED: VtsiEvent.ValueType  # 118
+"""The bot of the call stopped listening to the caller. <code>attributes</code> carry <code>actor</code> where a
+person caused it.
+"""
+VTSI_EVENT_CALL_LISTENING_RESUMED: VtsiEvent.ValueType  # 119
+"""The bot of the call listens to the caller again. <code>attributes</code> carry <code>actor</code> where a person
+caused it.
+"""
+VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED: VtsiEvent.ValueType  # 120
+"""A live call audio stream (<code>StreamCallAudio</code> / <code>ListenCallAudio</code>) connected.
+<code>attributes</code> carry <code>stream_id</code>, <code>mode</code> and <code>actor</code>.
+"""
+VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED: VtsiEvent.ValueType  # 121
+"""A live call audio stream disconnected. <code>attributes</code> carry <code>stream_id</code>, <code>mode</code>,
+<code>actor</code> and <code>end_reason</code>.
 """
 VTSI_EVENT_CALLER_STARTED: VtsiEvent.ValueType  # 200
 """---- Callers (resource_name: the caller) ----

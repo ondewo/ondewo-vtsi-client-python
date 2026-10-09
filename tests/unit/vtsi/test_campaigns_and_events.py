@@ -255,18 +255,34 @@ class TestTheServiceDescriptors:
         assert streaming == [f"/ondewo.vtsi.{service_name}/{rpc}" for _, rpc, _, _, is_stream in rpcs if is_stream]
 
     def test_the_calls_service_carries_the_three_status_streams(self) -> None:
-        """``Calls`` gained exactly the three server-streaming status RPCs."""
+        """
+        ``Calls`` carries exactly the three server-streaming status RPCs plus the two call audio streams.
+
+        ``ListenCallAudio`` is server-streaming and ``StreamCallAudio`` bidirectional; they are listed in
+        ``tests/unit/vtsi/test_call_control.py`` and asserted here so that no OTHER stream can appear unnoticed.
+        """
+        call_audio_streams: Dict[str, Tuple[str, str]] = {
+            "StreamCallAudio": ("StreamCallAudioRequest", "StreamCallAudioResponse"),
+            "ListenCallAudio": ("ListenCallAudioRequest", "StreamCallAudioResponse"),
+        }
         service: Any = calls_pb2.DESCRIPTOR.services_by_name["Calls"]
         actual: Dict[str, Tuple[str, str]] = {
             method.name: (method.input_type.name, method.output_type.name)
             for method in service.methods
             if method.server_streaming
         }
-        assert actual == {rpc: (request, response) for _, rpc, request, response, _ in CALL_STREAM_RPCS}
+        assert actual == {
+            **{rpc: (request, response) for _, rpc, request, response, _ in CALL_STREAM_RPCS},
+            **call_audio_streams,
+        }
         channel: MagicMock = MagicMock()
         calls_pb2_grpc.CallsStub(channel)
         streaming: List[str] = [call.args[0] for call in channel.unary_stream.call_args_list]
-        assert streaming == [f"/ondewo.vtsi.Calls/{rpc}" for _, rpc, _, _, _ in CALL_STREAM_RPCS]
+        assert streaming == [f"/ondewo.vtsi.Calls/{rpc}" for _, rpc, _, _, _ in CALL_STREAM_RPCS] + [
+            "/ondewo.vtsi.Calls/ListenCallAudio"
+        ]
+        bidirectional: List[str] = [call.args[0] for call in channel.stream_stream.call_args_list]
+        assert bidirectional == ["/ondewo.vtsi.Calls/StreamCallAudio"]
 
 
 class TestTheClientExposesTheServices:
