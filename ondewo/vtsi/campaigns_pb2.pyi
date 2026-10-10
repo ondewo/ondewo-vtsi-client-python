@@ -379,13 +379,24 @@ class Campaign(google.protobuf.message.Message):
         out what the campaign supplies. Because the default is read live, an update that makes the effective
         configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
         cannot succeed by repetition (it is not retried).</p>
+        <p>Returned by <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code>,
+        <code>ListCampaigns</code>, <code>StartCampaign</code>, <code>StopCampaign</code>,
+        <code>HardStopCampaign</code> and <code>ResumeCampaign</code>. Left UNSET (whatever is stored) in
+        <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+        <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>; read
+        it with <code>GetCampaign</code>.</p>
         <p>Credentials: the credential-bearing fields (NLU credentials and tokens, gRPC certificates,
         message broker and object store settings, callbacks, transcribe and synthesize request configs)
-        are stored like the <code>common_services_config</code> of a started caller and are subject to
-        the same role-based redaction on every response that returns the campaign; the server never logs
-        them. A client that reads a redacted campaign and writes the whole config back with
+        are stored like the <code>common_services_config</code> of a started caller; the server never logs
+        them. They are RETURNED only to a caller whose role on the project was resolved with authorization
+        enforced and who may see the whole project (<code>SERVER_ADMIN</code>, <code>PROJECT_ADMIN</code>,
+        <code>PROJECT_DEVELOPER</code>). Every other caller receives only the identity and routing fields
+        (agent, language, initial intent, platform, service hosts and ports, CSI control messages, voice
+        interaction config): a <code>PROJECT_EXECUTOR</code>, and also every caller when authorization is
+        disabled or only monitored, because a <code>Campaign</code> has no view that could leave the config
+        out by default. A client that reads such a campaign and writes the whole config back with
         <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
-        credentials with the redacted ones; update a sub-path instead.</p>
+        credentials with the withheld (empty) ones; update a sub-path instead.</p>
         """
 
     @property
@@ -407,7 +418,12 @@ class Campaign(google.protobuf.message.Message):
         <code>campaign_sip_caller_config.callee_id</code> (or of the whole config) therefore changes the callee
         only of calls added after it, never of calls already in the campaign, so the number a campaign call
         reports (and that <code>ListCampaignCallsRequest.phone_number</code> filters on) is always the number
-        it dials.</p>
+        it dials. An <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> request of
+        which an entry takes the default callee is refused with <code>ABORTED</code> (nothing is added; retry
+        it) when an update of the default callee commits while the request runs, so no call added after an
+        update dials the previous default.</p>
+        <p>Returned by the same RPCs as <code>campaign_common_services_config</code> and left unset in the
+        same responses.</p>
         """
 
     def __init__(
@@ -919,7 +935,10 @@ class UpdateCampaignRequest(google.protobuf.message.Message):
               removes the campaign default);</li>
           <li>a path naming a scalar, repeated or map field below them replaces exactly that field; a
               repeated or map field is replaced as a whole, never appended to;</li>
-          <li>a field below them that no path names is left untouched;</li>
+          <li>a field below them that no path names is left untouched, and is not validated either: only
+              what the paths write must be valid;</li>
+          <li>clearing, by sub-paths, every field of a stored default removes the default (it then reads
+              back unset, exactly as after clearing the whole config);</li>
           <li>a path naming a member of a <code>oneof</code> (e.g.
               <code>campaign_common_services_config.nlu_vtsi_config.auth_token</code> in the
               <code>authentication</code> oneof) SETS that member, clearing the other members, when the
@@ -1529,7 +1548,10 @@ class StreamCampaignStatusResponse(google.protobuf.message.Message):
     """
     @property
     def campaigns(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Campaign]:
-        """Campaigns that changed (every matching campaign in the snapshot), with their statistics."""
+        """Campaigns that changed (every matching campaign in the snapshot), with their statistics. The call
+        defaults <code>campaign_common_services_config</code> and <code>campaign_sip_caller_config</code>
+        are always left unset here; read them with <code>GetCampaign</code>.
+        """
 
     @property
     def campaign_calls(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CampaignCall]:

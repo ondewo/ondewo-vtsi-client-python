@@ -1497,7 +1497,10 @@ class AddCallersToCampaignResponse(google.protobuf.message.Message):
     """
     @property
     def campaign(self) -> ondewo.vtsi.campaigns_pb2.Campaign:
-        """The campaign the callers were added to."""
+        """The campaign the callers were added to. Its call defaults (<code>campaign_common_services_config</code>,
+        <code>campaign_sip_caller_config</code>) are always left unset here; read them with
+        <code>Campaigns.GetCampaign</code>.
+        """
 
     @property
     def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
@@ -1587,7 +1590,10 @@ class AddScheduledCallersToCampaignResponse(google.protobuf.message.Message):
 
     @property
     def campaign(self) -> ondewo.vtsi.campaigns_pb2.Campaign:
-        """The campaign the scheduled callers were added to."""
+        """The campaign the scheduled callers were added to. Its call defaults
+        (<code>campaign_common_services_config</code>, <code>campaign_sip_caller_config</code>) are always
+        left unset here; read them with <code>Campaigns.GetCampaign</code>.
+        """
 
     @property
     def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:

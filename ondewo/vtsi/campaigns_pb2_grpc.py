@@ -52,6 +52,14 @@ class CampaignsStub(object):
     when a resource name is used. (The <code>CampaignDisplayName</code> message of 9.0.0, which
     carried the project and the display name together, was removed in 9.1.0; its field numbers are
     <code>reserved</code>.)</p>
+    <p>The shape of the selector is checked BEFORE authorization, so these are
+    <code>INVALID_ARGUMENT</code> for every caller, with or without authorization: neither the resource
+    name nor the display name set (also how an old 9.0.0 client&apos;s removed
+    <code>CampaignDisplayName</code> arrives), a malformed resource name, a display name with an empty
+    or malformed <code>vtsi_project_name</code>, and a <code>vtsi_project_name</code> that is not the
+    project of the resource name. With authorization enforced, a well-formed request naming a project
+    the caller holds no role on (an unknown project included) is refused with
+    <code>PERMISSION_DENIED</code> before any lookup, so it is not answered <code>NOT_FOUND</code>.</p>
     <p>Campaign-level call defaults: <code>campaign_common_services_config</code> and
     <code>campaign_sip_caller_config</code> of a <code>Campaign</code> are the defaults of EVERY call of
     the campaign. They are read LIVE when a campaign call is dispatched (every attempt, retries
@@ -71,7 +79,8 @@ class CampaignsStub(object):
     mask is applied after any role-based redaction, so it can only narrow what the caller may see.</p>
     <p>Errors are reported as gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed name,
     filter, field mask or value; <code>NOT_FOUND</code> for an unknown project, campaign or campaign
-    call; <code>ALREADY_EXISTS</code> for a <code>display_name</code> already used in the project;
+    call (with authorization enforced: <code>PERMISSION_DENIED</code> for a project the caller holds
+    no role on); <code>ALREADY_EXISTS</code> for a <code>display_name</code> already used in the project;
     <code>FAILED_PRECONDITION</code> for a state that does not allow the operation (each RPC names its
     cases); <code>ABORTED</code> when a concurrent change won, nothing was stored and the request can
     be retried; <code>RESOURCE_EXHAUSTED</code> when the server has no free stream slot.</p>
@@ -172,6 +181,14 @@ class CampaignsServicer(object):
     when a resource name is used. (The <code>CampaignDisplayName</code> message of 9.0.0, which
     carried the project and the display name together, was removed in 9.1.0; its field numbers are
     <code>reserved</code>.)</p>
+    <p>The shape of the selector is checked BEFORE authorization, so these are
+    <code>INVALID_ARGUMENT</code> for every caller, with or without authorization: neither the resource
+    name nor the display name set (also how an old 9.0.0 client&apos;s removed
+    <code>CampaignDisplayName</code> arrives), a malformed resource name, a display name with an empty
+    or malformed <code>vtsi_project_name</code>, and a <code>vtsi_project_name</code> that is not the
+    project of the resource name. With authorization enforced, a well-formed request naming a project
+    the caller holds no role on (an unknown project included) is refused with
+    <code>PERMISSION_DENIED</code> before any lookup, so it is not answered <code>NOT_FOUND</code>.</p>
     <p>Campaign-level call defaults: <code>campaign_common_services_config</code> and
     <code>campaign_sip_caller_config</code> of a <code>Campaign</code> are the defaults of EVERY call of
     the campaign. They are read LIVE when a campaign call is dispatched (every attempt, retries
@@ -191,7 +208,8 @@ class CampaignsServicer(object):
     mask is applied after any role-based redaction, so it can only narrow what the caller may see.</p>
     <p>Errors are reported as gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed name,
     filter, field mask or value; <code>NOT_FOUND</code> for an unknown project, campaign or campaign
-    call; <code>ALREADY_EXISTS</code> for a <code>display_name</code> already used in the project;
+    call (with authorization enforced: <code>PERMISSION_DENIED</code> for a project the caller holds
+    no role on); <code>ALREADY_EXISTS</code> for a <code>display_name</code> already used in the project;
     <code>FAILED_PRECONDITION</code> for a state that does not allow the operation (each RPC names its
     cases); <code>ABORTED</code> when a concurrent change won, nothing was stored and the request can
     be retried; <code>RESOURCE_EXHAUSTED</code> when the server has no free stream slot.</p>
@@ -462,6 +480,14 @@ class Campaigns(object):
     when a resource name is used. (The <code>CampaignDisplayName</code> message of 9.0.0, which
     carried the project and the display name together, was removed in 9.1.0; its field numbers are
     <code>reserved</code>.)</p>
+    <p>The shape of the selector is checked BEFORE authorization, so these are
+    <code>INVALID_ARGUMENT</code> for every caller, with or without authorization: neither the resource
+    name nor the display name set (also how an old 9.0.0 client&apos;s removed
+    <code>CampaignDisplayName</code> arrives), a malformed resource name, a display name with an empty
+    or malformed <code>vtsi_project_name</code>, and a <code>vtsi_project_name</code> that is not the
+    project of the resource name. With authorization enforced, a well-formed request naming a project
+    the caller holds no role on (an unknown project included) is refused with
+    <code>PERMISSION_DENIED</code> before any lookup, so it is not answered <code>NOT_FOUND</code>.</p>
     <p>Campaign-level call defaults: <code>campaign_common_services_config</code> and
     <code>campaign_sip_caller_config</code> of a <code>Campaign</code> are the defaults of EVERY call of
     the campaign. They are read LIVE when a campaign call is dispatched (every attempt, retries
@@ -481,7 +507,8 @@ class Campaigns(object):
     mask is applied after any role-based redaction, so it can only narrow what the caller may see.</p>
     <p>Errors are reported as gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed name,
     filter, field mask or value; <code>NOT_FOUND</code> for an unknown project, campaign or campaign
-    call; <code>ALREADY_EXISTS</code> for a <code>display_name</code> already used in the project;
+    call (with authorization enforced: <code>PERMISSION_DENIED</code> for a project the caller holds
+    no role on); <code>ALREADY_EXISTS</code> for a <code>display_name</code> already used in the project;
     <code>FAILED_PRECONDITION</code> for a state that does not allow the operation (each RPC names its
     cases); <code>ABORTED</code> when a concurrent change won, nothing was stored and the request can
     be retried; <code>RESOURCE_EXHAUSTED</code> when the server has no free stream slot.</p>
