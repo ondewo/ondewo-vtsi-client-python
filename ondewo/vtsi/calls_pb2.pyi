@@ -3673,6 +3673,8 @@ class Call(google.protobuf.message.Message):
         the label: at most 64 entries; a key of 1 to 63 characters from <code>[a-z0-9_.-]</code>, starting with a
         lowercase letter; a value of at most 255 printable characters (Unicode allowed, no control characters).
         Stored with the call record, so they survive the end of the call and are kept as long as the record.
+        The waiting call of a persistent listener or pooled caller (status <code>NO_ONGOING_CALL</code>, not
+        active) cannot be labelled: <code>FAILED_PRECONDITION</code> with <code>reason=call-not-started</code>.
         This is the only mutable field of a <code>Call</code>: it exists so that a call can be annotated without
         anything about the live call being changed. Set in the SHALLOW and FULL views.
         """

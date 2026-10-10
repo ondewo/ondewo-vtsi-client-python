@@ -46,7 +46,11 @@
   in request order. A caller / listener update changes only its STORED configuration (`sip_caller_config` /
   `sip_base_config` and `common_services_config`): a running container and its calls are never changed, and the
   update takes effect only when the server recreates the resource from it. A call's only updatable path is the new
-  `Call.labels` (26, `map<string, string>`), which changes the stored call record and never the live call.
+  `Call.labels` (26, `map<string, string>`), which changes the stored call record and never the live call. The
+  server refuses `UpdateCall` for the waiting call of a persistent listener or pooled caller
+  (`FAILED_PRECONDITION`, `reason=call-not-started`), answers `UpdateListener` with `NOT_FOUND` for a stopped
+  listener, and refuses a caller / listener update that moves an upstream endpoint without restating that
+  upstream's stored credentials (`INVALID_ARGUMENT` naming the paths to add).
 * [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) The callers and calls of a campaign. `Campaign`
   gained the output-only `campaign_callers` (20, `repeated string`, the resource names of the callers that placed an
   attempt of one of the campaign's calls, oldest first attempt first, at most 1000) and
