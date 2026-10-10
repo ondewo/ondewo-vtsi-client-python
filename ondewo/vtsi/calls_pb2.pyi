@@ -4066,7 +4066,8 @@ class Call(google.protobuf.message.Message):
     """
     sip_call_id: builtins.str
     """Identifier the call&apos;s SIP container minted for the call (<code>ondewo.sip.SipStatus.call_id</code>). Empty until
-    the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then
+    the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then.
+    Set in the SHALLOW and FULL views
     """
     @property
     def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
@@ -4104,7 +4105,7 @@ class Call(google.protobuf.message.Message):
 
     @property
     def last_transfer(self) -> global___CallTransferRecord:
-        """The last transfer attempt of the call; unset if there was none"""
+        """The last transfer attempt of the call; unset if there was none. Set in the SHALLOW and FULL views"""
 
     def __init__(
         self,

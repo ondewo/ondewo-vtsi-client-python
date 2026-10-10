@@ -166,12 +166,12 @@
   except 8.3.0 shipped with a body of length 0. `tests/unit/test_release_notes_slice.py` now re-derives the
   pattern from the `Makefile` and fails when the current version's slice is empty, unterminated or heading-only.
 
-## Release ONDEWO VTSI Client Python 8.7.1
+## Release ONDEWO VTSI Python Client 8.7.1
 
 ### Improvements
 
 * `Client` and `AsyncClient` take an opt-in keyword `use_shared_channel=True`: all services then share ONE gRPC channel built with `ondewo-client-utils`' `build_shared_channel` (one connection and one TLS handshake instead of one per service; measured in the library, 16 services over TLS: 44 ms per-service vs 6.5 ms shared). The default is unchanged. The service interfaces accept the keyword-only `grpc_channel=`.
-* Built with [ondewo-proto-compiler 5.15.2](https://github.com/ondewo/ondewo-proto-compiler/releases/tag/5.15.2)
+* Built with [ondewo-proto-compiler 5.15.3](https://github.com/ondewo/ondewo-proto-compiler/releases/tag/5.15.3)
   (was 5.14.0), still against [ondewo-vtsi-api 8.7.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/8.7.0);
   the VTSI service surface is unchanged.
 
@@ -234,7 +234,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 8.3.0
+## Release ONDEWO VTSI Python Client 8.3.0
 
 ### Bug Fixes
 
@@ -351,6 +351,14 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 6.3.1
+
+### Improvements
+
+* `Projects` service: added `list_vtsi_projects` (the `ListVtsiProjects` RPC) to the client
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 6.3.0
 
 ### Improvements
@@ -391,7 +399,15 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 3.5.0
+## Release ONDEWO VTSI Python Client 4.0.0
+
+### Improvements
+
+* Version alignment release: same code as 3.5.0, still tracking API Version [3.0.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/3.0.0)
+
+*****************
+
+## Release ONDEWO VTSI Python Client 3.5.0
 
 ### Improvements
 
@@ -399,7 +415,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 3.4.0
+## Release ONDEWO VTSI Python Client 3.4.0
 
 ### Improvements
 
@@ -407,7 +423,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 3.3.0
+## Release ONDEWO VTSI Python Client 3.3.0
 
 ### Improvements
 
@@ -415,7 +431,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 3.2.0
+## Release ONDEWO VTSI Python Client 3.2.0
 
 ### Improvements
 
@@ -424,7 +440,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 3.1.0
+## Release ONDEWO VTSI Python Client 3.1.0
 
 ### Improvements
 
@@ -433,7 +449,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 3.0.0
+## Release ONDEWO VTSI Python Client 3.0.0
 
 ### Improvements
 
@@ -443,7 +459,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 2.3.0
+## Release ONDEWO VTSI Python Client 2.3.0
 
 ### Improvements
 
@@ -456,7 +472,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 2.2.0
+## Release ONDEWO VTSI Python Client 2.2.0
 
 ### Improvements
 
@@ -466,7 +482,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 2.1.1
+## Release ONDEWO VTSI Python Client 2.1.1
 
 ### Improvements
 
@@ -474,7 +490,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 2.1.0
+## Release ONDEWO VTSI Python Client 2.1.0
 
 ### Improvements
 
@@ -486,7 +502,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 2.0.1
+## Release ONDEWO VTSI Python Client 2.0.1
 
 ### Improvements
 
@@ -498,7 +514,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 2.0.0
+## Release ONDEWO VTSI Python Client 2.0.0
 
 ### Improvements
 
@@ -512,7 +528,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 1.2.1
+## Release ONDEWO VTSI Python Client 1.2.1
 
 ### Improvements
 
@@ -520,7 +536,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Client Python 1.2.0
+## Release ONDEWO VTSI Python Client 1.2.0
 
 ### Improvements
 
