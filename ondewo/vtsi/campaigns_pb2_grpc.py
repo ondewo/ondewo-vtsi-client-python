@@ -74,10 +74,16 @@ class CampaignsStub(object):
     <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code> and
     <code>DeleteCampaign</code> accept an optional <code>field_mask</code> naming the field paths of the
     returned resource (for a listing: of each listed element) to populate. Unset or empty returns every
-    field; the identifying <code>name</code> is always populated; an unknown path is rejected with
+    field (one exception: <code>ListCampaigns</code> returns <code>campaign_callers</code> and
+    <code>campaign_callers_truncated</code> only when its mask names them); the identifying <code>name</code> is always populated; an unknown path is rejected with
     <code>INVALID_ARGUMENT</code> naming it; nested paths through singular message fields (e.g.
     <code>statistics.completed</code>) are allowed, a path below a repeated or map field is not. The
     mask is applied after any role-based redaction, so it can only narrow what the caller may see.</p>
+    <p>Callers and calls of a campaign: <code>Campaign.campaign_callers</code> names the callers that placed
+    its calls (bounded); <code>Calls.ListCallers</code> with <code>ListCallersRequest.campaign_name</code> /
+    <code>campaign_display_name</code> lists them paginated as <code>Caller</code> resources, and
+    <code>Calls.ListCalls</code> with <code>CallFilter.campaign_name</code> /
+    <code>campaign_display_name</code> lists the calls they placed as <code>Call</code> resources.</p>
     <p>Errors are reported as gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed name,
     filter, field mask or value; <code>NOT_FOUND</code> for an unknown project, campaign or campaign
     call (with authorization enforced: <code>PERMISSION_DENIED</code> for a project the caller holds
@@ -204,10 +210,16 @@ class CampaignsServicer(object):
     <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code> and
     <code>DeleteCampaign</code> accept an optional <code>field_mask</code> naming the field paths of the
     returned resource (for a listing: of each listed element) to populate. Unset or empty returns every
-    field; the identifying <code>name</code> is always populated; an unknown path is rejected with
+    field (one exception: <code>ListCampaigns</code> returns <code>campaign_callers</code> and
+    <code>campaign_callers_truncated</code> only when its mask names them); the identifying <code>name</code> is always populated; an unknown path is rejected with
     <code>INVALID_ARGUMENT</code> naming it; nested paths through singular message fields (e.g.
     <code>statistics.completed</code>) are allowed, a path below a repeated or map field is not. The
     mask is applied after any role-based redaction, so it can only narrow what the caller may see.</p>
+    <p>Callers and calls of a campaign: <code>Campaign.campaign_callers</code> names the callers that placed
+    its calls (bounded); <code>Calls.ListCallers</code> with <code>ListCallersRequest.campaign_name</code> /
+    <code>campaign_display_name</code> lists them paginated as <code>Caller</code> resources, and
+    <code>Calls.ListCalls</code> with <code>CallFilter.campaign_name</code> /
+    <code>campaign_display_name</code> lists the calls they placed as <code>Call</code> resources.</p>
     <p>Errors are reported as gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed name,
     filter, field mask or value; <code>NOT_FOUND</code> for an unknown project, campaign or campaign
     call (with authorization enforced: <code>PERMISSION_DENIED</code> for a project the caller holds
@@ -235,7 +247,8 @@ class CampaignsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetCampaign(self, request, context):
-        """<p>Returns a campaign including its statistics and its call defaults.</p>
+        """<p>Returns a campaign including its statistics, its call defaults and its callers
+        (<code>campaign_callers</code>).</p>
         <p>Errors: <code>NOT_FOUND</code>; <code>INVALID_ARGUMENT</code> for a malformed name, a
         <code>display_name</code> without <code>vtsi_project_name</code> or an unknown
         <code>field_mask</code> path.</p>
@@ -278,7 +291,9 @@ class CampaignsServicer(object):
 
     def ListCampaigns(self, request, context):
         """<p>Lists the campaigns of a project, newest first, filtered and paged, each with its
-        statistics.</p>
+        statistics. <code>campaign_callers</code> and <code>campaign_callers_truncated</code> are left empty
+        unless <code>field_mask</code> names them, and a page that carries them holds at most 20 campaigns (see
+        <code>ListCampaignsRequest.field_mask</code>).</p>
         <p>Errors: <code>NOT_FOUND</code> if the project does not exist; <code>INVALID_ARGUMENT</code>
         for a negative <code>page_size</code>, a foreign <code>page_token</code> or an unknown
         <code>field_mask</code> path.</p>
@@ -504,10 +519,16 @@ class Campaigns(object):
     <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code> and
     <code>DeleteCampaign</code> accept an optional <code>field_mask</code> naming the field paths of the
     returned resource (for a listing: of each listed element) to populate. Unset or empty returns every
-    field; the identifying <code>name</code> is always populated; an unknown path is rejected with
+    field (one exception: <code>ListCampaigns</code> returns <code>campaign_callers</code> and
+    <code>campaign_callers_truncated</code> only when its mask names them); the identifying <code>name</code> is always populated; an unknown path is rejected with
     <code>INVALID_ARGUMENT</code> naming it; nested paths through singular message fields (e.g.
     <code>statistics.completed</code>) are allowed, a path below a repeated or map field is not. The
     mask is applied after any role-based redaction, so it can only narrow what the caller may see.</p>
+    <p>Callers and calls of a campaign: <code>Campaign.campaign_callers</code> names the callers that placed
+    its calls (bounded); <code>Calls.ListCallers</code> with <code>ListCallersRequest.campaign_name</code> /
+    <code>campaign_display_name</code> lists them paginated as <code>Caller</code> resources, and
+    <code>Calls.ListCalls</code> with <code>CallFilter.campaign_name</code> /
+    <code>campaign_display_name</code> lists the calls they placed as <code>Call</code> resources.</p>
     <p>Errors are reported as gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed name,
     filter, field mask or value; <code>NOT_FOUND</code> for an unknown project, campaign or campaign
     call (with authorization enforced: <code>PERMISSION_DENIED</code> for a project the caller holds

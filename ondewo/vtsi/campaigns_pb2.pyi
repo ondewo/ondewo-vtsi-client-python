@@ -276,6 +276,8 @@ class Campaign(google.protobuf.message.Message):
     COMPLETED_AT_FIELD_NUMBER: builtins.int
     CAMPAIGN_COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
     CAMPAIGN_SIP_CALLER_CONFIG_FIELD_NUMBER: builtins.int
+    CAMPAIGN_CALLERS_FIELD_NUMBER: builtins.int
+    CAMPAIGN_CALLERS_TRUNCATED_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Output only. Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
@@ -316,6 +318,13 @@ class Campaign(google.protobuf.message.Message):
     """Output only. The user who created the campaign."""
     modified_by: builtins.str
     """Output only. The user who last modified the campaign."""
+    campaign_callers_truncated: builtins.bool
+    """Output only. True when <code>campaign_callers</code> was cut at its bound of 1000 names and the campaign
+    has more callers; read them all with <code>Calls.ListCallers</code> and the campaign selector. Populated
+    and left unset by the same RPCs as <code>campaign_callers</code>, and in <code>ListCampaigns</code> also
+    only when the <code>field_mask</code> names it explicitly; a <code>field_mask</code> names it like any
+    other path (name both to read the names and whether they are complete).
+    """
     @property
     def retry_delay(self) -> google.protobuf.duration_pb2.Duration:
         """Time to wait after a failed attempt before the next one is started. Unset on create means the
@@ -426,6 +435,35 @@ class Campaign(google.protobuf.message.Message):
         same responses.</p>
         """
 
+    @property
+    def campaign_callers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Output only. Resource names
+        (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>) of the callers of the
+        campaign: the callers that placed at least one attempt of one of its campaign calls
+        (<code>CampaignCallAttempt.caller_name</code>), whichever way the call was added. A scheduled campaign
+        call is placed by a caller too and counts; its <code>ScheduledCaller</code> is not a
+        <code>Caller</code> and is in <code>CampaignCall.scheduled_caller_name</code> instead. A caller that was
+        deleted is not listed (its name stays in the attempt history), and a caller that placed attempts of
+        several campaigns (a pooled caller can) is listed in each of them. Exactly the set
+        <code>Calls.ListCallers</code> returns with <code>ListCallersRequest.campaign_name</code>.
+        <p>Order: by the start of the first attempt each caller placed for the campaign, oldest first, each name
+        once. Bounded: at most the first 1000 names; <code>campaign_callers_truncated</code> says whether there are
+        more. The complete, paginated list is <code>Calls.ListCallers</code> with the campaign selector, and the
+        calls they placed are <code>Calls.ListCalls</code> with <code>CallFilter.campaign_name</code>.</p>
+        <p>Populated by <code>CreateCampaign</code> (always empty: a new campaign has placed no call),
+        <code>GetCampaign</code>, <code>UpdateCampaign</code>, <code>StartCampaign</code>,
+        <code>StopCampaign</code>, <code>HardStopCampaign</code> and <code>ResumeCampaign</code>; subject to their
+        <code>field_mask</code> like any other path (path <code>campaign_callers</code>; a path below it is
+        rejected). <code>ListCampaigns</code> populates it ONLY when its <code>field_mask</code> names it
+        explicitly, and an unset or empty mask, which returns every other field, leaves it empty: at up to 1000
+        names (~90 bytes each) per campaign, a default page would otherwise exceed gRPC&apos;s default 4 MiB
+        message limit. Left empty in
+        <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+        <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>. Setting it
+        on create is an output-only field set (<code>INVALID_ARGUMENT</code>), naming it in an
+        <code>update_mask</code> is rejected as output only.</p>
+        """
+
     def __init__(
         self,
         *,
@@ -448,9 +486,11 @@ class Campaign(google.protobuf.message.Message):
         completed_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         campaign_common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
         campaign_sip_caller_config: ondewo.vtsi.call_configs_pb2.SipCallerConfig | None = ...,
+        campaign_callers: collections.abc.Iterable[builtins.str] | None = ...,
+        campaign_callers_truncated: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["campaign_common_services_config", b"campaign_common_services_config", "campaign_sip_caller_config", b"campaign_sip_caller_config", "completed_at", b"completed_at", "created_at", b"created_at", "modified_at", b"modified_at", "retry_delay", b"retry_delay", "started_at", b"started_at", "statistics", b"statistics", "stopped_at", b"stopped_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign_common_services_config", b"campaign_common_services_config", "campaign_id", b"campaign_id", "campaign_sip_caller_config", b"campaign_sip_caller_config", "completed_at", b"completed_at", "created_at", b"created_at", "created_by", b"created_by", "display_name", b"display_name", "max_attempts", b"max_attempts", "max_parallel_calls", b"max_parallel_calls", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "retry_delay", b"retry_delay", "started_at", b"started_at", "state", b"state", "state_reason", b"state_reason", "statistics", b"statistics", "stopped_at", b"stopped_at", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["campaign_callers", b"campaign_callers", "campaign_callers_truncated", b"campaign_callers_truncated", "campaign_common_services_config", b"campaign_common_services_config", "campaign_id", b"campaign_id", "campaign_sip_caller_config", b"campaign_sip_caller_config", "completed_at", b"completed_at", "created_at", b"created_at", "created_by", b"created_by", "display_name", b"display_name", "max_attempts", b"max_attempts", "max_parallel_calls", b"max_parallel_calls", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "retry_delay", b"retry_delay", "started_at", b"started_at", "state", b"state", "state_reason", b"state_reason", "statistics", b"statistics", "stopped_at", b"stopped_at", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___Campaign = Campaign
 
@@ -1104,7 +1144,9 @@ class ListCampaignsRequest(google.protobuf.message.Message):
     """
     page_size: builtins.int
     """Optional. Maximum campaigns per page. <code>0</code> means 20; values above 1000 are clamped
-    to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>.
+    to 1000 (to 20 when <code>field_mask</code> names <code>campaign_callers</code> or
+    <code>campaign_callers_truncated</code>); negative values are rejected with
+    <code>INVALID_ARGUMENT</code>.
     """
     page_token: builtins.str
     """Optional. The <code>next_page_token</code> of a previous response; valid only with the same
@@ -1119,9 +1161,14 @@ class ListCampaignsRequest(google.protobuf.message.Message):
         """Optional. Partial response: the field paths to populate in every returned <code>Campaign</code>,
         relative to the <code>Campaign</code> message (no <code>campaigns.</code> prefix), as in
         <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
-        <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
-        rejected with <code>INVALID_ARGUMENT</code> naming it. Not part of the paging contract: a
-        <code>page_token</code> stays valid with another mask.
+        <code>name</code> is always populated. Unset or empty returns every field EXCEPT
+        <code>campaign_callers</code> and <code>campaign_callers_truncated</code>, which are populated only when
+        the mask names them explicitly (a page of full caller lists could exceed gRPC&apos;s default 4 MiB message
+        limit). When the mask names either of them, the page holds at most 20 campaigns: a larger
+        <code>page_size</code> is clamped to 20 (not rejected). For the complete, paginated callers of one
+        campaign use <code>Calls.ListCallers</code> with the campaign selector. An unknown path is rejected with
+        <code>INVALID_ARGUMENT</code> naming it. Not part of the paging contract: a <code>page_token</code> stays
+        valid with another mask.
         """
 
     def __init__(

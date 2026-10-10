@@ -55,6 +55,16 @@ class CallsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallerRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.Caller.FromString,
                 _registered_method=True)
+        self.UpdateCaller = channel.unary_unary(
+                '/ondewo.vtsi.Calls/UpdateCaller',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallerRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallerResponse.FromString,
+                _registered_method=True)
+        self.UpdateCallers = channel.unary_unary(
+                '/ondewo.vtsi.Calls/UpdateCallers',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallersRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallersResponse.FromString,
+                _registered_method=True)
         self.DeleteCaller = channel.unary_unary(
                 '/ondewo.vtsi.Calls/DeleteCaller',
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallerRequest.SerializeToString,
@@ -104,6 +114,16 @@ class CallsStub(object):
                 '/ondewo.vtsi.Calls/GetListener',
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.GetListenerRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.Listener.FromString,
+                _registered_method=True)
+        self.UpdateListener = channel.unary_unary(
+                '/ondewo.vtsi.Calls/UpdateListener',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateListenerRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateListenerResponse.FromString,
+                _registered_method=True)
+        self.UpdateListeners = channel.unary_unary(
+                '/ondewo.vtsi.Calls/UpdateListeners',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateListenersRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateListenersResponse.FromString,
                 _registered_method=True)
         self.DeleteListener = channel.unary_unary(
                 '/ondewo.vtsi.Calls/DeleteListener',
@@ -185,6 +205,16 @@ class CallsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsResponse.FromString,
                 _registered_method=True)
+        self.UpdateCall = channel.unary_unary(
+                '/ondewo.vtsi.Calls/UpdateCall',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallResponse.FromString,
+                _registered_method=True)
+        self.UpdateCalls = channel.unary_unary(
+                '/ondewo.vtsi.Calls/UpdateCalls',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallsRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallsResponse.FromString,
+                _registered_method=True)
         self.StreamCallerStatus = channel.unary_stream(
                 '/ondewo.vtsi.Calls/StreamCallerStatus',
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallerStatusRequest.SerializeToString,
@@ -250,7 +280,11 @@ class CallsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ListCallers(self, request, context):
-        """<p>Lists all available callers</p>
+        """<p>Lists all available callers, ordered by the caller&apos;s uuid (the last segment of <code>name</code>),
+        ascending: a stable order, not a chronological one.</p>
+        <p>With <code>campaign_name</code> or <code>campaign_display_name</code> set, lists only the callers of that
+        campaign: the callers that placed at least one attempt of one of its campaign calls (see
+        <code>ListCallersRequest.campaign_name</code>).</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -258,6 +292,50 @@ class CallsServicer(object):
 
     def GetCaller(self, request, context):
         """<p>Gets a caller</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateCaller(self, request, context):
+        """<p>Updates the STORED configuration of a caller: the fields named in <code>update_mask</code>, i.e.
+        <code>sip_caller_config</code> and <code>common_services_config</code> or any nested sub-path of them.
+        Allowed whether or not the caller has a call running.</p>
+        <p>A running call and its container are NEVER changed: nothing is restarted, redeployed or reconfigured,
+        and the call goes on with the configuration its container was deployed with.</p>
+        <p>When the stored configuration takes effect: a caller is ONE call (every <code>StartCaller</code> creates
+        a new caller carrying its own configuration, and no RPC redeploys an existing one), so for a caller that
+        is not pooled the update changes ONLY the stored and returned configuration and never any present or
+        future call. The one case in which the server deploys a container from a caller&apos;s stored
+        configuration is a POOLED (persistent) caller, which the server keeps warm between calls: when the server
+        recycles the pooled callers of a project onto its Asterisk (an <code>UpdateVtsiProject</code> of a
+        deployed project, the recovery after the project&apos;s Asterisk restarted, a change of the project&apos;s
+        TLS trust anchor), the pooled caller it starts in place of this one is deployed from the stored, i.e.
+        updated, configuration. An in-place restart of a pooled caller&apos;s container (the call monitor&apos;s
+        health recovery) keeps the configuration the container was deployed with. Until it is recycled, an idle
+        pooled caller is matched to later <code>StartCaller</code> requests by the configuration its container
+        RUNS, never by an updated stored configuration it does not run.</p>
+        <p>Updating a caller never changes a campaign: the attempts of a campaign call take their configuration
+        from the campaign and the campaign call, never from a <code>Caller</code>.</p>
+        <p>Errors are gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed <code>caller.name</code>,
+        an empty <code>update_mask</code>, an unknown, output-only or immutable <code>update_mask</code> path, a
+        resulting configuration that a <code>StartCallerRequest</code> carrying it would be refused for, or an
+        unknown <code>field_mask</code> path (each naming the path or field); <code>NOT_FOUND</code> for an
+        unknown caller or project; with authorization enforced <code>PERMISSION_DENIED</code> for a project the
+        caller holds no role on.</p>
+        <p>Authorization: the role that may start and stop callers of the project (<code>PROJECT_EXECUTOR</code>
+        or higher).</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateCallers(self, request, context):
+        """<p>Updates several callers, each like <code>UpdateCaller</code>. Not atomic: every entry is applied on its
+        own and reported in <code>UpdateCallersResponse.update_caller_responses</code>, in request order; an entry
+        that fails changes nothing and does not stop the others. Errors of the request as a whole (see
+        <code>UpdateCallersRequest</code>) are gRPC status codes, and then no entry is applied.</p>
+        <p>Authorization: as <code>UpdateCaller</code>.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -328,6 +406,40 @@ class CallsServicer(object):
 
     def GetListener(self, request, context):
         """<p>Gets a listener</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateListener(self, request, context):
+        """<p>Updates the STORED configuration of a listener: the fields named in <code>update_mask</code>, i.e.
+        <code>sip_base_config</code> and <code>common_services_config</code> or any nested sub-path of them.
+        Allowed whether or not the listener&apos;s container is running or has a call.</p>
+        <p>A running container and every call it takes are NEVER changed: nothing is restarted, redeployed or
+        reconfigured, and the running container answers its calls with the configuration it was deployed with
+        until it is replaced.</p>
+        <p>When the stored configuration takes effect: only when the server RECREATES the listener from it, i.e.
+        when it recycles the listeners of the project onto its Asterisk: an <code>UpdateVtsiProject</code> of a
+        deployed project, the recovery after the project&apos;s Asterisk restarted, or a change of the
+        project&apos;s TLS trust anchor. The listener the server starts in place of this one is deployed from the
+        stored, i.e. updated, configuration. An in-place restart of the listener&apos;s container (the
+        server&apos;s restore of listener containers when it starts, the call monitor&apos;s restart of an
+        unhealthy container, a <code>docker restart</code>) keeps the configuration the container was deployed
+        with. A listener that is never recycled keeps the update only as its stored (and returned)
+        configuration.</p>
+        <p>Errors as for <code>UpdateCaller</code>, with <code>StartListenerRequest</code> as the validation of the
+        resulting configuration.</p>
+        <p>Authorization: the role that may start and stop listeners of the project (<code>PROJECT_EXECUTOR</code>
+        or higher).</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateListeners(self, request, context):
+        """<p>Updates several listeners, each like <code>UpdateListener</code>, with the per-entry results and the
+        request-level errors of <code>UpdateCallers</code>.</p>
+        <p>Authorization: as <code>UpdateListener</code>.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -474,6 +586,35 @@ class CallsServicer(object):
 
     def ListCalls(self, request, context):
         """<p>Get call log for all call instances</p>
+        <p>With <code>call_filter.campaign_name</code> or <code>call_filter.campaign_display_name</code> set, lists
+        only the calls of that campaign: the calls placed by the attempts of its campaign calls.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateCall(self, request, context):
+        """<p>Updates the descriptive metadata of a call: the only updatable <code>update_mask</code> path is
+        <code>labels</code>. Allowed on active and ended calls. It changes only the stored call record: the live
+        call, its SIP container, its status and its media are never touched, and no event is sent to the
+        call.</p>
+        <p>Errors are gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed <code>call.name</code>, an
+        empty <code>update_mask</code>, any path other than <code>labels</code> (every other field of a
+        <code>Call</code> is output only), a path below <code>labels</code>, labels outside the bounds of
+        <code>Call.labels</code>, or an unknown <code>field_mask</code> path (each naming the path or label);
+        <code>NOT_FOUND</code> for an unknown call or project; with authorization enforced
+        <code>PERMISSION_DENIED</code> for a project the caller holds no role on.</p>
+        <p>Authorization: the role that may stop calls of the project (<code>PROJECT_EXECUTOR</code> or
+        higher).</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateCalls(self, request, context):
+        """<p>Updates several calls, each like <code>UpdateCall</code>, with the per-entry results and the
+        request-level errors of <code>UpdateCallers</code>.</p>
+        <p>Authorization: as <code>UpdateCall</code>.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -626,6 +767,16 @@ def add_CallsServicer_to_server(servicer, server):
                     request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetCallerRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_calls__pb2.Caller.SerializeToString,
             ),
+            'UpdateCaller': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateCaller,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallerRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallerResponse.SerializeToString,
+            ),
+            'UpdateCallers': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateCallers,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallersRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallersResponse.SerializeToString,
+            ),
             'DeleteCaller': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteCaller,
                     request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.DeleteCallerRequest.FromString,
@@ -675,6 +826,16 @@ def add_CallsServicer_to_server(servicer, server):
                     servicer.GetListener,
                     request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.GetListenerRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_calls__pb2.Listener.SerializeToString,
+            ),
+            'UpdateListener': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateListener,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateListenerRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateListenerResponse.SerializeToString,
+            ),
+            'UpdateListeners': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateListeners,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateListenersRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateListenersResponse.SerializeToString,
             ),
             'DeleteListener': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteListener,
@@ -755,6 +916,16 @@ def add_CallsServicer_to_server(servicer, server):
                     servicer.ListCalls,
                     request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_calls__pb2.ListCallsResponse.SerializeToString,
+            ),
+            'UpdateCall': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateCall,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallResponse.SerializeToString,
+            ),
+            'UpdateCalls': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateCalls,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallsRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.UpdateCallsResponse.SerializeToString,
             ),
             'StreamCallerStatus': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamCallerStatus,
@@ -906,6 +1077,60 @@ class Calls(object):
             '/ondewo.vtsi.Calls/GetCaller',
             ondewo_dot_vtsi_dot_calls__pb2.GetCallerRequest.SerializeToString,
             ondewo_dot_vtsi_dot_calls__pb2.Caller.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateCaller(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/UpdateCaller',
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateCallerRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateCallerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateCallers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/UpdateCallers',
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateCallersRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateCallersResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -1176,6 +1401,60 @@ class Calls(object):
             '/ondewo.vtsi.Calls/GetListener',
             ondewo_dot_vtsi_dot_calls__pb2.GetListenerRequest.SerializeToString,
             ondewo_dot_vtsi_dot_calls__pb2.Listener.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateListener(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/UpdateListener',
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateListenerRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateListenerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateListeners(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/UpdateListeners',
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateListenersRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateListenersResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -1608,6 +1887,60 @@ class Calls(object):
             '/ondewo.vtsi.Calls/ListCalls',
             ondewo_dot_vtsi_dot_calls__pb2.ListCallsRequest.SerializeToString,
             ondewo_dot_vtsi_dot_calls__pb2.ListCallsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateCall(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/UpdateCall',
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateCallRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateCallResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateCalls(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/UpdateCalls',
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateCallsRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.UpdateCallsResponse.FromString,
             options,
             channel_credentials,
             insecure,
