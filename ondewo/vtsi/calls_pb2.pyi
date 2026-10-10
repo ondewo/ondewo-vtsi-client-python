@@ -19,15 +19,14 @@ limitations under the License.
 import builtins
 import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.field_mask_pb2
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
-import ondewo.nlu.context_pb2
 import ondewo.nlu.intent_pb2
-import ondewo.s2t.speech_to_text_pb2
 import ondewo.sip.sip_pb2
-import ondewo.t2s.text_to_speech_pb2
+import ondewo.vtsi.call_configs_pb2
 import ondewo.vtsi.campaigns_pb2
 import sys
 import typing
@@ -36,6 +35,31 @@ if sys.version_info >= (3, 10):
     import typing as typing_extensions
 else:
     import typing_extensions
+from ondewo.vtsi.call_configs_pb2 import (
+    AnsweringMachineDetectionConfig as AnsweringMachineDetectionConfig,
+    AudioObjectStorageConfig as AudioObjectStorageConfig,
+    AudioObjectStorageServicesActivationConfig as AudioObjectStorageServicesActivationConfig,
+    BaseServiceConfig as BaseServiceConfig,
+    CommonServicesConfig as CommonServicesConfig,
+    Credentials as Credentials,
+    CsiVtsiConfig as CsiVtsiConfig,
+    InterruptionHandlingConfig as InterruptionHandlingConfig,
+    MessageBrokerConfig as MessageBrokerConfig,
+    MessageBrokerServicesActivationConfig as MessageBrokerServicesActivationConfig,
+    NluVtsiCallbacks as NluVtsiCallbacks,
+    NluVtsiConfig as NluVtsiConfig,
+    RabbitMqConfig as RabbitMqConfig,
+    ResponseTimingConfig as ResponseTimingConfig,
+    S2tVtsiCallbacks as S2tVtsiCallbacks,
+    S2tVtsiConfig as S2tVtsiConfig,
+    SipBaseConfig as SipBaseConfig,
+    SipCallerConfig as SipCallerConfig,
+    SoftTimeoutConfig as SoftTimeoutConfig,
+    T2sVtsiCallbacks as T2sVtsiCallbacks,
+    T2sVtsiConfig as T2sVtsiConfig,
+    TurnDetectionConfig as TurnDetectionConfig,
+    VoiceInteractionConfig as VoiceInteractionConfig,
+)
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -422,177 +446,6 @@ SCHEDULED_CALLER: CallType.ValueType  # 3
 global___CallType = CallType
 
 @typing.final
-class BaseServiceConfig(google.protobuf.message.Message):
-    """Base configuration of services (ondewo-nlu, text-to-speech, speech-to-text, asterisk)"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    HOST_FIELD_NUMBER: builtins.int
-    PORT_FIELD_NUMBER: builtins.int
-    GRPC_CERT_FIELD_NUMBER: builtins.int
-    host: builtins.str
-    """service host IP"""
-    port: builtins.int
-    """service port"""
-    grpc_cert: builtins.str
-    """PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
-    escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
-    server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
-    refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
-    """
-    def __init__(
-        self,
-        *,
-        host: builtins.str = ...,
-        port: builtins.int = ...,
-        grpc_cert: builtins.str = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["grpc_cert", b"grpc_cert", "host", b"host", "port", b"port"]) -> None: ...
-
-global___BaseServiceConfig = BaseServiceConfig
-
-@typing.final
-class Credentials(google.protobuf.message.Message):
-    """Credentials"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    ACCOUNT_NAME_FIELD_NUMBER: builtins.int
-    PASSWORD_FIELD_NUMBER: builtins.int
-    account_name: builtins.str
-    """Account name - usually email address"""
-    password: builtins.str
-    """password of the account"""
-    def __init__(
-        self,
-        *,
-        account_name: builtins.str = ...,
-        password: builtins.str = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["account_name", b"account_name", "password", b"password"]) -> None: ...
-
-global___Credentials = Credentials
-
-@typing.final
-class NluVtsiConfig(google.protobuf.message.Message):
-    """NLU Configuration"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    NLU_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    CREDENTIALS_FIELD_NUMBER: builtins.int
-    AUTH_TOKEN_FIELD_NUMBER: builtins.int
-    AGENT_NAME_FIELD_NUMBER: builtins.int
-    LANGUAGE_CODE_FIELD_NUMBER: builtins.int
-    INITIAL_INTENT_FIELD_NUMBER: builtins.int
-    CONTEXTS_FIELD_NUMBER: builtins.int
-    HTTP_BASIC_AUTH_TOKEN_FIELD_NUMBER: builtins.int
-    PLATFORM_FIELD_NUMBER: builtins.int
-    auth_token: builtins.str
-    """Authentication token"""
-    agent_name: builtins.str
-    """The resource name of the agent.
-    Format: <pre><code>projects/&lt;uuid&gt;/agent</code></pre>
-    """
-    language_code: builtins.str
-    """language code in a two letter iso code, e.g. de, en, etc."""
-    initial_intent: builtins.str
-    """name of intent to trigger at the start of a call"""
-    http_basic_auth_token: builtins.str
-    """http basic auth token"""
-    platform: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType
-    """Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse"""
-    @property
-    def nlu_base_config(self) -> global___BaseServiceConfig:
-        """Base config
-        Host, Port, and [Optional] GRPC cert
-        """
-
-    @property
-    def credentials(self) -> global___Credentials:
-        """Credentials with classical username and password"""
-
-    @property
-    def contexts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ondewo.nlu.context_pb2.Context]:
-        """ondewo-nlu list of contexts"""
-
-    def __init__(
-        self,
-        *,
-        nlu_base_config: global___BaseServiceConfig | None = ...,
-        credentials: global___Credentials | None = ...,
-        auth_token: builtins.str = ...,
-        agent_name: builtins.str = ...,
-        language_code: builtins.str = ...,
-        initial_intent: builtins.str = ...,
-        contexts: collections.abc.Iterable[ondewo.nlu.context_pb2.Context] | None = ...,
-        http_basic_auth_token: builtins.str = ...,
-        platform: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_platform", b"_platform", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "nlu_base_config", b"nlu_base_config", "platform", b"platform"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_platform", b"_platform", "agent_name", b"agent_name", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_platform", b"_platform"]) -> typing.Literal["platform"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["authentication", b"authentication"]) -> typing.Literal["credentials", "auth_token"] | None: ...
-
-global___NluVtsiConfig = NluVtsiConfig
-
-@typing.final
-class T2sVtsiConfig(google.protobuf.message.Message):
-    """Text-2-Speech Configuration"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    T2S_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    T2S_REQUEST_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def t2s_base_config(self) -> global___BaseServiceConfig:
-        """Host, Port, and [Optional] GRPC cert"""
-
-    @property
-    def t2s_request_config(self) -> ondewo.t2s.text_to_speech_pb2.RequestConfig:
-        """Configuration of Text-2-Speech"""
-
-    def __init__(
-        self,
-        *,
-        t2s_base_config: global___BaseServiceConfig | None = ...,
-        t2s_request_config: ondewo.t2s.text_to_speech_pb2.RequestConfig | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]) -> None: ...
-
-global___T2sVtsiConfig = T2sVtsiConfig
-
-@typing.final
-class S2tVtsiConfig(google.protobuf.message.Message):
-    """Speech-2-Text Configuration"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    S2T_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    S2T_TRANSCRIBE_REQUEST_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def s2t_base_config(self) -> global___BaseServiceConfig:
-        """Host, Port, and [Optional] GRPC cert"""
-
-    @property
-    def s2t_transcribe_request_config(self) -> ondewo.s2t.speech_to_text_pb2.TranscribeRequestConfig:
-        """Configuration of Speech-2-Text"""
-
-    def __init__(
-        self,
-        *,
-        s2t_base_config: global___BaseServiceConfig | None = ...,
-        s2t_transcribe_request_config: ondewo.s2t.speech_to_text_pb2.TranscribeRequestConfig | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]) -> None: ...
-
-global___S2tVtsiConfig = S2tVtsiConfig
-
-@typing.final
 class AsteriskConfig(google.protobuf.message.Message):
     """Asterisk configuration"""
 
@@ -600,1010 +453,18 @@ class AsteriskConfig(google.protobuf.message.Message):
 
     ASTERISK_BASE_CONFIG_FIELD_NUMBER: builtins.int
     @property
-    def asterisk_base_config(self) -> global___BaseServiceConfig:
+    def asterisk_base_config(self) -> ondewo.vtsi.call_configs_pb2.BaseServiceConfig:
         """Host, Port, and [Optional] GRPC cert"""
 
     def __init__(
         self,
         *,
-        asterisk_base_config: global___BaseServiceConfig | None = ...,
+        asterisk_base_config: ondewo.vtsi.call_configs_pb2.BaseServiceConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["asterisk_base_config", b"asterisk_base_config"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["asterisk_base_config", b"asterisk_base_config"]) -> None: ...
 
 global___AsteriskConfig = AsteriskConfig
-
-@typing.final
-class CommonServicesConfig(google.protobuf.message.Message):
-    """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI which are common for both listener and caller"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    S2T_VTSI_CONFIG_FIELD_NUMBER: builtins.int
-    NLU_VTSI_CONFIG_FIELD_NUMBER: builtins.int
-    T2S_VTSI_CONFIG_FIELD_NUMBER: builtins.int
-    CSI_VTSI_CONFIG_FIELD_NUMBER: builtins.int
-    VOICE_INTERACTION_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def s2t_vtsi_config(self) -> global___S2tVtsiConfig:
-        """speech-to-text service configuration"""
-
-    @property
-    def nlu_vtsi_config(self) -> global___NluVtsiConfig:
-        """ondewo-nlu configuration"""
-
-    @property
-    def t2s_vtsi_config(self) -> global___T2sVtsiConfig:
-        """text-to-speech service configuration"""
-
-    @property
-    def csi_vtsi_config(self) -> global___CsiVtsiConfig:
-        """CSI service configuration"""
-
-    @property
-    def voice_interaction_config(self) -> global___VoiceInteractionConfig:
-        """Voice interaction configuration for turn detection, interruption (barge-in) handling and response timing"""
-
-    def __init__(
-        self,
-        *,
-        s2t_vtsi_config: global___S2tVtsiConfig | None = ...,
-        nlu_vtsi_config: global___NluVtsiConfig | None = ...,
-        t2s_vtsi_config: global___T2sVtsiConfig | None = ...,
-        csi_vtsi_config: global___CsiVtsiConfig | None = ...,
-        voice_interaction_config: global___VoiceInteractionConfig | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]) -> None: ...
-
-global___CommonServicesConfig = CommonServicesConfig
-
-@typing.final
-class VoiceInteractionConfig(google.protobuf.message.Message):
-    """Configuration of the voice interaction behavior of a call:
-    turn detection, interruption (barge-in) handling and response timing
-    """
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    TURN_DETECTION_CONFIG_FIELD_NUMBER: builtins.int
-    INTERRUPTION_HANDLING_CONFIG_FIELD_NUMBER: builtins.int
-    RESPONSE_TIMING_CONFIG_FIELD_NUMBER: builtins.int
-    ANSWERING_MACHINE_DETECTION_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def turn_detection_config(self) -> global___TurnDetectionConfig:
-        """Configuration of the turn detection"""
-
-    @property
-    def interruption_handling_config(self) -> global___InterruptionHandlingConfig:
-        """Configuration of the interruption (barge-in) handling"""
-
-    @property
-    def response_timing_config(self) -> global___ResponseTimingConfig:
-        """Configuration of the response timing"""
-
-    @property
-    def answering_machine_detection_config(self) -> global___AnsweringMachineDetectionConfig:
-        """Configuration of the answering machine detection (AMD) of an outbound call.
-        Only accepted for pooled persistent callers: a listener or a one-shot caller that carries it
-        is rejected with INVALID_ARGUMENT
-        """
-
-    def __init__(
-        self,
-        *,
-        turn_detection_config: global___TurnDetectionConfig | None = ...,
-        interruption_handling_config: global___InterruptionHandlingConfig | None = ...,
-        response_timing_config: global___ResponseTimingConfig | None = ...,
-        answering_machine_detection_config: global___AnsweringMachineDetectionConfig | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> None: ...
-
-global___VoiceInteractionConfig = VoiceInteractionConfig
-
-@typing.final
-class TurnDetectionConfig(google.protobuf.message.Message):
-    """Configuration of the turn detection, i.e. deciding when the caller has finished speaking"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    class _TurnDetectionMode:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
-
-    class _TurnDetectionModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TurnDetectionConfig._TurnDetectionMode.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        TURN_DETECTION_MODE_UNSPECIFIED: TurnDetectionConfig._TurnDetectionMode.ValueType  # 0
-        """Unspecified turn detection mode defaults to SEMANTIC_MODEL"""
-        VAD: TurnDetectionConfig._TurnDetectionMode.ValueType  # 1
-        """Turn detection based on voice activity detection, i.e. pauses in the caller audio (fallback mode)"""
-        SEMANTIC_MODEL: TurnDetectionConfig._TurnDetectionMode.ValueType  # 2
-        """Turn detection based on a semantic (LLM) turn detection model of the speech-to-text service (default)"""
-        AUDIO_MODEL: TurnDetectionConfig._TurnDetectionMode.ValueType  # 3
-        """Turn detection based on an audio-native turn detection model"""
-
-    class TurnDetectionMode(_TurnDetectionMode, metaclass=_TurnDetectionModeEnumTypeWrapper):
-        """Mode of the turn detection"""
-
-    TURN_DETECTION_MODE_UNSPECIFIED: TurnDetectionConfig.TurnDetectionMode.ValueType  # 0
-    """Unspecified turn detection mode defaults to SEMANTIC_MODEL"""
-    VAD: TurnDetectionConfig.TurnDetectionMode.ValueType  # 1
-    """Turn detection based on voice activity detection, i.e. pauses in the caller audio (fallback mode)"""
-    SEMANTIC_MODEL: TurnDetectionConfig.TurnDetectionMode.ValueType  # 2
-    """Turn detection based on a semantic (LLM) turn detection model of the speech-to-text service (default)"""
-    AUDIO_MODEL: TurnDetectionConfig.TurnDetectionMode.ValueType  # 3
-    """Turn detection based on an audio-native turn detection model"""
-
-    class _TurnEagerness:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
-
-    class _TurnEagernessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TurnDetectionConfig._TurnEagerness.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        TURN_EAGERNESS_UNSPECIFIED: TurnDetectionConfig._TurnEagerness.ValueType  # 0
-        """Unspecified turn eagerness defaults to NORMAL"""
-        PATIENT: TurnDetectionConfig._TurnEagerness.ValueType  # 1
-        """Patient turn taking: scales the endpointing delays by a factor of 1.7"""
-        NORMAL: TurnDetectionConfig._TurnEagerness.ValueType  # 2
-        """Normal turn taking: keeps the endpointing delays unchanged (factor 1.0)"""
-        EAGER: TurnDetectionConfig._TurnEagerness.ValueType  # 3
-        """Eager turn taking: scales the endpointing delays by a factor of 0.6"""
-
-    class TurnEagerness(_TurnEagerness, metaclass=_TurnEagernessEnumTypeWrapper):
-        """Eagerness of the turn detection"""
-
-    TURN_EAGERNESS_UNSPECIFIED: TurnDetectionConfig.TurnEagerness.ValueType  # 0
-    """Unspecified turn eagerness defaults to NORMAL"""
-    PATIENT: TurnDetectionConfig.TurnEagerness.ValueType  # 1
-    """Patient turn taking: scales the endpointing delays by a factor of 1.7"""
-    NORMAL: TurnDetectionConfig.TurnEagerness.ValueType  # 2
-    """Normal turn taking: keeps the endpointing delays unchanged (factor 1.0)"""
-    EAGER: TurnDetectionConfig.TurnEagerness.ValueType  # 3
-    """Eager turn taking: scales the endpointing delays by a factor of 0.6"""
-
-    MODE_FIELD_NUMBER: builtins.int
-    MIN_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: builtins.int
-    MAX_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: builtins.int
-    TURN_EAGERNESS_FIELD_NUMBER: builtins.int
-    TURN_DETECTION_SYSTEM_PROMPT_FIELD_NUMBER: builtins.int
-    TURN_DETECTION_USER_PROMPT_FIELD_NUMBER: builtins.int
-    mode: global___TurnDetectionConfig.TurnDetectionMode.ValueType
-    """Mode of the turn detection. Defaults to SEMANTIC_MODEL if unspecified"""
-    min_endpointing_delay_seconds: builtins.float
-    """Optional: Minimum delay in seconds before a confidently detected end of turn is committed (default: 0.5)"""
-    max_endpointing_delay_seconds: builtins.float
-    """Optional: Maximum delay in seconds to wait for an end of turn before the turn is committed
-    from the latest stable partial transcription (default: 3.0)
-    """
-    turn_eagerness: global___TurnDetectionConfig.TurnEagerness.ValueType
-    """Eagerness of the turn detection: scales both endpointing delays. Defaults to NORMAL if unspecified"""
-    turn_detection_system_prompt: builtins.str
-    """System prompt for the semantic (LLM) turn detection model of the speech-to-text service"""
-    turn_detection_user_prompt: builtins.str
-    """User prompt for the semantic (LLM) turn detection model of the speech-to-text service"""
-    def __init__(
-        self,
-        *,
-        mode: global___TurnDetectionConfig.TurnDetectionMode.ValueType = ...,
-        min_endpointing_delay_seconds: builtins.float | None = ...,
-        max_endpointing_delay_seconds: builtins.float | None = ...,
-        turn_eagerness: global___TurnDetectionConfig.TurnEagerness.ValueType = ...,
-        turn_detection_system_prompt: builtins.str | None = ...,
-        turn_detection_user_prompt: builtins.str | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "mode", b"mode", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "turn_eagerness", b"turn_eagerness"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds"]) -> typing.Literal["max_endpointing_delay_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds"]) -> typing.Literal["min_endpointing_delay_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_turn_detection_system_prompt", b"_turn_detection_system_prompt"]) -> typing.Literal["turn_detection_system_prompt"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_turn_detection_user_prompt", b"_turn_detection_user_prompt"]) -> typing.Literal["turn_detection_user_prompt"] | None: ...
-
-global___TurnDetectionConfig = TurnDetectionConfig
-
-@typing.final
-class InterruptionHandlingConfig(google.protobuf.message.Message):
-    """Configuration of the interruption (barge-in) handling, i.e. the caller speaking while the bot is speaking"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    ENABLED_FIELD_NUMBER: builtins.int
-    MIN_INTERRUPTION_DURATION_SECONDS_FIELD_NUMBER: builtins.int
-    MIN_INTERRUPTION_WORDS_FIELD_NUMBER: builtins.int
-    FALSE_INTERRUPTION_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
-    RESUME_AFTER_FALSE_INTERRUPTION_FIELD_NUMBER: builtins.int
-    BACKOFF_SECONDS_FIELD_NUMBER: builtins.int
-    FIRST_MESSAGE_PROTECTED_SECONDS_FIELD_NUMBER: builtins.int
-    TRANSCRIBE_ON_DISABLED_INTERRUPTIONS_FIELD_NUMBER: builtins.int
-    enabled: builtins.bool
-    """Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking"""
-    min_interruption_duration_seconds: builtins.float
-    """Optional: Minimum duration in seconds of caller speech while the bot is speaking
-    to trigger an interruption (noise gate) (default: 0.5)
-    """
-    min_interruption_words: builtins.int
-    """Optional: Minimum number of transcribed words of caller speech while the bot is speaking
-    to trigger an interruption (default: 2)
-    """
-    false_interruption_timeout_seconds: builtins.float
-    """Optional: Time in seconds after an interruption trigger without a committed transcription
-    after which the interruption is classified as a false interruption (default: 2.0)
-    """
-    resume_after_false_interruption: builtins.bool
-    """Optional: Resume the paused bot response after a false interruption,
-    e.g. a cough or brief background noise (default: true)
-    """
-    backoff_seconds: builtins.float
-    """Optional: Silence in seconds after a real interruption before the next bot response is played (default: 1.0)"""
-    first_message_protected_seconds: builtins.float
-    """Optional: Protect the first bot message from interruptions
-    for the given number of seconds (default: 0 = no protection)
-    """
-    transcribe_on_disabled_interruptions: builtins.bool
-    """Transcribe caller speech while the bot is speaking even if interruptions are disabled"""
-    def __init__(
-        self,
-        *,
-        enabled: builtins.bool | None = ...,
-        min_interruption_duration_seconds: builtins.float | None = ...,
-        min_interruption_words: builtins.int | None = ...,
-        false_interruption_timeout_seconds: builtins.float | None = ...,
-        resume_after_false_interruption: builtins.bool | None = ...,
-        backoff_seconds: builtins.float | None = ...,
-        first_message_protected_seconds: builtins.float | None = ...,
-        transcribe_on_disabled_interruptions: builtins.bool | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_backoff_seconds", b"_backoff_seconds"]) -> typing.Literal["backoff_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds"]) -> typing.Literal["false_interruption_timeout_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_first_message_protected_seconds", b"_first_message_protected_seconds"]) -> typing.Literal["first_message_protected_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_min_interruption_duration_seconds", b"_min_interruption_duration_seconds"]) -> typing.Literal["min_interruption_duration_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_min_interruption_words", b"_min_interruption_words"]) -> typing.Literal["min_interruption_words"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_resume_after_false_interruption", b"_resume_after_false_interruption"]) -> typing.Literal["resume_after_false_interruption"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions"]) -> typing.Literal["transcribe_on_disabled_interruptions"] | None: ...
-
-global___InterruptionHandlingConfig = InterruptionHandlingConfig
-
-@typing.final
-class ResponseTimingConfig(google.protobuf.message.Message):
-    """Configuration of the response timing, i.e. when and how the bot responds"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    TURN_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
-    SILENCE_END_CALL_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
-    SOFT_TIMEOUT_CONFIG_FIELD_NUMBER: builtins.int
-    PREEMPTIVE_GENERATION_ENABLED_FIELD_NUMBER: builtins.int
-    T2S_CHUNKED_STREAMING_ENABLED_FIELD_NUMBER: builtins.int
-    turn_timeout_seconds: builtins.float
-    """Optional: Seconds of caller silence after a bot response until a follow-up event
-    is triggered (default: 20.0, valid range: 1.0 - 30.0)
-    """
-    silence_end_call_timeout_seconds: builtins.float
-    """Optional: Seconds of caller silence until the call is ended.
-    Unset = off (-1 is also accepted as explicit off)
-    """
-    preemptive_generation_enabled: builtins.bool
-    """Optional: Enable preemptive response generation on an eagerly detected end of turn (default: false)"""
-    t2s_chunked_streaming_enabled: builtins.bool
-    """Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)"""
-    @property
-    def soft_timeout_config(self) -> global___SoftTimeoutConfig:
-        """Configuration of the soft timeout filler messages"""
-
-    def __init__(
-        self,
-        *,
-        turn_timeout_seconds: builtins.float | None = ...,
-        silence_end_call_timeout_seconds: builtins.float | None = ...,
-        soft_timeout_config: global___SoftTimeoutConfig | None = ...,
-        preemptive_generation_enabled: builtins.bool | None = ...,
-        t2s_chunked_streaming_enabled: builtins.bool | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled"]) -> typing.Literal["preemptive_generation_enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds"]) -> typing.Literal["silence_end_call_timeout_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled"]) -> typing.Literal["t2s_chunked_streaming_enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_turn_timeout_seconds", b"_turn_timeout_seconds"]) -> typing.Literal["turn_timeout_seconds"] | None: ...
-
-global___ResponseTimingConfig = ResponseTimingConfig
-
-@typing.final
-class SoftTimeoutConfig(google.protobuf.message.Message):
-    """Configuration of the soft timeout, i.e. filler messages played
-    when the response generation takes longer than the timeout
-    """
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
-    MESSAGES_FIELD_NUMBER: builtins.int
-    MAX_PER_GENERATION_FIELD_NUMBER: builtins.int
-    timeout_seconds: builtins.float
-    """Optional: Seconds after which a filler message is played while the response is still being generated.
-    Unset = off (-1 is also accepted as explicit off). Recommended: 3.0
-    """
-    max_per_generation: builtins.int
-    """Optional: Maximum number of filler messages per response generation (default: 1)"""
-    @property
-    def messages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Filler messages, rotated per soft timeout (maximum 7 messages, each 1 - 200 characters)"""
-
-    def __init__(
-        self,
-        *,
-        timeout_seconds: builtins.float | None = ...,
-        messages: collections.abc.Iterable[builtins.str] | None = ...,
-        max_per_generation: builtins.int | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_max_per_generation", b"_max_per_generation", "_timeout_seconds", b"_timeout_seconds", "max_per_generation", b"max_per_generation", "timeout_seconds", b"timeout_seconds"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_max_per_generation", b"_max_per_generation", "_timeout_seconds", b"_timeout_seconds", "max_per_generation", b"max_per_generation", "messages", b"messages", "timeout_seconds", b"timeout_seconds"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_per_generation", b"_max_per_generation"]) -> typing.Literal["max_per_generation"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_timeout_seconds", b"_timeout_seconds"]) -> typing.Literal["timeout_seconds"] | None: ...
-
-global___SoftTimeoutConfig = SoftTimeoutConfig
-
-@typing.final
-class AnsweringMachineDetectionConfig(google.protobuf.message.Message):
-    """Configuration of the answering machine detection (AMD) of an outbound call, i.e. deciding in the first
-    seconds after the callee answered whether a person, an answering machine, a fax, an IVR or a network
-    announcement picked up, and hanging up on the non-human ones.
-    Detection listens first: the bot stays silent until the verdict is reached or the decision window ends.
-    Every field is optional: an unset field takes the default of the CSI container (listed per field below).
-    Only accepted for pooled persistent callers; the settings are part of the caller container configuration,
-    so callers with different AMD settings are never pooled together.
-    The verdict of a call is reported as ondewo.sip.SipStatus.amd_result. Reaching a hang-up-eligible verdict sets
-    the non-terminal status ondewo.sip.SipStatus.StatusType.OUTGOING_CALL_ANSWERING_MACHINE_DETECTED (the call is
-    still up), and a call ended by AMD reaches the terminal status OUTGOING_CALL_FINISHED with one of these
-    descriptions:
-    <ul>
-    <li>"Answering machine detected with hang up": the caller hung up without leaving a voice message</li>
-    <li>"Answering machine detected with left voice message and hang up": the caller hung up after starting the
-    voice message</li>
-    <li>"Answering machine detected, call ended by the answering machine": the far end hung up before a voice
-    message was started</li>
-    <li>"Answering machine detected, call ended by the answering machine after leaving a voice message": the far
-    end hung up after the voice message was started</li>
-    </ul>
-    The description is also recorded on the call as Call.answering_machine_detection_end_description.
-    Compliance: leaving a recorded message on a consumer's mailbox for marketing purposes requires the consent of
-    the callee in many jurisdictions (e.g. in Germany § 7 UWG). HANG_UP is therefore the default action.
-    """
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    class _AmdAction:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
-
-    class _AmdActionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AnsweringMachineDetectionConfig._AmdAction.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        AMD_ACTION_UNSPECIFIED: AnsweringMachineDetectionConfig._AmdAction.ValueType  # 0
-        """Unspecified action defaults to HANG_UP"""
-        HANG_UP: AnsweringMachineDetectionConfig._AmdAction.ValueType  # 1
-        """Hang up at once on a non-human verdict whose per-verdict hang-up switch is on
-        (an answering machine is always hung up on) (default)
-        """
-        DETECT_ONLY: AnsweringMachineDetectionConfig._AmdAction.ValueType  # 2
-        """Only detect and record the verdict, never hang up: OUTGOING_CALL_ANSWERING_MACHINE_DETECTED is still
-        set, then the far end is treated as a person and the call continues with the greeting and ends
-        normally (shadow mode to calibrate the detection before enabling HANG_UP)
-        """
-        LEAVE_VOICE_MESSAGE: AnsweringMachineDetectionConfig._AmdAction.ValueType  # 3
-        """Leave a voice message on a hang-up-eligible verdict, then hang up: the fulfillment of
-        voice_message_intent is spoken once after the beep (or after the end of the machine greeting),
-        and the call is hung up when it finished playing or when voice_message_timeout_ms elapsed,
-        whichever comes first. A FAX verdict never gets a voice message; it is hung up on when
-        hang_up_on_fax is on. See the compliance note above before enabling it
-        """
-
-    class AmdAction(_AmdAction, metaclass=_AmdActionEnumTypeWrapper):
-        """What to do once a non-human verdict is reached"""
-
-    AMD_ACTION_UNSPECIFIED: AnsweringMachineDetectionConfig.AmdAction.ValueType  # 0
-    """Unspecified action defaults to HANG_UP"""
-    HANG_UP: AnsweringMachineDetectionConfig.AmdAction.ValueType  # 1
-    """Hang up at once on a non-human verdict whose per-verdict hang-up switch is on
-    (an answering machine is always hung up on) (default)
-    """
-    DETECT_ONLY: AnsweringMachineDetectionConfig.AmdAction.ValueType  # 2
-    """Only detect and record the verdict, never hang up: OUTGOING_CALL_ANSWERING_MACHINE_DETECTED is still
-    set, then the far end is treated as a person and the call continues with the greeting and ends
-    normally (shadow mode to calibrate the detection before enabling HANG_UP)
-    """
-    LEAVE_VOICE_MESSAGE: AnsweringMachineDetectionConfig.AmdAction.ValueType  # 3
-    """Leave a voice message on a hang-up-eligible verdict, then hang up: the fulfillment of
-    voice_message_intent is spoken once after the beep (or after the end of the machine greeting),
-    and the call is hung up when it finished playing or when voice_message_timeout_ms elapsed,
-    whichever comes first. A FAX verdict never gets a voice message; it is hung up on when
-    hang_up_on_fax is on. See the compliance note above before enabling it
-    """
-
-    class _AmdSensitivity:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
-
-    class _AmdSensitivityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AnsweringMachineDetectionConfig._AmdSensitivity.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        AMD_SENSITIVITY_UNSPECIFIED: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 0
-        """Unspecified sensitivity defaults to LOW"""
-        LOW: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 1
-        """Most conservative towards people: only strong machine evidence leads to a machine verdict (default)"""
-        MEDIUM: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 2
-        """Balanced between missed machines and people classified as machines"""
-        HIGH: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 3
-        """Most aggressive: detects more machines at a higher risk of hanging up on a person"""
-
-    class AmdSensitivity(_AmdSensitivity, metaclass=_AmdSensitivityEnumTypeWrapper):
-        """Sensitivity of the detection: selects the enabled detection rules and their internal thresholds"""
-
-    AMD_SENSITIVITY_UNSPECIFIED: AnsweringMachineDetectionConfig.AmdSensitivity.ValueType  # 0
-    """Unspecified sensitivity defaults to LOW"""
-    LOW: AnsweringMachineDetectionConfig.AmdSensitivity.ValueType  # 1
-    """Most conservative towards people: only strong machine evidence leads to a machine verdict (default)"""
-    MEDIUM: AnsweringMachineDetectionConfig.AmdSensitivity.ValueType  # 2
-    """Balanced between missed machines and people classified as machines"""
-    HIGH: AnsweringMachineDetectionConfig.AmdSensitivity.ValueType  # 3
-    """Most aggressive: detects more machines at a higher risk of hanging up on a person"""
-
-    ACTIVE_FIELD_NUMBER: builtins.int
-    ACTION_FIELD_NUMBER: builtins.int
-    SENSITIVITY_FIELD_NUMBER: builtins.int
-    MAX_DECISION_TIME_MS_FIELD_NUMBER: builtins.int
-    MAX_MACHINE_WAIT_MS_FIELD_NUMBER: builtins.int
-    BEEP_WAIT_AFTER_GREETING_MS_FIELD_NUMBER: builtins.int
-    INITIAL_SILENCE_MS_FIELD_NUMBER: builtins.int
-    MAX_HUMAN_GREETING_MS_FIELD_NUMBER: builtins.int
-    GREETING_END_SILENCE_MS_FIELD_NUMBER: builtins.int
-    BEEP_DETECTION_ACTIVE_FIELD_NUMBER: builtins.int
-    ADDITIONAL_MACHINE_PHRASES_FIELD_NUMBER: builtins.int
-    ADDITIONAL_HUMAN_PHRASES_FIELD_NUMBER: builtins.int
-    HANG_UP_ON_FAX_FIELD_NUMBER: builtins.int
-    HANG_UP_ON_NETWORK_ANNOUNCEMENT_FIELD_NUMBER: builtins.int
-    HANG_UP_ON_IVR_FIELD_NUMBER: builtins.int
-    HANG_UP_ON_CALL_SCREENING_FIELD_NUMBER: builtins.int
-    VOICE_MESSAGE_INTENT_FIELD_NUMBER: builtins.int
-    VOICE_MESSAGE_MAX_BEEP_WAIT_MS_FIELD_NUMBER: builtins.int
-    VOICE_MESSAGE_TIMEOUT_MS_FIELD_NUMBER: builtins.int
-    KEYWORD_DETECTION_ACTIVE_FIELD_NUMBER: builtins.int
-    CADENCE_DETECTION_ACTIVE_FIELD_NUMBER: builtins.int
-    active: builtins.bool
-    """Optional: Master switch of the answering machine detection (default: false)"""
-    action: global___AnsweringMachineDetectionConfig.AmdAction.ValueType
-    """Optional: Action on a non-human verdict (default: HANG_UP)"""
-    sensitivity: global___AnsweringMachineDetectionConfig.AmdSensitivity.ValueType
-    """Optional: Sensitivity of the detection (default: LOW)"""
-    max_decision_time_ms: builtins.int
-    """Optional: Maximum time in milliseconds after the callee answered to reach a verdict when no
-    machine-leaning evidence was seen; the verdict is UNKNOWN when it is reached
-    (default: 4000, valid range: 1500 - 10000)
-    """
-    max_machine_wait_ms: builtins.int
-    """Optional: Maximum time in milliseconds after the callee answered to reach a verdict once
-    machine-leaning evidence extended the decision window (default: 11000, valid range: 4000 - 20000)
-    """
-    beep_wait_after_greeting_ms: builtins.int
-    """Optional: Time in milliseconds to wait for a beep after a long greeting ended
-    (default: 1500, valid range: 0 - 4000)
-    """
-    initial_silence_ms: builtins.int
-    """Optional: Silence in milliseconds after the callee answered without any speech, after which the verdict
-    is NO_SPEECH, which is treated like a person (default: 3500, valid range: 1000 - 10000)
-    """
-    max_human_greeting_ms: builtins.int
-    """Optional: Continuous speech in milliseconds beyond which a greeting is machine-leaning
-    (default: 2400, valid range: 1000 - 6000)
-    """
-    greeting_end_silence_ms: builtins.int
-    """Optional: Silence in milliseconds after the first speech burst that ends a human greeting
-    (default: 900, valid range: 300 - 3000)
-    """
-    beep_detection_active: builtins.bool
-    """Optional: Enable the tone detector for the beep of an answering machine (default: true)"""
-    hang_up_on_fax: builtins.bool
-    """Optional: Hang up on a FAX verdict when the action is HANG_UP (default: true)"""
-    hang_up_on_network_announcement: builtins.bool
-    """Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. "the number is not reachable",
-    when the action is HANG_UP (default: true)
-    """
-    hang_up_on_ivr: builtins.bool
-    """Optional: Hang up on an IVR verdict, i.e. an automated menu, when the action is HANG_UP (default: false)"""
-    hang_up_on_call_screening: builtins.bool
-    """Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of
-    the call, when the action is HANG_UP (default: false)
-    """
-    voice_message_intent: builtins.str
-    """Optional: Name of the NLU intent whose fulfillment is the voice message when the action is
-    LEAVE_VOICE_MESSAGE; it is triggered once (default: the welcome intent of the NLU project,
-    1 - 200 characters when set)
-    """
-    voice_message_max_beep_wait_ms: builtins.int
-    """Optional: Maximum time in milliseconds after the verdict to wait for the beep, or for the end of the
-    machine greeting, before the voice message is spoken when the action is LEAVE_VOICE_MESSAGE;
-    0 speaks immediately (default: 10000, valid range: 0 - 30000)
-    """
-    voice_message_timeout_ms: builtins.int
-    """Optional: Maximum time in milliseconds after the verdict until the call is hung up when the action is
-    LEAVE_VOICE_MESSAGE, also when the voice message has not finished playing
-    (default: 30000, valid range: 5000 - 120000)
-    """
-    keyword_detection_active: builtins.bool
-    """Optional: Enable the detection of machine and person phrases in the transcribed greeting, i.e. the
-    built-in phrase lists plus additional_machine_phrases and additional_human_phrases; turning it off
-    removes this evidence and the detection rules that need it (default: true)
-    """
-    cadence_detection_active: builtins.bool
-    """Optional: Enable the detection based on the speech and silence cadence of the greeting, e.g. its
-    length and the silence after it; turning it off removes this evidence and the detection rules that
-    need it (default: true)
-    """
-    @property
-    def additional_machine_phrases(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Additional phrases that indicate an answering machine, added to the built-in de and en phrase lists
-        (maximum 50 phrases, each 1 - 80 characters)
-        """
-
-    @property
-    def additional_human_phrases(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Additional phrases that indicate a person, added to the built-in de and en phrase lists
-        (maximum 50 phrases, each 1 - 80 characters)
-        """
-
-    def __init__(
-        self,
-        *,
-        active: builtins.bool | None = ...,
-        action: global___AnsweringMachineDetectionConfig.AmdAction.ValueType | None = ...,
-        sensitivity: global___AnsweringMachineDetectionConfig.AmdSensitivity.ValueType | None = ...,
-        max_decision_time_ms: builtins.int | None = ...,
-        max_machine_wait_ms: builtins.int | None = ...,
-        beep_wait_after_greeting_ms: builtins.int | None = ...,
-        initial_silence_ms: builtins.int | None = ...,
-        max_human_greeting_ms: builtins.int | None = ...,
-        greeting_end_silence_ms: builtins.int | None = ...,
-        beep_detection_active: builtins.bool | None = ...,
-        additional_machine_phrases: collections.abc.Iterable[builtins.str] | None = ...,
-        additional_human_phrases: collections.abc.Iterable[builtins.str] | None = ...,
-        hang_up_on_fax: builtins.bool | None = ...,
-        hang_up_on_network_announcement: builtins.bool | None = ...,
-        hang_up_on_ivr: builtins.bool | None = ...,
-        hang_up_on_call_screening: builtins.bool | None = ...,
-        voice_message_intent: builtins.str | None = ...,
-        voice_message_max_beep_wait_ms: builtins.int | None = ...,
-        voice_message_timeout_ms: builtins.int | None = ...,
-        keyword_detection_active: builtins.bool | None = ...,
-        cadence_detection_active: builtins.bool | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_action", b"_action", "_active", b"_active", "_beep_detection_active", b"_beep_detection_active", "_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms", "_cadence_detection_active", b"_cadence_detection_active", "_greeting_end_silence_ms", b"_greeting_end_silence_ms", "_hang_up_on_call_screening", b"_hang_up_on_call_screening", "_hang_up_on_fax", b"_hang_up_on_fax", "_hang_up_on_ivr", b"_hang_up_on_ivr", "_hang_up_on_network_announcement", b"_hang_up_on_network_announcement", "_initial_silence_ms", b"_initial_silence_ms", "_keyword_detection_active", b"_keyword_detection_active", "_max_decision_time_ms", b"_max_decision_time_ms", "_max_human_greeting_ms", b"_max_human_greeting_ms", "_max_machine_wait_ms", b"_max_machine_wait_ms", "_sensitivity", b"_sensitivity", "_voice_message_intent", b"_voice_message_intent", "_voice_message_max_beep_wait_ms", b"_voice_message_max_beep_wait_ms", "_voice_message_timeout_ms", b"_voice_message_timeout_ms", "action", b"action", "active", b"active", "beep_detection_active", b"beep_detection_active", "beep_wait_after_greeting_ms", b"beep_wait_after_greeting_ms", "cadence_detection_active", b"cadence_detection_active", "greeting_end_silence_ms", b"greeting_end_silence_ms", "hang_up_on_call_screening", b"hang_up_on_call_screening", "hang_up_on_fax", b"hang_up_on_fax", "hang_up_on_ivr", b"hang_up_on_ivr", "hang_up_on_network_announcement", b"hang_up_on_network_announcement", "initial_silence_ms", b"initial_silence_ms", "keyword_detection_active", b"keyword_detection_active", "max_decision_time_ms", b"max_decision_time_ms", "max_human_greeting_ms", b"max_human_greeting_ms", "max_machine_wait_ms", b"max_machine_wait_ms", "sensitivity", b"sensitivity", "voice_message_intent", b"voice_message_intent", "voice_message_max_beep_wait_ms", b"voice_message_max_beep_wait_ms", "voice_message_timeout_ms", b"voice_message_timeout_ms"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_action", b"_action", "_active", b"_active", "_beep_detection_active", b"_beep_detection_active", "_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms", "_cadence_detection_active", b"_cadence_detection_active", "_greeting_end_silence_ms", b"_greeting_end_silence_ms", "_hang_up_on_call_screening", b"_hang_up_on_call_screening", "_hang_up_on_fax", b"_hang_up_on_fax", "_hang_up_on_ivr", b"_hang_up_on_ivr", "_hang_up_on_network_announcement", b"_hang_up_on_network_announcement", "_initial_silence_ms", b"_initial_silence_ms", "_keyword_detection_active", b"_keyword_detection_active", "_max_decision_time_ms", b"_max_decision_time_ms", "_max_human_greeting_ms", b"_max_human_greeting_ms", "_max_machine_wait_ms", b"_max_machine_wait_ms", "_sensitivity", b"_sensitivity", "_voice_message_intent", b"_voice_message_intent", "_voice_message_max_beep_wait_ms", b"_voice_message_max_beep_wait_ms", "_voice_message_timeout_ms", b"_voice_message_timeout_ms", "action", b"action", "active", b"active", "additional_human_phrases", b"additional_human_phrases", "additional_machine_phrases", b"additional_machine_phrases", "beep_detection_active", b"beep_detection_active", "beep_wait_after_greeting_ms", b"beep_wait_after_greeting_ms", "cadence_detection_active", b"cadence_detection_active", "greeting_end_silence_ms", b"greeting_end_silence_ms", "hang_up_on_call_screening", b"hang_up_on_call_screening", "hang_up_on_fax", b"hang_up_on_fax", "hang_up_on_ivr", b"hang_up_on_ivr", "hang_up_on_network_announcement", b"hang_up_on_network_announcement", "initial_silence_ms", b"initial_silence_ms", "keyword_detection_active", b"keyword_detection_active", "max_decision_time_ms", b"max_decision_time_ms", "max_human_greeting_ms", b"max_human_greeting_ms", "max_machine_wait_ms", b"max_machine_wait_ms", "sensitivity", b"sensitivity", "voice_message_intent", b"voice_message_intent", "voice_message_max_beep_wait_ms", b"voice_message_max_beep_wait_ms", "voice_message_timeout_ms", b"voice_message_timeout_ms"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_action", b"_action"]) -> typing.Literal["action"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_active", b"_active"]) -> typing.Literal["active"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_beep_detection_active", b"_beep_detection_active"]) -> typing.Literal["beep_detection_active"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms"]) -> typing.Literal["beep_wait_after_greeting_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_cadence_detection_active", b"_cadence_detection_active"]) -> typing.Literal["cadence_detection_active"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_greeting_end_silence_ms", b"_greeting_end_silence_ms"]) -> typing.Literal["greeting_end_silence_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_call_screening", b"_hang_up_on_call_screening"]) -> typing.Literal["hang_up_on_call_screening"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_fax", b"_hang_up_on_fax"]) -> typing.Literal["hang_up_on_fax"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_ivr", b"_hang_up_on_ivr"]) -> typing.Literal["hang_up_on_ivr"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_network_announcement", b"_hang_up_on_network_announcement"]) -> typing.Literal["hang_up_on_network_announcement"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_initial_silence_ms", b"_initial_silence_ms"]) -> typing.Literal["initial_silence_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_keyword_detection_active", b"_keyword_detection_active"]) -> typing.Literal["keyword_detection_active"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_decision_time_ms", b"_max_decision_time_ms"]) -> typing.Literal["max_decision_time_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_human_greeting_ms", b"_max_human_greeting_ms"]) -> typing.Literal["max_human_greeting_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_machine_wait_ms", b"_max_machine_wait_ms"]) -> typing.Literal["max_machine_wait_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sensitivity", b"_sensitivity"]) -> typing.Literal["sensitivity"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_voice_message_intent", b"_voice_message_intent"]) -> typing.Literal["voice_message_intent"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_voice_message_max_beep_wait_ms", b"_voice_message_max_beep_wait_ms"]) -> typing.Literal["voice_message_max_beep_wait_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_voice_message_timeout_ms", b"_voice_message_timeout_ms"]) -> typing.Literal["voice_message_timeout_ms"] | None: ...
-
-global___AnsweringMachineDetectionConfig = AnsweringMachineDetectionConfig
-
-@typing.final
-class SipBaseConfig(google.protobuf.message.Message):
-    """The base config is for both the listener and caller. If you only provide it you will get a listener
-    You will need to provide <code>SipCallerConfig</code> for the caller
-    """
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    SIP_SIM_VERSION_FIELD_NUMBER: builtins.int
-    sip_sim_version: builtins.str
-    """version of sip to use for call, semantic versioning e.g., 1.0.0, 1.1.0-pre-release, etc."""
-    def __init__(
-        self,
-        *,
-        sip_sim_version: builtins.str = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["sip_sim_version", b"sip_sim_version"]) -> None: ...
-
-global___SipBaseConfig = SipBaseConfig
-
-@typing.final
-class SipCallerConfig(google.protobuf.message.Message):
-    """Configuration of the SIP caller"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    @typing.final
-    class SipHeadersEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
-        def __init__(
-            self,
-            *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
-        ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
-
-    SIP_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    CALLEE_ID_FIELD_NUMBER: builtins.int
-    SIP_HEADERS_FIELD_NUMBER: builtins.int
-    callee_id: builtins.str
-    """callee id e.g. phone number to call, +4365012345678 or VOIP phone ondewo0001@ondewo.com, etc."""
-    @property
-    def sip_base_config(self) -> global___SipBaseConfig:
-        """SIP configuration"""
-
-    @property
-    def sip_headers(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """dictionary of sip headers that are sent on call"""
-
-    def __init__(
-        self,
-        *,
-        sip_base_config: global___SipBaseConfig | None = ...,
-        callee_id: builtins.str = ...,
-        sip_headers: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["sip_base_config", b"sip_base_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["callee_id", b"callee_id", "sip_base_config", b"sip_base_config", "sip_headers", b"sip_headers"]) -> None: ...
-
-global___SipCallerConfig = SipCallerConfig
-
-@typing.final
-class CsiVtsiConfig(google.protobuf.message.Message):
-    """CSI configuration"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    S2T_VTSI_CALLBACKS_FIELD_NUMBER: builtins.int
-    NLU_VTSI_CALLBACKS_FIELD_NUMBER: builtins.int
-    T2S_VTSI_CALLBACKS_FIELD_NUMBER: builtins.int
-    AUDIO_OBJECT_STORE_CONFIG_FIELD_NUMBER: builtins.int
-    MESSAGE_BROKER_CONFIG_FIELD_NUMBER: builtins.int
-    ACTIVATE_CONTROL_MESSAGES_FIELD_NUMBER: builtins.int
-    activate_control_messages: builtins.bool
-    """Setting to activate if it is possible to send control messages
-    <ul>
-      <li>via RabbitMQ to remote control the system</li>
-      <li>via embeddings in NLU text responses</li>
-    </ul>
-    Explicitly optional: leaving the field unset means the caller expresses no preference and the
-    server keeps its own configured default. That is NOT the same as sending
-    <pre><code>false</code></pre>, which is a request to switch control messages off. A
-    presence-less bool cannot tell the two apart, so an unset field arrived as
-    <pre><code>false</code></pre> and silently disabled control messages for callers that never
-    mentioned them.
-    """
-    @property
-    def s2t_vtsi_callbacks(self) -> global___S2tVtsiCallbacks:
-        """Callback for the Speech-2-Text platform"""
-
-    @property
-    def nlu_vtsi_callbacks(self) -> global___NluVtsiCallbacks:
-        """Callback for the NLU platform"""
-
-    @property
-    def t2s_vtsi_callbacks(self) -> global___T2sVtsiCallbacks:
-        """Callback for the Text-2-Speech platform"""
-
-    @property
-    def audio_object_store_config(self) -> global___AudioObjectStorageConfig:
-        """Configuration of the Minio Audio Object Store"""
-
-    @property
-    def message_broker_config(self) -> global___MessageBrokerConfig:
-        """Configuration of the RabbitMQ Message Broker"""
-
-    def __init__(
-        self,
-        *,
-        s2t_vtsi_callbacks: global___S2tVtsiCallbacks | None = ...,
-        nlu_vtsi_callbacks: global___NluVtsiCallbacks | None = ...,
-        t2s_vtsi_callbacks: global___T2sVtsiCallbacks | None = ...,
-        audio_object_store_config: global___AudioObjectStorageConfig | None = ...,
-        message_broker_config: global___MessageBrokerConfig | None = ...,
-        activate_control_messages: builtins.bool | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_control_messages", b"_activate_control_messages"]) -> typing.Literal["activate_control_messages"] | None: ...
-
-global___CsiVtsiConfig = CsiVtsiConfig
-
-@typing.final
-class AudioObjectStorageConfig(google.protobuf.message.Message):
-    """Minio Audio Object Store"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    ACTIVATE_AUDIO_OBJECT_STORAGE_FIELD_NUMBER: builtins.int
-    AUDIO_OBJECT_STORAGE_SERVICES_ACTIVATION_CONFIG_FIELD_NUMBER: builtins.int
-    activate_audio_object_storage: builtins.bool
-    """Audio storage should be activated or not"""
-    @property
-    def audio_object_storage_services_activation_config(self) -> global___AudioObjectStorageServicesActivationConfig:
-        """Configuration of the Minio Audio Object Store"""
-
-    def __init__(
-        self,
-        *,
-        activate_audio_object_storage: builtins.bool | None = ...,
-        audio_object_storage_services_activation_config: global___AudioObjectStorageServicesActivationConfig | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_audio_object_storage", b"_activate_audio_object_storage", "activate_audio_object_storage", b"activate_audio_object_storage", "audio_object_storage_services_activation_config", b"audio_object_storage_services_activation_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_audio_object_storage", b"_activate_audio_object_storage", "activate_audio_object_storage", b"activate_audio_object_storage", "audio_object_storage_services_activation_config", b"audio_object_storage_services_activation_config"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_audio_object_storage", b"_activate_audio_object_storage"]) -> typing.Literal["activate_audio_object_storage"] | None: ...
-
-global___AudioObjectStorageConfig = AudioObjectStorageConfig
-
-@typing.final
-class AudioObjectStorageServicesActivationConfig(google.protobuf.message.Message):
-    """Configuration of the Minio Audio Object Store"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    ACTIVATE_S2T_FIELD_NUMBER: builtins.int
-    ACTIVATE_T2S_FIELD_NUMBER: builtins.int
-    activate_s2t: builtins.bool
-    """Should audio object store save audio sent to the Speech-2-Text platform"""
-    activate_t2s: builtins.bool
-    """Should audio object store save audio generated from the Text-2-Speech platform"""
-    def __init__(
-        self,
-        *,
-        activate_s2t: builtins.bool | None = ...,
-        activate_t2s: builtins.bool | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_s2t", b"_activate_s2t", "_activate_t2s", b"_activate_t2s", "activate_s2t", b"activate_s2t", "activate_t2s", b"activate_t2s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_s2t", b"_activate_s2t", "_activate_t2s", b"_activate_t2s", "activate_s2t", b"activate_s2t", "activate_t2s", b"activate_t2s"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_s2t", b"_activate_s2t"]) -> typing.Literal["activate_s2t"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_t2s", b"_activate_t2s"]) -> typing.Literal["activate_t2s"] | None: ...
-
-global___AudioObjectStorageServicesActivationConfig = AudioObjectStorageServicesActivationConfig
-
-@typing.final
-class MessageBrokerConfig(google.protobuf.message.Message):
-    """Configuration of the RabbitMQ Message Broker"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    ACTIVATE_MESSAGE_BROKER_FIELD_NUMBER: builtins.int
-    MESSAGE_BROKER_SERVICES_ACTIVATION_CONFIG_FIELD_NUMBER: builtins.int
-    RABBIT_MQ_CONFIG_FIELD_NUMBER: builtins.int
-    activate_message_broker: builtins.bool
-    """Should the broker be activated or not"""
-    @property
-    def message_broker_services_activation_config(self) -> global___MessageBrokerServicesActivationConfig:
-        """Configuration of the Broker service activation"""
-
-    @property
-    def rabbit_mq_config(self) -> global___RabbitMqConfig:
-        """Configuration of the RabbitMQ Message Broker"""
-
-    def __init__(
-        self,
-        *,
-        activate_message_broker: builtins.bool | None = ...,
-        message_broker_services_activation_config: global___MessageBrokerServicesActivationConfig | None = ...,
-        rabbit_mq_config: global___RabbitMqConfig | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_message_broker", b"_activate_message_broker", "activate_message_broker", b"activate_message_broker", "message_broker_config", b"message_broker_config", "message_broker_services_activation_config", b"message_broker_services_activation_config", "rabbit_mq_config", b"rabbit_mq_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_message_broker", b"_activate_message_broker", "activate_message_broker", b"activate_message_broker", "message_broker_config", b"message_broker_config", "message_broker_services_activation_config", b"message_broker_services_activation_config", "rabbit_mq_config", b"rabbit_mq_config"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_message_broker", b"_activate_message_broker"]) -> typing.Literal["activate_message_broker"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["message_broker_config", b"message_broker_config"]) -> typing.Literal["rabbit_mq_config"] | None: ...
-
-global___MessageBrokerConfig = MessageBrokerConfig
-
-@typing.final
-class MessageBrokerServicesActivationConfig(google.protobuf.message.Message):
-    """Configuration of the RabbitMQ Message Broker"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    ACTIVATE_S2T_FIELD_NUMBER: builtins.int
-    ACTIVATE_NLU_FIELD_NUMBER: builtins.int
-    ACTIVATE_T2S_FIELD_NUMBER: builtins.int
-    ACTIVATE_SIP_FIELD_NUMBER: builtins.int
-    activate_s2t: builtins.bool
-    """should RabbitMQ Message Broker be activated for Speech-2-Text platform"""
-    activate_nlu: builtins.bool
-    """should RabbitMQ Message Broker be activated for NLU platform"""
-    activate_t2s: builtins.bool
-    """should RabbitMQ Message Broker be activated for Text-2-Speech platform"""
-    activate_sip: builtins.bool
-    """should RabbitMQ Message Broker be activated for SIP platform"""
-    def __init__(
-        self,
-        *,
-        activate_s2t: builtins.bool | None = ...,
-        activate_nlu: builtins.bool | None = ...,
-        activate_t2s: builtins.bool | None = ...,
-        activate_sip: builtins.bool | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_nlu", b"_activate_nlu", "_activate_s2t", b"_activate_s2t", "_activate_sip", b"_activate_sip", "_activate_t2s", b"_activate_t2s", "activate_nlu", b"activate_nlu", "activate_s2t", b"activate_s2t", "activate_sip", b"activate_sip", "activate_t2s", b"activate_t2s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_nlu", b"_activate_nlu", "_activate_s2t", b"_activate_s2t", "_activate_sip", b"_activate_sip", "_activate_t2s", b"_activate_t2s", "activate_nlu", b"activate_nlu", "activate_s2t", b"activate_s2t", "activate_sip", b"activate_sip", "activate_t2s", b"activate_t2s"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_nlu", b"_activate_nlu"]) -> typing.Literal["activate_nlu"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_s2t", b"_activate_s2t"]) -> typing.Literal["activate_s2t"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_sip", b"_activate_sip"]) -> typing.Literal["activate_sip"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_t2s", b"_activate_t2s"]) -> typing.Literal["activate_t2s"] | None: ...
-
-global___MessageBrokerServicesActivationConfig = MessageBrokerServicesActivationConfig
-
-@typing.final
-class RabbitMqConfig(google.protobuf.message.Message):
-    """Configuration of the RabbitMQ Message Broker"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    HOST_FIELD_NUMBER: builtins.int
-    PORT_FIELD_NUMBER: builtins.int
-    PORT_2_FIELD_NUMBER: builtins.int
-    USER_FIELD_NUMBER: builtins.int
-    PASSWORD_FIELD_NUMBER: builtins.int
-    host: builtins.str
-    """host where the rabbit mq server runs"""
-    port: builtins.int
-    """port where the rabbit mq server runs"""
-    port_2: builtins.int
-    """secondary port where the rabbit mq server runs"""
-    user: builtins.str
-    """user of server"""
-    password: builtins.str
-    """password of server"""
-    def __init__(
-        self,
-        *,
-        host: builtins.str = ...,
-        port: builtins.int = ...,
-        port_2: builtins.int = ...,
-        user: builtins.str = ...,
-        password: builtins.str = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["host", b"host", "password", b"password", "port", b"port", "port_2", b"port_2", "user", b"user"]) -> None: ...
-
-global___RabbitMqConfig = RabbitMqConfig
-
-@typing.final
-class S2tVtsiCallbacks(google.protobuf.message.Message):
-    """Callback for the Speech-2-Text platform"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    PRE_S2T_CALLBACKS_FIELD_NUMBER: builtins.int
-    POST_S2T_CALLBACKS_FIELD_NUMBER: builtins.int
-    @property
-    def pre_s2t_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Callback executed before the Speech-2-Text will be called"""
-
-    @property
-    def post_s2t_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Callback executed after the Speech-2-Text has been called"""
-
-    def __init__(
-        self,
-        *,
-        pre_s2t_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
-        post_s2t_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["post_s2t_callbacks", b"post_s2t_callbacks", "pre_s2t_callbacks", b"pre_s2t_callbacks"]) -> None: ...
-
-global___S2tVtsiCallbacks = S2tVtsiCallbacks
-
-@typing.final
-class NluVtsiCallbacks(google.protobuf.message.Message):
-    """Callback for the NLU platform"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    PRE_NLU_CALLBACKS_FIELD_NUMBER: builtins.int
-    POST_NLU_CALLBACKS_FIELD_NUMBER: builtins.int
-    @property
-    def pre_nlu_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Callback executed before the NLU will be called"""
-
-    @property
-    def post_nlu_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Callback executed after the NLU has been called"""
-
-    def __init__(
-        self,
-        *,
-        pre_nlu_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
-        post_nlu_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["post_nlu_callbacks", b"post_nlu_callbacks", "pre_nlu_callbacks", b"pre_nlu_callbacks"]) -> None: ...
-
-global___NluVtsiCallbacks = NluVtsiCallbacks
-
-@typing.final
-class T2sVtsiCallbacks(google.protobuf.message.Message):
-    """Callback for the Text-2-Speech platform"""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    PRE_T2S_CALLBACKS_FIELD_NUMBER: builtins.int
-    POST_T2S_CALLBACKS_FIELD_NUMBER: builtins.int
-    @property
-    def pre_t2s_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Callback executed before the Text-2-Speech will be called"""
-
-    @property
-    def post_t2s_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Callback executed after the Text-2-Speech has been called"""
-
-    def __init__(
-        self,
-        *,
-        pre_t2s_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
-        post_t2s_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["post_t2s_callbacks", b"post_t2s_callbacks", "pre_t2s_callbacks", b"pre_t2s_callbacks"]) -> None: ...
-
-global___T2sVtsiCallbacks = T2sVtsiCallbacks
 
 @typing.final
 class Listener(google.protobuf.message.Message):
@@ -1624,11 +485,11 @@ class Listener(google.protobuf.message.Message):
     <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
     @property
-    def sip_base_config(self) -> global___SipBaseConfig:
+    def sip_base_config(self) -> ondewo.vtsi.call_configs_pb2.SipBaseConfig:
         """SIP service configuration"""
 
     @property
-    def common_services_config(self) -> global___CommonServicesConfig:
+    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
 
     def __init__(
@@ -1636,8 +497,8 @@ class Listener(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
         call_name: builtins.str = ...,
-        sip_base_config: global___SipBaseConfig | None = ...,
-        common_services_config: global___CommonServicesConfig | None = ...,
+        sip_base_config: ondewo.vtsi.call_configs_pb2.SipBaseConfig | None = ...,
+        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "sip_base_config", b"sip_base_config"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "common_services_config", b"common_services_config", "name", b"name", "sip_base_config", b"sip_base_config"]) -> None: ...
@@ -1663,11 +524,11 @@ class Caller(google.protobuf.message.Message):
     <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
     @property
-    def sip_caller_config(self) -> global___SipCallerConfig:
+    def sip_caller_config(self) -> ondewo.vtsi.call_configs_pb2.SipCallerConfig:
         """SIP service configuration"""
 
     @property
-    def common_services_config(self) -> global___CommonServicesConfig:
+    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
 
     def __init__(
@@ -1675,8 +536,8 @@ class Caller(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
         call_name: builtins.str = ...,
-        sip_caller_config: global___SipCallerConfig | None = ...,
-        common_services_config: global___CommonServicesConfig | None = ...,
+        sip_caller_config: ondewo.vtsi.call_configs_pb2.SipCallerConfig | None = ...,
+        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "sip_caller_config", b"sip_caller_config"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "common_services_config", b"common_services_config", "name", b"name", "sip_caller_config", b"sip_caller_config"]) -> None: ...
@@ -1695,19 +556,19 @@ class StartListenerRequest(google.protobuf.message.Message):
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     @property
-    def sip_base_config(self) -> global___SipBaseConfig:
+    def sip_base_config(self) -> ondewo.vtsi.call_configs_pb2.SipBaseConfig:
         """SIP service configuration"""
 
     @property
-    def common_services_config(self) -> global___CommonServicesConfig:
+    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
 
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
-        sip_base_config: global___SipBaseConfig | None = ...,
-        common_services_config: global___CommonServicesConfig | None = ...,
+        sip_base_config: ondewo.vtsi.call_configs_pb2.SipBaseConfig | None = ...,
+        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "sip_base_config", b"sip_base_config"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "sip_base_config", b"sip_base_config", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
@@ -1820,19 +681,19 @@ class StartCallerRequest(google.protobuf.message.Message):
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     @property
-    def sip_caller_config(self) -> global___SipCallerConfig:
+    def sip_caller_config(self) -> ondewo.vtsi.call_configs_pb2.SipCallerConfig:
         """SIP service configuration"""
 
     @property
-    def common_services_config(self) -> global___CommonServicesConfig:
+    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
 
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
-        sip_caller_config: global___SipCallerConfig | None = ...,
-        common_services_config: global___CommonServicesConfig | None = ...,
+        sip_caller_config: ondewo.vtsi.call_configs_pb2.SipCallerConfig | None = ...,
+        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "sip_caller_config", b"sip_caller_config"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "sip_caller_config", b"sip_caller_config", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
@@ -1942,6 +803,7 @@ class ListCallersRequest(google.protobuf.message.Message):
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     CALL_VIEW_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to perform the call.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -1952,15 +814,30 @@ class ListCallersRequest(google.protobuf.message.Message):
     """
     call_view: global___CallView.ValueType
     """you can specify the view to be shallow or full"""
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned <code>Caller</code>,
+        relative to the <code>Caller</code> message (no <code>callers.</code> prefix), e.g.
+        <code>call_name</code>, <code>sip_caller_config.callee_id</code>,
+        <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message
+        fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+        populated. Unset or empty returns every field the <code>call_view</code> populates. An unknown path
+        is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code>
+        and the server&apos;s role-based redaction of <code>common_services_config</code>, so it can only
+        narrow the response and never populates a field that was left empty. Not part of the paging contract:
+        a <code>page_token</code> stays valid with another mask.
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         page_token: builtins.str | None = ...,
         call_view: global___CallView.ValueType | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
     @typing.overload
@@ -2032,6 +909,7 @@ class ListListenersRequest(google.protobuf.message.Message):
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     CALL_VIEW_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to perform the call.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -2042,15 +920,30 @@ class ListListenersRequest(google.protobuf.message.Message):
     """
     call_view: global___CallView.ValueType
     """you can specify the view to be shallow or full"""
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned <code>Listener</code>,
+        relative to the <code>Listener</code> message (no <code>listeners.</code> prefix), e.g.
+        <code>call_name</code>, <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths
+        through singular message fields are allowed; a path below a repeated or map field is not.
+        <code>name</code> is always populated. Unset or empty returns every field the <code>call_view</code>
+        populates. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after
+        the <code>call_view</code> and the server&apos;s role-based redaction of
+        <code>common_services_config</code>, so it can only narrow the response and never populates a field
+        that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid with
+        another mask.
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         page_token: builtins.str | None = ...,
         call_view: global___CallView.ValueType | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
     @typing.overload
@@ -2785,14 +1678,14 @@ class ScheduledCaller(google.protobuf.message.Message):
     own retry settings are not used; the campaign&apos;s apply.
     """
     @property
-    def sip_config(self) -> global___SipBaseConfig:
+    def sip_config(self) -> ondewo.vtsi.call_configs_pb2.SipBaseConfig:
         """SIP service configuration.
         This is the sip_base_config half of sip_caller_config below and is kept for wire compatibility
         with clients built before field 6 existed
         """
 
     @property
-    def common_services_config(self) -> global___CommonServicesConfig:
+    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
 
     @property
@@ -2802,7 +1695,7 @@ class ScheduledCaller(google.protobuf.message.Message):
         """
 
     @property
-    def sip_caller_config(self) -> global___SipCallerConfig:
+    def sip_caller_config(self) -> ondewo.vtsi.call_configs_pb2.SipCallerConfig:
         """Full SIP caller configuration, including the callee_id that will be dialled and the sip_headers
         that will be sent. sip_config (field 3) carries only the sip_base_config half of this message
         """
@@ -2823,10 +1716,10 @@ class ScheduledCaller(google.protobuf.message.Message):
         *,
         name: builtins.str = ...,
         call_name: builtins.str = ...,
-        sip_config: global___SipBaseConfig | None = ...,
-        common_services_config: global___CommonServicesConfig | None = ...,
+        sip_config: ondewo.vtsi.call_configs_pb2.SipBaseConfig | None = ...,
+        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
         scheduled_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        sip_caller_config: global___SipCallerConfig | None = ...,
+        sip_caller_config: ondewo.vtsi.call_configs_pb2.SipCallerConfig | None = ...,
         status: global___ScheduledCallerStatus.ValueType = ...,
         vtsi_project_name: builtins.str = ...,
         created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
@@ -2879,6 +1772,7 @@ class ListScheduledCallersRequest(google.protobuf.message.Message):
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     CALL_VIEW_FIELD_NUMBER: builtins.int
     STATUSES_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to perform the call.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -2895,6 +1789,20 @@ class ListScheduledCallersRequest(google.protobuf.message.Message):
         An empty list returns every state.
         """
 
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned
+        <code>ScheduledCaller</code>, relative to the <code>ScheduledCaller</code> message (no
+        <code>scheduled_callers.</code> prefix), e.g. <code>scheduled_time</code>,
+        <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a
+        path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+        returns every field the <code>call_view</code> populates. An unknown path is rejected with
+        <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+        server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+        response and never populates a field that was left empty. Not part of the paging contract: a
+        <code>page_token</code> stays valid with another mask.
+        """
+
     def __init__(
         self,
         *,
@@ -2902,9 +1810,10 @@ class ListScheduledCallersRequest(google.protobuf.message.Message):
         page_token: builtins.str | None = ...,
         call_view: global___CallView.ValueType | None = ...,
         statuses: collections.abc.Iterable[global___ScheduledCallerStatus.ValueType] | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "page_token", b"page_token", "statuses", b"statuses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token", "statuses", b"statuses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
     @typing.overload
@@ -4090,7 +2999,7 @@ class Call(google.protobuf.message.Message):
         """All container health statuses"""
 
     @property
-    def common_services_config(self) -> global___CommonServicesConfig:
+    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
         """Detailed configuration of the services used for the call such as S2T, T2S, NLU, SIP and CSI"""
 
     @property
@@ -4123,7 +3032,7 @@ class Call(google.protobuf.message.Message):
         services_statuses: global___AllServicesStatuses | None = ...,
         active: builtins.bool = ...,
         vtsi_project_name: builtins.str = ...,
-        common_services_config: global___CommonServicesConfig | None = ...,
+        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
         sip_port: builtins.int | None = ...,
         csi_port: builtins.int | None = ...,
         nlu_session_name: builtins.str | None = ...,
@@ -4282,6 +3191,7 @@ class ListCallsRequest(google.protobuf.message.Message):
     CALL_VIEW_FIELD_NUMBER: builtins.int
     CALL_FILTER_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     call_view: global___CallView.ValueType
@@ -4294,6 +3204,19 @@ class ListCallsRequest(google.protobuf.message.Message):
     def call_filter(self) -> global___CallFilter:
         """Optional. A filter to narrow the response down to sessions of interest."""
 
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned <code>Call</code>, relative
+        to the <code>Call</code> message (no <code>calls.</code> prefix), e.g. <code>call_type</code>,
+        <code>phone_number</code>, <code>start_time</code>. Nested paths through singular message fields are
+        allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+        empty returns every field the <code>call_view</code> populates. An unknown path is rejected with
+        <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+        server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+        response and never populates a field that was left empty. Not part of the paging contract: a
+        <code>page_token</code> stays valid with another mask.
+        """
+
     def __init__(
         self,
         *,
@@ -4301,9 +3224,10 @@ class ListCallsRequest(google.protobuf.message.Message):
         call_view: global___CallView.ValueType | None = ...,
         call_filter: global___CallFilter | None = ...,
         page_token: builtins.str | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_filter", b"_call_filter", "_call_view", b"_call_view", "_page_token", b"_page_token", "call_filter", b"call_filter", "call_view", b"call_view", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_filter", b"_call_filter", "_call_view", b"_call_view", "_page_token", b"_page_token", "call_filter", b"call_filter", "call_view", b"call_view", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_call_filter", b"_call_filter", "_call_view", b"_call_view", "_page_token", b"_page_token", "call_filter", b"call_filter", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_call_filter", b"_call_filter", "_call_view", b"_call_view", "_page_token", b"_page_token", "call_filter", b"call_filter", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_call_filter", b"_call_filter"]) -> typing.Literal["call_filter"] | None: ...
     @typing.overload

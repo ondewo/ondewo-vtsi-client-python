@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.9"
 resolution-markers = [
     "python_full_version >= '3.15'",
@@ -1648,7 +1648,7 @@ wheels = [
 
 [[package]]
 name = "ondewo-vtsi-client"
-version = "9.0.0"
+version = "9.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "dataclasses-json" },

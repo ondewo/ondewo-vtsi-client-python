@@ -568,6 +568,7 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     VTSI_PROJECT_SORTING_FIELD_NUMBER: builtins.int
     NLU_AGENT_NAMES_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_view: global___VtsiProjectView.ValueType
     """Optional. Specify the view of the returned VtsiProject (full view by default)"""
     page_token: builtins.str
@@ -586,6 +587,20 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
         Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
         """
 
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned <code>VtsiProject</code>,
+        relative to the <code>VtsiProject</code> message (no <code>vtsi_projects.</code> prefix), e.g.
+        <code>display_name</code>, <code>vtsi_project_status</code>,
+        <code>asterisk_configs.asterisk_configs_variables</code>. Nested paths through singular message
+        fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+        populated. Unset or empty returns every field the <code>vtsi_project_view</code> populates. An
+        unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the
+        <code>vtsi_project_view</code> and the server&apos;s role-based redaction, so it can only narrow the
+        response and never populates a field that was left empty. Not part of the paging contract: a
+        <code>page_token</code> stays valid with another mask.
+        """
+
     def __init__(
         self,
         *,
@@ -593,9 +608,10 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
         page_token: builtins.str | None = ...,
         vtsi_project_sorting: global___VtsiProjectSorting | None = ...,
         nlu_agent_names: collections.abc.Iterable[builtins.str] | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "nlu_agent_names", b"nlu_agent_names", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "field_mask", b"field_mask", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "field_mask", b"field_mask", "nlu_agent_names", b"nlu_agent_names", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
     @typing.overload

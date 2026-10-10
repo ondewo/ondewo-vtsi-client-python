@@ -19,6 +19,7 @@ limitations under the License.
 import builtins
 import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.field_mask_pb2
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
@@ -807,6 +808,7 @@ class ListCallLogsRequest(google.protobuf.message.Message):
     AFTER_SEQ_FIELD_NUMBER: builtins.int
     RESUME_TOKEN_FIELD_NUMBER: builtins.int
     OLDEST_FIRST_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to list the logs.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -836,6 +838,20 @@ class ListCallLogsRequest(google.protobuf.message.Message):
     def filter(self) -> global___CallLogFilter:
         """Optional. A filter to narrow the response down to the entries of interest."""
 
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned <code>CallLogEntry</code>,
+        relative to the <code>CallLogEntry</code> message (no <code>log_entries.</code> prefix), e.g.
+        <code>timestamp</code>, <code>level</code>, <code>message</code>. Nested paths through singular
+        message fields are allowed; a path below a repeated or map field is not. <code>log_stream</code> and
+        <code>seq</code>, which together identify an entry, are always populated. Unset or empty returns
+        every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after
+        the server&apos;s secret redaction of the log text, so it can only narrow the response and never
+        populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+        the response (<code>truncated</code>, the <code>seq</code> bounds, <code>next_resume_token</code>)
+        are computed exactly as without a mask.
+        """
+
     def __init__(
         self,
         *,
@@ -846,9 +862,10 @@ class ListCallLogsRequest(google.protobuf.message.Message):
         after_seq: builtins.int | None = ...,
         resume_token: builtins.str | None = ...,
         oldest_first: builtins.bool | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_after_seq", b"_after_seq", "_before_seq", b"_before_seq", "_filter", b"_filter", "_max_lines", b"_max_lines", "_oldest_first", b"_oldest_first", "_resume_token", b"_resume_token", "after_seq", b"after_seq", "before_seq", b"before_seq", "filter", b"filter", "max_lines", b"max_lines", "oldest_first", b"oldest_first", "resume_token", b"resume_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_after_seq", b"_after_seq", "_before_seq", b"_before_seq", "_filter", b"_filter", "_max_lines", b"_max_lines", "_oldest_first", b"_oldest_first", "_resume_token", b"_resume_token", "after_seq", b"after_seq", "before_seq", b"before_seq", "filter", b"filter", "max_lines", b"max_lines", "oldest_first", b"oldest_first", "resume_token", b"resume_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_after_seq", b"_after_seq", "_before_seq", b"_before_seq", "_filter", b"_filter", "_max_lines", b"_max_lines", "_oldest_first", b"_oldest_first", "_resume_token", b"_resume_token", "after_seq", b"after_seq", "before_seq", b"before_seq", "field_mask", b"field_mask", "filter", b"filter", "max_lines", b"max_lines", "oldest_first", b"oldest_first", "resume_token", b"resume_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_after_seq", b"_after_seq", "_before_seq", b"_before_seq", "_filter", b"_filter", "_max_lines", b"_max_lines", "_oldest_first", b"_oldest_first", "_resume_token", b"_resume_token", "after_seq", b"after_seq", "before_seq", b"before_seq", "field_mask", b"field_mask", "filter", b"filter", "max_lines", b"max_lines", "oldest_first", b"oldest_first", "resume_token", b"resume_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_after_seq", b"_after_seq"]) -> typing.Literal["after_seq"] | None: ...
     @typing.overload
@@ -959,6 +976,7 @@ class ListCallLogStreamsRequest(google.protobuf.message.Message):
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     FILTER_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to list the log streams.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -973,15 +991,28 @@ class ListCallLogStreamsRequest(google.protobuf.message.Message):
         identity fields of the filter apply here; content fields are ignored.
         """
 
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned <code>CallLogStream</code>,
+        relative to the <code>CallLogStream</code> message (no <code>log_streams.</code> prefix), e.g.
+        <code>container_name</code>, <code>capture_state</code>. Nested paths through singular message fields are
+        allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+        empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it.
+        Applied after the server&apos;s redaction, so it can only narrow the response and never populates a
+        field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+        with another mask.
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         filter: global___CallLogFilter | None = ...,
         page_token: builtins.str | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_filter", b"_filter", "_page_token", b"_page_token", "filter", b"filter", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_filter", b"_filter", "_page_token", b"_page_token", "filter", b"filter", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_filter", b"_filter", "_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_filter", b"_filter", "_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_filter", b"_filter"]) -> typing.Literal["filter"] | None: ...
     @typing.overload

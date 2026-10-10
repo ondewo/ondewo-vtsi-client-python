@@ -26,6 +26,7 @@ import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
 import ondewo.sip.sip_pb2
+import ondewo.vtsi.call_configs_pb2
 import sys
 import typing
 
@@ -273,6 +274,8 @@ class Campaign(google.protobuf.message.Message):
     STARTED_AT_FIELD_NUMBER: builtins.int
     STOPPED_AT_FIELD_NUMBER: builtins.int
     COMPLETED_AT_FIELD_NUMBER: builtins.int
+    CAMPAIGN_COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
+    CAMPAIGN_SIP_CALLER_CONFIG_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Output only. Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
@@ -343,6 +346,70 @@ class Campaign(google.protobuf.message.Message):
     def completed_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """Output only. When the campaign reached <code>COMPLETED</code>."""
 
+    @property
+    def campaign_common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
+        """Optional. Default <code>CommonServicesConfig</code> of EVERY call of the campaign (speech-to-text,
+        NLU, text-to-speech, CSI and voice interaction). Settable on <code>CreateCampaign</code> and on
+        <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+        <code>campaign_common_services_config</code> or a nested sub-path of it (e.g.
+        <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>). Unset (the default)
+        changes nothing: every call runs exactly with its own <code>StartCallerRequest</code> config, as
+        before 9.1.0.
+        <p>Read LIVE, never snapshotted per call: whenever a campaign call is dispatched (its first
+        attempt and every retry) the server reads the campaign&apos;s CURRENT value. The effective
+        <code>common_services_config</code> of that call is:</p>
+        <pre><code>effective = copy(campaign.campaign_common_services_config)
+        effective.MergeFrom(caller_request.common_services_config)</code></pre>
+        <p>i.e. protobuf <code>MergeFrom</code> semantics, the call&apos;s own value WINNING:</p>
+        <ul>
+          <li>a singular scalar, enum or string the call sets to a non-default value (or, for an
+              <code>optional</code> field, sets at all) replaces the campaign&apos;s value; one the call
+              leaves at its default keeps the campaign&apos;s value. A plain (non-<code>optional</code>)
+              scalar therefore cannot be reset to its zero value by the call;</li>
+          <li>a message field is merged recursively by the same rules;</li>
+          <li>a repeated field is CONCATENATED, the campaign&apos;s entries first (e.g.
+              <code>nlu_vtsi_config.contexts</code>, the lists of the <code>csi_vtsi_config</code>
+              callbacks, <code>voice_interaction_config.response_timing_config.soft_timeout_config.messages</code>);</li>
+          <li>a map field is merged by key, the call&apos;s entry winning on a shared key;</li>
+          <li>a oneof member the call sets replaces whichever member the campaign set (e.g.
+              <code>nlu_vtsi_config.credentials</code> versus <code>nlu_vtsi_config.auth_token</code>).</li>
+        </ul>
+        <p>The effective configuration is validated exactly as a <code>StartCallerRequest</code> carrying it,
+        so an entry of <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> may leave
+        out what the campaign supplies. Because the default is read live, an update that makes the effective
+        configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
+        cannot succeed by repetition (it is not retried).</p>
+        <p>Credentials: the credential-bearing fields (NLU credentials and tokens, gRPC certificates,
+        message broker and object store settings, callbacks, transcribe and synthesize request configs)
+        are stored like the <code>common_services_config</code> of a started caller and are subject to
+        the same role-based redaction on every response that returns the campaign; the server never logs
+        them. A client that reads a redacted campaign and writes the whole config back with
+        <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
+        credentials with the redacted ones; update a sub-path instead.</p>
+        """
+
+    @property
+    def campaign_sip_caller_config(self) -> ondewo.vtsi.call_configs_pb2.SipCallerConfig:
+        """Optional. Default <code>SipCallerConfig</code> of EVERY call of the campaign (SIP image version,
+        callee and SIP headers). Settable on <code>CreateCampaign</code> and on
+        <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+        <code>campaign_sip_caller_config</code> or a nested sub-path of it (e.g.
+        <code>campaign_sip_caller_config.sip_headers</code>). Unset (the default) changes nothing.
+        <p>Read LIVE at every dispatch and merged exactly like
+        <code>campaign_common_services_config</code>: the effective <code>sip_caller_config</code> of a call
+        is a copy of this value with the call&apos;s own <code>StartCallerRequest.sip_caller_config</code>
+        merged over it (<code>MergeFrom</code>, the call winning); <code>sip_headers</code> are merged by
+        key with the call&apos;s header winning on a shared name.</p>
+        <p>EXCEPT <code>callee_id</code>, which is resolved ONCE, when the call is added to the campaign: the
+        call&apos;s own <code>callee_id</code> or, when that is empty, this value&apos;s
+        <code>callee_id</code> at that moment. The result is stored as <code>CampaignCall.phone_number</code>
+        and is the <code>callee_id</code> of every attempt of that call, retries included. A later update of
+        <code>campaign_sip_caller_config.callee_id</code> (or of the whole config) therefore changes the callee
+        only of calls added after it, never of calls already in the campaign, so the number a campaign call
+        reports (and that <code>ListCampaignCallsRequest.phone_number</code> filters on) is always the number
+        it dials.</p>
+        """
+
     def __init__(
         self,
         *,
@@ -363,9 +430,11 @@ class Campaign(google.protobuf.message.Message):
         started_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         stopped_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         completed_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        campaign_common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
+        campaign_sip_caller_config: ondewo.vtsi.call_configs_pb2.SipCallerConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["completed_at", b"completed_at", "created_at", b"created_at", "modified_at", b"modified_at", "retry_delay", b"retry_delay", "started_at", b"started_at", "statistics", b"statistics", "stopped_at", b"stopped_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign_id", b"campaign_id", "completed_at", b"completed_at", "created_at", b"created_at", "created_by", b"created_by", "display_name", b"display_name", "max_attempts", b"max_attempts", "max_parallel_calls", b"max_parallel_calls", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "retry_delay", b"retry_delay", "started_at", b"started_at", "state", b"state", "state_reason", b"state_reason", "statistics", b"statistics", "stopped_at", b"stopped_at", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign_common_services_config", b"campaign_common_services_config", "campaign_sip_caller_config", b"campaign_sip_caller_config", "completed_at", b"completed_at", "created_at", b"created_at", "modified_at", b"modified_at", "retry_delay", b"retry_delay", "started_at", b"started_at", "statistics", b"statistics", "stopped_at", b"stopped_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign_common_services_config", b"campaign_common_services_config", "campaign_id", b"campaign_id", "campaign_sip_caller_config", b"campaign_sip_caller_config", "completed_at", b"completed_at", "created_at", b"created_at", "created_by", b"created_by", "display_name", b"display_name", "max_attempts", b"max_attempts", "max_parallel_calls", b"max_parallel_calls", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "retry_delay", b"retry_delay", "started_at", b"started_at", "state", b"state", "state_reason", b"state_reason", "statistics", b"statistics", "stopped_at", b"stopped_at", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___Campaign = Campaign
 
@@ -541,7 +610,11 @@ class CampaignCall(google.protobuf.message.Message):
     state: global___CampaignCallState.ValueType
     """State of the call."""
     phone_number: builtins.str
-    """The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request."""
+    """The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request or, when the request
+    leaves it empty, of <code>Campaign.campaign_sip_caller_config</code> at the time the call was added.
+    Fixed from then on: every attempt of the call dials exactly this number, whatever later updates of
+    the campaign&apos;s <code>campaign_sip_caller_config</code> say.
+    """
     source: global___CampaignCallSource.ValueType
     """How the call was added."""
     scheduled_caller_name: builtins.str
@@ -628,30 +701,6 @@ class CampaignCall(google.protobuf.message.Message):
 global___CampaignCall = CampaignCall
 
 @typing.final
-class CampaignDisplayName(google.protobuf.message.Message):
-    """Identifies a campaign by its display name, which is unique within a project."""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
-    """VTSI project of the campaign.
-    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
-    """
-    display_name: builtins.str
-    """Exact, case-sensitive <code>display_name</code> of the campaign."""
-    def __init__(
-        self,
-        *,
-        vtsi_project_name: builtins.str = ...,
-        display_name: builtins.str = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["display_name", b"display_name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-
-global___CampaignDisplayName = CampaignDisplayName
-
-@typing.final
 class CampaignAssignment(google.protobuf.message.Message):
     """Assigns the callers of an <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code>
     request to a campaign. The calls are NOT started by the request itself but added to the
@@ -665,23 +714,40 @@ class CampaignAssignment(google.protobuf.message.Message):
     <code>CREATED</code>); <code>COMPLETED</code> accepts them and becomes <code>RUNNING</code>.</p>
     <p>Errors, as gRPC status codes of the <code>AddCallersToCampaign</code> /
     <code>AddScheduledCallersToCampaign</code> RPC: <code>NOT_FOUND</code> for an unknown
-    <code>campaign_name</code> / <code>campaign_display_name</code>
+    <code>campaign_name</code> / <code>display_name</code>
     or a campaign deleted while the request ran; <code>INVALID_ARGUMENT</code> for a campaign of
     another project, an invalid <code>new_campaign</code> (an output-only field set, a value out of
     range) or an invalid caller entry (the message names its index); <code>ALREADY_EXISTS</code> for a
     <code>new_campaign.display_name</code> used in the project; <code>FAILED_PRECONDITION</code> when
     the campaign would exceed the server&apos;s maximum number of calls per campaign.</p>
+    <p>The project of the campaign is the project of the enclosing request:
+    <code>AddCallersToCampaignRequest.vtsi_project_name</code> /
+    <code>AddScheduledCallersToCampaignRequest.vtsi_project_name</code>. It is where a new campaign is
+    created, where <code>display_name</code> is resolved, and the project a <code>campaign_name</code>
+    must belong to.</p>
+    <p>Every caller entry of the request is validated against its EFFECTIVE configuration, i.e. the
+    campaign&apos;s <code>campaign_common_services_config</code> / <code>campaign_sip_caller_config</code>
+    with the entry&apos;s own config merged over it (see
+    <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>), so an entry may leave out what the campaign
+    supplies.</p>
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
     NEW_CAMPAIGN_FIELD_NUMBER: builtins.int
-    CAMPAIGN_DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: builtins.int
     START_MODE_FIELD_NUMBER: builtins.int
     campaign_name: builtins.str
     """Add the calls to this existing campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+    """
+    display_name: builtins.str
+    """Add the calls to the existing campaign with this exact, case-sensitive display name, resolved
+    within the enclosing request&apos;s project
+    (<code>AddCallersToCampaignRequest.vtsi_project_name</code> /
+    <code>AddScheduledCallersToCampaignRequest.vtsi_project_name</code>). Replaces the 9.0.0
+    <code>CampaignDisplayName campaign_display_name = 4</code>.
     """
     start_mode: global___CampaignStartMode.ValueType
     """Whether the campaign starts dialling; see <code>CampaignStartMode</code>. The default starts a
@@ -689,15 +755,10 @@ class CampaignAssignment(google.protobuf.message.Message):
     """
     @property
     def new_campaign(self) -> global___Campaign:
-        """Create a new campaign with these settings and add the calls to it. Only
-        <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code> and
-        <code>retry_delay</code> are read; output-only fields must be unset.
-        """
-
-    @property
-    def campaign_display_name(self) -> global___CampaignDisplayName:
-        """Add the calls to the existing campaign with this display name. Its
-        <code>vtsi_project_name</code> must be the request&apos;s project.
+        """Create a new campaign with these settings, in the enclosing request&apos;s project, and add the
+        calls to it. Only <code>display_name</code>, <code>max_parallel_calls</code>,
+        <code>max_attempts</code>, <code>retry_delay</code>, <code>campaign_common_services_config</code>
+        and <code>campaign_sip_caller_config</code> are read; output-only fields must be unset.
         """
 
     def __init__(
@@ -705,12 +766,12 @@ class CampaignAssignment(google.protobuf.message.Message):
         *,
         campaign_name: builtins.str = ...,
         new_campaign: global___Campaign | None = ...,
-        campaign_display_name: global___CampaignDisplayName | None = ...,
+        display_name: builtins.str = ...,
         start_mode: global___CampaignStartMode.ValueType = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "campaign_selector", b"campaign_selector", "new_campaign", b"new_campaign"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "campaign_selector", b"campaign_selector", "new_campaign", b"new_campaign", "start_mode", b"start_mode"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign_selector", b"campaign_selector"]) -> typing.Literal["campaign_name", "new_campaign", "campaign_display_name"] | None: ...
+    def HasField(self, field_name: typing.Literal["campaign_name", b"campaign_name", "campaign_selector", b"campaign_selector", "display_name", b"display_name", "new_campaign", b"new_campaign"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign_name", b"campaign_name", "campaign_selector", b"campaign_selector", "display_name", b"display_name", "new_campaign", b"new_campaign", "start_mode", b"start_mode"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["campaign_selector", b"campaign_selector"]) -> typing.Literal["campaign_name", "new_campaign", "display_name"] | None: ...
 
 global___CampaignAssignment = CampaignAssignment
 
@@ -728,22 +789,40 @@ class CreateCampaignRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     CAMPAIGN_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project in which to create the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
     @property
     def campaign(self) -> global___Campaign:
-        """The campaign to create. Output-only fields must be unset."""
+        """The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
+        and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
+        the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
+        """
+
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+        returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+        <code>statistics.completed</code>,
+        <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+        singular message fields are allowed; a path below a repeated or map field is not.
+        <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+        rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+        role-based redaction, so it never reveals a redacted value. It shapes only the response: the
+        whole campaign is created regardless.
+        """
 
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         campaign: global___Campaign | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "field_mask", b"field_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___CreateCampaignRequest = CreateCampaignRequest
 
@@ -757,20 +836,47 @@ class GetCampaignRequest(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the campaign."""
+    """Resource name of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+    """
+    display_name: builtins.str
+    """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+    <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+    <code>CampaignDisplayName display_name = 2</code>.
+    """
+    vtsi_project_name: builtins.str
+    """VTSI project of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+    <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+    <code>name</code>: when set, it must be the project of the campaign
+    (<code>INVALID_ARGUMENT</code> otherwise).
+    """
     @property
-    def display_name(self) -> global___CampaignDisplayName:
-        """The campaign with this display name."""
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+        returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+        <code>statistics.completed</code>,
+        <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+        singular message fields are allowed; a path below a repeated or map field is not.
+        <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+        rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+        role-based redaction, so it never reveals a redacted value.
+        """
 
     def __init__(
         self,
         *,
         name: builtins.str = ...,
-        display_name: global___CampaignDisplayName | None = ...,
+        display_name: builtins.str = ...,
+        vtsi_project_name: builtins.str = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
 
 global___GetCampaignRequest = GetCampaignRequest
@@ -785,6 +891,7 @@ class UpdateCampaignRequest(google.protobuf.message.Message):
 
     CAMPAIGN_FIELD_NUMBER: builtins.int
     UPDATE_MASK_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     @property
     def campaign(self) -> global___Campaign:
         """The campaign to update, identified by <code>campaign.name</code>, carrying the new values of
@@ -795,10 +902,47 @@ class UpdateCampaignRequest(google.protobuf.message.Message):
     def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
         """Required. Paths WITHOUT a <code>campaign.</code> prefix. Updatable paths:
         <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code>,
-        <code>retry_delay</code>. An empty mask, or an unknown, output-only or immutable path, is
-        rejected with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset
-        value writes the create default (<code>display_name</code> empty writes
+        <code>retry_delay</code>, <code>campaign_common_services_config</code> and
+        <code>campaign_sip_caller_config</code>, the last two also as any nested sub-path (e.g.
+        <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>,
+        <code>campaign_sip_caller_config.sip_headers</code>). An empty mask, or an unknown, output-only
+        or immutable path (a nested path is checked against the message type it names), is rejected
+        with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset value
+        writes the create default (<code>display_name</code> empty writes
         <code>campaign-&lt;campaign_uuid&gt;</code>).
+        <p>The two call-default configs follow <code>FieldMask</code> semantics:</p>
+        <ul>
+          <li>a path naming a message field (<code>campaign_common_services_config</code>, or a
+              submessage below it such as <code>campaign_common_services_config.nlu_vtsi_config</code>)
+              REPLACES that whole message with the one sent; an unset one clears it (clearing
+              <code>campaign_common_services_config</code> or <code>campaign_sip_caller_config</code>
+              removes the campaign default);</li>
+          <li>a path naming a scalar, repeated or map field below them replaces exactly that field; a
+              repeated or map field is replaced as a whole, never appended to;</li>
+          <li>a field below them that no path names is left untouched;</li>
+          <li>a path naming a member of a <code>oneof</code> (e.g.
+              <code>campaign_common_services_config.nlu_vtsi_config.auth_token</code> in the
+              <code>authentication</code> oneof) SETS that member, clearing the other members, when the
+              request&apos;s <code>campaign</code> has that member set; when it does not, the path CLEARS the
+              member if it is the stored active one and changes nothing otherwise (another active member
+              is kept);</li>
+          <li>a path BELOW a repeated or map field (e.g.
+              <code>campaign_sip_caller_config.sip_headers.X-Foo</code>) is rejected with
+              <code>INVALID_ARGUMENT</code> naming it: name the repeated or map field itself;</li>
+          <li>a path and a sub-path of it in the same mask act as the shorter path alone.</li>
+        </ul>
+        """
+
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+        returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+        <code>statistics.completed</code>,
+        <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+        singular message fields are allowed; a path below a repeated or map field is not.
+        <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+        rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+        role-based redaction, so it never reveals a redacted value.
         """
 
     def __init__(
@@ -806,9 +950,10 @@ class UpdateCampaignRequest(google.protobuf.message.Message):
         *,
         campaign: global___Campaign | None = ...,
         update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "update_mask", b"update_mask"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> None: ...
 
 global___UpdateCampaignRequest = UpdateCampaignRequest
 
@@ -822,20 +967,43 @@ class DeleteCampaignRequest(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the campaign."""
+    """Resource name of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+    """
+    display_name: builtins.str
+    """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+    <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+    <code>CampaignDisplayName display_name = 2</code>.
+    """
+    vtsi_project_name: builtins.str
+    """VTSI project of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+    <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+    <code>name</code>: when set, it must be the project of the campaign
+    (<code>INVALID_ARGUMENT</code> otherwise).
+    """
     @property
-    def display_name(self) -> global___CampaignDisplayName:
-        """The campaign with this display name."""
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>DeleteCampaignResponse</code> field paths to populate, e.g.
+        <code>deleted_campaign_call_count</code>. <code>name</code> is always populated. Unset or empty
+        returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. It
+        shapes only the response: the campaign is deleted regardless.
+        """
 
     def __init__(
         self,
         *,
         name: builtins.str = ...,
-        display_name: global___CampaignDisplayName | None = ...,
+        display_name: builtins.str = ...,
+        vtsi_project_name: builtins.str = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
 
 global___DeleteCampaignRequest = DeleteCampaignRequest
@@ -910,6 +1078,7 @@ class ListCampaignsRequest(google.protobuf.message.Message):
     FILTER_FIELD_NUMBER: builtins.int
     PAGE_SIZE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project whose campaigns to list.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -926,6 +1095,16 @@ class ListCampaignsRequest(google.protobuf.message.Message):
     def filter(self) -> global___CampaignFilter:
         """Optional. Narrows the listing."""
 
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned <code>Campaign</code>,
+        relative to the <code>Campaign</code> message (no <code>campaigns.</code> prefix), as in
+        <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
+        <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+        rejected with <code>INVALID_ARGUMENT</code> naming it. Not part of the paging contract: a
+        <code>page_token</code> stays valid with another mask.
+        """
+
     def __init__(
         self,
         *,
@@ -933,9 +1112,10 @@ class ListCampaignsRequest(google.protobuf.message.Message):
         filter: global___CampaignFilter | None = ...,
         page_size: builtins.int = ...,
         page_token: builtins.str | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "filter", b"filter", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "filter", b"filter", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
 
 global___ListCampaignsRequest = ListCampaignsRequest
@@ -976,20 +1156,33 @@ class GetCampaignStatisticsRequest(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the campaign."""
-    @property
-    def display_name(self) -> global___CampaignDisplayName:
-        """The campaign with this display name."""
-
+    """Resource name of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+    """
+    display_name: builtins.str
+    """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+    <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+    <code>CampaignDisplayName display_name = 2</code>.
+    """
+    vtsi_project_name: builtins.str
+    """VTSI project of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+    <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+    <code>name</code>: when set, it must be the project of the campaign
+    (<code>INVALID_ARGUMENT</code> otherwise).
+    """
     def __init__(
         self,
         *,
         name: builtins.str = ...,
-        display_name: global___CampaignDisplayName | None = ...,
+        display_name: builtins.str = ...,
+        vtsi_project_name: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
 
 global___GetCampaignStatisticsRequest = GetCampaignStatisticsRequest
@@ -1003,14 +1196,31 @@ class ListCampaignCallsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     STATES_FIELD_NUMBER: builtins.int
     PHONE_NUMBER_FIELD_NUMBER: builtins.int
     PAGE_SIZE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     INCLUDE_ATTEMPTS_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     campaign_name: builtins.str
-    """Resource name of the campaign."""
+    """Resource name of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+    """
+    display_name: builtins.str
+    """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+    <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+    <code>CampaignDisplayName campaign_display_name = 7</code>.
+    """
+    vtsi_project_name: builtins.str
+    """VTSI project of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+    <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+    <code>campaign_name</code>: when set, it must be the project of the campaign
+    (<code>INVALID_ARGUMENT</code> otherwise).
+    """
     phone_number: builtins.str
     """Only calls to this callee (exact match on <code>phone_number</code>). Empty means every callee."""
     page_size: builtins.int
@@ -1024,30 +1234,41 @@ class ListCampaignCallsRequest(google.protobuf.message.Message):
     include_attempts: builtins.bool
     """Populate <code>CampaignCall.attempt_history</code>."""
     @property
-    def campaign_display_name(self) -> global___CampaignDisplayName:
-        """The campaign with this display name."""
-
-    @property
     def states(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CampaignCallState.ValueType]:
         """Only calls in one of these states. Empty means every state."""
+
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned
+        <code>CampaignCall</code>, relative to the <code>CampaignCall</code> message (no
+        <code>campaign_calls.</code> prefix), e.g. <code>state</code>, <code>phone_number</code>,
+        <code>attempt_history</code>. Nested paths through singular message fields are allowed; a path
+        below a repeated or map field (e.g. <code>attempt_history.outcome</code>) is not. <code>name</code>
+        is always populated. Unset or empty returns every field. An unknown path is rejected with
+        <code>INVALID_ARGUMENT</code> naming it. <code>attempt_history</code> is still populated only with
+        <code>include_attempts</code>: a mask naming it without <code>include_attempts</code> returns it
+        empty. Not part of the paging contract: a <code>page_token</code> stays valid with another mask.
+        """
 
     def __init__(
         self,
         *,
         campaign_name: builtins.str = ...,
-        campaign_display_name: global___CampaignDisplayName | None = ...,
+        display_name: builtins.str = ...,
+        vtsi_project_name: builtins.str = ...,
         states: collections.abc.Iterable[global___CampaignCallState.ValueType] | None = ...,
         phone_number: builtins.str = ...,
         page_size: builtins.int = ...,
         page_token: builtins.str | None = ...,
         include_attempts: builtins.bool = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "include_attempts", b"include_attempts", "page_size", b"page_size", "page_token", b"page_token", "phone_number", b"phone_number", "states", b"states"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "campaign", b"campaign", "campaign_name", b"campaign_name", "display_name", b"display_name", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "campaign", b"campaign", "campaign_name", b"campaign_name", "display_name", b"display_name", "field_mask", b"field_mask", "include_attempts", b"include_attempts", "page_size", b"page_size", "page_token", b"page_token", "phone_number", b"phone_number", "states", b"states", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
     @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["campaign_name", "campaign_display_name"] | None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["campaign_name", "display_name"] | None: ...
 
 global___ListCampaignCallsRequest = ListCampaignCallsRequest
 
@@ -1087,20 +1308,33 @@ class StartCampaignRequest(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the campaign."""
-    @property
-    def display_name(self) -> global___CampaignDisplayName:
-        """The campaign with this display name."""
-
+    """Resource name of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+    """
+    display_name: builtins.str
+    """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+    <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+    <code>CampaignDisplayName display_name = 2</code>.
+    """
+    vtsi_project_name: builtins.str
+    """VTSI project of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+    <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+    <code>name</code>: when set, it must be the project of the campaign
+    (<code>INVALID_ARGUMENT</code> otherwise).
+    """
     def __init__(
         self,
         *,
         name: builtins.str = ...,
-        display_name: global___CampaignDisplayName | None = ...,
+        display_name: builtins.str = ...,
+        vtsi_project_name: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
 
 global___StartCampaignRequest = StartCampaignRequest
@@ -1115,20 +1349,33 @@ class StopCampaignRequest(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the campaign."""
-    @property
-    def display_name(self) -> global___CampaignDisplayName:
-        """The campaign with this display name."""
-
+    """Resource name of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+    """
+    display_name: builtins.str
+    """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+    <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+    <code>CampaignDisplayName display_name = 2</code>.
+    """
+    vtsi_project_name: builtins.str
+    """VTSI project of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+    <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+    <code>name</code>: when set, it must be the project of the campaign
+    (<code>INVALID_ARGUMENT</code> otherwise).
+    """
     def __init__(
         self,
         *,
         name: builtins.str = ...,
-        display_name: global___CampaignDisplayName | None = ...,
+        display_name: builtins.str = ...,
+        vtsi_project_name: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
 
 global___StopCampaignRequest = StopCampaignRequest
@@ -1143,20 +1390,33 @@ class HardStopCampaignRequest(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the campaign."""
-    @property
-    def display_name(self) -> global___CampaignDisplayName:
-        """The campaign with this display name."""
-
+    """Resource name of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+    """
+    display_name: builtins.str
+    """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+    <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+    <code>CampaignDisplayName display_name = 2</code>.
+    """
+    vtsi_project_name: builtins.str
+    """VTSI project of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+    <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+    <code>name</code>: when set, it must be the project of the campaign
+    (<code>INVALID_ARGUMENT</code> otherwise).
+    """
     def __init__(
         self,
         *,
         name: builtins.str = ...,
-        display_name: global___CampaignDisplayName | None = ...,
+        display_name: builtins.str = ...,
+        vtsi_project_name: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
 
 global___HardStopCampaignRequest = HardStopCampaignRequest
@@ -1171,20 +1431,33 @@ class ResumeCampaignRequest(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the campaign."""
-    @property
-    def display_name(self) -> global___CampaignDisplayName:
-        """The campaign with this display name."""
-
+    """Resource name of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+    """
+    display_name: builtins.str
+    """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+    <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+    <code>CampaignDisplayName display_name = 2</code>.
+    """
+    vtsi_project_name: builtins.str
+    """VTSI project of the campaign.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+    <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+    <code>name</code>: when set, it must be the project of the campaign
+    (<code>INVALID_ARGUMENT</code> otherwise).
+    """
     def __init__(
         self,
         *,
         name: builtins.str = ...,
-        display_name: global___CampaignDisplayName | None = ...,
+        display_name: builtins.str = ...,
+        vtsi_project_name: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
 
 global___ResumeCampaignRequest = ResumeCampaignRequest

@@ -422,16 +422,14 @@ class TestCampaignMessages:
             assert "campaign_call_names" not in names
 
     def test_a_campaign_assignment_selects_exactly_one_campaign(self) -> None:
-        """Existing campaign by name or display name, or a new one, are alternatives of one oneof."""
+        """Existing campaign by name or plain-string display name, or a new one, are alternatives of one oneof."""
         assignment: campaigns_pb2.CampaignAssignment = campaigns_pb2.CampaignAssignment(
             new_campaign=campaigns_pb2.Campaign(display_name="spring", max_parallel_calls=10, max_attempts=3),
             start_mode=campaigns_pb2.CAMPAIGN_START_MODE_START,
         )
         assert assignment.WhichOneof("campaign_selector") == "new_campaign"
-        assignment.campaign_display_name.CopyFrom(
-            campaigns_pb2.CampaignDisplayName(vtsi_project_name="projects/p/project", display_name="spring")
-        )
-        assert assignment.WhichOneof("campaign_selector") == "campaign_display_name"
+        assignment.display_name = "spring"
+        assert assignment.WhichOneof("campaign_selector") == "display_name"
         assert not assignment.HasField("new_campaign")
         request: calls_pb2.AddCallersToCampaignRequest = calls_pb2.AddCallersToCampaignRequest(
             campaign_assignment=assignment

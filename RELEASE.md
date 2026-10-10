@@ -2,6 +2,44 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 9.1.0
+
+### Breaking changes
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Regenerated against ondewo-vtsi-api 9.1.0, which **removes the message
+  `CampaignDisplayName`**: `campaigns_pb2.CampaignDisplayName` no longer exists. A campaign display name is now a
+  plain `string display_name` member of each campaign selector oneof, and the project it is resolved in is a
+  separate top-level `string vtsi_project_name` (REQUIRED with `display_name`). This affects
+  `GetCampaignRequest`, `DeleteCampaignRequest`, `GetCampaignStatisticsRequest`, `StartCampaignRequest`,
+  `StopCampaignRequest`, `HardStopCampaignRequest`, `ResumeCampaignRequest`, `ListCampaignCallsRequest` and
+  `CampaignAssignment` (whose project is the enclosing `AddCallersToCampaignRequest` /
+  `AddScheduledCallersToCampaignRequest.vtsi_project_name`). Every old field number is `reserved`, so the change
+  is wire-safe and source-breaking only: replace
+  `display_name=CampaignDisplayName(vtsi_project_name=p, display_name=d)` with
+  `display_name=d, vtsi_project_name=p`, and `CampaignAssignment.campaign_display_name` with
+  `CampaignAssignment.display_name`.
+
+### New features
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) `Campaign` gained `campaign_common_services_config` (18, `CommonServicesConfig`) and
+  `campaign_sip_caller_config` (19, `SipCallerConfig`): defaults of every call of the campaign, settable on
+  `CreateCampaign` and `CampaignAssignment.new_campaign` and updatable through `UpdateCampaign`'s `update_mask`.
+  The server merges each call's own `StartCallerRequest` config over them when the call is dispatched.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) A `google.protobuf.FieldMask field_mask` (partial response) on `CreateCampaignRequest`,
+  `GetCampaignRequest`, `UpdateCampaignRequest`, `DeleteCampaignRequest`, `ListCampaignsRequest`,
+  `ListCampaignCallsRequest` and every other listing: `ListCallersRequest`, `ListListenersRequest`,
+  `ListScheduledCallersRequest`, `ListCallsRequest`, `ListCallLogsRequest`, `ListCallLogStreamsRequest`,
+  `ListVtsiEventSubscriptionsRequest`, `ListWebhooksRequest` and `ListVtsiProjectsRequest`.
+
+### Compatibility
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) `CommonServicesConfig`, `SipCallerConfig` and the messages they are built from moved to the new
+  module `ondewo/vtsi/call_configs_pb2.py`. The package stays `ondewo.vtsi`, so fully-qualified names and the
+  wire are unchanged, and `calls.proto` re-exports them with `import public`: `calls_pb2.CommonServicesConfig`
+  is the very same class as `call_configs_pb2.CommonServicesConfig`, so existing imports keep working.
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 9.0.0
 
 ### Breaking changes

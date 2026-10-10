@@ -45,9 +45,30 @@ class CampaignsStub(object):
     the ongoing calls finish and starts no new ones; <code>HardStopCampaign</code> ends the ongoing
     calls immediately and starts no new ones; <code>ResumeCampaign</code> continues a stopped or hard
     stopped campaign with the calls that have not finished yet.</p>
-    <p>Every RPC about ONE campaign accepts either its resource name or its display name
-    (<a href="index.html#ondewo.vtsi.CampaignDisplayName">CampaignDisplayName</a>); display names are
-    unique within a project.</p>
+    <p>Every RPC about ONE campaign accepts either its resource name or its display name. Display names
+    are unique within a project, so a display name is resolved within the project named by the
+    request&apos;s top-level <code>vtsi_project_name</code>, which is REQUIRED with a display name
+    (<code>INVALID_ARGUMENT</code> when it is empty or malformed) and checked against the campaign
+    when a resource name is used. (The <code>CampaignDisplayName</code> message of 9.0.0, which
+    carried the project and the display name together, was removed in 9.1.0; its field numbers are
+    <code>reserved</code>.)</p>
+    <p>Campaign-level call defaults: <code>campaign_common_services_config</code> and
+    <code>campaign_sip_caller_config</code> of a <code>Campaign</code> are the defaults of EVERY call of
+    the campaign. They are read LIVE when a campaign call is dispatched (every attempt, retries
+    included): the effective configuration of the call is a copy of the campaign&apos;s config with the
+    call&apos;s own <code>StartCallerRequest</code> config merged over it (protobuf
+    <code>MergeFrom</code>), see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>. The one exception
+    is the callee: <code>campaign_sip_caller_config.callee_id</code> is resolved and FIXED when a call is
+    added (it is that call&apos;s <code>CampaignCall.phone_number</code>), so every attempt of a call dials the
+    number its campaign call reports.</p>
+    <p>Partial responses: <code>ListCampaigns</code>, <code>ListCampaignCalls</code>,
+    <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code> and
+    <code>DeleteCampaign</code> accept an optional <code>field_mask</code> naming the field paths of the
+    returned resource (for a listing: of each listed element) to populate. Unset or empty returns every
+    field; the identifying <code>name</code> is always populated; an unknown path is rejected with
+    <code>INVALID_ARGUMENT</code> naming it; nested paths through singular message fields (e.g.
+    <code>statistics.completed</code>) are allowed, a path below a repeated or map field is not. The
+    mask is applied after any role-based redaction, so it can only narrow what the caller may see.</p>
     <p>Errors are reported as gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed name,
     filter, field mask or value; <code>NOT_FOUND</code> for an unknown project, campaign or campaign
     call; <code>ALREADY_EXISTS</code> for a <code>display_name</code> already used in the project;
@@ -144,9 +165,30 @@ class CampaignsServicer(object):
     the ongoing calls finish and starts no new ones; <code>HardStopCampaign</code> ends the ongoing
     calls immediately and starts no new ones; <code>ResumeCampaign</code> continues a stopped or hard
     stopped campaign with the calls that have not finished yet.</p>
-    <p>Every RPC about ONE campaign accepts either its resource name or its display name
-    (<a href="index.html#ondewo.vtsi.CampaignDisplayName">CampaignDisplayName</a>); display names are
-    unique within a project.</p>
+    <p>Every RPC about ONE campaign accepts either its resource name or its display name. Display names
+    are unique within a project, so a display name is resolved within the project named by the
+    request&apos;s top-level <code>vtsi_project_name</code>, which is REQUIRED with a display name
+    (<code>INVALID_ARGUMENT</code> when it is empty or malformed) and checked against the campaign
+    when a resource name is used. (The <code>CampaignDisplayName</code> message of 9.0.0, which
+    carried the project and the display name together, was removed in 9.1.0; its field numbers are
+    <code>reserved</code>.)</p>
+    <p>Campaign-level call defaults: <code>campaign_common_services_config</code> and
+    <code>campaign_sip_caller_config</code> of a <code>Campaign</code> are the defaults of EVERY call of
+    the campaign. They are read LIVE when a campaign call is dispatched (every attempt, retries
+    included): the effective configuration of the call is a copy of the campaign&apos;s config with the
+    call&apos;s own <code>StartCallerRequest</code> config merged over it (protobuf
+    <code>MergeFrom</code>), see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>. The one exception
+    is the callee: <code>campaign_sip_caller_config.callee_id</code> is resolved and FIXED when a call is
+    added (it is that call&apos;s <code>CampaignCall.phone_number</code>), so every attempt of a call dials the
+    number its campaign call reports.</p>
+    <p>Partial responses: <code>ListCampaigns</code>, <code>ListCampaignCalls</code>,
+    <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code> and
+    <code>DeleteCampaign</code> accept an optional <code>field_mask</code> naming the field paths of the
+    returned resource (for a listing: of each listed element) to populate. Unset or empty returns every
+    field; the identifying <code>name</code> is always populated; an unknown path is rejected with
+    <code>INVALID_ARGUMENT</code> naming it; nested paths through singular message fields (e.g.
+    <code>statistics.completed</code>) are allowed, a path below a repeated or map field is not. The
+    mask is applied after any role-based redaction, so it can only narrow what the caller may see.</p>
     <p>Errors are reported as gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed name,
     filter, field mask or value; <code>NOT_FOUND</code> for an unknown project, campaign or campaign
     call; <code>ALREADY_EXISTS</code> for a <code>display_name</code> already used in the project;
@@ -165,15 +207,18 @@ class CampaignsServicer(object):
         <code>StartCampaign</code>.</p>
         <p>Errors: <code>NOT_FOUND</code> if the project does not exist; <code>ALREADY_EXISTS</code> if
         the <code>display_name</code> is used in the project; <code>INVALID_ARGUMENT</code> for an
-        output-only field that was set or an out-of-range value.</p>
+        output-only field that was set, an out-of-range value or an unknown <code>field_mask</code>
+        path.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetCampaign(self, request, context):
-        """<p>Returns a campaign including its statistics.</p>
-        <p>Errors: <code>NOT_FOUND</code>; <code>INVALID_ARGUMENT</code> for a malformed name.</p>
+        """<p>Returns a campaign including its statistics and its call defaults.</p>
+        <p>Errors: <code>NOT_FOUND</code>; <code>INVALID_ARGUMENT</code> for a malformed name, a
+        <code>display_name</code> without <code>vtsi_project_name</code> or an unknown
+        <code>field_mask</code> path.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -181,11 +226,17 @@ class CampaignsServicer(object):
 
     def UpdateCampaign(self, request, context):
         """<p>Updates the fields named in <code>update_mask</code>: <code>display_name</code>,
-        <code>max_parallel_calls</code>, <code>max_attempts</code>, <code>retry_delay</code>. Allowed in
-        every state. Lowering <code>max_parallel_calls</code> never ends a running call: the campaign
-        starts no new call until fewer than the new maximum are running.</p>
+        <code>max_parallel_calls</code>, <code>max_attempts</code>, <code>retry_delay</code>,
+        <code>campaign_common_services_config</code> and <code>campaign_sip_caller_config</code> (each
+        also by a nested sub-path). Allowed in every state. Lowering <code>max_parallel_calls</code>
+        never ends a running call: the campaign starts no new call until fewer than the new maximum are
+        running. A changed call default applies to every campaign call dispatched after the update,
+        retries included; a call already dispatched keeps the configuration it was started with. The
+        exception is <code>campaign_sip_caller_config.callee_id</code>, which is fixed per call when the call
+        is added and therefore applies only to calls added after the update.</p>
         <p>Errors: <code>NOT_FOUND</code>; <code>INVALID_ARGUMENT</code> for an empty mask, an unknown,
-        output-only or immutable path, or an out-of-range value; <code>ALREADY_EXISTS</code> for a
+        output-only or immutable path, an out-of-range value or an unknown <code>field_mask</code> path;
+        <code>ALREADY_EXISTS</code> for a
         <code>display_name</code> used by another campaign of the project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -198,7 +249,8 @@ class CampaignsServicer(object):
         <code>ListCalls</code>.</p>
         <p>Errors: <code>NOT_FOUND</code>; <code>FAILED_PRECONDITION</code> while the campaign is
         <code>RUNNING</code>, <code>STOPPING</code> or <code>HARD_STOPPING</code> (stop or hard stop it
-        first).</p>
+        first); <code>INVALID_ARGUMENT</code> for a malformed name, a <code>display_name</code> without
+        <code>vtsi_project_name</code> or an unknown <code>field_mask</code> path.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -208,7 +260,8 @@ class CampaignsServicer(object):
         """<p>Lists the campaigns of a project, newest first, filtered and paged, each with its
         statistics.</p>
         <p>Errors: <code>NOT_FOUND</code> if the project does not exist; <code>INVALID_ARGUMENT</code>
-        for a negative <code>page_size</code> or a foreign <code>page_token</code>.</p>
+        for a negative <code>page_size</code>, a foreign <code>page_token</code> or an unknown
+        <code>field_mask</code> path.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -217,7 +270,8 @@ class CampaignsServicer(object):
     def GetCampaignStatistics(self, request, context):
         """<p>Returns the progress of a campaign: how many of its calls are not started, in progress,
         waiting for a retry, completed, failed and cancelled, and how many attempts were made.</p>
-        <p>Errors: <code>NOT_FOUND</code>; <code>INVALID_ARGUMENT</code> for a malformed name.</p>
+        <p>Errors: <code>NOT_FOUND</code>; <code>INVALID_ARGUMENT</code> for a malformed name or a
+        <code>display_name</code> without <code>vtsi_project_name</code>.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -227,7 +281,8 @@ class CampaignsServicer(object):
         """<p>Lists the calls of a campaign in the order they were added, filtered and paged, each with
         its current SIP status, the SIP status description and its attempts.</p>
         <p>Errors: <code>NOT_FOUND</code>; <code>INVALID_ARGUMENT</code> for a negative
-        <code>page_size</code> or a foreign <code>page_token</code>.</p>
+        <code>page_size</code>, a foreign <code>page_token</code>, a <code>display_name</code> without
+        <code>vtsi_project_name</code> or an unknown <code>field_mask</code> path.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -237,7 +292,9 @@ class CampaignsServicer(object):
         """<p>Starts a <code>CAMPAIGN_STATE_CREATED</code> campaign. Idempotent on a
         <code>RUNNING</code> campaign.</p>
         <p>Errors: <code>NOT_FOUND</code>; <code>FAILED_PRECONDITION</code> in any other state (use
-        <code>ResumeCampaign</code> for a stopped campaign).</p>
+        <code>ResumeCampaign</code> for a stopped campaign); <code>INVALID_ARGUMENT</code> for a malformed name, neither selector set, a
+        <code>display_name</code> without <code>vtsi_project_name</code> or a <code>vtsi_project_name</code>
+        that is not the campaign&apos;s project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -250,7 +307,9 @@ class CampaignsServicer(object):
         Idempotent on <code>STOPPING</code>, <code>STOPPED</code>, <code>HARD_STOPPING</code> and
         <code>HARD_STOPPED</code>.</p>
         <p>Errors: <code>NOT_FOUND</code>; <code>FAILED_PRECONDITION</code> on a
-        <code>COMPLETED</code> campaign.</p>
+        <code>COMPLETED</code> campaign; <code>INVALID_ARGUMENT</code> for a malformed name, neither selector set, a
+        <code>display_name</code> without <code>vtsi_project_name</code> or a <code>vtsi_project_name</code>
+        that is not the campaign&apos;s project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -269,7 +328,9 @@ class CampaignsServicer(object):
         Returns the campaign in <code>HARD_STOPPING</code> (or already <code>HARD_STOPPED</code>).
         Idempotent on <code>HARD_STOPPING</code> and <code>HARD_STOPPED</code>.</p>
         <p>Errors: <code>NOT_FOUND</code>; <code>FAILED_PRECONDITION</code> on a
-        <code>COMPLETED</code> campaign.</p>
+        <code>COMPLETED</code> campaign; <code>INVALID_ARGUMENT</code> for a malformed name, neither selector set, a
+        <code>display_name</code> without <code>vtsi_project_name</code> or a <code>vtsi_project_name</code>
+        that is not the campaign&apos;s project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -281,7 +342,9 @@ class CampaignsServicer(object):
         Idempotent on <code>RUNNING</code>.</p>
         <p>Errors: <code>NOT_FOUND</code>; <code>FAILED_PRECONDITION</code> on <code>CREATED</code>
         (use <code>StartCampaign</code>), <code>HARD_STOPPING</code> (wait until it is
-        <code>HARD_STOPPED</code>) and <code>COMPLETED</code>.</p>
+        <code>HARD_STOPPED</code>) and <code>COMPLETED</code>; <code>INVALID_ARGUMENT</code> for a malformed name, neither selector set, a
+        <code>display_name</code> without <code>vtsi_project_name</code> or a <code>vtsi_project_name</code>
+        that is not the campaign&apos;s project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -392,9 +455,30 @@ class Campaigns(object):
     the ongoing calls finish and starts no new ones; <code>HardStopCampaign</code> ends the ongoing
     calls immediately and starts no new ones; <code>ResumeCampaign</code> continues a stopped or hard
     stopped campaign with the calls that have not finished yet.</p>
-    <p>Every RPC about ONE campaign accepts either its resource name or its display name
-    (<a href="index.html#ondewo.vtsi.CampaignDisplayName">CampaignDisplayName</a>); display names are
-    unique within a project.</p>
+    <p>Every RPC about ONE campaign accepts either its resource name or its display name. Display names
+    are unique within a project, so a display name is resolved within the project named by the
+    request&apos;s top-level <code>vtsi_project_name</code>, which is REQUIRED with a display name
+    (<code>INVALID_ARGUMENT</code> when it is empty or malformed) and checked against the campaign
+    when a resource name is used. (The <code>CampaignDisplayName</code> message of 9.0.0, which
+    carried the project and the display name together, was removed in 9.1.0; its field numbers are
+    <code>reserved</code>.)</p>
+    <p>Campaign-level call defaults: <code>campaign_common_services_config</code> and
+    <code>campaign_sip_caller_config</code> of a <code>Campaign</code> are the defaults of EVERY call of
+    the campaign. They are read LIVE when a campaign call is dispatched (every attempt, retries
+    included): the effective configuration of the call is a copy of the campaign&apos;s config with the
+    call&apos;s own <code>StartCallerRequest</code> config merged over it (protobuf
+    <code>MergeFrom</code>), see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>. The one exception
+    is the callee: <code>campaign_sip_caller_config.callee_id</code> is resolved and FIXED when a call is
+    added (it is that call&apos;s <code>CampaignCall.phone_number</code>), so every attempt of a call dials the
+    number its campaign call reports.</p>
+    <p>Partial responses: <code>ListCampaigns</code>, <code>ListCampaignCalls</code>,
+    <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code> and
+    <code>DeleteCampaign</code> accept an optional <code>field_mask</code> naming the field paths of the
+    returned resource (for a listing: of each listed element) to populate. Unset or empty returns every
+    field; the identifying <code>name</code> is always populated; an unknown path is rejected with
+    <code>INVALID_ARGUMENT</code> naming it; nested paths through singular message fields (e.g.
+    <code>statistics.completed</code>) are allowed, a path below a repeated or map field is not. The
+    mask is applied after any role-based redaction, so it can only narrow what the caller may see.</p>
     <p>Errors are reported as gRPC status codes: <code>INVALID_ARGUMENT</code> for a malformed name,
     filter, field mask or value; <code>NOT_FOUND</code> for an unknown project, campaign or campaign
     call; <code>ALREADY_EXISTS</code> for a <code>display_name</code> already used in the project;

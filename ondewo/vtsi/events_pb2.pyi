@@ -1125,21 +1125,35 @@ class ListVtsiEventSubscriptionsRequest(google.protobuf.message.Message):
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     PAGE_SIZE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     page_size: builtins.int
     """Optional. <code>0</code> means 20; above 1000 clamped; negative rejected."""
     page_token: builtins.str
     """Optional. The <code>next_page_token</code> of a previous response."""
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned
+        <code>VtsiEventSubscription</code>, relative to the <code>VtsiEventSubscription</code> message (no
+        <code>event_subscriptions.</code> prefix), e.g. <code>display_name</code>, <code>events</code>.
+        Nested paths through singular message fields are allowed; a path below a repeated or map field is
+        not. <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+        rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the server&apos;s redaction, so
+        it can only narrow the response and never populates a field that was left empty. Not part of the
+        paging contract: a <code>page_token</code> stays valid with another mask.
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         page_size: builtins.int = ...,
         page_token: builtins.str | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
 
 global___ListVtsiEventSubscriptionsRequest = ListVtsiEventSubscriptionsRequest
@@ -1295,21 +1309,36 @@ class ListWebhooksRequest(google.protobuf.message.Message):
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     PAGE_SIZE_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     page_size: builtins.int
     """Optional. <code>0</code> means 20; above 1000 clamped; negative rejected."""
     page_token: builtins.str
     """Optional. The <code>next_page_token</code> of a previous response."""
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned <code>Webhook</code>,
+        relative to the <code>Webhook</code> message (no <code>webhooks.</code> prefix), e.g.
+        <code>display_name</code>, <code>url</code>, <code>delivery_statistics</code>. Nested paths through
+        singular message fields are allowed; a path below a repeated or map field is not. <code>name</code>
+        is always populated. Unset or empty returns every field. An unknown path is rejected with
+        <code>INVALID_ARGUMENT</code> naming it. Applied after the masking of the custom header values (a
+        returned value stays <code>********</code>), so it can only narrow the response and never populates a
+        field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+        with another mask.
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         page_size: builtins.int = ...,
         page_token: builtins.str | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
 
 global___ListWebhooksRequest = ListWebhooksRequest
