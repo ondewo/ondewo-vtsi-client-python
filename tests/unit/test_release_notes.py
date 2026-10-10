@@ -14,9 +14,10 @@
 """
 The GitHub release body is sliced out of RELEASE.md by the Makefile's ``CURRENT_RELEASE_NOTES``.
 
-The slice starts at ``Release ONDEWO VTSI Client Python <version>`` and ends at the next ``*****`` line. A heading
+The slice starts at ``Release ONDEWO VTSI Python Client <version>`` and ends at the next ``*****`` line. A heading
 spelled any other way gives an empty slice, and ``gh release create -n ""`` then publishes a release without notes and
-without an error: 8.4.0 to 8.7.0 shipped like that under "VTSI Python Client" headings.
+without an error: 8.4.0 to 8.7.0 shipped like that while the Makefile matched "VTSI Client Python". The
+spelling is the one ondewo-vtsi-api's ``release_client`` generator writes.
 """
 
 import re
@@ -26,20 +27,20 @@ from typing import List
 REPO_ROOT: Path = Path(__file__).resolve().parents[2]
 RELEASE_NOTES: str = (REPO_ROOT / "RELEASE.md").read_text(encoding="utf-8")
 MAKEFILE: str = (REPO_ROOT / "Makefile").read_text(encoding="utf-8")
-HEADING_PREFIX: str = "## Release ONDEWO VTSI Client Python "
+HEADING_PREFIX: str = "## Release ONDEWO VTSI Python Client "
 
 
 def _release_notes_slice(version: str) -> List[str]:
-    """Reproduce the Makefile's perl range ``/Release ONDEWO VTSI Client Python <v>/../^\\*{5}/``."""
+    """Reproduce the Makefile's perl range ``/Release ONDEWO VTSI Python Client <v>/../^\\*{5}/``."""
     lines: List[str] = RELEASE_NOTES.splitlines()
-    start: int = next(i for i, line in enumerate(lines) if f"Release ONDEWO VTSI Client Python {version}" in line)
+    start: int = next(i for i, line in enumerate(lines) if f"Release ONDEWO VTSI Python Client {version}" in line)
     end: int = next(i for i in range(start + 1, len(lines)) if re.match(r"^\*{5}", lines[i]))
     return lines[start : end + 1]
 
 
 def test_the_makefile_slices_the_heading_this_test_checks() -> None:
     """The perl range in the Makefile still matches the heading spelling pinned here."""
-    assert "/Release ONDEWO VTSI Client Python ${ONDEWO_VTSI_VERSION}/../^\\*{5}/" in MAKEFILE
+    assert "/Release ONDEWO VTSI Python Client ${ONDEWO_VTSI_VERSION}/../^\\*{5}/" in MAKEFILE
 
 
 def test_every_release_heading_uses_the_spelling_the_makefile_slices() -> None:

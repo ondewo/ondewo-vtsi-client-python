@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ondewo-vtsi-client"
-version = "8.7.1"
+version = "9.0.0"
 description = "ONDEWO Voip Telephone System Integration (VTSI) Client library for Python"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -172,10 +172,16 @@ module = [
     "ondewo.t2s.text_to_speech_pb2_grpc",
     "ondewo.vtsi.calls_pb2",
     "ondewo.vtsi.calls_pb2_grpc",
+    "ondewo.vtsi.campaigns_pb2",
+    "ondewo.vtsi.campaigns_pb2_grpc",
+    "ondewo.vtsi.events_pb2",
+    "ondewo.vtsi.events_pb2_grpc",
     "ondewo.vtsi.logs_pb2",
     "ondewo.vtsi.logs_pb2_grpc",
     "ondewo.vtsi.projects_pb2",
     "ondewo.vtsi.projects_pb2_grpc",
+    "ondewo.vtsi.softphones_pb2",
+    "ondewo.vtsi.softphones_pb2_grpc",
 ]
 ignore_errors = true
 ignore_missing_imports = true

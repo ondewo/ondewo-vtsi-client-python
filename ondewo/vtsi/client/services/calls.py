@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from typing import Iterator
+
 from ondewo.vtsi import calls_pb2
 from ondewo.vtsi.calls_pb2_grpc import CallsStub
 from ondewo.vtsi.client.services_interface import ServicesInterface
@@ -320,6 +322,44 @@ class Calls(ServicesInterface):
         """
         return self.stub.StartScheduledCallers(request=request, metadata=self.metadata)
 
+    def add_callers_to_campaign(
+        self,
+        request: calls_pb2.AddCallersToCampaignRequest,
+    ) -> calls_pb2.AddCallersToCampaignResponse:
+        """
+        Add callers to a campaign instead of starting them; the campaign starts them.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED and starts nothing. Do not fall back to
+        StartCallers on UNIMPLEMENTED: that would start every caller at once. Retry later instead.
+
+        Args:
+            request (calls_pb2.AddCallersToCampaignRequest): The callers and the campaign assignment.
+
+        Returns:
+            calls_pb2.AddCallersToCampaignResponse: The campaign and the campaign calls created, in request order.
+        """
+        return self.stub.AddCallersToCampaign(request=request, metadata=self.metadata)
+
+    def add_scheduled_callers_to_campaign(
+        self,
+        request: calls_pb2.AddScheduledCallersToCampaignRequest,
+    ) -> calls_pb2.AddScheduledCallersToCampaignResponse:
+        """
+        Add scheduled callers to a campaign; each fires at or after its time AND when the campaign has a free slot.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED and starts nothing. Do not fall back to
+        StartScheduledCallers on UNIMPLEMENTED. Retry later instead.
+
+        Args:
+            request (calls_pb2.AddScheduledCallersToCampaignRequest): The scheduled callers and the campaign
+                assignment.
+
+        Returns:
+            calls_pb2.AddScheduledCallersToCampaignResponse: The scheduled callers, the campaign and the campaign
+            calls created, in request order.
+        """
+        return self.stub.AddScheduledCallersToCampaign(request=request, metadata=self.metadata)
+
     def stop_call(
         self,
         request: calls_pb2.StopCallRequest,
@@ -421,3 +461,168 @@ class Calls(ServicesInterface):
             calls_pb2.ListCallsResponse: The response message containing a list of active calls.
         """
         return self.stub.ListCalls(request=request, metadata=self.metadata)
+
+    def stream_caller_status(
+        self,
+        request: calls_pb2.StreamCallerStatusRequest,
+    ) -> Iterator[calls_pb2.StreamCallResourceStatusResponse]:
+        """
+        Stream the SIP status, including its description, of the callers of a project as it changes.
+
+        The returned iterator is the live gRPC stream: iterating it blocks until the next message is
+        available, and cancelling it (``.cancel()``) releases the server-side stream slot.
+
+        Args:
+            request (calls_pb2.StreamCallerStatusRequest):
+                The request specifying the project and the callers to watch.
+
+        Returns:
+            Iterator[calls_pb2.StreamCallResourceStatusResponse]:
+                An iterator over the status envelopes.
+        """
+        response: Iterator[calls_pb2.StreamCallResourceStatusResponse] = self.stub.StreamCallerStatus(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def stream_listener_status(
+        self,
+        request: calls_pb2.StreamListenerStatusRequest,
+    ) -> Iterator[calls_pb2.StreamCallResourceStatusResponse]:
+        """
+        Stream the SIP status, including its description, of the listeners of a project as it changes.
+
+        The returned iterator is the live gRPC stream: iterating it blocks until the next message is
+        available, and cancelling it (``.cancel()``) releases the server-side stream slot.
+
+        Args:
+            request (calls_pb2.StreamListenerStatusRequest):
+                The request specifying the project and the listeners to watch.
+
+        Returns:
+            Iterator[calls_pb2.StreamCallResourceStatusResponse]:
+                An iterator over the status envelopes.
+        """
+        response: Iterator[calls_pb2.StreamCallResourceStatusResponse] = self.stub.StreamListenerStatus(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def stream_scheduled_caller_status(
+        self,
+        request: calls_pb2.StreamScheduledCallerStatusRequest,
+    ) -> Iterator[calls_pb2.StreamCallResourceStatusResponse]:
+        """
+        Stream the status of the scheduled callers of a project as it changes.
+
+        The returned iterator is the live gRPC stream: iterating it blocks until the next message is
+        available, and cancelling it (``.cancel()``) releases the server-side stream slot.
+
+        Args:
+            request (calls_pb2.StreamScheduledCallerStatusRequest):
+                The request specifying the project and the scheduled callers to watch.
+
+        Returns:
+            Iterator[calls_pb2.StreamCallResourceStatusResponse]:
+                An iterator over the status envelopes.
+        """
+        response: Iterator[calls_pb2.StreamCallResourceStatusResponse] = self.stub.StreamScheduledCallerStatus(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def invite_to_call(
+        self,
+        request: calls_pb2.InviteToCallRequest,
+    ) -> calls_pb2.InviteToCallResponse:
+        """
+        Invite a registered softphone account of the project into a connected call.
+
+        Args:
+            request (calls_pb2.InviteToCallRequest): The request message.
+
+        Returns:
+            calls_pb2.InviteToCallResponse: The response message.
+        """
+        return self.stub.InviteToCall(request=request, metadata=self.metadata)
+
+    def remove_call_participant(
+        self,
+        request: calls_pb2.RemoveCallParticipantRequest,
+    ) -> calls_pb2.RemoveCallParticipantResponse:
+        """
+        Hang up a participant (ringing or joined) of a call.
+
+        Args:
+            request (calls_pb2.RemoveCallParticipantRequest): The request message.
+
+        Returns:
+            calls_pb2.RemoveCallParticipantResponse: The response message.
+        """
+        return self.stub.RemoveCallParticipant(request=request, metadata=self.metadata)
+
+    def set_call_media_control(
+        self,
+        request: calls_pb2.SetCallMediaControlRequest,
+    ) -> calls_pb2.SetCallMediaControlResponse:
+        """
+        Mute the bot of a connected call and/or stop it listening, or undo either.
+
+        Args:
+            request (calls_pb2.SetCallMediaControlRequest): The request message.
+
+        Returns:
+            calls_pb2.SetCallMediaControlResponse: The response message.
+        """
+        return self.stub.SetCallMediaControl(request=request, metadata=self.metadata)
+
+    def stream_call_audio(
+        self,
+        request_iterator: Iterator[calls_pb2.StreamCallAudioRequest],
+    ) -> Iterator[calls_pb2.StreamCallAudioResponse]:
+        """
+        Open the bidirectional live audio stream of a connected call.
+
+        The first request must carry ``config``. The returned iterator is the live gRPC stream: iterating it
+        blocks until the next message is available, and cancelling it (``.cancel()``) ends the stream.
+
+        Args:
+            request_iterator (Iterator[calls_pb2.StreamCallAudioRequest]):
+                The requests to send: ``config`` first, then agent audio frames (TALK only).
+
+        Returns:
+            Iterator[calls_pb2.StreamCallAudioResponse]:
+                An iterator over the responses of the stream.
+        """
+        response: Iterator[calls_pb2.StreamCallAudioResponse] = self.stub.StreamCallAudio(
+            request_iterator,
+            metadata=self.metadata,
+        )
+        return response
+
+    def listen_call_audio(
+        self,
+        request: calls_pb2.ListenCallAudioRequest,
+    ) -> Iterator[calls_pb2.StreamCallAudioResponse]:
+        """
+        Listen to the live audio of a connected call (server stream, LISTEN mode only).
+
+        The returned iterator is the live gRPC stream: iterating it blocks until the next message is
+        available, and cancelling it (``.cancel()``) ends the stream.
+
+        Args:
+            request (calls_pb2.ListenCallAudioRequest):
+                The request carrying the stream configuration.
+
+        Returns:
+            Iterator[calls_pb2.StreamCallAudioResponse]:
+                An iterator over the responses of the stream.
+        """
+        response: Iterator[calls_pb2.StreamCallAudioResponse] = self.stub.ListenCallAudio(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response

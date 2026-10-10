@@ -188,6 +188,91 @@ metadata = [("authorization", "Bearer <token>")]
 stub.StartCaller(request, metadata=metadata)
 ```
 
+### Softphone accounts
+
+`client.services.softphones` manages SIP accounts on a project's Asterisk for humans using a softphone such
+as Zoiper. The create (and rotate) response is the **only** place the SIP password and the password-protected
+PKCS#12 bundle ever appear, so store them at once and never log the response; Get, List and provisioning
+return public material only. See `examples/softphones/create_softphone_account.py` for the full flow.
+
+```python
+from ondewo.vtsi.softphones_pb2 import (
+    SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE,
+    CreateSoftphoneAccountRequest,
+    GetSoftphoneProvisioningRequest,
+    SoftphoneAccount,
+)
+
+created = client.services.softphones.create_softphone_account(
+    request=CreateSoftphoneAccountRequest(
+        vtsi_project_name="projects/<project_uuid>/project",
+        softphone_account=SoftphoneAccount(
+            sip_username="support-01",
+            transport_security=SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE,
+        ),
+    ),
+)
+# created.credentials.sip_password / .pkcs12_bundle / .pkcs12_password are shown ONCE.
+provisioning = client.services.softphones.get_softphone_provisioning(
+    request=GetSoftphoneProvisioningRequest(name=created.softphone_account.name),
+)
+print(provisioning.zoiper_instructions)
+```
+
+### Campaigns, status streams and VtsiEvents
+
+`client.services.campaigns` places a set of outbound calls while keeping at most `max_parallel_calls` of them
+running at once, retries a failed call up to `max_attempts` times, and reports the progress (not started, in
+progress, completed, failed, attempts). Calls join a campaign through
+`client.services.calls.add_callers_to_campaign` / `add_scheduled_callers_to_campaign`. A VTSI server older than
+these RPCs answers `UNIMPLEMENTED` and starts nothing; do not fall back to `start_callers` then, because that starts
+every caller at once. `client.services.events` manages VtsiEvent subscriptions and webhooks (custom header values
+are write-only and come back masked; moving a webhook to another origin requires re-sending its headers with real
+values) and streams the events themselves.
+`client.services.calls` streams the status of callers, listeners and scheduled callers.
+
+```python
+from ondewo.vtsi.calls_pb2 import AddCallersToCampaignRequest
+from ondewo.vtsi.campaigns_pb2 import (
+    CAMPAIGN_START_MODE_START,
+    Campaign,
+    CampaignAssignment,
+    StreamCampaignStatusRequest,
+)
+
+response = client.services.calls.add_callers_to_campaign(
+    request=AddCallersToCampaignRequest(
+        vtsi_project_name="projects/<project_uuid>/project",
+        caller_requests=[...],  # e.g. 100 StartCallerRequest
+        campaign_assignment=CampaignAssignment(
+            new_campaign=Campaign(max_parallel_calls=10, max_attempts=2),
+            start_mode=CAMPAIGN_START_MODE_START,
+        ),
+    ),
+)
+for update in client.services.campaigns.stream_campaign_status(
+    request=StreamCampaignStatusRequest(
+        vtsi_project_name="projects/<project_uuid>/project",
+        campaign_names=[response.campaign.name],
+    ),
+):
+    print(update)
+```
+
+With the `AsyncClient` a stream is iterated, not awaited: `async for update in
+client.services.campaigns.stream_campaign_status(request=...)`.
+
+### Retrying a batch start safely: `idempotency_key`
+
+`StartCallersRequest`, `StartListenersRequest`, `StartScheduledCallersRequest`, `AddCallersToCampaignRequest` and
+`AddScheduledCallersToCampaignRequest` take an optional `idempotency_key` (at most 255 printable ASCII characters,
+no whitespace; empty means no deduplication). A retry carrying the same key returns the response of the first
+successful attempt, on whichever replica it reaches, instead of starting the calls a second time. The key is scoped
+to the VTSI project and the RPC and kept for 24 hours by default. Reusing a key with a different request is refused
+with `INVALID_ARGUMENT`; a retry while the first attempt is still running is answered `ABORTED` (retry later); a
+failed first attempt stores nothing. A replayed response carries no `common_services_config`. To make a single
+caller or listener idempotent, send it as a batch of one.
+
 ### One shared gRPC channel (opt-in)
 
 By default every service (`projects`, `calls`, `logs`) opens its own gRPC channel, i.e. over TLS its own connection

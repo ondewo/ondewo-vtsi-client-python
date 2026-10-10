@@ -16,20 +16,51 @@ export
 
 # MUST BE THE SAME AS API in Mayor and Minor Version Number
 # example: API 2.9.0 --> Client 2.9.X
-ONDEWO_VTSI_VERSION=8.7.1
+ONDEWO_VTSI_VERSION=9.0.0
 PYPI_USERNAME?=ENTER_HERE_YOUR_PYPI_USERNAME
 PYPI_PASSWORD?=ENTER_HERE_YOUR_PYPI_PASSWORD
 
 # You need to setup an access token at https://github.com/settings/tokens - permissions are important
 GITHUB_GH_TOKEN?=ENTER_YOUR_TOKEN_HERE
 
+# The heading wording is the one the ondewo-vtsi-api release generator WRITES, not a free choice.
+# `release_client` in ondewo-vtsi-api's Makefile emits `## Release ONDEWO VTSI Python Client <version>`
+# and greps RELEASE.md for exactly that form before deciding whether to insert its boilerplate entry.
+# This slice pattern read `... Client Python ...` - the same three words the other way round - so it
+# matched nothing, the slice was EMPTY, and `gh release create -n ""` published a release with no body
+# and no error anywhere.
+#
+# MEASURED 2026-09-15 over all 31 published releases of this client - `gh api .../releases` body length
+# against the wording of the matching RELEASE.md heading - and the correlation is exact. Old `Client
+# Python` wording: 2.2.0, 2.3.0, 3.0.0, 3.1.0, 3.2.0, 3.3.0, 3.4.0, 3.5.0 and 8.3.0, nine releases,
+# every one with a NON-EMPTY body of 44-668 bytes. Generator wording: twenty releases, every one with a
+# body of length 0 - as are 4.0.0 and 6.3.1, which carry no RELEASE.md entry at all. So this pattern was
+# CORRECT for 3.5.0 and older and went stale when the heading wording flipped at 5.0.0; 8.3.0 is the one
+# entry written with the old wording AFTER that flip, which is why it is the only non-empty body from
+# 4.0.0 onwards. It is not the only old-wording entry in the file.
+#
+# RELEASE.md carries 37 `## Release` headings today: 21 in the generator's wording, 15 in the old one,
+# 1 template. README.md's release instructions use the generator's wording. The 15 old headings are
+# deliberately LEFT ALONE - the generator greps only for the version being released, so rewriting
+# shipped entries fixes nothing and destroys the measurement above.
+#
+# The PATTERN is what moves. Rewriting the CURRENT version's heading instead would make the generator's
+# own guard miss, insert a second heading for the same version, and trip markdownlint MD024 - which does
+# not auto-fix, so the client's pre-commit fails and the release aborts mid-publish.
+#
+# Terminate on the ***** separator that delimits release entries, NOT on /\*\*/ - that matched the first
+# markdown **bold** span inside an entry and truncated the notes there, again with no error. All
+# separators in RELEASE.md are exactly 17 asterisks, so ^\*{5} cannot match anything but a separator.
+#
+# Keep the version reference and the `=` on SEPARATE lines: at release time the generator rewrites,
+# wholesale, any line that names ONDEWO_VTSI_VERSION and also carries an equals sign.
 CURRENT_RELEASE_NOTES=`cat RELEASE.md \
-	| perl -ne 'print if /Release ONDEWO VTSI Client Python ${ONDEWO_VTSI_VERSION}/../^\*{5}/'`
+	| perl -ne 'print if /Release ONDEWO VTSI Python Client ${ONDEWO_VTSI_VERSION}/../^\*{5}/'`
 
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"
 DEVOPS_ACCOUNT_DIR="./${DEVOPS_ACCOUNT_GIT}"
-ONDEWO_VTSI_API_GIT_BRANCH=tags/8.7.0
+ONDEWO_VTSI_API_GIT_BRANCH=tags/9.0.0
 ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.15.3
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 ONDEWO_VTSI_API_DIR=ondewo-vtsi-api
@@ -61,18 +92,23 @@ install_dependencies_locally: ## Install dependencies locally
 	pip install -r requirements-dev.txt
 	pip install -r requirements.txt
 
-flake8: ## Runs flake8
-	flake8 --config .flake8 .
+# ruff replaced flake8 (config: [tool.ruff] in pyproject.toml) and mypy reads [tool.mypy] in pyproject.toml; there
+# is no .flake8 and no mypy.ini. Both run through the project .venv (uv sync --extra dev), as the CI workflow does.
+ruff: ## Runs ruff lint + format check (the flake8 replacement)
+	uv run --no-sync ruff check .
+	uv run --no-sync ruff format --check .
+
+flake8: ruff ## Alias of ruff, kept for muscle memory: flake8 itself is no longer installed
 
 mypy: ## Run mypy static code checking
 	@echo "---------------------------------------------"
-	@echo "START: Run mypy in pre-commit hook ..."
-	pre-commit run mypy --all-files
+	@echo "START: Run mypy in pre-commit hook (tests, examples) ..."
+	uv run --no-sync pre-commit run mypy --all-files
 	@echo "DONE: Run mypy in pre-commit hook."
 	@echo "---------------------------------------------"
-	@echo "START: Run mypy directly ..."
-	mypy --config-file=mypy.ini .
-	@echo "DONE: Run mypy directly"
+	@echo "START: Run mypy on the package, as the CI workflow does ..."
+	uv run --no-sync mypy --config-file=pyproject.toml ondewo
+	@echo "DONE: Run mypy on the package"
 	@echo "---------------------------------------------"
 
 help: ## Print usage info about help targets

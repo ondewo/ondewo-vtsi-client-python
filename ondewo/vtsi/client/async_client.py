@@ -25,9 +25,12 @@ from ondewo.utils.base_client_config import BaseClientConfig
 
 from ondewo.vtsi.client.async_services_container import AsyncServicesContainer
 from ondewo.vtsi.client.client_config import ClientConfig
+from ondewo.vtsi.client.services.async_campaigns import Campaigns
 from ondewo.vtsi.client.services.async_calls import Calls
+from ondewo.vtsi.client.services.async_events import Events
 from ondewo.vtsi.client.services.async_logs import Logs
 from ondewo.vtsi.client.services.async_projects import Projects
+from ondewo.vtsi.client.services.async_softphones import Softphones
 
 
 class AsyncClient(AsyncBaseClient):
@@ -81,7 +84,9 @@ class AsyncClient(AsyncBaseClient):
 
         # One channel for all services when opted in; None makes every service open its own.
         grpc_channel: Optional[grpc.aio.Channel] = (
-            build_shared_channel(config, use_secure_channel, (Projects, Calls, Logs), options)
+            build_shared_channel(
+                config, use_secure_channel, (Projects, Calls, Logs, Softphones, Campaigns, Events), options
+            )
             if self._use_shared_channel
             else None
         )
@@ -93,4 +98,13 @@ class AsyncClient(AsyncBaseClient):
                 config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
             ),
             logs=Logs(config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel),
+            softphones=Softphones(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
+            campaigns=Campaigns(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
+            events=Events(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
         )
