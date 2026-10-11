@@ -48,255 +48,426 @@ class _VtsiEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     VTSI_EVENT_CALL_CREATED: _VtsiEvent.ValueType  # 100
     """---- Calls (resource_name: the call) ----
 
-    A call record was created: an outbound call was placed, or a listener received a call.
+    A call record was created: an outbound call was placed, or a listener received a call. Call status
+    attributes.
     """
     VTSI_EVENT_CALL_INITIATED: _VtsiEvent.ValueType  # 101
-    """The call is ringing: <code>INCOMING_CALL_INITIATED</code> / <code>OUTGOING_CALL_INITIATED</code>."""
+    """The call is ringing: <code>INCOMING_CALL_INITIATED</code> / <code>OUTGOING_CALL_INITIATED</code>. Call
+    status attributes.
+    """
     VTSI_EVENT_CALL_CONNECTED: _VtsiEvent.ValueType  # 102
-    """The call was answered: <code>INCOMING_CALL_CONNECTED</code> / <code>OUTGOING_CALL_CONNECTED</code>."""
+    """The call was answered: <code>INCOMING_CALL_CONNECTED</code> / <code>OUTGOING_CALL_CONNECTED</code>. Call
+    status attributes.
+    """
     VTSI_EVENT_CALL_FINISHED: _VtsiEvent.ValueType  # 103
-    """The call ended normally: <code>INCOMING_CALL_FINISHED</code> / <code>OUTGOING_CALL_FINISHED</code>."""
+    """The call ended normally: <code>INCOMING_CALL_FINISHED</code> / <code>OUTGOING_CALL_FINISHED</code>. Call
+    status attributes.
+    """
     VTSI_EVENT_CALL_FAILED: _VtsiEvent.ValueType  # 104
-    """The call failed: <code>INCOMING_CALL_FAILED</code> / <code>OUTGOING_CALL_FAILED</code>."""
+    """The call failed: <code>INCOMING_CALL_FAILED</code> / <code>OUTGOING_CALL_FAILED</code>. Call status
+    attributes.
+    """
     VTSI_EVENT_CALL_TRANSFER_INITIATED: _VtsiEvent.ValueType  # 105
     """A transfer of the call started: <code>TRANSFER_CALL_INITIATED</code>. Emitted when a BLIND transfer was
     accepted, or when the target of a WARM transfer starts ringing.
+    <p>Attributes: <code>transfer_id</code> (the target, a phone number masked to its last 3 digits, e.g.
+    <code>***678</code>, or an extension), <code>target_type</code> (<code>phone_number</code>,
+    <code>softphone</code>, <code>listener</code>, <code>listener_queue</code>, <code>legacy</code>,
+    <code>unknown</code>), <code>mode</code> (<code>blind</code> / <code>warm</code>; <code>WARM</code>, upper
+    case, when reported for the ringing WARM leg), <code>outcome</code> (<code>accepted</code>,
+    <code>pending</code>, ...), <code>sip_response_code</code> (SIP code, <code>0</code> when unknown),
+    <code>error_reason</code> (kebab-case token, may be empty), <code>participant_id</code> (WARM leg),
+    <code>source</code> (<code>call_monitor</code> when observed by the call monitor). Sets
+    <code>call_name</code>.</p>
     """
     VTSI_EVENT_CALL_TRANSFERRED: _VtsiEvent.ValueType  # 106
     """<code>TransferCall</code> transferred the call. Emitted at the call&apos;s terminal edge: a
     <code>*_CALL_FINISHED</code> status whose description is <code>Call transferred</code>.
+    <p>Attributes: <code>transfer_id</code> (masked as above), <code>mode</code> (<code>blind</code> /
+    <code>warm</code>), <code>outcome</code> (<code>accepted</code>), <code>sip_response_code</code>,
+    <code>source</code> (<code>call_monitor</code>), and the call status attributes
+    (<code>caller_name</code> / <code>listener_name</code> / <code>scheduled_caller_name</code>,
+    <code>phone_number</code>). Sets the call status fields.</p>
     """
     VTSI_EVENT_CALL_TRANSFER_FAILED: _VtsiEvent.ValueType  # 107
     """A transfer failed and the call was KEPT with the bot: <code>TRANSFER_CALL_FAILED</code>, a refused or unanswered
     REFER, or a WARM target that was busy or did not answer.
+    <p>Attributes: as <code>VTSI_EVENT_CALL_TRANSFER_INITIATED</code>, with <code>outcome</code> naming the
+    failure (<code>target_invalid</code>, <code>refer_rejected</code>, <code>timeout</code>,
+    <code>call_ended</code>, <code>call_scope_mismatch</code>, <code>sip_unreachable</code>,
+    <code>refused</code>, or the SIP reason in snake case), <code>error_reason</code> and, for a WARM leg,
+    <code>participant_id</code> and <code>end_reason</code> (as on
+    <code>VTSI_EVENT_CALL_PARTICIPANT_FAILED</code>). <code>description</code> says why.</p>
     """
     VTSI_EVENT_CALL_HANGUP_INITIATED: _VtsiEvent.ValueType  # 108
-    """A hang-up started: <code>SOFT_HANGUP_INITIATED</code> / <code>HARD_HANGUP_INITIATED</code>."""
+    """A hang-up started: <code>SOFT_HANGUP_INITIATED</code> / <code>HARD_HANGUP_INITIATED</code>. Call status
+    attributes.
+    """
     VTSI_EVENT_CALL_ANSWERING_MACHINE_DETECTED: _VtsiEvent.ValueType  # 109
-    """An answering machine was detected: <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code>."""
+    """An answering machine was detected: <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code>. Call status
+    attributes.
+    """
     VTSI_EVENT_CALL_STOPPED: _VtsiEvent.ValueType  # 110
     """The call was ended by <code>StopCall</code>, <code>StopCalls</code>, <code>StopAllCalls</code>
-    or a campaign hard stop.
+    or a campaign hard stop. No attributes; <code>call_name</code> is not set (the call is the
+    <code>resource_name</code>).
     """
     VTSI_EVENT_CALL_SIP_STATUS_CHANGED: _VtsiEvent.ValueType  # 111
     """The SIP status of the call changed (emitted for EVERY change, in addition to the specific
-    events above). <code>previous_sip_status_type</code> holds the status before.
+    events above). <code>previous_sip_status_type</code> holds the status before. Call status
+    attributes.
     """
     VTSI_EVENT_CALL_PARTICIPANT_INVITED: _VtsiEvent.ValueType  # 112
-    """A participant was invited into the call (<code>InviteToCall</code>). <code>attributes</code> carry
-    <code>participant_id</code>, <code>mode</code> and <code>actor</code> (who invited).
+    """A participant was invited into the call (<code>InviteToCall</code>).
+    <p>Attributes (the participant attributes, also on 113 to 115): <code>participant_id</code>,
+    <code>mode</code> (<code>CONFERENCE</code> / <code>MONITOR</code>), <code>purpose</code>
+    (<code>invite</code> / <code>warm_transfer</code>), <code>state</code> (<code>ParticipantState</code> name,
+    e.g. <code>PARTICIPANT_STATE_RINGING</code>), <code>softphone_account_name</code> (when a softphone
+    account was invited), <code>end_reason</code> (on 114 and 115: <code>NOANSWER</code>, <code>BUSY</code>,
+    <code>CHANUNAVAIL</code>, <code>CALL_ENDED</code>, <code>REMOVED</code>, <code>HANGUP</code>,
+    <code>HANDED_OVER</code>, <code>JOIN_FAILED</code>, <code>TIMEOUT</code>), <code>actor</code> (who caused
+    it: the authenticated user, or <code>system:call-control</code>), <code>source</code>. Sets
+    <code>call_name</code> and <code>description</code>.</p>
     """
     VTSI_EVENT_CALL_PARTICIPANT_JOINED: _VtsiEvent.ValueType  # 113
-    """An invited participant answered and joined the call. <code>attributes</code> carry <code>participant_id</code>."""
+    """An invited participant answered and joined the call. The participant attributes (see 112);
+    <code>actor</code> is who invited it.
+    """
     VTSI_EVENT_CALL_PARTICIPANT_FAILED: _VtsiEvent.ValueType  # 114
-    """An invited participant never joined (busy, no answer, unavailable, the call ended, ...).
-    <code>attributes</code> carry <code>participant_id</code> and <code>end_reason</code>.
+    """An invited participant never joined (busy, no answer, unavailable, the call ended, ...). The
+    participant attributes (see 112), with <code>end_reason</code>.
     """
     VTSI_EVENT_CALL_PARTICIPANT_LEFT: _VtsiEvent.ValueType  # 115
-    """A joined participant left the call. <code>attributes</code> carry <code>participant_id</code> and
+    """A joined participant left the call. The participant attributes (see 112), with
     <code>end_reason</code>.
     """
     VTSI_EVENT_CALL_BOT_MUTED: _VtsiEvent.ValueType  # 116
-    """The bot of the call was muted. <code>attributes</code> carry <code>actor</code> where a person caused it."""
+    """The bot of the call was muted. Attributes: <code>source</code> (<code>operator</code> for
+    <code>SetCallMediaControl</code>, <code>call_monitor</code> when the server observed it) and
+    <code>actor</code> (the authenticated user where a person caused it, <code>system</code> for the call
+    monitor). Sets <code>call_name</code>.
+    """
     VTSI_EVENT_CALL_BOT_UNMUTED: _VtsiEvent.ValueType  # 117
-    """The bot of the call was unmuted. <code>attributes</code> carry <code>actor</code> where a person caused it."""
+    """The bot of the call was unmuted. Attributes as <code>VTSI_EVENT_CALL_BOT_MUTED</code>."""
     VTSI_EVENT_CALL_LISTENING_PAUSED: _VtsiEvent.ValueType  # 118
-    """The bot of the call stopped listening to the caller. <code>attributes</code> carry <code>actor</code> where a
-    person caused it.
+    """The bot of the call stopped listening to the caller. Attributes as
+    <code>VTSI_EVENT_CALL_BOT_MUTED</code>.
     """
     VTSI_EVENT_CALL_LISTENING_RESUMED: _VtsiEvent.ValueType  # 119
-    """The bot of the call listens to the caller again. <code>attributes</code> carry <code>actor</code> where a person
-    caused it.
+    """The bot of the call listens to the caller again. Attributes as
+    <code>VTSI_EVENT_CALL_BOT_MUTED</code>.
     """
     VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED: _VtsiEvent.ValueType  # 120
     """A live call audio stream (<code>StreamCallAudio</code> / <code>ListenCallAudio</code>) connected.
-    <code>attributes</code> carry <code>stream_id</code>, <code>mode</code> and <code>actor</code>.
+    Attributes: <code>stream_id</code> (uuid), <code>mode</code> (<code>LISTEN</code> / <code>TALK</code>),
+    <code>rpc</code> (<code>ListenCallAudio</code> / <code>StreamCallAudio</code>), <code>actor</code> (the
+    authenticated user, when known). Sets <code>call_name</code>.
     """
     VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED: _VtsiEvent.ValueType  # 121
-    """A live call audio stream disconnected. <code>attributes</code> carry <code>stream_id</code>, <code>mode</code>,
-    <code>actor</code> and <code>end_reason</code>.
+    """A live call audio stream disconnected. Attributes as
+    <code>VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED</code>, plus <code>end_reason</code> (the
+    <code>CallAudioEndReason</code> name without prefix: <code>CLIENT_CLOSED</code>, <code>CALL_ENDED</code>,
+    <code>CALL_TRANSFERRED</code>, <code>MAX_DURATION</code>, <code>STALLED</code>, <code>INTERNAL</code>,
+    <code>UNSPECIFIED</code>).
+    """
+    VTSI_EVENT_CALL_UPDATED: _VtsiEvent.ValueType  # 122
+    """The stored record of the call was updated (<code>UpdateCall</code>, <code>UpdateCalls</code>); the call
+    itself is unchanged. Attribute <code>updated_fields</code> (the <code>update_mask</code> paths, e.g.
+    <code>labels</code>). Never carries a label value. Sets <code>call_name</code>. Not emitted for an entry
+    of a batch that failed, nor when the update changed nothing.
     """
     VTSI_EVENT_CALLER_STARTED: _VtsiEvent.ValueType  # 200
     """---- Callers (resource_name: the caller) ----
 
-    A caller started and placed its call.
+    A caller started and placed its call. No attributes; sets <code>call_name</code>.
     """
     VTSI_EVENT_CALLER_START_FAILED: _VtsiEvent.ValueType  # 201
-    """A caller could not be started; <code>description</code> says why."""
+    """A caller could not be started; <code>description</code> says why. No attributes."""
     VTSI_EVENT_CALLER_STOPPED: _VtsiEvent.ValueType  # 202
-    """A caller was stopped (<code>StopCaller</code>, <code>StopCallers</code>)."""
+    """A caller was stopped (<code>StopCaller</code>, <code>StopCallers</code>). No attributes."""
     VTSI_EVENT_CALLER_DELETED: _VtsiEvent.ValueType  # 203
-    """A caller was deleted."""
+    """A caller was deleted. No attributes."""
     VTSI_EVENT_CALLER_RESTARTED: _VtsiEvent.ValueType  # 204
-    """A caller&apos;s container was restarted by the server."""
+    """A caller&apos;s container was restarted by the server. Attributes: <code>container_name</code>,
+    <code>reason</code> (free text, at most 64 characters, e.g. <code>end-call-marker-expired</code>).
+    """
     VTSI_EVENT_CALLER_UNHEALTHY: _VtsiEvent.ValueType  # 205
-    """A caller&apos;s container was found not running or unhealthy."""
+    """A caller&apos;s container was found not running or unhealthy. Attribute <code>container_name</code>;
+    <code>description</code> is <code>container not running</code> or <code>container unhealthy</code>; sets
+    <code>call_name</code>.
+    """
     VTSI_EVENT_CALLER_HEALTHY: _VtsiEvent.ValueType  # 206
     """A caller reported unhealthy is healthy again (its container answers its health check, or its
-    restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+    restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+    attributes; sets <code>call_name</code> where known.
+    """
+    VTSI_EVENT_CALLER_UPDATED: _VtsiEvent.ValueType  # 207
+    """The stored configuration of a caller was updated (<code>UpdateCaller</code>, <code>UpdateCallers</code>);
+    its running container is unchanged. Attribute <code>updated_fields</code> (the <code>update_mask</code>
+    paths). Never carries a configuration value.
     """
     VTSI_EVENT_LISTENER_STARTED: _VtsiEvent.ValueType  # 300
     """---- Listeners (resource_name: the listener) ----
 
-    A listener started and is waiting for calls.
+    A listener started and is waiting for calls. No attributes; sets <code>call_name</code>.
     """
     VTSI_EVENT_LISTENER_START_FAILED: _VtsiEvent.ValueType  # 301
-    """A listener could not be started; <code>description</code> says why."""
+    """A listener could not be started; <code>description</code> says why. No attributes."""
     VTSI_EVENT_LISTENER_STOPPED: _VtsiEvent.ValueType  # 302
-    """A listener was stopped (<code>StopListener</code>, <code>StopListeners</code>)."""
+    """A listener was stopped (<code>StopListener</code>, <code>StopListeners</code>). No attributes."""
     VTSI_EVENT_LISTENER_DELETED: _VtsiEvent.ValueType  # 303
-    """A listener was deleted."""
+    """A listener was deleted. No attributes."""
     VTSI_EVENT_LISTENER_RESTARTED: _VtsiEvent.ValueType  # 304
-    """A listener&apos;s container was restarted by the server."""
+    """A listener&apos;s container was restarted by the server. Attribute <code>container_name</code>; sets
+    <code>call_name</code>.
+    """
     VTSI_EVENT_LISTENER_UNHEALTHY: _VtsiEvent.ValueType  # 305
-    """A listener&apos;s container was found not running or unhealthy."""
+    """A listener&apos;s container was found not running or unhealthy. Attribute <code>container_name</code>;
+    <code>description</code> as for <code>VTSI_EVENT_CALLER_UNHEALTHY</code>.
+    """
     VTSI_EVENT_LISTENER_HEALTHY: _VtsiEvent.ValueType  # 306
     """A listener reported unhealthy is healthy again (its container answers its health check, or
-    its restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+    its restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+    attributes.
+    """
+    VTSI_EVENT_LISTENER_UPDATED: _VtsiEvent.ValueType  # 307
+    """The stored configuration of a listener was updated (<code>UpdateListener</code>,
+    <code>UpdateListeners</code>); its running container is unchanged. Attribute
+    <code>updated_fields</code>. Never carries a configuration value.
     """
     VTSI_EVENT_SCHEDULED_CALLER_CREATED: _VtsiEvent.ValueType  # 400
     """---- Scheduled callers (resource_name: the scheduled caller) ----
 
-    A scheduled caller was created.
+    A scheduled caller was created. Attribute <code>scheduled_time</code> (RFC 3339). Sets
+    <code>campaign_name</code> for a scheduled call of a campaign.
     """
     VTSI_EVENT_SCHEDULED_CALLER_FIRED: _VtsiEvent.ValueType  # 401
-    """A scheduled caller fired: its call was started (<code>call_name</code> set)."""
+    """A scheduled caller fired: its call was started (<code>call_name</code> set). Attributes: outside a
+    campaign <code>attempt</code> (the attempt number); in a campaign <code>attempt_number</code> and
+    <code>campaign_call_name</code> (and <code>campaign_name</code> is set).
+    """
     VTSI_EVENT_SCHEDULED_CALLER_FAILED: _VtsiEvent.ValueType  # 402
-    """A scheduled caller failed for good; <code>description</code> says why."""
+    """A scheduled caller failed for good; <code>description</code> says why. Attributes: outside a campaign
+    <code>attempt</code> and <code>reason</code> (a classification token, e.g.
+    <code>transient_grpc:unavailable</code>, <code>configuration_error</code>, optionally suffixed
+    <code>:attempt_budget_exhausted</code>); in a campaign <code>attempt_number</code> and
+    <code>campaign_call_name</code>.
+    """
     VTSI_EVENT_SCHEDULED_CALLER_CANCELLED: _VtsiEvent.ValueType  # 403
-    """A scheduled caller was cancelled."""
+    """A scheduled caller was cancelled. No attributes."""
     VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED: _VtsiEvent.ValueType  # 404
-    """A scheduled caller failed and will be retried."""
+    """A scheduled caller failed and will be retried. Attributes: outside a campaign <code>attempt</code>,
+    <code>reason</code> and <code>retry_not_before</code> (RFC 3339); in a campaign
+    <code>attempt_number</code> and <code>campaign_call_name</code>.
+    """
+    VTSI_EVENT_SCHEDULED_CALLER_UPDATED: _VtsiEvent.ValueType  # 405
+    """A scheduled caller was updated: its stored configuration (an update RPC of scheduled callers, where
+    the server offers one) or, for a scheduled call of a campaign requeued by
+    <code>RetryCampaignCalls</code>, its status and scheduled time. Attribute <code>updated_fields</code>
+    (e.g. <code>status,scheduled_time</code>) and, when it changed, <code>scheduled_time</code> (RFC 3339);
+    in a campaign also <code>campaign_call_name</code> (and <code>campaign_name</code> is set). Never carries
+    a configuration value.
+    """
     VTSI_EVENT_CAMPAIGN_CREATED: _VtsiEvent.ValueType  # 500
     """---- Campaigns (resource_name: the campaign, or the campaign call for *_CALL_* events) ----
+    Every campaign event that is not a <code>*_CALL_*</code> event sets <code>campaign_name</code>,
+    <code>campaign_statistics</code> and <code>resource_sequence</code> (the campaign&apos;s state change
+    number).
 
-    A campaign was created.
+    A campaign was created (<code>CreateCampaign</code>, a <code>CampaignAssignment.new_campaign</code>,
+    <code>CloneCampaign</code>). No attributes, except for a clone: <code>cloned_from</code> (the source
+    campaign&apos;s resource name) and <code>copied_call_count</code>. An idempotent replay emits nothing.
     """
     VTSI_EVENT_CAMPAIGN_UPDATED: _VtsiEvent.ValueType  # 501
-    """A campaign&apos;s settings were updated."""
+    """A campaign&apos;s settings were updated. Attribute <code>updated_fields</code> (the
+    <code>update_mask</code> paths). Never carries a call-default value.
+    """
     VTSI_EVENT_CAMPAIGN_DELETED: _VtsiEvent.ValueType  # 502
-    """A campaign was deleted."""
+    """A campaign was deleted. Attributes: <code>deleted_campaign_call_count</code>,
+    <code>cancelled_scheduled_caller_count</code>.
+    """
     VTSI_EVENT_CAMPAIGN_STARTED: _VtsiEvent.ValueType  # 503
-    """A campaign was started."""
+    """A campaign was started. Attributes: <code>previous_state</code>, <code>state</code>; none when the
+    campaign was created running by a <code>CampaignAssignment</code>. <code>description</code> is
+    <code>calls were added</code> when adding calls started it.
+    """
     VTSI_EVENT_CAMPAIGN_STOP_REQUESTED: _VtsiEvent.ValueType  # 504
-    """<code>StopCampaign</code> was requested; running calls continue."""
+    """<code>StopCampaign</code> was requested; running calls continue. Attributes: <code>previous_state</code>,
+    <code>state</code>.
+    """
     VTSI_EVENT_CAMPAIGN_STOPPED: _VtsiEvent.ValueType  # 505
     """A campaign is stopped: it reached <code>STOPPED</code> (after a stop request or an automatic
-    stop) once no call of it was running.
+    stop) once no call of it was running. Attributes: <code>state</code> and <code>display_name</code>
+    when the engine observed it; none (with <code>description</code> <code>no call of the campaign was in
+    flight</code>) when the stop request stopped it at once.
     """
     VTSI_EVENT_CAMPAIGN_HARD_STOP_REQUESTED: _VtsiEvent.ValueType  # 506
-    """<code>HardStopCampaign</code> was requested."""
+    """<code>HardStopCampaign</code> (or a forced <code>DeleteCampaign</code>) was requested. Attributes:
+    <code>previous_state</code>, <code>state</code>.
+    """
     VTSI_EVENT_CAMPAIGN_HARD_STOPPED: _VtsiEvent.ValueType  # 507
-    """A campaign is hard stopped."""
+    """A campaign is hard stopped. Attributes as <code>VTSI_EVENT_CAMPAIGN_STOPPED</code>."""
     VTSI_EVENT_CAMPAIGN_RESUMED: _VtsiEvent.ValueType  # 508
-    """A campaign was resumed."""
+    """A campaign was resumed (<code>ResumeCampaign</code>, or a <code>COMPLETED</code> campaign that got calls
+    back from a <code>CampaignAssignment</code> or <code>RetryCampaignCalls</code>). Attributes:
+    <code>previous_state</code>, <code>state</code>; <code>description</code> says what resumed it when it
+    was not <code>ResumeCampaign</code>.
+    """
     VTSI_EVENT_CAMPAIGN_COMPLETED: _VtsiEvent.ValueType  # 509
-    """Every call of a campaign is finished."""
+    """Every call of a campaign is finished. Attributes: <code>state</code>, <code>display_name</code>;
+    <code>description</code> is the <code>state_reason</code>.
+    """
     VTSI_EVENT_CAMPAIGN_PROGRESS: _VtsiEvent.ValueType  # 510
-    """The statistics of a running campaign changed (throttled, at most every few seconds per
-    campaign). <code>campaign_statistics</code> is set.
+    """The statistics of a running campaign changed (throttled, at most once per
+    <code>ONDEWO_VTSI_CAMPAIGN_PROGRESS_EVENT_MIN_INTERVAL_S</code>, 5 s by default, per campaign).
+    <code>campaign_statistics</code> is set. Attributes: <code>state</code>, <code>display_name</code>.
     """
     VTSI_EVENT_CAMPAIGN_MAX_PARALLEL_CALLS_CHANGED: _VtsiEvent.ValueType  # 511
     """<code>max_parallel_calls</code> changed; attributes <code>previous_max_parallel_calls</code>
     and <code>max_parallel_calls</code>.
     """
     VTSI_EVENT_CAMPAIGN_CALLS_ADDED: _VtsiEvent.ValueType  # 512
-    """Calls were added to a campaign; attribute <code>added_call_count</code>."""
+    """Calls were added to a campaign (an <code>Add*ToCampaign</code> request, or <code>CloneCampaign</code>
+    with <code>include_calls</code>); attribute <code>added_call_count</code>.
+    """
     VTSI_EVENT_CAMPAIGN_CALL_DISPATCHED: _VtsiEvent.ValueType  # 513
-    """An attempt of a campaign call was started (<code>call_name</code> set)."""
+    """An attempt of a campaign call was started (<code>call_name</code> set). Campaign call attributes."""
     VTSI_EVENT_CAMPAIGN_CALL_COMPLETED: _VtsiEvent.ValueType  # 514
-    """A campaign call completed."""
+    """A campaign call completed. Campaign call attributes."""
     VTSI_EVENT_CAMPAIGN_CALL_FAILED: _VtsiEvent.ValueType  # 515
-    """A campaign call failed after its last attempt."""
+    """A campaign call failed after its last attempt. Campaign call attributes; <code>description</code> is
+    the error.
+    """
     VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED: _VtsiEvent.ValueType  # 516
-    """An attempt of a campaign call failed and the call will be retried."""
+    """An attempt of a campaign call failed and the call will be retried. Campaign call attributes;
+    <code>description</code> is the error.
+    """
     VTSI_EVENT_CAMPAIGN_CALL_CANCELLED: _VtsiEvent.ValueType  # 517
-    """A campaign call was cancelled."""
+    """A campaign call was cancelled (hard stop, cancelled scheduled caller, or
+    <code>CancelCampaignCalls</code>). Campaign call attributes; <code>description</code> says what cancelled
+    it.
+    """
     VTSI_EVENT_CAMPAIGN_AUTO_STOPPED: _VtsiEvent.ValueType  # 518
     """The SERVER stopped a campaign (it is now <code>STOPPING</code>) after repeated failures that
     cannot succeed by repetition, e.g. a rejected credential; <code>description</code> holds the
     <code>state_reason</code>. <code>VTSI_EVENT_CAMPAIGN_STOPPED</code> follows once no call runs.
+    Attributes: <code>state</code> (<code>STOPPING</code>), <code>display_name</code>.
+    """
+    VTSI_EVENT_CAMPAIGN_CALL_REQUEUED: _VtsiEvent.ValueType  # 519
+    """A FAILED or CANCELLED campaign call was put back into the queue by <code>RetryCampaignCalls</code>.
+    Campaign call attributes, plus <code>attempt_limit</code> (the call&apos;s new attempt limit) and, for a
+    call now <code>RETRY_PENDING</code>, <code>next_attempt_time</code> (RFC 3339).
+    """
+    VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED: _VtsiEvent.ValueType  # 520
+    """A RUNNING campaign with a <code>calling_window</code> entered a slot and may start calls again (also when
+    it is started or resumed inside a slot after having been outside one, and when an update of the window
+    opens it). Attributes: <code>state</code>, <code>display_name</code>, <code>window_end</code> (RFC 3339,
+    when the current run of slots ends). Best effort, at most one per edge, reported by the replica whose
+    engine ticked the campaign.
+    """
+    VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED: _VtsiEvent.ValueType  # 521
+    """A RUNNING campaign with a <code>calling_window</code> left its last slot and starts no call until the next
+    one (also when it is started, or its window updated, outside every slot). Running calls continue.
+    Attributes: <code>state</code>, <code>display_name</code>, <code>next_window_start</code> (RFC 3339).
+    Best effort, at most one per edge.
     """
     VTSI_EVENT_VTSI_PROJECT_UPDATED: _VtsiEvent.ValueType  # 601
-    """A VTSI project was updated."""
+    """A VTSI project was updated. No attributes."""
     VTSI_EVENT_VTSI_PROJECT_DELETED: _VtsiEvent.ValueType  # 602
     """A VTSI project was deleted. Delivered to the webhooks subscribed to it at the moment of the
     deletion (their configuration is captured before it is deleted with the project) and to the
-    project&apos;s open streams, which then end. It is the last event of the project.
+    project&apos;s open streams, which then end. It is the last event of the project. No attributes.
     """
     VTSI_EVENT_VTSI_PROJECT_DEPLOYED: _VtsiEvent.ValueType  # 603
-    """A VTSI project was deployed."""
+    """A VTSI project was deployed. No attributes."""
     VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED: _VtsiEvent.ValueType  # 604
-    """Deploying a VTSI project failed; <code>description</code> says why."""
+    """Deploying a VTSI project failed; <code>description</code> says why. No attributes."""
     VTSI_EVENT_VTSI_PROJECT_UNDEPLOYED: _VtsiEvent.ValueType  # 605
-    """A VTSI project was undeployed."""
+    """A VTSI project was undeployed. No attributes."""
     VTSI_EVENT_VTSI_PROJECT_STATUS_CHANGED: _VtsiEvent.ValueType  # 606
     """The <code>VtsiProjectStatus</code> of a project changed; attributes
-    <code>previous_status</code> and <code>status</code>.
+    <code>previous_status</code> and <code>status</code>, each a <code>VtsiProjectStatus</code> name
+    (<code>DEPLOYED</code>, <code>UPDATING</code>, ...).
     """
     VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_FAILED: _VtsiEvent.ValueType  # 607
-    """Undeploying a VTSI project failed; <code>description</code> says why."""
+    """Undeploying a VTSI project failed; <code>description</code> says why. No attributes."""
     VTSI_EVENT_ASTERISK_DEPLOYED: _VtsiEvent.ValueType  # 700
     """---- Asterisk (resource_name: the project; attribute container_name) ----
 
-    The project&apos;s Asterisk container was deployed.
+    The project&apos;s Asterisk container was deployed. Attribute <code>container_name</code>.
     """
     VTSI_EVENT_ASTERISK_REMOVED: _VtsiEvent.ValueType  # 701
-    """The project&apos;s Asterisk container was removed."""
+    """The project&apos;s Asterisk container was removed. Attribute <code>container_name</code>."""
     VTSI_EVENT_ASTERISK_RESTARTED: _VtsiEvent.ValueType  # 702
-    """The project&apos;s Asterisk was restarted."""
+    """The project&apos;s Asterisk was restarted. Attribute <code>restart_reason</code> (<code>plan</code> or
+    <code>escalation</code>).
+    """
     VTSI_EVENT_ASTERISK_CONFIG_RELOADED: _VtsiEvent.ValueType  # 703
-    """The project&apos;s Asterisk configuration was reloaded in place."""
+    """The project&apos;s Asterisk configuration was reloaded in place. Attribute <code>container_name</code>."""
     VTSI_EVENT_ASTERISK_UNHEALTHY: _VtsiEvent.ValueType  # 704
-    """The project&apos;s Asterisk container is not running or unhealthy."""
+    """The project&apos;s Asterisk container is not running or unhealthy. Attribute
+    <code>container_name</code>.
+    """
     VTSI_EVENT_ASTERISK_HEALTHY: _VtsiEvent.ValueType  # 705
-    """The project&apos;s Asterisk container is healthy again."""
+    """The project&apos;s Asterisk container is healthy again. Attribute <code>container_name</code>."""
     VTSI_EVENT_ASTERISK_TRUNK_REGISTERED: _VtsiEvent.ValueType  # 706
-    """The SIP trunk registered with the carrier."""
+    """The SIP trunk registered with the carrier. Attribute <code>container_name</code>."""
     VTSI_EVENT_ASTERISK_TRUNK_UNREGISTERED: _VtsiEvent.ValueType  # 707
-    """The SIP trunk is no longer registered (rejected, unregistered or failed); attribute
-    <code>registration_status</code>.
+    """The SIP trunk is no longer registered (rejected, unregistered or failed); attributes
+    <code>container_name</code> and <code>registration_status</code> (Asterisk&apos;s own token, e.g.
+    <code>Rejected</code>, <code>Unregistered</code>, <code>Unknown</code>).
     """
     VTSI_EVENT_ASTERISK_DEPLOY_FAILED: _VtsiEvent.ValueType  # 708
-    """Deploying the project&apos;s Asterisk container failed; <code>description</code> says why."""
+    """Deploying the project&apos;s Asterisk container failed; <code>description</code> says why. Attribute
+    <code>container_name</code>.
+    """
     VTSI_EVENT_ASTERISK_RESTART_FAILED: _VtsiEvent.ValueType  # 709
-    """Restarting the project&apos;s Asterisk failed; <code>description</code> says why."""
+    """Restarting the project&apos;s Asterisk failed; <code>description</code> says why. Attribute
+    <code>restart_reason</code>.
+    """
     VTSI_EVENT_ASTERISK_CONFIG_RELOAD_FAILED: _VtsiEvent.ValueType  # 710
     """Reloading the project&apos;s Asterisk configuration in place failed; <code>description</code>
-    says why.
+    says why. Attribute <code>container_name</code>.
     """
     VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED: _VtsiEvent.ValueType  # 800
     """---- Softphone accounts (resource_name: the softphone account) ----
 
-    A softphone account was created.
+    A softphone account was created. No attributes.
     """
     VTSI_EVENT_SOFTPHONE_ACCOUNT_UPDATED: _VtsiEvent.ValueType  # 801
-    """A softphone account was updated."""
+    """A softphone account was updated. Attribute <code>updated_fields</code>."""
     VTSI_EVENT_SOFTPHONE_ACCOUNT_DELETED: _VtsiEvent.ValueType  # 802
-    """A softphone account was deleted."""
+    """A softphone account was deleted. Attribute <code>revoked_certificate_count</code>."""
     VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED: _VtsiEvent.ValueType  # 803
-    """The credentials of a softphone account were rotated."""
+    """The credentials of a softphone account were rotated. Attribute <code>certificate_rotated</code>
+    (boolean).
+    """
     VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED: _VtsiEvent.ValueType  # 804
-    """A softphone certificate was revoked."""
+    """A softphone certificate was revoked (resource_name: the certificate). Attribute
+    <code>account_locked</code> (boolean).
+    """
     VTSI_EVENT_WEBHOOK_TEST: _VtsiEvent.ValueType  # 900
     """---- Event system ----
 
-    Sent by <code>TestWebhook</code> only.
+    Sent by <code>TestWebhook</code> only (when it names no <code>sample_event</code>). No attributes;
+    <code>description</code> is <code>webhook test</code>.
     """
     VTSI_EVENT_WEBHOOK_CREATED: _VtsiEvent.ValueType  # 901
-    """A webhook was created (resource_name: the webhook). Never carries a header value."""
+    """A webhook was created (resource_name: the webhook). Never carries a header value or the signing
+    secret. No attributes.
+    """
     VTSI_EVENT_WEBHOOK_UPDATED: _VtsiEvent.ValueType  # 902
     """A webhook was updated; attribute <code>updated_fields</code> (the mask paths). Never carries
-    a header value.
+    a header value or the signing secret.
     """
     VTSI_EVENT_WEBHOOK_DELETED: _VtsiEvent.ValueType  # 903
-    """A webhook was deleted."""
+    """A webhook was deleted. No attributes."""
     VTSI_EVENT_EVENT_SUBSCRIPTION_CREATED: _VtsiEvent.ValueType  # 904
-    """An event subscription was created (resource_name: the subscription)."""
+    """An event subscription was created (resource_name: the subscription). No attributes."""
     VTSI_EVENT_EVENT_SUBSCRIPTION_UPDATED: _VtsiEvent.ValueType  # 905
     """An event subscription was updated; attribute <code>updated_fields</code>."""
     VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED: _VtsiEvent.ValueType  # 906
-    """An event subscription was deleted."""
+    """An event subscription was deleted. No attributes."""
 
 class VtsiEvent(_VtsiEvent, metaclass=_VtsiEventEnumTypeWrapper):
     """////////////////////////////////////////////////////////////////////////////
@@ -304,6 +475,30 @@ class VtsiEvent(_VtsiEvent, metaclass=_VtsiEventEnumTypeWrapper):
     ////////////////////////////////////////////////////////////////////////////
 
     Every event VTSI reports. Values are grouped by resource in blocks of 100; numbers are stable.
+    <p><b>Attributes.</b> <code>VtsiEventMessage.attributes</code> carries the event-specific values listed at
+    each value below; a key whose value is unknown is left out, and keys not listed are never sent. Formats:
+    counts and numbers are base-10 integers without separators (<code>3</code>); booleans are
+    <code>true</code> / <code>false</code>; times are RFC 3339 in UTC with a numeric offset
+    (<code>2026-10-11T12:00:00+00:00</code>, fractional seconds possible); resource names are complete
+    (<code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code>); <code>updated_fields</code> is a
+    comma-separated list of <code>update_mask</code> paths without spaces (<code>display_name,url</code>);
+    a campaign <code>state</code> / <code>previous_state</code> is the <code>CampaignState</code> name WITHOUT
+    its <code>CAMPAIGN_STATE_</code> prefix (<code>RUNNING</code>). An event carries at most 20 attributes and
+    a value at most 256 characters (longer values are cut); <code>description</code> and
+    <code>sip_status_description</code> at most 1024 characters.</p>
+    <p><b>Call status attributes</b>, on every event derived from a change of a call&apos;s SIP status (marked
+    "call status attributes" below): <code>caller_name</code>, <code>listener_name</code> or
+    <code>scheduled_caller_name</code> (the resource that owns the call, the one that applies) and
+    <code>phone_number</code> (the callee or caller number in clear, where recorded; treat it as personal
+    data). Such an event also sets <code>call_name</code>, <code>sip_status_type</code>,
+    <code>previous_sip_status_type</code> (unset for a new call record), <code>sip_status_description</code>
+    and <code>resource_sequence</code> (the call&apos;s status change number), and has a deterministic
+    <code>event_id</code>, so replicas observing the same change report one event.</p>
+    <p><b>Campaign call attributes</b>, on the <code>VTSI_EVENT_CAMPAIGN_CALL_*</code> events:
+    <code>attempt_number</code> (attempts started so far), <code>phone_number</code> (the callee in clear) and
+    <code>caller_name</code> (caller of the current or last attempt). They also set <code>call_name</code>,
+    <code>campaign_name</code>, <code>sip_status_type</code>, <code>sip_status_description</code> and
+    <code>resource_sequence</code>; never <code>campaign_statistics</code>.</p>
     """
 
 VTSI_EVENT_UNSPECIFIED: VtsiEvent.ValueType  # 0
@@ -311,255 +506,426 @@ VTSI_EVENT_UNSPECIFIED: VtsiEvent.ValueType  # 0
 VTSI_EVENT_CALL_CREATED: VtsiEvent.ValueType  # 100
 """---- Calls (resource_name: the call) ----
 
-A call record was created: an outbound call was placed, or a listener received a call.
+A call record was created: an outbound call was placed, or a listener received a call. Call status
+attributes.
 """
 VTSI_EVENT_CALL_INITIATED: VtsiEvent.ValueType  # 101
-"""The call is ringing: <code>INCOMING_CALL_INITIATED</code> / <code>OUTGOING_CALL_INITIATED</code>."""
+"""The call is ringing: <code>INCOMING_CALL_INITIATED</code> / <code>OUTGOING_CALL_INITIATED</code>. Call
+status attributes.
+"""
 VTSI_EVENT_CALL_CONNECTED: VtsiEvent.ValueType  # 102
-"""The call was answered: <code>INCOMING_CALL_CONNECTED</code> / <code>OUTGOING_CALL_CONNECTED</code>."""
+"""The call was answered: <code>INCOMING_CALL_CONNECTED</code> / <code>OUTGOING_CALL_CONNECTED</code>. Call
+status attributes.
+"""
 VTSI_EVENT_CALL_FINISHED: VtsiEvent.ValueType  # 103
-"""The call ended normally: <code>INCOMING_CALL_FINISHED</code> / <code>OUTGOING_CALL_FINISHED</code>."""
+"""The call ended normally: <code>INCOMING_CALL_FINISHED</code> / <code>OUTGOING_CALL_FINISHED</code>. Call
+status attributes.
+"""
 VTSI_EVENT_CALL_FAILED: VtsiEvent.ValueType  # 104
-"""The call failed: <code>INCOMING_CALL_FAILED</code> / <code>OUTGOING_CALL_FAILED</code>."""
+"""The call failed: <code>INCOMING_CALL_FAILED</code> / <code>OUTGOING_CALL_FAILED</code>. Call status
+attributes.
+"""
 VTSI_EVENT_CALL_TRANSFER_INITIATED: VtsiEvent.ValueType  # 105
 """A transfer of the call started: <code>TRANSFER_CALL_INITIATED</code>. Emitted when a BLIND transfer was
 accepted, or when the target of a WARM transfer starts ringing.
+<p>Attributes: <code>transfer_id</code> (the target, a phone number masked to its last 3 digits, e.g.
+<code>***678</code>, or an extension), <code>target_type</code> (<code>phone_number</code>,
+<code>softphone</code>, <code>listener</code>, <code>listener_queue</code>, <code>legacy</code>,
+<code>unknown</code>), <code>mode</code> (<code>blind</code> / <code>warm</code>; <code>WARM</code>, upper
+case, when reported for the ringing WARM leg), <code>outcome</code> (<code>accepted</code>,
+<code>pending</code>, ...), <code>sip_response_code</code> (SIP code, <code>0</code> when unknown),
+<code>error_reason</code> (kebab-case token, may be empty), <code>participant_id</code> (WARM leg),
+<code>source</code> (<code>call_monitor</code> when observed by the call monitor). Sets
+<code>call_name</code>.</p>
 """
 VTSI_EVENT_CALL_TRANSFERRED: VtsiEvent.ValueType  # 106
 """<code>TransferCall</code> transferred the call. Emitted at the call&apos;s terminal edge: a
 <code>*_CALL_FINISHED</code> status whose description is <code>Call transferred</code>.
+<p>Attributes: <code>transfer_id</code> (masked as above), <code>mode</code> (<code>blind</code> /
+<code>warm</code>), <code>outcome</code> (<code>accepted</code>), <code>sip_response_code</code>,
+<code>source</code> (<code>call_monitor</code>), and the call status attributes
+(<code>caller_name</code> / <code>listener_name</code> / <code>scheduled_caller_name</code>,
+<code>phone_number</code>). Sets the call status fields.</p>
 """
 VTSI_EVENT_CALL_TRANSFER_FAILED: VtsiEvent.ValueType  # 107
 """A transfer failed and the call was KEPT with the bot: <code>TRANSFER_CALL_FAILED</code>, a refused or unanswered
 REFER, or a WARM target that was busy or did not answer.
+<p>Attributes: as <code>VTSI_EVENT_CALL_TRANSFER_INITIATED</code>, with <code>outcome</code> naming the
+failure (<code>target_invalid</code>, <code>refer_rejected</code>, <code>timeout</code>,
+<code>call_ended</code>, <code>call_scope_mismatch</code>, <code>sip_unreachable</code>,
+<code>refused</code>, or the SIP reason in snake case), <code>error_reason</code> and, for a WARM leg,
+<code>participant_id</code> and <code>end_reason</code> (as on
+<code>VTSI_EVENT_CALL_PARTICIPANT_FAILED</code>). <code>description</code> says why.</p>
 """
 VTSI_EVENT_CALL_HANGUP_INITIATED: VtsiEvent.ValueType  # 108
-"""A hang-up started: <code>SOFT_HANGUP_INITIATED</code> / <code>HARD_HANGUP_INITIATED</code>."""
+"""A hang-up started: <code>SOFT_HANGUP_INITIATED</code> / <code>HARD_HANGUP_INITIATED</code>. Call status
+attributes.
+"""
 VTSI_EVENT_CALL_ANSWERING_MACHINE_DETECTED: VtsiEvent.ValueType  # 109
-"""An answering machine was detected: <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code>."""
+"""An answering machine was detected: <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code>. Call status
+attributes.
+"""
 VTSI_EVENT_CALL_STOPPED: VtsiEvent.ValueType  # 110
 """The call was ended by <code>StopCall</code>, <code>StopCalls</code>, <code>StopAllCalls</code>
-or a campaign hard stop.
+or a campaign hard stop. No attributes; <code>call_name</code> is not set (the call is the
+<code>resource_name</code>).
 """
 VTSI_EVENT_CALL_SIP_STATUS_CHANGED: VtsiEvent.ValueType  # 111
 """The SIP status of the call changed (emitted for EVERY change, in addition to the specific
-events above). <code>previous_sip_status_type</code> holds the status before.
+events above). <code>previous_sip_status_type</code> holds the status before. Call status
+attributes.
 """
 VTSI_EVENT_CALL_PARTICIPANT_INVITED: VtsiEvent.ValueType  # 112
-"""A participant was invited into the call (<code>InviteToCall</code>). <code>attributes</code> carry
-<code>participant_id</code>, <code>mode</code> and <code>actor</code> (who invited).
+"""A participant was invited into the call (<code>InviteToCall</code>).
+<p>Attributes (the participant attributes, also on 113 to 115): <code>participant_id</code>,
+<code>mode</code> (<code>CONFERENCE</code> / <code>MONITOR</code>), <code>purpose</code>
+(<code>invite</code> / <code>warm_transfer</code>), <code>state</code> (<code>ParticipantState</code> name,
+e.g. <code>PARTICIPANT_STATE_RINGING</code>), <code>softphone_account_name</code> (when a softphone
+account was invited), <code>end_reason</code> (on 114 and 115: <code>NOANSWER</code>, <code>BUSY</code>,
+<code>CHANUNAVAIL</code>, <code>CALL_ENDED</code>, <code>REMOVED</code>, <code>HANGUP</code>,
+<code>HANDED_OVER</code>, <code>JOIN_FAILED</code>, <code>TIMEOUT</code>), <code>actor</code> (who caused
+it: the authenticated user, or <code>system:call-control</code>), <code>source</code>. Sets
+<code>call_name</code> and <code>description</code>.</p>
 """
 VTSI_EVENT_CALL_PARTICIPANT_JOINED: VtsiEvent.ValueType  # 113
-"""An invited participant answered and joined the call. <code>attributes</code> carry <code>participant_id</code>."""
+"""An invited participant answered and joined the call. The participant attributes (see 112);
+<code>actor</code> is who invited it.
+"""
 VTSI_EVENT_CALL_PARTICIPANT_FAILED: VtsiEvent.ValueType  # 114
-"""An invited participant never joined (busy, no answer, unavailable, the call ended, ...).
-<code>attributes</code> carry <code>participant_id</code> and <code>end_reason</code>.
+"""An invited participant never joined (busy, no answer, unavailable, the call ended, ...). The
+participant attributes (see 112), with <code>end_reason</code>.
 """
 VTSI_EVENT_CALL_PARTICIPANT_LEFT: VtsiEvent.ValueType  # 115
-"""A joined participant left the call. <code>attributes</code> carry <code>participant_id</code> and
+"""A joined participant left the call. The participant attributes (see 112), with
 <code>end_reason</code>.
 """
 VTSI_EVENT_CALL_BOT_MUTED: VtsiEvent.ValueType  # 116
-"""The bot of the call was muted. <code>attributes</code> carry <code>actor</code> where a person caused it."""
+"""The bot of the call was muted. Attributes: <code>source</code> (<code>operator</code> for
+<code>SetCallMediaControl</code>, <code>call_monitor</code> when the server observed it) and
+<code>actor</code> (the authenticated user where a person caused it, <code>system</code> for the call
+monitor). Sets <code>call_name</code>.
+"""
 VTSI_EVENT_CALL_BOT_UNMUTED: VtsiEvent.ValueType  # 117
-"""The bot of the call was unmuted. <code>attributes</code> carry <code>actor</code> where a person caused it."""
+"""The bot of the call was unmuted. Attributes as <code>VTSI_EVENT_CALL_BOT_MUTED</code>."""
 VTSI_EVENT_CALL_LISTENING_PAUSED: VtsiEvent.ValueType  # 118
-"""The bot of the call stopped listening to the caller. <code>attributes</code> carry <code>actor</code> where a
-person caused it.
+"""The bot of the call stopped listening to the caller. Attributes as
+<code>VTSI_EVENT_CALL_BOT_MUTED</code>.
 """
 VTSI_EVENT_CALL_LISTENING_RESUMED: VtsiEvent.ValueType  # 119
-"""The bot of the call listens to the caller again. <code>attributes</code> carry <code>actor</code> where a person
-caused it.
+"""The bot of the call listens to the caller again. Attributes as
+<code>VTSI_EVENT_CALL_BOT_MUTED</code>.
 """
 VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED: VtsiEvent.ValueType  # 120
 """A live call audio stream (<code>StreamCallAudio</code> / <code>ListenCallAudio</code>) connected.
-<code>attributes</code> carry <code>stream_id</code>, <code>mode</code> and <code>actor</code>.
+Attributes: <code>stream_id</code> (uuid), <code>mode</code> (<code>LISTEN</code> / <code>TALK</code>),
+<code>rpc</code> (<code>ListenCallAudio</code> / <code>StreamCallAudio</code>), <code>actor</code> (the
+authenticated user, when known). Sets <code>call_name</code>.
 """
 VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED: VtsiEvent.ValueType  # 121
-"""A live call audio stream disconnected. <code>attributes</code> carry <code>stream_id</code>, <code>mode</code>,
-<code>actor</code> and <code>end_reason</code>.
+"""A live call audio stream disconnected. Attributes as
+<code>VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED</code>, plus <code>end_reason</code> (the
+<code>CallAudioEndReason</code> name without prefix: <code>CLIENT_CLOSED</code>, <code>CALL_ENDED</code>,
+<code>CALL_TRANSFERRED</code>, <code>MAX_DURATION</code>, <code>STALLED</code>, <code>INTERNAL</code>,
+<code>UNSPECIFIED</code>).
+"""
+VTSI_EVENT_CALL_UPDATED: VtsiEvent.ValueType  # 122
+"""The stored record of the call was updated (<code>UpdateCall</code>, <code>UpdateCalls</code>); the call
+itself is unchanged. Attribute <code>updated_fields</code> (the <code>update_mask</code> paths, e.g.
+<code>labels</code>). Never carries a label value. Sets <code>call_name</code>. Not emitted for an entry
+of a batch that failed, nor when the update changed nothing.
 """
 VTSI_EVENT_CALLER_STARTED: VtsiEvent.ValueType  # 200
 """---- Callers (resource_name: the caller) ----
 
-A caller started and placed its call.
+A caller started and placed its call. No attributes; sets <code>call_name</code>.
 """
 VTSI_EVENT_CALLER_START_FAILED: VtsiEvent.ValueType  # 201
-"""A caller could not be started; <code>description</code> says why."""
+"""A caller could not be started; <code>description</code> says why. No attributes."""
 VTSI_EVENT_CALLER_STOPPED: VtsiEvent.ValueType  # 202
-"""A caller was stopped (<code>StopCaller</code>, <code>StopCallers</code>)."""
+"""A caller was stopped (<code>StopCaller</code>, <code>StopCallers</code>). No attributes."""
 VTSI_EVENT_CALLER_DELETED: VtsiEvent.ValueType  # 203
-"""A caller was deleted."""
+"""A caller was deleted. No attributes."""
 VTSI_EVENT_CALLER_RESTARTED: VtsiEvent.ValueType  # 204
-"""A caller&apos;s container was restarted by the server."""
+"""A caller&apos;s container was restarted by the server. Attributes: <code>container_name</code>,
+<code>reason</code> (free text, at most 64 characters, e.g. <code>end-call-marker-expired</code>).
+"""
 VTSI_EVENT_CALLER_UNHEALTHY: VtsiEvent.ValueType  # 205
-"""A caller&apos;s container was found not running or unhealthy."""
+"""A caller&apos;s container was found not running or unhealthy. Attribute <code>container_name</code>;
+<code>description</code> is <code>container not running</code> or <code>container unhealthy</code>; sets
+<code>call_name</code>.
+"""
 VTSI_EVENT_CALLER_HEALTHY: VtsiEvent.ValueType  # 206
 """A caller reported unhealthy is healthy again (its container answers its health check, or its
-restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+attributes; sets <code>call_name</code> where known.
+"""
+VTSI_EVENT_CALLER_UPDATED: VtsiEvent.ValueType  # 207
+"""The stored configuration of a caller was updated (<code>UpdateCaller</code>, <code>UpdateCallers</code>);
+its running container is unchanged. Attribute <code>updated_fields</code> (the <code>update_mask</code>
+paths). Never carries a configuration value.
 """
 VTSI_EVENT_LISTENER_STARTED: VtsiEvent.ValueType  # 300
 """---- Listeners (resource_name: the listener) ----
 
-A listener started and is waiting for calls.
+A listener started and is waiting for calls. No attributes; sets <code>call_name</code>.
 """
 VTSI_EVENT_LISTENER_START_FAILED: VtsiEvent.ValueType  # 301
-"""A listener could not be started; <code>description</code> says why."""
+"""A listener could not be started; <code>description</code> says why. No attributes."""
 VTSI_EVENT_LISTENER_STOPPED: VtsiEvent.ValueType  # 302
-"""A listener was stopped (<code>StopListener</code>, <code>StopListeners</code>)."""
+"""A listener was stopped (<code>StopListener</code>, <code>StopListeners</code>). No attributes."""
 VTSI_EVENT_LISTENER_DELETED: VtsiEvent.ValueType  # 303
-"""A listener was deleted."""
+"""A listener was deleted. No attributes."""
 VTSI_EVENT_LISTENER_RESTARTED: VtsiEvent.ValueType  # 304
-"""A listener&apos;s container was restarted by the server."""
+"""A listener&apos;s container was restarted by the server. Attribute <code>container_name</code>; sets
+<code>call_name</code>.
+"""
 VTSI_EVENT_LISTENER_UNHEALTHY: VtsiEvent.ValueType  # 305
-"""A listener&apos;s container was found not running or unhealthy."""
+"""A listener&apos;s container was found not running or unhealthy. Attribute <code>container_name</code>;
+<code>description</code> as for <code>VTSI_EVENT_CALLER_UNHEALTHY</code>.
+"""
 VTSI_EVENT_LISTENER_HEALTHY: VtsiEvent.ValueType  # 306
 """A listener reported unhealthy is healthy again (its container answers its health check, or
-its restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+its restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+attributes.
+"""
+VTSI_EVENT_LISTENER_UPDATED: VtsiEvent.ValueType  # 307
+"""The stored configuration of a listener was updated (<code>UpdateListener</code>,
+<code>UpdateListeners</code>); its running container is unchanged. Attribute
+<code>updated_fields</code>. Never carries a configuration value.
 """
 VTSI_EVENT_SCHEDULED_CALLER_CREATED: VtsiEvent.ValueType  # 400
 """---- Scheduled callers (resource_name: the scheduled caller) ----
 
-A scheduled caller was created.
+A scheduled caller was created. Attribute <code>scheduled_time</code> (RFC 3339). Sets
+<code>campaign_name</code> for a scheduled call of a campaign.
 """
 VTSI_EVENT_SCHEDULED_CALLER_FIRED: VtsiEvent.ValueType  # 401
-"""A scheduled caller fired: its call was started (<code>call_name</code> set)."""
+"""A scheduled caller fired: its call was started (<code>call_name</code> set). Attributes: outside a
+campaign <code>attempt</code> (the attempt number); in a campaign <code>attempt_number</code> and
+<code>campaign_call_name</code> (and <code>campaign_name</code> is set).
+"""
 VTSI_EVENT_SCHEDULED_CALLER_FAILED: VtsiEvent.ValueType  # 402
-"""A scheduled caller failed for good; <code>description</code> says why."""
+"""A scheduled caller failed for good; <code>description</code> says why. Attributes: outside a campaign
+<code>attempt</code> and <code>reason</code> (a classification token, e.g.
+<code>transient_grpc:unavailable</code>, <code>configuration_error</code>, optionally suffixed
+<code>:attempt_budget_exhausted</code>); in a campaign <code>attempt_number</code> and
+<code>campaign_call_name</code>.
+"""
 VTSI_EVENT_SCHEDULED_CALLER_CANCELLED: VtsiEvent.ValueType  # 403
-"""A scheduled caller was cancelled."""
+"""A scheduled caller was cancelled. No attributes."""
 VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED: VtsiEvent.ValueType  # 404
-"""A scheduled caller failed and will be retried."""
+"""A scheduled caller failed and will be retried. Attributes: outside a campaign <code>attempt</code>,
+<code>reason</code> and <code>retry_not_before</code> (RFC 3339); in a campaign
+<code>attempt_number</code> and <code>campaign_call_name</code>.
+"""
+VTSI_EVENT_SCHEDULED_CALLER_UPDATED: VtsiEvent.ValueType  # 405
+"""A scheduled caller was updated: its stored configuration (an update RPC of scheduled callers, where
+the server offers one) or, for a scheduled call of a campaign requeued by
+<code>RetryCampaignCalls</code>, its status and scheduled time. Attribute <code>updated_fields</code>
+(e.g. <code>status,scheduled_time</code>) and, when it changed, <code>scheduled_time</code> (RFC 3339);
+in a campaign also <code>campaign_call_name</code> (and <code>campaign_name</code> is set). Never carries
+a configuration value.
+"""
 VTSI_EVENT_CAMPAIGN_CREATED: VtsiEvent.ValueType  # 500
 """---- Campaigns (resource_name: the campaign, or the campaign call for *_CALL_* events) ----
+Every campaign event that is not a <code>*_CALL_*</code> event sets <code>campaign_name</code>,
+<code>campaign_statistics</code> and <code>resource_sequence</code> (the campaign&apos;s state change
+number).
 
-A campaign was created.
+A campaign was created (<code>CreateCampaign</code>, a <code>CampaignAssignment.new_campaign</code>,
+<code>CloneCampaign</code>). No attributes, except for a clone: <code>cloned_from</code> (the source
+campaign&apos;s resource name) and <code>copied_call_count</code>. An idempotent replay emits nothing.
 """
 VTSI_EVENT_CAMPAIGN_UPDATED: VtsiEvent.ValueType  # 501
-"""A campaign&apos;s settings were updated."""
+"""A campaign&apos;s settings were updated. Attribute <code>updated_fields</code> (the
+<code>update_mask</code> paths). Never carries a call-default value.
+"""
 VTSI_EVENT_CAMPAIGN_DELETED: VtsiEvent.ValueType  # 502
-"""A campaign was deleted."""
+"""A campaign was deleted. Attributes: <code>deleted_campaign_call_count</code>,
+<code>cancelled_scheduled_caller_count</code>.
+"""
 VTSI_EVENT_CAMPAIGN_STARTED: VtsiEvent.ValueType  # 503
-"""A campaign was started."""
+"""A campaign was started. Attributes: <code>previous_state</code>, <code>state</code>; none when the
+campaign was created running by a <code>CampaignAssignment</code>. <code>description</code> is
+<code>calls were added</code> when adding calls started it.
+"""
 VTSI_EVENT_CAMPAIGN_STOP_REQUESTED: VtsiEvent.ValueType  # 504
-"""<code>StopCampaign</code> was requested; running calls continue."""
+"""<code>StopCampaign</code> was requested; running calls continue. Attributes: <code>previous_state</code>,
+<code>state</code>.
+"""
 VTSI_EVENT_CAMPAIGN_STOPPED: VtsiEvent.ValueType  # 505
 """A campaign is stopped: it reached <code>STOPPED</code> (after a stop request or an automatic
-stop) once no call of it was running.
+stop) once no call of it was running. Attributes: <code>state</code> and <code>display_name</code>
+when the engine observed it; none (with <code>description</code> <code>no call of the campaign was in
+flight</code>) when the stop request stopped it at once.
 """
 VTSI_EVENT_CAMPAIGN_HARD_STOP_REQUESTED: VtsiEvent.ValueType  # 506
-"""<code>HardStopCampaign</code> was requested."""
+"""<code>HardStopCampaign</code> (or a forced <code>DeleteCampaign</code>) was requested. Attributes:
+<code>previous_state</code>, <code>state</code>.
+"""
 VTSI_EVENT_CAMPAIGN_HARD_STOPPED: VtsiEvent.ValueType  # 507
-"""A campaign is hard stopped."""
+"""A campaign is hard stopped. Attributes as <code>VTSI_EVENT_CAMPAIGN_STOPPED</code>."""
 VTSI_EVENT_CAMPAIGN_RESUMED: VtsiEvent.ValueType  # 508
-"""A campaign was resumed."""
+"""A campaign was resumed (<code>ResumeCampaign</code>, or a <code>COMPLETED</code> campaign that got calls
+back from a <code>CampaignAssignment</code> or <code>RetryCampaignCalls</code>). Attributes:
+<code>previous_state</code>, <code>state</code>; <code>description</code> says what resumed it when it
+was not <code>ResumeCampaign</code>.
+"""
 VTSI_EVENT_CAMPAIGN_COMPLETED: VtsiEvent.ValueType  # 509
-"""Every call of a campaign is finished."""
+"""Every call of a campaign is finished. Attributes: <code>state</code>, <code>display_name</code>;
+<code>description</code> is the <code>state_reason</code>.
+"""
 VTSI_EVENT_CAMPAIGN_PROGRESS: VtsiEvent.ValueType  # 510
-"""The statistics of a running campaign changed (throttled, at most every few seconds per
-campaign). <code>campaign_statistics</code> is set.
+"""The statistics of a running campaign changed (throttled, at most once per
+<code>ONDEWO_VTSI_CAMPAIGN_PROGRESS_EVENT_MIN_INTERVAL_S</code>, 5 s by default, per campaign).
+<code>campaign_statistics</code> is set. Attributes: <code>state</code>, <code>display_name</code>.
 """
 VTSI_EVENT_CAMPAIGN_MAX_PARALLEL_CALLS_CHANGED: VtsiEvent.ValueType  # 511
 """<code>max_parallel_calls</code> changed; attributes <code>previous_max_parallel_calls</code>
 and <code>max_parallel_calls</code>.
 """
 VTSI_EVENT_CAMPAIGN_CALLS_ADDED: VtsiEvent.ValueType  # 512
-"""Calls were added to a campaign; attribute <code>added_call_count</code>."""
+"""Calls were added to a campaign (an <code>Add*ToCampaign</code> request, or <code>CloneCampaign</code>
+with <code>include_calls</code>); attribute <code>added_call_count</code>.
+"""
 VTSI_EVENT_CAMPAIGN_CALL_DISPATCHED: VtsiEvent.ValueType  # 513
-"""An attempt of a campaign call was started (<code>call_name</code> set)."""
+"""An attempt of a campaign call was started (<code>call_name</code> set). Campaign call attributes."""
 VTSI_EVENT_CAMPAIGN_CALL_COMPLETED: VtsiEvent.ValueType  # 514
-"""A campaign call completed."""
+"""A campaign call completed. Campaign call attributes."""
 VTSI_EVENT_CAMPAIGN_CALL_FAILED: VtsiEvent.ValueType  # 515
-"""A campaign call failed after its last attempt."""
+"""A campaign call failed after its last attempt. Campaign call attributes; <code>description</code> is
+the error.
+"""
 VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED: VtsiEvent.ValueType  # 516
-"""An attempt of a campaign call failed and the call will be retried."""
+"""An attempt of a campaign call failed and the call will be retried. Campaign call attributes;
+<code>description</code> is the error.
+"""
 VTSI_EVENT_CAMPAIGN_CALL_CANCELLED: VtsiEvent.ValueType  # 517
-"""A campaign call was cancelled."""
+"""A campaign call was cancelled (hard stop, cancelled scheduled caller, or
+<code>CancelCampaignCalls</code>). Campaign call attributes; <code>description</code> says what cancelled
+it.
+"""
 VTSI_EVENT_CAMPAIGN_AUTO_STOPPED: VtsiEvent.ValueType  # 518
 """The SERVER stopped a campaign (it is now <code>STOPPING</code>) after repeated failures that
 cannot succeed by repetition, e.g. a rejected credential; <code>description</code> holds the
 <code>state_reason</code>. <code>VTSI_EVENT_CAMPAIGN_STOPPED</code> follows once no call runs.
+Attributes: <code>state</code> (<code>STOPPING</code>), <code>display_name</code>.
+"""
+VTSI_EVENT_CAMPAIGN_CALL_REQUEUED: VtsiEvent.ValueType  # 519
+"""A FAILED or CANCELLED campaign call was put back into the queue by <code>RetryCampaignCalls</code>.
+Campaign call attributes, plus <code>attempt_limit</code> (the call&apos;s new attempt limit) and, for a
+call now <code>RETRY_PENDING</code>, <code>next_attempt_time</code> (RFC 3339).
+"""
+VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED: VtsiEvent.ValueType  # 520
+"""A RUNNING campaign with a <code>calling_window</code> entered a slot and may start calls again (also when
+it is started or resumed inside a slot after having been outside one, and when an update of the window
+opens it). Attributes: <code>state</code>, <code>display_name</code>, <code>window_end</code> (RFC 3339,
+when the current run of slots ends). Best effort, at most one per edge, reported by the replica whose
+engine ticked the campaign.
+"""
+VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED: VtsiEvent.ValueType  # 521
+"""A RUNNING campaign with a <code>calling_window</code> left its last slot and starts no call until the next
+one (also when it is started, or its window updated, outside every slot). Running calls continue.
+Attributes: <code>state</code>, <code>display_name</code>, <code>next_window_start</code> (RFC 3339).
+Best effort, at most one per edge.
 """
 VTSI_EVENT_VTSI_PROJECT_UPDATED: VtsiEvent.ValueType  # 601
-"""A VTSI project was updated."""
+"""A VTSI project was updated. No attributes."""
 VTSI_EVENT_VTSI_PROJECT_DELETED: VtsiEvent.ValueType  # 602
 """A VTSI project was deleted. Delivered to the webhooks subscribed to it at the moment of the
 deletion (their configuration is captured before it is deleted with the project) and to the
-project&apos;s open streams, which then end. It is the last event of the project.
+project&apos;s open streams, which then end. It is the last event of the project. No attributes.
 """
 VTSI_EVENT_VTSI_PROJECT_DEPLOYED: VtsiEvent.ValueType  # 603
-"""A VTSI project was deployed."""
+"""A VTSI project was deployed. No attributes."""
 VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED: VtsiEvent.ValueType  # 604
-"""Deploying a VTSI project failed; <code>description</code> says why."""
+"""Deploying a VTSI project failed; <code>description</code> says why. No attributes."""
 VTSI_EVENT_VTSI_PROJECT_UNDEPLOYED: VtsiEvent.ValueType  # 605
-"""A VTSI project was undeployed."""
+"""A VTSI project was undeployed. No attributes."""
 VTSI_EVENT_VTSI_PROJECT_STATUS_CHANGED: VtsiEvent.ValueType  # 606
 """The <code>VtsiProjectStatus</code> of a project changed; attributes
-<code>previous_status</code> and <code>status</code>.
+<code>previous_status</code> and <code>status</code>, each a <code>VtsiProjectStatus</code> name
+(<code>DEPLOYED</code>, <code>UPDATING</code>, ...).
 """
 VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_FAILED: VtsiEvent.ValueType  # 607
-"""Undeploying a VTSI project failed; <code>description</code> says why."""
+"""Undeploying a VTSI project failed; <code>description</code> says why. No attributes."""
 VTSI_EVENT_ASTERISK_DEPLOYED: VtsiEvent.ValueType  # 700
 """---- Asterisk (resource_name: the project; attribute container_name) ----
 
-The project&apos;s Asterisk container was deployed.
+The project&apos;s Asterisk container was deployed. Attribute <code>container_name</code>.
 """
 VTSI_EVENT_ASTERISK_REMOVED: VtsiEvent.ValueType  # 701
-"""The project&apos;s Asterisk container was removed."""
+"""The project&apos;s Asterisk container was removed. Attribute <code>container_name</code>."""
 VTSI_EVENT_ASTERISK_RESTARTED: VtsiEvent.ValueType  # 702
-"""The project&apos;s Asterisk was restarted."""
+"""The project&apos;s Asterisk was restarted. Attribute <code>restart_reason</code> (<code>plan</code> or
+<code>escalation</code>).
+"""
 VTSI_EVENT_ASTERISK_CONFIG_RELOADED: VtsiEvent.ValueType  # 703
-"""The project&apos;s Asterisk configuration was reloaded in place."""
+"""The project&apos;s Asterisk configuration was reloaded in place. Attribute <code>container_name</code>."""
 VTSI_EVENT_ASTERISK_UNHEALTHY: VtsiEvent.ValueType  # 704
-"""The project&apos;s Asterisk container is not running or unhealthy."""
+"""The project&apos;s Asterisk container is not running or unhealthy. Attribute
+<code>container_name</code>.
+"""
 VTSI_EVENT_ASTERISK_HEALTHY: VtsiEvent.ValueType  # 705
-"""The project&apos;s Asterisk container is healthy again."""
+"""The project&apos;s Asterisk container is healthy again. Attribute <code>container_name</code>."""
 VTSI_EVENT_ASTERISK_TRUNK_REGISTERED: VtsiEvent.ValueType  # 706
-"""The SIP trunk registered with the carrier."""
+"""The SIP trunk registered with the carrier. Attribute <code>container_name</code>."""
 VTSI_EVENT_ASTERISK_TRUNK_UNREGISTERED: VtsiEvent.ValueType  # 707
-"""The SIP trunk is no longer registered (rejected, unregistered or failed); attribute
-<code>registration_status</code>.
+"""The SIP trunk is no longer registered (rejected, unregistered or failed); attributes
+<code>container_name</code> and <code>registration_status</code> (Asterisk&apos;s own token, e.g.
+<code>Rejected</code>, <code>Unregistered</code>, <code>Unknown</code>).
 """
 VTSI_EVENT_ASTERISK_DEPLOY_FAILED: VtsiEvent.ValueType  # 708
-"""Deploying the project&apos;s Asterisk container failed; <code>description</code> says why."""
+"""Deploying the project&apos;s Asterisk container failed; <code>description</code> says why. Attribute
+<code>container_name</code>.
+"""
 VTSI_EVENT_ASTERISK_RESTART_FAILED: VtsiEvent.ValueType  # 709
-"""Restarting the project&apos;s Asterisk failed; <code>description</code> says why."""
+"""Restarting the project&apos;s Asterisk failed; <code>description</code> says why. Attribute
+<code>restart_reason</code>.
+"""
 VTSI_EVENT_ASTERISK_CONFIG_RELOAD_FAILED: VtsiEvent.ValueType  # 710
 """Reloading the project&apos;s Asterisk configuration in place failed; <code>description</code>
-says why.
+says why. Attribute <code>container_name</code>.
 """
 VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED: VtsiEvent.ValueType  # 800
 """---- Softphone accounts (resource_name: the softphone account) ----
 
-A softphone account was created.
+A softphone account was created. No attributes.
 """
 VTSI_EVENT_SOFTPHONE_ACCOUNT_UPDATED: VtsiEvent.ValueType  # 801
-"""A softphone account was updated."""
+"""A softphone account was updated. Attribute <code>updated_fields</code>."""
 VTSI_EVENT_SOFTPHONE_ACCOUNT_DELETED: VtsiEvent.ValueType  # 802
-"""A softphone account was deleted."""
+"""A softphone account was deleted. Attribute <code>revoked_certificate_count</code>."""
 VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED: VtsiEvent.ValueType  # 803
-"""The credentials of a softphone account were rotated."""
+"""The credentials of a softphone account were rotated. Attribute <code>certificate_rotated</code>
+(boolean).
+"""
 VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED: VtsiEvent.ValueType  # 804
-"""A softphone certificate was revoked."""
+"""A softphone certificate was revoked (resource_name: the certificate). Attribute
+<code>account_locked</code> (boolean).
+"""
 VTSI_EVENT_WEBHOOK_TEST: VtsiEvent.ValueType  # 900
 """---- Event system ----
 
-Sent by <code>TestWebhook</code> only.
+Sent by <code>TestWebhook</code> only (when it names no <code>sample_event</code>). No attributes;
+<code>description</code> is <code>webhook test</code>.
 """
 VTSI_EVENT_WEBHOOK_CREATED: VtsiEvent.ValueType  # 901
-"""A webhook was created (resource_name: the webhook). Never carries a header value."""
+"""A webhook was created (resource_name: the webhook). Never carries a header value or the signing
+secret. No attributes.
+"""
 VTSI_EVENT_WEBHOOK_UPDATED: VtsiEvent.ValueType  # 902
 """A webhook was updated; attribute <code>updated_fields</code> (the mask paths). Never carries
-a header value.
+a header value or the signing secret.
 """
 VTSI_EVENT_WEBHOOK_DELETED: VtsiEvent.ValueType  # 903
-"""A webhook was deleted."""
+"""A webhook was deleted. No attributes."""
 VTSI_EVENT_EVENT_SUBSCRIPTION_CREATED: VtsiEvent.ValueType  # 904
-"""An event subscription was created (resource_name: the subscription)."""
+"""An event subscription was created (resource_name: the subscription). No attributes."""
 VTSI_EVENT_EVENT_SUBSCRIPTION_UPDATED: VtsiEvent.ValueType  # 905
 """An event subscription was updated; attribute <code>updated_fields</code>."""
 VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED: VtsiEvent.ValueType  # 906
-"""An event subscription was deleted."""
+"""An event subscription was deleted. No attributes."""
 global___VtsiEvent = VtsiEvent
 
 class _WebhookHttpMethod:
@@ -576,7 +942,12 @@ class _WebhookHttpMethodEnumTypeWrapper(google.protobuf.internal.enum_type_wrapp
     """PUT."""
 
 class WebhookHttpMethod(_WebhookHttpMethod, metaclass=_WebhookHttpMethodEnumTypeWrapper):
-    """HTTP method of a webhook request."""
+    """HTTP method of a webhook request.
+    <p>Note: the zero value <code>WEBHOOK_HTTP_METHOD_UNSPECIFIED</code> is not "no method" but means
+    <code>POST</code>, the default. It keeps its released name for wire and source compatibility; a webhook
+    written with it is stored and sent as POST, and <code>Webhook.http_method</code> then reads back
+    <code>WEBHOOK_HTTP_METHOD_POST</code>.</p>
+    """
 
 WEBHOOK_HTTP_METHOD_UNSPECIFIED: WebhookHttpMethod.ValueType  # 0
 """Unspecified: <code>POST</code>."""
@@ -670,7 +1041,9 @@ class VtsiEventMessage(google.protobuf.message.Message):
     def attributes(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
         """Further event-specific values, e.g. <code>caller_name</code>, <code>listener_name</code>,
         <code>phone_number</code>, <code>container_name</code>, <code>attempt_number</code>,
-        <code>previous_status</code>. Keys are documented per event in the VTSI documentation.
+        <code>previous_status</code>. The keys and value formats of each event are documented at its
+        <a href="index.html#ondewo.vtsi.VtsiEvent">VtsiEvent</a> value; at most 20 entries, each value at most
+        256 characters. Receivers must ignore keys they do not know: later versions may add keys.
         """
 
     @property
@@ -723,16 +1096,23 @@ class VtsiEventSubscription(google.protobuf.message.Message):
     MODIFIED_BY_FIELD_NUMBER: builtins.int
     MODIFIED_AT_FIELD_NUMBER: builtins.int
     CAMPAIGN_NAMES_FIELD_NUMBER: builtins.int
+    EXCLUDED_EVENTS_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Output only. Resource name.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
     """
     vtsi_project_name: builtins.str
-    """Output only. VTSI project of the subscription."""
+    """Output only. VTSI project of the subscription.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
     display_name: builtins.str
-    """Human-readable name, at most 128 characters. Updatable."""
+    """Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+    empty display name stays empty (no default is generated). Updatable.
+    """
     all_events: builtins.bool
-    """Deliver every event, including events added in later versions. Updatable."""
+    """Deliver every event, including events added in later versions, except
+    <code>excluded_events</code>. Updatable.
+    """
     disabled: builtins.bool
     """<code>false</code> (the default): events are delivered. <code>true</code>: nothing is
     delivered and <code>SubscribeVtsiEvents</code> refuses the subscription. Updatable.
@@ -744,7 +1124,7 @@ class VtsiEventSubscription(google.protobuf.message.Message):
     @property
     def events(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiEvent.ValueType]:
         """The events to deliver. Required unless <code>all_events</code> is set; must be empty when it
-        is. Updatable.
+        is. At most one entry per value (duplicates are ignored). Updatable.
         """
 
     @property
@@ -782,6 +1162,16 @@ class VtsiEventSubscription(google.protobuf.message.Message):
         <code>resource_name_prefixes</code> by AND. At most 50. Updatable.
         """
 
+    @property
+    def excluded_events(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiEvent.ValueType]:
+        """Events NOT to deliver, subtracted from the selection of <code>events</code> / <code>all_events</code>,
+        e.g. <code>all_events</code> with <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED</code> and
+        <code>VTSI_EVENT_CAMPAIGN_PROGRESS</code> excluded. Empty means nothing is excluded.
+        <code>VTSI_EVENT_UNSPECIFIED</code>, a reserved value, or a value that is also in <code>events</code>
+        is rejected with <code>INVALID_ARGUMENT</code>. At most 100 entries. Updatable (path
+        <code>excluded_events</code>, replaced whole).
+        """
+
     def __init__(
         self,
         *,
@@ -798,9 +1188,10 @@ class VtsiEventSubscription(google.protobuf.message.Message):
         modified_by: builtins.str = ...,
         modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         campaign_names: collections.abc.Iterable[builtins.str] | None = ...,
+        excluded_events: collections.abc.Iterable[global___VtsiEvent.ValueType] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["created_at", b"created_at", "modified_at", b"modified_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["all_events", b"all_events", "campaign_names", b"campaign_names", "created_at", b"created_at", "created_by", b"created_by", "disabled", b"disabled", "display_name", b"display_name", "events", b"events", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "resource_name_prefixes", b"resource_name_prefixes", "vtsi_project_name", b"vtsi_project_name", "webhook_names", b"webhook_names"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["all_events", b"all_events", "campaign_names", b"campaign_names", "created_at", b"created_at", "created_by", b"created_by", "disabled", b"disabled", "display_name", b"display_name", "events", b"events", "excluded_events", b"excluded_events", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "resource_name_prefixes", b"resource_name_prefixes", "vtsi_project_name", b"vtsi_project_name", "webhook_names", b"webhook_names"]) -> None: ...
 
 global___VtsiEventSubscription = VtsiEventSubscription
 
@@ -892,14 +1283,19 @@ class Webhook(google.protobuf.message.Message):
     CREATED_AT_FIELD_NUMBER: builtins.int
     MODIFIED_BY_FIELD_NUMBER: builtins.int
     MODIFIED_AT_FIELD_NUMBER: builtins.int
+    SIGNING_SECRET_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Output only. Resource name.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
     """
     vtsi_project_name: builtins.str
-    """Output only. VTSI project of the webhook."""
+    """Output only. VTSI project of the webhook.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
     display_name: builtins.str
-    """Human-readable name, at most 128 characters. Updatable."""
+    """Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+    empty display name stays empty (no default is generated). Updatable.
+    """
     url: builtins.str
     """Required. http:// or https:// URL, at most 2048 characters, without user information. Any
     host is allowed. Updatable.
@@ -914,6 +1310,33 @@ class Webhook(google.protobuf.message.Message):
     """Output only. The user who created the webhook."""
     modified_by: builtins.str
     """Output only. The user who last modified the webhook."""
+    signing_secret: builtins.str
+    """Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+    that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+    <code>********</code> when a secret is stored and an empty string when none is; it is never logged and
+    never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+    32 random characters); anything else, and the mask value itself on create, is rejected with
+    <code>INVALID_ARGUMENT</code>. Empty (the default) means requests are not signed.
+    <p>Signature: each request carries the header</p>
+    <pre><code>X-Ondewo-Vtsi-Signature: t=&lt;unix seconds&gt;,v1=&lt;signature&gt;</code></pre>
+    <p>where <code>t</code> is the time the request was sent (base-10 seconds since the Unix epoch, a new
+    value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&apos;s
+    bytes, of the ASCII string <code>&lt;t&gt;.</code> followed by the exact bytes of the request body:</p>
+    <pre><code>v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))</code></pre>
+    <p>To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+    time with each <code>v1</code> value of the header (there can be two, see rotation), and reject the
+    request when none matches or when <code>t</code> is more than 5 minutes away from the receiver&apos;s
+    clock (replay protection; de-duplicate by <code>event_id</code> as well). Further signature schemes may
+    be added later as additional comma-separated <code>v&lt;n&gt;=</code> entries: ignore entries you do not
+    know.</p>
+    <p>Rotation: <code>UpdateWebhook</code> with <code>update_mask</code> path <code>signing_secret</code>
+    and the new value. For <code>ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S</code> (24 h by default) after
+    a rotation every request carries two signatures, <code>t=...,v1=&lt;new&gt;,v1=&lt;previous&gt;</code>,
+    so the receiver can switch to the new secret at any time within that window; afterwards only the new
+    one. Writing an empty string removes signing at once (no grace); writing <code>********</code> keeps the
+    stored secret, so a Get-modify-Update round trip does not change it. <code>TestWebhook</code> signs like
+    a real delivery and is the way to check a receiver&apos;s verification before relying on it.</p>
+    """
     @property
     def custom_headers(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
         """Optional extra request headers, e.g. <code>Authorization</code>. WRITE-ONLY VALUES: every RPC
@@ -957,24 +1380,39 @@ class Webhook(google.protobuf.message.Message):
         created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         modified_by: builtins.str = ...,
         modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        signing_secret: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["created_at", b"created_at", "delivery_statistics", b"delivery_statistics", "modified_at", b"modified_at", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["created_at", b"created_at", "created_by", b"created_by", "custom_headers", b"custom_headers", "delivery_statistics", b"delivery_statistics", "disabled", b"disabled", "display_name", b"display_name", "http_method", b"http_method", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "timeout", b"timeout", "url", b"url", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["created_at", b"created_at", "created_by", b"created_by", "custom_headers", b"custom_headers", "delivery_statistics", b"delivery_statistics", "disabled", b"disabled", "display_name", b"display_name", "http_method", b"http_method", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "signing_secret", b"signing_secret", "timeout", b"timeout", "url", b"url", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___Webhook = Webhook
 
 @typing.final
 class VtsiEventFilter(google.protobuf.message.Message):
-    """Selects events for <code>SubscribeVtsiEvents</code> without a stored subscription."""
+    """Selects events for <code>SubscribeVtsiEvents</code> without a stored subscription, and narrows a
+    <code>RedeliverWebhookEvents</code> window. Every set field narrows the selection (AND); the entries of one
+    list are alternatives (OR).
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     EVENTS_FIELD_NUMBER: builtins.int
     RESOURCE_NAME_PREFIXES_FIELD_NUMBER: builtins.int
     CAMPAIGN_NAMES_FIELD_NUMBER: builtins.int
+    ALL_EVENTS_FIELD_NUMBER: builtins.int
+    EXCLUDED_EVENTS_FIELD_NUMBER: builtins.int
+    all_events: builtins.bool
+    """Every event, explicitly; equivalent to an empty <code>events</code> and present for symmetry with
+    <code>VtsiEventSubscription.all_events</code>. Set together with a non-empty <code>events</code> is
+    rejected with <code>INVALID_ARGUMENT</code>.
+    """
     @property
     def events(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiEvent.ValueType]:
-        """Only these events. Empty means every event."""
+        """Only these events. Empty means every event (unlike <code>VtsiEventSubscription.events</code>, where
+        empty is refused unless <code>all_events</code> is set: a filter is a one-off request, so "no
+        constraint" is its natural empty value). <code>VTSI_EVENT_UNSPECIFIED</code> or a reserved value is
+        rejected with <code>INVALID_ARGUMENT</code>.
+        """
 
     @property
     def resource_name_prefixes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
@@ -989,14 +1427,22 @@ class VtsiEventFilter(google.protobuf.message.Message):
         <code>VtsiEventSubscription.campaign_names</code>.
         """
 
+    @property
+    def excluded_events(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiEvent.ValueType]:
+        """Events NOT to select, subtracted from the selection of <code>events</code> / <code>all_events</code>.
+        Same semantics and limits as <code>VtsiEventSubscription.excluded_events</code>.
+        """
+
     def __init__(
         self,
         *,
         events: collections.abc.Iterable[global___VtsiEvent.ValueType] | None = ...,
         resource_name_prefixes: collections.abc.Iterable[builtins.str] | None = ...,
         campaign_names: collections.abc.Iterable[builtins.str] | None = ...,
+        all_events: builtins.bool = ...,
+        excluded_events: collections.abc.Iterable[global___VtsiEvent.ValueType] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["campaign_names", b"campaign_names", "events", b"events", "resource_name_prefixes", b"resource_name_prefixes"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["all_events", b"all_events", "campaign_names", b"campaign_names", "events", b"events", "excluded_events", b"excluded_events", "resource_name_prefixes", b"resource_name_prefixes"]) -> None: ...
 
 global___VtsiEventFilter = VtsiEventFilter
 
@@ -1013,20 +1459,36 @@ class CreateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     EVENT_SUBSCRIPTION_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
-    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+    <code>NOT_FOUND</code>.
+    """
     @property
     def event_subscription(self) -> global___VtsiEventSubscription:
-        """The subscription to create."""
+        """The subscription to create. Output-only fields (<code>name</code>, <code>vtsi_project_name</code>,
+        <code>created_*</code>, <code>modified_*</code>) must be unset.
+        """
+
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
+        <code>VtsiEventSubscription</code> (no prefix), e.g. <code>name</code>, <code>events</code>. Nested paths through singular message fields are allowed; a path
+        below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+        field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+        written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+        """
 
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         event_subscription: global___VtsiEventSubscription | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["event_subscription", b"event_subscription"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___CreateVtsiEventSubscriptionRequest = CreateVtsiEventSubscriptionRequest
 
@@ -1037,14 +1499,29 @@ class GetVtsiEventSubscriptionRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the subscription."""
+    """Resource name of the subscription.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
+    """
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
+        <code>VtsiEventSubscription</code> (no prefix), e.g. <code>events</code>, <code>webhook_names</code>. Nested paths through singular message fields are allowed; a path
+        below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+        field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+        written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+        """
+
     def __init__(
         self,
         *,
         name: builtins.str = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
 
 global___GetVtsiEventSubscriptionRequest = GetVtsiEventSubscriptionRequest
 
@@ -1056,9 +1533,13 @@ class UpdateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
 
     EVENT_SUBSCRIPTION_FIELD_NUMBER: builtins.int
     UPDATE_MASK_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     @property
     def event_subscription(self) -> global___VtsiEventSubscription:
-        """The subscription, identified by <code>event_subscription.name</code>."""
+        """The subscription, identified by <code>event_subscription.name</code>
+        (<code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code>; malformed is
+        <code>INVALID_ARGUMENT</code>), carrying the new values of the fields named in <code>update_mask</code>.
+        """
 
     @property
     def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
@@ -1066,7 +1547,16 @@ class UpdateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
         <code>all_events</code>, <code>resource_name_prefixes</code>, <code>campaign_names</code>,
         <code>webhook_names</code>, <code>disabled</code>. An empty mask or another path is rejected
         with <code>INVALID_ARGUMENT</code>. A path in the mask writes the sent value, including
-        <code>false</code> and empty lists.
+        <code>false</code> and empty lists. <code>excluded_events</code> is updatable too.
+        """
+
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
+        <code>VtsiEventSubscription</code> (no prefix). Nested paths through singular message fields are allowed; a path
+        below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+        field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+        written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
         """
 
     def __init__(
@@ -1074,9 +1564,10 @@ class UpdateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
         *,
         event_subscription: global___VtsiEventSubscription | None = ...,
         update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "update_mask", b"update_mask"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> None: ...
 
 global___UpdateVtsiEventSubscriptionRequest = UpdateVtsiEventSubscriptionRequest
 
@@ -1087,14 +1578,28 @@ class DeleteVtsiEventSubscriptionRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the subscription."""
+    """Resource name of the subscription.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
+    """
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>DeleteVtsiEventSubscriptionResponse</code> field paths to populate
+        (as <code>DeleteCampaignRequest.field_mask</code>). <code>name</code> is always populated. Unset or empty
+        returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before
+        anything is deleted. It shapes only the response: the subscription is deleted regardless.
+        """
+
     def __init__(
         self,
         *,
         name: builtins.str = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
 
 global___DeleteVtsiEventSubscriptionRequest = DeleteVtsiEventSubscriptionRequest
 
@@ -1127,7 +1632,10 @@ class ListVtsiEventSubscriptionsRequest(google.protobuf.message.Message):
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
-    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+    <code>NOT_FOUND</code>.
+    """
     page_size: builtins.int
     """Optional. <code>0</code> means 20; above 1000 clamped; negative rejected."""
     page_token: builtins.str
@@ -1190,20 +1698,36 @@ class CreateWebhookRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     WEBHOOK_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
-    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+    <code>NOT_FOUND</code>.
+    """
     @property
     def webhook(self) -> global___Webhook:
-        """The webhook to create."""
+        """The webhook to create. Output-only fields (<code>name</code>, <code>vtsi_project_name</code>,
+        <code>delivery_statistics</code>, <code>created_*</code>, <code>modified_*</code>) must be unset.
+        """
+
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
+        <code>Webhook</code> (no prefix), e.g. <code>name</code>, <code>url</code>. Nested paths through singular message fields are allowed; a path
+        below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+        field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+        written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+        """
 
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         webhook: global___Webhook | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["webhook", b"webhook"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["vtsi_project_name", b"vtsi_project_name", "webhook", b"webhook"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "webhook", b"webhook"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name", "webhook", b"webhook"]) -> None: ...
 
 global___CreateWebhookRequest = CreateWebhookRequest
 
@@ -1214,14 +1738,29 @@ class GetWebhookRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the webhook."""
+    """Resource name of the webhook.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
+    """
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
+        <code>Webhook</code> (no prefix), e.g. <code>url</code>, <code>delivery_statistics</code>. Nested paths through singular message fields are allowed; a path
+        below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+        field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+        written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+        """
+
     def __init__(
         self,
         *,
         name: builtins.str = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
 
 global___GetWebhookRequest = GetWebhookRequest
 
@@ -1233,9 +1772,13 @@ class UpdateWebhookRequest(google.protobuf.message.Message):
 
     WEBHOOK_FIELD_NUMBER: builtins.int
     UPDATE_MASK_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     @property
     def webhook(self) -> global___Webhook:
-        """The webhook, identified by <code>webhook.name</code>."""
+        """The webhook, identified by <code>webhook.name</code>
+        (<code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code>; malformed is
+        <code>INVALID_ARGUMENT</code>), carrying the new values of the fields named in <code>update_mask</code>.
+        """
 
     @property
     def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
@@ -1246,7 +1789,17 @@ class UpdateWebhookRequest(google.protobuf.message.Message):
         <code>false</code>; an unset <code>timeout</code> writes the server default. When
         <code>url</code> moves to another origin and the webhook has stored headers,
         <code>custom_headers</code> must be in the mask with real values (see
-        <code>UpdateWebhook</code>).
+        <code>UpdateWebhook</code>). <code>signing_secret</code> is updatable too: a new value rotates it, an
+        empty one removes it, <code>********</code> keeps it (see <code>Webhook.signing_secret</code>).
+        """
+
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
+        <code>Webhook</code> (no prefix). Nested paths through singular message fields are allowed; a path
+        below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+        field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+        written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
         """
 
     def __init__(
@@ -1254,9 +1807,10 @@ class UpdateWebhookRequest(google.protobuf.message.Message):
         *,
         webhook: global___Webhook | None = ...,
         update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["update_mask", b"update_mask", "webhook", b"webhook"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["update_mask", b"update_mask", "webhook", b"webhook"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "webhook", b"webhook"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "webhook", b"webhook"]) -> None: ...
 
 global___UpdateWebhookRequest = UpdateWebhookRequest
 
@@ -1267,14 +1821,29 @@ class DeleteWebhookRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the webhook."""
+    """Resource name of the webhook.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
+    """
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>DeleteWebhookResponse</code> field paths to populate, e.g.
+        <code>detached_subscription_count</code> (as <code>DeleteCampaignRequest.field_mask</code>).
+        <code>name</code> is always populated. Unset or empty returns every field. An unknown path is rejected
+        with <code>INVALID_ARGUMENT</code> naming it, before anything is deleted. It shapes only the response:
+        the webhook is deleted regardless.
+        """
+
     def __init__(
         self,
         *,
         name: builtins.str = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
 
 global___DeleteWebhookRequest = DeleteWebhookRequest
 
@@ -1311,7 +1880,10 @@ class ListWebhooksRequest(google.protobuf.message.Message):
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
-    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+    <code>NOT_FOUND</code>.
+    """
     page_size: builtins.int
     """Optional. <code>0</code> means 20; above 1000 clamped; negative rejected."""
     page_token: builtins.str
@@ -1374,14 +1946,35 @@ class TestWebhookRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
+    SAMPLE_EVENT_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Resource name of the webhook."""
+    """Resource name of the webhook.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
+    """
+    sample_event: global___VtsiEvent.ValueType
+    """Optional. Send an event shaped like this real event instead of <code>VTSI_EVENT_WEBHOOK_TEST</code>, so
+    a receiver can be tested against the payload it will get: <code>event</code> is this value, the header
+    <code>X-Ondewo-Vtsi-Event</code> its name, <code>event_id</code> a fresh uuid,
+    <code>vtsi_project_name</code> the webhook&apos;s project, <code>event_time</code> now, and every field and
+    attribute key the event carries (see its <code>VtsiEvent</code> value) is filled with a placeholder of the
+    documented format: resource names use the all-zero uuid
+    <code>00000000-0000-0000-0000-000000000000</code> (e.g.
+    <code>projects/&lt;project_uuid&gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000</code>),
+    a phone number is <code>+10000000000</code>, counts are <code>0</code>, times are now. It always carries
+    the attribute <code>test</code> = <code>true</code>, <code>description</code> <code>webhook test</code>
+    and the header <code>X-Ondewo-Vtsi-Test: true</code>, so a receiver can tell it from a real event and
+    must not act on it. No resource is read or changed. <code>VTSI_EVENT_UNSPECIFIED</code> (the default)
+    sends <code>VTSI_EVENT_WEBHOOK_TEST</code> as before; a reserved value or one the server does not know is
+    rejected with <code>INVALID_ARGUMENT</code>.
+    """
     def __init__(
         self,
         *,
         name: builtins.str = ...,
+        sample_event: global___VtsiEvent.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "sample_event", b"sample_event"]) -> None: ...
 
 global___TestWebhookRequest = TestWebhookRequest
 
@@ -1432,20 +2025,43 @@ class SubscribeVtsiEventsRequest(google.protobuf.message.Message):
     EVENT_SUBSCRIPTION_NAME_FIELD_NUMBER: builtins.int
     FILTER_FIELD_NUMBER: builtins.int
     RESUME_TOKEN_FIELD_NUMBER: builtins.int
+    START_TIME_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
-    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+    <code>NOT_FOUND</code>.
+    """
     event_subscription_name: builtins.str
-    """Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-    here). The format is:
+    """Select events exactly as this subscription does: its <code>events</code> or
+    <code>all_events</code>, minus its <code>excluded_events</code>, narrowed by its
+    <code>resource_name_prefixes</code> and <code>campaign_names</code> (its <code>webhook_names</code>
+    are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+    update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+    be a subscription of <code>vtsi_project_name</code> (<code>INVALID_ARGUMENT</code> otherwise) and
+    enabled (<code>FAILED_PRECONDITION</code> otherwise). The format is:
     <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
     """
     resume_token: builtins.str
     """Optional. The <code>resume_token</code> of a previous response: continue after it.
-    Unset starts with events that happen from now on.
+    Unset starts with events that happen from now on (or at <code>start_time</code>). Mutually exclusive
+    with <code>start_time</code> (both set is <code>INVALID_ARGUMENT</code>).
     """
     @property
     def filter(self) -> global___VtsiEventFilter:
         """An inline filter."""
+
+    @property
+    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Optional. Replay from the server&apos;s event journal: the stream first delivers the journaled events of
+        the project that occurred at or after this time and match the selector, oldest first (journal order),
+        then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+        <code>resume_token</code>: use <code>start_time</code> for a first connection or after losing the token,
+        the token for every reconnect. Older than the journal retention
+        (<code>ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S</code>, 24 h by default) is <code>OUT_OF_RANGE</code>; later
+        than the server&apos;s clock is <code>INVALID_ARGUMENT</code>. The journal holds only events of periods in
+        which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+        report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+        """
 
     def __init__(
         self,
@@ -1454,9 +2070,10 @@ class SubscribeVtsiEventsRequest(google.protobuf.message.Message):
         event_subscription_name: builtins.str = ...,
         filter: global___VtsiEventFilter | None = ...,
         resume_token: builtins.str | None = ...,
+        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_resume_token", b"_resume_token", "event_subscription_name", b"event_subscription_name", "filter", b"filter", "resume_token", b"resume_token", "selector", b"selector"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_resume_token", b"_resume_token", "event_subscription_name", b"event_subscription_name", "filter", b"filter", "resume_token", b"resume_token", "selector", b"selector", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_resume_token", b"_resume_token", "event_subscription_name", b"event_subscription_name", "filter", b"filter", "resume_token", b"resume_token", "selector", b"selector", "start_time", b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_resume_token", b"_resume_token", "event_subscription_name", b"event_subscription_name", "filter", b"filter", "resume_token", b"resume_token", "selector", b"selector", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_resume_token", b"_resume_token"]) -> typing.Literal["resume_token"] | None: ...
     @typing.overload
@@ -1474,6 +2091,7 @@ class SubscribeVtsiEventsResponse(google.protobuf.message.Message):
     RESUME_TOKEN_FIELD_NUMBER: builtins.int
     DROPPED_EVENT_COUNT_FIELD_NUMBER: builtins.int
     END_REASON_FIELD_NUMBER: builtins.int
+    END_REASON_TYPE_FIELD_NUMBER: builtins.int
     resume_token: builtins.str
     """Pass this as <code>SubscribeVtsiEventsRequest.resume_token</code> after a disconnect. Opaque.
     It records every event this stream has delivered or passed over, so resuming neither skips an
@@ -1483,7 +2101,17 @@ class SubscribeVtsiEventsResponse(google.protobuf.message.Message):
     dropped_event_count: builtins.int
     """Events this stream skipped because the client read too slowly (the server buffer was full)."""
     end_reason: builtins.str
-    """Set on the last message when the server ended the stream. Empty otherwise."""
+    """Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+    <code>end_reason_type</code> instead.
+    """
+    end_reason_type: ondewo.vtsi.campaigns_pb2.StreamEndReason.ValueType
+    """Set on the last message when the server ended the stream, next to <code>end_reason</code>: one of
+    <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_CLIENT_TOO_SLOW</code>,
+    <code>STREAM_END_REASON_SUBSCRIPTION_DELETED</code>, <code>STREAM_END_REASON_SUBSCRIPTION_DISABLED</code>,
+    <code>STREAM_END_REASON_PROJECT_DELETED</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code>.
+    <code>STREAM_END_REASON_UNSPECIFIED</code> on every other message (and on the last message of a server
+    that predates this field).
+    """
     @property
     def events(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiEventMessage]:
         """Events, oldest first. Empty on a keep-alive."""
@@ -1495,7 +2123,109 @@ class SubscribeVtsiEventsResponse(google.protobuf.message.Message):
         resume_token: builtins.str = ...,
         dropped_event_count: builtins.int = ...,
         end_reason: builtins.str = ...,
+        end_reason_type: ondewo.vtsi.campaigns_pb2.StreamEndReason.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dropped_event_count", b"dropped_event_count", "end_reason", b"end_reason", "events", b"events", "resume_token", b"resume_token"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["dropped_event_count", b"dropped_event_count", "end_reason", b"end_reason", "end_reason_type", b"end_reason_type", "events", b"events", "resume_token", b"resume_token"]) -> None: ...
 
 global___SubscribeVtsiEventsResponse = SubscribeVtsiEventsResponse
+
+@typing.final
+class RedeliverWebhookEventsRequest(google.protobuf.message.Message):
+    """The request message for <code>Events.RedeliverWebhookEvents</code>."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    WEBHOOK_NAME_FIELD_NUMBER: builtins.int
+    EVENT_IDS_FIELD_NUMBER: builtins.int
+    START_TIME_FIELD_NUMBER: builtins.int
+    END_TIME_FIELD_NUMBER: builtins.int
+    FILTER_FIELD_NUMBER: builtins.int
+    webhook_name: builtins.str
+    """Required. Resource name of the webhook to send the events to; it must be enabled.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
+    """
+    @property
+    def event_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """The events to send again, by <code>event_id</code> (uuid), at most 1000, duplicates ignored. Sent in
+        journal order (oldest first), whatever the webhook&apos;s subscriptions select (naming an event is the
+        selection) but only events of the webhook&apos;s project: an id that the journal does not hold for this
+        project, whether expired, never journaled, unknown or of another project, is counted in
+        <code>not_in_journal_count</code> and sent nowhere. Exactly one of <code>event_ids</code> and
+        <code>start_time</code> must be set.
+        """
+
+    @property
+    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Start of a time window, inclusive, on the event&apos;s <code>event_time</code>: send the journaled events of
+        the project in the window that the webhook&apos;s ENABLED event subscriptions select now (as for a live
+        event), narrowed by <code>filter</code>, oldest first. Older than the journal retention is
+        <code>OUT_OF_RANGE</code>.
+        """
+
+    @property
+    def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """End of the window, exclusive. Unset means now. Must be after <code>start_time</code> and is only valid
+        with it.
+        """
+
+    @property
+    def filter(self) -> global___VtsiEventFilter:
+        """Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+        <code>SubscribeVtsiEventsRequest</code>; applied to <code>event_ids</code> too.
+        """
+
+    def __init__(
+        self,
+        *,
+        webhook_name: builtins.str = ...,
+        event_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        filter: global___VtsiEventFilter | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["end_time", b"end_time", "filter", b"filter", "start_time", b"start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["end_time", b"end_time", "event_ids", b"event_ids", "filter", b"filter", "start_time", b"start_time", "webhook_name", b"webhook_name"]) -> None: ...
+
+global___RedeliverWebhookEventsRequest = RedeliverWebhookEventsRequest
+
+@typing.final
+class RedeliverWebhookEventsResponse(google.protobuf.message.Message):
+    """The response message for <code>Events.RedeliverWebhookEvents</code>."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENQUEUED_COUNT_FIELD_NUMBER: builtins.int
+    NOT_IN_JOURNAL_COUNT_FIELD_NUMBER: builtins.int
+    NOT_ENQUEUED_COUNT_FIELD_NUMBER: builtins.int
+    NEXT_START_TIME_FIELD_NUMBER: builtins.int
+    enqueued_count: builtins.int
+    """Events queued for the webhook by this request."""
+    not_in_journal_count: builtins.int
+    """Named <code>event_ids</code> the journal does not hold for the webhook&apos;s project (expired, never
+    journaled, unknown, or of another project). <code>0</code> for a window.
+    """
+    not_enqueued_count: builtins.int
+    """Selected events that were NOT queued: beyond the per-request bound of 1000, or because the
+    server&apos;s webhook queue (<code>ONDEWO_VTSI_WEBHOOK_MAX_QUEUED_EVENTS_PER_WEBHOOK</code>, 1000 by
+    default) was full. Send them with another request (for a window: from <code>next_start_time</code>).
+    """
+    @property
+    def next_start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """For a window with <code>not_enqueued_count</code> above 0: the <code>event_time</code> of the first event
+        that was not queued; pass it as the next request&apos;s <code>start_time</code> (with the same
+        <code>end_time</code>). Events with the same <code>event_time</code> as the last queued one may then be
+        sent twice; receivers de-duplicate by <code>event_id</code>. Unset otherwise.
+        """
+
+    def __init__(
+        self,
+        *,
+        enqueued_count: builtins.int = ...,
+        not_in_journal_count: builtins.int = ...,
+        not_enqueued_count: builtins.int = ...,
+        next_start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["next_start_time", b"next_start_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["enqueued_count", b"enqueued_count", "next_start_time", b"next_start_time", "not_enqueued_count", b"not_enqueued_count", "not_in_journal_count", b"not_in_journal_count"]) -> None: ...
+
+global___RedeliverWebhookEventsResponse = RedeliverWebhookEventsResponse

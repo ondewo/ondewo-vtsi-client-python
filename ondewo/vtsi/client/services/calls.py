@@ -734,3 +734,82 @@ class Calls(ServicesInterface):
             metadata=self.metadata,
         )
         return response
+
+    def update_scheduled_caller(
+        self,
+        request: calls_pb2.UpdateScheduledCallerRequest,
+    ) -> calls_pb2.ScheduledCaller:
+        """
+        Update a PENDING scheduled caller (``update_mask`` paths ``scheduled_time`` and
+        ``sip_caller_config.sip_headers``).
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.UpdateScheduledCallerRequest):
+                The scheduled caller, the ``update_mask`` and an optional ``field_mask``.
+
+        Returns:
+            calls_pb2.ScheduledCaller:
+                The updated scheduled caller.
+        """
+        return self.stub.UpdateScheduledCaller(request=request, metadata=self.metadata)
+
+    def cancel_scheduled_callers(
+        self,
+        request: calls_pb2.CancelScheduledCallersRequest,
+    ) -> calls_pb2.CancelScheduledCallersResponse:
+        """
+        Cancel up to 1000 scheduled callers of one project; each entry reports its own result.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.CancelScheduledCallersRequest):
+                The project and the names of the scheduled callers to cancel.
+
+        Returns:
+            calls_pb2.CancelScheduledCallersResponse:
+                One result per requested scheduled caller.
+        """
+        return self.stub.CancelScheduledCallers(request=request, metadata=self.metadata)
+
+    def retry_scheduled_caller(
+        self,
+        request: calls_pb2.RetryScheduledCallerRequest,
+    ) -> calls_pb2.ScheduledCaller:
+        """
+        Retry a FAILED scheduled caller by creating a new PENDING scheduled caller from its stored
+        configuration.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.RetryScheduledCallerRequest):
+                The project, the failed scheduled caller and an optional new ``scheduled_time``.
+
+        Returns:
+            calls_pb2.ScheduledCaller:
+                The new scheduled caller.
+        """
+        return self.stub.RetryScheduledCaller(request=request, metadata=self.metadata)
+
+    def get_call_statistics(
+        self,
+        request: calls_pb2.GetCallStatisticsRequest,
+    ) -> calls_pb2.CallStatistics:
+        """
+        Aggregate the calls of a project that match a ``CallFilter`` (counts by status, type, AMD verdict
+        and transfer outcome; durations).
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.GetCallStatisticsRequest):
+                The project and the call filter.
+
+        Returns:
+            calls_pb2.CallStatistics:
+                The aggregated statistics.
+        """
+        return self.stub.GetCallStatistics(request=request, metadata=self.metadata)

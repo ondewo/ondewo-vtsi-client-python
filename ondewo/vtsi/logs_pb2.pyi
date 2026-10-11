@@ -192,6 +192,128 @@ CALL_LOG_FILTER_FIELD_SIP_HEADERS: CallLogFilterField.ValueType  # 7
 """<code>CallLogFilter.sip_headers</code>."""
 global___CallLogFilterField = CallLogFilterField
 
+class _LogStreamEndReason:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _LogStreamEndReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_LogStreamEndReason.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    LOG_STREAM_END_REASON_UNSPECIFIED: _LogStreamEndReason.ValueType  # 0
+    """Not ended by the server: every message except the final one, and the final message of a 9.0.0
+    server (read <code>end_reason</code> there).
+    """
+    LOG_STREAM_END_REASON_ALL_CAPTURES_TERMINATED: _LogStreamEndReason.ValueType  # 1
+    """The capture of every followed log stream has terminated (<code>STOPPED</code> or
+    <code>FAILED</code>) and every stored entry was sent. Nothing more will arrive for this filter.
+    """
+    LOG_STREAM_END_REASON_MAX_DURATION: _LogStreamEndReason.ValueType  # 2
+    """The server-side maximum stream duration (<code>ONDEWO_VTSI_LOG_STREAM_MAX_DURATION_S</code>) was
+    reached. Reconnect with the <code>resume_token</code> of the final message to continue seamlessly.
+    """
+    LOG_STREAM_END_REASON_SERVER_SHUTDOWN: _LogStreamEndReason.ValueType  # 3
+    """The VTSI server is shutting down. Reconnect, to another replica if there is one, with the
+    <code>resume_token</code>.
+    """
+    LOG_STREAM_END_REASON_PERMISSION_REVOKED: _LogStreamEndReason.ValueType  # 4
+    """The caller lost the role the stream requires. The stream then ends with
+    <code>PERMISSION_DENIED</code>.
+    """
+    LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED: _LogStreamEndReason.ValueType  # 5
+    """The caller&apos;s credential expired. The stream then ends with <code>UNAUTHENTICATED</code>;
+    reconnect with a fresh credential and the <code>resume_token</code>.
+    """
+
+class LogStreamEndReason(_LogStreamEndReason, metaclass=_LogStreamEndReasonEnumTypeWrapper):
+    """Why the SERVER ended a <code>StreamCallLogs</code> stream. Carried by the final
+    <a href="index.html#ondewo.vtsi.StreamCallLogsResponse">StreamCallLogsResponse</a> beside the
+    human-readable <code>end_reason</code>. A stream ended by the client has no final message.
+    """
+
+LOG_STREAM_END_REASON_UNSPECIFIED: LogStreamEndReason.ValueType  # 0
+"""Not ended by the server: every message except the final one, and the final message of a 9.0.0
+server (read <code>end_reason</code> there).
+"""
+LOG_STREAM_END_REASON_ALL_CAPTURES_TERMINATED: LogStreamEndReason.ValueType  # 1
+"""The capture of every followed log stream has terminated (<code>STOPPED</code> or
+<code>FAILED</code>) and every stored entry was sent. Nothing more will arrive for this filter.
+"""
+LOG_STREAM_END_REASON_MAX_DURATION: LogStreamEndReason.ValueType  # 2
+"""The server-side maximum stream duration (<code>ONDEWO_VTSI_LOG_STREAM_MAX_DURATION_S</code>) was
+reached. Reconnect with the <code>resume_token</code> of the final message to continue seamlessly.
+"""
+LOG_STREAM_END_REASON_SERVER_SHUTDOWN: LogStreamEndReason.ValueType  # 3
+"""The VTSI server is shutting down. Reconnect, to another replica if there is one, with the
+<code>resume_token</code>.
+"""
+LOG_STREAM_END_REASON_PERMISSION_REVOKED: LogStreamEndReason.ValueType  # 4
+"""The caller lost the role the stream requires. The stream then ends with
+<code>PERMISSION_DENIED</code>.
+"""
+LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED: LogStreamEndReason.ValueType  # 5
+"""The caller&apos;s credential expired. The stream then ends with <code>UNAUTHENTICATED</code>;
+reconnect with a fresh credential and the <code>resume_token</code>.
+"""
+global___LogStreamEndReason = LogStreamEndReason
+
+class _LogExportFormat:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _LogExportFormatEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_LogExportFormat.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    LOG_EXPORT_FORMAT_UNSPECIFIED: _LogExportFormat.ValueType  # 0
+    """Unspecified: identical to <code>LOG_EXPORT_FORMAT_TEXT</code>."""
+    LOG_EXPORT_FORMAT_TEXT: _LogExportFormat.ValueType  # 1
+    """Plain text in the manner of <code>docker logs --timestamps</code>: one line per entry,
+    <code>&lt;RFC 3339 UTC timestamp&gt; &lt;message&gt;</code>; continuation lines of a multi-line entry
+    are indented by one tab. With <code>include_metadata</code> the timestamp is followed by the
+    severity, the container name and the call resource name (<code>-</code> when none), separated by
+    single spaces.
+    """
+    LOG_EXPORT_FORMAT_NDJSON: _LogExportFormat.ValueType  # 2
+    """Newline-delimited JSON: one JSON object per line, the proto3 JSON form of a
+    <a href="index.html#ondewo.vtsi.CallLogEntry">CallLogEntry</a> (lowerCamelCase keys). Without
+    <code>include_metadata</code> only <code>seq</code>, <code>logStream</code>, <code>timestamp</code>,
+    <code>level</code> and <code>message</code> are written; with it every field.
+    """
+    LOG_EXPORT_FORMAT_CSV: _LogExportFormat.ValueType  # 3
+    """Comma-separated values (RFC 4180, every field quoted, embedded quotes doubled, embedded line breaks
+    kept inside the quotes), with a header row. Columns without <code>include_metadata</code>:
+    <code>timestamp,level,message</code>; with it: <code>seq,timestamp,timestamp_is_exact,level,
+    log_source,channel,container_name,container_id,emitter,thread_name,log_stream,call,
+    nlu_session_name,physical_line_count,message</code>.
+    """
+
+class LogExportFormat(_LogExportFormat, metaclass=_LogExportFormatEnumTypeWrapper):
+    """File format of an <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">ExportCallLogs</a> export. Every
+    format is UTF-8 with <code>\\n</code> line endings and one entry per record; a multi-line entry stays one
+    record.
+    """
+
+LOG_EXPORT_FORMAT_UNSPECIFIED: LogExportFormat.ValueType  # 0
+"""Unspecified: identical to <code>LOG_EXPORT_FORMAT_TEXT</code>."""
+LOG_EXPORT_FORMAT_TEXT: LogExportFormat.ValueType  # 1
+"""Plain text in the manner of <code>docker logs --timestamps</code>: one line per entry,
+<code>&lt;RFC 3339 UTC timestamp&gt; &lt;message&gt;</code>; continuation lines of a multi-line entry
+are indented by one tab. With <code>include_metadata</code> the timestamp is followed by the
+severity, the container name and the call resource name (<code>-</code> when none), separated by
+single spaces.
+"""
+LOG_EXPORT_FORMAT_NDJSON: LogExportFormat.ValueType  # 2
+"""Newline-delimited JSON: one JSON object per line, the proto3 JSON form of a
+<a href="index.html#ondewo.vtsi.CallLogEntry">CallLogEntry</a> (lowerCamelCase keys). Without
+<code>include_metadata</code> only <code>seq</code>, <code>logStream</code>, <code>timestamp</code>,
+<code>level</code> and <code>message</code> are written; with it every field.
+"""
+LOG_EXPORT_FORMAT_CSV: LogExportFormat.ValueType  # 3
+"""Comma-separated values (RFC 4180, every field quoted, embedded quotes doubled, embedded line breaks
+kept inside the quotes), with a header row. Columns without <code>include_metadata</code>:
+<code>timestamp,level,message</code>; with it: <code>seq,timestamp,timestamp_is_exact,level,
+log_source,channel,container_name,container_id,emitter,thread_name,log_stream,call,
+nlu_session_name,physical_line_count,message</code>.
+"""
+global___LogExportFormat = LogExportFormat
+
 @typing.final
 class CallLogEntry(google.protobuf.message.Message):
     """////////////////////////////////////////////////////////////////////////////
@@ -262,7 +384,10 @@ class CallLogEntry(google.protobuf.message.Message):
     """Resource name of the call this entry was attributed to. Empty when the entry falls outside any
     call, which is normal and useful: a persistent listener&apos;s container start-up and its idle
     time between calls belong to no call.
-    The format is: <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+    The format is the <code>Call.name</code> of the call, for a listener&apos;s call
+    <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+    and for a caller&apos;s call
+    <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
     nlu_session_name: builtins.str
     """The NLU session the entry was attributed to.
@@ -368,6 +493,9 @@ class CallLogFilter(google.protobuf.message.Message):
     THREAD_NAMES_FIELD_NUMBER: builtins.int
     START_TIME_FIELD_NUMBER: builtins.int
     END_TIME_FIELD_NUMBER: builtins.int
+    SIP_PORT_NUMBERS_FIELD_NUMBER: builtins.int
+    CSI_PORT_NUMBERS_FIELD_NUMBER: builtins.int
+    ASTERISK_PORT_NUMBERS_FIELD_NUMBER: builtins.int
     min_log_level: ondewo.nlu.common_pb2.LogSeverity.ValueType
     """Only return entries at or above this severity. <code>LOG_SEVERITY_UNSPECIFIED</code> (the
     default) applies no lower bound. Ignored when <code>log_levels</code> is non-empty.
@@ -434,15 +562,22 @@ class CallLogFilter(google.protobuf.message.Message):
 
     @property
     def sip_ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """SIP ports of the per-call container."""
+        """Deprecated: use <code>sip_port_numbers</code>. SIP ports of the per-call container, as decimal
+        strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+        parses the filter matches nothing. Combined with <code>sip_port_numbers</code> by OR.
+        """
 
     @property
     def csi_ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """ONDEWO CSI ports of the per-call container."""
+        """Deprecated: use <code>csi_port_numbers</code>. ONDEWO CSI ports of the per-call container, as
+        decimal strings, parsed like <code>sip_ports</code>.
+        """
 
     @property
     def asterisk_ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Asterisk ports of the project."""
+        """Deprecated: use <code>asterisk_port_numbers</code>. Asterisk ports of the project, as decimal
+        strings, parsed like <code>sip_ports</code>.
+        """
 
     @property
     def phone_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
@@ -505,11 +640,33 @@ class CallLogFilter(google.protobuf.message.Message):
 
     @property
     def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
-        """Only return entries at or after this instant."""
+        """Only return entries at or after this instant. A zero timestamp counts as unset."""
 
     @property
     def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
-        """Only return entries at or before this instant."""
+        """Only return entries at or before this instant. A zero timestamp counts as unset. A
+        <code>start_time</code> after <code>end_time</code> is rejected with <code>INVALID_ARGUMENT</code>
+        (equal instants select the entries of exactly that instant).
+        """
+
+    @property
+    def sip_port_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+        <code>sip_ports</code>, with which it is combined by OR. A value outside 1..65535 is rejected with
+        <code>INVALID_ARGUMENT</code>.
+        """
+
+    @property
+    def csi_port_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+        <code>sip_port_numbers</code>; combined with the deprecated <code>csi_ports</code> by OR.
+        """
+
+    @property
+    def asterisk_port_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """Asterisk ports of the project (1..65535). Identity filter, like <code>sip_port_numbers</code>;
+        combined with the deprecated <code>asterisk_ports</code> by OR.
+        """
 
     def __init__(
         self,
@@ -545,9 +702,12 @@ class CallLogFilter(google.protobuf.message.Message):
         thread_names: collections.abc.Iterable[builtins.str] | None = ...,
         start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        sip_port_numbers: collections.abc.Iterable[builtins.int] | None = ...,
+        csi_port_numbers: collections.abc.Iterable[builtins.int] | None = ...,
+        asterisk_port_numbers: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["_end_time", b"_end_time", "_include_unleveled_lines", b"_include_unleveled_lines", "_regex", b"_regex", "_start_time", b"_start_time", "_text", b"_text", "end_time", b"end_time", "include_unleveled_lines", b"include_unleveled_lines", "regex", b"regex", "start_time", b"start_time", "text", b"text"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_end_time", b"_end_time", "_include_unleveled_lines", b"_include_unleveled_lines", "_regex", b"_regex", "_start_time", b"_start_time", "_text", b"_text", "asterisk_ports", b"asterisk_ports", "call_ids", b"call_ids", "call_names", b"call_names", "call_types", b"call_types", "callee_ids", b"callee_ids", "caller_ids", b"caller_ids", "caller_names", b"caller_names", "channels", b"channels", "container_ids", b"container_ids", "container_names", b"container_names", "csi_ports", b"csi_ports", "emitter_prefixes", b"emitter_prefixes", "end_time", b"end_time", "include_unleveled_lines", b"include_unleveled_lines", "listener_ids", b"listener_ids", "listener_names", b"listener_names", "log_levels", b"log_levels", "log_sources", b"log_sources", "log_stream_names", b"log_stream_names", "min_log_level", b"min_log_level", "nlu_project_uuids", b"nlu_project_uuids", "nlu_session_names", b"nlu_session_names", "nlu_session_uuids", b"nlu_session_uuids", "phone_numbers", b"phone_numbers", "regex", b"regex", "sip_accounts", b"sip_accounts", "sip_headers", b"sip_headers", "sip_ports", b"sip_ports", "start_time", b"start_time", "text", b"text", "thread_names", b"thread_names"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["_end_time", b"_end_time", "_include_unleveled_lines", b"_include_unleveled_lines", "_regex", b"_regex", "_start_time", b"_start_time", "_text", b"_text", "asterisk_port_numbers", b"asterisk_port_numbers", "asterisk_ports", b"asterisk_ports", "call_ids", b"call_ids", "call_names", b"call_names", "call_types", b"call_types", "callee_ids", b"callee_ids", "caller_ids", b"caller_ids", "caller_names", b"caller_names", "channels", b"channels", "container_ids", b"container_ids", "container_names", b"container_names", "csi_port_numbers", b"csi_port_numbers", "csi_ports", b"csi_ports", "emitter_prefixes", b"emitter_prefixes", "end_time", b"end_time", "include_unleveled_lines", b"include_unleveled_lines", "listener_ids", b"listener_ids", "listener_names", b"listener_names", "log_levels", b"log_levels", "log_sources", b"log_sources", "log_stream_names", b"log_stream_names", "min_log_level", b"min_log_level", "nlu_project_uuids", b"nlu_project_uuids", "nlu_session_names", b"nlu_session_names", "nlu_session_uuids", b"nlu_session_uuids", "phone_numbers", b"phone_numbers", "regex", b"regex", "sip_accounts", b"sip_accounts", "sip_headers", b"sip_headers", "sip_port_numbers", b"sip_port_numbers", "sip_ports", b"sip_ports", "start_time", b"start_time", "text", b"text", "thread_names", b"thread_names"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_end_time", b"_end_time"]) -> typing.Literal["end_time"] | None: ...
     @typing.overload
@@ -591,6 +751,7 @@ class CallLogStream(google.protobuf.message.Message):
     MAX_AVAILABLE_SEQ_FIELD_NUMBER: builtins.int
     LINE_COUNT_FIELD_NUMBER: builtins.int
     DROPPED_LINE_COUNT_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Resource name of the log stream.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/logStreams/&lt;log_stream_uuid&gt;</code></pre>
@@ -602,9 +763,14 @@ class CallLogStream(google.protobuf.message.Message):
     channel: global___LogStreamChannel.ValueType
     """The docker channel this stream captures."""
     project_id: builtins.str
-    """Uuid of the VTSI project owning the container."""
+    """Uuid of the VTSI project owning the container. See also <code>vtsi_project_name</code>."""
     voip_call_name: builtins.str
-    """Resource name of the caller or listener the container serves."""
+    """Resource name of the caller, listener or scheduled caller the container serves:
+    <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>,
+    <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre> or
+    <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>.
+    Empty for a container that serves none (e.g. the project&apos;s Asterisk).
+    """
     call_type: ondewo.vtsi.calls_pb2.CallType.ValueType
     """Whether the container serves a caller or a listener."""
     sip_account: builtins.str
@@ -635,6 +801,11 @@ class CallLogStream(google.protobuf.message.Message):
     """How many physical log lines were deliberately not stored, summed over every reason: the ingest
     severity floor, the emitter denylist, the conversation-content denylist, an oversized line, and
     retention. A non-zero value is why a stream can be thinner than the container&apos;s own log.
+    """
+    vtsi_project_name: builtins.str
+    """Resource name of the VTSI project owning the container, the resource-name form of
+    <code>project_id</code>.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
     @property
     def capture_started_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
@@ -671,9 +842,10 @@ class CallLogStream(google.protobuf.message.Message):
         max_available_seq: builtins.int = ...,
         line_count: builtins.int = ...,
         dropped_line_count: builtins.int = ...,
+        vtsi_project_name: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["capture_finished_at", b"capture_finished_at", "capture_started_at", b"capture_started_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["asterisk_port", b"asterisk_port", "call_type", b"call_type", "capture_error", b"capture_error", "capture_finished_at", b"capture_finished_at", "capture_started_at", b"capture_started_at", "capture_state", b"capture_state", "channel", b"channel", "container_id", b"container_id", "container_name", b"container_name", "csi_port", b"csi_port", "dropped_line_count", b"dropped_line_count", "image", b"image", "line_count", b"line_count", "max_available_seq", b"max_available_seq", "min_available_seq", b"min_available_seq", "name", b"name", "partial_capture", b"partial_capture", "project_id", b"project_id", "sip_account", b"sip_account", "sip_port", b"sip_port", "voip_call_name", b"voip_call_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["asterisk_port", b"asterisk_port", "call_type", b"call_type", "capture_error", b"capture_error", "capture_finished_at", b"capture_finished_at", "capture_started_at", b"capture_started_at", "capture_state", b"capture_state", "channel", b"channel", "container_id", b"container_id", "container_name", b"container_name", "csi_port", b"csi_port", "dropped_line_count", b"dropped_line_count", "image", b"image", "line_count", b"line_count", "max_available_seq", b"max_available_seq", "min_available_seq", b"min_available_seq", "name", b"name", "partial_capture", b"partial_capture", "project_id", b"project_id", "sip_account", b"sip_account", "sip_port", b"sip_port", "voip_call_name", b"voip_call_name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___CallLogStream = CallLogStream
 
@@ -696,7 +868,9 @@ class StreamCallLogsRequest(google.protobuf.message.Message):
     """
     tail_lines: builtins.int
     """Replay at most this many of the most recent stored entries before switching to live follow.
-    <code>0</code> (the default) starts the follow with no historical replay. Applied to the
+    <code>0</code> (the default) starts the follow with no historical replay; a negative value is
+    treated as <code>0</code>; values above the server hard cap
+    (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it. Applied to the
     FILTERED result, so <code>tail_lines = 100</code> with a severity floor returns up to 100
     matching entries rather than the matches within the last 100 entries.
     """
@@ -756,6 +930,7 @@ class StreamCallLogsResponse(google.protobuf.message.Message):
     DROPPED_LINE_COUNT_FIELD_NUMBER: builtins.int
     RESUME_TOKEN_FIELD_NUMBER: builtins.int
     END_REASON_FIELD_NUMBER: builtins.int
+    END_REASON_CODE_FIELD_NUMBER: builtins.int
     capture_state: global___LogCaptureState.ValueType
     """The capture state of the log streams being followed, aggregated: <code>FAILED</code> if any
     has failed, else <code>DETACHED</code> if any is detached, else <code>CAPTURING</code> if any
@@ -773,11 +948,19 @@ class StreamCallLogsResponse(google.protobuf.message.Message):
     """
     end_reason: builtins.str
     """Set on the final message when the stream was ended by the server rather than by the client,
-    for example because the maximum stream duration was reached. Empty otherwise.
+    for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+    text, not a contract: match on <code>end_reason_code</code>.
+    """
+    end_reason_code: global___LogStreamEndReason.ValueType
+    """Set on the final message when the stream was ended by the server, together with
+    <code>end_reason</code>; <code>LOG_STREAM_END_REASON_UNSPECIFIED</code> on every other message.
     """
     @property
     def log_entries(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallLogEntry]:
-        """The entries in this batch, oldest first. May be empty on a keep-alive message."""
+        """The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+        <code>end_reason</code>. (No keep-alive messages are sent; see
+        <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>.)
+        """
 
     def __init__(
         self,
@@ -788,8 +971,9 @@ class StreamCallLogsResponse(google.protobuf.message.Message):
         dropped_line_count: builtins.int = ...,
         resume_token: builtins.str = ...,
         end_reason: builtins.str = ...,
+        end_reason_code: global___LogStreamEndReason.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["capture_error", b"capture_error", "capture_state", b"capture_state", "dropped_line_count", b"dropped_line_count", "end_reason", b"end_reason", "log_entries", b"log_entries", "resume_token", b"resume_token"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["capture_error", b"capture_error", "capture_state", b"capture_state", "dropped_line_count", b"dropped_line_count", "end_reason", b"end_reason", "end_reason_code", b"end_reason_code", "log_entries", b"log_entries", "resume_token", b"resume_token"]) -> None: ...
 
 global___StreamCallLogsResponse = StreamCallLogsResponse
 
@@ -809,13 +993,15 @@ class ListCallLogsRequest(google.protobuf.message.Message):
     RESUME_TOKEN_FIELD_NUMBER: builtins.int
     OLDEST_FIRST_FIELD_NUMBER: builtins.int
     FIELD_MASK_FIELD_NUMBER: builtins.int
+    INCLUDE_COUNTS_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to list the logs.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
     max_lines: builtins.int
-    """Return at most this many entries. <code>0</code> (the default) applies the server default;
-    values above the server hard cap are clamped to it.
+    """Return at most this many entries. <code>0</code> (the default) and negative values apply the
+    server default (<code>ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES</code>, default 5000); values above the
+    server hard cap (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it.
     """
     before_seq: builtins.int
     """Optional cursor for infinite-scroll UP: return the newest entries with <code>seq</code> less
@@ -833,6 +1019,12 @@ class ListCallLogsRequest(google.protobuf.message.Message):
     """Walk forward from the cursor oldest-first instead of returning the most recent window. A
     client paging through a whole backlog must set this: the default window silently skips
     everything between the cursor and the newest entries.
+    """
+    include_counts: builtins.bool
+    """Optional. Also count the matching entries: fills <code>ListCallLogsResponse.total_matching_count</code>
+    and <code>count_by_level</code> over the WHOLE filtered history (not only the returned window, and
+    ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+    is off by default; set it on the first page only.
     """
     @property
     def filter(self) -> global___CallLogFilter:
@@ -863,9 +1055,10 @@ class ListCallLogsRequest(google.protobuf.message.Message):
         resume_token: builtins.str | None = ...,
         oldest_first: builtins.bool | None = ...,
         field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        include_counts: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["_after_seq", b"_after_seq", "_before_seq", b"_before_seq", "_filter", b"_filter", "_max_lines", b"_max_lines", "_oldest_first", b"_oldest_first", "_resume_token", b"_resume_token", "after_seq", b"after_seq", "before_seq", b"before_seq", "field_mask", b"field_mask", "filter", b"filter", "max_lines", b"max_lines", "oldest_first", b"oldest_first", "resume_token", b"resume_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_after_seq", b"_after_seq", "_before_seq", b"_before_seq", "_filter", b"_filter", "_max_lines", b"_max_lines", "_oldest_first", b"_oldest_first", "_resume_token", b"_resume_token", "after_seq", b"after_seq", "before_seq", b"before_seq", "field_mask", b"field_mask", "filter", b"filter", "max_lines", b"max_lines", "oldest_first", b"oldest_first", "resume_token", b"resume_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["_after_seq", b"_after_seq", "_before_seq", b"_before_seq", "_filter", b"_filter", "_max_lines", b"_max_lines", "_oldest_first", b"_oldest_first", "_resume_token", b"_resume_token", "after_seq", b"after_seq", "before_seq", b"before_seq", "field_mask", b"field_mask", "filter", b"filter", "include_counts", b"include_counts", "max_lines", b"max_lines", "oldest_first", b"oldest_first", "resume_token", b"resume_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_after_seq", b"_after_seq"]) -> typing.Literal["after_seq"] | None: ...
     @typing.overload
@@ -889,6 +1082,22 @@ class ListCallLogsResponse(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    @typing.final
+    class CountByLevelEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        value: builtins.int
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: builtins.int = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+
     LOG_ENTRIES_FIELD_NUMBER: builtins.int
     TRUNCATED_FIELD_NUMBER: builtins.int
     MIN_AVAILABLE_SEQ_FIELD_NUMBER: builtins.int
@@ -897,6 +1106,8 @@ class ListCallLogsResponse(google.protobuf.message.Message):
     HAS_MORE_NEWER_FIELD_NUMBER: builtins.int
     NEXT_RESUME_TOKEN_FIELD_NUMBER: builtins.int
     SCOPE_LIMITED_FILTERS_FIELD_NUMBER: builtins.int
+    TOTAL_MATCHING_COUNT_FIELD_NUMBER: builtins.int
+    COUNT_BY_LEVEL_FIELD_NUMBER: builtins.int
     truncated: builtins.bool
     """True when matching entries were dropped because <code>max_lines</code> was reached."""
     min_available_seq: builtins.int
@@ -912,6 +1123,12 @@ class ListCallLogsResponse(google.protobuf.message.Message):
     """True when entries newer than this window exist."""
     next_resume_token: builtins.str
     """Cursor to fetch the next window, or to start a live stream that continues exactly here."""
+    total_matching_count: builtins.int
+    """The number of entries matching the filter over the whole stored history, regardless of the window
+    and the cursors. Set only when <code>include_counts</code> was requested (unset otherwise, and by a
+    9.0.0 server). APPROXIMATE when <code>scope_limited_filters</code> is non-empty: the filters listed
+    there are not applied to the count, so it is then an UPPER BOUND.
+    """
     @property
     def log_entries(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallLogEntry]:
         """The matching entries, oldest first."""
@@ -921,6 +1138,15 @@ class ListCallLogsResponse(google.protobuf.message.Message):
         """Filters that could only be applied WITHIN the returned window rather than across the whole
         history, because they are not indexed. A client displaying a match count must qualify it when
         this is non-empty.
+        """
+
+    @property
+    def count_by_level(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:
+        """The matching entries counted per severity, keyed by the <code>ondewo.nlu.LogSeverity</code> value
+        NAME (e.g. <code>LOG_SEVERITY_ERROR</code>; entries without a recognised severity under
+        <code>LOG_SEVERITY_UNSPECIFIED</code>). Severities with no entry are omitted; the values sum to
+        <code>total_matching_count</code>. Filled only with <code>include_counts</code>; approximate (upper
+        bounds) under the same condition as <code>total_matching_count</code>.
         """
 
     def __init__(
@@ -934,8 +1160,12 @@ class ListCallLogsResponse(google.protobuf.message.Message):
         has_more_newer: builtins.bool = ...,
         next_resume_token: builtins.str = ...,
         scope_limited_filters: collections.abc.Iterable[global___CallLogFilterField.ValueType] | None = ...,
+        total_matching_count: builtins.int | None = ...,
+        count_by_level: collections.abc.Mapping[builtins.str, builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["has_more_newer", b"has_more_newer", "has_more_older", b"has_more_older", "log_entries", b"log_entries", "max_available_seq", b"max_available_seq", "min_available_seq", b"min_available_seq", "next_resume_token", b"next_resume_token", "scope_limited_filters", b"scope_limited_filters", "truncated", b"truncated"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_total_matching_count", b"_total_matching_count", "total_matching_count", b"total_matching_count"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_total_matching_count", b"_total_matching_count", "count_by_level", b"count_by_level", "has_more_newer", b"has_more_newer", "has_more_older", b"has_more_older", "log_entries", b"log_entries", "max_available_seq", b"max_available_seq", "min_available_seq", b"min_available_seq", "next_resume_token", b"next_resume_token", "scope_limited_filters", b"scope_limited_filters", "total_matching_count", b"total_matching_count", "truncated", b"truncated"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_total_matching_count", b"_total_matching_count"]) -> typing.Literal["total_matching_count"] | None: ...
 
 global___ListCallLogsResponse = ListCallLogsResponse
 
@@ -949,19 +1179,33 @@ class GetCallLogStreamRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     name: builtins.str
     """The name of the log stream to retrieve of the form
     <pre><code>projects/&lt;project_uuid&gt;/logStreams/&lt;log_stream_uuid&gt;</code></pre>
+    Its project must be the one of <code>vtsi_project_name</code>: a log stream of another project is
+    refused with <code>INVALID_ARGUMENT</code>, also when it exists.
     """
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>CallLogStream</code> field paths to populate, e.g.
+        <code>capture_state</code>, <code>line_count</code>. Same convention as
+        <a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest">ListCallLogStreamsRequest.field_mask</a>:
+        <code>name</code> is always populated, unset or empty returns every field, an unknown path is
+        rejected with <code>INVALID_ARGUMENT</code> naming it.
+        """
+
     def __init__(
         self,
         *,
         vtsi_project_name: builtins.str = ...,
         name: builtins.str = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___GetCallLogStreamRequest = GetCallLogStreamRequest
 
@@ -977,18 +1221,29 @@ class ListCallLogStreamsRequest(google.protobuf.message.Message):
     FILTER_FIELD_NUMBER: builtins.int
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     FIELD_MASK_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    CAPTURE_STATES_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to list the log streams.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
     page_token: builtins.str
-    """Optional. The next_page_token value returned from a previous list request.
-    Example: "current_index-1--page_size-20"
+    """Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+    it (its format is internal and may change). Keep every other request field unchanged while paging:
+    a token sent with another filter is not guaranteed to be rejected and then returns that position of
+    the other listing.
+    """
+    page_size: builtins.int
+    """Optional. Maximum number of log streams per page. <code>0</code> means the server default of 25;
+    values above 1000 are clamped to 1000; negative values are rejected with
+    <code>INVALID_ARGUMENT</code>.
     """
     @property
     def filter(self) -> global___CallLogFilter:
         """Optional. A filter to narrow the response down to the log streams of interest. Only the
-        identity fields of the filter apply here; content fields are ignored.
+        identity fields of the filter apply here; content fields and the time window are ignored. A filter
+        on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+        them, and an empty list when none does.
         """
 
     @property
@@ -1003,6 +1258,13 @@ class ListCallLogStreamsRequest(google.protobuf.message.Message):
         with another mask.
         """
 
+    @property
+    def capture_states(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___LogCaptureState.ValueType]:
+        """Optional. Only log streams in one of these capture states, e.g.
+        <code>LOG_CAPTURE_STATE_CAPTURING</code> for the containers being captured now. Empty matches every
+        state. <code>LOG_CAPTURE_STATE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
+        """
+
     def __init__(
         self,
         *,
@@ -1010,9 +1272,11 @@ class ListCallLogStreamsRequest(google.protobuf.message.Message):
         filter: global___CallLogFilter | None = ...,
         page_token: builtins.str | None = ...,
         field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        page_size: builtins.int = ...,
+        capture_states: collections.abc.Iterable[global___LogCaptureState.ValueType] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["_filter", b"_filter", "_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_filter", b"_filter", "_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["_filter", b"_filter", "_page_token", b"_page_token", "capture_states", b"capture_states", "field_mask", b"field_mask", "filter", b"filter", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_filter", b"_filter"]) -> typing.Literal["filter"] | None: ...
     @typing.overload
@@ -1031,13 +1295,12 @@ class ListCallLogStreamsResponse(google.protobuf.message.Message):
     LOG_STREAMS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """Token to retrieve the next page of results.
-    This field is a string that holds a token for fetching the next page of results.
-    If there are no more results in the list, this field will be empty.
+    """Token to retrieve the next page of results. Opaque (see
+    <code>ListCallLogStreamsRequest.page_token</code>). Empty when there are no more results.
     """
     @property
     def log_streams(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallLogStream]:
-        """The list of log streams returned in the response."""
+        """The log streams of this page, newest <code>capture_started_at</code> first."""
 
     def __init__(
         self,
@@ -1059,16 +1322,22 @@ class DeleteCallLogsRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     FILTER_FIELD_NUMBER: builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name for which to delete the logs.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
+    validate_only: builtins.bool
+    """Optional. Validate only: run every check of a real deletion and report in the response how many
+    entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+    deletion may count differently (live capture, retention). Default <code>false</code>.
     """
     @property
     def filter(self) -> global___CallLogFilter:
         """The entries to delete. Only the identity fields and the time window apply; content filters are
         rejected, because deleting by message content is not an auditable operation. At least one
         field must be set: an empty filter is rejected rather than treated as &quot;delete
-        everything&quot;.
+        everything&quot;. The time window alone counts as a set field.
         """
 
     def __init__(
@@ -1076,9 +1345,10 @@ class DeleteCallLogsRequest(google.protobuf.message.Message):
         *,
         vtsi_project_name: builtins.str = ...,
         filter: global___CallLogFilter | None = ...,
+        validate_only: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["filter", b"filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["filter", b"filter", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["filter", b"filter", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___DeleteCallLogsRequest = DeleteCallLogsRequest
 
@@ -1093,9 +1363,11 @@ class DeleteCallLogsResponse(google.protobuf.message.Message):
     DELETED_LOG_ENTRY_COUNT_FIELD_NUMBER: builtins.int
     DELETED_LOG_STREAM_COUNT_FIELD_NUMBER: builtins.int
     deleted_log_entry_count: builtins.int
-    """How many log entries were deleted."""
+    """How many log entries were deleted (with <code>validate_only</code>: would be deleted)."""
     deleted_log_stream_count: builtins.int
-    """How many log streams were deleted because no entries remained."""
+    """How many log streams were deleted because no entries remained (with <code>validate_only</code>:
+    would be deleted).
+    """
     def __init__(
         self,
         *,
@@ -1105,3 +1377,88 @@ class DeleteCallLogsResponse(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["deleted_log_entry_count", b"deleted_log_entry_count", "deleted_log_stream_count", b"deleted_log_stream_count"]) -> None: ...
 
 global___DeleteCallLogsResponse = DeleteCallLogsResponse
+
+@typing.final
+class ExportCallLogsRequest(google.protobuf.message.Message):
+    """The request message for
+    <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">Logs.ExportCallLogs</a>.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    FILTER_FIELD_NUMBER: builtins.int
+    FORMAT_FIELD_NUMBER: builtins.int
+    INCLUDE_METADATA_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project whose logs to export.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
+    format: global___LogExportFormat.ValueType
+    """The file format. Unset means <code>LOG_EXPORT_FORMAT_TEXT</code>."""
+    include_metadata: builtins.bool
+    """Include every field of each entry rather than only the timestamp, the severity and the message
+    (see <a href="index.html#ondewo.vtsi.LogExportFormat">LogExportFormat</a> for what each format
+    adds). Default <code>false</code>.
+    """
+    @property
+    def filter(self) -> global___CallLogFilter:
+        """The entries to export. Every field of
+        <a href="index.html#ondewo.vtsi.CallLogFilter">CallLogFilter</a> applies, identity and content
+        filters alike, with the semantics of <code>ListCallLogs</code>. REQUIRED, with both
+        <code>start_time</code> and <code>end_time</code> set and <code>start_time</code> before
+        <code>end_time</code>; otherwise <code>INVALID_ARGUMENT</code>.
+        """
+
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        filter: global___CallLogFilter | None = ...,
+        format: global___LogExportFormat.ValueType = ...,
+        include_metadata: builtins.bool = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["filter", b"filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["filter", b"filter", "format", b"format", "include_metadata", b"include_metadata", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___ExportCallLogsRequest = ExportCallLogsRequest
+
+@typing.final
+class ExportCallLogsResponse(google.protobuf.message.Message):
+    """One message of an <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">ExportCallLogs</a> stream."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CHUNK_FIELD_NUMBER: builtins.int
+    ENTRY_COUNT_FIELD_NUMBER: builtins.int
+    LAST_FIELD_NUMBER: builtins.int
+    TRUNCATED_FIELD_NUMBER: builtins.int
+    chunk: builtins.bytes
+    """The next bytes of the exported file, at most 1 MiB. Chunk boundaries carry no meaning: an entry,
+    a line or a multi-byte UTF-8 character may span two chunks. The last message may carry an empty
+    chunk.
+    """
+    entry_count: builtins.int
+    """The number of entries exported so far, including those of this chunk (an entry that spans two
+    chunks is counted in the chunk where it ends).
+    """
+    last: builtins.bool
+    """True on the last message of a complete export. A stream that ends without a message carrying
+    <code>last = true</code> was cut off (error status, disconnect) and its file is incomplete.
+    """
+    truncated: builtins.bool
+    """True on the last message when the export stopped early because it reached
+    <code>ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES</code> or <code>ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES</code>:
+    matching entries after the last exported one were left out.
+    """
+    def __init__(
+        self,
+        *,
+        chunk: builtins.bytes = ...,
+        entry_count: builtins.int = ...,
+        last: builtins.bool = ...,
+        truncated: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["chunk", b"chunk", "entry_count", b"entry_count", "last", b"last", "truncated", b"truncated"]) -> None: ...
+
+global___ExportCallLogsResponse = ExportCallLogsResponse

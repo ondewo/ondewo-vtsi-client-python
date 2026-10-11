@@ -62,9 +62,13 @@ class BaseServiceConfig(google.protobuf.message.Message):
     PORT_FIELD_NUMBER: builtins.int
     GRPC_CERT_FIELD_NUMBER: builtins.int
     host: builtins.str
-    """service host IP"""
+    """Host name or IP address of the service. Required: an empty host is refused with
+    <code>INVALID_ARGUMENT</code>.
+    """
     port: builtins.int
-    """service port"""
+    """TCP port of the service, 1 to 65535. A value of 0 or below (also an unset port) is refused with
+    <code>INVALID_ARGUMENT</code>.
+    """
     grpc_cert: builtins.str
     """PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
     escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
@@ -126,7 +130,11 @@ class NluVtsiConfig(google.protobuf.message.Message):
     Format: <pre><code>projects/&lt;uuid&gt;/agent</code></pre>
     """
     language_code: builtins.str
-    """language code in a two letter iso code, e.g. de, en, etc."""
+    """Language of the NLU requests of the call: an ISO 639-1 code (e.g. <code>de</code>, <code>en</code>) or a
+    language tag the agent supports (e.g. <code>de-DE</code>). VTSI does not validate it: the NLU agent decides
+    whether it supports the value, and an empty value is accepted (a warning is logged, and the agent&apos;s
+    default language applies).
+    """
     initial_intent: builtins.str
     """name of intent to trigger at the start of a call"""
     http_basic_auth_token: builtins.str
@@ -381,17 +389,29 @@ class TurnDetectionConfig(google.protobuf.message.Message):
     mode: global___TurnDetectionConfig.TurnDetectionMode.ValueType
     """Mode of the turn detection. Defaults to SEMANTIC_MODEL if unspecified"""
     min_endpointing_delay_seconds: builtins.float
-    """Optional: Minimum delay in seconds before a confidently detected end of turn is committed (default: 0.5)"""
+    """Optional: Minimum delay in seconds before a confidently detected end of turn is committed
+    (default: 0.5, valid range: 0 - 10). When both delays are set, it must not be larger than
+    <code>max_endpointing_delay_seconds</code>; a request with min &gt; max, or a value outside the range, is
+    refused with <code>INVALID_ARGUMENT</code>
+    """
     max_endpointing_delay_seconds: builtins.float
     """Optional: Maximum delay in seconds to wait for an end of turn before the turn is committed
-    from the latest stable partial transcription (default: 3.0)
+    from the latest stable partial transcription (default: 3.0, valid range: 0 - 10; at least
+    <code>min_endpointing_delay_seconds</code> when both are set)
     """
     turn_eagerness: global___TurnDetectionConfig.TurnEagerness.ValueType
     """Eagerness of the turn detection: scales both endpointing delays. Defaults to NORMAL if unspecified"""
     turn_detection_system_prompt: builtins.str
-    """System prompt for the semantic (LLM) turn detection model of the speech-to-text service"""
+    """Optional: System prompt for the semantic (LLM) turn detection model of the speech-to-text service. Unset uses
+    the model&apos;s built-in prompt. Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set
+    together with <code>VAD</code> or <code>AUDIO_MODEL</code> it is refused with <code>INVALID_ARGUMENT</code>.
+    VTSI enforces no length limit; the speech-to-text service may refuse a prompt that exceeds its model&apos;s
+    context
+    """
     turn_detection_user_prompt: builtins.str
-    """User prompt for the semantic (LLM) turn detection model of the speech-to-text service"""
+    """Optional: User prompt for the semantic (LLM) turn detection model of the speech-to-text service, with the
+    rules of <code>turn_detection_system_prompt</code>
+    """
     def __init__(
         self,
         *,
@@ -430,7 +450,9 @@ class InterruptionHandlingConfig(google.protobuf.message.Message):
     FIRST_MESSAGE_PROTECTED_SECONDS_FIELD_NUMBER: builtins.int
     TRANSCRIBE_ON_DISABLED_INTERRUPTIONS_FIELD_NUMBER: builtins.int
     enabled: builtins.bool
-    """Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking"""
+    """Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking
+    (default: false, i.e. the bot cannot be interrupted)
+    """
     min_interruption_duration_seconds: builtins.float
     """Optional: Minimum duration in seconds of caller speech while the bot is speaking
     to trigger an interruption (noise gate) (default: 0.5)
@@ -454,7 +476,9 @@ class InterruptionHandlingConfig(google.protobuf.message.Message):
     for the given number of seconds (default: 0 = no protection)
     """
     transcribe_on_disabled_interruptions: builtins.bool
-    """Transcribe caller speech while the bot is speaking even if interruptions are disabled"""
+    """Optional: Transcribe caller speech while the bot is speaking even if interruptions are disabled
+    (default: false, i.e. caller speech during bot speech is not transcribed while <code>enabled</code> is false)
+    """
     def __init__(
         self,
         *,
@@ -894,14 +918,30 @@ class SipCallerConfig(google.protobuf.message.Message):
     CALLEE_ID_FIELD_NUMBER: builtins.int
     SIP_HEADERS_FIELD_NUMBER: builtins.int
     callee_id: builtins.str
-    """callee id e.g. phone number to call, +4365012345678 or VOIP phone ondewo0001@ondewo.com, etc."""
+    """The callee to dial: a phone number, e.g. <code>+4365012345678</code>, or a SIP / VoIP id, e.g.
+    <code>ondewo0001@ondewo.com</code> or a dialplan extension of the project&apos;s Asterisk. Required, at most
+    2048 characters. A value with no letter and no <code>@</code> is a phone number and must match
+    <pre><code>^(?:(\\+|00)\\d{1,4})?\\d{9,20}$</code></pre>
+    (an optional <code>+</code> or <code>00</code> country prefix of 1 to 4 digits, then 9 to 20 digits; no spaces
+    or separators). A value containing a letter or an <code>@</code> is passed to the Asterisk as it is and only
+    its length is checked. Violations are <code>INVALID_ARGUMENT</code>. Of a campaign call, the
+    <code>callee_id</code> is resolved once when the call is added (see
+    <code>Campaign.campaign_sip_caller_config</code>).
+    """
     @property
     def sip_base_config(self) -> global___SipBaseConfig:
         """SIP configuration"""
 
     @property
     def sip_headers(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """dictionary of sip headers that are sent on call"""
+        """SIP headers sent on the outbound INVITE, header name to value, e.g.
+        <code>{"X-ondewo-phonesystem-call-id": "4711"}</code>. At most 64 entries, otherwise
+        <code>INVALID_ARGUMENT</code>. Keys are sent as SIP header names, so they should be valid header names (by
+        convention <code>X-</code> headers); VTSI does not restrict them further, and a header the SIP stack or the
+        Asterisk cannot send is dropped by them. Unlike <code>TransferCallRequest.headers</code>, which only takes
+        <code>X-ondewo-*</code> keys because it is delivered through the dialplan, these are sent by the caller&apos;s
+        own SIP stack. Updatable on a scheduled caller with <code>UpdateScheduledCaller</code>.
+        """
 
     def __init__(
         self,
@@ -1117,9 +1157,14 @@ class RabbitMqConfig(google.protobuf.message.Message):
     host: builtins.str
     """host where the rabbit mq server runs"""
     port: builtins.int
-    """port where the rabbit mq server runs"""
+    """AMQP port of the RabbitMQ server (typically <code>5672</code>), 1 to 65535; used for the messages and for the
+    connectivity check at start. 0 or below is <code>INVALID_ARGUMENT</code>
+    """
     port_2: builtins.int
-    """secondary port where the rabbit mq server runs"""
+    """Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. It is passed to
+    the call&apos;s CSI process as <code>RABBIT_PORT_2</code> and is not used for the connectivity check. 0 or below
+    is <code>INVALID_ARGUMENT</code>
+    """
     user: builtins.str
     """user of server"""
     password: builtins.str
@@ -1139,7 +1184,12 @@ global___RabbitMqConfig = RabbitMqConfig
 
 @typing.final
 class S2tVtsiCallbacks(google.protobuf.message.Message):
-    """Callback for the Speech-2-Text platform"""
+    """Callbacks for the Speech-2-Text platform.
+    <p>Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The
+    callbacks are accepted and validated but currently NOT executed: no component of the call consumes them. The
+    field is kept for wire compatibility and reserved for a future callback mechanism, whose naming scheme will be
+    documented then; do not rely on any effect.</p>
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1165,7 +1215,12 @@ global___S2tVtsiCallbacks = S2tVtsiCallbacks
 
 @typing.final
 class NluVtsiCallbacks(google.protobuf.message.Message):
-    """Callback for the NLU platform"""
+    """Callbacks for the NLU platform.
+    <p>Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The
+    callbacks are accepted and validated but currently NOT executed: no component of the call consumes them. The
+    field is kept for wire compatibility and reserved for a future callback mechanism, whose naming scheme will be
+    documented then; do not rely on any effect.</p>
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1191,7 +1246,12 @@ global___NluVtsiCallbacks = NluVtsiCallbacks
 
 @typing.final
 class T2sVtsiCallbacks(google.protobuf.message.Message):
-    """Callback for the Text-2-Speech platform"""
+    """Callbacks for the Text-2-Speech platform.
+    <p>Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The
+    callbacks are accepted and validated but currently NOT executed: no component of the call consumes them. The
+    field is kept for wire compatibility and reserved for a future callback mechanism, whose naming scheme will be
+    documented then; do not rely on any effect.</p>
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

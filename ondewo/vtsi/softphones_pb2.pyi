@@ -147,6 +147,50 @@ but no longer gets its holder the account.
 """
 global___SoftphoneCertificateStatus = SoftphoneCertificateStatus
 
+class _SoftphoneContactStatus:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _SoftphoneContactStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SoftphoneContactStatus.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    SOFTPHONE_CONTACT_STATUS_UNSPECIFIED: _SoftphoneContactStatus.ValueType  # 0
+    """Unspecified. Never returned."""
+    SOFTPHONE_CONTACT_STATUS_AVAILABLE: _SoftphoneContactStatus.ValueType  # 1
+    """The contact answered the last qualify (<code>Avail</code>); <code>round_trip_ms</code> is set."""
+    SOFTPHONE_CONTACT_STATUS_UNAVAILABLE: _SoftphoneContactStatus.ValueType  # 2
+    """The contact did not answer the last qualify (<code>Unavail</code>): the device is registered but
+    currently unreachable, e.g. offline or behind a NAT that expired. Calls to it fail until it answers
+    again or its registration expires.
+    """
+    SOFTPHONE_CONTACT_STATUS_NOT_QUALIFIED: _SoftphoneContactStatus.ValueType  # 3
+    """The contact is not qualified (<code>NonQual</code>), so its reachability is not checked."""
+    SOFTPHONE_CONTACT_STATUS_UNKNOWN: _SoftphoneContactStatus.ValueType  # 4
+    """The Asterisk has not determined the reachability yet (<code>Unknown</code>, <code>Created</code>),
+    e.g. right after the registration.
+    """
+
+class SoftphoneContactStatus(_SoftphoneContactStatus, metaclass=_SoftphoneContactStatusEnumTypeWrapper):
+    """Reachability of one registered contact of a softphone account, as the project&apos;s Asterisk
+    qualifies it (SIP <code>OPTIONS</code>).
+    """
+
+SOFTPHONE_CONTACT_STATUS_UNSPECIFIED: SoftphoneContactStatus.ValueType  # 0
+"""Unspecified. Never returned."""
+SOFTPHONE_CONTACT_STATUS_AVAILABLE: SoftphoneContactStatus.ValueType  # 1
+"""The contact answered the last qualify (<code>Avail</code>); <code>round_trip_ms</code> is set."""
+SOFTPHONE_CONTACT_STATUS_UNAVAILABLE: SoftphoneContactStatus.ValueType  # 2
+"""The contact did not answer the last qualify (<code>Unavail</code>): the device is registered but
+currently unreachable, e.g. offline or behind a NAT that expired. Calls to it fail until it answers
+again or its registration expires.
+"""
+SOFTPHONE_CONTACT_STATUS_NOT_QUALIFIED: SoftphoneContactStatus.ValueType  # 3
+"""The contact is not qualified (<code>NonQual</code>), so its reachability is not checked."""
+SOFTPHONE_CONTACT_STATUS_UNKNOWN: SoftphoneContactStatus.ValueType  # 4
+"""The Asterisk has not determined the reachability yet (<code>Unknown</code>, <code>Created</code>),
+e.g. right after the registration.
+"""
+global___SoftphoneContactStatus = SoftphoneContactStatus
+
 class _SoftphoneSrtpMode:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -219,6 +263,9 @@ class SoftphoneAccount(google.protobuf.message.Message):
     CREATED_AT_FIELD_NUMBER: builtins.int
     MODIFIED_BY_FIELD_NUMBER: builtins.int
     MODIFIED_AT_FIELD_NUMBER: builtins.int
+    LOCKED_FIELD_NUMBER: builtins.int
+    LOCKED_AT_FIELD_NUMBER: builtins.int
+    LOCKED_REASON_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Output only. Resource name of the softphone account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
@@ -268,11 +315,26 @@ class SoftphoneAccount(google.protobuf.message.Message):
     """Output only. The user who created the account."""
     modified_by: builtins.str
     """Output only. The user who last modified the account, including credential rotation."""
+    locked: builtins.bool
+    """Output only. Whether the account is LOCKED: <code>RevokeSoftphoneCertificate</code> revoked its
+    ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+    <code>RotateSoftphoneCredentials</code> unlocks it. Independent of <code>enabled</code>: an account
+    is usable only when it is enabled AND not locked.
+    """
+    locked_reason: builtins.str
+    """Output only. Why the account was locked: the <code>reason</code> given to the
+    <code>RevokeSoftphoneCertificate</code> that locked it (empty when none was given or the account is
+    not locked).
+    """
     @property
     def labels(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
         """Free-form labels for organising and filtering accounts, e.g. <code>team: support</code>. Keys: 1 to
         63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting with a letter; values: at most 256
         characters; at most 64 entries. Updatable (the whole map is replaced).
+        Control characters: a KEY cannot contain one (the key pattern refuses it with
+        <code>INVALID_ARGUMENT</code>); a VALUE is checked for its length only, so control characters
+        (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+        label values must escape them.
         """
 
     @property
@@ -299,6 +361,12 @@ class SoftphoneAccount(google.protobuf.message.Message):
     def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """Output only. Last modification time of the account, including credential rotation."""
 
+    @property
+    def locked_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Output only. When the account was locked. Unset when it is not locked (also for an account locked
+        by a server older than 9.1.0 whose lock time is not known).
+        """
+
     def __init__(
         self,
         *,
@@ -320,9 +388,12 @@ class SoftphoneAccount(google.protobuf.message.Message):
         created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         modified_by: builtins.str = ...,
         modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        locked: builtins.bool = ...,
+        locked_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        locked_reason: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_enabled", b"_enabled", "created_at", b"created_at", "current_certificate_expire_time", b"current_certificate_expire_time", "enabled", b"enabled", "modified_at", b"modified_at", "sip_password_set_at", b"sip_password_set_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_enabled", b"_enabled", "allowed_destinations", b"allowed_destinations", "created_at", b"created_at", "created_by", b"created_by", "current_certificate_expire_time", b"current_certificate_expire_time", "current_certificate_name", b"current_certificate_name", "current_certificate_sha256_fingerprint", b"current_certificate_sha256_fingerprint", "display_name", b"display_name", "enabled", b"enabled", "labels", b"labels", "max_contacts", b"max_contacts", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "sip_password_set_at", b"sip_password_set_at", "sip_username", b"sip_username", "softphone_account_id", b"softphone_account_id", "transport_security", b"transport_security", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_enabled", b"_enabled", "created_at", b"created_at", "current_certificate_expire_time", b"current_certificate_expire_time", "enabled", b"enabled", "locked_at", b"locked_at", "modified_at", b"modified_at", "sip_password_set_at", b"sip_password_set_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_enabled", b"_enabled", "allowed_destinations", b"allowed_destinations", "created_at", b"created_at", "created_by", b"created_by", "current_certificate_expire_time", b"current_certificate_expire_time", "current_certificate_name", b"current_certificate_name", "current_certificate_sha256_fingerprint", b"current_certificate_sha256_fingerprint", "display_name", b"display_name", "enabled", b"enabled", "labels", b"labels", "locked", b"locked", "locked_at", b"locked_at", "locked_reason", b"locked_reason", "max_contacts", b"max_contacts", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "sip_password_set_at", b"sip_password_set_at", "sip_username", b"sip_username", "softphone_account_id", b"softphone_account_id", "transport_security", b"transport_security", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
 
 global___SoftphoneAccount = SoftphoneAccount
@@ -653,6 +724,7 @@ class SoftphoneAccountFilter(google.protobuf.message.Message):
     SIP_USERNAME_CONTAINS_FIELD_NUMBER: builtins.int
     CERTIFICATE_EXPIRES_BEFORE_FIELD_NUMBER: builtins.int
     CERTIFICATE_EXPIRES_AFTER_FIELD_NUMBER: builtins.int
+    LOCKED_FIELD_NUMBER: builtins.int
     enabled: builtins.bool
     """Only enabled (<code>true</code>) or only disabled (<code>false</code>) accounts. Unset matches both."""
     display_name_contains: builtins.str
@@ -662,6 +734,10 @@ class SoftphoneAccountFilter(google.protobuf.message.Message):
     sip_username_contains: builtins.str
     """Case-insensitive substring match against <code>sip_username</code>. Empty does not filter. At most
     64 characters.
+    """
+    locked: builtins.bool
+    """Only locked (<code>true</code>) or only unlocked (<code>false</code>) accounts, see
+    <code>SoftphoneAccount.locked</code>. Unset matches both.
     """
     @property
     def transport_securities(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___SoftphoneTransportSecurity.ValueType]:
@@ -698,10 +774,14 @@ class SoftphoneAccountFilter(google.protobuf.message.Message):
         sip_username_contains: builtins.str = ...,
         certificate_expires_before: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         certificate_expires_after: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        locked: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_enabled", b"_enabled", "certificate_expires_after", b"certificate_expires_after", "certificate_expires_before", b"certificate_expires_before", "enabled", b"enabled"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_enabled", b"_enabled", "certificate_expires_after", b"certificate_expires_after", "certificate_expires_before", b"certificate_expires_before", "display_name_contains", b"display_name_contains", "enabled", b"enabled", "labels", b"labels", "sip_username_contains", b"sip_username_contains", "transport_securities", b"transport_securities"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_enabled", b"_enabled", "_locked", b"_locked", "certificate_expires_after", b"certificate_expires_after", "certificate_expires_before", b"certificate_expires_before", "enabled", b"enabled", "locked", b"locked"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_enabled", b"_enabled", "_locked", b"_locked", "certificate_expires_after", b"certificate_expires_after", "certificate_expires_before", b"certificate_expires_before", "display_name_contains", b"display_name_contains", "enabled", b"enabled", "labels", b"labels", "locked", b"locked", "sip_username_contains", b"sip_username_contains", "transport_securities", b"transport_securities"]) -> None: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_locked", b"_locked"]) -> typing.Literal["locked"] | None: ...
 
 global___SoftphoneAccountFilter = SoftphoneAccountFilter
 
@@ -824,9 +904,30 @@ class CreateSoftphoneAccountRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
     SOFTPHONE_ACCOUNT_FIELD_NUMBER: builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project in which to create the account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+    """
+    idempotency_key: builtins.str
+    """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+    no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+    default (the server&apos;s <code>ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S</code>), whichever server
+    replica a retry reaches.
+    <p>A retry carrying the same key and the same request does NOT create a second account. Because the
+    server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+    instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+    <code>RotateSoftphoneCredentials</code> (the SIP password always, and a new certificate for a
+    <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> account), and returns the account with
+    the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+    a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+    grants nothing a caller could not do anyway: both RPCs require the same role.</p>
+    <p>Reusing a key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that
+    arrives while the first attempt is still running is answered <code>ABORTED</code> and may be retried
+    later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+    A retry after the account was deleted is <code>NOT_FOUND</code>; a retry while the account is
+    <code>locked</code> is refused with <code>FAILED_PRECONDITION</code> (unlock it deliberately with
+    <code>RotateSoftphoneCredentials</code>: a replayed key must not undo a revocation).</p>
     """
     @property
     def softphone_account(self) -> global___SoftphoneAccount:
@@ -839,9 +940,10 @@ class CreateSoftphoneAccountRequest(google.protobuf.message.Message):
         *,
         vtsi_project_name: builtins.str = ...,
         softphone_account: global___SoftphoneAccount | None = ...,
+        idempotency_key: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["softphone_account", b"softphone_account"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["softphone_account", b"softphone_account", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["idempotency_key", b"idempotency_key", "softphone_account", b"softphone_account", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___CreateSoftphoneAccountRequest = CreateSoftphoneAccountRequest
 
@@ -863,6 +965,7 @@ class CreateSoftphoneAccountResponse(google.protobuf.message.Message):
     def credentials(self) -> global___SoftphoneCredentials:
         """ONE-TIME secrets: the SIP password and, for
         <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, the PKCS#12 bundle and its password.
+        For a replayed <code>idempotency_key</code>: the newly rotated secrets.
         """
 
     def __init__(
@@ -1315,3 +1418,122 @@ class GetSoftphoneProvisioningRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
 
 global___GetSoftphoneProvisioningRequest = GetSoftphoneProvisioningRequest
+
+@typing.final
+class GetSoftphoneRegistrationRequest(google.protobuf.message.Message):
+    """The request message for
+    <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneRegistration">Softphones.GetSoftphoneRegistration</a>.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """Resource name of the account.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
+    """
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>SoftphoneRegistration</code> field paths to populate, e.g.
+        <code>contacts</code>, <code>observed_at</code>. <code>softphone_account_name</code> is always
+        populated. Unset or empty returns every field. An unknown path, or a path below
+        <code>contacts</code> (a repeated field), is rejected with <code>INVALID_ARGUMENT</code>.
+        """
+
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+
+global___GetSoftphoneRegistrationRequest = GetSoftphoneRegistrationRequest
+
+@typing.final
+class SoftphoneRegistration(google.protobuf.message.Message):
+    """The live registrations of one softphone account on its project&apos;s Asterisk. Every field is output
+    only. Never carries a secret.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
+    CONTACTS_FIELD_NUMBER: builtins.int
+    OBSERVED_AT_FIELD_NUMBER: builtins.int
+    softphone_account_name: builtins.str
+    """Resource name of the softphone account.
+    The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
+    """
+    @property
+    def contacts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SoftphoneContact]:
+        """The currently registered contacts (devices), at most the account&apos;s <code>max_contacts</code>,
+        ordered by <code>expire_time</code>, latest first. Empty when no device is registered.
+        """
+
+    @property
+    def observed_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """When the server read the registrations from the Asterisk."""
+
+    def __init__(
+        self,
+        *,
+        softphone_account_name: builtins.str = ...,
+        contacts: collections.abc.Iterable[global___SoftphoneContact] | None = ...,
+        observed_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["observed_at", b"observed_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["contacts", b"contacts", "observed_at", b"observed_at", "softphone_account_name", b"softphone_account_name"]) -> None: ...
+
+global___SoftphoneRegistration = SoftphoneRegistration
+
+@typing.final
+class SoftphoneContact(google.protobuf.message.Message):
+    """One registered contact (device) of a softphone account."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    URI_FIELD_NUMBER: builtins.int
+    USER_AGENT_FIELD_NUMBER: builtins.int
+    SOURCE_ADDRESS_FIELD_NUMBER: builtins.int
+    EXPIRE_TIME_FIELD_NUMBER: builtins.int
+    ROUND_TRIP_MS_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    uri: builtins.str
+    """The contact URI the device registered, e.g.
+    <code>sip:alice@198.51.100.7:52114;transport=TLS</code>.
+    """
+    user_agent: builtins.str
+    """The <code>User-Agent</code> header of the device&apos;s registration, e.g. <code>Z 5.6.1 v2.10.20.3</code>.
+    Empty when the device sent none.
+    """
+    source_address: builtins.str
+    """The source address the registration arrived from, as <code>host:port</code> (an IPv6 host in
+    brackets). It can differ from the host of <code>uri</code> behind a NAT.
+    """
+    round_trip_ms: builtins.float
+    """Round-trip time of the last qualify (SIP <code>OPTIONS</code>) in milliseconds. <code>0</code> unless
+    <code>status</code> is <code>SOFTPHONE_CONTACT_STATUS_AVAILABLE</code>.
+    """
+    status: global___SoftphoneContactStatus.ValueType
+    """Reachability of the contact."""
+    @property
+    def expire_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """When the registration expires unless the device refreshes it."""
+
+    def __init__(
+        self,
+        *,
+        uri: builtins.str = ...,
+        user_agent: builtins.str = ...,
+        source_address: builtins.str = ...,
+        expire_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        round_trip_ms: builtins.float = ...,
+        status: global___SoftphoneContactStatus.ValueType = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["expire_time", b"expire_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["expire_time", b"expire_time", "round_trip_ms", b"round_trip_ms", "source_address", b"source_address", "status", b"status", "uri", b"uri", "user_agent", b"user_agent"]) -> None: ...
+
+global___SoftphoneContact = SoftphoneContact

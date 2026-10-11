@@ -147,3 +147,27 @@ class Logs(ServicesInterface):
             metadata=self.metadata,
         )
         return response
+
+    def export_call_logs(
+        self,
+        request: logs_pb2.ExportCallLogsRequest,
+    ) -> Iterator[logs_pb2.ExportCallLogsResponse]:
+        """
+        Export the call logs matching a filter as a stream of chunks (text, NDJSON or CSV).
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (logs_pb2.ExportCallLogsRequest):
+                The project, the filter (with ``start_time`` and ``end_time``), the format and
+                ``include_metadata``.
+
+        Returns:
+            Iterator[logs_pb2.ExportCallLogsResponse]:
+                The export, chunk by chunk; the last chunk has ``last`` set.
+        """
+        response: Iterator[logs_pb2.ExportCallLogsResponse] = self.stub.ExportCallLogs(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response

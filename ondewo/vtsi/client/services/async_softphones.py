@@ -252,3 +252,26 @@ class Softphones(AsyncServicesInterface):
             metadata=self.metadata,
         )
         return response
+
+    async def get_softphone_registration(
+        self,
+        request: softphones_pb2.GetSoftphoneRegistrationRequest,
+    ) -> softphones_pb2.SoftphoneRegistration:
+        """
+        Read the live SIP registration (contacts) of a softphone account from the project's Asterisk.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (softphones_pb2.GetSoftphoneRegistrationRequest):
+                The softphone account name and an optional ``field_mask``.
+
+        Returns:
+            softphones_pb2.SoftphoneRegistration:
+                The registered contacts at the time of the read.
+        """
+        response: softphones_pb2.SoftphoneRegistration = await self.stub.GetSoftphoneRegistration(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
