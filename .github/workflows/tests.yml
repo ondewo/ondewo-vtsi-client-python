@@ -9,6 +9,11 @@ jobs:
   unit-tests:
     runs-on: ubuntu-24.04
     steps:
+      # actions/checkout runs `git init`, which prints a multi-line `defaultBranchName` hint into every log
+      # unless the initial branch name is configured.
+      - name: Configure the initial git branch name
+        run: git config --global init.defaultBranch master
+
       - uses: actions/checkout@v7
 
       - name: Install uv
