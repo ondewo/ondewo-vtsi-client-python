@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=77.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,13 +8,15 @@ version = "9.1.0"
 description = "ONDEWO Voip Telephone System Integration (VTSI) Client library for Python"
 readme = "README.md"
 requires-python = ">=3.9"
+# PEP 639: an SPDX expression plus the shipped license file; the License classifier is deprecated (setuptools >= 77).
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 authors = [
     { name = "ONDEWO GmbH", email = "office@ondewo.com" },
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -64,18 +66,20 @@ Repository = "https://github.com/ondewo/ondewo-vtsi-client-python"
 # setuptools: package discovery + package data
 # Equivalent to the old setup.py:
 #   packages = [n for n in find_packages() if n == 'ondewo' or n.startswith('ondewo.')]
-#   include_package_data=True + package_data for py.typed / *.pyi
+#   include_package_data=True + package_data for *.pyi
+# No py.typed marker: no released wheel (8.0.0, 9.0.0, 9.1.0) ever carried one, and `ondewo` is a pkgutil namespace
+# shared with the other ONDEWO clients, so the old package-data / MANIFEST.in entries only produced a build warning.
 # ---------------------------------------------------------------------------
 [tool.setuptools.packages.find]
 include = ["ondewo", "ondewo.*"]
 
 [tool.setuptools.package-data]
-"ondewo.vtsi" = ["py.typed", "*.pyi"]
-"ondewo.nlu" = ["py.typed", "*.pyi"]
-"ondewo.qa" = ["py.typed", "*.pyi"]
-"ondewo.s2t" = ["py.typed", "*.pyi"]
-"ondewo.t2s" = ["py.typed", "*.pyi"]
-"ondewo.sip" = ["py.typed", "*.pyi"]
+"ondewo.vtsi" = ["*.pyi"]
+"ondewo.nlu" = ["*.pyi"]
+"ondewo.qa" = ["*.pyi"]
+"ondewo.s2t" = ["*.pyi"]
+"ondewo.t2s" = ["*.pyi"]
+"ondewo.sip" = ["*.pyi"]
 
 # ---------------------------------------------------------------------------
 # Ruff  (replaces flake8: ignore C901,W504; max-line-length 120; exclude *_pb2*)
