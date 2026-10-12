@@ -101,6 +101,42 @@ class Calls(ServicesInterface):
         """
         return self.stub.GetCaller(request=request, metadata=self.metadata)
 
+    def update_caller(
+        self,
+        request: calls_pb2.UpdateCallerRequest,
+    ) -> calls_pb2.UpdateCallerResponse:
+        """
+        Update the stored configuration of a caller (``update_mask`` names the paths to write).
+
+        A running container and its calls are never changed; the stored configuration is used only when the
+        server recreates the caller from it. A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.UpdateCallerRequest): The caller, the ``update_mask`` and an optional ``field_mask``.
+
+        Returns:
+            calls_pb2.UpdateCallerResponse: The updated caller.
+        """
+        return self.stub.UpdateCaller(request=request, metadata=self.metadata)
+
+    def update_callers(
+        self,
+        request: calls_pb2.UpdateCallersRequest,
+    ) -> calls_pb2.UpdateCallersResponse:
+        """
+        Update the stored configuration of several callers of one project, each entry on its own.
+
+        Not atomic: one ``UpdateCallerResponse`` per entry, in request order, a failed entry carrying its
+        ``error_message``.
+
+        Args:
+            request (calls_pb2.UpdateCallersRequest): The project and the single update requests.
+
+        Returns:
+            calls_pb2.UpdateCallersResponse: The per-entry results.
+        """
+        return self.stub.UpdateCallers(request=request, metadata=self.metadata)
+
     def delete_caller(
         self,
         request: calls_pb2.DeleteCallersRequest,
@@ -226,6 +262,42 @@ class Calls(ServicesInterface):
             calls_pb2.Listener: The response message containing the details of the specified listener.
         """
         return self.stub.GetListener(request=request, metadata=self.metadata)
+
+    def update_listener(
+        self,
+        request: calls_pb2.UpdateListenerRequest,
+    ) -> calls_pb2.UpdateListenerResponse:
+        """
+        Update the stored configuration of a listener (``update_mask`` names the paths to write).
+
+        A running container and its calls are never changed; the stored configuration is used only when the
+        server recreates the listener from it. A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.UpdateListenerRequest): The listener, the ``update_mask`` and an optional ``field_mask``.
+
+        Returns:
+            calls_pb2.UpdateListenerResponse: The updated listener.
+        """
+        return self.stub.UpdateListener(request=request, metadata=self.metadata)
+
+    def update_listeners(
+        self,
+        request: calls_pb2.UpdateListenersRequest,
+    ) -> calls_pb2.UpdateListenersResponse:
+        """
+        Update the stored configuration of several listeners of one project, each entry on its own.
+
+        Not atomic: one ``UpdateListenerResponse`` per entry, in request order, a failed entry carrying its
+        ``error_message``.
+
+        Args:
+            request (calls_pb2.UpdateListenersRequest): The project and the single update requests.
+
+        Returns:
+            calls_pb2.UpdateListenersResponse: The per-entry results.
+        """
+        return self.stub.UpdateListeners(request=request, metadata=self.metadata)
 
     def delete_listener(
         self,
@@ -447,6 +519,42 @@ class Calls(ServicesInterface):
         """
         return self.stub.GetCall(request=request, metadata=self.metadata)
 
+    def update_call(
+        self,
+        request: calls_pb2.UpdateCallRequest,
+    ) -> calls_pb2.UpdateCallResponse:
+        """
+        Update the stored record of a call; the only updatable path is ``labels``.
+
+        The live call, its SIP container, its status and its media are never changed. A VTSI server that
+        predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.UpdateCallRequest): The call, the ``update_mask`` and an optional ``field_mask``.
+
+        Returns:
+            calls_pb2.UpdateCallResponse: The updated call.
+        """
+        return self.stub.UpdateCall(request=request, metadata=self.metadata)
+
+    def update_calls(
+        self,
+        request: calls_pb2.UpdateCallsRequest,
+    ) -> calls_pb2.UpdateCallsResponse:
+        """
+        Update the stored records of several calls of one project, each entry on its own.
+
+        Not atomic: one ``UpdateCallResponse`` per entry, in request order, a failed entry carrying its
+        ``error_message``.
+
+        Args:
+            request (calls_pb2.UpdateCallsRequest): The project and the single update requests.
+
+        Returns:
+            calls_pb2.UpdateCallsResponse: The per-entry results.
+        """
+        return self.stub.UpdateCalls(request=request, metadata=self.metadata)
+
     def list_calls(
         self,
         request: calls_pb2.ListCallsRequest,
@@ -626,3 +734,82 @@ class Calls(ServicesInterface):
             metadata=self.metadata,
         )
         return response
+
+    def update_scheduled_caller(
+        self,
+        request: calls_pb2.UpdateScheduledCallerRequest,
+    ) -> calls_pb2.ScheduledCaller:
+        """
+        Update a PENDING scheduled caller (``update_mask`` paths ``scheduled_time`` and
+        ``sip_caller_config.sip_headers``).
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.UpdateScheduledCallerRequest):
+                The scheduled caller, the ``update_mask`` and an optional ``field_mask``.
+
+        Returns:
+            calls_pb2.ScheduledCaller:
+                The updated scheduled caller.
+        """
+        return self.stub.UpdateScheduledCaller(request=request, metadata=self.metadata)
+
+    def cancel_scheduled_callers(
+        self,
+        request: calls_pb2.CancelScheduledCallersRequest,
+    ) -> calls_pb2.CancelScheduledCallersResponse:
+        """
+        Cancel up to 1000 scheduled callers of one project; each entry reports its own result.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.CancelScheduledCallersRequest):
+                The project and the names of the scheduled callers to cancel.
+
+        Returns:
+            calls_pb2.CancelScheduledCallersResponse:
+                One result per requested scheduled caller.
+        """
+        return self.stub.CancelScheduledCallers(request=request, metadata=self.metadata)
+
+    def retry_scheduled_caller(
+        self,
+        request: calls_pb2.RetryScheduledCallerRequest,
+    ) -> calls_pb2.ScheduledCaller:
+        """
+        Retry a FAILED scheduled caller by creating a new PENDING scheduled caller from its stored
+        configuration.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.RetryScheduledCallerRequest):
+                The project, the failed scheduled caller and an optional new ``scheduled_time``.
+
+        Returns:
+            calls_pb2.ScheduledCaller:
+                The new scheduled caller.
+        """
+        return self.stub.RetryScheduledCaller(request=request, metadata=self.metadata)
+
+    def get_call_statistics(
+        self,
+        request: calls_pb2.GetCallStatisticsRequest,
+    ) -> calls_pb2.CallStatistics:
+        """
+        Aggregate the calls of a project that match a ``CallFilter`` (counts by status, type, AMD verdict
+        and transfer outcome; durations).
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (calls_pb2.GetCallStatisticsRequest):
+                The project and the call filter.
+
+        Returns:
+            calls_pb2.CallStatistics:
+                The aggregated statistics.
+        """
+        return self.stub.GetCallStatistics(request=request, metadata=self.metadata)

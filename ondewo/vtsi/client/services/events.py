@@ -293,3 +293,26 @@ class Events(ServicesInterface):
             metadata=self.metadata,
         )
         return response
+
+    def redeliver_webhook_events(
+        self,
+        request: events_pb2.RedeliverWebhookEventsRequest,
+    ) -> events_pb2.RedeliverWebhookEventsResponse:
+        """
+        Enqueue journalled events for redelivery to a webhook, by event id or by time window.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (events_pb2.RedeliverWebhookEventsRequest):
+                The webhook and the events (ids, or a time window plus a filter) to redeliver.
+
+        Returns:
+            events_pb2.RedeliverWebhookEventsResponse:
+                How many events were enqueued, not found in the journal or not enqueued.
+        """
+        response: events_pb2.RedeliverWebhookEventsResponse = self.stub.RedeliverWebhookEvents(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response

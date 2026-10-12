@@ -53,6 +53,10 @@ class SoftphonesStub(object):
     not be updated, the RPC fails with <code>FAILED_PRECONDITION</code>; the stored change is applied by
     the next successful change or deployment. <code>CreateSoftphoneAccount</code> and
     <code>RotateSoftphoneCredentials</code> return their one-time secrets even then.</p>
+    <p>Authorization (only when the server enforces it, see the <code>Projects</code> service): a caller
+    without a credential is <code>UNAUTHENTICATED</code>; every RPC of this service requires
+    <code>PROJECT_DEVELOPER</code> or higher on the account&apos;s project, otherwise
+    <code>PERMISSION_DENIED</code>, also for an unknown project.</p>
     """
 
     def __init__(self, channel):
@@ -111,6 +115,11 @@ class SoftphonesStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_softphones__pb2.GetSoftphoneProvisioningRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_softphones__pb2.SoftphoneProvisioning.FromString,
                 _registered_method=True)
+        self.GetSoftphoneRegistration = channel.unary_unary(
+                '/ondewo.vtsi.Softphones/GetSoftphoneRegistration',
+                request_serializer=ondewo_dot_vtsi_dot_softphones__pb2.GetSoftphoneRegistrationRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_softphones__pb2.SoftphoneRegistration.FromString,
+                _registered_method=True)
 
 
 class SoftphonesServicer(object):
@@ -141,6 +150,10 @@ class SoftphonesServicer(object):
     not be updated, the RPC fails with <code>FAILED_PRECONDITION</code>; the stored change is applied by
     the next successful change or deployment. <code>CreateSoftphoneAccount</code> and
     <code>RotateSoftphoneCredentials</code> return their one-time secrets even then.</p>
+    <p>Authorization (only when the server enforces it, see the <code>Projects</code> service): a caller
+    without a credential is <code>UNAUTHENTICATED</code>; every RPC of this service requires
+    <code>PROJECT_DEVELOPER</code> or higher on the account&apos;s project, otherwise
+    <code>PERMISSION_DENIED</code>, also for an unknown project.</p>
     """
 
     def CreateSoftphoneAccount(self, request, context):
@@ -162,6 +175,13 @@ class SoftphonesServicer(object):
         <p>The account is reachable on either TLS port only from the project&apos;s
         <code>softphone_permit_cidrs</code> (default: the server&apos;s list, private networks unless the
         operator changed it); see <code>AsteriskConfigsVariables.softphone_permit_cidrs</code>.</p>
+        <p>Idempotency: with <code>idempotency_key</code> a retry after a lost response does not create a
+        second account; it ROTATES the credentials of the account the first attempt created and returns
+        NEW one-time secrets (see <code>CreateSoftphoneAccountRequest.idempotency_key</code>). Without a key a
+        retry is answered <code>ALREADY_EXISTS</code> for the same <code>sip_username</code>; recover the
+        lost secrets then with <code>RotateSoftphoneCredentials</code>.</p>
+        <p>Events: <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED</code> (a replayed key:
+        <code>VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED</code>).</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -194,8 +214,19 @@ class SoftphonesServicer(object):
 
     def DeleteSoftphoneAccount(self, request, context):
         """<p>Deletes a softphone account. Its endpoint is removed from the Asterisk, its registrations are
-        dropped and every certificate it holds is revoked. Deletion is permanent.</p>
-        <p>Errors: <code>NOT_FOUND</code> if the account does not exist.</p>
+        dropped, its calls in progress are hung up and every certificate it holds is revoked. Deletion is
+        permanent.</p>
+        <p>Not idempotent: deleting an account that no longer exists (also a retry of a deletion that
+        succeeded) is <code>NOT_FOUND</code>. Allowed in every project status, also while the project is
+        being deleted.</p>
+        <p>Errors: <code>NOT_FOUND</code> if the account does not exist; <code>INVALID_ARGUMENT</code> for a
+        malformed name; <code>FAILED_PRECONDITION</code> when the deletion was STORED but the running
+        Asterisk of a deployed project could not be updated (reload failed, container unreachable, or the
+        project&apos;s Asterisk configuration stayed locked by another change for too long): the account is
+        gone from the database and its removal from the Asterisk is applied by the next successful change or
+        deployment, so a retry is <code>NOT_FOUND</code>; <code>INTERNAL</code> when the account was removed
+        but one of its calls could not be hung up. Never <code>ABORTED</code>: a deletion is not compared
+        against concurrent changes, it wins over them.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -274,7 +305,14 @@ class SoftphonesServicer(object):
         Revoking an already revoked certificate is idempotent and keeps the original revocation time and
         reason.</p>
         <p>Errors: <code>NOT_FOUND</code> if the certificate does not exist; <code>INVALID_ARGUMENT</code>
-        for a malformed name or an over-long reason.</p>
+        for a malformed name or an over-long reason; <code>FAILED_PRECONDITION</code> when the revocation
+        (and the lock) was STORED but the running Asterisk of a deployed project could not be updated
+        (reload failed, container unreachable, or the project&apos;s Asterisk configuration stayed locked by
+        another change for too long): it is applied by the next successful change or deployment, and a
+        retry is idempotent; <code>ABORTED</code> when the account was changed concurrently (e.g. a rotation
+        or an update committed between the read and the write), in which case nothing was stored and the
+        request can be retried.</p>
+        <p>Events: <code>VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED</code> (not for an idempotent repeat).</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -294,6 +332,28 @@ class SoftphonesServicer(object):
         the project is not <code>DEPLOYED</code> (the host and ports describe a running Asterisk), or if a
         <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> account has no
         <code>SOFTPHONE_CERTIFICATE_STATUS_ACTIVE</code> certificate.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSoftphoneRegistration(self, request, context):
+        """////////////////////////////////////////////////////////////////////////////
+        Softphone registration endpoints
+        ////////////////////////////////////////////////////////////////////////////
+
+        <p>Returns the CURRENT registrations (contacts) of a softphone account, read LIVE from the running
+        Asterisk of the project at the moment of the request (in the manner of <code>pjsip show
+        contacts</code>). Nothing is stored: two calls may differ, and an empty <code>contacts</code> list
+        means no device is registered right now (a disabled or locked account never has one). Answers
+        &quot;is the softphone of this account connected, from where, with which client, and is it
+        reachable?&quot;.</p>
+        <p>Errors: <code>NOT_FOUND</code> if the account does not exist; <code>INVALID_ARGUMENT</code> for a
+        malformed name or an unknown <code>field_mask</code> path; <code>FAILED_PRECONDITION</code> if the
+        project is not <code>DEPLOYED</code> (there is no running Asterisk to ask);
+        <code>UNAVAILABLE</code> if the project&apos;s Asterisk could not be queried (container not running
+        or not answering within the server&apos;s timeout); retry later.</p>
+        <p>Read only, no event. Authorization: <code>PROJECT_DEVELOPER</code> or higher on the project.</p>
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -352,6 +412,11 @@ def add_SoftphonesServicer_to_server(servicer, server):
                     request_deserializer=ondewo_dot_vtsi_dot_softphones__pb2.GetSoftphoneProvisioningRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_softphones__pb2.SoftphoneProvisioning.SerializeToString,
             ),
+            'GetSoftphoneRegistration': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSoftphoneRegistration,
+                    request_deserializer=ondewo_dot_vtsi_dot_softphones__pb2.GetSoftphoneRegistrationRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_softphones__pb2.SoftphoneRegistration.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'ondewo.vtsi.Softphones', rpc_method_handlers)
@@ -388,6 +453,10 @@ class Softphones(object):
     not be updated, the RPC fails with <code>FAILED_PRECONDITION</code>; the stored change is applied by
     the next successful change or deployment. <code>CreateSoftphoneAccount</code> and
     <code>RotateSoftphoneCredentials</code> return their one-time secrets even then.</p>
+    <p>Authorization (only when the server enforces it, see the <code>Projects</code> service): a caller
+    without a credential is <code>UNAUTHENTICATED</code>; every RPC of this service requires
+    <code>PROJECT_DEVELOPER</code> or higher on the account&apos;s project, otherwise
+    <code>PERMISSION_DENIED</code>, also for an unknown project.</p>
     """
 
     @staticmethod
@@ -650,6 +719,33 @@ class Softphones(object):
             '/ondewo.vtsi.Softphones/GetSoftphoneProvisioning',
             ondewo_dot_vtsi_dot_softphones__pb2.GetSoftphoneProvisioningRequest.SerializeToString,
             ondewo_dot_vtsi_dot_softphones__pb2.SoftphoneProvisioning.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetSoftphoneRegistration(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Softphones/GetSoftphoneRegistration',
+            ondewo_dot_vtsi_dot_softphones__pb2.GetSoftphoneRegistrationRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_softphones__pb2.SoftphoneRegistration.FromString,
             options,
             channel_credentials,
             insecure,

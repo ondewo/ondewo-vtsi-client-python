@@ -34,6 +34,54 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class _TrunkRegistrationState:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _TrunkRegistrationStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TrunkRegistrationState.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    TRUNK_REGISTRATION_STATE_UNSPECIFIED: _TrunkRegistrationState.ValueType  # 0
+    """Not known: the project is not <code>DEPLOYED</code>, or its Asterisk has not been observed yet."""
+    TRUNK_REGISTRATION_STATE_REGISTERED: _TrunkRegistrationState.ValueType  # 1
+    """The carrier accepted the trunk&apos;s registration (<code>Registered</code>)."""
+    TRUNK_REGISTRATION_STATE_UNREGISTERED: _TrunkRegistrationState.ValueType  # 2
+    """The trunk is configured to register but is not registered: the registration has not completed
+    yet, was stopped, or failed without a refusal by the carrier (<code>Unregistered</code>,
+    <code>Stopped</code>, timeouts and any other state).
+    """
+    TRUNK_REGISTRATION_STATE_REJECTED: _TrunkRegistrationState.ValueType  # 3
+    """The carrier refused the registration (<code>Rejected</code>), typically wrong
+    <code>sip_trunk_username</code> / <code>sip_trunk_password</code>. The Asterisk retries on its own.
+    """
+    TRUNK_REGISTRATION_STATE_NOT_CONFIGURED: _TrunkRegistrationState.ValueType  # 4
+    """The project&apos;s running Asterisk has no outbound trunk registration to observe (no
+    <code>trunk-registration</code> in <code>pjsip show registrations</code>), e.g. no SIP trunk is
+    configured, or <code>asterisk_configs_files</code> / a target directory define none.
+    """
+
+class TrunkRegistrationState(_TrunkRegistrationState, metaclass=_TrunkRegistrationStateEnumTypeWrapper):
+    """Registration state of a VTSI project&apos;s SIP trunk with the carrier."""
+
+TRUNK_REGISTRATION_STATE_UNSPECIFIED: TrunkRegistrationState.ValueType  # 0
+"""Not known: the project is not <code>DEPLOYED</code>, or its Asterisk has not been observed yet."""
+TRUNK_REGISTRATION_STATE_REGISTERED: TrunkRegistrationState.ValueType  # 1
+"""The carrier accepted the trunk&apos;s registration (<code>Registered</code>)."""
+TRUNK_REGISTRATION_STATE_UNREGISTERED: TrunkRegistrationState.ValueType  # 2
+"""The trunk is configured to register but is not registered: the registration has not completed
+yet, was stopped, or failed without a refusal by the carrier (<code>Unregistered</code>,
+<code>Stopped</code>, timeouts and any other state).
+"""
+TRUNK_REGISTRATION_STATE_REJECTED: TrunkRegistrationState.ValueType  # 3
+"""The carrier refused the registration (<code>Rejected</code>), typically wrong
+<code>sip_trunk_username</code> / <code>sip_trunk_password</code>. The Asterisk retries on its own.
+"""
+TRUNK_REGISTRATION_STATE_NOT_CONFIGURED: TrunkRegistrationState.ValueType  # 4
+"""The project&apos;s running Asterisk has no outbound trunk registration to observe (no
+<code>trunk-registration</code> in <code>pjsip show registrations</code>), e.g. no SIP trunk is
+configured, or <code>asterisk_configs_files</code> / a target directory define none.
+"""
+global___TrunkRegistrationState = TrunkRegistrationState
+
 class _VtsiProjectStatus:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -41,7 +89,7 @@ class _VtsiProjectStatus:
 class _VtsiProjectStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VtsiProjectStatus.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     UNSPECIFIED: _VtsiProjectStatus.ValueType  # 0
-    """No status specified"""
+    """No status specified. Never returned for a stored project."""
     UNDEPLOYED: _VtsiProjectStatus.ValueType  # 1
     """Project successfully created and undeployed"""
     UPDATING: _VtsiProjectStatus.ValueType  # 2
@@ -55,13 +103,26 @@ class _VtsiProjectStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapp
     DELETING: _VtsiProjectStatus.ValueType  # 6
     """Project is currently deleting"""
     DELETED: _VtsiProjectStatus.ValueType  # 7
-    """Project is deleted"""
+    """Project is deleted. Never returned: a deleted project no longer exists and is
+    <code>NOT_FOUND</code>. Kept for wire compatibility.
+    """
+    DEPLOY_FAILED: _VtsiProjectStatus.ValueType  # 8
+    """The last deployment failed: its half-started container was removed and
+    <code>VtsiProject.status_message</code> says why. Behaves like <code>UNDEPLOYED</code>: the project
+    can be deployed again, updated or deleted, and undeploying it makes it <code>UNDEPLOYED</code>.
+    Since 9.1.0; a 9.0.0 server reports a failed deployment as <code>UNDEPLOYED</code>, and a client
+    built against 9.0.0 sees the unknown value 8.
+    """
 
 class VtsiProjectStatus(_VtsiProjectStatus, metaclass=_VtsiProjectStatusEnumTypeWrapper):
-    """Status of a VtsiProject."""
+    """Status of a VtsiProject.
+    Released with unprefixed value names, which are package scoped in proto3 (so no other enum of
+    <code>ondewo.vtsi</code> can declare e.g. <code>UNSPECIFIED</code>); kept for wire and source
+    compatibility.
+    """
 
 UNSPECIFIED: VtsiProjectStatus.ValueType  # 0
-"""No status specified"""
+"""No status specified. Never returned for a stored project."""
 UNDEPLOYED: VtsiProjectStatus.ValueType  # 1
 """Project successfully created and undeployed"""
 UPDATING: VtsiProjectStatus.ValueType  # 2
@@ -75,7 +136,16 @@ UNDEPLOYING: VtsiProjectStatus.ValueType  # 5
 DELETING: VtsiProjectStatus.ValueType  # 6
 """Project is currently deleting"""
 DELETED: VtsiProjectStatus.ValueType  # 7
-"""Project is deleted"""
+"""Project is deleted. Never returned: a deleted project no longer exists and is
+<code>NOT_FOUND</code>. Kept for wire compatibility.
+"""
+DEPLOY_FAILED: VtsiProjectStatus.ValueType  # 8
+"""The last deployment failed: its half-started container was removed and
+<code>VtsiProject.status_message</code> says why. Behaves like <code>UNDEPLOYED</code>: the project
+can be deployed again, updated or deleted, and undeploying it makes it <code>UNDEPLOYED</code>.
+Since 9.1.0; a 9.0.0 server reports a failed deployment as <code>UNDEPLOYED</code>, and a client
+built against 9.0.0 sees the unknown value 8.
+"""
 global___VtsiProjectStatus = VtsiProjectStatus
 
 class _SipTrunkTransport:
@@ -128,7 +198,12 @@ class _VtsiProjectSortingModeEnumTypeWrapper(google.protobuf.internal.enum_type_
     """
 
 class VtsiProjectSortingMode(_VtsiProjectSortingMode, metaclass=_VtsiProjectSortingModeEnumTypeWrapper):
-    """Sorting mode"""
+    """Sorting mode.
+    Note: unlike most enums of this API the zero value is a real mode, <code>ASCENDING</code>, not an
+    <code>..._UNSPECIFIED</code> placeholder, so an unset mode means ascending. Released this way and kept
+    for wire and source compatibility (it is also reused by
+    <a href="index.html#ondewo.vtsi.SoftphoneAccountSorting">SoftphoneAccountSorting</a>).
+    """
 
 ASCENDING: VtsiProjectSortingMode.ValueType  # 0
 """The ascending sorting mode.
@@ -200,6 +275,10 @@ class VtsiProject(google.protobuf.message.Message):
     DEPLOYED_CALLERS_FIELD_NUMBER: builtins.int
     DEPLOYED_LISTENERS_FIELD_NUMBER: builtins.int
     TRANSFER_PHONE_NUMBER_ALLOWLIST_FIELD_NUMBER: builtins.int
+    STATUS_MESSAGE_FIELD_NUMBER: builtins.int
+    STATUS_CHANGED_AT_FIELD_NUMBER: builtins.int
+    TRUNK_REGISTRATION_STATE_FIELD_NUMBER: builtins.int
+    ASTERISK_VERSION_EFFECTIVE_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Required. The project name.
     Format: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -208,9 +287,21 @@ class VtsiProject(google.protobuf.message.Message):
     display_name: builtins.str
     """OPTIONAL: The display name of the project"""
     max_callers: builtins.int
-    """The maximum number of callers that this project can have."""
+    """The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+    provisioned on its Asterisk. <code>0</code> means NO caller can be started (it is not
+    &quot;unlimited&quot;); negative values are refused with <code>INVALID_ARGUMENT</code>. A
+    <code>StartCaller</code> / <code>StartCallers</code> beyond the free capacity is refused with
+    <code>RESOURCE_EXHAUSTED</code>; an idle pooled (persistent) caller does not count. Changing it on a
+    <code>DEPLOYED</code> project REDEPLOYS the project, which ends every running call (see
+    <code>UpdateVtsiProject</code>); lowering it below the number of running callers is not refused.
+    """
     max_listeners: builtins.int
-    """The maximum number of listeners that this project can have."""
+    """The maximum number of listeners that this project can have, i.e. the number of listener SIP
+    accounts provisioned on its Asterisk. Same semantics as <code>max_callers</code>:
+    <code>0</code> means no listener can be started, a <code>StartListener</code> /
+    <code>StartListeners</code> beyond the free capacity is <code>RESOURCE_EXHAUSTED</code>, and a change
+    on a <code>DEPLOYED</code> project redeploys it.
+    """
     vtsi_project_status: global___VtsiProjectStatus.ValueType
     """The status of the VTSI project."""
     created_by: builtins.str
@@ -222,11 +313,39 @@ class VtsiProject(google.protobuf.message.Message):
     active_listeners: builtins.int
     """The number of active listeners in this project."""
     asterisk_port: builtins.int
-    """The port of the asterisk server"""
+    """The port of the asterisk server. The same value as <code>asterisk_configs.asterisk_port</code>, of
+    which it is a convenience copy: <code>asterisk_configs.asterisk_port</code> is authoritative, and
+    every response carries the project&apos;s port in both. On create and update, <code>0</code> means
+    &quot;not stated&quot; (on create: assign a free port); a value set here is copied into
+    <code>asterisk_configs.asterisk_port</code>; both set and different is refused with
+    <code>INVALID_ARGUMENT</code>. Changing the port of a <code>DEPLOYED</code> project redeploys it and
+    voids every softphone client certificate (the certificate authorities belong to the port).
+    """
     deployed_callers: builtins.int
     """The number of deployed callers in this project."""
     deployed_listeners: builtins.int
     """The number of deployed listeners in this project."""
+    status_message: builtins.str
+    """Output only. Human-readable detail of the current <code>vtsi_project_status</code>: the reason of a
+    <code>DEPLOY_FAILED</code> project (the same text as the <code>description</code> of the
+    <code>VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED</code> event), or the reason the last undeploy or update
+    of the project failed. Empty when there is nothing to report; cleared by the next successful status
+    change. Secrets are redacted. Ignored on create and update.
+    """
+    trunk_registration_state: global___TrunkRegistrationState.ValueType
+    """Output only. Registration state of the project&apos;s SIP trunk with the carrier, as last observed
+    on the running Asterisk (<code>pjsip show registrations</code>), refreshed every
+    <code>ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S</code> seconds (default 30), so it may lag by that
+    much. <code>TRUNK_REGISTRATION_STATE_UNSPECIFIED</code> when the project is not
+    <code>DEPLOYED</code> or has not been observed yet. Ignored on create and update.
+    """
+    asterisk_version_effective: builtins.str
+    """Output only. The Asterisk version the project&apos;s container RUNS, i.e. the docker image tag of the
+    ONDEWO Asterisk image it was deployed from: <code>asterisk_configs.asterisk_version</code> when
+    pinned, otherwise the server default (<code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code>) at the moment
+    of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+    would start, e.g. after the server default changed. Ignored on create and update.
+    """
     @property
     def asterisk_configs(self) -> global___AsteriskConfigs:
         """Configs to start the asterisk server."""
@@ -256,6 +375,12 @@ class VtsiProject(google.protobuf.message.Message):
         Updatable with the update mask path <pre><code>transfer_phone_number_allowlist</code></pre>.
         """
 
+    @property
+    def status_changed_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Output only. When <code>vtsi_project_status</code> last changed. Unset for a project whose status
+        has not changed since an older server created it. Ignored on create and update.
+        """
+
     def __init__(
         self,
         *,
@@ -276,9 +401,13 @@ class VtsiProject(google.protobuf.message.Message):
         deployed_callers: builtins.int = ...,
         deployed_listeners: builtins.int = ...,
         transfer_phone_number_allowlist: collections.abc.Iterable[builtins.str] | None = ...,
+        status_message: builtins.str = ...,
+        status_changed_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        trunk_registration_state: global___TrunkRegistrationState.ValueType = ...,
+        asterisk_version_effective: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["asterisk_configs", b"asterisk_configs", "created_at", b"created_at", "modified_at", b"modified_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "transfer_phone_number_allowlist", b"transfer_phone_number_allowlist", "vtsi_project_status", b"vtsi_project_status"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["asterisk_configs", b"asterisk_configs", "created_at", b"created_at", "modified_at", b"modified_at", "status_changed_at", b"status_changed_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "asterisk_version_effective", b"asterisk_version_effective", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "status_changed_at", b"status_changed_at", "status_message", b"status_message", "transfer_phone_number_allowlist", b"transfer_phone_number_allowlist", "trunk_registration_state", b"trunk_registration_state", "vtsi_project_status", b"vtsi_project_status"]) -> None: ...
 
 global___VtsiProject = VtsiProject
 
@@ -302,7 +431,15 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     sip_trunk_username: builtins.str
     """SIP trunk username."""
     sip_trunk_password: builtins.str
-    """SIP trunk password."""
+    """SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+    to every caller allowed to read <code>asterisk_configs</code> (see the <code>Projects</code> service
+    description for who that is). Server logs and <code>status_message</code> redact it.
+    On <code>UpdateVtsiProject</code> WITHOUT an <code>update_mask</code> an empty value KEEPS the stored
+    password (an empty string cannot be told from &quot;not sent&quot;); WITH an
+    <code>update_mask</code> naming this field, or a parent of it such as
+    <code>asterisk_configs</code> or <code>asterisk_configs.asterisk_configs_variables</code>, an empty
+    value CLEARS it.
+    """
     sip_trunk_host: builtins.str
     """SIP trunk host."""
     transfer_number: builtins.str
@@ -446,7 +583,9 @@ class AsteriskConfigs(google.protobuf.message.Message):
     asterisk_configs_target_directory_name: builtins.str
     """Configs will be mapped in from a preconfigured asterisk target directory."""
     asterisk_port: builtins.int
-    """OPTIONAL: The port where Asterisk should start."""
+    """OPTIONAL: The port where Asterisk should start. Authoritative copy of
+    <code>VtsiProject.asterisk_port</code> (see there). <code>0</code> on create assigns a free port.
+    """
     asterisk_version: builtins.str
     """OPTIONAL: The Asterisk version to start, given as the docker image tag of the ONDEWO
     Asterisk image, e.g. <pre><code>alpine-3.18-18.20.2</code></pre>.
@@ -454,6 +593,7 @@ class AsteriskConfigs(google.protobuf.message.Message):
     <pre><code>[A-Za-z0-9_][A-Za-z0-9._-]{0,127}</code></pre>.
     Explicitly optional: when the field is not set, the server keeps using its configured
     default (the <pre><code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code></pre> environment variable).
+    The version a deployed project actually runs is <code>VtsiProject.asterisk_version_effective</code>.
     Sending an empty string is NOT the same as leaving it unset and is rejected.
     """
     @property
@@ -490,8 +630,20 @@ class CreateVtsiProjectRequest(google.protobuf.message.Message):
 
     VTSI_PROJECT_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
     error_message: builtins.str
-    """error message if there are any."""
+    """Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+    compatibility.
+    """
+    validate_only: builtins.bool
+    """Optional. Validate only: run every check of a real create (validation, authorization) and return
+    the would-be project in <code>CreateVtsiProjectResponse.vtsi_project</code>, but write, reserve and
+    emit nothing. The fields the server assigns at creation are left empty in that answer because
+    nothing is reserved: <code>name</code> when the request gave none, the ports when the request gave
+    <code>0</code>, <code>vtsi_project_status</code> and the audit fields. A successful validation does
+    not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+    <code>false</code>.
+    """
     @property
     def vtsi_project(self) -> global___VtsiProject:
         """VTSI project
@@ -505,9 +657,10 @@ class CreateVtsiProjectRequest(google.protobuf.message.Message):
         *,
         vtsi_project: global___VtsiProject | None = ...,
         error_message: builtins.str = ...,
+        validate_only: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "vtsi_project", b"vtsi_project"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "validate_only", b"validate_only", "vtsi_project", b"vtsi_project"]) -> None: ...
 
 global___CreateVtsiProjectRequest = CreateVtsiProjectRequest
 
@@ -520,10 +673,14 @@ class CreateVtsiProjectResponse(google.protobuf.message.Message):
     VTSI_PROJECT_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
     error_message: builtins.str
-    """error message if there are any."""
+    """Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+    description). Kept for wire compatibility.
+    """
     @property
     def vtsi_project(self) -> global___VtsiProject:
-        """Vtsi project"""
+        """The created project, <code>UNDEPLOYED</code>, with its assigned name and port (with
+        <code>validate_only</code>: the would-be project).
+        """
 
     def __init__(
         self,
@@ -544,23 +701,39 @@ class GetVtsiProjectRequest(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     VTSI_PROJECT_VIEW_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
     name: builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     vtsi_project_view: global___VtsiProjectView.ValueType
     """Optional. Specify the view of the returned VtsiProject (full view by default)"""
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>VtsiProject</code> field paths to populate, e.g.
+        <code>display_name</code>, <code>vtsi_project_status</code>, <code>status_message</code>,
+        <code>asterisk_configs.asterisk_version</code>. Same convention as
+        <a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest">ListVtsiProjectsRequest.field_mask</a>:
+        <code>name</code> is always populated, unset or empty returns every field the
+        <code>vtsi_project_view</code> populates, an unknown path is rejected with
+        <code>INVALID_ARGUMENT</code> naming it, and the mask is applied after the view and any redaction.
+        """
+
     def __init__(
         self,
         *,
         name: builtins.str = ...,
         vtsi_project_view: global___VtsiProjectView.ValueType = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
 
 global___GetVtsiProjectRequest = GetVtsiProjectRequest
 
 @typing.final
 class ListVtsiProjectsRequest(google.protobuf.message.Message):
-    """Request to get the list of agents"""
+    """Request to list VTSI projects. The filters are combined with AND; the values within one repeated
+    field are combined with OR; an unset field or an empty repeated field does not filter.
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -568,22 +741,71 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
     PAGE_TOKEN_FIELD_NUMBER: builtins.int
     VTSI_PROJECT_SORTING_FIELD_NUMBER: builtins.int
     NLU_AGENT_NAMES_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    STATUSES_FIELD_NUMBER: builtins.int
+    DISPLAY_NAME_CONTAINS_FIELD_NUMBER: builtins.int
+    CREATED_AFTER_FIELD_NUMBER: builtins.int
+    CREATED_BEFORE_FIELD_NUMBER: builtins.int
     vtsi_project_view: global___VtsiProjectView.ValueType
     """Optional. Specify the view of the returned VtsiProject (full view by default)"""
     page_token: builtins.str
-    """Optional. The next_page_token value returned from a previous list request.
-    Example: "current_index-1--page_size-20"
+    """Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+    it (its format is internal and may change). Keep every other request field (filters, sorting,
+    <code>page_size</code>) unchanged while paging: a token sent with other filters or sorting is not
+    guaranteed to be rejected and then returns that position of the other listing.
+    """
+    page_size: builtins.int
+    """Optional. Maximum number of projects per page. <code>0</code> means the server default of 25;
+    values above 1000 are clamped to 1000; negative values are rejected with
+    <code>INVALID_ARGUMENT</code>. Fewer projects than <code>page_size</code> may be returned (e.g. after
+    the authorization filter), and only an empty <code>next_page_token</code> means the end of the list.
+    """
+    display_name_contains: builtins.str
+    """Optional. Case-insensitive substring match against <code>display_name</code>. Empty does not
+    filter. At most 256 characters.
     """
     @property
     def vtsi_project_sorting(self) -> global___VtsiProjectSorting:
         """Optional. Field to define the sorting of the list of VTSI projects in the response.
-        If not specified, the default behavior is to have no sorting.
+        Unset or <code>NO_VTSI_PROJECT_SORTING</code>: by <code>display_name</code>, ascending (ties by the
+        project&apos;s internal id), which is a stable order.
         """
 
     @property
     def nlu_agent_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Optional. Filter based on associated NLU agents.
+        """Optional. Only projects associated with at least one of these NLU agents.
         Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
+        """
+
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the field paths to populate in every returned <code>VtsiProject</code>,
+        relative to the <code>VtsiProject</code> message (no <code>vtsi_projects.</code> prefix), e.g.
+        <code>display_name</code>, <code>vtsi_project_status</code>,
+        <code>asterisk_configs.asterisk_configs_variables</code>. Nested paths through singular message
+        fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+        populated. Unset or empty returns every field the <code>vtsi_project_view</code> populates. An
+        unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the
+        <code>vtsi_project_view</code> and the server&apos;s role-based redaction, so it can only narrow the
+        response and never populates a field that was left empty. Not part of the paging contract: a
+        <code>page_token</code> stays valid with another mask.
+        """
+
+    @property
+    def statuses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiProjectStatus.ValueType]:
+        """Optional. Only projects in one of these statuses. <code>UNSPECIFIED</code> is rejected with
+        <code>INVALID_ARGUMENT</code>.
+        """
+
+    @property
+    def created_after(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Optional. Only projects created at or after this instant."""
+
+    @property
+    def created_before(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Optional. Only projects created strictly before this instant. A window whose start
+        (<code>created_after</code>) is not before its end is rejected with <code>INVALID_ARGUMENT</code>.
         """
 
     def __init__(
@@ -593,9 +815,15 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
         page_token: builtins.str | None = ...,
         vtsi_project_sorting: global___VtsiProjectSorting | None = ...,
         nlu_agent_names: collections.abc.Iterable[builtins.str] | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        page_size: builtins.int = ...,
+        statuses: collections.abc.Iterable[global___VtsiProjectStatus.ValueType] | None = ...,
+        display_name_contains: builtins.str = ...,
+        created_after: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        created_before: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "nlu_agent_names", b"nlu_agent_names", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "created_after", b"created_after", "created_before", b"created_before", "field_mask", b"field_mask", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "created_after", b"created_after", "created_before", b"created_before", "display_name_contains", b"display_name_contains", "field_mask", b"field_mask", "nlu_agent_names", b"nlu_agent_names", "page_size", b"page_size", "page_token", b"page_token", "statuses", b"statuses", "vtsi_project_sorting", b"vtsi_project_sorting", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
     @typing.overload
@@ -612,15 +840,12 @@ class ListVtsiProjectsResponse(google.protobuf.message.Message):
     VTSI_PROJECTS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
     next_page_token: builtins.str
-    """Token to retrieve the next page of results.
-    This field is a string that holds a token for fetching the next page of results.
-    If there are no more results in the list, this field will be empty.
+    """Token to retrieve the next page of results. Opaque (see
+    <code>ListVtsiProjectsRequest.page_token</code>). Empty when there are no more results.
     """
     @property
     def vtsi_projects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiProject]:
-        """The list of VTSI projects returned in the response.
-        Use the &apos;repeated&apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
-        """
+        """The VTSI projects of this page."""
 
     def __init__(
         self,
@@ -634,7 +859,7 @@ global___ListVtsiProjectsResponse = ListVtsiProjectsResponse
 
 @typing.final
 class VtsiProjectSorting(google.protobuf.message.Message):
-    """This protobuf message defines the sorting order for VTSI (Virtual Test System Infrastructure) projects."""
+    """This protobuf message defines the sorting order for VTSI (Virtual Telephone System Integration) projects."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -645,7 +870,7 @@ class VtsiProjectSorting(google.protobuf.message.Message):
     class _VtsiProjectSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[VtsiProjectSorting._VtsiProjectSortingField.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NO_VTSI_PROJECT_SORTING: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 0
-        """No sorting"""
+        """The default order: by <code>display_name</code>, ascending."""
         SORT_VTSI_PROJECT_BY_NAME: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 1
         """Sort by project name such as <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>."""
         SORT_VTSI_PROJECT_BY_DISPLAY_NAME: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 2
@@ -661,7 +886,7 @@ class VtsiProjectSorting(google.protobuf.message.Message):
         """
 
     NO_VTSI_PROJECT_SORTING: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 0
-    """No sorting"""
+    """The default order: by <code>display_name</code>, ascending."""
     SORT_VTSI_PROJECT_BY_NAME: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 1
     """Sort by project name such as <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>."""
     SORT_VTSI_PROJECT_BY_DISPLAY_NAME: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 2
@@ -694,15 +919,28 @@ global___VtsiProjectSorting = VtsiProjectSorting
 
 @typing.final
 class UpdateVtsiProjectRequest(google.protobuf.message.Message):
-    """Request to updated VTSI project"""
+    """Request to update a VTSI project"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VTSI_PROJECT_FIELD_NUMBER: builtins.int
     UPDATE_MASK_FIELD_NUMBER: builtins.int
+    FIELD_MASK_FIELD_NUMBER: builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
+    validate_only: builtins.bool
+    """Optional. Validate only: merge the update over the stored project and run every check of a real
+    update (validation, authorization, the configuration render), and return the would-be project in
+    <code>UpdateVtsiProjectResponse.vtsi_project</code>, but write nothing, touch no Asterisk, end no
+    call and emit nothing. A successful validation does not guarantee that a later update succeeds
+    (the project may change meanwhile). Default <code>false</code>.
+    """
     @property
     def vtsi_project(self) -> global___VtsiProject:
-        """Project Configs."""
+        """The project to update, identified by <code>vtsi_project.name</code>
+        (<pre><code>projects/&lt;project_uuid&gt;/project</code></pre>), carrying the new values. The
+        output-only fields (<code>vtsi_project_status</code>, the audit, counter and status fields) are
+        ignored.
+        """
 
     @property
     def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
@@ -737,43 +975,69 @@ class UpdateVtsiProjectRequest(google.protobuf.message.Message):
         </ul>
         """
 
+    @property
+    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+        """Optional. Partial response: the <code>VtsiProject</code> field paths to populate in
+        <code>UpdateVtsiProjectResponse.vtsi_project</code>, relative to the <code>VtsiProject</code> (no
+        <code>vtsi_project.</code> prefix). Same convention as
+        <a href="index.html#ondewo.vtsi.GetVtsiProjectRequest">GetVtsiProjectRequest.field_mask</a>; the
+        <code>name</code> of the response is always populated. Unset or empty returns every field. An
+        unknown path is rejected with <code>INVALID_ARGUMENT</code> before anything is written. A mask never
+        changes what is updated (that is <code>update_mask</code>).
+        """
+
     def __init__(
         self,
         *,
         vtsi_project: global___VtsiProject | None = ...,
         update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        validate_only: builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["update_mask", b"update_mask", "vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["update_mask", b"update_mask", "vtsi_project", b"vtsi_project"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "validate_only", b"validate_only", "vtsi_project", b"vtsi_project"]) -> None: ...
 
 global___UpdateVtsiProjectRequest = UpdateVtsiProjectRequest
 
 @typing.final
 class UpdateVtsiProjectResponse(google.protobuf.message.Message):
-    """Request to updated VTSI project"""
+    """Response to the update of a VTSI project"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: builtins.int
+    VTSI_PROJECT_FIELD_NUMBER: builtins.int
     name: builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     error_message: builtins.str
-    """error message if there are any."""
+    """Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+    description). Kept for wire compatibility.
+    """
+    @property
+    def vtsi_project(self) -> global___VtsiProject:
+        """The project after the update (with <code>validate_only</code>: the would-be project), in the full
+        view, redacted like <code>GetVtsiProject</code> and narrowed by
+        <code>UpdateVtsiProjectRequest.field_mask</code>. Left unset by a 9.0.0 server.
+        """
+
     def __init__(
         self,
         *,
         name: builtins.str = ...,
         error_message: builtins.str = ...,
+        vtsi_project: global___VtsiProject | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name", "vtsi_project", b"vtsi_project"]) -> None: ...
 
 global___UpdateVtsiProjectResponse = UpdateVtsiProjectResponse
 
 @typing.final
 class DeleteVtsiProjectRequest(google.protobuf.message.Message):
     """Request to delete a VTSI project
-    If a deployed VTSI project was deleted then it was undeployed beforehand automatically
+    A deployed VTSI project is undeployed automatically before it is deleted (see
+    <a href="index.html#ondewo.vtsi.Projects.DeleteVtsiProject">DeleteVtsiProject</a>).
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -792,9 +1056,7 @@ global___DeleteVtsiProjectRequest = DeleteVtsiProjectRequest
 
 @typing.final
 class DeleteVtsiProjectResponse(google.protobuf.message.Message):
-    """Response to delete a VTSI project
-    If a deployed VTSI project was deleted then it was undeployed beforehand automatically
-    """
+    """Response to delete a VTSI project"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -803,7 +1065,7 @@ class DeleteVtsiProjectResponse(google.protobuf.message.Message):
     name: builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     error_message: builtins.str
-    """error message if there are any."""
+    """Never set: errors are reported as gRPC status codes. Kept for wire compatibility."""
     def __init__(
         self,
         *,
@@ -843,7 +1105,7 @@ class DeployVtsiProjectResponse(google.protobuf.message.Message):
     name: builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     error_message: builtins.str
-    """error message if there are any."""
+    """Never set: errors are reported as gRPC status codes. Kept for wire compatibility."""
     def __init__(
         self,
         *,
@@ -862,7 +1124,7 @@ class UndeployVtsiProjectRequest(google.protobuf.message.Message):
 
     NAME_FIELD_NUMBER: builtins.int
     name: builtins.str
-    """Project name of the VTSI project."""
+    """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     def __init__(
         self,
         *,
@@ -883,7 +1145,7 @@ class UndeployVtsiProjectResponse(google.protobuf.message.Message):
     name: builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     error_message: builtins.str
-    """error message if there are any."""
+    """Never set: errors are reported as gRPC status codes. Kept for wire compatibility."""
     def __init__(
         self,
         *,

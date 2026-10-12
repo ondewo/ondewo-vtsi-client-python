@@ -16,7 +16,7 @@ export
 
 # MUST BE THE SAME AS API in Mayor and Minor Version Number
 # example: API 2.9.0 --> Client 2.9.X
-ONDEWO_VTSI_VERSION=9.0.0
+ONDEWO_VTSI_VERSION=9.1.0
 PYPI_USERNAME?=ENTER_HERE_YOUR_PYPI_USERNAME
 PYPI_PASSWORD?=ENTER_HERE_YOUR_PYPI_PASSWORD
 
@@ -60,8 +60,8 @@ CURRENT_RELEASE_NOTES=`cat RELEASE.md \
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"
 DEVOPS_ACCOUNT_DIR="./${DEVOPS_ACCOUNT_GIT}"
-ONDEWO_VTSI_API_GIT_BRANCH=tags/9.0.0
-ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.15.3
+ONDEWO_VTSI_API_GIT_BRANCH=tags/9.1.0
+ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.15.7
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 ONDEWO_VTSI_API_DIR=ondewo-vtsi-api
 GOOGLE_PROTOS_DIR=${ONDEWO_VTSI_API_DIR}/google
@@ -85,8 +85,26 @@ install_precommit_hooks: ## Installs pre-commit hooks and sets them up for the o
 	pre-commit install
 	pre-commit install --hook-type commit-msg
 
-precommit_hooks_run_all_files: ## Runs all pre-commit hooks on all files and not just the changed ones
-	pre-commit run --all-file
+# The release runs in a FRESH clone (ondewo-vtsi-api's `release_client`), which has no .venv. The mypy hook is
+# `uv run --no-sync mypy`, so without this target uv created an EMPTY .venv on whatever interpreter it found
+# (CPython 3.14 on the release host) and the hook died with `Failed to spawn: mypy`. Same sync as the CI workflow.
+install_dev_environment: ## Creates/updates the project .venv from uv.lock (runtime + dev extra, Python 3.12)
+	uv sync --extra dev --frozen --python 3.12
+
+precommit_hooks_run_all_files: install_dev_environment ## Runs all pre-commit hooks on all files and not just the changed ones
+	uv run --no-sync pre-commit run --all-files
+
+# Exactly the CI workflow's checks. `release` runs this BEFORE it commits, branches, tags or publishes anything.
+test: install_dev_environment ## Runs ruff, mypy and the unit suite with the coverage gate, as the CI workflow does
+	uv run --no-sync ruff check .
+	uv run --no-sync mypy ondewo
+	uv run --no-sync pytest tests/unit -q \
+		--cov=ondewo.vtsi.client.utils.keycloak \
+		--cov=ondewo.vtsi.client.client_config \
+		--cov=ondewo.vtsi.client.services_interface \
+		--cov=ondewo.vtsi.client.async_services_interface \
+		--cov-report=term-missing \
+		--cov-fail-under=100
 
 install_dependencies_locally: ## Install dependencies locally
 	pip install -r requirements-dev.txt
@@ -251,9 +269,10 @@ create_async_services: ## Create async services for all synchronous services
 release: ## Automate the entire release process
 	@echo "Start Release"
 	make build
-	/bin/bash -c 'source `conda info --base`/bin/activate ondewo-vtsi-client-python; make precommit_hooks_run_all_files || echo "PRECOMMIT FOUND SOMETHING"'
+	make precommit_hooks_run_all_files
 	git status
 	make check_build
+	make test
 	git add ondewo
 	git add Makefile
 	git add RELEASE.md
@@ -385,10 +404,8 @@ run_release_with_devops:
 spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 	$(eval filtered_branches:= $(shell git branch --all | grep "release/${ONDEWO_VTSI_VERSION}"))
 	$(eval filtered_tags:= $(shell git tag --list | grep "${ONDEWO_VTSI_VERSION}"))
-	$(eval setuppy_version:= $(shell cat setup.py | grep "version"))
 	@if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
 	@if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
-	#	@if test "$(setuppy_version)" != "version='${ONDEWO_VTSI_VERSION}',"; then echo "-- Test 3: Setup.py not updated!!" & exit 1; else echo "-- Test 3: Setup.py is fine";fi
 
 ########################################################
 #		DEVELOPMENT-AUTOMATION

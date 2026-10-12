@@ -293,3 +293,97 @@ class Campaigns(ServicesInterface):
             metadata=self.metadata,
         )
         return response
+
+    def get_campaign_call(
+        self,
+        request: campaigns_pb2.GetCampaignCallRequest,
+    ) -> campaigns_pb2.CampaignCall:
+        """
+        Get a single call of a campaign by its resource name.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (campaigns_pb2.GetCampaignCallRequest):
+                The campaign call name, ``include_attempts`` and an optional ``field_mask``.
+
+        Returns:
+            campaigns_pb2.CampaignCall:
+                The campaign call.
+        """
+        response: campaigns_pb2.CampaignCall = self.stub.GetCampaignCall(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def cancel_campaign_calls(
+        self,
+        request: campaigns_pb2.CancelCampaignCallsRequest,
+    ) -> campaigns_pb2.CancelCampaignCallsResponse:
+        """
+        Cancel calls of a campaign that have not started a running attempt, selected by name and/or state.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (campaigns_pb2.CancelCampaignCallsRequest):
+                The campaign selector and the calls or states to cancel.
+
+        Returns:
+            campaigns_pb2.CancelCampaignCallsResponse:
+                The cancelled and the refused calls.
+        """
+        response: campaigns_pb2.CancelCampaignCallsResponse = self.stub.CancelCampaignCalls(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def retry_campaign_calls(
+        self,
+        request: campaigns_pb2.RetryCampaignCallsRequest,
+    ) -> campaigns_pb2.RetryCampaignCallsResponse:
+        """
+        Put FAILED or CANCELLED calls of a campaign back into the queue with a fresh attempt budget.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (campaigns_pb2.RetryCampaignCallsRequest):
+                The campaign selector, the calls or states, ``additional_attempts`` and
+                ``not_before``.
+
+        Returns:
+            campaigns_pb2.RetryCampaignCallsResponse:
+                The requeued and the refused calls.
+        """
+        response: campaigns_pb2.RetryCampaignCallsResponse = self.stub.RetryCampaignCalls(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response
+
+    def clone_campaign(
+        self,
+        request: campaigns_pb2.CloneCampaignRequest,
+    ) -> campaigns_pb2.Campaign:
+        """
+        Create a new campaign in the same project as a server-side copy of an existing one; credentials are
+        copied, never exposed.
+
+        A VTSI server that predates this RPC answers UNIMPLEMENTED.
+
+        Args:
+            request (campaigns_pb2.CloneCampaignRequest):
+                The source campaign, the new display name and which calls to copy.
+
+        Returns:
+            campaigns_pb2.Campaign:
+                The new campaign.
+        """
+        response: campaigns_pb2.Campaign = self.stub.CloneCampaign(
+            request=request,
+            metadata=self.metadata,
+        )
+        return response

@@ -101,6 +101,12 @@ RPCS: List[Tuple[str, str, str, str]] = [
         "GetSoftphoneProvisioningRequest",
         "SoftphoneProvisioning",
     ),
+    (
+        "get_softphone_registration",
+        "GetSoftphoneRegistration",
+        "GetSoftphoneRegistrationRequest",
+        "SoftphoneRegistration",
+    ),
 ]
 
 UPDATABLE_PATHS: List[str] = [
@@ -328,7 +334,7 @@ class TestTheSoftphoneSourceAllowList:
         field: Any = projects_pb2.AsteriskConfigsVariables.DESCRIPTOR.fields_by_name["softphone_permit_cidrs"]
         assert field.number == 11
         assert field.type == field.TYPE_STRING
-        assert field.label == field.LABEL_REPEATED
+        assert field.is_repeated
         variables: projects_pb2.AsteriskConfigsVariables = projects_pb2.AsteriskConfigsVariables(
             softphone_permit_cidrs=["203.0.113.0/24", "2001:db8::/32"],
         )

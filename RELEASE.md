@@ -2,6 +2,87 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 9.1.0
+
+### Breaking changes
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Regenerated against ondewo-vtsi-api 9.1.0, which **removes the message
+  `CampaignDisplayName`**: `campaigns_pb2.CampaignDisplayName` no longer exists. A campaign display name is now a
+  plain `string display_name` member of each campaign selector oneof, and the project it is resolved in is a
+  separate top-level `string vtsi_project_name` (REQUIRED with `display_name`). This affects
+  `GetCampaignRequest`, `DeleteCampaignRequest`, `GetCampaignStatisticsRequest`, `StartCampaignRequest`,
+  `StopCampaignRequest`, `HardStopCampaignRequest`, `ResumeCampaignRequest`, `ListCampaignCallsRequest` and
+  `CampaignAssignment` (whose project is the enclosing `AddCallersToCampaignRequest` /
+  `AddScheduledCallersToCampaignRequest.vtsi_project_name`). Every old field number is `reserved`, so the change
+  is wire-safe and source-breaking only: replace
+  `display_name=CampaignDisplayName(vtsi_project_name=p, display_name=d)` with
+  `display_name=d, vtsi_project_name=p`, and `CampaignAssignment.campaign_display_name` with
+  `CampaignAssignment.display_name`.
+
+### New features
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) `Campaign` gained `campaign_common_services_config` (18, `CommonServicesConfig`) and
+  `campaign_sip_caller_config` (19, `SipCallerConfig`): defaults of every call of the campaign, settable on
+  `CreateCampaign` and `CampaignAssignment.new_campaign` and updatable through `UpdateCampaign`'s `update_mask`.
+  The server merges each call's own `StartCallerRequest` config over them when the call is dispatched.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) A `google.protobuf.FieldMask field_mask` (partial response) on `CreateCampaignRequest`,
+  `GetCampaignRequest`, `UpdateCampaignRequest`, `DeleteCampaignRequest`, `ListCampaignsRequest`,
+  `ListCampaignCallsRequest` and every other listing: `ListCallersRequest`, `ListListenersRequest`,
+  `ListScheduledCallersRequest`, `ListCallsRequest`, `ListCallLogsRequest`, `ListCallLogStreamsRequest`,
+  `ListVtsiEventSubscriptionsRequest`, `ListWebhooksRequest` and `ListVtsiProjectsRequest`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) A `field_mask` (partial response) on every CRUD
+  request of callers, listeners and calls: `StartCallerRequest` (4), `StartCallersRequest` (5),
+  `StartListenerRequest` (4), `StartListenersRequest` (4), `GetCallerRequest` (4), `GetListenerRequest` (4),
+  `GetCallRequest` (4), `StopCallerRequest` (2), `StopCallersRequest` (2), `StopListenerRequest` (2),
+  `StopListenersRequest` (2), `DeleteCallerRequest` (2), `DeleteCallersRequest` (2), `DeleteListenerRequest` (2),
+  `DeleteListenersRequest` (2), `StopCallRequest` (3), `StopCallsRequest` (3) and `StopAllCallsRequest` (2). Where a
+  response wraps the resource, the paths are relative to the wrapped resource (`call_name`, not
+  `caller.call_name`). An entry of a batch request must leave its own `field_mask` unset.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) New RPCs `UpdateCaller`, `UpdateCallers`,
+  `UpdateListener`, `UpdateListeners`, `UpdateCall` and `UpdateCalls`, wrapped as `Calls.update_caller`,
+  `update_callers`, `update_listener`, `update_listeners`, `update_call` and `update_calls` in both the sync and the
+  async client. Each single request carries the resource, a required `update_mask` and a `field_mask`; a batch
+  takes repeated single requests plus `vtsi_project_name`, is not atomic and answers one `Update*Response` per entry
+  in request order. A caller / listener update changes only its STORED configuration (`sip_caller_config` /
+  `sip_base_config` and `common_services_config`): a running container and its calls are never changed, and the
+  update takes effect only when the server recreates the resource from it. A call's only updatable path is the new
+  `Call.labels` (26, `map<string, string>`), which changes the stored call record and never the live call. The
+  server refuses `UpdateCall` for the waiting call of a persistent listener or pooled caller
+  (`FAILED_PRECONDITION`, `reason=call-not-started`), answers `UpdateListener` with `NOT_FOUND` for a stopped
+  listener, and refuses a caller / listener update that moves an upstream endpoint without restating that
+  upstream's stored credentials (`INVALID_ARGUMENT` naming the paths to add).
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) The callers and calls of a campaign. `Campaign`
+  gained the output-only `campaign_callers` (20, `repeated string`, the resource names of the callers that placed an
+  attempt of one of the campaign's calls, oldest first attempt first, at most 1000) and
+  `campaign_callers_truncated` (21, `bool`). `ListCampaigns` fills them only when its `field_mask` names them. The
+  complete, paginated listing is the new `oneof campaign { campaign_name = 5; campaign_display_name = 6; }` of
+  `ListCallersRequest` and `oneof campaign { campaign_name = 16; campaign_display_name = 17; }` of `CallFilter`
+  (`ListCalls`); a display name is resolved within the request's `vtsi_project_name`.
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Eleven new RPCs, wrapped in both the sync and the
+  async client: `Calls.update_scheduled_caller`, `cancel_scheduled_callers`, `retry_scheduled_caller` and
+  `get_call_statistics`; `Campaigns.get_campaign_call`, `cancel_campaign_calls`, `retry_campaign_calls` and
+  `clone_campaign`; `Events.redeliver_webhook_events`; `Logs.export_call_logs` (a server stream: the async wrapper
+  returns the iterator and does not await it); and `Softphones.get_softphone_registration`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Dry runs (`validate_only`) on the caller and
+  listener start and update requests, `CreateVtsiProject`, `UpdateVtsiProject` and `DeleteCallLogs`; an
+  `idempotency_key` on the batch starts, the campaign enrollments, `CreateCampaign`, `CloneCampaign` and
+  `CreateSoftphoneAccount`; and a `request_id` on `TransferCall` and `InviteToCall`. The full list of behaviour
+  changes is in the [ondewo-vtsi-api 9.1.0 release notes](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.1.0).
+
+### Compatibility
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) `CommonServicesConfig`, `SipCallerConfig` and the messages they are built from moved to the new
+  module `ondewo/vtsi/call_configs_pb2.py`. The package stays `ondewo.vtsi`, so fully-qualified names and the
+  wire are unchanged, and `calls.proto` re-exports them with `import public`: `calls_pb2.CommonServicesConfig`
+  is the very same class as `call_configs_pb2.CommonServicesConfig`, so existing imports keep working.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) A 9.0.0 server answers the `Update*` RPCs with
+  `UNIMPLEMENTED`, never returns `campaign_callers` or `Call.labels`, and IGNORES a campaign selector on
+  `ListCallers` / `ListCalls`, i.e. lists every caller / call of the project. A client that must not act on that
+  superset checks that the server is 9.1.0 or newer first.
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 9.0.0
 
 ### Breaking changes
