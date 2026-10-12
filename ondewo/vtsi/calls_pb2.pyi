@@ -1141,9 +1141,9 @@ class ListCallersRequest(google.protobuf.message.Message):
     <code>vtsi_project_name</code>.
     """
     page_size: builtins.int
-    """Optional. Maximum number of callers per page. <code>0</code> means the server default of 25; values above
-    1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between
-    the pages of one listing.
+    """Optional. Maximum number of callers per page. <code>0</code> keeps the page size the <code>page_token</code>
+    was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+    negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
     """
     active_only: builtins.bool
     """Optional. Only callers whose current call is active (<code>Caller.active</code>), as
@@ -2893,9 +2893,10 @@ class ListScheduledCallersRequest(google.protobuf.message.Message):
     <code>SHALLOW</code>.
     """
     page_size: builtins.int
-    """Optional. Maximum number of scheduled callers per page. <code>0</code> means the server default of 25;
-    values above 1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>.
-    May differ between the pages of one listing.
+    """Optional. Maximum number of scheduled callers per page. <code>0</code> keeps the page size the
+    <code>page_token</code> was issued with, and means the server default of 25 on a first page; values above
+    1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between
+    the pages of one listing.
     """
     campaign_name: builtins.str
     """Optional. Only the scheduled callers of this campaign (<code>ScheduledCaller.campaign_name</code>). Empty
@@ -4956,9 +4957,9 @@ class ListCallsRequest(google.protobuf.message.Message):
     <code>page_size</code>, <code>call_view</code> and <code>field_mask</code> may change between pages.
     """
     page_size: builtins.int
-    """Optional. Maximum number of calls per page. <code>0</code> means the server default of 25; values above
-    1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between
-    the pages of one listing.
+    """Optional. Maximum number of calls per page. <code>0</code> keeps the page size the <code>page_token</code>
+    was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+    negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
     """
     @property
     def call_filter(self) -> global___CallFilter:

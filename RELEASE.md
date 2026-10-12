@@ -59,6 +59,17 @@
   `ListCallersRequest` and `oneof campaign { campaign_name = 16; campaign_display_name = 17; }` of `CallFilter`
   (`ListCalls`); a display name is resolved within the request's `vtsi_project_name`.
 
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Eleven new RPCs, wrapped in both the sync and the
+  async client: `Calls.update_scheduled_caller`, `cancel_scheduled_callers`, `retry_scheduled_caller` and
+  `get_call_statistics`; `Campaigns.get_campaign_call`, `cancel_campaign_calls`, `retry_campaign_calls` and
+  `clone_campaign`; `Events.redeliver_webhook_events`; `Logs.export_call_logs` (a server stream: the async wrapper
+  returns the iterator and does not await it); and `Softphones.get_softphone_registration`.
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Dry runs (`validate_only`) on the caller and
+  listener start and update requests, `CreateVtsiProject`, `UpdateVtsiProject` and `DeleteCallLogs`; an
+  `idempotency_key` on the batch starts, the campaign enrollments, `CreateCampaign`, `CloneCampaign` and
+  `CreateSoftphoneAccount`; and a `request_id` on `TransferCall` and `InviteToCall`. The full list of behaviour
+  changes is in the [ondewo-vtsi-api 9.1.0 release notes](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.1.0).
+
 ### Compatibility
 
 * [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) `CommonServicesConfig`, `SipCallerConfig` and the messages they are built from moved to the new

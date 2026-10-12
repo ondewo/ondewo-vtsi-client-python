@@ -86,6 +86,16 @@ CAMPAIGN_RPCS: List[Rpc] = [
         "StreamCampaignStatusResponse",
         True,
     ),
+    ("get_campaign_call", "GetCampaignCall", "GetCampaignCallRequest", "CampaignCall", False),
+    (
+        "cancel_campaign_calls",
+        "CancelCampaignCalls",
+        "CancelCampaignCallsRequest",
+        "CancelCampaignCallsResponse",
+        False,
+    ),
+    ("retry_campaign_calls", "RetryCampaignCalls", "RetryCampaignCallsRequest", "RetryCampaignCallsResponse", False),
+    ("clone_campaign", "CloneCampaign", "CloneCampaignRequest", "Campaign", False),
 ]
 
 EVENT_RPCS: List[Rpc] = [
@@ -131,6 +141,13 @@ EVENT_RPCS: List[Rpc] = [
     ("list_webhooks", "ListWebhooks", "ListWebhooksRequest", "ListWebhooksResponse", False),
     ("test_webhook", "TestWebhook", "TestWebhookRequest", "TestWebhookResponse", False),
     ("subscribe_vtsi_events", "SubscribeVtsiEvents", "SubscribeVtsiEventsRequest", "SubscribeVtsiEventsResponse", True),
+    (
+        "redeliver_webhook_events",
+        "RedeliverWebhookEvents",
+        "RedeliverWebhookEventsRequest",
+        "RedeliverWebhookEventsResponse",
+        False,
+    ),
 ]
 
 CALL_STREAM_RPCS: List[Rpc] = [

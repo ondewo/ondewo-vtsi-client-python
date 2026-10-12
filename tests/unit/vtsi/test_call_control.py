@@ -144,6 +144,7 @@ class TestTheDescriptors:
             "mode": 5,
             "headers": 6,
             "ring_timeout_s": 7,
+            "request_id": 8,
         }
         assert response == {
             "vtsi_project_name": 1,

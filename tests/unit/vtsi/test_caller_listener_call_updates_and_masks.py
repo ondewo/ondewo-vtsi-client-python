@@ -107,6 +107,21 @@ class TestFieldMasksOnEveryCrudRequest:
         assert list(parsed.field_mask.paths) == ["call_name", "sip_caller_config"]
 
 
+def _dry_run_field(resource: str) -> List[Tuple[str, int]]:
+    """
+    Name the dry-run field an update request of ``resource`` carries.
+
+    Args:
+        resource (str):
+            ``Caller``, ``Listener`` or ``Call``.
+
+    Returns:
+        List[Tuple[str, int]]:
+            ``[("validate_only", 4)]`` for callers and listeners; a live call has no dry run in 9.1.0.
+    """
+    return [] if resource == "Call" else [("validate_only", 4)]
+
+
 class TestTheUpdateRpcs:
     """The six ``Update*`` RPCs and their messages."""
 
@@ -124,7 +139,7 @@ class TestTheUpdateRpcs:
             (resource_field, 1),
             ("update_mask", 2),
             ("field_mask", 3),
-        ]
+        ] + _dry_run_field(resource)
         assert _message_type(request, resource_field).full_name == f"ondewo.vtsi.{resource}"
         assert _message_type(request, "update_mask").full_name == "google.protobuf.FieldMask"
         response: Any = getattr(calls_pb2, f"Update{resource}Response")
@@ -143,7 +158,7 @@ class TestTheUpdateRpcs:
             ("vtsi_project_name", 1),
             (entries, 2),
             ("field_mask", 3),
-        ]
+        ] + _dry_run_field(resource)
         assert _field(batch_request, entries).is_repeated
         assert _message_type(batch_request, entries).name == f"Update{resource}Request"
         batch_response: Any = getattr(calls_pb2, f"Update{resource}sResponse")
