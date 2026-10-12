@@ -81,7 +81,6 @@ setup_developer_environment_locally: install_precommit_hooks install_dependencie
 
 install_precommit_hooks: ## Installs pre-commit hooks and sets them up for the ondewo-csi-client repo
 	-pip install pre-commit
-	-conda -y install pre-commit
 	pre-commit install
 	pre-commit install --hook-type commit-msg
 
@@ -222,17 +221,6 @@ generate_vtsi_protos:
 
 build_utils_docker_image:  ## Build utils docker image
 	docker build -f Dockerfile.utils -t ${IMAGE_UTILS_NAME} .
-
-setup_conda_env: ## Checks for CONDA Environment
-	@echo "\n START SETTING UP CONDA ENV \n"
-	@conda env list | grep -q ondewo-vtsi-client-python \
-	&& make release || ( echo "\n CONDA ENV FOR REPO DOESNT EXIST \n" \
-	&& make create_conda_env)
-
-create_conda_env: ## Creates CONDA Environment
-	conda create -y --name ondewo-vtsi-client-python python=3.9
-	/bin/bash -c 'source `conda info --base`/bin/activate ondewo-vtsi-client-python; make setup_developer_environment_locally && echo "\n PRECOMMIT INSTALLED \n"'
-	make release
 
 HAND_WRITTEN_ASYNC_MARKER=ondewo:hand-written-async-service
 
