@@ -31,16 +31,18 @@ HEADING_PREFIX: str = "## Release ONDEWO VTSI Python Client "
 
 
 def _release_notes_slice(version: str) -> List[str]:
-    """Reproduce the Makefile's perl range ``/Release ONDEWO VTSI Python Client <v>/../^\\*{5}/``."""
+    """Reproduce the Makefile's perl range ``/^#+ Release ONDEWO VTSI Python Client <v>$/../^\\*{5}/``."""
     lines: List[str] = RELEASE_NOTES.splitlines()
-    start: int = next(i for i, line in enumerate(lines) if f"Release ONDEWO VTSI Python Client {version}" in line)
+    heading: re.Pattern = re.compile(rf"^#+ Release ONDEWO VTSI Python Client {re.escape(version)}$")
+    start: int = next(i for i, line in enumerate(lines) if heading.match(line))
     end: int = next(i for i in range(start + 1, len(lines)) if re.match(r"^\*{5}", lines[i]))
     return lines[start : end + 1]
 
 
 def test_the_makefile_slices_the_heading_this_test_checks() -> None:
     """The perl range in the Makefile still matches the heading spelling pinned here."""
-    assert "/Release ONDEWO VTSI Python Client ${ONDEWO_VTSI_VERSION}/../^\\*{5}/" in MAKEFILE
+    assert "/^\\#+ Release ONDEWO VTSI Python Client ${ONDEWO_VTSI_VERSION_RE}$$/../^\\*{5}/" in MAKEFILE
+    assert "ONDEWO_VTSI_VERSION_RE=$(subst .,\\.,${ONDEWO_VTSI_VERSION})" in MAKEFILE
 
 
 def test_every_release_heading_uses_the_spelling_the_makefile_slices() -> None:

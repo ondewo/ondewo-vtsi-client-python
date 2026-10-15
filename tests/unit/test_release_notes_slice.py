@@ -142,8 +142,27 @@ def _release_notes_range() -> Tuple[str, str]:
     """
     match = RANGE_RE.search(_read(MAKEFILE))
     assert match is not None, "Makefile carries no release-notes `perl -ne 'print if /a/../b/'` range"
-    start = match.group("start").replace("${ONDEWO_VTSI_VERSION}", _release_version())
+    start = _substitute_version(match.group("start"), _release_version())
     return start, match.group("end")
+
+
+def _substitute_version(pattern: str, version: str) -> str:
+    """
+    Expand the make references in the opening pattern the way make does for ``version``.
+
+    Args:
+        pattern (str):
+            The opening pattern as written in the Makefile.
+        version (str):
+            The version to release, e.g. ``9.1.0``.
+
+    Returns:
+        str:
+            The pattern perl receives: ``${ONDEWO_VTSI_VERSION_RE}`` becomes the dot-escaped version and
+            make's ``$$`` a single ``$``.
+    """
+    assert "${ONDEWO_VTSI_VERSION_RE}" in pattern, f"the opening pattern /{pattern}/ names no escaped version"
+    return pattern.replace("${ONDEWO_VTSI_VERSION_RE}", version.replace(".", "\\.")).replace("$$", "$")
 
 
 def _slice_release_notes(start: str, end: str) -> List[str]:
@@ -339,3 +358,37 @@ def test_the_python_reimplementation_agrees_with_the_perl_the_makefile_runs() ->
         check=True,
     )
     assert completed.stdout.splitlines() == _slice_release_notes(start, end)
+
+
+@pytest.mark.skipif(shutil.which("perl") is None, reason="perl is not installed")
+def test_the_slice_of_9_1_1_does_not_open_on_a_9_1_10_heading(tmp_path: Path) -> None:
+    """
+    The opening pattern is anchored: releasing 9.1.1 must not slice the notes of 9.1.10 (or of ``9x1x1``).
+
+    Unanchored, the FIRST heading containing the version string opened the slice, so a RELEASE.md listing
+    9.1.10 above 9.1.1 would have published 9.1.10's notes as the 9.1.1 release body.
+    """
+    match = RANGE_RE.search(_read(MAKEFILE))
+    assert match is not None
+    start = _substitute_version(match.group("start"), "9.1.1")
+    notes = tmp_path / "RELEASE.md"
+    notes.write_text(
+        "# Release History\n\n*****************\n\n"
+        "## Release ONDEWO VTSI Python Client 9.1.10\n\n* ten\n\n*****************\n\n"
+        "## Release ONDEWO VTSI Python Client 9x1x1\n\n* wrong dots\n\n*****************\n\n"
+        "## Release ONDEWO VTSI Python Client 9.1.1\n\n* one\n\n*****************\n",
+        encoding="utf-8",
+    )
+    completed = subprocess.run(
+        ["perl", "-ne", f"print if /{start}/../{match.group('end')}/", str(notes)],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    assert completed.stdout.splitlines() == [
+        "## Release ONDEWO VTSI Python Client 9.1.1",
+        "",
+        "* one",
+        "",
+        "*****************",
+    ]
