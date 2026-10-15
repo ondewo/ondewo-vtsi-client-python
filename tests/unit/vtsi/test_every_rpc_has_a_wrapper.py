@@ -42,19 +42,10 @@ import ondewo.vtsi
 # (service name, rpc method descriptor)
 Case = Tuple[str, Any]
 
-# Defects this test FOUND when it was written (2026-10-15), recorded instead of fixed because fixing them changes
-# the public API: `delete_caller`, `stop_caller`, `stop_listener` and `delete_listener` take the PLURAL request and
-# call the plural RPC, so the singular RPCs are unreachable, and three scheduled-caller RPCs have no wrapper at
-# all. Strict xfail: whoever fixes one must delete its entry here, and no NEW gap can hide behind this set.
-KNOWN_GAPS: Set[str] = {
-    "Calls.DeleteCaller",
-    "Calls.StopCaller",
-    "Calls.StopListener",
-    "Calls.DeleteListener",
-    "Calls.GetScheduledCaller",
-    "Calls.ListScheduledCallers",
-    "Calls.CancelScheduledCaller",
-}
+# RPCs whose wrapper is knowingly missing or wrong. Strict xfail: whoever fixes one must delete its entry here, and
+# no NEW gap can hide behind this set. Empty since 9.2.0, which fixed the caller/listener wrapper names and added
+# the scheduled-caller wrappers this test found missing when it was written.
+KNOWN_GAPS: Set[str] = set()
 
 
 def _snake_case(name: str) -> str:

@@ -154,19 +154,20 @@ class Calls(AsyncServicesInterface):
 
     async def delete_caller(
         self,
-        request: calls_pb2.DeleteCallersRequest,
-    ) -> calls_pb2.DeleteCallersResponse:
+        request: calls_pb2.DeleteCallerRequest,
+    ) -> calls_pb2.DeleteCallerResponse:
         """
-        Delete multiple callers.
+        Delete a caller: stop it if it still runs (hanging up its call) and remove it, with its call records.
 
         Args:
-            request (calls_pb2.DeleteCallersRequest): The request message to delete multiple callers.
+            request (calls_pb2.DeleteCallerRequest):
+                The caller to delete and an optional ``field_mask``.
 
         Returns:
-            calls_pb2.DeleteCallersResponse: The response message containing the IDs and
-            other details for the deleted callers.
+            calls_pb2.DeleteCallerResponse:
+                The name of the deleted caller.
         """
-        return await self.stub.DeleteCallers(request=request, metadata=self.metadata)
+        return await self.stub.DeleteCaller(request=request, metadata=self.metadata)
 
     async def delete_callers(
         self,
@@ -186,19 +187,20 @@ class Calls(AsyncServicesInterface):
 
     async def stop_caller(
         self,
-        request: calls_pb2.StopCallersRequest,
-    ) -> calls_pb2.StopCallersResponse:
+        request: calls_pb2.StopCallerRequest,
+    ) -> calls_pb2.StopCallerResponse:
         """
-        Stop multiple callers.
+        Stop a caller: hang up its call if one is up and release its container and SIP account.
 
         Args:
-            request (calls_pb2.StopCallersRequest): The request message to stop multiple callers.
+            request (calls_pb2.StopCallerRequest):
+                The caller to stop and an optional ``field_mask``.
 
         Returns:
-            calls_pb2.StopCallersResponse: The response message containing the IDs and
-            other details for the stopd callers.
+            calls_pb2.StopCallerResponse:
+                The name of the stopped caller.
         """
-        return await self.stub.StopCallers(request=request, metadata=self.metadata)
+        return await self.stub.StopCaller(request=request, metadata=self.metadata)
 
     async def stop_callers(
         self,
@@ -316,19 +318,20 @@ class Calls(AsyncServicesInterface):
 
     async def delete_listener(
         self,
-        request: calls_pb2.DeleteListenersRequest,
-    ) -> calls_pb2.DeleteListenersResponse:
+        request: calls_pb2.DeleteListenerRequest,
+    ) -> calls_pb2.DeleteListenerResponse:
         """
-        Delete multiple listeners.
+        Delete a listener: stop it if it still runs (hanging up its call) and remove it, with its call records.
 
         Args:
-            request (calls_pb2.DeleteListenersRequest): The request message to delete multiple listeners.
+            request (calls_pb2.DeleteListenerRequest):
+                The listener to delete and an optional ``field_mask``.
 
         Returns:
-            calls_pb2.DeleteListenersResponse: The response message containing the IDs and
-            other details for the deleted listeners.
+            calls_pb2.DeleteListenerResponse:
+                The name of the deleted listener.
         """
-        return await self.stub.DeleteListeners(request=request, metadata=self.metadata)
+        return await self.stub.DeleteListener(request=request, metadata=self.metadata)
 
     async def delete_listeners(
         self,
@@ -348,19 +351,20 @@ class Calls(AsyncServicesInterface):
 
     async def stop_listener(
         self,
-        request: calls_pb2.StopListenersRequest,
-    ) -> calls_pb2.StopListenersResponse:
+        request: calls_pb2.StopListenerRequest,
+    ) -> calls_pb2.StopListenerResponse:
         """
-        Stop multiple listeners.
+        Stop a listener: hang up its call if one is up and release its container and SIP account.
 
         Args:
-            request (calls_pb2.StopListenersRequest): The request message to stop multiple listeners.
+            request (calls_pb2.StopListenerRequest):
+                The listener to stop and an optional ``field_mask``.
 
         Returns:
-            calls_pb2.StopListenersResponse: The response message containing the IDs and
-            other details for the stopd listeners.
+            calls_pb2.StopListenerResponse:
+                The name of the stopped listener.
         """
-        return await self.stub.StopListeners(request=request, metadata=self.metadata)
+        return await self.stub.StopListener(request=request, metadata=self.metadata)
 
     async def stop_listeners(
         self,
@@ -758,6 +762,40 @@ class Calls(AsyncServicesInterface):
         )
         return response
 
+    async def get_scheduled_caller(
+        self,
+        request: calls_pb2.GetScheduledCallerRequest,
+    ) -> calls_pb2.ScheduledCaller:
+        """
+        Get a scheduled caller, populated according to ``call_view`` and ``field_mask``.
+
+        Args:
+            request (calls_pb2.GetScheduledCallerRequest):
+                The scheduled caller's name, an optional ``call_view`` and ``field_mask``.
+
+        Returns:
+            calls_pb2.ScheduledCaller:
+                The scheduled caller.
+        """
+        return await self.stub.GetScheduledCaller(request=request, metadata=self.metadata)
+
+    async def list_scheduled_callers(
+        self,
+        request: calls_pb2.ListScheduledCallersRequest,
+    ) -> calls_pb2.ListScheduledCallersResponse:
+        """
+        List the scheduled callers of a VTSI project, ordered by ``scheduled_time``, oldest first.
+
+        Args:
+            request (calls_pb2.ListScheduledCallersRequest):
+                The project, the paging and the optional filters.
+
+        Returns:
+            calls_pb2.ListScheduledCallersResponse:
+                One page of scheduled callers.
+        """
+        return await self.stub.ListScheduledCallers(request=request, metadata=self.metadata)
+
     async def update_scheduled_caller(
         self,
         request: calls_pb2.UpdateScheduledCallerRequest,
@@ -777,6 +815,23 @@ class Calls(AsyncServicesInterface):
                 The updated scheduled caller.
         """
         return await self.stub.UpdateScheduledCaller(request=request, metadata=self.metadata)
+
+    async def cancel_scheduled_caller(
+        self,
+        request: calls_pb2.CancelScheduledCallerRequest,
+    ) -> calls_pb2.CancelScheduledCallerResponse:
+        """
+        Cancel a scheduled caller that has not fired yet.
+
+        Args:
+            request (calls_pb2.CancelScheduledCallerRequest):
+                The scheduled caller to cancel and an optional ``field_mask``.
+
+        Returns:
+            calls_pb2.CancelScheduledCallerResponse:
+                Its state after the request and whether this request cancelled it.
+        """
+        return await self.stub.CancelScheduledCaller(request=request, metadata=self.metadata)
 
     async def cancel_scheduled_callers(
         self,

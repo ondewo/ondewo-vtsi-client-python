@@ -2,6 +2,29 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 9.2.0
+
+### Breaking changes
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) The singular caller and listener wrappers of
+  `Calls` now call the RPC their name says, in both the sync and the async client. `delete_caller`,
+  `stop_caller`, `stop_listener` and `delete_listener` used to take the PLURAL request
+  (`DeleteCallersRequest`, ...) and call the plural RPC (`DeleteCallers`, ...), so the singular RPCs
+  `DeleteCaller`, `StopCaller`, `StopListener` and `DeleteListener` were unreachable. They now take
+  `DeleteCallerRequest`, `StopCallerRequest`, `StopListenerRequest` and `DeleteListenerRequest` and return
+  `DeleteCallerResponse`, `StopCallerResponse`, `StopListenerResponse` and `DeleteListenerResponse`. Code that
+  passed a plural request to a singular wrapper must call the plural wrapper instead - `delete_callers`,
+  `stop_callers`, `stop_listeners` and `delete_listeners`, unchanged - or build the singular request.
+
+### New features
+
+* [[OND233-367]](https://ondewo.atlassian.net/browse/OND233-367) Wrappers for the three `Calls` RPCs that had
+  none, in both the sync and the async client: `get_scheduled_caller` (`GetScheduledCaller`),
+  `list_scheduled_callers` (`ListScheduledCallers`) and `cancel_scheduled_caller` (`CancelScheduledCaller`).
+  Every RPC of every `ondewo.vtsi` service now has a sync and an async wrapper.
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 9.1.0
 
 ### Breaking changes
