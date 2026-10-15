@@ -19,7 +19,7 @@
 
 # MUST BE THE SAME AS API in Mayor and Minor Version Number
 # example: API 2.9.0 --> Client 2.9.X
-ONDEWO_VTSI_VERSION=9.1.0
+ONDEWO_VTSI_VERSION=9.2.0
 # The version as an anchored-regex fragment (dots escaped), for every heading / version match below.
 ONDEWO_VTSI_VERSION_RE=$(subst .,\.,${ONDEWO_VTSI_VERSION})
 PYPI_PACKAGE=ondewo-vtsi-client
@@ -91,7 +91,7 @@ CURRENT_RELEASE_NOTES=`cat RELEASE.md \
 GH_REPO="https://github.com/ondewo/ondewo-vtsi-client-python"
 GH_REPO_NAME=ondewo/ondewo-vtsi-client-python
 DEVOPS_ACCOUNT_GIT=ondewo-devops-accounts
-ONDEWO_VTSI_API_GIT_BRANCH=tags/9.1.0
+ONDEWO_VTSI_API_GIT_BRANCH=tags/9.2.0
 ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.15.7
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 ONDEWO_VTSI_API_DIR=ondewo-vtsi-api
