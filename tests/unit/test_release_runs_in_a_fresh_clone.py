@@ -57,6 +57,19 @@ def test_pre_commit_runs_in_a_synced_project_environment() -> None:
     assert _recipe("install_dev_environment") == ["uv sync --extra dev --frozen --python 3.12"]
 
 
+def test_the_version_bump_re_locks_uv_lock() -> None:
+    """
+    Verify ``update_setup`` runs ``uv lock`` after it writes the version into ``pyproject.toml``.
+
+    uv.lock records the project's own version. Bumped in pyproject.toml alone, the uv-lock hook of
+    ``precommit_hooks_run_all_files`` rewrote uv.lock and failed the release ("files were modified by this hook").
+    """
+    recipe: List[str] = _recipe("update_setup")
+    assert "pyproject.toml" in recipe[0]
+    assert recipe[1:] == ["uv lock"]
+    assert re.search(r"^build:.*\bupdate_setup\b", MAKEFILE, flags=re.MULTILINE)
+
+
 # The release contract, in order. Each entry is a substring of exactly one recipe line of `release`.
 RELEASE_ORDER: List[str] = [
     "make release_preflight",

@@ -188,8 +188,11 @@ check_build: ## Checks if all built proto-code is there
 ########################################################
 #		Build
 
-update_setup: ## Update Version in pyproject.toml
+# uv.lock records the project's own version, so it is re-locked with the bump. Without it the uv-lock hook of
+# precommit_hooks_run_all_files rewrote uv.lock and failed the release ("files were modified by this hook").
+update_setup: ## Update Version in pyproject.toml and uv.lock
 	@perl -i -pe 's/^version = "\d+\.\d+\.\d+"/version = "${ONDEWO_VTSI_VERSION}"/' pyproject.toml
+	uv lock
 
 build: clear_package_data prepare_submodules build_compiler generate_all_protos create_async_services update_setup ## Build source code
 
