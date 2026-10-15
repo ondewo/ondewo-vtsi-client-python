@@ -230,7 +230,12 @@ def _case_id(case: Tuple[Type[Any], Type[Any], ModuleType, Rpc]) -> str:
 
 
 class TestTheServiceDescriptors:
-    """The generated descriptors carry exactly the RPCs listed here, with the documented types."""
+    """
+    The generated descriptors carry (at least) the RPCs listed here, with the documented types.
+
+    "At least": a later API release may add RPCs. That every RPC, listed here or not, has a sync and an async
+    wrapper is derived from the descriptors in ``test_every_rpc_has_a_wrapper.py``.
+    """
 
     @pytest.mark.parametrize("service_name, module, stub_class, sync, asynchronous, rpcs", SERVICES)
     def test_every_rpc_has_the_documented_request_response_and_streaming_kind(
@@ -251,7 +256,7 @@ class TestTheServiceDescriptors:
         expected: Dict[str, Tuple[str, str, bool]] = {
             rpc: (request, response, streaming) for _, rpc, request, response, streaming in rpcs
         }
-        assert actual == expected
+        assert {rpc: actual.get(rpc) for rpc in expected} == expected
 
     @pytest.mark.parametrize("service_name, module, stub_class, sync, asynchronous, rpcs", SERVICES)
     def test_the_stub_binds_unary_and_streaming_rpcs_to_their_full_method_paths(
@@ -268,15 +273,16 @@ class TestTheServiceDescriptors:
         stub_class(channel)
         unary: List[str] = [call.args[0] for call in channel.unary_unary.call_args_list]
         streaming: List[str] = [call.args[0] for call in channel.unary_stream.call_args_list]
-        assert unary == [f"/ondewo.vtsi.{service_name}/{rpc}" for _, rpc, _, _, is_stream in rpcs if not is_stream]
-        assert streaming == [f"/ondewo.vtsi.{service_name}/{rpc}" for _, rpc, _, _, is_stream in rpcs if is_stream]
+        assert {f"/ondewo.vtsi.{service_name}/{rpc}" for _, rpc, _, _, is_stream in rpcs if not is_stream} <= set(unary)
+        assert {f"/ondewo.vtsi.{service_name}/{rpc}" for _, rpc, _, _, is_stream in rpcs if is_stream} <= set(streaming)
 
     def test_the_calls_service_carries_the_three_status_streams(self) -> None:
         """
-        ``Calls`` carries exactly the three server-streaming status RPCs plus the two call audio streams.
+        ``Calls`` carries the three server-streaming status RPCs plus the two call audio streams.
 
-        ``ListenCallAudio`` is server-streaming and ``StreamCallAudio`` bidirectional; they are listed in
-        ``tests/unit/vtsi/test_call_control.py`` and asserted here so that no OTHER stream can appear unnoticed.
+        ``ListenCallAudio`` is server-streaming and ``StreamCallAudio`` bidirectional. A stream ADDED later is
+        not listed here: ``test_every_rpc_has_a_wrapper.py`` derives from the descriptors that its async wrapper
+        returns the stream instead of awaiting it, which is what this list used to guard.
         """
         call_audio_streams: Dict[str, Tuple[str, str]] = {
             "StreamCallAudio": ("StreamCallAudioRequest", "StreamCallAudioResponse"),
@@ -288,18 +294,19 @@ class TestTheServiceDescriptors:
             for method in service.methods
             if method.server_streaming
         }
-        assert actual == {
+        expected: Dict[str, Tuple[str, str]] = {
             **{rpc: (request, response) for _, rpc, request, response, _ in CALL_STREAM_RPCS},
             **call_audio_streams,
         }
+        assert {rpc: actual.get(rpc) for rpc in expected} == expected
         channel: MagicMock = MagicMock()
         calls_pb2_grpc.CallsStub(channel)
         streaming: List[str] = [call.args[0] for call in channel.unary_stream.call_args_list]
-        assert streaming == [f"/ondewo.vtsi.Calls/{rpc}" for _, rpc, _, _, _ in CALL_STREAM_RPCS] + [
+        assert {f"/ondewo.vtsi.Calls/{rpc}" for _, rpc, _, _, _ in CALL_STREAM_RPCS} | {
             "/ondewo.vtsi.Calls/ListenCallAudio"
-        ]
+        } <= set(streaming)
         bidirectional: List[str] = [call.args[0] for call in channel.stream_stream.call_args_list]
-        assert bidirectional == ["/ondewo.vtsi.Calls/StreamCallAudio"]
+        assert "/ondewo.vtsi.Calls/StreamCallAudio" in bidirectional
 
 
 class TestTheClientExposesTheServices:
