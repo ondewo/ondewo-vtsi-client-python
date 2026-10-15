@@ -46,7 +46,6 @@ repos:
         exclude: ondewo
         # require_serial so mypy is called once per commit, with every file
         require_serial: true
-        verbose: true
         types: [ python ]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
