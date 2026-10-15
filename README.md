@@ -142,14 +142,11 @@ make setup_developer_environment_locally
 ├── LICENSE
 ├── Makefile
 ├── MANIFEST.in
-├── mypy.ini
+├── pyproject.toml
 ├── README.md
 ├── RELEASE.md
-├── requirements-dev.txt
-├── requirements.txt
-├── setup.cfg
-├── setup.py
-└── temp.txt
+├── tests
+└── uv.lock
 ```
 
 ## Build
@@ -331,13 +328,34 @@ TODO after Pull Request was merged in:
 
 ---
 
-The release process can be divided into 6 Steps:
+`make ondewo_release` runs these steps, in this order, and stops at the first one that fails. The order is pinned by
+`tests/unit/test_release_runs_in_a_fresh_clone.py` and is the same in every `ondewo-vtsi-client-<language>`
+repository, so `ondewo-vtsi-api`'s release driver treats them alike.
 
-1. `build` specified version of the `ondewo-vtsi-api`
-2. `commit and push` all changes in code resulting from the `build`
-3. Create and push the `release branch` e.g. `release/1.3.20`
-4. Create and push the `release tag` e.g. `1.3.20`
-5. Create a new `Release` on GitHub
-6. Publish the built `dist` folder to `pypi.org`
+1. `spc` (read-only, no credentials): the branch `release/<version>` and the tag `<version>` are not on origin
+   (`git ls-remote --exit-code`, exact refs), PyPI does not serve `ondewo-vtsi-client <version>` yet, and `RELEASE.md`
+   carries exactly one `## Release ONDEWO VTSI Python Client <version>` heading (matched anchored, dots escaped) with
+   a non-empty body.
+2. Load `GITHUB_GH_TOKEN`, `PYPI_USERNAME` and `PYPI_PASSWORD` from `ondewo-devops-accounts`, then **delete that
+   clone** before anything else runs, and also when the clone or the release fails. The clone lives in a `mktemp`
+   directory, never in this repository. When `DEVOPS_ACCOUNT_DIR` points at an existing clone (the driver clones once
+   for all clients), it is used and not cloned again.
+3. `release_preflight` (read-only): the host tools exist, `spc` again, and both credentials are VALID:
+   - GitHub: `gh api repos/ondewo/ondewo-vtsi-client-python --jq .permissions.push` prints `true`.
+   - PyPI has no read-only identity call, so the probe re-uploads the newest file that is already on PyPI. PyPI checks
+     the credential and the upload permission on this project first (`403` when either fails) and only then refuses
+     the existing file (`400 File already exists`). A pass therefore proves the credential may upload to
+     `ondewo-vtsi-client`, and it cannot publish anything new.
+4. `build` (regenerates the code from `ondewo-vtsi-api`), the pre-commit hooks, `check_build` and `make test` (ruff,
+   mypy and the unit suite with the coverage gate). These steps run with the credentials removed from their
+   environment.
+5. Commit locally (only when something changed), upload to PyPI, and wait until the PyPI JSON API serves the version.
+   PyPI comes first because it is the one step that cannot be undone.
+6. Push, create and push `release/<version>` and the tag `<version>`, create the GitHub release from the `RELEASE.md`
+   section (an empty body is refused).
+7. `release_verify` (read-only, also run by the driver afterwards): the tag is on origin, the GitHub release has a
+   non-empty body, and PyPI serves the version (polled 20 x 30 s).
 
-> :warning: The Release Automation checks if the build has created all the proto-code files, but it does not check the code-integrity. Please build and test the generated code prior to starting the release process.
+Host requirements: `docker`, `git`, `make`, `perl`, `curl` and `uv`. `gh`, `twine` and the package build run in the
+pinned `Dockerfile.utils` image (exact uv, twine and gh versions, base images by digest), and gh reads the token from
+`GH_TOKEN` per call, so nothing is stored in `~/.config/gh`. No credential is ever put on a command line.

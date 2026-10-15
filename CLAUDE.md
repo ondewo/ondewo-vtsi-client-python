@@ -159,13 +159,13 @@ These bit us during the 6.14.0 release. Keep them in mind when releasing.
 - **Release Makefiles print secrets.** Some `docker run … -e <TOKEN>=…` recipe lines lack a leading `@`, so `make` echoes the expanded token. Rotate any token printed during a release; fix by prefixing the recipe line with `@`.
 - The release auto-pulls the **latest** `ondewo-proto-compiler` tag.
 - **npm package names are inconsistent** — e.g. the JS client publishes as `@ondewo/ondewo-nlu-client-js` (double `ondewo`), not `@ondewo/nlu-client-js`. Check `src/package.json`'s `name` before querying npm.
-- **PyPI build needs setuptools.** The release image (`Dockerfile.utils`) is `python:3.12-slim`, which bundles no `setuptools`, so `python setup.py sdist bdist_wheel` dies with `ModuleNotFoundError: No module named 'setuptools'`. `Dockerfile.utils` must `pip install … setuptools wheel`.
+- **The release image builds with `uv build`.** `Dockerfile.utils` pins uv, twine and gh (and its base images by digest); uv fetches the setuptools build backend itself, so the image installs no `setuptools`/`wheel`/`build`.
 
 ## Python tooling — uv + ruff + mypy + pyproject.toml (this session's refactor)
 
 This repo was migrated off `setup.py` / `.flake8` / `mypy.ini` to a single **pyproject.toml** with **uv**, **ruff**, and **mypy**. Going forward:
 
-- **Build backend stays setuptools** (for PyPI compatibility). Build with `python -m build --no-isolation` or `uv build` — NOT `python setup.py sdist bdist_wheel` (setup.py is deleted). `Dockerfile.utils` installs `twine setuptools wheel build`.
+- **Build backend stays setuptools** (for PyPI compatibility). Build with `python -m build --no-isolation` or `uv build` — NOT `python setup.py sdist bdist_wheel` (setup.py is deleted). `Dockerfile.utils` builds with a pinned uv and uploads with a pinned twine.
 - **Dependencies via uv + a committed `uv.lock`.** CI runs `uv sync --extra dev --frozen`. To add/change a dep: edit `[project.dependencies]`/`[project.optional-dependencies].dev` in pyproject.toml then `uv lock`.
 - **Lint is ruff** (`[tool.ruff]`, line-length 120, generated `*_pb2*` excluded) — `uv run ruff check .`. flake8 is gone.
 - **mypy config lives in `[tool.mypy]`.** Do **NOT** re-create `mypy.ini` — it silently _shadows_ the pyproject config. Generated `*_pb2*` modules get `ignore_errors` overrides.
@@ -302,13 +302,9 @@ Five things that are not obvious from reading the file, each measured here rathe
   of the gate shows up as `M .coverage`, and `--cov-report=xml` drops an untracked `coverage.xml` next to it.
   Restore and remove them (`git checkout -- .coverage && rm -f coverage.xml`) before staging, or they ride
   along in an unrelated commit.
-- **Do not try to reproduce the gate through the Makefile — its dev targets did not survive the uv/pyproject
-  migration.** `make mypy` dies on its first line with `make: pre-commit: No such file or directory` (it calls
-  `pre-commit`, not `uv run pre-commit`), and its second half runs `mypy --config-file=mypy.ini .` against a
-  file this repo deleted (`mypy: error: Cannot find config file 'mypy.ini'`). `make flake8` and
-  `make install_dependencies_locally` likewise name `.flake8` and `requirements*.txt`, all three gone. The
-  "Every Makefile target uses uv" claim in the uv-migration section above holds for `build_package` and
-  nothing else. The workflow file is the source of truth for the gate; the Makefile is not.
+- **`make test` IS the gate**: it runs exactly the workflow's ruff, mypy and pytest-with-coverage steps through
+  `uv run --no-sync` after `install_dev_environment`, and `make release` runs it before it commits anything.
+  The workflow's second job runs every pre-commit hook (`ruff format` included) on every file.
 
 Two scoping facts worth knowing before you read a green run as broader than it is. `mypy ondewo` type-checks
 the package only — `tests/` and `examples/` are outside the type gate (they are clean today, verified with
@@ -412,17 +408,14 @@ uv run --frozen pytest tests/unit/test_release_notes_slice.py -q
 
 ### Publish order decides how a partial failure is recovered
 
-`make release` in this repo runs:
+`make release` runs `release_preflight`, `build`, the hooks, `check_build`, `test`, the local commit, the PyPI
+upload, `verify_pypi`, `git push`, `create_release_branch`, `create_release_tag`, `release_to_github_via_docker`
+and `release_verify` (pinned by `tests/unit/test_release_runs_in_a_fresh_clone.py`).
 
-1. `create_release_branch`
-2. `create_release_tag`
-3. `release_to_github_via_docker`
-4. `push_to_pypi_via_docker`
-5. `push_to_pypi`
-
-The **PyPI publish happens LAST**. So a failure before it means nothing shipped, but the
-branch, tag and GitHub release may already exist — and `spc` will then refuse a re-run. Recover
-by running only the remaining step, not the whole target.
+**PyPI is published FIRST**, before anything reaches origin, because it is the one step that cannot be undone. A
+failure before it means nothing shipped and a re-run starts clean. A failure after it leaves the version on PyPI,
+so `spc` refuses a re-run; recover by running only the remaining steps (`git push`, `make create_release_branch`,
+`make create_release_tag`, `make release_to_github_via_docker`, `make release_verify`).
 
 ### Verify against the registry, with the REAL package name
 
@@ -444,19 +437,14 @@ rather than reaching for `--no-verify`:
 PATH="$PWD/.venv/bin:$PATH" git commit -m "..."
 ```
 
-### The release prints credentials — read the log BEFORE you scrub it
+### Credentials never reach an argv, a log or a process that does not need them
 
-`make ondewo_release` clones `ondewo-devops-accounts` and passes the registry and GitHub tokens on
-the make command line, so they are echoed into the console and into any transcript capturing it.
-This is a known and accepted property of the shared release path: do **not** re-plumb the recipe.
-Redirect the run to a file, read it through a filter, and shred the file afterwards — and read it
-**before** shredding, or a genuine failure is lost with the secrets:
-
-```bash
-umask 077; make ondewo_release > /tmp/rel.log 2>&1; echo "RC=$?"
-grep -avE 'TOKEN|PASSWORD|USERNAME|_authToken' /tmp/rel.log | tail -20   # read FIRST
-shred -u /tmp/rel.log; rm -rf ondewo-devops-accounts                     # then scrub
-```
+`ondewo_release` loads the three credentials into the ENVIRONMENT of `make release` and deletes the
+devops-accounts clone (a `mktemp` directory, never this repository) before `make release` starts, and on failure.
+There is no bare `export`, the credential-free steps run under `WITHOUT_CREDENTIALS` (`env -u ...`), docker gets
+them by name (`-e NAME`), twine as `TWINE_*`, gh as `GH_TOKEN` per call (no `gh auth login`, nothing in
+`~/.config/gh`). `tests/unit/test_release_makefile_hygiene.py` pins all of it. A release log is still worth reading
+through a filter, but it should contain no credential.
 
 ### Run the release from `master`, and check with `git branch --show-current`
 
@@ -488,13 +476,12 @@ The general check costs nothing:
 git status --porcelain    # MUST be empty after a release; anything left is published-but-uncommitted
 ```
 
-### `git commit` exits 1 on a clean tree and takes the whole target down with it
+### A clean tree must not stop the release, and a failing commit must
 
-If the release content was already committed by hand, `git commit` finds nothing to commit, returns
-1, and make abandons the target -- **before** the publish, the branch, the tag and the GitHub
-release -- while printing only `nothing to commit, working tree clean`. Read as a build failure it
-sends you hunting a compile error that is not there. The line is prefixed with `-` so the step is
-advisory; `spc` still refuses an existing branch or tag, so the guard cannot mask a double release.
+If the release content was already committed by hand, `git commit` finds nothing to commit and returns 1. The
+commit is therefore `git diff --cached --quiet || git commit --no-verify ...`: nothing staged skips it, while a
+commit that fails for a real reason (no identity, a broken index) still stops the release before anything is
+published. It used to be `-git commit`, which ignored BOTH.
 
 ### Write the RELEASE.md section BEFORE releasing, or the release body is silently empty
 
