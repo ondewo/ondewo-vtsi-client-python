@@ -177,3 +177,26 @@ def test_ondewo_release_deletes_the_devops_clone_before_it_releases() -> None:
     assert recipe.rstrip().endswith("make release")
     assert "$(MAKE)" not in recipe, "`make -n ondewo_release` must print, not clone the credentials"
     assert not re.search(r"^DEVOPS_ACCOUNT_DIR\s*[?:]?=", MAKEFILE, flags=re.MULTILINE), "the driver's value must win"
+
+
+def test_standalone_preflight_and_verify_load_their_credentials_from_devops_account_dir() -> None:
+    """
+    Verify every recipe line that hands a credential to a container first runs ``$(LOAD_CREDENTIALS)``.
+
+    ondewo-vtsi-api's driver runs ``release_preflight`` and ``release_verify`` on their own, with only an absolute
+    ``DEVOPS_ACCOUNT_DIR`` set and no token in the environment; without the load, gh ran unauthenticated and
+    ``release_verify`` reported the live 9.1.0 GitHub release as missing.
+    """
+    load = re.search(r"^LOAD_CREDENTIALS=((?:.*\\\n)*.*)", MAKEFILE, flags=re.MULTILINE)
+    assert load is not None
+    assert '[ -n "$${DEVOPS_ACCOUNT_DIR:-}" ]' in load.group(1)
+    assert "grep -h -E '^(GITHUB_GH_TOKEN|PYPI_USERNAME|PYPI_PASSWORD)='" in load.group(1)
+    for target in ("check_github_credentials", "check_pypi_credentials", "verify_github_release"):
+        recipe: List[str] = _recipe(target)
+        container_lines: List[int] = [index for index, line in enumerate(recipe) if "docker run" in line]
+        assert container_lines, target
+        first: int = next(index for index, line in enumerate(recipe) if line.startswith("@"))
+        assert recipe[first] == "@$(LOAD_CREDENTIALS) \\", target
+        # One shell: every line from the load to the container is a continuation of it.
+        assert all(line.endswith("\\") for line in recipe[first : container_lines[-1]]), target
+    assert re.search(r"^RELEASE_VERIFY_ATTEMPTS\?=\$\(if \$\(VERIFY_ATTEMPTS\)", MAKEFILE, flags=re.MULTILINE)

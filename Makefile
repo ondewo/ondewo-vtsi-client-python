@@ -32,9 +32,23 @@ PYPI_PACKAGE=ondewo-vtsi-client
 # environment, so pytest, pre-commit hooks, uv and the proto-compiler containers never see them.
 WITHOUT_CREDENTIALS=env -u GITHUB_GH_TOKEN -u GH_TOKEN -u PYPI_USERNAME -u PYPI_PASSWORD
 
-# How long `verify_pypi` waits for PyPI to serve a freshly uploaded version.
-RELEASE_VERIFY_ATTEMPTS?=20
-RELEASE_VERIFY_INTERVAL_S?=30
+# How long `verify_pypi` waits for PyPI to serve a freshly uploaded version. ondewo-vtsi-api's driver passes
+# VERIFY_ATTEMPTS / VERIFY_INTERVAL_S.
+RELEASE_VERIFY_ATTEMPTS?=$(if $(VERIFY_ATTEMPTS),$(VERIFY_ATTEMPTS),20)
+RELEASE_VERIFY_INTERVAL_S?=$(if $(VERIFY_INTERVAL_S),$(VERIFY_INTERVAL_S),30)
+
+# Shell prefix of every recipe line that hands a credential to a container. ondewo-vtsi-api's driver runs
+# release_preflight and release_verify STANDALONE with only an absolute DEVOPS_ACCOUNT_DIR set: when a credential
+# is not already in the environment, read all three from that clone into THIS line's shell environment (never an
+# argv, never echoed). Inside `ondewo_release` they are already set, so nothing is read.
+LOAD_CREDENTIALS=if [ -n "$${DEVOPS_ACCOUNT_DIR:-}" ] \
+		&& { [ -z "$${GITHUB_GH_TOKEN:-}" ] || [ -z "$${PYPI_USERNAME:-}" ] || [ -z "$${PYPI_PASSWORD:-}" ]; }; then \
+		test -d "$${DEVOPS_ACCOUNT_DIR}" || { echo "DEVOPS_ACCOUNT_DIR=$${DEVOPS_ACCOUNT_DIR} is not a directory"; exit 1; }; \
+		set -a; \
+		eval "$$(grep -h -E '^(GITHUB_GH_TOKEN|PYPI_USERNAME|PYPI_PASSWORD)=' \
+			"$${DEVOPS_ACCOUNT_DIR}/account_github.env" "$${DEVOPS_ACCOUNT_DIR}/account_pypi.env")"; \
+		set +a; \
+	fi;
 
 # The heading wording is the one the ondewo-vtsi-api release generator WRITES, not a free choice.
 # `release_client` in ondewo-vtsi-api's Makefile emits `## Release ONDEWO VTSI Python Client <version>`
@@ -313,8 +327,9 @@ check_host_tools: ## Fails unless the tools the release runs on the host are ins
 # Proves the token is valid AND may push here; `gh` reads it from GH_TOKEN, so nothing is stored in
 # ~/.config/gh and the value is never on an argv.
 check_github_credentials: ## Fails unless GITHUB_GH_TOKEN has push permission on this repository
-	@test -n "$${GITHUB_GH_TOKEN}" || { echo "release_preflight: GITHUB_GH_TOKEN is not set"; exit 1; }
-	@push=$$(GH_TOKEN="$${GITHUB_GH_TOKEN}" docker run --rm -e GH_TOKEN ${IMAGE_UTILS_NAME} \
+	@$(LOAD_CREDENTIALS) \
+	test -n "$${GITHUB_GH_TOKEN:-}" || { echo "release_preflight: GITHUB_GH_TOKEN is not set"; exit 1; }; \
+	push=$$(GH_TOKEN="$${GITHUB_GH_TOKEN}" docker run --rm -e GH_TOKEN ${IMAGE_UTILS_NAME} \
 		gh api repos/${GH_REPO_NAME} --jq .permissions.push); \
 	test "$$push" = true || { echo "release_preflight: GITHUB_GH_TOKEN cannot push to ${GH_REPO_NAME} (permissions.push='$$push')"; exit 1; }
 	@echo "release_preflight: GITHUB_GH_TOKEN may push to ${GH_REPO_NAME}"
@@ -327,8 +342,10 @@ check_github_credentials: ## Fails unless GITHUB_GH_TOKEN has push permission on
 # NOT `twine upload --skip-existing`: twine then asks the index whether the file exists and skips WITHOUT
 # contacting the upload endpoint, so a bogus token passes (measured).
 check_pypi_credentials: ## Fails unless PYPI_USERNAME/PYPI_PASSWORD may upload to the PyPI project
-	@test -n "$${PYPI_USERNAME}" && test -n "$${PYPI_PASSWORD}" || { echo "release_preflight: PYPI_USERNAME / PYPI_PASSWORD are not set"; exit 1; }
-	@docker run --rm -e PYPI_USERNAME -e PYPI_PASSWORD -e COLUMNS=1000 ${IMAGE_UTILS_NAME} make probe_pypi_upload_permission \
+	@$(LOAD_CREDENTIALS) \
+	{ test -n "$${PYPI_USERNAME:-}" && test -n "$${PYPI_PASSWORD:-}"; } \
+		|| { echo "release_preflight: PYPI_USERNAME / PYPI_PASSWORD are not set"; exit 1; }; \
+	docker run --rm -e PYPI_USERNAME -e PYPI_PASSWORD -e COLUMNS=1000 ${IMAGE_UTILS_NAME} make probe_pypi_upload_permission \
 		|| { echo "release_preflight: PyPI refused PYPI_USERNAME / PYPI_PASSWORD for ${PYPI_PACKAGE}"; exit 1; }
 	@echo "release_preflight: PyPI accepts the credentials for ${PYPI_PACKAGE}"
 
@@ -359,8 +376,11 @@ verify_tag:
 		|| { echo "release_verify: tag ${ONDEWO_VTSI_VERSION} is not on origin"; exit 1; }
 
 verify_github_release: build_utils_docker_image
-	@body=$$(GH_TOKEN="$${GITHUB_GH_TOKEN}" docker run --rm -e GH_TOKEN ${IMAGE_UTILS_NAME} \
-		gh release view "${ONDEWO_VTSI_VERSION}" --repo ${GH_REPO_NAME} --json body --jq .body); \
+	@$(LOAD_CREDENTIALS) \
+	test -n "$${GITHUB_GH_TOKEN:-}" || { echo "release_verify: GITHUB_GH_TOKEN is not set"; exit 1; }; \
+	body=$$(GH_TOKEN="$${GITHUB_GH_TOKEN}" docker run --rm -e GH_TOKEN ${IMAGE_UTILS_NAME} \
+		gh release view "${ONDEWO_VTSI_VERSION}" --repo ${GH_REPO_NAME} --json body --jq .body) \
+		|| { echo "release_verify: gh cannot read the GitHub release ${ONDEWO_VTSI_VERSION} (invalid GITHUB_GH_TOKEN, or no such release)"; exit 1; }; \
 	test -n "$$(printf '%s' "$$body" | tr -d '[:space:]')" \
 		|| { echo "release_verify: the GitHub release ${ONDEWO_VTSI_VERSION} is missing or has an empty body"; exit 1; }
 
