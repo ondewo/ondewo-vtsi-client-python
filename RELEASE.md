@@ -2,6 +2,18 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 9.4.0
+
+### Improvements
+
+* Tracking API Version [9.4.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.4.0) ( [Documentation](https://ondewo.github.io/ondewo-vtsi-api/) )
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) `InterruptionHandlingConfig.interruption_fade_out_ms`
+  (`optional int32`, field 9): the per-call barge-in fade-out length in milliseconds (default 100, valid range
+  0 - 500, `0` = stop at once). The vendored `ondewo/nlu`, `ondewo/qa`, `ondewo/s2t`, `ondewo/t2s` and
+  `ondewo/sip` files are unchanged since 9.3.0.
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 9.3.0
 
 ### Improvements

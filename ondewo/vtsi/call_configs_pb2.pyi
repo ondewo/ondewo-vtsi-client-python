@@ -449,6 +449,7 @@ class InterruptionHandlingConfig(google.protobuf.message.Message):
     BACKOFF_SECONDS_FIELD_NUMBER: builtins.int
     FIRST_MESSAGE_PROTECTED_SECONDS_FIELD_NUMBER: builtins.int
     TRANSCRIBE_ON_DISABLED_INTERRUPTIONS_FIELD_NUMBER: builtins.int
+    INTERRUPTION_FADE_OUT_MS_FIELD_NUMBER: builtins.int
     enabled: builtins.bool
     """Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking
     (default: false, i.e. the bot cannot be interrupted)
@@ -479,6 +480,11 @@ class InterruptionHandlingConfig(google.protobuf.message.Message):
     """Optional: Transcribe caller speech while the bot is speaking even if interruptions are disabled
     (default: false, i.e. caller speech during bot speech is not transcribed while <code>enabled</code> is false)
     """
+    interruption_fade_out_ms: builtins.int
+    """Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
+    interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
+    A value outside the range is refused with <code>INVALID_ARGUMENT</code>
+    """
     def __init__(
         self,
         *,
@@ -490,9 +496,10 @@ class InterruptionHandlingConfig(google.protobuf.message.Message):
         backoff_seconds: builtins.float | None = ...,
         first_message_protected_seconds: builtins.float | None = ...,
         transcribe_on_disabled_interruptions: builtins.bool | None = ...,
+        interruption_fade_out_ms: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_backoff_seconds", b"_backoff_seconds"]) -> typing.Literal["backoff_seconds"] | None: ...
     @typing.overload
@@ -501,6 +508,8 @@ class InterruptionHandlingConfig(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing.Literal["_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds"]) -> typing.Literal["false_interruption_timeout_seconds"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_first_message_protected_seconds", b"_first_message_protected_seconds"]) -> typing.Literal["first_message_protected_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_interruption_fade_out_ms", b"_interruption_fade_out_ms"]) -> typing.Literal["interruption_fade_out_ms"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_min_interruption_duration_seconds", b"_min_interruption_duration_seconds"]) -> typing.Literal["min_interruption_duration_seconds"] | None: ...
     @typing.overload
