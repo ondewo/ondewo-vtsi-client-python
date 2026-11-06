@@ -380,12 +380,63 @@ class TurnDetectionConfig(google.protobuf.message.Message):
     EAGER: TurnDetectionConfig.TurnEagerness.ValueType  # 3
     """Eager turn taking: scales the endpointing delays by a factor of 0.6"""
 
+    @typing.final
+    class EndOfTurnHoldBands(google.protobuf.message.Message):
+        """Hold bands of the semantic turn detection model"""
+
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        BANDS_FIELD_NUMBER: builtins.int
+        @property
+        def bands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TurnDetectionConfig.EndOfTurnHoldBand]:
+            """The bands (at most 10). The first band, sorted by <code>upper_probability</code>, whose upper probability
+            exceeds the end-of-turn probability decides the hold; a probability above every band is committed at once
+            """
+
+        def __init__(
+            self,
+            *,
+            bands: collections.abc.Iterable[global___TurnDetectionConfig.EndOfTurnHoldBand] | None = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing.Literal["bands", b"bands"]) -> None: ...
+
+    @typing.final
+    class EndOfTurnHoldBand(google.protobuf.message.Message):
+        """One hold band of the semantic turn detection model"""
+
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        UPPER_PROBABILITY_FIELD_NUMBER: builtins.int
+        MAX_SILENCE_SECONDS_FIELD_NUMBER: builtins.int
+        upper_probability: builtins.float
+        """Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1)"""
+        max_silence_seconds: builtins.float
+        """Seconds of silence a turn in the band waits before it is committed (valid range: 0 - 4; never longer than
+        <code>incomplete_max_silence_seconds</code>)
+        """
+        def __init__(
+            self,
+            *,
+            upper_probability: builtins.float = ...,
+            max_silence_seconds: builtins.float = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing.Literal["max_silence_seconds", b"max_silence_seconds", "upper_probability", b"upper_probability"]) -> None: ...
+
     MODE_FIELD_NUMBER: builtins.int
     MIN_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: builtins.int
     MAX_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: builtins.int
     TURN_EAGERNESS_FIELD_NUMBER: builtins.int
     TURN_DETECTION_SYSTEM_PROMPT_FIELD_NUMBER: builtins.int
     TURN_DETECTION_USER_PROMPT_FIELD_NUMBER: builtins.int
+    CONVERSATION_CONTEXT_TURNS_FIELD_NUMBER: builtins.int
+    SEMANTIC_MODEL_NAME_FIELD_NUMBER: builtins.int
+    END_OF_TURN_PROBABILITY_THRESHOLD_FIELD_NUMBER: builtins.int
+    HOLD_BANDS_FIELD_NUMBER: builtins.int
+    UNCERTAIN_MIN_WORDS_FIELD_NUMBER: builtins.int
+    INCOMPLETE_MAX_SILENCE_SECONDS_FIELD_NUMBER: builtins.int
+    EXACT_PROBABILITY_FIELD_NUMBER: builtins.int
+    FINAL_MERGE_WINDOW_SECONDS_FIELD_NUMBER: builtins.int
+    DICTATION_CONFIG_FIELD_NUMBER: builtins.int
     mode: global___TurnDetectionConfig.TurnDetectionMode.ValueType
     """Mode of the turn detection. Defaults to SEMANTIC_MODEL if unspecified"""
     min_endpointing_delay_seconds: builtins.float
@@ -412,6 +463,74 @@ class TurnDetectionConfig(google.protobuf.message.Message):
     """Optional: User prompt for the semantic (LLM) turn detection model of the speech-to-text service, with the
     rules of <code>turn_detection_system_prompt</code>
     """
+    conversation_context_turns: builtins.int
+    """Optional: Number of the latest conversation turns (the caller&apos;s committed turns and the bot&apos;s
+    utterances as the caller heard them) handed to the semantic turn detection model of the speech-to-text
+    service together with the utterance it judges (default: 0 = off, valid range: 0 - 10). Use it only where
+    the speech-to-text service serves a turn detection model trained with conversation context. Used only by an
+    end-of-utterance model; a chat model ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or
+    unspecified): a value above 0 together with <code>VAD</code> or <code>AUDIO_MODEL</code>, or a value outside
+    the range, is refused with <code>INVALID_ARGUMENT</code>
+    """
+    semantic_model_name: builtins.str
+    """Optional: Name of the semantic turn detection model the speech-to-text service asks for this call. Unset uses
+    the model configured in the speech-to-text pipeline. The model&apos;s endpoint is deliberately not
+    configurable per call. Valid: 1 - 256 characters, no whitespace or control characters. Only valid with the
+    mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+    <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+    """
+    end_of_turn_probability_threshold: builtins.float
+    """Optional: End-of-turn probability at or above which the semantic turn detection model takes the caller to
+    have finished the turn (valid range: 0 - 1). Unset uses the speech-to-text service&apos;s configured threshold
+    for the language of the call. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+    with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+    <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+    """
+    uncertain_min_words: builtins.int
+    """Optional: Minimum number of words a turn needs before a hold band may hold it; a shorter turn judged finished
+    is committed at once (default: 3, valid range: 0 - 20). Used only by an end-of-utterance model; a chat model
+    ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with
+    <code>VAD</code> or <code>AUDIO_MODEL</code>, or outside the range, it is refused with
+    <code>INVALID_ARGUMENT</code>
+    """
+    incomplete_max_silence_seconds: builtins.float
+    """Optional: Seconds of silence after a turn the semantic turn detection model (of either kind) judged NOT
+    finished before it is committed anyway (default: the voice activity detection&apos;s minimum silence, valid
+    range: 0 - 4; the speech-to-text service raises a value below that minimum silence to it). Only valid with
+    the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+    <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+    """
+    exact_probability: builtins.bool
+    """Optional: Compute the exact end-of-turn probability instead of reading it from the model&apos;s returned top
+    log probabilities (default: false). Requires a deployment that returns prompt log probabilities (vLLM
+    <code>prompt_logprobs</code>); on any other deployment every turn waits for
+    <code>incomplete_max_silence_seconds</code>. Used only by an end-of-utterance model; a chat model ignores it.
+    Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+    <code>AUDIO_MODEL</code> it is refused with <code>INVALID_ARGUMENT</code>
+    """
+    final_merge_window_seconds: builtins.float
+    """Optional: Seconds a speech-to-text final that looks like half a sentence is held, to be merged with the
+    caller&apos;s continuation into ONE turn (default: 0 = off, valid range: 0 - 2). Valid with every mode. A value
+    outside the range is refused with <code>INVALID_ARGUMENT</code>
+    """
+    @property
+    def hold_bands(self) -> global___TurnDetectionConfig.EndOfTurnHoldBands:
+        """Optional: Hold bands of the semantic turn detection model: how long a turn judged finished, but only with a
+        probability below a band&apos;s upper bound, waits for further silence before it is committed. Set with no
+        bands, a turn at or above the threshold is committed at once; unset uses the speech-to-text service&apos;s
+        configured bands for the language of the call. At most 10 bands, with the ranges of
+        <code>EndOfTurnHoldBand</code>. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+        with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+        <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+        """
+
+    @property
+    def dictation_config(self) -> global___DictationConfig:
+        """Configuration of the dictation hold, i.e. waiting for the rest of a dictated value (digits, phone or card
+        number, IBAN, address, date, ...) instead of ending the turn at the caller&apos;s pause between its groups.
+        Valid with every mode. Unset fields keep the defaults
+        """
+
     def __init__(
         self,
         *,
@@ -421,19 +540,151 @@ class TurnDetectionConfig(google.protobuf.message.Message):
         turn_eagerness: global___TurnDetectionConfig.TurnEagerness.ValueType = ...,
         turn_detection_system_prompt: builtins.str | None = ...,
         turn_detection_user_prompt: builtins.str | None = ...,
+        conversation_context_turns: builtins.int | None = ...,
+        semantic_model_name: builtins.str | None = ...,
+        end_of_turn_probability_threshold: builtins.float | None = ...,
+        hold_bands: global___TurnDetectionConfig.EndOfTurnHoldBands | None = ...,
+        uncertain_min_words: builtins.int | None = ...,
+        incomplete_max_silence_seconds: builtins.float | None = ...,
+        exact_probability: builtins.bool | None = ...,
+        final_merge_window_seconds: builtins.float | None = ...,
+        dictation_config: global___DictationConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "mode", b"mode", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "turn_eagerness", b"turn_eagerness"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_semantic_model_name", b"_semantic_model_name", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "semantic_model_name", b"semantic_model_name", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "uncertain_min_words", b"uncertain_min_words"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_semantic_model_name", b"_semantic_model_name", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "mode", b"mode", "semantic_model_name", b"semantic_model_name", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "turn_eagerness", b"turn_eagerness", "uncertain_min_words", b"uncertain_min_words"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_conversation_context_turns", b"_conversation_context_turns"]) -> typing.Literal["conversation_context_turns"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold"]) -> typing.Literal["end_of_turn_probability_threshold"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_exact_probability", b"_exact_probability"]) -> typing.Literal["exact_probability"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_final_merge_window_seconds", b"_final_merge_window_seconds"]) -> typing.Literal["final_merge_window_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds"]) -> typing.Literal["incomplete_max_silence_seconds"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds"]) -> typing.Literal["max_endpointing_delay_seconds"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds"]) -> typing.Literal["min_endpointing_delay_seconds"] | None: ...
     @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_semantic_model_name", b"_semantic_model_name"]) -> typing.Literal["semantic_model_name"] | None: ...
+    @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_turn_detection_system_prompt", b"_turn_detection_system_prompt"]) -> typing.Literal["turn_detection_system_prompt"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_turn_detection_user_prompt", b"_turn_detection_user_prompt"]) -> typing.Literal["turn_detection_user_prompt"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_uncertain_min_words", b"_uncertain_min_words"]) -> typing.Literal["uncertain_min_words"] | None: ...
 
 global___TurnDetectionConfig = TurnDetectionConfig
+
+@typing.final
+class DictationConfig(google.protobuf.message.Message):
+    """Configuration of the dictation hold of a call: a final transcription whose dictated value is not complete yet is
+    held until the caller continues, so that the groups of the value reach the NLU as ONE turn. Every unset field
+    keeps its default; a field that is out of range is refused with <code>INVALID_ARGUMENT</code>
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    @typing.final
+    class HoldMaxSecondsByCategoryEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        value: builtins.float
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: builtins.float = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+
+    HOLD_ENABLED_FIELD_NUMBER: builtins.int
+    EXPECTED_INPUT_ENABLED_FIELD_NUMBER: builtins.int
+    READ_BACK_FROM_BOT_TEXT_ENABLED_FIELD_NUMBER: builtins.int
+    HOLD_GENERIC_MAX_SECONDS_FIELD_NUMBER: builtins.int
+    HOLD_MAX_SECONDS_BY_CATEGORY_FIELD_NUMBER: builtins.int
+    HOLD_INVALID_CHECKSUM_SECONDS_FIELD_NUMBER: builtins.int
+    EARLY_COMMIT_ON_COMPLETE_VALUE_FIELD_NUMBER: builtins.int
+    S2T_SLOT_MIN_DURATION_OFF_SECONDS_FIELD_NUMBER: builtins.int
+    S2T_SLOT_MIN_DURATION_OFF_RESTORE_SECONDS_FIELD_NUMBER: builtins.int
+    hold_enabled: builtins.bool
+    """Optional: Hold a final transcription whose dictated value is unfinished (default: false)"""
+    expected_input_enabled: builtins.bool
+    """Optional: Read the expected value (slot) from the NLU answer, so that the hold applies the rule of the value
+    the bot asked for (default: false; without it only the generic rule holds)
+    """
+    read_back_from_bot_text_enabled: builtins.bool
+    """Optional: With <code>expected_input_enabled</code>, take a bot answer that reads a complete value back and asks
+    for confirmation as asking for a confirmation of that value (default: false)
+    """
+    hold_generic_max_seconds: builtins.float
+    """Optional: Seconds the generic rule (no expected value) holds at most (default: 1.5, valid range: 0 - 2;
+    0 switches the generic rule off)
+    """
+    hold_invalid_checksum_seconds: builtins.float
+    """Optional: Seconds a full-length value whose checksum fails is held, so that the bot can ask again
+    (default: 1.5, valid range: 0 - 4)
+    """
+    early_commit_on_complete_value: builtins.bool
+    """Optional: Commit the turn on a partial transcription as soon as the expected value is complete; needs
+    <code>hold_enabled</code> and <code>expected_input_enabled</code> (default: false)
+    """
+    s2t_slot_min_duration_off_seconds: builtins.float
+    """Optional: Minimum silence in seconds the speech-to-text service waits before it ends an utterance while a value
+    is expected (default: 0 = off, valid range: 0 or 0.5 - 4). Only takes effect when a value to restore after the
+    turn is known: <code>s2t_slot_min_duration_off_restore_seconds</code> or the minimum silence of the
+    speech-to-text configuration
+    """
+    s2t_slot_min_duration_off_restore_seconds: builtins.float
+    """Optional: Minimum silence in seconds restored on the speech-to-text service after a turn with an expected value
+    (default: the minimum silence of the speech-to-text configuration, valid range: 0.05 - 4)
+    """
+    @property
+    def hold_max_seconds_by_category(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.float]:
+        """Optional: Seconds an unfinished value of a category is held at most, keyed by the category: <code>digits</code>,
+        <code>phone</code>, <code>card</code>, <code>expiry_cvc</code>, <code>iban</code>, <code>bic</code>,
+        <code>svnr</code>, <code>address</code>, <code>date</code>, <code>time</code>, <code>email</code>,
+        <code>confirm_value</code> or <code>generic</code> (valid range: 0 - 4 each). A category not listed keeps its
+        default cap; an unknown category is refused with <code>INVALID_ARGUMENT</code>
+        """
+
+    def __init__(
+        self,
+        *,
+        hold_enabled: builtins.bool | None = ...,
+        expected_input_enabled: builtins.bool | None = ...,
+        read_back_from_bot_text_enabled: builtins.bool | None = ...,
+        hold_generic_max_seconds: builtins.float | None = ...,
+        hold_max_seconds_by_category: collections.abc.Mapping[builtins.str, builtins.float] | None = ...,
+        hold_invalid_checksum_seconds: builtins.float | None = ...,
+        early_commit_on_complete_value: builtins.bool | None = ...,
+        s2t_slot_min_duration_off_seconds: builtins.float | None = ...,
+        s2t_slot_min_duration_off_restore_seconds: builtins.float | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_early_commit_on_complete_value", b"_early_commit_on_complete_value", "_expected_input_enabled", b"_expected_input_enabled", "_hold_enabled", b"_hold_enabled", "_hold_generic_max_seconds", b"_hold_generic_max_seconds", "_hold_invalid_checksum_seconds", b"_hold_invalid_checksum_seconds", "_read_back_from_bot_text_enabled", b"_read_back_from_bot_text_enabled", "_s2t_slot_min_duration_off_restore_seconds", b"_s2t_slot_min_duration_off_restore_seconds", "_s2t_slot_min_duration_off_seconds", b"_s2t_slot_min_duration_off_seconds", "early_commit_on_complete_value", b"early_commit_on_complete_value", "expected_input_enabled", b"expected_input_enabled", "hold_enabled", b"hold_enabled", "hold_generic_max_seconds", b"hold_generic_max_seconds", "hold_invalid_checksum_seconds", b"hold_invalid_checksum_seconds", "read_back_from_bot_text_enabled", b"read_back_from_bot_text_enabled", "s2t_slot_min_duration_off_restore_seconds", b"s2t_slot_min_duration_off_restore_seconds", "s2t_slot_min_duration_off_seconds", b"s2t_slot_min_duration_off_seconds"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_early_commit_on_complete_value", b"_early_commit_on_complete_value", "_expected_input_enabled", b"_expected_input_enabled", "_hold_enabled", b"_hold_enabled", "_hold_generic_max_seconds", b"_hold_generic_max_seconds", "_hold_invalid_checksum_seconds", b"_hold_invalid_checksum_seconds", "_read_back_from_bot_text_enabled", b"_read_back_from_bot_text_enabled", "_s2t_slot_min_duration_off_restore_seconds", b"_s2t_slot_min_duration_off_restore_seconds", "_s2t_slot_min_duration_off_seconds", b"_s2t_slot_min_duration_off_seconds", "early_commit_on_complete_value", b"early_commit_on_complete_value", "expected_input_enabled", b"expected_input_enabled", "hold_enabled", b"hold_enabled", "hold_generic_max_seconds", b"hold_generic_max_seconds", "hold_invalid_checksum_seconds", b"hold_invalid_checksum_seconds", "hold_max_seconds_by_category", b"hold_max_seconds_by_category", "read_back_from_bot_text_enabled", b"read_back_from_bot_text_enabled", "s2t_slot_min_duration_off_restore_seconds", b"s2t_slot_min_duration_off_restore_seconds", "s2t_slot_min_duration_off_seconds", b"s2t_slot_min_duration_off_seconds"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_early_commit_on_complete_value", b"_early_commit_on_complete_value"]) -> typing.Literal["early_commit_on_complete_value"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_expected_input_enabled", b"_expected_input_enabled"]) -> typing.Literal["expected_input_enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_hold_enabled", b"_hold_enabled"]) -> typing.Literal["hold_enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_hold_generic_max_seconds", b"_hold_generic_max_seconds"]) -> typing.Literal["hold_generic_max_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_hold_invalid_checksum_seconds", b"_hold_invalid_checksum_seconds"]) -> typing.Literal["hold_invalid_checksum_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_read_back_from_bot_text_enabled", b"_read_back_from_bot_text_enabled"]) -> typing.Literal["read_back_from_bot_text_enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_s2t_slot_min_duration_off_restore_seconds", b"_s2t_slot_min_duration_off_restore_seconds"]) -> typing.Literal["s2t_slot_min_duration_off_restore_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_s2t_slot_min_duration_off_seconds", b"_s2t_slot_min_duration_off_seconds"]) -> typing.Literal["s2t_slot_min_duration_off_seconds"] | None: ...
+
+global___DictationConfig = DictationConfig
 
 @typing.final
 class InterruptionHandlingConfig(google.protobuf.message.Message):

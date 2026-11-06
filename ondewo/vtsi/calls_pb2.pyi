@@ -44,6 +44,7 @@ from ondewo.vtsi.call_configs_pb2 import (
     CommonServicesConfig as CommonServicesConfig,
     Credentials as Credentials,
     CsiVtsiConfig as CsiVtsiConfig,
+    DictationConfig as DictationConfig,
     InterruptionHandlingConfig as InterruptionHandlingConfig,
     MessageBrokerConfig as MessageBrokerConfig,
     MessageBrokerServicesActivationConfig as MessageBrokerServicesActivationConfig,
