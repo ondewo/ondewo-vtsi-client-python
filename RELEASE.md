@@ -11,6 +11,10 @@
   (`optional int32`, field 9): the per-call barge-in fade-out length in milliseconds (default 100, valid range
   0 - 500, `0` = stop at once). The vendored `ondewo/nlu`, `ondewo/qa`, `ondewo/s2t`, `ondewo/t2s` and
   `ondewo/sip` files are unchanged since 9.3.0.
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) The vendored `ondewo/s2t` stubs track the
+  unreleased ondewo-s2t-api 7.6.0, including `UtteranceDetectionOptions.transcribe_not_final_period_seconds` (the
+  per-request partial-transcription period) and `StreamingSpeechRecognition.transcribe_not_final_period_seconds`;
+  they are byte-identical to ondewo-s2t-client-python's.
 
 *****************
 
