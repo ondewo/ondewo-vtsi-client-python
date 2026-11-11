@@ -278,7 +278,9 @@ class T2sPreemptiveSynthesisConfig(google.protobuf.message.Message):
     """
     chunked: builtins.bool
     """Optional: Hand a matching draft&apos;s answer over chunk by chunk while it is still being synthesized, instead
-    of waiting for the whole synthesis (default: false)
+    of waiting for the whole synthesis (default: false). Needs chunked text-to-speech streaming
+    (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>) and is ignored without it.
+    <code>chunked</code> has no effect when <code>enabled</code> is false
     """
     def __init__(
         self,
@@ -1402,7 +1404,9 @@ class CsiPreemptiveGenerationConfig(google.protobuf.message.Message):
     """
     commit_wait_timeout_seconds: builtins.float
     """Optional: Seconds a draft that matches the final transcription may still take before it is discarded and the
-    turn is answered normally (default: 3.0, valid range: 0 - 3)
+    turn is answered normally (default: 3.0, valid range: 0 - 3). While
+    <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the commit waits for the whole draft; while it is on,
+    only for the draft&apos;s first chunk
     """
     def __init__(
         self,
