@@ -9,12 +9,13 @@
 * Tracking API Version [9.4.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.4.0) ( [Documentation](https://ondewo.github.io/ondewo-vtsi-api/) )
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) `InterruptionHandlingConfig.interruption_fade_out_ms`
   (`optional int32`, field 9): the per-call barge-in fade-out length in milliseconds (default 100, valid range
-  0 - 500, `0` = stop at once). The vendored `ondewo/nlu`, `ondewo/qa`, `ondewo/s2t`, `ondewo/t2s` and
-  `ondewo/sip` files are unchanged since 9.3.0.
+  0 - 500, `0` = stop at once). The vendored `ondewo/nlu`, `ondewo/qa`, `ondewo/t2s` and `ondewo/sip` files are
+  unchanged since 9.3.0; `ondewo/s2t` changed (next item).
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) The vendored `ondewo/s2t` stubs track the
   unreleased ondewo-s2t-api 7.6.0, including `UtteranceDetectionOptions.transcribe_not_final_period_seconds` (the
-  per-request partial-transcription period) and `StreamingSpeechRecognition.transcribe_not_final_period_seconds`;
-  they are byte-identical to ondewo-s2t-client-python's.
+  per-request partial-transcription period), `StreamingSpeechRecognition.transcribe_not_final_period_seconds` and
+  `StreamingSpeechRecognition.transcribe_not_final` as `optional bool` (wire-compatible; unset means the S2T server
+  default, now `true`, an explicit `false` opts out); they are byte-identical to ondewo-s2t-client-python's.
 
 *****************
 
