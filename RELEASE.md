@@ -16,6 +16,14 @@
   per-request partial-transcription period), `StreamingSpeechRecognition.transcribe_not_final_period_seconds` and
   `StreamingSpeechRecognition.transcribe_not_final` as `optional bool` (wire-compatible; unset means the S2T server
   default, now `true`, an explicit `false` opts out); they are byte-identical to ondewo-s2t-client-python's.
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) Per-call preemptive generation settings, every
+  scalar `optional`: `NluVtsiConfig.preemptive_generation_config` (`NluPreemptiveGenerationConfig`:
+  `max_drafts_per_turn`, `min_stable_dwell_seconds`, `min_interval_seconds`),
+  `T2sVtsiConfig.preemptive_synthesis_config` (`T2sPreemptiveSynthesisConfig`: `enabled`, `chunked`) and
+  `CsiVtsiConfig.preemptive_generation_config` (`CsiPreemptiveGenerationConfig`: `enabled`,
+  `commit_wait_timeout_seconds`). `ResponseTimingConfig.preemptive_generation_enabled` is deprecated in favour of
+  `CsiPreemptiveGenerationConfig.enabled` (still honoured alone; a conflicting pair is refused with
+  `INVALID_ARGUMENT`). Ranges and defaults are documented in ondewo-vtsi-api 9.4.0.
 
 *****************
 

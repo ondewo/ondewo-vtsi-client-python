@@ -123,6 +123,7 @@ class NluVtsiConfig(google.protobuf.message.Message):
     CONTEXTS_FIELD_NUMBER: builtins.int
     HTTP_BASIC_AUTH_TOKEN_FIELD_NUMBER: builtins.int
     PLATFORM_FIELD_NUMBER: builtins.int
+    PREEMPTIVE_GENERATION_CONFIG_FIELD_NUMBER: builtins.int
     auth_token: builtins.str
     """Authentication token"""
     agent_name: builtins.str
@@ -155,6 +156,13 @@ class NluVtsiConfig(google.protobuf.message.Message):
     def contexts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ondewo.nlu.context_pb2.Context]:
         """ondewo-nlu list of contexts"""
 
+    @property
+    def preemptive_generation_config(self) -> global___NluPreemptiveGenerationConfig:
+        """Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
+        values. Whether preemptive generation runs at all is set with
+        <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
+        """
+
     def __init__(
         self,
         *,
@@ -167,15 +175,59 @@ class NluVtsiConfig(google.protobuf.message.Message):
         contexts: collections.abc.Iterable[ondewo.nlu.context_pb2.Context] | None = ...,
         http_basic_auth_token: builtins.str = ...,
         platform: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType | None = ...,
+        preemptive_generation_config: global___NluPreemptiveGenerationConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_platform", b"_platform", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "nlu_base_config", b"nlu_base_config", "platform", b"platform"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_platform", b"_platform", "agent_name", b"agent_name", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_platform", b"_platform", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_platform", b"_platform", "agent_name", b"agent_name", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_platform", b"_platform"]) -> typing.Literal["platform"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["authentication", b"authentication"]) -> typing.Literal["credentials", "auth_token"] | None: ...
 
 global___NluVtsiConfig = NluVtsiConfig
+
+@typing.final
+class NluPreemptiveGenerationConfig(google.protobuf.message.Message):
+    """Bounds of the preemptive (speculative) NLU requests: on a stable partial transcription the speech-to-speech
+    service asks the NLU for the answer of a draft BEFORE the final transcription arrives, and keeps it only when the
+    final transcription matches the draft. Every field is optional; an unset field keeps the deployment&apos;s value.
+    A value outside its range is refused with <code>INVALID_ARGUMENT</code>
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MAX_DRAFTS_PER_TURN_FIELD_NUMBER: builtins.int
+    MIN_STABLE_DWELL_SECONDS_FIELD_NUMBER: builtins.int
+    MIN_INTERVAL_SECONDS_FIELD_NUMBER: builtins.int
+    max_drafts_per_turn: builtins.int
+    """Optional: Number of drafts one caller turn may start at most (default: 2, valid range: 0 - 5;
+    0 = no drafts)
+    """
+    min_stable_dwell_seconds: builtins.float
+    """Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts
+    (default: 0.25, valid range: 0 - 2; 0 = no wait)
+    """
+    min_interval_seconds: builtins.float
+    """Optional: Minimum seconds between the starts of two drafts within one turn (default: 0.5,
+    valid range: 0 - 5; 0 = no limit)
+    """
+    def __init__(
+        self,
+        *,
+        max_drafts_per_turn: builtins.int | None = ...,
+        min_stable_dwell_seconds: builtins.float | None = ...,
+        min_interval_seconds: builtins.float | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_max_drafts_per_turn", b"_max_drafts_per_turn", "_min_interval_seconds", b"_min_interval_seconds", "_min_stable_dwell_seconds", b"_min_stable_dwell_seconds", "max_drafts_per_turn", b"max_drafts_per_turn", "min_interval_seconds", b"min_interval_seconds", "min_stable_dwell_seconds", b"min_stable_dwell_seconds"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_max_drafts_per_turn", b"_max_drafts_per_turn", "_min_interval_seconds", b"_min_interval_seconds", "_min_stable_dwell_seconds", b"_min_stable_dwell_seconds", "max_drafts_per_turn", b"max_drafts_per_turn", "min_interval_seconds", b"min_interval_seconds", "min_stable_dwell_seconds", b"min_stable_dwell_seconds"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_max_drafts_per_turn", b"_max_drafts_per_turn"]) -> typing.Literal["max_drafts_per_turn"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_min_interval_seconds", b"_min_interval_seconds"]) -> typing.Literal["min_interval_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_min_stable_dwell_seconds", b"_min_stable_dwell_seconds"]) -> typing.Literal["min_stable_dwell_seconds"] | None: ...
+
+global___NluPreemptiveGenerationConfig = NluPreemptiveGenerationConfig
 
 @typing.final
 class T2sVtsiConfig(google.protobuf.message.Message):
@@ -185,6 +237,7 @@ class T2sVtsiConfig(google.protobuf.message.Message):
 
     T2S_BASE_CONFIG_FIELD_NUMBER: builtins.int
     T2S_REQUEST_CONFIG_FIELD_NUMBER: builtins.int
+    PREEMPTIVE_SYNTHESIS_CONFIG_FIELD_NUMBER: builtins.int
     @property
     def t2s_base_config(self) -> global___BaseServiceConfig:
         """Host, Port, and [Optional] GRPC cert"""
@@ -193,16 +246,54 @@ class T2sVtsiConfig(google.protobuf.message.Message):
     def t2s_request_config(self) -> ondewo.t2s.text_to_speech_pb2.RequestConfig:
         """Configuration of Text-2-Speech"""
 
+    @property
+    def preemptive_synthesis_config(self) -> global___T2sPreemptiveSynthesisConfig:
+        """Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values"""
+
     def __init__(
         self,
         *,
         t2s_base_config: global___BaseServiceConfig | None = ...,
         t2s_request_config: ondewo.t2s.text_to_speech_pb2.RequestConfig | None = ...,
+        preemptive_synthesis_config: global___T2sPreemptiveSynthesisConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["preemptive_synthesis_config", b"preemptive_synthesis_config", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["preemptive_synthesis_config", b"preemptive_synthesis_config", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]) -> None: ...
 
 global___T2sVtsiConfig = T2sVtsiConfig
+
+@typing.final
+class T2sPreemptiveSynthesisConfig(google.protobuf.message.Message):
+    """Speech synthesis of the answer of a preemptive (speculative) draft. Every field is optional; an unset field keeps
+    the deployment&apos;s value
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENABLED_FIELD_NUMBER: builtins.int
+    CHUNKED_FIELD_NUMBER: builtins.int
+    enabled: builtins.bool
+    """Optional: Synthesize the answer of a draft before the final transcription arrives, so that a matching draft
+    plays at once (default: true). <code>false</code> asks the NLU only and synthesizes at the commit
+    """
+    chunked: builtins.bool
+    """Optional: Hand a matching draft&apos;s answer over chunk by chunk while it is still being synthesized, instead
+    of waiting for the whole synthesis (default: false)
+    """
+    def __init__(
+        self,
+        *,
+        enabled: builtins.bool | None = ...,
+        chunked: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_chunked", b"_chunked", "_enabled", b"_enabled", "chunked", b"chunked", "enabled", b"enabled"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_chunked", b"_chunked", "_enabled", b"_enabled", "chunked", b"chunked", "enabled", b"enabled"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_chunked", b"_chunked"]) -> typing.Literal["chunked"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
+
+global___T2sPreemptiveSynthesisConfig = T2sPreemptiveSynthesisConfig
 
 @typing.final
 class S2tVtsiConfig(google.protobuf.message.Message):
@@ -795,7 +886,12 @@ class ResponseTimingConfig(google.protobuf.message.Message):
     Unset = off (-1 is also accepted as explicit off)
     """
     preemptive_generation_enabled: builtins.bool
-    """Optional: Enable preemptive response generation on an eagerly detected end of turn (default: false)"""
+    """Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
+    Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
+    setting, which is true unless changed). Still honoured when it is set alone; set together with
+    <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
+    with <code>INVALID_ARGUMENT</code>
+    """
     t2s_chunked_streaming_enabled: builtins.bool
     """Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)"""
     @property
@@ -1230,6 +1326,7 @@ class CsiVtsiConfig(google.protobuf.message.Message):
     AUDIO_OBJECT_STORE_CONFIG_FIELD_NUMBER: builtins.int
     MESSAGE_BROKER_CONFIG_FIELD_NUMBER: builtins.int
     ACTIVATE_CONTROL_MESSAGES_FIELD_NUMBER: builtins.int
+    PREEMPTIVE_GENERATION_CONFIG_FIELD_NUMBER: builtins.int
     activate_control_messages: builtins.bool
     """Setting to activate if it is possible to send control messages
     <ul>
@@ -1263,6 +1360,10 @@ class CsiVtsiConfig(google.protobuf.message.Message):
     def message_broker_config(self) -> global___MessageBrokerConfig:
         """Configuration of the RabbitMQ Message Broker"""
 
+    @property
+    def preemptive_generation_config(self) -> global___CsiPreemptiveGenerationConfig:
+        """Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values"""
+
     def __init__(
         self,
         *,
@@ -1272,12 +1373,51 @@ class CsiVtsiConfig(google.protobuf.message.Message):
         audio_object_store_config: global___AudioObjectStorageConfig | None = ...,
         message_broker_config: global___MessageBrokerConfig | None = ...,
         activate_control_messages: builtins.bool | None = ...,
+        preemptive_generation_config: global___CsiPreemptiveGenerationConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "preemptive_generation_config", b"preemptive_generation_config", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "preemptive_generation_config", b"preemptive_generation_config", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["_activate_control_messages", b"_activate_control_messages"]) -> typing.Literal["activate_control_messages"] | None: ...
 
 global___CsiVtsiConfig = CsiVtsiConfig
+
+@typing.final
+class CsiPreemptiveGenerationConfig(google.protobuf.message.Message):
+    """Preemptive (speculative) generation of the answer: on a stable partial transcription a draft answer is generated
+    before the final transcription arrives, and played only when the final transcription matches it; a draft that
+    does not match is discarded and the caller hears nothing of it. Every field is optional; an unset field keeps
+    the deployment&apos;s value. A value outside its range is refused with <code>INVALID_ARGUMENT</code>.
+    The NLU bounds are set with <code>NluVtsiConfig.preemptive_generation_config</code>, the speech synthesis of a
+    draft with <code>T2sVtsiConfig.preemptive_synthesis_config</code>
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENABLED_FIELD_NUMBER: builtins.int
+    COMMIT_WAIT_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
+    enabled: builtins.bool
+    """Optional: Enable preemptive generation (default: the deployment&apos;s setting, which is true unless changed).
+    Replaces the deprecated <code>ResponseTimingConfig.preemptive_generation_enabled</code>; set together with it
+    to a different value, the request is refused with <code>INVALID_ARGUMENT</code>
+    """
+    commit_wait_timeout_seconds: builtins.float
+    """Optional: Seconds a draft that matches the final transcription may still take before it is discarded and the
+    turn is answered normally (default: 3.0, valid range: 0 - 3)
+    """
+    def __init__(
+        self,
+        *,
+        enabled: builtins.bool | None = ...,
+        commit_wait_timeout_seconds: builtins.float | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_commit_wait_timeout_seconds", b"_commit_wait_timeout_seconds", "_enabled", b"_enabled", "commit_wait_timeout_seconds", b"commit_wait_timeout_seconds", "enabled", b"enabled"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_commit_wait_timeout_seconds", b"_commit_wait_timeout_seconds", "_enabled", b"_enabled", "commit_wait_timeout_seconds", b"commit_wait_timeout_seconds", "enabled", b"enabled"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_commit_wait_timeout_seconds", b"_commit_wait_timeout_seconds"]) -> typing.Literal["commit_wait_timeout_seconds"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
+
+global___CsiPreemptiveGenerationConfig = CsiPreemptiveGenerationConfig
 
 @typing.final
 class AudioObjectStorageConfig(google.protobuf.message.Message):
