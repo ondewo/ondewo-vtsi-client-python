@@ -11,8 +11,15 @@
   (`optional int32`, field 9): the per-call barge-in fade-out length in milliseconds (default 100, valid range
   0 - 500, `0` = stop at once). The vendored `ondewo/nlu`, `ondewo/qa`, `ondewo/t2s` and `ondewo/sip` files are
   unchanged since 9.3.0; `ondewo/s2t` changed (next item).
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) `TurnDetectionConfig` configures the turn
+  detection decision, its context and dictation per call: `conversation_context_turns`, `semantic_model_name`,
+  `end_of_turn_probability_threshold`, `hold_bands`, `uncertain_min_words`, `incomplete_max_silence_seconds`,
+  `exact_probability`, `final_merge_window_seconds` and a `DictationConfig` sub-message (a per-call category map;
+  `generic` is not a category and is refused). Every field is `optional`; ranges are documented in
+  ondewo-vtsi-api 9.4.0.
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) The vendored `ondewo/s2t` stubs track the
-  unreleased ondewo-s2t-api 7.6.0, including `UtteranceDetectionOptions.transcribe_not_final_period_seconds` (the
+  unreleased ondewo-s2t-api 7.6.0, including `UtteranceDetectionOptions.min_audio_chunk_size`, the pipecat Smart
+  Turn fields of `TurnDetectionOptions`, `UtteranceDetectionOptions.transcribe_not_final_period_seconds` (the
   per-request partial-transcription period), `StreamingSpeechRecognition.transcribe_not_final_period_seconds` and
   `StreamingSpeechRecognition.transcribe_not_final` as `optional bool` (wire-compatible; unset means the S2T server
   default, now `true`, an explicit `false` opts out); they are byte-identical to ondewo-s2t-client-python's.
