@@ -4,13 +4,21 @@
 
 ## Release ONDEWO VTSI Python Client 9.4.0
 
+### New Features
+
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) `Calls.send_call_dtmf` (sync and async) presses
+  DTMF keys on a connected call (`SendCallDtmfRequest.digits`, 1 to 64 of `0-9 * # A-D`); event
+  `VTSI_EVENT_CALL_DTMF_SENT`. `VoiceInteractionConfig.dtmf_config` (`DtmfConfig`: `enabled`, `barge_in`,
+  `inter_digit_timeout_ms`, `undeclared_policy`, all `optional`) configures the caller's keys per call.
+
 ### Improvements
 
 * Tracking API Version [9.4.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.4.0) ( [Documentation](https://ondewo.github.io/ondewo-vtsi-api/) )
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) `InterruptionHandlingConfig.interruption_fade_out_ms`
   (`optional int32`, field 9): the per-call barge-in fade-out length in milliseconds (default 100, valid range
-  0 - 500, `0` = stop at once). The vendored `ondewo/nlu`, `ondewo/qa`, `ondewo/t2s` and `ondewo/sip` files are
-  unchanged since 9.3.0; `ondewo/s2t` changed (next item).
+  0 - 500, `0` = stop at once). The vendored `ondewo/nlu`, `ondewo/qa` and `ondewo/t2s` files are unchanged since
+  9.3.0; `ondewo/s2t` changed (next item) and `ondewo/sip` tracks ondewo-sip-api 5.6.0 (`SipSendDtmf`), so pin
+  `ondewo-sip-client` 5.6.0 next to this client.
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) `TurnDetectionConfig` configures the turn
   detection decision, its context and dictation per call: `conversation_context_turns`, `semantic_model_name`,
   `end_of_turn_probability_threshold`, `hold_bands`, `uncertain_min_words`, `incomplete_max_silence_seconds`,

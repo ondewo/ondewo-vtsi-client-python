@@ -176,6 +176,11 @@ class _VtsiEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     <code>labels</code>). Never carries a label value. Sets <code>call_name</code>. Not emitted for an entry
     of a batch that failed, nor when the update changed nothing.
     """
+    VTSI_EVENT_CALL_DTMF_SENT: _VtsiEvent.ValueType  # 123
+    """DTMF keys were queued on the call (<code>SendCallDtmf</code>). Attributes: <code>keys</code> (the NUMBER of
+    keys, never the keys) and <code>actor</code> (the authenticated user, when known). Sets
+    <code>call_name</code>.
+    """
     VTSI_EVENT_CALLER_STARTED: _VtsiEvent.ValueType  # 200
     """---- Callers (resource_name: the caller) ----
 
@@ -633,6 +638,11 @@ VTSI_EVENT_CALL_UPDATED: VtsiEvent.ValueType  # 122
 itself is unchanged. Attribute <code>updated_fields</code> (the <code>update_mask</code> paths, e.g.
 <code>labels</code>). Never carries a label value. Sets <code>call_name</code>. Not emitted for an entry
 of a batch that failed, nor when the update changed nothing.
+"""
+VTSI_EVENT_CALL_DTMF_SENT: VtsiEvent.ValueType  # 123
+"""DTMF keys were queued on the call (<code>SendCallDtmf</code>). Attributes: <code>keys</code> (the NUMBER of
+keys, never the keys) and <code>actor</code> (the authenticated user, when known). Sets
+<code>call_name</code>.
 """
 VTSI_EVENT_CALLER_STARTED: VtsiEvent.ValueType  # 200
 """---- Callers (resource_name: the caller) ----

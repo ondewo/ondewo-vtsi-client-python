@@ -381,6 +381,7 @@ class VoiceInteractionConfig(google.protobuf.message.Message):
     INTERRUPTION_HANDLING_CONFIG_FIELD_NUMBER: builtins.int
     RESPONSE_TIMING_CONFIG_FIELD_NUMBER: builtins.int
     ANSWERING_MACHINE_DETECTION_CONFIG_FIELD_NUMBER: builtins.int
+    DTMF_CONFIG_FIELD_NUMBER: builtins.int
     @property
     def turn_detection_config(self) -> global___TurnDetectionConfig:
         """Configuration of the turn detection"""
@@ -400,6 +401,12 @@ class VoiceInteractionConfig(google.protobuf.message.Message):
         is rejected with INVALID_ARGUMENT
         """
 
+    @property
+    def dtmf_config(self) -> global___DtmfConfig:
+        """Configuration of the DTMF keys the CALLER presses (keypad input to the bot). Unset keeps the deployment&apos;s
+        behaviour (keys on, a key barges in, undeclared keys dropped)
+        """
+
     def __init__(
         self,
         *,
@@ -407,11 +414,65 @@ class VoiceInteractionConfig(google.protobuf.message.Message):
         interruption_handling_config: global___InterruptionHandlingConfig | None = ...,
         response_timing_config: global___ResponseTimingConfig | None = ...,
         answering_machine_detection_config: global___AnsweringMachineDetectionConfig | None = ...,
+        dtmf_config: global___DtmfConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> None: ...
 
 global___VoiceInteractionConfig = VoiceInteractionConfig
+
+@typing.final
+class DtmfConfig(google.protobuf.message.Message):
+    """Configuration of the DTMF keys a caller presses. A key reaches the bot only when the bot&apos;s last answer
+    declared a key menu or a key entry (ondewo-cai intent tags <code>ondewo-voice:dtmf-menu:&lt;id&gt;</code> /
+    <code>ondewo-voice:dtmf-digits:&lt;id&gt;</code>); it is then sent to the NLU as the turn text
+    <code>[DTMF:&lt;keys&gt;]</code>. Every field is <code>optional</code>; unset keeps the deployment&apos;s value
+    (the <code>ONDEWO_VTSI_CSI_DTMF_*</code> / <code>ONDEWO_VTSI_SIP_DTMF_FORWARD_ACTIVE</code> settings, else
+    the default).
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENABLED_FIELD_NUMBER: builtins.int
+    BARGE_IN_FIELD_NUMBER: builtins.int
+    INTER_DIGIT_TIMEOUT_MS_FIELD_NUMBER: builtins.int
+    UNDECLARED_POLICY_FIELD_NUMBER: builtins.int
+    enabled: builtins.bool
+    """Whether a pressed key is forwarded to the bot at all (default true). <code>false</code> ignores every key of
+    the call
+    """
+    barge_in: builtins.bool
+    """Whether a key pressed while the bot speaks stops the bot, like a spoken interruption (default true)"""
+    inter_digit_timeout_ms: builtins.int
+    """Milliseconds after the last key of a key entry (e.g. a PIN) without a terminator before the entry is sent
+    (default 2000, valid range 300 - 10000; a value outside the range is refused with
+    <code>INVALID_ARGUMENT</code>)
+    """
+    undeclared_policy: builtins.str
+    """What a key the bot declared nothing for does: <code>DROP</code> (default; the key is ignored and the bot is
+    not interrupted) or <code>COMMIT_SINGLE</code> (the key is sent to the NLU as a one-key turn). Any other
+    value is refused with <code>INVALID_ARGUMENT</code>
+    """
+    def __init__(
+        self,
+        *,
+        enabled: builtins.bool | None = ...,
+        barge_in: builtins.bool | None = ...,
+        inter_digit_timeout_ms: builtins.int | None = ...,
+        undeclared_policy: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "undeclared_policy", b"undeclared_policy"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "undeclared_policy", b"undeclared_policy"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_barge_in", b"_barge_in"]) -> typing.Literal["barge_in"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_inter_digit_timeout_ms", b"_inter_digit_timeout_ms"]) -> typing.Literal["inter_digit_timeout_ms"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_undeclared_policy", b"_undeclared_policy"]) -> typing.Literal["undeclared_policy"] | None: ...
+
+global___DtmfConfig = DtmfConfig
 
 @typing.final
 class TurnDetectionConfig(google.protobuf.message.Message):

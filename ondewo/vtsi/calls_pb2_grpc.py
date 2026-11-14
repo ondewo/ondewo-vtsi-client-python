@@ -265,6 +265,11 @@ class CallsStub(object):
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.SetCallMediaControlRequest.SerializeToString,
                 response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.SetCallMediaControlResponse.FromString,
                 _registered_method=True)
+        self.SendCallDtmf = channel.unary_unary(
+                '/ondewo.vtsi.Calls/SendCallDtmf',
+                request_serializer=ondewo_dot_vtsi_dot_calls__pb2.SendCallDtmfRequest.SerializeToString,
+                response_deserializer=ondewo_dot_vtsi_dot_calls__pb2.SendCallDtmfResponse.FromString,
+                _registered_method=True)
         self.StreamCallAudio = channel.stream_stream(
                 '/ondewo.vtsi.Calls/StreamCallAudio',
                 request_serializer=ondewo_dot_vtsi_dot_calls__pb2.StreamCallAudioRequest.SerializeToString,
@@ -998,6 +1003,29 @@ class CallsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SendCallDtmf(self, request, context):
+        """<p>Press DTMF keys on a connected call, e.g. to navigate the IVR an outbound call reached or to enter a code on
+        the caller&apos;s behalf. The keys go out as RFC 4733 telephone events from the bot&apos;s leg, one every
+        250 ms, in order; a later request for the same call follows the earlier one and never interleaves with it.
+        No tone is played into the call audio, so the bot does not hear the keys. The response means the keys were
+        queued: if the call ends meanwhile, the remaining keys are dropped. A peer that did not negotiate
+        <code>telephone-event</code> receives no key.</p>
+        <p>Events: <code>VTSI_EVENT_CALL_DTMF_SENT</code>. The keys are never written to a log, an event or an audit
+        record: only their number is.</p>
+        <p>Errors: <code>INVALID_ARGUMENT</code> (<code>reason=invalid-digits</code>: <code>digits</code> empty, longer
+        than 64 or outside <code>0-9 * # A-D</code>), <code>NOT_FOUND</code> (<code>reason=call-not-found</code>),
+        <code>FAILED_PRECONDITION</code> (<code>call-not-connected</code>, <code>amd-in-progress</code>,
+        <code>call-not-yet-identified</code>, <code>sip-image-too-old</code>, <code>no-audio-stream</code>),
+        <code>ABORTED</code> (<code>call-control-busy</code>), <code>UNAVAILABLE</code> (<code>sip-unreachable</code>).</p>
+        <p>Authorization: requires the role <code>PROJECT_DEVELOPER</code> or higher on the project, and the server&apos;s
+        Keycloak auth mode <code>ENFORCE</code>; otherwise <code>PERMISSION_DENIED</code>, or
+        <code>FAILED_PRECONDITION</code> with <code>reason=call-supervision-requires-auth</code> when auth is not enforced.
+        Every action writes an audit record (who, call, when, number of keys). No announcement is played to the caller.</p>
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StreamCallAudio(self, request_iterator, context):
         """<p>Live audio of a connected call, both ways. The first request MUST be <code>config</code> (within 2 seconds).
         LISTEN receives the caller mixed with the bot. TALK sends the agent&apos;s audio to the caller and REQUIRES
@@ -1266,6 +1294,11 @@ def add_CallsServicer_to_server(servicer, server):
                     servicer.SetCallMediaControl,
                     request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.SetCallMediaControlRequest.FromString,
                     response_serializer=ondewo_dot_vtsi_dot_calls__pb2.SetCallMediaControlResponse.SerializeToString,
+            ),
+            'SendCallDtmf': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendCallDtmf,
+                    request_deserializer=ondewo_dot_vtsi_dot_calls__pb2.SendCallDtmfRequest.FromString,
+                    response_serializer=ondewo_dot_vtsi_dot_calls__pb2.SendCallDtmfResponse.SerializeToString,
             ),
             'StreamCallAudio': grpc.stream_stream_rpc_method_handler(
                     servicer.StreamCallAudio,
@@ -2521,6 +2554,33 @@ class Calls(object):
             '/ondewo.vtsi.Calls/SetCallMediaControl',
             ondewo_dot_vtsi_dot_calls__pb2.SetCallMediaControlRequest.SerializeToString,
             ondewo_dot_vtsi_dot_calls__pb2.SetCallMediaControlResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SendCallDtmf(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ondewo.vtsi.Calls/SendCallDtmf',
+            ondewo_dot_vtsi_dot_calls__pb2.SendCallDtmfRequest.SerializeToString,
+            ondewo_dot_vtsi_dot_calls__pb2.SendCallDtmfResponse.FromString,
             options,
             channel_credentials,
             insecure,

@@ -57,6 +57,7 @@ UNARY_RPCS: List[Tuple[str, str, str, str]] = [
         "RemoveCallParticipantResponse",
     ),
     ("set_call_media_control", "SetCallMediaControl", "SetCallMediaControlRequest", "SetCallMediaControlResponse"),
+    ("send_call_dtmf", "SendCallDtmf", "SendCallDtmfRequest", "SendCallDtmfResponse"),
 ]
 
 
@@ -117,6 +118,7 @@ class TestTheDescriptors:
             False,
             False,
         )
+        assert actual["SendCallDtmf"] == ("SendCallDtmfRequest", "SendCallDtmfResponse", False, False)
         assert actual["StreamCallAudio"] == ("StreamCallAudioRequest", "StreamCallAudioResponse", True, True)
         assert actual["ListenCallAudio"] == ("ListenCallAudioRequest", "StreamCallAudioResponse", False, True)
 

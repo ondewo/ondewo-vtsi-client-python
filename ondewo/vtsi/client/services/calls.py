@@ -691,6 +691,21 @@ class Calls(ServicesInterface):
         """
         return self.stub.SetCallMediaControl(request=request, metadata=self.metadata)
 
+    def send_call_dtmf(
+        self,
+        request: calls_pb2.SendCallDtmfRequest,
+    ) -> calls_pb2.SendCallDtmfResponse:
+        """
+        Press DTMF keys on a connected call (RFC 4733, one every 250 ms). The keys may be a PIN: never log them.
+
+        Args:
+            request (calls_pb2.SendCallDtmfRequest): The request message.
+
+        Returns:
+            calls_pb2.SendCallDtmfResponse: The response message.
+        """
+        return self.stub.SendCallDtmf(request=request, metadata=self.metadata)
+
     def stream_call_audio(
         self,
         request_iterator: Iterator[calls_pb2.StreamCallAudioRequest],

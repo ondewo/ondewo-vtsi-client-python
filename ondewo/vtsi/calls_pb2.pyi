@@ -46,6 +46,7 @@ from ondewo.vtsi.call_configs_pb2 import (
     CsiPreemptiveGenerationConfig as CsiPreemptiveGenerationConfig,
     CsiVtsiConfig as CsiVtsiConfig,
     DictationConfig as DictationConfig,
+    DtmfConfig as DtmfConfig,
     InterruptionHandlingConfig as InterruptionHandlingConfig,
     MessageBrokerConfig as MessageBrokerConfig,
     MessageBrokerServicesActivationConfig as MessageBrokerServicesActivationConfig,
@@ -3917,6 +3918,60 @@ class InviteToCallResponse(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "error_message", b"error_message", "participant", b"participant", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
 
 global___InviteToCallResponse = InviteToCallResponse
+
+@typing.final
+class SendCallDtmfRequest(google.protobuf.message.Message):
+    """<p>Request of <code>SendCallDtmf</code></p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    DIGITS_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    call_name: builtins.str
+    """Name of the connected call"""
+    digits: builtins.str
+    """The keys to press, in order: 1 to 64 of <code>0-9</code>, <code>*</code>, <code>#</code> and
+    <code>A-D</code>. Never logged; treat it like a password (it may be a PIN).
+    """
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        call_name: builtins.str = ...,
+        digits: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "digits", b"digits", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___SendCallDtmfRequest = SendCallDtmfRequest
+
+@typing.final
+class SendCallDtmfResponse(google.protobuf.message.Message):
+    """<p>Response of <code>SendCallDtmf</code></p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
+    CALL_NAME_FIELD_NUMBER: builtins.int
+    QUEUED_KEYS_FIELD_NUMBER: builtins.int
+    vtsi_project_name: builtins.str
+    """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
+    call_name: builtins.str
+    """Name of the call"""
+    queued_keys: builtins.int
+    """Number of keys queued: the length of <code>digits</code>"""
+    def __init__(
+        self,
+        *,
+        vtsi_project_name: builtins.str = ...,
+        call_name: builtins.str = ...,
+        queued_keys: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "queued_keys", b"queued_keys", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+
+global___SendCallDtmfResponse = SendCallDtmfResponse
 
 @typing.final
 class RemoveCallParticipantRequest(google.protobuf.message.Message):
