@@ -266,6 +266,7 @@ class SoftphoneAccount(google.protobuf.message.Message):
     LOCKED_FIELD_NUMBER: builtins.int
     LOCKED_AT_FIELD_NUMBER: builtins.int
     LOCKED_REASON_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Output only. Resource name of the softphone account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
@@ -325,6 +326,11 @@ class SoftphoneAccount(google.protobuf.message.Message):
     """Output only. Why the account was locked: the <code>reason</code> given to the
     <code>RevokeSoftphoneCertificate</code> that locked it (empty when none was given or the account is
     not locked).
+    """
+    description: builtins.str
+    """The person or role behind the account, e.g. <code>Buchhaltung, Rechnungsfragen</code>: the context a warm
+    intro&apos;s briefing gives the target when the call is transferred to this account (see
+    <code>WarmTransferConfig.callee_description</code>). At most 512 characters. Updatable.
     """
     @property
     def labels(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
@@ -391,9 +397,10 @@ class SoftphoneAccount(google.protobuf.message.Message):
         locked: builtins.bool = ...,
         locked_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         locked_reason: builtins.str = ...,
+        description: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["_enabled", b"_enabled", "created_at", b"created_at", "current_certificate_expire_time", b"current_certificate_expire_time", "enabled", b"enabled", "locked_at", b"locked_at", "modified_at", b"modified_at", "sip_password_set_at", b"sip_password_set_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_enabled", b"_enabled", "allowed_destinations", b"allowed_destinations", "created_at", b"created_at", "created_by", b"created_by", "current_certificate_expire_time", b"current_certificate_expire_time", "current_certificate_name", b"current_certificate_name", "current_certificate_sha256_fingerprint", b"current_certificate_sha256_fingerprint", "display_name", b"display_name", "enabled", b"enabled", "labels", b"labels", "locked", b"locked", "locked_at", b"locked_at", "locked_reason", b"locked_reason", "max_contacts", b"max_contacts", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "sip_password_set_at", b"sip_password_set_at", "sip_username", b"sip_username", "softphone_account_id", b"softphone_account_id", "transport_security", b"transport_security", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["_enabled", b"_enabled", "allowed_destinations", b"allowed_destinations", "created_at", b"created_at", "created_by", b"created_by", "current_certificate_expire_time", b"current_certificate_expire_time", "current_certificate_name", b"current_certificate_name", "current_certificate_sha256_fingerprint", b"current_certificate_sha256_fingerprint", "description", b"description", "display_name", b"display_name", "enabled", b"enabled", "labels", b"labels", "locked", b"locked", "locked_at", b"locked_at", "locked_reason", b"locked_reason", "max_contacts", b"max_contacts", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "sip_password_set_at", b"sip_password_set_at", "sip_username", b"sip_username", "softphone_account_id", b"softphone_account_id", "transport_security", b"transport_security", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
 
 global___SoftphoneAccount = SoftphoneAccount
@@ -1032,7 +1039,7 @@ class UpdateSoftphoneAccountRequest(google.protobuf.message.Message):
         """Required. The fields to update. Paths are field paths within <code>softphone_account</code> WITHOUT a
         <code>softphone_account.</code> prefix. Updatable paths:
         <code>display_name</code>, <code>transport_security</code>, <code>enabled</code>,
-        <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>.
+        <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>, <code>description</code>.
         Semantics:
         <ul>
           <li>Mask unset or empty: rejected with <code>INVALID_ARGUMENT</code>. There is no implicit

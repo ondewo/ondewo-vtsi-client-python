@@ -789,13 +789,21 @@ class CallsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def TransferCall(self, request, context):
-        """<p>Transfer a call to a phone number, a softphone account, another listener or the listener queue.</p>
+        """<p>Transfer a call to a phone number, a softphone account, another listener, the listener queue or a published
+        IVR menu.</p>
         <p>The target is either the typed <code>target</code> or the legacy raw <code>transfer_id</code>, never both. It is
         resolved and validated before anything is sent; an invalid target is answered with
         <code>TRANSFER_OUTCOME_TARGET_INVALID</code> and an <code>error_reason</code>, and the call is untouched.</p>
         <p><code>TRANSFER_MODE_BLIND</code> (default) sends a SIP REFER and reports its outcome: a refused REFER keeps the
         call with the bot. <code>TRANSFER_MODE_WARM</code> rings the target into the call first, and the bot leaves only
         after the target joined (Asterisk 22 only).</p>
+        <p>A WARM transfer whose effective <code>WarmTransferConfig</code> is enabled runs a WARM INTRO: once the human
+        target answers, an ONDEWO bot asks whether a person is on the line, briefs them and asks whether they accept;
+        only an accepting target is joined. It answers <code>TRANSFER_OUTCOME_PENDING</code>, and the final outcome
+        (<code>TRANSFER_OUTCOME_ACCEPTED</code>, <code>_DECLINED</code>, <code>_NO_DECISION</code>,
+        <code>_TARGET_UNAVAILABLE</code>, <code>_INTRO_UNAVAILABLE</code>, or a busy / unanswered target&apos;s
+        usual outcome) arrives in <code>Call.last_transfer</code> and the events. See
+        <code>TransferCallRequest.warm_transfer_config</code> for its refusals.</p>
         <p>Telephony outcomes (busy, no answer, REFER rejected) are successful RPCs carrying an <code>outcome</code>.
         Refusals before any side effect also return a gRPC status with <code>reason=&lt;token&gt;</code> in its details:
         <code>INVALID_ARGUMENT</code> (both targets set, malformed target), <code>NOT_FOUND</code> (call or target not

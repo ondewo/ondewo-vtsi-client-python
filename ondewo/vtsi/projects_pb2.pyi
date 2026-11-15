@@ -24,6 +24,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import ondewo.vtsi.call_configs_pb2
 import sys
 import typing
 
@@ -33,6 +34,70 @@ else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _WarmIntroAvailability:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WarmIntroAvailabilityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroAvailability.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WARM_INTRO_AVAILABILITY_UNSPECIFIED: _WarmIntroAvailability.ValueType  # 0
+    """Not computed (e.g. an older server)"""
+    WARM_INTRO_AVAILABILITY_AVAILABLE: _WarmIntroAvailability.ValueType  # 1
+    """Warm intros can run"""
+    WARM_INTRO_AVAILABILITY_DISABLED_BY_DEPLOYMENT: _WarmIntroAvailability.ValueType  # 2
+    """The deployment switch <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED</code> is off"""
+    WARM_INTRO_AVAILABILITY_NEEDS_LOCAL_ASTERISK: _WarmIntroAvailability.ValueType  # 3
+    """The project&apos;s Asterisk is not run by this server (or is older than Asterisk 22)"""
+    WARM_INTRO_AVAILABILITY_NEEDS_LISTENER: _WarmIntroAvailability.ValueType  # 4
+    """The project has no listener to run the intro (a project with pooled callers only)"""
+    WARM_INTRO_AVAILABILITY_NEEDS_CALL_CONTROL_KEY: _WarmIntroAvailability.ValueType  # 5
+    """The deployment has no call-control key (<code>ONDEWO_VTSI_CALL_CONTROL_KEY</code>)"""
+
+class WarmIntroAvailability(_WarmIntroAvailability, metaclass=_WarmIntroAvailabilityEnumTypeWrapper):
+    """<p>Whether a project can run warm intros, and if not, why</p>"""
+
+WARM_INTRO_AVAILABILITY_UNSPECIFIED: WarmIntroAvailability.ValueType  # 0
+"""Not computed (e.g. an older server)"""
+WARM_INTRO_AVAILABILITY_AVAILABLE: WarmIntroAvailability.ValueType  # 1
+"""Warm intros can run"""
+WARM_INTRO_AVAILABILITY_DISABLED_BY_DEPLOYMENT: WarmIntroAvailability.ValueType  # 2
+"""The deployment switch <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED</code> is off"""
+WARM_INTRO_AVAILABILITY_NEEDS_LOCAL_ASTERISK: WarmIntroAvailability.ValueType  # 3
+"""The project&apos;s Asterisk is not run by this server (or is older than Asterisk 22)"""
+WARM_INTRO_AVAILABILITY_NEEDS_LISTENER: WarmIntroAvailability.ValueType  # 4
+"""The project has no listener to run the intro (a project with pooled callers only)"""
+WARM_INTRO_AVAILABILITY_NEEDS_CALL_CONTROL_KEY: WarmIntroAvailability.ValueType  # 5
+"""The deployment has no call-control key (<code>ONDEWO_VTSI_CALL_CONTROL_KEY</code>)"""
+global___WarmIntroAvailability = WarmIntroAvailability
+
+class _IvrAvailability:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _IvrAvailabilityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IvrAvailability.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    IVR_AVAILABILITY_UNSPECIFIED: _IvrAvailability.ValueType  # 0
+    """Not computed (e.g. an older server)"""
+    IVR_AVAILABILITY_AVAILABLE: _IvrAvailability.ValueType  # 1
+    """IVR menus can be published and routed"""
+    IVR_AVAILABILITY_DISABLED_BY_DEPLOYMENT: _IvrAvailability.ValueType  # 2
+    """The deployment switch <code>ONDEWO_VTSI_IVR_ACTIVE</code> is off"""
+    IVR_AVAILABILITY_NEEDS_LOCAL_ASTERISK: _IvrAvailability.ValueType  # 3
+    """The project&apos;s Asterisk is not run by this server"""
+
+class IvrAvailability(_IvrAvailability, metaclass=_IvrAvailabilityEnumTypeWrapper):
+    """<p>Whether a project can use IVR menus, and if not, why</p>"""
+
+IVR_AVAILABILITY_UNSPECIFIED: IvrAvailability.ValueType  # 0
+"""Not computed (e.g. an older server)"""
+IVR_AVAILABILITY_AVAILABLE: IvrAvailability.ValueType  # 1
+"""IVR menus can be published and routed"""
+IVR_AVAILABILITY_DISABLED_BY_DEPLOYMENT: IvrAvailability.ValueType  # 2
+"""The deployment switch <code>ONDEWO_VTSI_IVR_ACTIVE</code> is off"""
+IVR_AVAILABILITY_NEEDS_LOCAL_ASTERISK: IvrAvailability.ValueType  # 3
+"""The project&apos;s Asterisk is not run by this server"""
+global___IvrAvailability = IvrAvailability
 
 class _TrunkRegistrationState:
     ValueType = typing.NewType("ValueType", builtins.int)
@@ -258,6 +323,24 @@ class VtsiProject(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    @typing.final
+    class TransferTargetDirectoryEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        @property
+        def value(self) -> global___TransferTargetDirectoryItem: ...
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: global___TransferTargetDirectoryItem | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+
     NAME_FIELD_NUMBER: builtins.int
     DISPLAY_NAME_FIELD_NUMBER: builtins.int
     MAX_CALLERS_FIELD_NUMBER: builtins.int
@@ -279,6 +362,10 @@ class VtsiProject(google.protobuf.message.Message):
     STATUS_CHANGED_AT_FIELD_NUMBER: builtins.int
     TRUNK_REGISTRATION_STATE_FIELD_NUMBER: builtins.int
     ASTERISK_VERSION_EFFECTIVE_FIELD_NUMBER: builtins.int
+    WARM_TRANSFER_DEFAULTS_FIELD_NUMBER: builtins.int
+    FEATURE_AVAILABILITY_FIELD_NUMBER: builtins.int
+    IVR_MENUS_ENABLED_FIELD_NUMBER: builtins.int
+    TRANSFER_TARGET_DIRECTORY_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Required. The project name.
     Format: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -346,6 +433,13 @@ class VtsiProject(google.protobuf.message.Message):
     of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
     would start, e.g. after the server default changed. Ignored on create and update.
     """
+    ivr_menus_enabled: builtins.bool
+    """OPTIONAL: Whether the project&apos;s published IVR menus route its inbound phone numbers. Unset means
+    <code>true</code>. <code>false</code> switches every route off at once (every inbound number reaches the
+    listener queue as without a menu) and keeps the menus and their phone number bindings, so <code>true</code>
+    restores them. Updatable with the update mask path <code>ivr_menus_enabled</code>; it reloads no Asterisk and
+    ends no call.
+    """
     @property
     def asterisk_configs(self) -> global___AsteriskConfigs:
         """Configs to start the asterisk server."""
@@ -381,6 +475,39 @@ class VtsiProject(google.protobuf.message.Message):
         has not changed since an older server created it. Ignored on create and update.
         """
 
+    @property
+    def warm_transfer_defaults(self) -> ondewo.vtsi.call_configs_pb2.WarmTransferConfig:
+        """OPTIONAL: The project&apos;s default warm intro of a WARM transfer (see
+        <a href="index.html#ondewo.vtsi.WarmTransferConfig">WarmTransferConfig</a>): the level below a call&apos;s
+        <code>VoiceInteractionConfig.warm_transfer_config</code> and a
+        <code>TransferCallRequest.warm_transfer_config</code>. <code>enabled=true</code> while the deployment switch
+        <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED</code> is off, or a phase-B field while phase B is off, is refused
+        with <code>FAILED_PRECONDITION</code> (<code>reason=warm-intro-disabled</code> /
+        <code>reason=phase-b-not-enabled</code>); an invalid field with <code>INVALID_ARGUMENT</code> naming it.
+        Updatable with the update mask path <code>warm_transfer_defaults</code> or its leaf paths, e.g.
+        <code>warm_transfer_defaults.enabled</code>. Touches no Asterisk.
+        """
+
+    @property
+    def feature_availability(self) -> global___VtsiProjectFeatureAvailability:
+        """Output only. Which features can run in this project with the deployment, the Asterisk and the listeners it
+        has now, computed on every <code>GetVtsiProject</code> / <code>ListVtsiProjects</code> (it costs no RPC).
+        Read it instead of learning from a refusal. Ignored on create and update.
+        """
+
+    @property
+    def transfer_target_directory(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TransferTargetDirectoryItem]:
+        """OPTIONAL: Directory of the project&apos;s human transfer targets, keyed by the target: an E.164 phone number
+        (<code>^\\+[1-9][0-9]{6,14}$</code>, which must pass <code>transfer_phone_number_allowlist</code>) or the
+        <code>sip_username</code> of a softphone account of the project. It names a target in a warm intro
+        (<code>{callee_name}</code>) and describes it, below a transfer&apos;s own
+        <code>WarmTransferConfig.callee_display_name</code> / <code>callee_description</code> and the softphone
+        account&apos;s <code>display_name</code> / <code>description</code>. That is how the bot&apos;s own handover to
+        a target names the right person. At most 200 entries; an invalid key or entry is refused with
+        <code>INVALID_ARGUMENT</code> naming it. Updatable with the update mask path
+        <code>transfer_target_directory</code> (the whole map is replaced). Touches no Asterisk.
+        """
+
     def __init__(
         self,
         *,
@@ -405,11 +532,64 @@ class VtsiProject(google.protobuf.message.Message):
         status_changed_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         trunk_registration_state: global___TrunkRegistrationState.ValueType = ...,
         asterisk_version_effective: builtins.str = ...,
+        warm_transfer_defaults: ondewo.vtsi.call_configs_pb2.WarmTransferConfig | None = ...,
+        feature_availability: global___VtsiProjectFeatureAvailability | None = ...,
+        ivr_menus_enabled: builtins.bool | None = ...,
+        transfer_target_directory: collections.abc.Mapping[builtins.str, global___TransferTargetDirectoryItem] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["asterisk_configs", b"asterisk_configs", "created_at", b"created_at", "modified_at", b"modified_at", "status_changed_at", b"status_changed_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "asterisk_version_effective", b"asterisk_version_effective", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "status_changed_at", b"status_changed_at", "status_message", b"status_message", "transfer_phone_number_allowlist", b"transfer_phone_number_allowlist", "trunk_registration_state", b"trunk_registration_state", "vtsi_project_status", b"vtsi_project_status"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_ivr_menus_enabled", b"_ivr_menus_enabled", "asterisk_configs", b"asterisk_configs", "created_at", b"created_at", "feature_availability", b"feature_availability", "ivr_menus_enabled", b"ivr_menus_enabled", "modified_at", b"modified_at", "status_changed_at", b"status_changed_at", "warm_transfer_defaults", b"warm_transfer_defaults"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_ivr_menus_enabled", b"_ivr_menus_enabled", "active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "asterisk_version_effective", b"asterisk_version_effective", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "feature_availability", b"feature_availability", "ivr_menus_enabled", b"ivr_menus_enabled", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "status_changed_at", b"status_changed_at", "status_message", b"status_message", "transfer_phone_number_allowlist", b"transfer_phone_number_allowlist", "transfer_target_directory", b"transfer_target_directory", "trunk_registration_state", b"trunk_registration_state", "vtsi_project_status", b"vtsi_project_status", "warm_transfer_defaults", b"warm_transfer_defaults"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_ivr_menus_enabled", b"_ivr_menus_enabled"]) -> typing.Literal["ivr_menus_enabled"] | None: ...
 
 global___VtsiProject = VtsiProject
+
+@typing.final
+class TransferTargetDirectoryItem(google.protobuf.message.Message):
+    """<p>One human transfer target of <code>VtsiProject.transfer_target_directory</code>. Carries no secret</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
+    display_name: builtins.str
+    """Who the target is, e.g. <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters"""
+    description: builtins.str
+    """The target&apos;s role and context, for a warm intro&apos;s briefing. At most 512 characters"""
+    def __init__(
+        self,
+        *,
+        display_name: builtins.str = ...,
+        description: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["description", b"description", "display_name", b"display_name"]) -> None: ...
+
+global___TransferTargetDirectoryItem = TransferTargetDirectoryItem
+
+@typing.final
+class VtsiProjectFeatureAvailability(google.protobuf.message.Message):
+    """<p>Which features can run in a VTSI project. Output only</p>"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    WARM_INTRO_FIELD_NUMBER: builtins.int
+    WARM_INTRO_PHASE_B_FIELD_NUMBER: builtins.int
+    IVR_FIELD_NUMBER: builtins.int
+    warm_intro: global___WarmIntroAvailability.ValueType
+    """Whether a WARM transfer can run a warm intro"""
+    warm_intro_phase_b: builtins.bool
+    """Whether the phase-B fields of <code>WarmTransferConfig</code> (LLM summary, hold music) are accepted"""
+    ivr: global___IvrAvailability.ValueType
+    """Whether the project can publish and route IVR menus"""
+    def __init__(
+        self,
+        *,
+        warm_intro: global___WarmIntroAvailability.ValueType = ...,
+        warm_intro_phase_b: builtins.bool = ...,
+        ivr: global___IvrAvailability.ValueType = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["ivr", b"ivr", "warm_intro", b"warm_intro", "warm_intro_phase_b", b"warm_intro_phase_b"]) -> None: ...
+
+global___VtsiProjectFeatureAvailability = VtsiProjectFeatureAvailability
 
 @typing.final
 class AsteriskConfigsVariables(google.protobuf.message.Message):

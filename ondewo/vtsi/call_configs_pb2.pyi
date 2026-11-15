@@ -19,6 +19,7 @@ limitations under the License.
 import builtins
 import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
@@ -35,6 +36,114 @@ else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _WarmIntroTextSource:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WarmIntroTextSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroTextSource.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WARM_INTRO_TEXT_SOURCE_UNSPECIFIED: _WarmIntroTextSource.ValueType  # 0
+    """See <code>WarmTransferConfig.intro_text_source</code>"""
+    WARM_INTRO_TEXT_SOURCE_TEMPLATE: _WarmIntroTextSource.ValueType  # 1
+    """<code>WarmTransferConfig.intro_prompt</code> as a template"""
+    WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY: _WarmIntroTextSource.ValueType  # 2
+    """An LLM summary of the call so far, instructed by <code>WarmTransferConfig.intro_prompt</code> (phase B)"""
+
+class WarmIntroTextSource(_WarmIntroTextSource, metaclass=_WarmIntroTextSourceEnumTypeWrapper):
+    """<p>How the briefing of a warm intro is produced</p>"""
+
+WARM_INTRO_TEXT_SOURCE_UNSPECIFIED: WarmIntroTextSource.ValueType  # 0
+"""See <code>WarmTransferConfig.intro_text_source</code>"""
+WARM_INTRO_TEXT_SOURCE_TEMPLATE: WarmIntroTextSource.ValueType  # 1
+"""<code>WarmTransferConfig.intro_prompt</code> as a template"""
+WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY: WarmIntroTextSource.ValueType  # 2
+"""An LLM summary of the call so far, instructed by <code>WarmTransferConfig.intro_prompt</code> (phase B)"""
+global___WarmIntroTextSource = WarmIntroTextSource
+
+class _WarmIntroUnavailablePolicy:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WarmIntroUnavailablePolicyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroUnavailablePolicy.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED: _WarmIntroUnavailablePolicy.ValueType  # 0
+    """Same as <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>"""
+    WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO: _WarmIntroUnavailablePolicy.ValueType  # 1
+    """Join the target directly, as a WARM transfer without an intro"""
+    WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER: _WarmIntroUnavailablePolicy.ValueType  # 2
+    """Hang up the target and keep the call with the bot, which tells the caller
+    (<code>TRANSFER_OUTCOME_INTRO_UNAVAILABLE</code>)
+    """
+
+class WarmIntroUnavailablePolicy(_WarmIntroUnavailablePolicy, metaclass=_WarmIntroUnavailablePolicyEnumTypeWrapper):
+    """<p>What a WARM transfer does when its warm intro cannot run</p>"""
+
+WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED: WarmIntroUnavailablePolicy.ValueType  # 0
+"""Same as <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>"""
+WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO: WarmIntroUnavailablePolicy.ValueType  # 1
+"""Join the target directly, as a WARM transfer without an intro"""
+WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER: WarmIntroUnavailablePolicy.ValueType  # 2
+"""Hang up the target and keep the call with the bot, which tells the caller
+(<code>TRANSFER_OUTCOME_INTRO_UNAVAILABLE</code>)
+"""
+global___WarmIntroUnavailablePolicy = WarmIntroUnavailablePolicy
+
+class _WarmIntroDecision:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WarmIntroDecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroDecision.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WARM_INTRO_DECISION_UNSPECIFIED: _WarmIntroDecision.ValueType  # 0
+    """No decision yet (the intro runs, or it never started)"""
+    WARM_INTRO_DECISION_ACCEPTED: _WarmIntroDecision.ValueType  # 1
+    """The target accepted and was joined"""
+    WARM_INTRO_DECISION_DECLINED: _WarmIntroDecision.ValueType  # 2
+    """The target declined; the call stays with the bot"""
+    WARM_INTRO_DECISION_NO_DECISION: _WarmIntroDecision.ValueType  # 3
+    """The target answered but gave no decision in time (also a mailbox that answered)"""
+
+class WarmIntroDecision(_WarmIntroDecision, metaclass=_WarmIntroDecisionEnumTypeWrapper):
+    """<p>The target&apos;s decision in a warm intro</p>"""
+
+WARM_INTRO_DECISION_UNSPECIFIED: WarmIntroDecision.ValueType  # 0
+"""No decision yet (the intro runs, or it never started)"""
+WARM_INTRO_DECISION_ACCEPTED: WarmIntroDecision.ValueType  # 1
+"""The target accepted and was joined"""
+WARM_INTRO_DECISION_DECLINED: WarmIntroDecision.ValueType  # 2
+"""The target declined; the call stays with the bot"""
+WARM_INTRO_DECISION_NO_DECISION: WarmIntroDecision.ValueType  # 3
+"""The target answered but gave no decision in time (also a mailbox that answered)"""
+global___WarmIntroDecision = WarmIntroDecision
+
+class _WarmIntroDecidedBy:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WarmIntroDecidedByEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroDecidedBy.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WARM_INTRO_DECIDED_BY_UNSPECIFIED: _WarmIntroDecidedBy.ValueType  # 0
+    """Not decided"""
+    WARM_INTRO_DECIDED_BY_DTMF: _WarmIntroDecidedBy.ValueType  # 1
+    """A key (<code>accept_dtmf</code> / <code>decline_dtmf</code>)"""
+    WARM_INTRO_DECIDED_BY_SPEECH: _WarmIntroDecidedBy.ValueType  # 2
+    """A spoken answer"""
+    WARM_INTRO_DECIDED_BY_TIMEOUT: _WarmIntroDecidedBy.ValueType  # 3
+    """No answer within <code>decision_timeout_s</code> / <code>max_intro_duration_s</code>"""
+
+class WarmIntroDecidedBy(_WarmIntroDecidedBy, metaclass=_WarmIntroDecidedByEnumTypeWrapper):
+    """<p>How the decision of a warm intro was taken</p>"""
+
+WARM_INTRO_DECIDED_BY_UNSPECIFIED: WarmIntroDecidedBy.ValueType  # 0
+"""Not decided"""
+WARM_INTRO_DECIDED_BY_DTMF: WarmIntroDecidedBy.ValueType  # 1
+"""A key (<code>accept_dtmf</code> / <code>decline_dtmf</code>)"""
+WARM_INTRO_DECIDED_BY_SPEECH: WarmIntroDecidedBy.ValueType  # 2
+"""A spoken answer"""
+WARM_INTRO_DECIDED_BY_TIMEOUT: WarmIntroDecidedBy.ValueType  # 3
+"""No answer within <code>decision_timeout_s</code> / <code>max_intro_duration_s</code>"""
+global___WarmIntroDecidedBy = WarmIntroDecidedBy
 
 @typing.final
 class BaseServiceConfig(google.protobuf.message.Message):
@@ -382,6 +491,7 @@ class VoiceInteractionConfig(google.protobuf.message.Message):
     RESPONSE_TIMING_CONFIG_FIELD_NUMBER: builtins.int
     ANSWERING_MACHINE_DETECTION_CONFIG_FIELD_NUMBER: builtins.int
     DTMF_CONFIG_FIELD_NUMBER: builtins.int
+    WARM_TRANSFER_CONFIG_FIELD_NUMBER: builtins.int
     @property
     def turn_detection_config(self) -> global___TurnDetectionConfig:
         """Configuration of the turn detection"""
@@ -407,6 +517,13 @@ class VoiceInteractionConfig(google.protobuf.message.Message):
         behaviour (keys on, a key barges in, undeclared keys dropped)
         """
 
+    @property
+    def warm_transfer_config(self) -> global___WarmTransferConfig:
+        """Configuration of the warm intro of a WARM transfer of this call (see <code>WarmTransferConfig</code>). Unset
+        inherits the project default <code>VtsiProject.warm_transfer_defaults</code>; a
+        <code>TransferCallRequest.warm_transfer_config</code> wins over it for that one transfer
+        """
+
     def __init__(
         self,
         *,
@@ -415,9 +532,10 @@ class VoiceInteractionConfig(google.protobuf.message.Message):
         response_timing_config: global___ResponseTimingConfig | None = ...,
         answering_machine_detection_config: global___AnsweringMachineDetectionConfig | None = ...,
         dtmf_config: global___DtmfConfig | None = ...,
+        warm_transfer_config: global___WarmTransferConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]) -> None: ...
 
 global___VoiceInteractionConfig = VoiceInteractionConfig
 
@@ -473,6 +591,344 @@ class DtmfConfig(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing.Literal["_undeclared_policy", b"_undeclared_policy"]) -> typing.Literal["undeclared_policy"] | None: ...
 
 global___DtmfConfig = DtmfConfig
+
+@typing.final
+class WarmTransferConfig(google.protobuf.message.Message):
+    """<p>Warm intro of a WARM transfer: after the human target answered and before the target is joined, an ONDEWO bot
+    (a free listener of the project, in an NLU session of its own) greets the target, confirms that a person is on
+    the line, briefs them (who calls and why), asks whether they accept the call and, on a decline, asks what to tell
+    the caller. Meanwhile the caller stays with the paused bot of the call. On accept the target is joined and the
+    bot leaves as in every WARM transfer; on a decline, no decision or an unreachable target the call stays with the
+    bot, which tells the caller (<code>caller_declined_message</code> / <code>caller_unreachable_message</code>).</p>
+    <p>Levels: unset fields inherit, the most specific level winning per field (protobuf <code>MergeFrom</code>):
+    <code>TransferCallRequest.warm_transfer_config</code> &gt; <code>VoiceInteractionConfig.warm_transfer_config</code>
+    of the call (listener, caller, campaign) &gt; <code>VtsiProject.warm_transfer_defaults</code> &gt; the
+    deployment&apos;s <code>ONDEWO_VTSI_WARM_TRANSFER_*</code> settings &gt; the ONDEWO NLU agent&apos;s warm transfer
+    settings (texts only) &gt; the built-in default. <code>enabled</code> unset at every level is
+    <code>false</code>: a WARM transfer then behaves exactly as before 9.5.0. An NLU agent whose warm transfer
+    settings switch warm intros off makes the intro unavailable, and <code>on_intro_unavailable</code> decides.</p>
+    <p>Requires the deployment switch <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED=true</code> (default
+    <code>false</code>); otherwise an explicit <code>enabled=true</code> is refused with
+    <code>FAILED_PRECONDITION</code> <code>reason=warm-intro-disabled</code>, at every level (also on
+    <code>UpdateVtsiProject</code>). <code>VtsiProject.feature_availability.warm_intro</code> says up front whether
+    warm intros can run in a project. Fields marked <i>phase B</i> are refused with <code>FAILED_PRECONDITION</code>
+    <code>reason=phase-b-not-enabled</code> while the deployment has not enabled phase B
+    (<code>VtsiProject.feature_availability.warm_intro_phase_b</code>).</p>
+    <p>Texts are spoken by text-to-speech in the language of the intro bot. The placeholders are
+    <code>{project}</code>, <code>{caller_name}</code>, <code>{callee_name}</code>, <code>{topic}</code>,
+    <code>{summary}</code> and <code>{reason}</code>, where a field lists them; an unknown placeholder is refused with
+    <code>INVALID_ARGUMENT</code>. A text must not contain SIP markup (<code>&lt;SIP:</code>): refused with
+    <code>INVALID_ARGUMENT</code>. No text of an intro (the briefing, the decline reason) is ever stored by VTSI,
+    logged, sent in an event or a SIP header: it lives only in the intro bot&apos;s NLU session.</p>
+    <p>Every scalar is <code>optional</code>: unset inherits, a set value (also <code>&quot;&quot;</code> or
+    <code>0</code>) is that level&apos;s value. Values outside a documented range are refused with
+    <code>INVALID_ARGUMENT</code>.</p>
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENABLED_FIELD_NUMBER: builtins.int
+    INTRO_PROMPT_FIELD_NUMBER: builtins.int
+    INTRO_TEXT_SOURCE_FIELD_NUMBER: builtins.int
+    READY_QUESTION_FIELD_NUMBER: builtins.int
+    CONFIRM_HUMAN_BEFORE_INTRO_FIELD_NUMBER: builtins.int
+    ACCEPT_QUESTION_FIELD_NUMBER: builtins.int
+    DECLINE_REASON_QUESTION_FIELD_NUMBER: builtins.int
+    CALLER_DECLINED_MESSAGE_FIELD_NUMBER: builtins.int
+    CALLER_UNREACHABLE_MESSAGE_FIELD_NUMBER: builtins.int
+    ACCEPT_DTMF_FIELD_NUMBER: builtins.int
+    DECLINE_DTMF_FIELD_NUMBER: builtins.int
+    DECISION_TIMEOUT_S_FIELD_NUMBER: builtins.int
+    MAX_INTRO_DURATION_S_FIELD_NUMBER: builtins.int
+    CALLEE_DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    CALLEE_DESCRIPTION_FIELD_NUMBER: builtins.int
+    ON_INTRO_UNAVAILABLE_FIELD_NUMBER: builtins.int
+    APPLY_TO_BOT_TRANSFERS_FIELD_NUMBER: builtins.int
+    CALLER_HOLD_MESSAGE_FIELD_NUMBER: builtins.int
+    CALLER_HOLD_MUSIC_FIELD_NUMBER: builtins.int
+    CALLER_REASSURE_INTERVAL_S_FIELD_NUMBER: builtins.int
+    LLM_CCAI_SERVICE_NAME_FIELD_NUMBER: builtins.int
+    CALLER_DISCLOSURE_MESSAGE_FIELD_NUMBER: builtins.int
+    CALLER_ACCEPTED_MESSAGE_FIELD_NUMBER: builtins.int
+    STORE_INTRO_AUDIO_FIELD_NUMBER: builtins.int
+    INTRO_LISTENER_NAMES_FIELD_NUMBER: builtins.int
+    enabled: builtins.bool
+    """Master switch of the warm intro. Unset at every level means <code>false</code>"""
+    intro_prompt: builtins.str
+    """TEMPLATE: the briefing spoken to the target after the readiness answer, with the placeholders
+    <code>{caller_name}</code>, <code>{callee_name}</code>, <code>{topic}</code> and <code>{summary}</code>
+    (default e.g. &quot;Ich habe {caller_name} in der Leitung, es geht um {topic}.&quot;). LLM_SUMMARY
+    (<i>phase B</i>): the instruction to the LLM that writes the briefing from the call so far. At most 4000
+    characters
+    """
+    intro_text_source: global___WarmIntroTextSource.ValueType
+    """How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> means
+    <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when phase B is enabled and the project has an LLM service,
+    else <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> is
+    <i>phase B</i>; when the LLM fails or is too slow the TEMPLATE is used (<code>WarmIntroRecord.text_fell_back</code>)
+    """
+    ready_question: builtins.str
+    """The first sentence the target hears, before anything about the caller (it carries no personal data, so a
+    mailbox that answers records nothing about the caller). Placeholder <code>{project}</code>. Default (de):
+    &quot;Hier ist der digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen
+    Sie ja oder drücken Sie 1.&quot; At most 1000 characters
+    """
+    confirm_human_before_intro: builtins.bool
+    """Whether the briefing is spoken only after the target answered the <code>ready_question</code> (by voice or
+    <code>accept_dtmf</code>). Default <code>true</code>: the mailbox guard. <code>false</code> briefs the target
+    right after the <code>ready_question</code>
+    """
+    accept_question: builtins.str
+    """The question after the briefing. Default (de): &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder
+    2.&quot; At most 1000 characters
+    """
+    decline_reason_question: builtins.str
+    """Asked after a decline, to learn what to tell the caller. Default (de): &quot;Was darf ich dem Anrufer
+    ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;. <code>&quot;&quot;</code> means: do not ask,
+    the caller hears the decline without a reason. The answer is relayed to the caller only through the bot&apos;s
+    NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more masked); VTSI never
+    receives it. At most 1000 characters
+    """
+    caller_declined_message: builtins.str
+    """What the caller hears after a decline, placeholders <code>{callee_name}</code> and <code>{reason}</code>.
+    Default (de): &quot;{callee_name} kann das Gespräch gerade nicht übernehmen und lässt ausrichten:
+    {reason}&quot;; without a reason a variant without the clause is spoken. At most 1000 characters
+    """
+    caller_unreachable_message: builtins.str
+    """What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro or
+    the intro could not run (with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>). Placeholder
+    <code>{callee_name}</code>. At most 1000 characters
+    """
+    accept_dtmf: builtins.str
+    """The key that accepts (and answers the <code>ready_question</code>). Default <code>1</code>; exactly one of
+    <code>0-9 * #</code>
+    """
+    decline_dtmf: builtins.str
+    """The key that declines. Default <code>2</code>; exactly one of <code>0-9 * #</code>, different from the
+    effective <code>accept_dtmf</code>
+    """
+    decision_timeout_s: builtins.int
+    """Seconds from a question to the target&apos;s decision before the intro ends with
+    <code>WARM_INTRO_DECISION_NO_DECISION</code>. Default 20, valid range 5 - 60
+    """
+    max_intro_duration_s: builtins.int
+    """Hard cap in seconds from the target&apos;s answer to the decision. Default 90, valid range 30 - 300. The caller
+    waits at most the ring time plus this
+    """
+    callee_display_name: builtins.str
+    """Who the target is, spoken as <code>{callee_name}</code>, e.g. &quot;Frau Berger, Buchhaltung&quot;. Unset
+    resolves from the target softphone account&apos;s <code>display_name</code>, then from
+    <code>VtsiProject.transfer_target_directory</code>. At most 128 characters. Meaningful per transfer only
+    """
+    callee_description: builtins.str
+    """The target&apos;s role and context for the briefing (LLM_SUMMARY). Unset resolves from the target softphone
+    account&apos;s <code>description</code>, then from <code>VtsiProject.transfer_target_directory</code>. At most
+    512 characters. Meaningful per transfer only
+    """
+    on_intro_unavailable: global___WarmIntroUnavailablePolicy.ValueType
+    """What happens when the intro cannot run (no free listener, the NLU could not prepare the intro).
+    <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code> means
+    <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>
+    """
+    apply_to_bot_transfers: builtins.bool
+    """Whether the bot&apos;s OWN transfers to a human (the NLU answer&apos;s transfer or human handover) get a warm
+    intro too: the transfer is handed to VTSI instead of being sent by the bot. Default <code>false</code>. Valid
+    on the call and project levels; set on a <code>TransferCallRequest</code> it is refused with
+    <code>INVALID_ARGUMENT</code>
+    """
+    caller_hold_message: builtins.str
+    """Spoken to the caller while the intro runs, after <code>caller_disclosure_message</code>, e.g. &quot;Einen
+    Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence). At most 1000
+    characters
+    """
+    caller_hold_music: builtins.bool
+    """<i>Phase B</i>: music on hold for the caller between the hold messages. Default <code>false</code> (silence)"""
+    caller_reassure_interval_s: builtins.int
+    """Repeat <code>caller_hold_message</code> every N seconds while the intro runs. <code>0</code> (default): never.
+    Valid: 0 or 15 - 120
+    """
+    llm_ccai_service_name: builtins.str
+    """The LLM service of the ONDEWO NLU agent that writes the briefing (LLM_SUMMARY, <i>phase B</i>). Empty: the
+    agent&apos;s warm transfer setting, else the project&apos;s first LLM service
+    """
+    caller_disclosure_message: builtins.str
+    """Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target.
+    Default empty: none. At most 1000 characters
+    """
+    caller_accepted_message: builtins.str
+    """Spoken to the caller after the target accepted and before the target is joined, placeholder
+    <code>{callee_name}</code>, e.g. &quot;Ich verbinde Sie jetzt mit {callee_name}.&quot; The target does not
+    hear it. Default empty: none. At most 1000 characters
+    """
+    store_intro_audio: builtins.bool
+    """Whether the intro bot&apos;s NLU session stores the intro audio (the target&apos;s voice and the bot&apos;s).
+    Default <code>false</code>: no audio is stored; the session&apos;s text follows the conversation retention
+    """
+    @property
+    def intro_listener_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Project level only: listeners (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>)
+        reserved as intro bots. Empty (default): any free listener of the project, keeping at least one ready
+        listener free for customer calls. At most 50 entries; set on another level it is refused with
+        <code>INVALID_ARGUMENT</code>
+        """
+
+    def __init__(
+        self,
+        *,
+        enabled: builtins.bool | None = ...,
+        intro_prompt: builtins.str | None = ...,
+        intro_text_source: global___WarmIntroTextSource.ValueType = ...,
+        ready_question: builtins.str | None = ...,
+        confirm_human_before_intro: builtins.bool | None = ...,
+        accept_question: builtins.str | None = ...,
+        decline_reason_question: builtins.str | None = ...,
+        caller_declined_message: builtins.str | None = ...,
+        caller_unreachable_message: builtins.str | None = ...,
+        accept_dtmf: builtins.str | None = ...,
+        decline_dtmf: builtins.str | None = ...,
+        decision_timeout_s: builtins.int | None = ...,
+        max_intro_duration_s: builtins.int | None = ...,
+        callee_display_name: builtins.str | None = ...,
+        callee_description: builtins.str | None = ...,
+        on_intro_unavailable: global___WarmIntroUnavailablePolicy.ValueType = ...,
+        apply_to_bot_transfers: builtins.bool | None = ...,
+        caller_hold_message: builtins.str | None = ...,
+        caller_hold_music: builtins.bool | None = ...,
+        caller_reassure_interval_s: builtins.int | None = ...,
+        llm_ccai_service_name: builtins.str | None = ...,
+        caller_disclosure_message: builtins.str | None = ...,
+        caller_accepted_message: builtins.str | None = ...,
+        store_intro_audio: builtins.bool | None = ...,
+        intro_listener_names: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_accept_dtmf", b"_accept_dtmf", "_accept_question", b"_accept_question", "_apply_to_bot_transfers", b"_apply_to_bot_transfers", "_callee_description", b"_callee_description", "_callee_display_name", b"_callee_display_name", "_caller_accepted_message", b"_caller_accepted_message", "_caller_declined_message", b"_caller_declined_message", "_caller_disclosure_message", b"_caller_disclosure_message", "_caller_hold_message", b"_caller_hold_message", "_caller_hold_music", b"_caller_hold_music", "_caller_reassure_interval_s", b"_caller_reassure_interval_s", "_caller_unreachable_message", b"_caller_unreachable_message", "_confirm_human_before_intro", b"_confirm_human_before_intro", "_decision_timeout_s", b"_decision_timeout_s", "_decline_dtmf", b"_decline_dtmf", "_decline_reason_question", b"_decline_reason_question", "_enabled", b"_enabled", "_intro_prompt", b"_intro_prompt", "_llm_ccai_service_name", b"_llm_ccai_service_name", "_max_intro_duration_s", b"_max_intro_duration_s", "_ready_question", b"_ready_question", "_store_intro_audio", b"_store_intro_audio", "accept_dtmf", b"accept_dtmf", "accept_question", b"accept_question", "apply_to_bot_transfers", b"apply_to_bot_transfers", "callee_description", b"callee_description", "callee_display_name", b"callee_display_name", "caller_accepted_message", b"caller_accepted_message", "caller_declined_message", b"caller_declined_message", "caller_disclosure_message", b"caller_disclosure_message", "caller_hold_message", b"caller_hold_message", "caller_hold_music", b"caller_hold_music", "caller_reassure_interval_s", b"caller_reassure_interval_s", "caller_unreachable_message", b"caller_unreachable_message", "confirm_human_before_intro", b"confirm_human_before_intro", "decision_timeout_s", b"decision_timeout_s", "decline_dtmf", b"decline_dtmf", "decline_reason_question", b"decline_reason_question", "enabled", b"enabled", "intro_prompt", b"intro_prompt", "llm_ccai_service_name", b"llm_ccai_service_name", "max_intro_duration_s", b"max_intro_duration_s", "ready_question", b"ready_question", "store_intro_audio", b"store_intro_audio"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_accept_dtmf", b"_accept_dtmf", "_accept_question", b"_accept_question", "_apply_to_bot_transfers", b"_apply_to_bot_transfers", "_callee_description", b"_callee_description", "_callee_display_name", b"_callee_display_name", "_caller_accepted_message", b"_caller_accepted_message", "_caller_declined_message", b"_caller_declined_message", "_caller_disclosure_message", b"_caller_disclosure_message", "_caller_hold_message", b"_caller_hold_message", "_caller_hold_music", b"_caller_hold_music", "_caller_reassure_interval_s", b"_caller_reassure_interval_s", "_caller_unreachable_message", b"_caller_unreachable_message", "_confirm_human_before_intro", b"_confirm_human_before_intro", "_decision_timeout_s", b"_decision_timeout_s", "_decline_dtmf", b"_decline_dtmf", "_decline_reason_question", b"_decline_reason_question", "_enabled", b"_enabled", "_intro_prompt", b"_intro_prompt", "_llm_ccai_service_name", b"_llm_ccai_service_name", "_max_intro_duration_s", b"_max_intro_duration_s", "_ready_question", b"_ready_question", "_store_intro_audio", b"_store_intro_audio", "accept_dtmf", b"accept_dtmf", "accept_question", b"accept_question", "apply_to_bot_transfers", b"apply_to_bot_transfers", "callee_description", b"callee_description", "callee_display_name", b"callee_display_name", "caller_accepted_message", b"caller_accepted_message", "caller_declined_message", b"caller_declined_message", "caller_disclosure_message", b"caller_disclosure_message", "caller_hold_message", b"caller_hold_message", "caller_hold_music", b"caller_hold_music", "caller_reassure_interval_s", b"caller_reassure_interval_s", "caller_unreachable_message", b"caller_unreachable_message", "confirm_human_before_intro", b"confirm_human_before_intro", "decision_timeout_s", b"decision_timeout_s", "decline_dtmf", b"decline_dtmf", "decline_reason_question", b"decline_reason_question", "enabled", b"enabled", "intro_listener_names", b"intro_listener_names", "intro_prompt", b"intro_prompt", "intro_text_source", b"intro_text_source", "llm_ccai_service_name", b"llm_ccai_service_name", "max_intro_duration_s", b"max_intro_duration_s", "on_intro_unavailable", b"on_intro_unavailable", "ready_question", b"ready_question", "store_intro_audio", b"store_intro_audio"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_accept_dtmf", b"_accept_dtmf"]) -> typing.Literal["accept_dtmf"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_accept_question", b"_accept_question"]) -> typing.Literal["accept_question"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_apply_to_bot_transfers", b"_apply_to_bot_transfers"]) -> typing.Literal["apply_to_bot_transfers"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_callee_description", b"_callee_description"]) -> typing.Literal["callee_description"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_callee_display_name", b"_callee_display_name"]) -> typing.Literal["callee_display_name"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_caller_accepted_message", b"_caller_accepted_message"]) -> typing.Literal["caller_accepted_message"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_caller_declined_message", b"_caller_declined_message"]) -> typing.Literal["caller_declined_message"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_caller_disclosure_message", b"_caller_disclosure_message"]) -> typing.Literal["caller_disclosure_message"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_caller_hold_message", b"_caller_hold_message"]) -> typing.Literal["caller_hold_message"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_caller_hold_music", b"_caller_hold_music"]) -> typing.Literal["caller_hold_music"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_caller_reassure_interval_s", b"_caller_reassure_interval_s"]) -> typing.Literal["caller_reassure_interval_s"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_caller_unreachable_message", b"_caller_unreachable_message"]) -> typing.Literal["caller_unreachable_message"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_confirm_human_before_intro", b"_confirm_human_before_intro"]) -> typing.Literal["confirm_human_before_intro"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_decision_timeout_s", b"_decision_timeout_s"]) -> typing.Literal["decision_timeout_s"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_decline_dtmf", b"_decline_dtmf"]) -> typing.Literal["decline_dtmf"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_decline_reason_question", b"_decline_reason_question"]) -> typing.Literal["decline_reason_question"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_intro_prompt", b"_intro_prompt"]) -> typing.Literal["intro_prompt"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_llm_ccai_service_name", b"_llm_ccai_service_name"]) -> typing.Literal["llm_ccai_service_name"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_max_intro_duration_s", b"_max_intro_duration_s"]) -> typing.Literal["max_intro_duration_s"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_ready_question", b"_ready_question"]) -> typing.Literal["ready_question"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_store_intro_audio", b"_store_intro_audio"]) -> typing.Literal["store_intro_audio"] | None: ...
+
+global___WarmTransferConfig = WarmTransferConfig
+
+@typing.final
+class WarmIntroRecord(google.protobuf.message.Message):
+    """<p>Audit of one warm intro, in <code>CallTransferRecord.warm_intro</code>. Output only. Holds NO intro text and NO
+    decline reason text.</p>
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INTRO_ID_FIELD_NUMBER: builtins.int
+    DECISION_FIELD_NUMBER: builtins.int
+    DECIDED_BY_FIELD_NUMBER: builtins.int
+    DECLINE_REASON_PRESENT_FIELD_NUMBER: builtins.int
+    INTRO_CALL_NAME_FIELD_NUMBER: builtins.int
+    RING_DURATION_FIELD_NUMBER: builtins.int
+    INTRO_DURATION_FIELD_NUMBER: builtins.int
+    TEXT_SOURCE_FIELD_NUMBER: builtins.int
+    TEXT_FELL_BACK_FIELD_NUMBER: builtins.int
+    CAUSE_FIELD_NUMBER: builtins.int
+    NOTICE_DELIVERED_FIELD_NUMBER: builtins.int
+    INTRO_STARTED_FIELD_NUMBER: builtins.int
+    intro_id: builtins.str
+    """Id of the intro: the participant id of the target&apos;s leg (the <code>participant_id</code> of the events)"""
+    decision: global___WarmIntroDecision.ValueType
+    """The target&apos;s decision"""
+    decided_by: global___WarmIntroDecidedBy.ValueType
+    """How it was taken"""
+    decline_reason_present: builtins.bool
+    """Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU session)"""
+    intro_call_name: builtins.str
+    """The intro bot&apos;s call, labelled <code>{&quot;purpose&quot;: &quot;warm_intro&quot;}</code>. Empty when no
+    intro bot answered
+    """
+    text_source: global___WarmIntroTextSource.ValueType
+    """The text source actually used"""
+    text_fell_back: builtins.bool
+    """Whether the LLM summary failed or timed out and the TEMPLATE was used"""
+    cause: builtins.str
+    """Bounded kebab-case token naming why the intro ended or did not run, e.g. <code>declined</code>,
+    <code>voicemail-suspected</code>, <code>target-hung-up</code>, <code>no-free-listener</code>,
+    <code>prepare-failed</code>, <code>intro-timeout</code>; empty on accept
+    """
+    notice_delivered: builtins.bool
+    """Whether the caller&apos;s bot queued the outcome notice (decline / unreachable) for the caller. Only meaningful
+    when a notice was owed (every decision but <code>WARM_INTRO_DECISION_ACCEPTED</code>); <code>false</code> there
+    goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>
+    """
+    intro_started: builtins.bool
+    """Whether the intro started (an intro bot answered). <code>false</code> with
+    <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code> means the target was joined without an intro;
+    <code>cause</code> says why
+    """
+    @property
+    def ring_duration(self) -> google.protobuf.duration_pb2.Duration:
+        """From the start of the ring to the target&apos;s answer"""
+
+    @property
+    def intro_duration(self) -> google.protobuf.duration_pb2.Duration:
+        """From the target&apos;s answer to the decision or the end of the intro"""
+
+    def __init__(
+        self,
+        *,
+        intro_id: builtins.str = ...,
+        decision: global___WarmIntroDecision.ValueType = ...,
+        decided_by: global___WarmIntroDecidedBy.ValueType = ...,
+        decline_reason_present: builtins.bool = ...,
+        intro_call_name: builtins.str = ...,
+        ring_duration: google.protobuf.duration_pb2.Duration | None = ...,
+        intro_duration: google.protobuf.duration_pb2.Duration | None = ...,
+        text_source: global___WarmIntroTextSource.ValueType = ...,
+        text_fell_back: builtins.bool = ...,
+        cause: builtins.str = ...,
+        notice_delivered: builtins.bool = ...,
+        intro_started: builtins.bool = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["intro_duration", b"intro_duration", "ring_duration", b"ring_duration"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["cause", b"cause", "decided_by", b"decided_by", "decision", b"decision", "decline_reason_present", b"decline_reason_present", "intro_call_name", b"intro_call_name", "intro_duration", b"intro_duration", "intro_id", b"intro_id", "intro_started", b"intro_started", "notice_delivered", b"notice_delivered", "ring_duration", b"ring_duration", "text_fell_back", b"text_fell_back", "text_source", b"text_source"]) -> None: ...
+
+global___WarmIntroRecord = WarmIntroRecord
 
 @typing.final
 class TurnDetectionConfig(google.protobuf.message.Message):

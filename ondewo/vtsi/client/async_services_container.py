@@ -19,6 +19,7 @@ from ondewo.utils.base_service_container import BaseServicesContainer
 from ondewo.vtsi.client.services.async_campaigns import Campaigns
 from ondewo.vtsi.client.services.async_calls import Calls
 from ondewo.vtsi.client.services.async_events import Events
+from ondewo.vtsi.client.services.async_ivr_menus import IvrMenus
 from ondewo.vtsi.client.services.async_logs import Logs
 from ondewo.vtsi.client.services.async_projects import Projects
 from ondewo.vtsi.client.services.async_softphones import Softphones
@@ -32,3 +33,4 @@ class AsyncServicesContainer(BaseServicesContainer):
     softphones: Softphones
     campaigns: Campaigns
     events: Events
+    ivr_menus: IvrMenus

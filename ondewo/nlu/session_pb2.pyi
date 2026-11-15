@@ -169,6 +169,288 @@ LLM_AGENT_NODE_PHASE_FAILED: LlmAgentNodePhase.ValueType  # 3
 """The node raised an error."""
 global___LlmAgentNodePhase = LlmAgentNodePhase
 
+class _TurnInterruptionReason:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _TurnInterruptionReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TurnInterruptionReason.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    TURN_INTERRUPTION_REASON_UNSPECIFIED: _TurnInterruptionReason.ValueType  # 0
+    """Not set."""
+    TURN_INTERRUPTION_REASON_BARGE_IN: _TurnInterruptionReason.ValueType  # 1
+    """The user spoke over the answer and the interruption was confirmed as real."""
+    TURN_INTERRUPTION_REASON_CALLER_SPOKE_WHILE_THINKING: _TurnInterruptionReason.ValueType  # 2
+    """The user spoke again while the turn was still being generated, before any of its answer was played."""
+    TURN_INTERRUPTION_REASON_CALL_ENDED: _TurnInterruptionReason.ValueType  # 3
+    """The call ended while the turn was being generated or played."""
+    TURN_INTERRUPTION_REASON_FILLER_CUT: _TurnInterruptionReason.ValueType  # 4
+    """A filler of the turn was cut."""
+    TURN_INTERRUPTION_REASON_NO_FINAL_TIMEOUT: _TurnInterruptionReason.ValueType  # 5
+    """The user started speaking but no final transcript arrived in time, and the held answer was discarded."""
+    TURN_INTERRUPTION_REASON_OPERATOR_TAKEOVER: _TurnInterruptionReason.ValueType  # 6
+    """A human operator took the call over."""
+    TURN_INTERRUPTION_REASON_BOT_MUTED: _TurnInterruptionReason.ValueType  # 7
+    """A human operator muted the bot."""
+
+class TurnInterruptionReason(_TurnInterruptionReason, metaclass=_TurnInterruptionReasonEnumTypeWrapper):
+    """Why a turn was interrupted."""
+
+TURN_INTERRUPTION_REASON_UNSPECIFIED: TurnInterruptionReason.ValueType  # 0
+"""Not set."""
+TURN_INTERRUPTION_REASON_BARGE_IN: TurnInterruptionReason.ValueType  # 1
+"""The user spoke over the answer and the interruption was confirmed as real."""
+TURN_INTERRUPTION_REASON_CALLER_SPOKE_WHILE_THINKING: TurnInterruptionReason.ValueType  # 2
+"""The user spoke again while the turn was still being generated, before any of its answer was played."""
+TURN_INTERRUPTION_REASON_CALL_ENDED: TurnInterruptionReason.ValueType  # 3
+"""The call ended while the turn was being generated or played."""
+TURN_INTERRUPTION_REASON_FILLER_CUT: TurnInterruptionReason.ValueType  # 4
+"""A filler of the turn was cut."""
+TURN_INTERRUPTION_REASON_NO_FINAL_TIMEOUT: TurnInterruptionReason.ValueType  # 5
+"""The user started speaking but no final transcript arrived in time, and the held answer was discarded."""
+TURN_INTERRUPTION_REASON_OPERATOR_TAKEOVER: TurnInterruptionReason.ValueType  # 6
+"""A human operator took the call over."""
+TURN_INTERRUPTION_REASON_BOT_MUTED: TurnInterruptionReason.ValueType  # 7
+"""A human operator muted the bot."""
+global___TurnInterruptionReason = TurnInterruptionReason
+
+class _BackgroundWorkPolicy:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _BackgroundWorkPolicyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_BackgroundWorkPolicy.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    BACKGROUND_WORK_POLICY_KEEP: _BackgroundWorkPolicy.ValueType  # 0
+    """Keep it running; its result is delivered later as usual."""
+    BACKGROUND_WORK_POLICY_CANCEL_PENDING: _BackgroundWorkPolicy.ValueType  # 1
+    """Cancel work that is still pending, unless the user already heard it acknowledged."""
+
+class BackgroundWorkPolicy(_BackgroundWorkPolicy, metaclass=_BackgroundWorkPolicyEnumTypeWrapper):
+    """What happens to background work (e.g. an asynchronous tool) the cancelled turn started."""
+
+BACKGROUND_WORK_POLICY_KEEP: BackgroundWorkPolicy.ValueType  # 0
+"""Keep it running; its result is delivered later as usual."""
+BACKGROUND_WORK_POLICY_CANCEL_PENDING: BackgroundWorkPolicy.ValueType  # 1
+"""Cancel work that is still pending, unless the user already heard it acknowledged."""
+global___BackgroundWorkPolicy = BackgroundWorkPolicy
+
+class _HeardTextPrecision:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _HeardTextPrecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_HeardTextPrecision.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    HEARD_TEXT_PRECISION_UNSPECIFIED: _HeardTextPrecision.ValueType  # 0
+    """Not set."""
+    HEARD_TEXT_PRECISION_NONE_HEARD: _HeardTextPrecision.ValueType  # 1
+    """Nothing of the answer was heard."""
+    HEARD_TEXT_PRECISION_FULL: _HeardTextPrecision.ValueType  # 2
+    """The whole answer was heard."""
+    HEARD_TEXT_PRECISION_ESTIMATED_SERVER: _HeardTextPrecision.ValueType  # 3
+    """The played share of the audio was estimated by the client from when it handed the audio to the player, not
+    measured by the player, and mapped proportionally onto the text.
+    """
+    HEARD_TEXT_PRECISION_PROPORTIONAL: _HeardTextPrecision.ValueType  # 4
+    """The played share of the audio was measured by the audio player and mapped proportionally onto the text."""
+
+class HeardTextPrecision(_HeardTextPrecision, metaclass=_HeardTextPrecisionEnumTypeWrapper):
+    """How the heard text of a <code>HeardReport</code> was determined."""
+
+HEARD_TEXT_PRECISION_UNSPECIFIED: HeardTextPrecision.ValueType  # 0
+"""Not set."""
+HEARD_TEXT_PRECISION_NONE_HEARD: HeardTextPrecision.ValueType  # 1
+"""Nothing of the answer was heard."""
+HEARD_TEXT_PRECISION_FULL: HeardTextPrecision.ValueType  # 2
+"""The whole answer was heard."""
+HEARD_TEXT_PRECISION_ESTIMATED_SERVER: HeardTextPrecision.ValueType  # 3
+"""The played share of the audio was estimated by the client from when it handed the audio to the player, not
+measured by the player, and mapped proportionally onto the text.
+"""
+HEARD_TEXT_PRECISION_PROPORTIONAL: HeardTextPrecision.ValueType  # 4
+"""The played share of the audio was measured by the audio player and mapped proportionally onto the text."""
+global___HeardTextPrecision = HeardTextPrecision
+
+class _TurnControlAckStatus:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _TurnControlAckStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TurnControlAckStatus.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    TURN_CONTROL_ACK_STATUS_UNSPECIFIED: _TurnControlAckStatus.ValueType  # 0
+    """Not set."""
+    TURN_CONTROL_ACK_STATUS_CANCELLED: _TurnControlAckStatus.ValueType  # 1
+    """The turn was being generated and is now cancelled."""
+    TURN_CONTROL_ACK_STATUS_CANCELLED_QUEUED: _TurnControlAckStatus.ValueType  # 2
+    """The turn had not started yet; it is cancelled and will not run."""
+    TURN_CONTROL_ACK_STATUS_ALREADY_FINISHED: _TurnControlAckStatus.ValueType  # 3
+    """The turn had already finished generating; nothing was cancelled."""
+    TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN: _TurnControlAckStatus.ValueType  # 4
+    """No turn of this session matches the given ids. For a <code>DiscardDraft</code>: no session step of this
+    session with the given <code>response_id</code> carries <code>QueryParameters.preemptive_draft</code>; the
+    discard is refused and the step, if one exists, is kept.
+    """
+    TURN_CONTROL_ACK_STATUS_HEARD_APPLIED: _TurnControlAckStatus.ValueType  # 5
+    """The heard report was applied to the turn's session step."""
+    TURN_CONTROL_ACK_STATUS_HEARD_STALE: _TurnControlAckStatus.ValueType  # 6
+    """The heard report was ignored because a report with the same or a higher revision was already applied."""
+    TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED: _TurnControlAckStatus.ValueType  # 7
+    """The draft's session step, whose request carried <code>QueryParameters.preemptive_draft</code>, was deleted."""
+
+class TurnControlAckStatus(_TurnControlAckStatus, metaclass=_TurnControlAckStatusEnumTypeWrapper):
+    """Outcome of a turn control."""
+
+TURN_CONTROL_ACK_STATUS_UNSPECIFIED: TurnControlAckStatus.ValueType  # 0
+"""Not set."""
+TURN_CONTROL_ACK_STATUS_CANCELLED: TurnControlAckStatus.ValueType  # 1
+"""The turn was being generated and is now cancelled."""
+TURN_CONTROL_ACK_STATUS_CANCELLED_QUEUED: TurnControlAckStatus.ValueType  # 2
+"""The turn had not started yet; it is cancelled and will not run."""
+TURN_CONTROL_ACK_STATUS_ALREADY_FINISHED: TurnControlAckStatus.ValueType  # 3
+"""The turn had already finished generating; nothing was cancelled."""
+TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN: TurnControlAckStatus.ValueType  # 4
+"""No turn of this session matches the given ids. For a <code>DiscardDraft</code>: no session step of this
+session with the given <code>response_id</code> carries <code>QueryParameters.preemptive_draft</code>; the
+discard is refused and the step, if one exists, is kept.
+"""
+TURN_CONTROL_ACK_STATUS_HEARD_APPLIED: TurnControlAckStatus.ValueType  # 5
+"""The heard report was applied to the turn's session step."""
+TURN_CONTROL_ACK_STATUS_HEARD_STALE: TurnControlAckStatus.ValueType  # 6
+"""The heard report was ignored because a report with the same or a higher revision was already applied."""
+TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED: TurnControlAckStatus.ValueType  # 7
+"""The draft's session step, whose request carried <code>QueryParameters.preemptive_draft</code>, was deleted."""
+global___TurnControlAckStatus = TurnControlAckStatus
+
+class _WarmTransferIntroTextSource:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WarmTransferIntroTextSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmTransferIntroTextSource.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WARM_TRANSFER_INTRO_TEXT_SOURCE_UNSPECIFIED: _WarmTransferIntroTextSource.ValueType  # 0
+    """Not set: <code>WARM_TRANSFER_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when the project has an LLM service, else
+    <code>WARM_TRANSFER_INTRO_TEXT_SOURCE_TEMPLATE</code>.
+    """
+    WARM_TRANSFER_INTRO_TEXT_SOURCE_TEMPLATE: _WarmTransferIntroTextSource.ValueType  # 1
+    """<code>WarmTransferIntroConfig.intro_prompt</code> is a text with the placeholders <code>{caller_name}</code>,
+    <code>{callee_name}</code>, <code>{topic}</code> and <code>{summary}</code>.
+    """
+    WARM_TRANSFER_INTRO_TEXT_SOURCE_LLM_SUMMARY: _WarmTransferIntroTextSource.ValueType  # 2
+    """An LLM summarises the source session for the target; <code>WarmTransferIntroConfig.intro_prompt</code> is its
+    instruction.
+    """
+
+class WarmTransferIntroTextSource(_WarmTransferIntroTextSource, metaclass=_WarmTransferIntroTextSourceEnumTypeWrapper):
+    """Where the intro text of a warm transfer comes from."""
+
+WARM_TRANSFER_INTRO_TEXT_SOURCE_UNSPECIFIED: WarmTransferIntroTextSource.ValueType  # 0
+"""Not set: <code>WARM_TRANSFER_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when the project has an LLM service, else
+<code>WARM_TRANSFER_INTRO_TEXT_SOURCE_TEMPLATE</code>.
+"""
+WARM_TRANSFER_INTRO_TEXT_SOURCE_TEMPLATE: WarmTransferIntroTextSource.ValueType  # 1
+"""<code>WarmTransferIntroConfig.intro_prompt</code> is a text with the placeholders <code>{caller_name}</code>,
+<code>{callee_name}</code>, <code>{topic}</code> and <code>{summary}</code>.
+"""
+WARM_TRANSFER_INTRO_TEXT_SOURCE_LLM_SUMMARY: WarmTransferIntroTextSource.ValueType  # 2
+"""An LLM summarises the source session for the target; <code>WarmTransferIntroConfig.intro_prompt</code> is its
+instruction.
+"""
+global___WarmTransferIntroTextSource = WarmTransferIntroTextSource
+
+class _WarmTransferIntroDecision:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WarmTransferIntroDecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmTransferIntroDecision.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WARM_TRANSFER_INTRO_DECISION_UNSPECIFIED: _WarmTransferIntroDecision.ValueType  # 0
+    """Not set."""
+    WARM_TRANSFER_INTRO_DECISION_PENDING: _WarmTransferIntroDecision.ValueType  # 1
+    """The intro is still running."""
+    WARM_TRANSFER_INTRO_DECISION_ACCEPTED: _WarmTransferIntroDecision.ValueType  # 2
+    """The target accepted the call."""
+    WARM_TRANSFER_INTRO_DECISION_DECLINED: _WarmTransferIntroDecision.ValueType  # 3
+    """The target declined the call."""
+    WARM_TRANSFER_INTRO_DECISION_NO_DECISION: _WarmTransferIntroDecision.ValueType  # 4
+    """The target gave no decision: no ready answer, an unclear answer twice, or a timeout."""
+
+class WarmTransferIntroDecision(_WarmTransferIntroDecision, metaclass=_WarmTransferIntroDecisionEnumTypeWrapper):
+    """The decision of the target of a warm transfer intro."""
+
+WARM_TRANSFER_INTRO_DECISION_UNSPECIFIED: WarmTransferIntroDecision.ValueType  # 0
+"""Not set."""
+WARM_TRANSFER_INTRO_DECISION_PENDING: WarmTransferIntroDecision.ValueType  # 1
+"""The intro is still running."""
+WARM_TRANSFER_INTRO_DECISION_ACCEPTED: WarmTransferIntroDecision.ValueType  # 2
+"""The target accepted the call."""
+WARM_TRANSFER_INTRO_DECISION_DECLINED: WarmTransferIntroDecision.ValueType  # 3
+"""The target declined the call."""
+WARM_TRANSFER_INTRO_DECISION_NO_DECISION: WarmTransferIntroDecision.ValueType  # 4
+"""The target gave no decision: no ready answer, an unclear answer twice, or a timeout."""
+global___WarmTransferIntroDecision = WarmTransferIntroDecision
+
+class _WarmTransferIntroDecidedBy:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WarmTransferIntroDecidedByEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmTransferIntroDecidedBy.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WARM_TRANSFER_INTRO_DECIDED_BY_UNSPECIFIED: _WarmTransferIntroDecidedBy.ValueType  # 0
+    """Not set, or not decided yet."""
+    WARM_TRANSFER_INTRO_DECIDED_BY_DTMF: _WarmTransferIntroDecidedBy.ValueType  # 1
+    """By a DTMF key."""
+    WARM_TRANSFER_INTRO_DECIDED_BY_SPEECH: _WarmTransferIntroDecidedBy.ValueType  # 2
+    """By speech."""
+    WARM_TRANSFER_INTRO_DECIDED_BY_TIMEOUT: _WarmTransferIntroDecidedBy.ValueType  # 3
+    """By the decision timeout."""
+
+class WarmTransferIntroDecidedBy(_WarmTransferIntroDecidedBy, metaclass=_WarmTransferIntroDecidedByEnumTypeWrapper):
+    """How the target of a warm transfer intro gave the decision."""
+
+WARM_TRANSFER_INTRO_DECIDED_BY_UNSPECIFIED: WarmTransferIntroDecidedBy.ValueType  # 0
+"""Not set, or not decided yet."""
+WARM_TRANSFER_INTRO_DECIDED_BY_DTMF: WarmTransferIntroDecidedBy.ValueType  # 1
+"""By a DTMF key."""
+WARM_TRANSFER_INTRO_DECIDED_BY_SPEECH: WarmTransferIntroDecidedBy.ValueType  # 2
+"""By speech."""
+WARM_TRANSFER_INTRO_DECIDED_BY_TIMEOUT: WarmTransferIntroDecidedBy.ValueType  # 3
+"""By the decision timeout."""
+global___WarmTransferIntroDecidedBy = WarmTransferIntroDecidedBy
+
+class _WarmTransferIntroStage:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WarmTransferIntroStageEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmTransferIntroStage.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WARM_TRANSFER_INTRO_STAGE_UNSPECIFIED: _WarmTransferIntroStage.ValueType  # 0
+    """Not set."""
+    WARM_TRANSFER_INTRO_STAGE_PREPARED: _WarmTransferIntroStage.ValueType  # 1
+    """Prepared; nothing spoken yet."""
+    WARM_TRANSFER_INTRO_STAGE_READY_ASKED: _WarmTransferIntroStage.ValueType  # 2
+    """<code>ready_question</code> spoken, waiting for a person to answer."""
+    WARM_TRANSFER_INTRO_STAGE_INTRO_SPOKEN: _WarmTransferIntroStage.ValueType  # 3
+    """The intro and <code>accept_question</code> spoken, waiting for the decision."""
+    WARM_TRANSFER_INTRO_STAGE_REASON_ASKED: _WarmTransferIntroStage.ValueType  # 4
+    """<code>decline_reason_question</code> spoken, waiting for the reason."""
+    WARM_TRANSFER_INTRO_STAGE_CLOSED: _WarmTransferIntroStage.ValueType  # 5
+    """The final answer, which ends the target's call, was generated."""
+
+class WarmTransferIntroStage(_WarmTransferIntroStage, metaclass=_WarmTransferIntroStageEnumTypeWrapper):
+    """The stage of a warm transfer intro session."""
+
+WARM_TRANSFER_INTRO_STAGE_UNSPECIFIED: WarmTransferIntroStage.ValueType  # 0
+"""Not set."""
+WARM_TRANSFER_INTRO_STAGE_PREPARED: WarmTransferIntroStage.ValueType  # 1
+"""Prepared; nothing spoken yet."""
+WARM_TRANSFER_INTRO_STAGE_READY_ASKED: WarmTransferIntroStage.ValueType  # 2
+"""<code>ready_question</code> spoken, waiting for a person to answer."""
+WARM_TRANSFER_INTRO_STAGE_INTRO_SPOKEN: WarmTransferIntroStage.ValueType  # 3
+"""The intro and <code>accept_question</code> spoken, waiting for the decision."""
+WARM_TRANSFER_INTRO_STAGE_REASON_ASKED: WarmTransferIntroStage.ValueType  # 4
+"""<code>decline_reason_question</code> spoken, waiting for the reason."""
+WARM_TRANSFER_INTRO_STAGE_CLOSED: WarmTransferIntroStage.ValueType  # 5
+"""The final answer, which ends the target's call, was generated."""
+global___WarmTransferIntroStage = WarmTransferIntroStage
+
 class _AudioEncoding:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -585,6 +867,7 @@ class QueryParameters(google.protobuf.message.Message):
     ORIGIN_ID_FIELD_NUMBER: builtins.int
     IDENTIFIED_USER_ID_FIELD_NUMBER: builtins.int
     TRANSCRIPTIONS_FIELD_NUMBER: builtins.int
+    PREEMPTIVE_DRAFT_FIELD_NUMBER: builtins.int
     time_zone: builtins.str
     """Optional. The time zone of this conversational query from the
     <a href="https://www.iana.org/time-zones">time zone database</a>, e.g.,
@@ -617,6 +900,13 @@ class QueryParameters(google.protobuf.message.Message):
     identified_user_id: builtins.str
     """Id of the &quot;identified user&quot; e.g. for a chatbot the email address or for a phone bot the phone number of the user
     This field can also be used for a customized tracking id or tag id
+    """
+    preemptive_draft: builtins.bool
+    """Optional. Marks the request as a preemptive draft: a turn the client (e.g. ondewo-csi) starts speculatively,
+    e.g. on a partial transcript, and may later discard with <code>TurnControl.discard_draft</code>. The server
+    records the mark on the session step of this request. A <code>DiscardDraft</code> deletes only a session step
+    of the same session whose request carried this mark. A server that does not know this field ignores it and
+    keeps the step.
     """
     @property
     def geo_location(self) -> google.type.latlng_pb2.LatLng:
@@ -712,9 +1002,10 @@ class QueryParameters(google.protobuf.message.Message):
         origin_id: builtins.str = ...,
         identified_user_id: builtins.str = ...,
         transcriptions: collections.abc.Iterable[global___S2tTranscription] | None = ...,
+        preemptive_draft: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["geo_location", b"geo_location", "payload", b"payload"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["account_id", b"account_id", "contexts", b"contexts", "datastream_id", b"datastream_id", "geo_location", b"geo_location", "identified_user_id", b"identified_user_id", "labels", b"labels", "origin_id", b"origin_id", "payload", b"payload", "platforms", b"platforms", "property_id", b"property_id", "reset_contexts", b"reset_contexts", "time_zone", b"time_zone", "transcriptions", b"transcriptions"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["account_id", b"account_id", "contexts", b"contexts", "datastream_id", b"datastream_id", "geo_location", b"geo_location", "identified_user_id", b"identified_user_id", "labels", b"labels", "origin_id", b"origin_id", "payload", b"payload", "platforms", b"platforms", "preemptive_draft", b"preemptive_draft", "property_id", b"property_id", "reset_contexts", b"reset_contexts", "time_zone", b"time_zone", "transcriptions", b"transcriptions"]) -> None: ...
 
 global___QueryParameters = QueryParameters
 
@@ -2495,6 +2786,7 @@ class ReferencedChunk(google.protobuf.message.Message):
     SIMILARITY_FIELD_NUMBER: builtins.int
     DOCUMENT_URL_FIELD_NUMBER: builtins.int
     DEEP_LINK_URL_FIELD_NUMBER: builtins.int
+    DOCUMENT_TITLE_FIELD_NUMBER: builtins.int
     reference_index: builtins.int
     """Index by which this chunk is referenced in the response text. For index <code>N</code> the reference in the response text has format <code>[ID:N]</code>"""
     dataset_id: builtins.str
@@ -2513,6 +2805,8 @@ class ReferencedChunk(google.protobuf.message.Message):
     """For crawled documents the URL of the source document. For any other document it is left empty."""
     deep_link_url: builtins.str
     """For crawled documents link to the source document that directly jumps to the chunk's location on the page using a text fragment anchor (a bit fragile and might not always work). For any other document it is left empty."""
+    document_title: builtins.str
+    """Title of the document (optional)."""
     def __init__(
         self,
         *,
@@ -2525,8 +2819,9 @@ class ReferencedChunk(google.protobuf.message.Message):
         similarity: builtins.float = ...,
         document_url: builtins.str = ...,
         deep_link_url: builtins.str = ...,
+        document_title: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["chunk_id", b"chunk_id", "content", b"content", "dataset_id", b"dataset_id", "deep_link_url", b"deep_link_url", "document_id", b"document_id", "document_name", b"document_name", "document_url", b"document_url", "reference_index", b"reference_index", "similarity", b"similarity"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["chunk_id", b"chunk_id", "content", b"content", "dataset_id", b"dataset_id", "deep_link_url", b"deep_link_url", "document_id", b"document_id", "document_name", b"document_name", "document_title", b"document_title", "document_url", b"document_url", "reference_index", b"reference_index", "similarity", b"similarity"]) -> None: ...
 
 global___ReferencedChunk = ReferencedChunk
 
@@ -2695,6 +2990,8 @@ class StreamingDetectIntentRequest(google.protobuf.message.Message):
     QUERY_INPUT_FIELD_NUMBER: builtins.int
     SINGLE_UTTERANCE_FIELD_NUMBER: builtins.int
     INPUT_AUDIO_FIELD_NUMBER: builtins.int
+    TURN_CONTROL_FIELD_NUMBER: builtins.int
+    CLIENT_TURN_ID_FIELD_NUMBER: builtins.int
     session: builtins.str
     """Required. The name of the session the query is sent to.
     Format of the session name:
@@ -2718,6 +3015,12 @@ class StreamingDetectIntentRequest(google.protobuf.message.Message):
     <code>query_input</code> was set to a streaming input audio config. The complete audio
     over all streaming messages must not exceed 1 minute.
     """
+    client_turn_id: builtins.str
+    """Optional. Client-minted id (e.g. a uuid4 hex) of the turn this request STARTS; set together with
+    <code>query_input</code>. The server echoes it on every response of that turn
+    (<code>StreamingDetectIntentResponse.client_turn_id</code>), and a <code>CancelTurn</code> or
+    <code>HeardReport</code> can name the turn by it before the server's <code>response_id</code> is known.
+    """
     @property
     def query_params(self) -> global___QueryParameters:
         """Optional. The parameters of this query."""
@@ -2732,6 +3035,15 @@ class StreamingDetectIntentRequest(google.protobuf.message.Message):
         </ol>
         """
 
+    @property
+    def turn_control(self) -> global___TurnControl:
+        """Optional. Controls a turn of this stream: cancels it, reports what the user heard of its answer, or discards
+        the session step of a preemptive draft. Sent ALONE (no <code>query_input</code>) on a call-length stream; the
+        server applies it in stream order and starts no turn for it. Send it only to a server that advertised the
+        initial metadata <code>x-ondewo-cai-turn-control: 1</code> on this stream: an older server treats a request
+        without <code>query_input</code> as a malformed turn and ends the stream.
+        """
+
     def __init__(
         self,
         *,
@@ -2740,9 +3052,11 @@ class StreamingDetectIntentRequest(google.protobuf.message.Message):
         query_input: global___QueryInput | None = ...,
         single_utterance: builtins.bool = ...,
         input_audio: builtins.bytes = ...,
+        turn_control: global___TurnControl | None = ...,
+        client_turn_id: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["query_input", b"query_input", "query_params", b"query_params"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["input_audio", b"input_audio", "query_input", b"query_input", "query_params", b"query_params", "session", b"session", "single_utterance", b"single_utterance"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["query_input", b"query_input", "query_params", b"query_params", "turn_control", b"turn_control"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["client_turn_id", b"client_turn_id", "input_audio", b"input_audio", "query_input", b"query_input", "query_params", b"query_params", "session", b"session", "single_utterance", b"single_utterance", "turn_control", b"turn_control"]) -> None: ...
 
 global___StreamingDetectIntentRequest = StreamingDetectIntentRequest
 
@@ -2767,9 +3081,15 @@ class StreamingDetectIntentResponse(google.protobuf.message.Message):
     LLM_THINKING_DELTA_FIELD_NUMBER: builtins.int
     LLM_TOKEN_USAGE_UPDATE_FIELD_NUMBER: builtins.int
     LLM_AGENT_NODE_EVENT_FIELD_NUMBER: builtins.int
+    TURN_CONTROL_ACK_FIELD_NUMBER: builtins.int
+    CLIENT_TURN_ID_FIELD_NUMBER: builtins.int
     response_id: builtins.str
     """The unique identifier of the response. It can be used to
     locate a response in the training example set or for reporting issues.
+    """
+    client_turn_id: builtins.str
+    """Echo of <code>StreamingDetectIntentRequest.client_turn_id</code> of the turn this response belongs to; empty
+    when the client sent none.
     """
     @property
     def recognition_result(self) -> global___StreamingRecognitionResult:
@@ -2811,6 +3131,19 @@ class StreamingDetectIntentResponse(google.protobuf.message.Message):
     def llm_agent_node_event(self) -> global___LlmAgentNodeEvent:
         """Emitted when a node of an AI Team graph starts, completes or fails."""
 
+    @property
+    def turn_control_ack(self) -> global___TurnControlAck:
+        """Set on the response that acknowledges a <code>CancelTurn</code> or a <code>DiscardDraft</code> sent as
+        <code>StreamingDetectIntentRequest.turn_control</code>; a <code>HeardReport</code> is not acknowledged on the
+        stream. A response that carries it carries no query result and is never an answer. The acknowledgement of a
+        <code>CancelTurn</code> is sent after every other response of the cancelled turn, so no response of that turn
+        follows it. The acknowledgement of a <code>DiscardDraft</code> is sent once the discard is decided, between
+        turns, with the draft's <code>response_id</code> and no <code>client_turn_id</code>:
+        <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code> when the draft's session step was deleted,
+        <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code> when no step was deleted. Not part of
+        <code>telemetry_event</code>.
+        """
+
     def __init__(
         self,
         *,
@@ -2825,12 +3158,551 @@ class StreamingDetectIntentResponse(google.protobuf.message.Message):
         llm_thinking_delta: global___LlmThinkingDeltaEvent | None = ...,
         llm_token_usage_update: global___LlmTokenUsageUpdateEvent | None = ...,
         llm_agent_node_event: global___LlmAgentNodeEvent | None = ...,
+        turn_control_ack: global___TurnControlAck | None = ...,
+        client_turn_id: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["llm_agent_node_event", b"llm_agent_node_event", "llm_call_finished", b"llm_call_finished", "llm_call_started", b"llm_call_started", "llm_thinking_delta", b"llm_thinking_delta", "llm_token_usage_update", b"llm_token_usage_update", "llm_tool_call_finished", b"llm_tool_call_finished", "llm_tool_call_started", b"llm_tool_call_started", "query_result", b"query_result", "recognition_result", b"recognition_result", "telemetry_event", b"telemetry_event", "webhook_status", b"webhook_status"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["llm_agent_node_event", b"llm_agent_node_event", "llm_call_finished", b"llm_call_finished", "llm_call_started", b"llm_call_started", "llm_thinking_delta", b"llm_thinking_delta", "llm_token_usage_update", b"llm_token_usage_update", "llm_tool_call_finished", b"llm_tool_call_finished", "llm_tool_call_started", b"llm_tool_call_started", "query_result", b"query_result", "recognition_result", b"recognition_result", "response_id", b"response_id", "telemetry_event", b"telemetry_event", "webhook_status", b"webhook_status"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["llm_agent_node_event", b"llm_agent_node_event", "llm_call_finished", b"llm_call_finished", "llm_call_started", b"llm_call_started", "llm_thinking_delta", b"llm_thinking_delta", "llm_token_usage_update", b"llm_token_usage_update", "llm_tool_call_finished", b"llm_tool_call_finished", "llm_tool_call_started", b"llm_tool_call_started", "query_result", b"query_result", "recognition_result", b"recognition_result", "telemetry_event", b"telemetry_event", "turn_control_ack", b"turn_control_ack", "webhook_status", b"webhook_status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["client_turn_id", b"client_turn_id", "llm_agent_node_event", b"llm_agent_node_event", "llm_call_finished", b"llm_call_finished", "llm_call_started", b"llm_call_started", "llm_thinking_delta", b"llm_thinking_delta", "llm_token_usage_update", b"llm_token_usage_update", "llm_tool_call_finished", b"llm_tool_call_finished", "llm_tool_call_started", b"llm_tool_call_started", "query_result", b"query_result", "recognition_result", b"recognition_result", "response_id", b"response_id", "telemetry_event", b"telemetry_event", "turn_control_ack", b"turn_control_ack", "webhook_status", b"webhook_status"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["telemetry_event", b"telemetry_event"]) -> typing.Literal["llm_call_started", "llm_call_finished", "llm_tool_call_started", "llm_tool_call_finished", "llm_thinking_delta", "llm_token_usage_update", "llm_agent_node_event"] | None: ...
 
 global___StreamingDetectIntentResponse = StreamingDetectIntentResponse
+
+@typing.final
+class TurnControl(google.protobuf.message.Message):
+    """Controls one turn of a session. Sent as <code>StreamingDetectIntentRequest.turn_control</code> on a call-length
+    stream, or in an <code>InterruptTurnRequest</code>.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CANCEL_TURN_FIELD_NUMBER: builtins.int
+    HEARD_REPORT_FIELD_NUMBER: builtins.int
+    DISCARD_DRAFT_FIELD_NUMBER: builtins.int
+    @property
+    def cancel_turn(self) -> global___CancelTurn:
+        """Cancel the turn: stop generating its answer. Acknowledged with a <code>TurnControlAck</code>."""
+
+    @property
+    def heard_report(self) -> global___HeardReport:
+        """Report what the user heard of the turn's answer, so the server rewrites the session step and the LLM
+        memory to it.
+        """
+
+    @property
+    def discard_draft(self) -> global___DiscardDraft:
+        """Discard the session step of a preemptive draft the client did not use. Acknowledged with a
+        <code>TurnControlAck</code>.
+        """
+
+    def __init__(
+        self,
+        *,
+        cancel_turn: global___CancelTurn | None = ...,
+        heard_report: global___HeardReport | None = ...,
+        discard_draft: global___DiscardDraft | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["cancel_turn", b"cancel_turn", "discard_draft", b"discard_draft", "heard_report", b"heard_report", "turn_control", b"turn_control"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["cancel_turn", b"cancel_turn", "discard_draft", b"discard_draft", "heard_report", b"heard_report", "turn_control", b"turn_control"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["turn_control", b"turn_control"]) -> typing.Literal["cancel_turn", "heard_report", "discard_draft"] | None: ...
+
+global___TurnControl = TurnControl
+
+@typing.final
+class CancelTurn(google.protobuf.message.Message):
+    """Cancels a turn. At least one of <code>response_id</code> and <code>client_turn_id</code> must be set; when both
+    are, <code>client_turn_id</code> is authoritative.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RESPONSE_ID_FIELD_NUMBER: builtins.int
+    CLIENT_TURN_ID_FIELD_NUMBER: builtins.int
+    TURN_INTERRUPTION_REASON_FIELD_NUMBER: builtins.int
+    DECIDED_AT_FIELD_NUMBER: builtins.int
+    BACKGROUND_WORK_POLICY_FIELD_NUMBER: builtins.int
+    response_id: builtins.str
+    """The server's <code>response_id</code> of the turn, when the client has already received it; empty otherwise."""
+    client_turn_id: builtins.str
+    """<code>StreamingDetectIntentRequest.client_turn_id</code> of the turn."""
+    turn_interruption_reason: global___TurnInterruptionReason.ValueType
+    """Why the turn is cancelled."""
+    background_work_policy: global___BackgroundWorkPolicy.ValueType
+    """What happens to background work the turn started."""
+    @property
+    def decided_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """Wall-clock time at which the client decided to cancel. Telemetry only."""
+
+    def __init__(
+        self,
+        *,
+        response_id: builtins.str = ...,
+        client_turn_id: builtins.str = ...,
+        turn_interruption_reason: global___TurnInterruptionReason.ValueType = ...,
+        decided_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        background_work_policy: global___BackgroundWorkPolicy.ValueType = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["decided_at", b"decided_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["background_work_policy", b"background_work_policy", "client_turn_id", b"client_turn_id", "decided_at", b"decided_at", "response_id", b"response_id", "turn_interruption_reason", b"turn_interruption_reason"]) -> None: ...
+
+global___CancelTurn = CancelTurn
+
+@typing.final
+class HeardMessage(google.protobuf.message.Message):
+    """What the user heard of one spoken message of a turn."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FULFILLMENT_MESSAGE_INDEX_FIELD_NUMBER: builtins.int
+    PLATFORM_FIELD_NUMBER: builtins.int
+    FULL_TEXT_FIELD_NUMBER: builtins.int
+    HEARD_TEXT_FIELD_NUMBER: builtins.int
+    HEARD_CHAR_COUNT_FIELD_NUMBER: builtins.int
+    HEARD_AUDIO_DURATION_IN_S_FIELD_NUMBER: builtins.int
+    TOTAL_AUDIO_DURATION_IN_S_FIELD_NUMBER: builtins.int
+    COMPLETED_FIELD_NUMBER: builtins.int
+    NEVER_STARTED_FIELD_NUMBER: builtins.int
+    SKIPPED_SIP_TRIGGER_FIELD_NUMBER: builtins.int
+    FILLER_ID_FIELD_NUMBER: builtins.int
+    fulfillment_message_index: builtins.int
+    """Index into the turn's <code>QueryResult.fulfillment_messages</code>; <code>-1</code> for a filler, which is
+    not one of them.
+    """
+    platform: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType
+    """Platform of that fulfillment message."""
+    full_text: builtins.str
+    """The text that was synthesized for the message, SIP and SSML markup stripped."""
+    heard_text: builtins.str
+    """The prefix of <code>full_text</code> the user heard, cut back to a word boundary."""
+    heard_char_count: builtins.int
+    """Length of <code>heard_text</code> in Unicode code points."""
+    heard_audio_duration_in_s: builtins.float
+    """Duration of the message's audio that was played to the user, in seconds."""
+    total_audio_duration_in_s: builtins.float
+    """Duration of the message's whole audio, in seconds; 0 when it was never synthesized."""
+    completed: builtins.bool
+    """The message was played to its end."""
+    never_started: builtins.bool
+    """Nothing of the message was played (e.g. it was still queued when the turn was interrupted)."""
+    skipped_sip_trigger: builtins.bool
+    """The message carried a SIP trigger (e.g. a transfer or a hangup) that was NOT executed because the turn was
+    interrupted first.
+    """
+    filler_id: builtins.str
+    """For a filler, the filler id the server sent in <code>diagnostic_info.ondewo_filler.filler_id</code>; empty
+    otherwise.
+    """
+    def __init__(
+        self,
+        *,
+        fulfillment_message_index: builtins.int = ...,
+        platform: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType = ...,
+        full_text: builtins.str = ...,
+        heard_text: builtins.str = ...,
+        heard_char_count: builtins.int = ...,
+        heard_audio_duration_in_s: builtins.float = ...,
+        total_audio_duration_in_s: builtins.float = ...,
+        completed: builtins.bool = ...,
+        never_started: builtins.bool = ...,
+        skipped_sip_trigger: builtins.bool = ...,
+        filler_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["completed", b"completed", "filler_id", b"filler_id", "fulfillment_message_index", b"fulfillment_message_index", "full_text", b"full_text", "heard_audio_duration_in_s", b"heard_audio_duration_in_s", "heard_char_count", b"heard_char_count", "heard_text", b"heard_text", "never_started", b"never_started", "platform", b"platform", "skipped_sip_trigger", b"skipped_sip_trigger", "total_audio_duration_in_s", b"total_audio_duration_in_s"]) -> None: ...
+
+global___HeardMessage = HeardMessage
+
+@typing.final
+class HeardReport(google.protobuf.message.Message):
+    """Reports what the user heard of a turn's answer. At least one of <code>response_id</code> and
+    <code>client_turn_id</code> must be set. The server keeps the report with the highest <code>revision</code> per
+    turn and ignores a lower or equal one.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RESPONSE_ID_FIELD_NUMBER: builtins.int
+    CLIENT_TURN_ID_FIELD_NUMBER: builtins.int
+    REVISION_FIELD_NUMBER: builtins.int
+    TURN_INTERRUPTION_REASON_FIELD_NUMBER: builtins.int
+    HEARD_MESSAGES_FIELD_NUMBER: builtins.int
+    HEARD_TEXT_PRECISION_FIELD_NUMBER: builtins.int
+    CALLER_OVERLAP_DURATION_IN_S_FIELD_NUMBER: builtins.int
+    response_id: builtins.str
+    """The server's <code>response_id</code> of the turn, when the client has already received it; empty otherwise."""
+    client_turn_id: builtins.str
+    """<code>StreamingDetectIntentRequest.client_turn_id</code> of the turn."""
+    revision: builtins.int
+    """Revision of this report, starting at 1. A later, more precise measurement of the same turn carries a higher
+    revision.
+    """
+    turn_interruption_reason: global___TurnInterruptionReason.ValueType
+    """Why the turn was interrupted."""
+    heard_text_precision: global___HeardTextPrecision.ValueType
+    """How the heard text was determined."""
+    caller_overlap_duration_in_s: builtins.float
+    """Duration of heard audio that was played after the user had started speaking (the overlap of bot and user),
+    in seconds.
+    """
+    @property
+    def heard_messages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HeardMessage]:
+        """One entry per message of the turn that was spoken, queued or skipped, in playback order."""
+
+    def __init__(
+        self,
+        *,
+        response_id: builtins.str = ...,
+        client_turn_id: builtins.str = ...,
+        revision: builtins.int = ...,
+        turn_interruption_reason: global___TurnInterruptionReason.ValueType = ...,
+        heard_messages: collections.abc.Iterable[global___HeardMessage] | None = ...,
+        heard_text_precision: global___HeardTextPrecision.ValueType = ...,
+        caller_overlap_duration_in_s: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["caller_overlap_duration_in_s", b"caller_overlap_duration_in_s", "client_turn_id", b"client_turn_id", "heard_messages", b"heard_messages", "heard_text_precision", b"heard_text_precision", "response_id", b"response_id", "revision", b"revision", "turn_interruption_reason", b"turn_interruption_reason"]) -> None: ...
+
+global___HeardReport = HeardReport
+
+@typing.final
+class DiscardDraft(google.protobuf.message.Message):
+    """Discards the session step of a preemptive draft: a turn the client started speculatively on a partial
+    transcript and then did not use. The server deletes the session step only when it belongs to this session and its
+    request carried <code>QueryParameters.preemptive_draft</code> = true; it answers
+    <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code>. Any other step is kept and the server answers
+    <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code>.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RESPONSE_ID_FIELD_NUMBER: builtins.int
+    response_id: builtins.str
+    """The server's <code>response_id</code> of the draft turn."""
+    def __init__(
+        self,
+        *,
+        response_id: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["response_id", b"response_id"]) -> None: ...
+
+global___DiscardDraft = DiscardDraft
+
+@typing.final
+class TurnControlAck(google.protobuf.message.Message):
+    """Acknowledges a turn control."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RESPONSE_ID_FIELD_NUMBER: builtins.int
+    CLIENT_TURN_ID_FIELD_NUMBER: builtins.int
+    TURN_CONTROL_ACK_STATUS_FIELD_NUMBER: builtins.int
+    SERVER_CANCEL_DURATION_IN_S_FIELD_NUMBER: builtins.int
+    response_id: builtins.str
+    """The server's <code>response_id</code> of the turn; empty when it is not known (e.g. a turn cancelled before
+    it started).
+    """
+    client_turn_id: builtins.str
+    """<code>client_turn_id</code> of the turn, as sent by the client."""
+    turn_control_ack_status: global___TurnControlAckStatus.ValueType
+    """Outcome of the turn control."""
+    server_cancel_duration_in_s: builtins.float
+    """Time the server took from receiving a <code>CancelTurn</code> until the turn's generation had stopped, in
+    seconds; 0 for any other control.
+    """
+    def __init__(
+        self,
+        *,
+        response_id: builtins.str = ...,
+        client_turn_id: builtins.str = ...,
+        turn_control_ack_status: global___TurnControlAckStatus.ValueType = ...,
+        server_cancel_duration_in_s: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["client_turn_id", b"client_turn_id", "response_id", b"response_id", "server_cancel_duration_in_s", b"server_cancel_duration_in_s", "turn_control_ack_status", b"turn_control_ack_status"]) -> None: ...
+
+global___TurnControlAck = TurnControlAck
+
+@typing.final
+class InterruptTurnRequest(google.protobuf.message.Message):
+    """The request to interrupt a turn of a session outside a <code>StreamingDetectIntent</code> stream."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SESSION_FIELD_NUMBER: builtins.int
+    TURN_CONTROL_FIELD_NUMBER: builtins.int
+    session: builtins.str
+    """Required. The session of the turn. Format:
+    <code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code>.
+    """
+    @property
+    def turn_control(self) -> global___TurnControl:
+        """Required. The control to apply."""
+
+    def __init__(
+        self,
+        *,
+        session: builtins.str = ...,
+        turn_control: global___TurnControl | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["turn_control", b"turn_control"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["session", b"session", "turn_control", b"turn_control"]) -> None: ...
+
+global___InterruptTurnRequest = InterruptTurnRequest
+
+@typing.final
+class InterruptTurnResponse(google.protobuf.message.Message):
+    """The response to an <code>InterruptTurnRequest</code>."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TURN_CONTROL_ACK_FIELD_NUMBER: builtins.int
+    @property
+    def turn_control_ack(self) -> global___TurnControlAck:
+        """Outcome of the control."""
+
+    def __init__(
+        self,
+        *,
+        turn_control_ack: global___TurnControlAck | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["turn_control_ack", b"turn_control_ack"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["turn_control_ack", b"turn_control_ack"]) -> None: ...
+
+global___InterruptTurnResponse = InterruptTurnResponse
+
+@typing.final
+class WarmTransferIntroConfig(google.protobuf.message.Message):
+    """The configuration of one warm transfer intro, as resolved by the caller of
+    <code>PrepareWarmTransferIntro</code>. A text left empty (or unset, for an <code>optional</code> field) falls back
+    to the agent's default text for the language (<code>Agent.warm_transfer_settings</code>), then to the built-in
+    default. Texts are spoken to the target, never to the caller, except <code>caller_declined_message</code> and
+    <code>caller_unreachable_message</code>.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INTRO_PROMPT_FIELD_NUMBER: builtins.int
+    TEXT_SOURCE_FIELD_NUMBER: builtins.int
+    READY_QUESTION_FIELD_NUMBER: builtins.int
+    CONFIRM_HUMAN_BEFORE_INTRO_FIELD_NUMBER: builtins.int
+    ACCEPT_QUESTION_FIELD_NUMBER: builtins.int
+    DECLINE_REASON_QUESTION_FIELD_NUMBER: builtins.int
+    CALLER_DECLINED_MESSAGE_FIELD_NUMBER: builtins.int
+    CALLER_UNREACHABLE_MESSAGE_FIELD_NUMBER: builtins.int
+    ACCEPT_DTMF_FIELD_NUMBER: builtins.int
+    DECLINE_DTMF_FIELD_NUMBER: builtins.int
+    CALLEE_DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    CALLEE_DESCRIPTION_FIELD_NUMBER: builtins.int
+    LLM_CCAI_SERVICE_NAME_FIELD_NUMBER: builtins.int
+    MAX_HISTORY_STEPS_FIELD_NUMBER: builtins.int
+    DECISION_TIMEOUT_S_FIELD_NUMBER: builtins.int
+    PROJECT_DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    intro_prompt: builtins.str
+    """The LLM instruction (<code>WARM_TRANSFER_INTRO_TEXT_SOURCE_LLM_SUMMARY</code>) or the template text
+    (<code>WARM_TRANSFER_INTRO_TEXT_SOURCE_TEMPLATE</code>, placeholders <code>{caller_name}</code>,
+    <code>{callee_name}</code>, <code>{topic}</code>, <code>{summary}</code>) of the intro. At most 4000 characters.
+    """
+    text_source: global___WarmTransferIntroTextSource.ValueType
+    """Where the intro text comes from."""
+    ready_question: builtins.str
+    """The first question to the target, which must not reveal anything about the caller, e.g. "Hier ist der
+    digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen Sie ja oder
+    drücken Sie 1." Placeholder <code>{project}</code>: <code>project_display_name</code>.
+    """
+    confirm_human_before_intro: builtins.bool
+    """Whether the intro is spoken only after the target answered <code>ready_question</code> (a guard against a
+    mailbox). Unset = true.
+    """
+    accept_question: builtins.str
+    """The question after the intro, e.g. "Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder 2." """
+    decline_reason_question: builtins.str
+    """The question after a decline, e.g. "Was darf ich dem Anrufer ausrichten?". Unset = the agent's or the
+    built-in default; set to "" = the reason is not asked for.
+    """
+    caller_declined_message: builtins.str
+    """The template of the message the caller hears after a decline. Placeholders <code>{callee_name}</code> and
+    <code>{reason}</code>; without a reason, the variant without the reason clause is used.
+    """
+    caller_unreachable_message: builtins.str
+    """The template of the message the caller hears when the target was busy, did not answer, gave no decision or
+    the intro could not run. Placeholder <code>{callee_name}</code>.
+    """
+    accept_dtmf: builtins.str
+    """The DTMF key that accepts: one of <code>0-9</code>, <code>*</code>, <code>#</code>. Empty = "1"."""
+    decline_dtmf: builtins.str
+    """The DTMF key that declines: one of <code>0-9</code>, <code>*</code>, <code>#</code>, different from
+    <code>accept_dtmf</code>. Empty = "2".
+    """
+    callee_display_name: builtins.str
+    """Who the target is, e.g. "Frau Berger, Buchhaltung": <code>{callee_name}</code>. At most 128 characters."""
+    callee_description: builtins.str
+    """The role and context of the target, given to the LLM intro. At most 512 characters."""
+    llm_ccai_service_name: builtins.str
+    """The <code>ONDEWO_NLU_LLM</code> CCAI service of the LLM intro. Empty = the agent's
+    <code>warm_transfer_settings.llm_ccai_service_name</code>, then the project's first
+    <code>ONDEWO_NLU_LLM</code> service.
+    """
+    max_history_steps: builtins.int
+    """How many of the latest steps of the source session the intro reads. 0 = 30."""
+    decision_timeout_s: builtins.int
+    """Seconds from a question to the decision, declared to the client as the expected input's timeout."""
+    project_display_name: builtins.str
+    """The project's display name: <code>{project}</code> in <code>ready_question</code>."""
+    def __init__(
+        self,
+        *,
+        intro_prompt: builtins.str = ...,
+        text_source: global___WarmTransferIntroTextSource.ValueType = ...,
+        ready_question: builtins.str = ...,
+        confirm_human_before_intro: builtins.bool | None = ...,
+        accept_question: builtins.str = ...,
+        decline_reason_question: builtins.str | None = ...,
+        caller_declined_message: builtins.str = ...,
+        caller_unreachable_message: builtins.str = ...,
+        accept_dtmf: builtins.str = ...,
+        decline_dtmf: builtins.str = ...,
+        callee_display_name: builtins.str = ...,
+        callee_description: builtins.str = ...,
+        llm_ccai_service_name: builtins.str = ...,
+        max_history_steps: builtins.int = ...,
+        decision_timeout_s: builtins.int = ...,
+        project_display_name: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_confirm_human_before_intro", b"_confirm_human_before_intro", "_decline_reason_question", b"_decline_reason_question", "confirm_human_before_intro", b"confirm_human_before_intro", "decline_reason_question", b"decline_reason_question"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_confirm_human_before_intro", b"_confirm_human_before_intro", "_decline_reason_question", b"_decline_reason_question", "accept_dtmf", b"accept_dtmf", "accept_question", b"accept_question", "callee_description", b"callee_description", "callee_display_name", b"callee_display_name", "caller_declined_message", b"caller_declined_message", "caller_unreachable_message", b"caller_unreachable_message", "confirm_human_before_intro", b"confirm_human_before_intro", "decision_timeout_s", b"decision_timeout_s", "decline_dtmf", b"decline_dtmf", "decline_reason_question", b"decline_reason_question", "intro_prompt", b"intro_prompt", "llm_ccai_service_name", b"llm_ccai_service_name", "max_history_steps", b"max_history_steps", "project_display_name", b"project_display_name", "ready_question", b"ready_question", "text_source", b"text_source"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_confirm_human_before_intro", b"_confirm_human_before_intro"]) -> typing.Literal["confirm_human_before_intro"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_decline_reason_question", b"_decline_reason_question"]) -> typing.Literal["decline_reason_question"] | None: ...
+
+global___WarmTransferIntroConfig = WarmTransferIntroConfig
+
+@typing.final
+class PrepareWarmTransferIntroRequest(google.protobuf.message.Message):
+    """The request to prepare the intro session of a warm transfer."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INTRO_SESSION_FIELD_NUMBER: builtins.int
+    SOURCE_SESSION_FIELD_NUMBER: builtins.int
+    CONFIG_FIELD_NUMBER: builtins.int
+    LANGUAGE_CODE_FIELD_NUMBER: builtins.int
+    TRANSFER_REQUEST_ID_FIELD_NUMBER: builtins.int
+    intro_session: builtins.str
+    """Required. The intro session, which must not exist yet. Format:
+    <code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code>. An existing session that
+    was not prepared with the same <code>transfer_request_id</code> is refused with
+    <code>ALREADY_EXISTS</code>.
+    """
+    source_session: builtins.str
+    """Required. The caller's session the intro summarises. Format:
+    <code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code>. A session of another project
+    than <code>intro_session</code> is refused with <code>INVALID_ARGUMENT</code>.
+    """
+    language_code: builtins.str
+    """The language of the intro session."""
+    transfer_request_id: builtins.str
+    """Required. The idempotency key of the transfer."""
+    @property
+    def config(self) -> global___WarmTransferIntroConfig:
+        """The configuration of the intro."""
+
+    def __init__(
+        self,
+        *,
+        intro_session: builtins.str = ...,
+        source_session: builtins.str = ...,
+        config: global___WarmTransferIntroConfig | None = ...,
+        language_code: builtins.str = ...,
+        transfer_request_id: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["config", b"config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["config", b"config", "intro_session", b"intro_session", "language_code", b"language_code", "source_session", b"source_session", "transfer_request_id", b"transfer_request_id"]) -> None: ...
+
+global___PrepareWarmTransferIntroRequest = PrepareWarmTransferIntroRequest
+
+@typing.final
+class PrepareWarmTransferIntroResponse(google.protobuf.message.Message):
+    """The response to a <code>PrepareWarmTransferIntroRequest</code>. Never carries the intro text."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEXT_SOURCE_USED_FIELD_NUMBER: builtins.int
+    TEXT_FELL_BACK_FIELD_NUMBER: builtins.int
+    INTRO_TEXT_CHARS_FIELD_NUMBER: builtins.int
+    PROMPT_DIGEST_FIELD_NUMBER: builtins.int
+    text_source_used: global___WarmTransferIntroTextSource.ValueType
+    """The source the intro text was rendered from."""
+    text_fell_back: builtins.bool
+    """True when the LLM failed or exceeded its budget and the TEMPLATE was used instead."""
+    intro_text_chars: builtins.int
+    """The length of the intro text in characters."""
+    prompt_digest: builtins.str
+    """The SHA-256 (hex) of the resolved prompt, for audit."""
+    def __init__(
+        self,
+        *,
+        text_source_used: global___WarmTransferIntroTextSource.ValueType = ...,
+        text_fell_back: builtins.bool = ...,
+        intro_text_chars: builtins.int = ...,
+        prompt_digest: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["intro_text_chars", b"intro_text_chars", "prompt_digest", b"prompt_digest", "text_fell_back", b"text_fell_back", "text_source_used", b"text_source_used"]) -> None: ...
+
+global___PrepareWarmTransferIntroResponse = PrepareWarmTransferIntroResponse
+
+@typing.final
+class GetWarmTransferIntroOutcomeRequest(google.protobuf.message.Message):
+    """The request for the outcome of a warm transfer intro."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INTRO_SESSION_FIELD_NUMBER: builtins.int
+    intro_session: builtins.str
+    """Required. The intro session. Format:
+    <code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code>. A session that was not
+    prepared by <code>PrepareWarmTransferIntro</code> is answered with <code>NOT_FOUND</code>.
+    """
+    def __init__(
+        self,
+        *,
+        intro_session: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["intro_session", b"intro_session"]) -> None: ...
+
+global___GetWarmTransferIntroOutcomeRequest = GetWarmTransferIntroOutcomeRequest
+
+@typing.final
+class WarmTransferIntroOutcome(google.protobuf.message.Message):
+    """The outcome of a warm transfer intro. Holds no intro text and no reason text."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DECISION_FIELD_NUMBER: builtins.int
+    DECIDED_BY_FIELD_NUMBER: builtins.int
+    DECLINE_REASON_PRESENT_FIELD_NUMBER: builtins.int
+    STAGE_FIELD_NUMBER: builtins.int
+    CAUSE_FIELD_NUMBER: builtins.int
+    decision: global___WarmTransferIntroDecision.ValueType
+    """The decision of the target."""
+    decided_by: global___WarmTransferIntroDecidedBy.ValueType
+    """How the decision was given."""
+    decline_reason_present: builtins.bool
+    """True when the target gave a reason after declining."""
+    stage: global___WarmTransferIntroStage.ValueType
+    """The stage of the intro session."""
+    cause: builtins.str
+    """A bounded token naming why there is no decision, e.g. <code>voicemail-suspected</code> (no ready answer) or
+    <code>unclear-twice</code>; empty otherwise.
+    """
+    def __init__(
+        self,
+        *,
+        decision: global___WarmTransferIntroDecision.ValueType = ...,
+        decided_by: global___WarmTransferIntroDecidedBy.ValueType = ...,
+        decline_reason_present: builtins.bool = ...,
+        stage: global___WarmTransferIntroStage.ValueType = ...,
+        cause: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cause", b"cause", "decided_by", b"decided_by", "decision", b"decision", "decline_reason_present", b"decline_reason_present", "stage", b"stage"]) -> None: ...
+
+global___WarmTransferIntroOutcome = WarmTransferIntroOutcome
 
 @typing.final
 class StreamingRecognitionResult(google.protobuf.message.Message):

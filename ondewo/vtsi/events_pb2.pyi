@@ -72,8 +72,8 @@ class _VtsiEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     accepted, or when the target of a WARM transfer starts ringing.
     <p>Attributes: <code>transfer_id</code> (the target, a phone number masked to its last 3 digits, e.g.
     <code>***678</code>, or an extension), <code>target_type</code> (<code>phone_number</code>,
-    <code>softphone</code>, <code>listener</code>, <code>listener_queue</code>, <code>legacy</code>,
-    <code>unknown</code>), <code>mode</code> (<code>blind</code> / <code>warm</code>; <code>WARM</code>, upper
+    <code>softphone</code>, <code>listener</code>, <code>listener_queue</code>, <code>ivr_menu</code>,
+    <code>legacy</code>, <code>unknown</code>), <code>mode</code> (<code>blind</code> / <code>warm</code>; <code>WARM</code>, upper
     case, when reported for the ringing WARM leg), <code>outcome</code> (<code>accepted</code>,
     <code>pending</code>, ...), <code>sip_response_code</code> (SIP code, <code>0</code> when unknown),
     <code>error_reason</code> (kebab-case token, may be empty), <code>participant_id</code> (WARM leg),
@@ -87,7 +87,10 @@ class _VtsiEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     <code>warm</code>), <code>outcome</code> (<code>accepted</code>), <code>sip_response_code</code>,
     <code>source</code> (<code>call_monitor</code>), and the call status attributes
     (<code>caller_name</code> / <code>listener_name</code> / <code>scheduled_caller_name</code>,
-    <code>phone_number</code>). Sets the call status fields.</p>
+    <code>phone_number</code>). Sets the call status fields. A WARM transfer whose warm intro was enabled but
+    skipped (<code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>) also carries
+    <code>intro_skipped_reason</code> (a kebab-case token such as <code>no-free-listener</code> or
+    <code>prepare-failed</code>).</p>
     """
     VTSI_EVENT_CALL_TRANSFER_FAILED: _VtsiEvent.ValueType  # 107
     """A transfer failed and the call was KEPT with the bot: <code>TRANSFER_CALL_FAILED</code>, a refused or unanswered
@@ -180,6 +183,41 @@ class _VtsiEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     """DTMF keys were queued on the call (<code>SendCallDtmf</code>). Attributes: <code>keys</code> (the NUMBER of
     keys, never the keys) and <code>actor</code> (the authenticated user, when known). Sets
     <code>call_name</code>.
+    """
+    VTSI_EVENT_CALL_WARM_INTRO_STARTED: _VtsiEvent.ValueType  # 124
+    """The warm intro of a WARM transfer started: the target answered and an intro bot greets it.
+    <p>Attributes (the warm intro attributes, also on 125 to 128): <code>intro_id</code> (the participant id of the
+    target&apos;s leg), <code>target_kind</code> (<code>phone_number</code> / <code>softphone</code>),
+    <code>text_source</code> (<code>template</code> / <code>llm_summary</code>), <code>decided_by</code>
+    (<code>dtmf</code> / <code>speech</code> / <code>timeout</code>, on 125 to 127), <code>reason_present</code>
+    (<code>true</code> / <code>false</code>, on 126), <code>intro_ms</code> (milliseconds from the target&apos;s
+    answer, on 125 to 128) and <code>cause</code> (kebab-case token). Never carries an intro text, a decline reason
+    or a full phone number. Sets <code>call_name</code>.</p>
+    """
+    VTSI_EVENT_CALL_WARM_INTRO_ACCEPTED: _VtsiEvent.ValueType  # 125
+    """The target of a warm intro accepted. <code>VTSI_EVENT_CALL_TRANSFERRED</code> follows once the target joined.
+    The warm intro attributes (see 124).
+    """
+    VTSI_EVENT_CALL_WARM_INTRO_DECLINED: _VtsiEvent.ValueType  # 126
+    """The target of a warm intro declined; the call stays with the bot, which tells the caller. The warm intro
+    attributes (see 124).
+    """
+    VTSI_EVENT_CALL_WARM_INTRO_NO_DECISION: _VtsiEvent.ValueType  # 127
+    """The target of a warm intro gave no decision in time; the call stays with the bot. The warm intro attributes
+    (see 124).
+    """
+    VTSI_EVENT_CALL_WARM_INTRO_TARGET_UNAVAILABLE: _VtsiEvent.ValueType  # 128
+    """The target of a warm intro answered but is gone, or the intro could not run with
+    <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>; the call stays with the bot. The warm intro
+    attributes (see 124), <code>cause</code> being <code>voicemail-suspected</code>, <code>target-hung-up</code>
+    or <code>intro-unavailable</code>.
+    """
+    VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED: _VtsiEvent.ValueType  # 129
+    """WARNING: the outcome of a warm intro (a decline, no decision, an unreachable target) could not be handed to
+    the call&apos;s bot, so the caller may not be told; <code>CallTransferRecord.warm_intro.notice_delivered</code>
+    is <code>false</code>. Attributes: <code>intro_id</code> and <code>reason</code> (kebab-case token: the
+    bot&apos;s refusal, e.g. <code>disabled</code>, <code>invalid</code>, <code>pending</code>, or
+    <code>sip-unreachable</code>). Sets <code>call_name</code>.
     """
     VTSI_EVENT_CALLER_STARTED: _VtsiEvent.ValueType  # 200
     """---- Callers (resource_name: the caller) ----
@@ -473,6 +511,27 @@ class _VtsiEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     """An event subscription was updated; attribute <code>updated_fields</code>."""
     VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED: _VtsiEvent.ValueType  # 906
     """An event subscription was deleted. No attributes."""
+    VTSI_EVENT_IVR_MENU_CREATED: _VtsiEvent.ValueType  # 1001
+    """---- IVR menus (resource_name: the IVR menu) ----
+    <p>Attributes of every IVR menu event: <code>revision</code> (the revision concerned),
+    <code>node_count</code> and <code>routed_numbers</code> (the NUMBER of bound phone numbers, never a number).</p>
+
+    An IVR menu was created (<code>CreateIvrMenu</code>, <code>CloneIvrMenu</code>).
+    """
+    VTSI_EVENT_IVR_MENU_UPDATED: _VtsiEvent.ValueType  # 1002
+    """An IVR menu was updated; attribute <code>updated_fields</code> (the mask paths)."""
+    VTSI_EVENT_IVR_MENU_DELETED: _VtsiEvent.ValueType  # 1003
+    """An IVR menu was deleted."""
+    VTSI_EVENT_IVR_MENU_PUBLISHED: _VtsiEvent.ValueType  # 1004
+    """A revision of an IVR menu was published and its phone numbers route to it."""
+    VTSI_EVENT_IVR_MENU_PUBLISH_FAILED: _VtsiEvent.ValueType  # 1005
+    """A publish of an IVR menu failed; the previous published revision stays live. <code>description</code> says
+    why (no personal data).
+    """
+    VTSI_EVENT_IVR_MENU_TESTED: _VtsiEvent.ValueType  # 1006
+    """A test call of an IVR menu finished; attributes <code>test_id</code>, <code>state</code>
+    (<code>IvrMenuTestState</code> name without prefix) and <code>steps</code> (the number of nodes entered).
+    """
 
 class VtsiEvent(_VtsiEvent, metaclass=_VtsiEventEnumTypeWrapper):
     """////////////////////////////////////////////////////////////////////////////
@@ -535,8 +594,8 @@ VTSI_EVENT_CALL_TRANSFER_INITIATED: VtsiEvent.ValueType  # 105
 accepted, or when the target of a WARM transfer starts ringing.
 <p>Attributes: <code>transfer_id</code> (the target, a phone number masked to its last 3 digits, e.g.
 <code>***678</code>, or an extension), <code>target_type</code> (<code>phone_number</code>,
-<code>softphone</code>, <code>listener</code>, <code>listener_queue</code>, <code>legacy</code>,
-<code>unknown</code>), <code>mode</code> (<code>blind</code> / <code>warm</code>; <code>WARM</code>, upper
+<code>softphone</code>, <code>listener</code>, <code>listener_queue</code>, <code>ivr_menu</code>,
+<code>legacy</code>, <code>unknown</code>), <code>mode</code> (<code>blind</code> / <code>warm</code>; <code>WARM</code>, upper
 case, when reported for the ringing WARM leg), <code>outcome</code> (<code>accepted</code>,
 <code>pending</code>, ...), <code>sip_response_code</code> (SIP code, <code>0</code> when unknown),
 <code>error_reason</code> (kebab-case token, may be empty), <code>participant_id</code> (WARM leg),
@@ -550,7 +609,10 @@ VTSI_EVENT_CALL_TRANSFERRED: VtsiEvent.ValueType  # 106
 <code>warm</code>), <code>outcome</code> (<code>accepted</code>), <code>sip_response_code</code>,
 <code>source</code> (<code>call_monitor</code>), and the call status attributes
 (<code>caller_name</code> / <code>listener_name</code> / <code>scheduled_caller_name</code>,
-<code>phone_number</code>). Sets the call status fields.</p>
+<code>phone_number</code>). Sets the call status fields. A WARM transfer whose warm intro was enabled but
+skipped (<code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>) also carries
+<code>intro_skipped_reason</code> (a kebab-case token such as <code>no-free-listener</code> or
+<code>prepare-failed</code>).</p>
 """
 VTSI_EVENT_CALL_TRANSFER_FAILED: VtsiEvent.ValueType  # 107
 """A transfer failed and the call was KEPT with the bot: <code>TRANSFER_CALL_FAILED</code>, a refused or unanswered
@@ -643,6 +705,41 @@ VTSI_EVENT_CALL_DTMF_SENT: VtsiEvent.ValueType  # 123
 """DTMF keys were queued on the call (<code>SendCallDtmf</code>). Attributes: <code>keys</code> (the NUMBER of
 keys, never the keys) and <code>actor</code> (the authenticated user, when known). Sets
 <code>call_name</code>.
+"""
+VTSI_EVENT_CALL_WARM_INTRO_STARTED: VtsiEvent.ValueType  # 124
+"""The warm intro of a WARM transfer started: the target answered and an intro bot greets it.
+<p>Attributes (the warm intro attributes, also on 125 to 128): <code>intro_id</code> (the participant id of the
+target&apos;s leg), <code>target_kind</code> (<code>phone_number</code> / <code>softphone</code>),
+<code>text_source</code> (<code>template</code> / <code>llm_summary</code>), <code>decided_by</code>
+(<code>dtmf</code> / <code>speech</code> / <code>timeout</code>, on 125 to 127), <code>reason_present</code>
+(<code>true</code> / <code>false</code>, on 126), <code>intro_ms</code> (milliseconds from the target&apos;s
+answer, on 125 to 128) and <code>cause</code> (kebab-case token). Never carries an intro text, a decline reason
+or a full phone number. Sets <code>call_name</code>.</p>
+"""
+VTSI_EVENT_CALL_WARM_INTRO_ACCEPTED: VtsiEvent.ValueType  # 125
+"""The target of a warm intro accepted. <code>VTSI_EVENT_CALL_TRANSFERRED</code> follows once the target joined.
+The warm intro attributes (see 124).
+"""
+VTSI_EVENT_CALL_WARM_INTRO_DECLINED: VtsiEvent.ValueType  # 126
+"""The target of a warm intro declined; the call stays with the bot, which tells the caller. The warm intro
+attributes (see 124).
+"""
+VTSI_EVENT_CALL_WARM_INTRO_NO_DECISION: VtsiEvent.ValueType  # 127
+"""The target of a warm intro gave no decision in time; the call stays with the bot. The warm intro attributes
+(see 124).
+"""
+VTSI_EVENT_CALL_WARM_INTRO_TARGET_UNAVAILABLE: VtsiEvent.ValueType  # 128
+"""The target of a warm intro answered but is gone, or the intro could not run with
+<code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>; the call stays with the bot. The warm intro
+attributes (see 124), <code>cause</code> being <code>voicemail-suspected</code>, <code>target-hung-up</code>
+or <code>intro-unavailable</code>.
+"""
+VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED: VtsiEvent.ValueType  # 129
+"""WARNING: the outcome of a warm intro (a decline, no decision, an unreachable target) could not be handed to
+the call&apos;s bot, so the caller may not be told; <code>CallTransferRecord.warm_intro.notice_delivered</code>
+is <code>false</code>. Attributes: <code>intro_id</code> and <code>reason</code> (kebab-case token: the
+bot&apos;s refusal, e.g. <code>disabled</code>, <code>invalid</code>, <code>pending</code>, or
+<code>sip-unreachable</code>). Sets <code>call_name</code>.
 """
 VTSI_EVENT_CALLER_STARTED: VtsiEvent.ValueType  # 200
 """---- Callers (resource_name: the caller) ----
@@ -936,6 +1033,27 @@ VTSI_EVENT_EVENT_SUBSCRIPTION_UPDATED: VtsiEvent.ValueType  # 905
 """An event subscription was updated; attribute <code>updated_fields</code>."""
 VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED: VtsiEvent.ValueType  # 906
 """An event subscription was deleted. No attributes."""
+VTSI_EVENT_IVR_MENU_CREATED: VtsiEvent.ValueType  # 1001
+"""---- IVR menus (resource_name: the IVR menu) ----
+<p>Attributes of every IVR menu event: <code>revision</code> (the revision concerned),
+<code>node_count</code> and <code>routed_numbers</code> (the NUMBER of bound phone numbers, never a number).</p>
+
+An IVR menu was created (<code>CreateIvrMenu</code>, <code>CloneIvrMenu</code>).
+"""
+VTSI_EVENT_IVR_MENU_UPDATED: VtsiEvent.ValueType  # 1002
+"""An IVR menu was updated; attribute <code>updated_fields</code> (the mask paths)."""
+VTSI_EVENT_IVR_MENU_DELETED: VtsiEvent.ValueType  # 1003
+"""An IVR menu was deleted."""
+VTSI_EVENT_IVR_MENU_PUBLISHED: VtsiEvent.ValueType  # 1004
+"""A revision of an IVR menu was published and its phone numbers route to it."""
+VTSI_EVENT_IVR_MENU_PUBLISH_FAILED: VtsiEvent.ValueType  # 1005
+"""A publish of an IVR menu failed; the previous published revision stays live. <code>description</code> says
+why (no personal data).
+"""
+VTSI_EVENT_IVR_MENU_TESTED: VtsiEvent.ValueType  # 1006
+"""A test call of an IVR menu finished; attributes <code>test_id</code>, <code>state</code>
+(<code>IvrMenuTestState</code> name without prefix) and <code>steps</code> (the number of nodes entered).
+"""
 global___VtsiEvent = VtsiEvent
 
 class _WebhookHttpMethod:
@@ -1022,7 +1140,7 @@ class VtsiEventMessage(google.protobuf.message.Message):
     """
     resource_name: builtins.str
     """The resource the event is about (call, caller, listener, scheduled caller, campaign, campaign
-    call, project, softphone account).
+    call, project, softphone account, IVR menu).
     """
     sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
     """SIP status after the change, for call and campaign call events."""

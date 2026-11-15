@@ -27,6 +27,7 @@ from ondewo.vtsi.client.client_config import ClientConfig
 from ondewo.vtsi.client.services.campaigns import Campaigns
 from ondewo.vtsi.client.services.calls import Calls
 from ondewo.vtsi.client.services.events import Events
+from ondewo.vtsi.client.services.ivr_menus import IvrMenus
 from ondewo.vtsi.client.services.logs import Logs
 from ondewo.vtsi.client.services.projects import Projects
 from ondewo.vtsi.client.services.softphones import Softphones
@@ -88,7 +89,7 @@ class Client(BaseClient):
         # One channel for all services when opted in; None makes every service open its own.
         grpc_channel: Optional[grpc.Channel] = (
             build_shared_channel(
-                config, use_secure_channel, (Projects, Calls, Logs, Softphones, Campaigns, Events), options
+                config, use_secure_channel, (Projects, Calls, Logs, Softphones, Campaigns, Events, IvrMenus), options
             )
             if self._use_shared_channel
             else None
@@ -108,6 +109,9 @@ class Client(BaseClient):
                 config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
             ),
             events=Events(
+                config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
+            ),
+            ivr_menus=IvrMenus(
                 config=config, use_secure_channel=use_secure_channel, options=options, grpc_channel=grpc_channel
             ),
         )

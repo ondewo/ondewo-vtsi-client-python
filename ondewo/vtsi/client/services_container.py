@@ -18,6 +18,7 @@ from ondewo.utils.base_service_container import BaseServicesContainer
 from ondewo.vtsi.client.services.campaigns import Campaigns
 from ondewo.vtsi.client.services.calls import Calls
 from ondewo.vtsi.client.services.events import Events
+from ondewo.vtsi.client.services.ivr_menus import IvrMenus
 from ondewo.vtsi.client.services.logs import Logs
 from ondewo.vtsi.client.services.projects import Projects
 from ondewo.vtsi.client.services.softphones import Softphones
@@ -31,3 +32,4 @@ class ServicesContainer(BaseServicesContainer):
     softphones: Softphones
     campaigns: Campaigns
     events: Events
+    ivr_menus: IvrMenus

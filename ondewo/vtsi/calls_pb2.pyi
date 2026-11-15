@@ -65,6 +65,26 @@ from ondewo.vtsi.call_configs_pb2 import (
     T2sVtsiConfig as T2sVtsiConfig,
     TurnDetectionConfig as TurnDetectionConfig,
     VoiceInteractionConfig as VoiceInteractionConfig,
+    WARM_INTRO_DECIDED_BY_DTMF as WARM_INTRO_DECIDED_BY_DTMF,
+    WARM_INTRO_DECIDED_BY_SPEECH as WARM_INTRO_DECIDED_BY_SPEECH,
+    WARM_INTRO_DECIDED_BY_TIMEOUT as WARM_INTRO_DECIDED_BY_TIMEOUT,
+    WARM_INTRO_DECIDED_BY_UNSPECIFIED as WARM_INTRO_DECIDED_BY_UNSPECIFIED,
+    WARM_INTRO_DECISION_ACCEPTED as WARM_INTRO_DECISION_ACCEPTED,
+    WARM_INTRO_DECISION_DECLINED as WARM_INTRO_DECISION_DECLINED,
+    WARM_INTRO_DECISION_NO_DECISION as WARM_INTRO_DECISION_NO_DECISION,
+    WARM_INTRO_DECISION_UNSPECIFIED as WARM_INTRO_DECISION_UNSPECIFIED,
+    WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY as WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY,
+    WARM_INTRO_TEXT_SOURCE_TEMPLATE as WARM_INTRO_TEXT_SOURCE_TEMPLATE,
+    WARM_INTRO_TEXT_SOURCE_UNSPECIFIED as WARM_INTRO_TEXT_SOURCE_UNSPECIFIED,
+    WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO as WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO,
+    WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER as WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER,
+    WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED as WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED,
+    WarmIntroDecidedBy as WarmIntroDecidedBy,
+    WarmIntroDecision as WarmIntroDecision,
+    WarmIntroRecord as WarmIntroRecord,
+    WarmIntroTextSource as WarmIntroTextSource,
+    WarmIntroUnavailablePolicy as WarmIntroUnavailablePolicy,
+    WarmTransferConfig as WarmTransferConfig,
 )
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
@@ -152,8 +172,9 @@ class _TransferOutcomeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper
     left the call
     """
     TRANSFER_OUTCOME_PENDING: _TransferOutcome.ValueType  # 2
-    """WARM: the target is ringing. Follow <code>VTSI_EVENT_CALL_TRANSFERRED</code> /
-    <code>VTSI_EVENT_CALL_TRANSFER_FAILED</code> or <code>Call.last_transfer</code>
+    """WARM: the target is ringing (with a warm intro: the target is ringing or being briefed). Follow
+    <code>VTSI_EVENT_CALL_TRANSFERRED</code> / <code>VTSI_EVENT_CALL_TRANSFER_FAILED</code> (and the
+    <code>VTSI_EVENT_CALL_WARM_INTRO_*</code> events) or <code>Call.last_transfer</code>
     """
     TRANSFER_OUTCOME_TARGET_INVALID: _TransferOutcome.ValueType  # 3
     """Refused before anything was sent; the call is untouched. <code>error_reason</code> says why"""
@@ -171,6 +192,19 @@ class _TransferOutcomeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper
     """
     TRANSFER_OUTCOME_SIP_UNREACHABLE: _TransferOutcome.ValueType  # 8
     """The call&apos;s SIP container could not be reached"""
+    TRANSFER_OUTCOME_DECLINED: _TransferOutcome.ValueType  # 9
+    """Warm intro: the target declined; the call stays with the bot, which tells the caller"""
+    TRANSFER_OUTCOME_NO_DECISION: _TransferOutcome.ValueType  # 10
+    """Warm intro: the target answered but gave no decision in time; the call stays with the bot"""
+    TRANSFER_OUTCOME_TARGET_UNAVAILABLE: _TransferOutcome.ValueType  # 11
+    """Warm intro: the target answered but is gone (hung up during the intro, a mailbox is suspected); the call
+    stays with the bot. <code>CallTransferRecord.warm_intro.cause</code> says which
+    """
+    TRANSFER_OUTCOME_INTRO_UNAVAILABLE: _TransferOutcome.ValueType  # 12
+    """Warm intro: the intro could not run and <code>WarmTransferConfig.on_intro_unavailable</code> is
+    <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>; the target was hung up and the call stays with
+    the bot
+    """
 
 class TransferOutcome(_TransferOutcome, metaclass=_TransferOutcomeEnumTypeWrapper):
     """<p>Outcome of a transfer</p>"""
@@ -182,8 +216,9 @@ TRANSFER_OUTCOME_ACCEPTED: TransferOutcome.ValueType  # 1
 left the call
 """
 TRANSFER_OUTCOME_PENDING: TransferOutcome.ValueType  # 2
-"""WARM: the target is ringing. Follow <code>VTSI_EVENT_CALL_TRANSFERRED</code> /
-<code>VTSI_EVENT_CALL_TRANSFER_FAILED</code> or <code>Call.last_transfer</code>
+"""WARM: the target is ringing (with a warm intro: the target is ringing or being briefed). Follow
+<code>VTSI_EVENT_CALL_TRANSFERRED</code> / <code>VTSI_EVENT_CALL_TRANSFER_FAILED</code> (and the
+<code>VTSI_EVENT_CALL_WARM_INTRO_*</code> events) or <code>Call.last_transfer</code>
 """
 TRANSFER_OUTCOME_TARGET_INVALID: TransferOutcome.ValueType  # 3
 """Refused before anything was sent; the call is untouched. <code>error_reason</code> says why"""
@@ -201,6 +236,19 @@ listener); nothing was sent
 """
 TRANSFER_OUTCOME_SIP_UNREACHABLE: TransferOutcome.ValueType  # 8
 """The call&apos;s SIP container could not be reached"""
+TRANSFER_OUTCOME_DECLINED: TransferOutcome.ValueType  # 9
+"""Warm intro: the target declined; the call stays with the bot, which tells the caller"""
+TRANSFER_OUTCOME_NO_DECISION: TransferOutcome.ValueType  # 10
+"""Warm intro: the target answered but gave no decision in time; the call stays with the bot"""
+TRANSFER_OUTCOME_TARGET_UNAVAILABLE: TransferOutcome.ValueType  # 11
+"""Warm intro: the target answered but is gone (hung up during the intro, a mailbox is suspected); the call
+stays with the bot. <code>CallTransferRecord.warm_intro.cause</code> says which
+"""
+TRANSFER_OUTCOME_INTRO_UNAVAILABLE: TransferOutcome.ValueType  # 12
+"""Warm intro: the intro could not run and <code>WarmTransferConfig.on_intro_unavailable</code> is
+<code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>; the target was hung up and the call stays with
+the bot
+"""
 global___TransferOutcome = TransferOutcome
 
 class _CallMediaSetting:
@@ -3502,6 +3550,7 @@ class TransferCallRequest(google.protobuf.message.Message):
     HEADERS_FIELD_NUMBER: builtins.int
     RING_TIMEOUT_S_FIELD_NUMBER: builtins.int
     REQUEST_ID_FIELD_NUMBER: builtins.int
+    WARM_TRANSFER_CONFIG_FIELD_NUMBER: builtins.int
     vtsi_project_name: builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     call_name: builtins.str
@@ -3525,7 +3574,8 @@ class TransferCallRequest(google.protobuf.message.Message):
     ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
     and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
     transferring again, for as long as the call record exists; the same key with a different target, mode,
-    headers or ring timeout is refused with <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>.
+    headers, ring timeout or <code>warm_transfer_config</code> is refused with <code>INVALID_ARGUMENT</code> and
+    <code>reason=request-id-conflict</code>.
     A first request that was refused with a gRPC status stored nothing, so its retry runs again; a first request
     that answered an outcome (also a telephony failure such as <code>TRANSFER_OUTCOME_TIMEOUT</code>) is replayed.
     A replay writes no second audit record and emits no event. Empty means no deduplication. In a
@@ -3543,6 +3593,26 @@ class TransferCallRequest(google.protobuf.message.Message):
         number target
         """
 
+    @property
+    def warm_transfer_config(self) -> ondewo.vtsi.call_configs_pb2.WarmTransferConfig:
+        """WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
+        <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
+        <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
+        <code>TRANSFER_MODE_BLIND</code> it is refused with <code>INVALID_ARGUMENT</code>. When the effective config
+        enables the intro, the target must be a human (<code>phone_number</code> or
+        <code>softphone_account_name</code>; a listener, the listener queue or an IVR menu is refused with
+        <code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>), and these preconditions are
+        checked before anything rings, each refused with <code>FAILED_PRECONDITION</code> and the reason:
+        <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code>,
+        <code>no-nlu-session</code> (the call has no live NLU session), <code>warm-intro-needs-listener</code> (the
+        project has no listener to run the intro), <code>warm-intro-needs-session-from-sip-context</code>,
+        <code>warm-intro-cross-project</code> (the listeners use another NLU project than the call),
+        <code>warm-intro-notice-unsupported</code> (the call&apos;s SIP container cannot deliver the outcome to the
+        caller), <code>call-control-disabled</code> and <code>phase-b-not-enabled</code>. The response is then
+        <code>TRANSFER_OUTCOME_PENDING</code>; the outcome arrives in <code>Call.last_transfer</code> and the events
+        <code>VTSI_EVENT_CALL_WARM_INTRO_*</code>
+        """
+
     def __init__(
         self,
         *,
@@ -3554,9 +3624,10 @@ class TransferCallRequest(google.protobuf.message.Message):
         headers: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
         ring_timeout_s: builtins.int = ...,
         request_id: builtins.str = ...,
+        warm_transfer_config: ondewo.vtsi.call_configs_pb2.WarmTransferConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["target", b"target"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "headers", b"headers", "mode", b"mode", "request_id", b"request_id", "ring_timeout_s", b"ring_timeout_s", "target", b"target", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["target", b"target", "warm_transfer_config", b"warm_transfer_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "headers", b"headers", "mode", b"mode", "request_id", b"request_id", "ring_timeout_s", b"ring_timeout_s", "target", b"target", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name", "warm_transfer_config", b"warm_transfer_config"]) -> None: ...
 
 global___TransferCallRequest = TransferCallRequest
 
@@ -3570,6 +3641,7 @@ class CallTarget(google.protobuf.message.Message):
     SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
     LISTENER_NAME_FIELD_NUMBER: builtins.int
     LISTENER_QUEUE_FIELD_NUMBER: builtins.int
+    IVR_MENU_NAME_FIELD_NUMBER: builtins.int
     phone_number: builtins.str
     """Phone number in E.164 form, e.g. <code>+4312345678</code> (<code>^\\+[1-9][0-9]{6,14}$</code>). Any E.164 number
     is allowed unless the project configures <code>VtsiProject.transfer_phone_number_allowlist</code>
@@ -3583,6 +3655,14 @@ class CallTarget(google.protobuf.message.Message):
     """A listener of the same project: <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>.
     The call goes to that listener&apos;s idle container; a busy listener is refused (<code>listener-busy</code>)
     """
+    ivr_menu_name: builtins.str
+    """A PUBLISHED IVR menu of the same project:
+    <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>. The caller enters
+    the menu&apos;s published revision at its entry node. <code>TRANSFER_MODE_BLIND</code> only; with
+    <code>TRANSFER_MODE_WARM</code> it is refused with <code>INVALID_ARGUMENT</code>. A menu that is not
+    published is refused with <code>FAILED_PRECONDITION</code> <code>reason=menu-not-published</code>, and a
+    deployment without IVR menus with <code>UNIMPLEMENTED</code> <code>reason=ivr-disabled</code>
+    """
     @property
     def listener_queue(self) -> global___ListenerQueueTarget:
         """The project&apos;s listener queue: any idle listener of the project takes the call"""
@@ -3594,10 +3674,11 @@ class CallTarget(google.protobuf.message.Message):
         softphone_account_name: builtins.str = ...,
         listener_name: builtins.str = ...,
         listener_queue: global___ListenerQueueTarget | None = ...,
+        ivr_menu_name: builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["target", b"target"]) -> typing.Literal["phone_number", "softphone_account_name", "listener_name", "listener_queue"] | None: ...
+    def HasField(self, field_name: typing.Literal["ivr_menu_name", b"ivr_menu_name", "listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["ivr_menu_name", b"ivr_menu_name", "listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["target", b"target"]) -> typing.Literal["phone_number", "softphone_account_name", "listener_name", "listener_queue", "ivr_menu_name"] | None: ...
 
 global___CallTarget = CallTarget
 
@@ -3646,7 +3727,9 @@ class TransferCallResponse(google.protobuf.message.Message):
     <code>FAILED_PRECONDITION: reason=call-not-connected</code>.
     """
     outcome: global___TransferOutcome.ValueType
-    """Outcome of the transfer"""
+    """Outcome of the transfer. A WARM transfer with a warm intro answers <code>TRANSFER_OUTCOME_PENDING</code>; its
+    final outcome arrives in <code>Call.last_transfer</code> and the events
+    """
     resolved_target: builtins.str
     """The dialplan extension the target resolved to, e.g. <code>ondewo0007</code>, a softphone user name,
     <code>ondewoqueue</code> or the E.164 number
@@ -3687,6 +3770,8 @@ class CallTransferRecord(google.protobuf.message.Message):
     OUTCOME_FIELD_NUMBER: builtins.int
     SIP_RESPONSE_CODE_FIELD_NUMBER: builtins.int
     TIME_FIELD_NUMBER: builtins.int
+    WARM_INTRO_FIELD_NUMBER: builtins.int
+    EFFECTIVE_WARM_TRANSFER_CONFIG_FIELD_NUMBER: builtins.int
     resolved_target: builtins.str
     """The dialplan extension the target resolved to"""
     mode: global___TransferMode.ValueType
@@ -3703,6 +3788,19 @@ class CallTransferRecord(google.protobuf.message.Message):
     def time(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """When the outcome was recorded"""
 
+    @property
+    def warm_intro(self) -> ondewo.vtsi.call_configs_pb2.WarmIntroRecord:
+        """The warm intro of the transfer; unset when the transfer ran no intro and tried none. A busy, unanswered or
+        unreachable target keeps the outcome it had before 9.5.0 (<code>TRANSFER_OUTCOME_TIMEOUT</code>, ...)
+        """
+
+    @property
+    def effective_warm_transfer_config(self) -> ondewo.vtsi.call_configs_pb2.WarmTransferConfig:
+        """The RESOLVED warm intro configuration the transfer ran with (every level merged, defaults filled in), for
+        support. Holds configuration texts only, never a briefing or a decline reason. Unset when no intro was
+        enabled
+        """
+
     def __init__(
         self,
         *,
@@ -3712,9 +3810,11 @@ class CallTransferRecord(google.protobuf.message.Message):
         outcome: global___TransferOutcome.ValueType = ...,
         sip_response_code: builtins.int = ...,
         time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        warm_intro: ondewo.vtsi.call_configs_pb2.WarmIntroRecord | None = ...,
+        effective_warm_transfer_config: ondewo.vtsi.call_configs_pb2.WarmTransferConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["target", b"target", "time", b"time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["mode", b"mode", "outcome", b"outcome", "resolved_target", b"resolved_target", "sip_response_code", b"sip_response_code", "target", b"target", "time", b"time"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["effective_warm_transfer_config", b"effective_warm_transfer_config", "target", b"target", "time", b"time", "warm_intro", b"warm_intro"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["effective_warm_transfer_config", b"effective_warm_transfer_config", "mode", b"mode", "outcome", b"outcome", "resolved_target", b"resolved_target", "sip_response_code", b"sip_response_code", "target", b"target", "time", b"time", "warm_intro", b"warm_intro"]) -> None: ...
 
 global___CallTransferRecord = CallTransferRecord
 
@@ -4519,6 +4619,8 @@ class Call(google.protobuf.message.Message):
     LAST_TRANSFER_FIELD_NUMBER: builtins.int
     SIP_CALL_ID_FIELD_NUMBER: builtins.int
     LABELS_FIELD_NUMBER: builtins.int
+    IVR_MENU_DISPLAY_NAME_FIELD_NUMBER: builtins.int
+    IVR_PATH_FIELD_NUMBER: builtins.int
     name: builtins.str
     """call name
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
@@ -4576,6 +4678,16 @@ class Call(google.protobuf.message.Message):
     sip_call_id: builtins.str
     """Identifier the call&apos;s SIP container minted for the call (<code>ondewo.sip.SipStatus.call_id</code>). Empty until
     the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then.
+    Set in the SHALLOW and FULL views
+    """
+    ivr_menu_display_name: builtins.str
+    """Output only. The display name of the IVR menu the caller came through before the bot took the call (from
+    <code>X-ondewo-ivr-menu</code>); empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL
+    views
+    """
+    ivr_path: builtins.str
+    """Output only. The option labels the caller took through the IVR menus, e.g. <code>main:1&gt;billing:2</code>
+    (from <code>X-ondewo-ivr-path</code>, at most 256 characters); empty when the call did not pass an IVR menu.
     Set in the SHALLOW and FULL views
     """
     @property
@@ -4669,9 +4781,11 @@ class Call(google.protobuf.message.Message):
         last_transfer: global___CallTransferRecord | None = ...,
         sip_call_id: builtins.str = ...,
         labels: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
+        ivr_menu_display_name: builtins.str = ...,
+        ivr_path: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "common_services_config", b"common_services_config", "csi_port", b"csi_port", "end_time", b"end_time", "last_transfer", b"last_transfer", "media_control", b"media_control", "nlu_session_name", b"nlu_session_name", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "end_time", b"end_time", "labels", b"labels", "last_transfer", b"last_transfer", "media_control", b"media_control", "name", b"name", "nlu_session_name", b"nlu_session_name", "participants", b"participants", "phone_number", b"phone_number", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_call_id", b"sip_call_id", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "end_time", b"end_time", "ivr_menu_display_name", b"ivr_menu_display_name", "ivr_path", b"ivr_path", "labels", b"labels", "last_transfer", b"last_transfer", "media_control", b"media_control", "name", b"name", "nlu_session_name", b"nlu_session_name", "participants", b"participants", "phone_number", b"phone_number", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_call_id", b"sip_call_id", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description"]) -> typing.Literal["answering_machine_detection_end_description"] | None: ...
     @typing.overload

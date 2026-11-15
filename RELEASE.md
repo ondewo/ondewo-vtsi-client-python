@@ -2,6 +2,36 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 9.5.0
+
+### New Features
+
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) New `IvrMenus` service: wrappers
+  `ondewo.vtsi.client.services.ivr_menus.IvrMenus` and its async twin, exposed as `client.services.ivr_menus` on
+  both `Client` and `AsyncClient` (and on the shared channel). Twelve RPCs create, validate, publish, clone and
+  delete IVR menus, list their revisions, read the rendered dialplan, and start (`test_ivr_menu`, returns at once
+  with the test `RUNNING`) and poll (`get_ivr_menu_test`) a test call. `IVR_NODE_TYPE_GOTO_MENU` jumps into another
+  menu; `CallTarget.ivr_menu_name` transfers a call into a published menu (BLIND only); `Call.ivr_menu_display_name`
+  and `Call.ivr_path`; events `VTSI_EVENT_IVR_MENU_CREATED` (1001) to `VTSI_EVENT_IVR_MENU_TESTED` (1006).
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) Warm transfer with an intro to the target:
+  `VoiceInteractionConfig.warm_transfer_config` and `TransferCallRequest.warm_transfer_config` (`WarmTransferConfig`,
+  every scalar `optional`), the outcomes `TRANSFER_OUTCOME_DECLINED`, `_NO_DECISION`, `_TARGET_UNAVAILABLE` and
+  `_INTRO_UNAVAILABLE`, `CallTransferRecord.warm_intro` (`WarmIntroRecord`), the events
+  `VTSI_EVENT_CALL_WARM_INTRO_*` (124-128) and `VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED` (129).
+  `VtsiProject` gains `warm_transfer_defaults`, `feature_availability`, `ivr_menus_enabled` and
+  `transfer_target_directory`; `SoftphoneAccount.description`.
+
+### Improvements
+
+* Tracking API Version 9.5.0 of [ondewo-vtsi-api](https://github.com/ondewo/ondewo-vtsi-api) (unreleased; built
+  against commit `5cdc0e467a9ea4afaa00e329093f0ae791f007c6`).
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) The vendored `ondewo/nlu` stubs track
+  ondewo-nlu-api `09169d1b766c4d19c123b9c072e80ff693fec3d9` (new `ondewo/nlu/logs.proto`,
+  `Sessions.PrepareWarmTransferIntro`, agent and operations changes) and `ondewo/sip` tracks ondewo-sip-api
+  `b92a13f63696a0bc013dda19d72166f87346282e`.
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 9.4.0
 
 ### New Features

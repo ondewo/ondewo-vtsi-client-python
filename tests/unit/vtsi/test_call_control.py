@@ -147,6 +147,7 @@ class TestTheDescriptors:
             "headers": 6,
             "ring_timeout_s": 7,
             "request_id": 8,
+            "warm_transfer_config": 9,
         }
         assert response == {
             "vtsi_project_name": 1,

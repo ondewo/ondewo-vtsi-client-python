@@ -216,6 +216,23 @@ provisioning = client.services.softphones.get_softphone_provisioning(
 print(provisioning.zoiper_instructions)
 ```
 
+### IVR menus
+
+`client.services.ivr_menus` builds the IVR menus of a project: a menu is saved as a DRAFT revision, checked with
+`validate_ivr_menu` (every issue with its node path) and only routes calls once `publish_ivr_menu` rendered it into
+the project's Asterisk. `test_ivr_menu` returns at once with the test `IVR_MENU_TEST_STATE_RUNNING`; poll
+`get_ivr_menu_test` for the path it traversed. A test call never dials a listener, a softphone or a phone number.
+
+```python
+from ondewo.vtsi.ivr_menus_pb2 import GetIvrMenuTestRequest, TestIvrMenuRequest
+
+test = client.services.ivr_menus.test_ivr_menu(
+    request=TestIvrMenuRequest(name="projects/<project_uuid>/ivr_menus/<menu_id>"),
+)
+result = client.services.ivr_menus.get_ivr_menu_test(request=GetIvrMenuTestRequest(name=test.name))
+print(result.state, result.route)
+```
+
 ### Campaigns, status streams and VtsiEvents
 
 `client.services.campaigns` places a set of outbound calls while keeping at most `max_parallel_calls` of them
