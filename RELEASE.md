@@ -13,6 +13,9 @@
   with the test `RUNNING`) and poll (`get_ivr_menu_test`) a test call. `IVR_NODE_TYPE_GOTO_MENU` jumps into another
   menu; `CallTarget.ivr_menu_name` transfers a call into a published menu (BLIND only); `Call.ivr_menu_display_name`
   and `Call.ivr_path`; events `VTSI_EVENT_IVR_MENU_CREATED` (1001) to `VTSI_EVENT_IVR_MENU_TESTED` (1006).
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) `Call.ivr_menu_name` (output only): the resource
+  name (`projects/<project_uuid>/ivr_menus/<ivr_menu_uuid>`) of the IVR menu `Call.ivr_menu_display_name` names, so
+  the menu is found by id instead of by its label; empty when the call did not pass an IVR menu.
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) Warm transfer with an intro to the target:
   `VoiceInteractionConfig.warm_transfer_config` and `TransferCallRequest.warm_transfer_config` (`WarmTransferConfig`,
   every scalar `optional`), the outcomes `TRANSFER_OUTCOME_DECLINED`, `_NO_DECISION`, `_TARGET_UNAVAILABLE` and
@@ -24,7 +27,7 @@
 ### Improvements
 
 * Tracking API Version 9.5.0 of [ondewo-vtsi-api](https://github.com/ondewo/ondewo-vtsi-api) (unreleased; built
-  against commit `5cdc0e467a9ea4afaa00e329093f0ae791f007c6`).
+  against commit `e6caa8a0aab19180427639d979a01ee7ee192d5f`).
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) The vendored `ondewo/nlu` stubs track
   ondewo-nlu-api `09169d1b766c4d19c123b9c072e80ff693fec3d9` (new `ondewo/nlu/logs.proto`,
   `Sessions.PrepareWarmTransferIntro`, agent and operations changes) and `ondewo/sip` tracks ondewo-sip-api
