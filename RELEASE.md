@@ -17,10 +17,11 @@
   name (`projects/<project_uuid>/ivr_menus/<ivr_menu_uuid>`) of the IVR menu `Call.ivr_menu_display_name` names, so
   the menu is found by id instead of by its label; empty when the call did not pass an IVR menu.
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) `ondewo.s2t.speech_to_text_pb2` regenerated from
-  ondewo-vtsi-api `39af582` (ondewo-s2t-api `163661c`): `TurnDetectionOptions` chooses its turn detector with
+  ondewo-vtsi-api `c16097f` (ondewo-s2t-api `9b1c059`): `TurnDetectionOptions` chooses its turn detector with
   `oneof oneof_turn_detector` (`turn_detection_chat_llm_options`, `turn_detection_end_of_utterance_llm_options`,
   `turn_detection_ondewo_de_options`, `turn_detection_ondewo_de_fusion_options`,
-  `turn_detection_pipecat_smart_turn_options`); fields 3 - 5 are deprecated but still honoured. Byte-identical to
+  `turn_detection_pipecat_smart_turn_options`, the ONDEWO German and pipecat Smart Turn options with their own
+  `end_of_turn_probability_threshold`); fields 3 - 5 are deprecated but still honoured. Byte-identical to
   the module of ondewo-s2t-client at the same s2t-api commit.
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) Warm transfer with an intro to the target:
   `VoiceInteractionConfig.warm_transfer_config` and `TransferCallRequest.warm_transfer_config` (`WarmTransferConfig`,
