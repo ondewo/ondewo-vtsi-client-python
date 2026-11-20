@@ -362,8 +362,11 @@ class _CcaiServiceProviderEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_C
     <a href="https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/">Azure OpenAI</a>
     """
     CCAI_SERVICE_PROVIDER_MICROSOFT_AUTOGEN: _CcaiServiceProvider.ValueType  # 4
-    """Microsoft AutoGen as the CCAI service provider
-    <a href="https://github.com/microsoft/autogen">AutoGen</a>
+    """Deprecated: Microsoft AutoGen as the CCAI service provider
+    <a href="https://github.com/microsoft/autogen">AutoGen</a>.
+    The server no longer runs AutoGen and refuses to create services with this provider; stored AutoGen
+    services are migrated to AI Teams v2 (LangChain / LangGraph). The value is kept for wire
+    compatibility and may still appear on data written before the migration.
     """
     CCAI_SERVICE_PROVIDER_OLLAMA: _CcaiServiceProvider.ValueType  # 5
     """Ollama as the CCAI service provider, typically associated with specific OLLAMA AI tools
@@ -504,8 +507,11 @@ CCAI_SERVICE_PROVIDER_MICROSOFT_AZURE_OPENAI: CcaiServiceProvider.ValueType  # 3
 <a href="https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/">Azure OpenAI</a>
 """
 CCAI_SERVICE_PROVIDER_MICROSOFT_AUTOGEN: CcaiServiceProvider.ValueType  # 4
-"""Microsoft AutoGen as the CCAI service provider
-<a href="https://github.com/microsoft/autogen">AutoGen</a>
+"""Deprecated: Microsoft AutoGen as the CCAI service provider
+<a href="https://github.com/microsoft/autogen">AutoGen</a>.
+The server no longer runs AutoGen and refuses to create services with this provider; stored AutoGen
+services are migrated to AI Teams v2 (LangChain / LangGraph). The value is kept for wire
+compatibility and may still appear on data written before the migration.
 """
 CCAI_SERVICE_PROVIDER_OLLAMA: CcaiServiceProvider.ValueType  # 5
 """Ollama as the CCAI service provider, typically associated with specific OLLAMA AI tools

@@ -1190,7 +1190,7 @@ class LlmToolCallMetadata(_message.Message):
     RESULT_FIELD_NUMBER: _builtins.int
     ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
     tool_call_id: _builtins.str
-    """Stable id assigned by the upstream framework (autogen / langchain)."""
+    """Stable id assigned by the upstream framework (e.g. langchain)."""
     tool_name: _builtins.str
     """Name of the tool / function invoked."""
     duration_in_s: _builtins.float
@@ -1354,7 +1354,9 @@ class LlmTelemetry(_message.Message):
     LLM_RETRIEVAL_METADATA_FIELD_NUMBER: _builtins.int
     LLM_CALL_ID_FIELD_NUMBER: _builtins.int
     provider: _builtins.str
-    """Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ..."""
+    """Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+    was removed).
+    """
     model_name: _builtins.str
     """Concrete model identifier (e.g. "Qwen/Qwen3.6-27b-fp8")."""
     agent_name: _builtins.str
@@ -1410,21 +1412,23 @@ class LlmTelemetry(_message.Message):
     langsmith_run_url: _builtins.str
     """LangSmith run URL for direct click-through when LangSmith tracing is active."""
     team_name: _builtins.str
-    """Autogen team display name owning the call."""
+    """Display name of the agent team owning the call; empty for a single agent."""
     team_id: _builtins.str
-    """Autogen team identifier (UUID)."""
+    """Identifier (UUID) of the agent team owning the call."""
     agent_role: _builtins.str
-    """Autogen agent role tag (user_proxy | assistant | tool_executor | reflection)."""
+    """Role tag of the agent that made the call inside its team."""
     sender_agent: _builtins.str
-    """Name of the autogen agent that produced the message."""
+    """Name of the agent that produced the message."""
     recipient_agent: _builtins.str
-    """Name of the autogen agent that received the message."""
+    """Name of the agent that received the message."""
     turn_index: _builtins.int
-    """Zero-based position of this LLM call inside the autogen <code>run_stream()</code> sequence."""
+    """Zero-based position of this LLM call inside the agent run&apos;s sequence of LLM calls."""
     reflection_iterations: _builtins.int
-    """Number of reflection loops executed in <code>robust_assistant_agent</code> for this call."""
+    """Deprecated: number of reflection loops of the removed AutoGen <code>robust_assistant_agent</code> for this
+    call. No current agent runs reflection loops, so it is 0.
+    """
     termination_reason: _builtins.str
-    """Autogen <code>TaskResult.stop_reason</code> string when surfaced."""
+    """Stop reason of the agent team run when surfaced (formerly AutoGen <code>TaskResult.stop_reason</code>)."""
     evaluator_runs_join_key: _builtins.str
     """Join key linking this LLM call to an evaluator run (see llm_evaluation.proto)."""
     ccai_service_name: _builtins.str
@@ -1466,7 +1470,7 @@ class LlmTelemetry(_message.Message):
     <code>llm_call_id</code> (<code>LlmLlmCallStartedEvent</code>,
     <code>LlmToolCallStartedEvent</code>, ...), so an aggregate or a persisted row can be
     correlated back to the live event stream. Distinct from <code>run_id</code> (field 11),
-    which is the UPSTREAM framework's id (autogen / langchain).
+    which is the UPSTREAM framework's id (e.g. langchain).
     """
     @_builtins.property
     def llm_token_usage(self) -> Global___LlmTokenUsage:
@@ -2213,7 +2217,7 @@ class LlmToolUsage(_message.Message):
     """Groups the representative invocation under its <code>LlmTelemetry</code> entry."""
     tool_call_id: _builtins.str
     """Stable id of the representative invocation, assigned by the upstream framework
-    (autogen / langchain).
+    (e.g. langchain).
     """
     @_builtins.property
     def llm_token_usage(self) -> Global___LlmTokenUsage:
@@ -2619,7 +2623,9 @@ class LlmCallStartedEvent(_message.Message):
     llm_call_id: _builtins.str
     """Collector-assigned id grouping all events emitted for this LLM call."""
     provider: _builtins.str
-    """Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ..."""
+    """Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+    was removed).
+    """
     model_name: _builtins.str
     """Concrete model identifier (e.g. "claude-3-5-sonnet-20241022")."""
     agent_name: _builtins.str
@@ -2695,7 +2701,7 @@ class LlmToolCallStartedEvent(_message.Message):
     START_TIME_FIELD_NUMBER: _builtins.int
     LLM_CALL_ID_FIELD_NUMBER: _builtins.int
     tool_call_id: _builtins.str
-    """Stable id assigned by the upstream framework (autogen / langchain)."""
+    """Stable id assigned by the upstream framework (e.g. langchain)."""
     tool_name: _builtins.str
     """Name of the tool / function invoked."""
     llm_call_id: _builtins.str
