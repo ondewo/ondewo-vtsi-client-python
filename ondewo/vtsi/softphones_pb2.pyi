@@ -16,31 +16,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.field_mask_pb2
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import google.protobuf.timestamp_pb2
-import ondewo.vtsi.projects_pb2
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import field_mask_pb2 as _field_mask_pb2
+from google.protobuf import message as _message
+from google.protobuf import timestamp_pb2 as _timestamp_pb2
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from ondewo.vtsi import projects_pb2 as _projects_pb2
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _SoftphoneTransportSecurity:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _SoftphoneTransportSecurityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SoftphoneTransportSecurity.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _SoftphoneTransportSecurityEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_SoftphoneTransportSecurity.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     SOFTPHONE_TRANSPORT_SECURITY_UNSPECIFIED: _SoftphoneTransportSecurity.ValueType  # 0
     """Unspecified: identical to <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> on create.
     The zero value is the stronger mode, so a caller that says nothing gets mutual TLS. Never returned
@@ -93,14 +93,14 @@ does not ask for a client certificate, and authenticates with SIP digest alone. 
 softphone editions without client-certificate support, e.g. some Zoiper editions. A call it places
 over a cleartext transport is refused with 403.
 """
-global___SoftphoneTransportSecurity = SoftphoneTransportSecurity
+Global___SoftphoneTransportSecurity: _TypeAlias = SoftphoneTransportSecurity  # noqa: Y015
 
 class _SoftphoneCertificateStatus:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _SoftphoneCertificateStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SoftphoneCertificateStatus.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _SoftphoneCertificateStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_SoftphoneCertificateStatus.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     SOFTPHONE_CERTIFICATE_STATUS_UNSPECIFIED: _SoftphoneCertificateStatus.ValueType  # 0
     """Unspecified. Never returned; in a filter it matches nothing and is rejected with
     <code>INVALID_ARGUMENT</code>.
@@ -145,14 +145,14 @@ SOFTPHONE_CERTIFICATE_STATUS_REVOKED: SoftphoneCertificateStatus.ValueType  # 3
 deleted. Still completes a TLS handshake until it expires (the Asterisk has no revocation list),
 but no longer gets its holder the account.
 """
-global___SoftphoneCertificateStatus = SoftphoneCertificateStatus
+Global___SoftphoneCertificateStatus: _TypeAlias = SoftphoneCertificateStatus  # noqa: Y015
 
 class _SoftphoneContactStatus:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _SoftphoneContactStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SoftphoneContactStatus.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _SoftphoneContactStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_SoftphoneContactStatus.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     SOFTPHONE_CONTACT_STATUS_UNSPECIFIED: _SoftphoneContactStatus.ValueType  # 0
     """Unspecified. Never returned."""
     SOFTPHONE_CONTACT_STATUS_AVAILABLE: _SoftphoneContactStatus.ValueType  # 1
@@ -189,14 +189,14 @@ SOFTPHONE_CONTACT_STATUS_UNKNOWN: SoftphoneContactStatus.ValueType  # 4
 """The Asterisk has not determined the reachability yet (<code>Unknown</code>, <code>Created</code>),
 e.g. right after the registration.
 """
-global___SoftphoneContactStatus = SoftphoneContactStatus
+Global___SoftphoneContactStatus: _TypeAlias = SoftphoneContactStatus  # noqa: Y015
 
 class _SoftphoneSrtpMode:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _SoftphoneSrtpModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SoftphoneSrtpMode.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _SoftphoneSrtpModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_SoftphoneSrtpMode.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     SOFTPHONE_SRTP_MODE_UNSPECIFIED: _SoftphoneSrtpMode.ValueType  # 0
     """Unspecified. Never returned."""
     SOFTPHONE_SRTP_MODE_SDES_MANDATORY: _SoftphoneSrtpMode.ValueType  # 1
@@ -215,10 +215,10 @@ SOFTPHONE_SRTP_MODE_SDES_MANDATORY: SoftphoneSrtpMode.ValueType  # 1
 offer without SRTP is rejected by the Asterisk. In Zoiper: Media encryption <code>SRTP</code>
 (SDES).
 """
-global___SoftphoneSrtpMode = SoftphoneSrtpMode
+Global___SoftphoneSrtpMode: _TypeAlias = SoftphoneSrtpMode  # noqa: Y015
 
-@typing.final
-class SoftphoneAccount(google.protobuf.message.Message):
+@_typing.final
+class SoftphoneAccount(_message.Message):
     """////////////////////////////////////////////////////////////////////////////
     Resources
     ////////////////////////////////////////////////////////////////////////////
@@ -227,113 +227,117 @@ class SoftphoneAccount(google.protobuf.message.Message):
     secret.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class LabelsEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class LabelsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
+            key: _builtins.str = ...,
+            value: _builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    SOFTPHONE_ACCOUNT_ID_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    SIP_USERNAME_FIELD_NUMBER: builtins.int
-    TRANSPORT_SECURITY_FIELD_NUMBER: builtins.int
-    ENABLED_FIELD_NUMBER: builtins.int
-    MAX_CONTACTS_FIELD_NUMBER: builtins.int
-    LABELS_FIELD_NUMBER: builtins.int
-    ALLOWED_DESTINATIONS_FIELD_NUMBER: builtins.int
-    CURRENT_CERTIFICATE_NAME_FIELD_NUMBER: builtins.int
-    CURRENT_CERTIFICATE_SHA256_FINGERPRINT_FIELD_NUMBER: builtins.int
-    CURRENT_CERTIFICATE_EXPIRE_TIME_FIELD_NUMBER: builtins.int
-    SIP_PASSWORD_SET_AT_FIELD_NUMBER: builtins.int
-    CREATED_BY_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    MODIFIED_BY_FIELD_NUMBER: builtins.int
-    MODIFIED_AT_FIELD_NUMBER: builtins.int
-    LOCKED_FIELD_NUMBER: builtins.int
-    LOCKED_AT_FIELD_NUMBER: builtins.int
-    LOCKED_REASON_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    SOFTPHONE_ACCOUNT_ID_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    SIP_USERNAME_FIELD_NUMBER: _builtins.int
+    TRANSPORT_SECURITY_FIELD_NUMBER: _builtins.int
+    ENABLED_FIELD_NUMBER: _builtins.int
+    MAX_CONTACTS_FIELD_NUMBER: _builtins.int
+    LABELS_FIELD_NUMBER: _builtins.int
+    ALLOWED_DESTINATIONS_FIELD_NUMBER: _builtins.int
+    CURRENT_CERTIFICATE_NAME_FIELD_NUMBER: _builtins.int
+    CURRENT_CERTIFICATE_SHA256_FINGERPRINT_FIELD_NUMBER: _builtins.int
+    CURRENT_CERTIFICATE_EXPIRE_TIME_FIELD_NUMBER: _builtins.int
+    SIP_PASSWORD_SET_AT_FIELD_NUMBER: _builtins.int
+    CREATED_BY_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    MODIFIED_BY_FIELD_NUMBER: _builtins.int
+    MODIFIED_AT_FIELD_NUMBER: _builtins.int
+    LOCKED_FIELD_NUMBER: _builtins.int
+    LOCKED_AT_FIELD_NUMBER: _builtins.int
+    LOCKED_REASON_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Output only. Resource name of the softphone account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     Ignored on create; identifies the account on update.
     """
-    softphone_account_id: builtins.str
+    softphone_account_id: _builtins.str
     """Output only. The <code>&lt;softphone_account_uuid&gt;</code> part of <code>name</code>."""
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """Output only. Resource name of the VTSI project the account belongs to.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Human-readable name, shown as the caller name of calls from this softphone. At most 128
     characters. Updatable.
     """
-    sip_username: builtins.str
+    sip_username: _builtins.str
     """Required on create, immutable afterwards. The SIP user (extension) of the account: the user part
     of its address of record and its SIP digest username. 1 to 64 characters of
     <pre><code>[A-Za-z0-9._-]</code></pre>, starting with a letter or digit, unique within the
     project. Names starting with <code>ondewo</code> (case-insensitive) are reserved for the per-call
     ondewo-sip container accounts and are rejected with <code>INVALID_ARGUMENT</code>.
     """
-    transport_security: global___SoftphoneTransportSecurity.ValueType
+    transport_security: Global___SoftphoneTransportSecurity.ValueType
     """How the softphone secures its connection. Unset on create means
     <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>. Updatable; switching to
     <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> requires an ACTIVE certificate.
     """
-    enabled: builtins.bool
+    enabled: _builtins.bool
     """Whether the account may register and place or receive calls. A disabled account keeps its
     credentials and certificates, but the Asterisk refuses its registrations and calls and its current
     registrations are dropped. Unset on create means <code>true</code>. Updatable.
     """
-    max_contacts: builtins.int
+    max_contacts: _builtins.int
     """Maximum number of simultaneous registrations (devices) of this account. <code>0</code> on create
     means the server default of 1; the allowed range is 1 to 10. Updatable.
     """
-    current_certificate_name: builtins.str
+    current_certificate_name: _builtins.str
     """Output only. Resource name of the account&apos;s ACTIVE client certificate, empty when it has none.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;/certificates/&lt;certificate_uuid&gt;</code></pre>
     """
-    current_certificate_sha256_fingerprint: builtins.str
+    current_certificate_sha256_fingerprint: _builtins.str
     """Output only. SHA-256 fingerprint of the ACTIVE client certificate: 32 upper-case hex bytes separated
     by colons, as displayed by <code>openssl x509 -fingerprint -sha256</code>. Empty when there is no
     ACTIVE certificate.
     """
-    created_by: builtins.str
+    created_by: _builtins.str
     """Output only. The user who created the account."""
-    modified_by: builtins.str
+    modified_by: _builtins.str
     """Output only. The user who last modified the account, including credential rotation."""
-    locked: builtins.bool
+    locked: _builtins.bool
     """Output only. Whether the account is LOCKED: <code>RevokeSoftphoneCertificate</code> revoked its
     ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
     <code>RotateSoftphoneCredentials</code> unlocks it. Independent of <code>enabled</code>: an account
     is usable only when it is enabled AND not locked.
     """
-    locked_reason: builtins.str
+    locked_reason: _builtins.str
     """Output only. Why the account was locked: the <code>reason</code> given to the
     <code>RevokeSoftphoneCertificate</code> that locked it (empty when none was given or the account is
     not locked).
     """
-    description: builtins.str
+    description: _builtins.str
     """The person or role behind the account, e.g. <code>Buchhaltung, Rechnungsfragen</code>: the context a warm
     intro&apos;s briefing gives the target when the call is transferred to this account (see
     <code>WarmTransferConfig.callee_description</code>). At most 512 characters. Updatable.
     """
-    @property
-    def labels(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def labels(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Free-form labels for organising and filtering accounts, e.g. <code>team: support</code>. Keys: 1 to
         63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting with a letter; values: at most 256
         characters; at most 64 entries. Updatable (the whole map is replaced).
@@ -343,32 +347,32 @@ class SoftphoneAccount(google.protobuf.message.Message):
         label values must escape them.
         """
 
-    @property
-    def allowed_destinations(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def allowed_destinations(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Asterisk dialplan extensions or patterns this softphone may dial, e.g. <code>100</code> or
         <code>_1XX</code>. Empty means the project default: the project&apos;s own listener extensions,
         and never the SIP trunk. Each entry is at most 64 characters of
         <pre><code>[A-Za-z0-9_.!*#+\\[\\]-]</code></pre>. Updatable (the whole list is replaced).
         """
 
-    @property
-    def current_certificate_expire_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def current_certificate_expire_time(self) -> _timestamp_pb2.Timestamp:
         """Output only. Expiry (notAfter) of the ACTIVE client certificate. Unset when there is none."""
 
-    @property
-    def sip_password_set_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def sip_password_set_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When the SIP password was last set, by create or by rotation."""
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. Creation time of the account."""
 
-    @property
-    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. Last modification time of the account, including credential rotation."""
 
-    @property
-    def locked_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def locked_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When the account was locked. Unset when it is not locked (also for an account locked
         by a server older than 9.1.0 whose lock time is not known).
         """
@@ -376,171 +380,178 @@ class SoftphoneAccount(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        softphone_account_id: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        sip_username: builtins.str = ...,
-        transport_security: global___SoftphoneTransportSecurity.ValueType = ...,
-        enabled: builtins.bool | None = ...,
-        max_contacts: builtins.int = ...,
-        labels: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        allowed_destinations: collections.abc.Iterable[builtins.str] | None = ...,
-        current_certificate_name: builtins.str = ...,
-        current_certificate_sha256_fingerprint: builtins.str = ...,
-        current_certificate_expire_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        sip_password_set_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        created_by: builtins.str = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        modified_by: builtins.str = ...,
-        modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        locked: builtins.bool = ...,
-        locked_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        locked_reason: builtins.str = ...,
-        description: builtins.str = ...,
+        name: _builtins.str = ...,
+        softphone_account_id: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        sip_username: _builtins.str = ...,
+        transport_security: Global___SoftphoneTransportSecurity.ValueType = ...,
+        enabled: _builtins.bool | None = ...,
+        max_contacts: _builtins.int = ...,
+        labels: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        allowed_destinations: _abc.Iterable[_builtins.str] | None = ...,
+        current_certificate_name: _builtins.str = ...,
+        current_certificate_sha256_fingerprint: _builtins.str = ...,
+        current_certificate_expire_time: _timestamp_pb2.Timestamp | None = ...,
+        sip_password_set_at: _timestamp_pb2.Timestamp | None = ...,
+        created_by: _builtins.str = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        modified_by: _builtins.str = ...,
+        modified_at: _timestamp_pb2.Timestamp | None = ...,
+        locked: _builtins.bool = ...,
+        locked_at: _timestamp_pb2.Timestamp | None = ...,
+        locked_reason: _builtins.str = ...,
+        description: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_enabled", b"_enabled", "created_at", b"created_at", "current_certificate_expire_time", b"current_certificate_expire_time", "enabled", b"enabled", "locked_at", b"locked_at", "modified_at", b"modified_at", "sip_password_set_at", b"sip_password_set_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_enabled", b"_enabled", "allowed_destinations", b"allowed_destinations", "created_at", b"created_at", "created_by", b"created_by", "current_certificate_expire_time", b"current_certificate_expire_time", "current_certificate_name", b"current_certificate_name", "current_certificate_sha256_fingerprint", b"current_certificate_sha256_fingerprint", "description", b"description", "display_name", b"display_name", "enabled", b"enabled", "labels", b"labels", "locked", b"locked", "locked_at", b"locked_at", "locked_reason", b"locked_reason", "max_contacts", b"max_contacts", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "sip_password_set_at", b"sip_password_set_at", "sip_username", b"sip_username", "softphone_account_id", b"softphone_account_id", "transport_security", b"transport_security", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_enabled", b"_enabled", "created_at", b"created_at", "current_certificate_expire_time", b"current_certificate_expire_time", "enabled", b"enabled", "locked_at", b"locked_at", "modified_at", b"modified_at", "sip_password_set_at", b"sip_password_set_at"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_enabled", b"_enabled", "allowed_destinations", b"allowed_destinations", "created_at", b"created_at", "created_by", b"created_by", "current_certificate_expire_time", b"current_certificate_expire_time", "current_certificate_name", b"current_certificate_name", "current_certificate_sha256_fingerprint", b"current_certificate_sha256_fingerprint", "description", b"description", "display_name", b"display_name", "enabled", b"enabled", "labels", b"labels", "locked", b"locked", "locked_at", b"locked_at", "locked_reason", b"locked_reason", "max_contacts", b"max_contacts", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "sip_password_set_at", b"sip_password_set_at", "sip_username", b"sip_username", "softphone_account_id", b"softphone_account_id", "transport_security", b"transport_security", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__enabled: _TypeAlias = _typing.Literal["enabled"]  # noqa: Y015
+    _WhichOneofArgType__enabled: _TypeAlias = _typing.Literal["_enabled", b"_enabled"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__enabled) -> _WhichOneofReturnType__enabled | None: ...
 
-global___SoftphoneAccount = SoftphoneAccount
+Global___SoftphoneAccount: _TypeAlias = SoftphoneAccount  # noqa: Y015
 
-@typing.final
-class SoftphoneCertificate(google.protobuf.message.Message):
+@_typing.final
+class SoftphoneCertificate(_message.Message):
     """A client certificate issued to a softphone account by the project&apos;s SOFTPHONE certificate
     authority. Carries public material only: the private key exists solely inside the PKCS#12 bundle that
     was returned once when the certificate was issued. Every field is output only.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
-    STATUS_FIELD_NUMBER: builtins.int
-    CERTIFICATE_PEM_FIELD_NUMBER: builtins.int
-    ISSUER_CA_CERTIFICATE_PEM_FIELD_NUMBER: builtins.int
-    SHA256_FINGERPRINT_FIELD_NUMBER: builtins.int
-    SERIAL_NUMBER_FIELD_NUMBER: builtins.int
-    SUBJECT_FIELD_NUMBER: builtins.int
-    NOT_BEFORE_FIELD_NUMBER: builtins.int
-    NOT_AFTER_FIELD_NUMBER: builtins.int
-    CREATED_BY_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    SUPERSEDED_AT_FIELD_NUMBER: builtins.int
-    SUPERSEDED_BY_CERTIFICATE_NAME_FIELD_NUMBER: builtins.int
-    REVOKED_AT_FIELD_NUMBER: builtins.int
-    REVOKED_BY_FIELD_NUMBER: builtins.int
-    REVOCATION_REASON_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: _builtins.int
+    STATUS_FIELD_NUMBER: _builtins.int
+    CERTIFICATE_PEM_FIELD_NUMBER: _builtins.int
+    ISSUER_CA_CERTIFICATE_PEM_FIELD_NUMBER: _builtins.int
+    SHA256_FINGERPRINT_FIELD_NUMBER: _builtins.int
+    SERIAL_NUMBER_FIELD_NUMBER: _builtins.int
+    SUBJECT_FIELD_NUMBER: _builtins.int
+    NOT_BEFORE_FIELD_NUMBER: _builtins.int
+    NOT_AFTER_FIELD_NUMBER: _builtins.int
+    CREATED_BY_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    SUPERSEDED_AT_FIELD_NUMBER: _builtins.int
+    SUPERSEDED_BY_CERTIFICATE_NAME_FIELD_NUMBER: _builtins.int
+    REVOKED_AT_FIELD_NUMBER: _builtins.int
+    REVOKED_BY_FIELD_NUMBER: _builtins.int
+    REVOCATION_REASON_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the certificate.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;/certificates/&lt;certificate_uuid&gt;</code></pre>
     """
-    softphone_account_name: builtins.str
+    softphone_account_name: _builtins.str
     """Resource name of the softphone account the certificate was issued to.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     """
-    status: global___SoftphoneCertificateStatus.ValueType
+    status: Global___SoftphoneCertificateStatus.ValueType
     """Lifecycle status of the certificate. Independent of expiry: an expired certificate keeps its
     status and is recognised by <code>not_after</code>.
     """
-    certificate_pem: builtins.str
+    certificate_pem: _builtins.str
     """The certificate, PEM encoded."""
-    issuer_ca_certificate_pem: builtins.str
+    issuer_ca_certificate_pem: _builtins.str
     """The SOFTPHONE certificate authority certificate that issued it, PEM encoded. The project&apos;s
     internal TLS port trusts this CA for client certificates.
     """
-    sha256_fingerprint: builtins.str
+    sha256_fingerprint: _builtins.str
     """SHA-256 fingerprint of the certificate: 32 upper-case hex bytes separated by colons, as displayed by
     <code>openssl x509 -fingerprint -sha256</code>.
     """
-    serial_number: builtins.str
+    serial_number: _builtins.str
     """Serial number of the certificate, upper-case hex without separators."""
-    subject: builtins.str
+    subject: _builtins.str
     """Subject distinguished name, RFC 4514 string form."""
-    created_by: builtins.str
+    created_by: _builtins.str
     """The user who caused the certificate to be issued (create or rotation)."""
-    superseded_by_certificate_name: builtins.str
+    superseded_by_certificate_name: _builtins.str
     """Resource name of the certificate that superseded this one. Empty unless SUPERSEDED."""
-    revoked_by: builtins.str
+    revoked_by: _builtins.str
     """The user who revoked the certificate. Empty unless REVOKED."""
-    revocation_reason: builtins.str
+    revocation_reason: _builtins.str
     """The reason given at revocation, or <code>account deleted</code>. Empty unless REVOKED."""
-    @property
-    def not_before(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def not_before(self) -> _timestamp_pb2.Timestamp:
         """Start of validity (notBefore)."""
 
-    @property
-    def not_after(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def not_after(self) -> _timestamp_pb2.Timestamp:
         """End of validity (notAfter)."""
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """When the certificate was issued."""
 
-    @property
-    def superseded_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def superseded_at(self) -> _timestamp_pb2.Timestamp:
         """When the certificate became <code>SOFTPHONE_CERTIFICATE_STATUS_SUPERSEDED</code>. Unset otherwise."""
 
-    @property
-    def revoked_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def revoked_at(self) -> _timestamp_pb2.Timestamp:
         """When the certificate became <code>SOFTPHONE_CERTIFICATE_STATUS_REVOKED</code>. Unset otherwise."""
 
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        softphone_account_name: builtins.str = ...,
-        status: global___SoftphoneCertificateStatus.ValueType = ...,
-        certificate_pem: builtins.str = ...,
-        issuer_ca_certificate_pem: builtins.str = ...,
-        sha256_fingerprint: builtins.str = ...,
-        serial_number: builtins.str = ...,
-        subject: builtins.str = ...,
-        not_before: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        not_after: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        created_by: builtins.str = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        superseded_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        superseded_by_certificate_name: builtins.str = ...,
-        revoked_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        revoked_by: builtins.str = ...,
-        revocation_reason: builtins.str = ...,
+        name: _builtins.str = ...,
+        softphone_account_name: _builtins.str = ...,
+        status: Global___SoftphoneCertificateStatus.ValueType = ...,
+        certificate_pem: _builtins.str = ...,
+        issuer_ca_certificate_pem: _builtins.str = ...,
+        sha256_fingerprint: _builtins.str = ...,
+        serial_number: _builtins.str = ...,
+        subject: _builtins.str = ...,
+        not_before: _timestamp_pb2.Timestamp | None = ...,
+        not_after: _timestamp_pb2.Timestamp | None = ...,
+        created_by: _builtins.str = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        superseded_at: _timestamp_pb2.Timestamp | None = ...,
+        superseded_by_certificate_name: _builtins.str = ...,
+        revoked_at: _timestamp_pb2.Timestamp | None = ...,
+        revoked_by: _builtins.str = ...,
+        revocation_reason: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["created_at", b"created_at", "not_after", b"not_after", "not_before", b"not_before", "revoked_at", b"revoked_at", "superseded_at", b"superseded_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["certificate_pem", b"certificate_pem", "created_at", b"created_at", "created_by", b"created_by", "issuer_ca_certificate_pem", b"issuer_ca_certificate_pem", "name", b"name", "not_after", b"not_after", "not_before", b"not_before", "revocation_reason", b"revocation_reason", "revoked_at", b"revoked_at", "revoked_by", b"revoked_by", "serial_number", b"serial_number", "sha256_fingerprint", b"sha256_fingerprint", "softphone_account_name", b"softphone_account_name", "status", b"status", "subject", b"subject", "superseded_at", b"superseded_at", "superseded_by_certificate_name", b"superseded_by_certificate_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["created_at", b"created_at", "not_after", b"not_after", "not_before", b"not_before", "revoked_at", b"revoked_at", "superseded_at", b"superseded_at"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["certificate_pem", b"certificate_pem", "created_at", b"created_at", "created_by", b"created_by", "issuer_ca_certificate_pem", b"issuer_ca_certificate_pem", "name", b"name", "not_after", b"not_after", "not_before", b"not_before", "revocation_reason", b"revocation_reason", "revoked_at", b"revoked_at", "revoked_by", b"revoked_by", "serial_number", b"serial_number", "sha256_fingerprint", b"sha256_fingerprint", "softphone_account_name", b"softphone_account_name", "status", b"status", "subject", b"subject", "superseded_at", b"superseded_at", "superseded_by_certificate_name", b"superseded_by_certificate_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SoftphoneCertificate = SoftphoneCertificate
+Global___SoftphoneCertificate: _TypeAlias = SoftphoneCertificate  # noqa: Y015
 
-@typing.final
-class SoftphoneCredentials(google.protobuf.message.Message):
+@_typing.final
+class SoftphoneCredentials(_message.Message):
     """ONE-TIME secrets of a softphone account, returned only by <code>CreateSoftphoneAccount</code> and
     <code>RotateSoftphoneCredentials</code>. VTSI keeps no copy of the private key or of
     <code>pkcs12_password</code> and cannot return them again: store them now, or rotate later. Never log
     this message.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SIP_PASSWORD_FIELD_NUMBER: builtins.int
-    PKCS12_BUNDLE_FIELD_NUMBER: builtins.int
-    PKCS12_PASSWORD_FIELD_NUMBER: builtins.int
-    CERTIFICATE_FIELD_NUMBER: builtins.int
-    sip_password: builtins.str
+    SIP_PASSWORD_FIELD_NUMBER: _builtins.int
+    PKCS12_BUNDLE_FIELD_NUMBER: _builtins.int
+    PKCS12_PASSWORD_FIELD_NUMBER: _builtins.int
+    CERTIFICATE_FIELD_NUMBER: _builtins.int
+    sip_password: _builtins.str
     """The SIP digest password. Set on create and on every rotation (a certificate rotation rotates the
     password too). At least 32 characters from a URL-safe alphabet.
     """
-    pkcs12_bundle: builtins.bytes
+    pkcs12_bundle: _builtins.bytes
     """The client private key, the client certificate and the issuing SOFTPHONE CA certificate as a
     password-protected PKCS#12 (<code>.p12</code>) bundle, ready to import into a softphone. Set when a
     certificate was issued (create of a <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>
     account, or a certificate rotation), empty otherwise.
     """
-    pkcs12_password: builtins.str
+    pkcs12_password: _builtins.str
     """The password protecting <code>pkcs12_bundle</code>. Set exactly when <code>pkcs12_bundle</code> is
     set.
     """
-    @property
-    def certificate(self) -> global___SoftphoneCertificate:
+    @_builtins.property
+    def certificate(self) -> Global___SoftphoneCertificate:
         """Public view of the certificate inside <code>pkcs12_bundle</code>. Unset when no certificate was
         issued.
         """
@@ -548,120 +559,123 @@ class SoftphoneCredentials(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        sip_password: builtins.str = ...,
-        pkcs12_bundle: builtins.bytes = ...,
-        pkcs12_password: builtins.str = ...,
-        certificate: global___SoftphoneCertificate | None = ...,
+        sip_password: _builtins.str = ...,
+        pkcs12_bundle: _builtins.bytes = ...,
+        pkcs12_password: _builtins.str = ...,
+        certificate: Global___SoftphoneCertificate | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["certificate", b"certificate"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["certificate", b"certificate", "pkcs12_bundle", b"pkcs12_bundle", "pkcs12_password", b"pkcs12_password", "sip_password", b"sip_password"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["certificate", b"certificate"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["certificate", b"certificate", "pkcs12_bundle", b"pkcs12_bundle", "pkcs12_password", b"pkcs12_password", "sip_password", b"sip_password"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SoftphoneCredentials = SoftphoneCredentials
+Global___SoftphoneCredentials: _TypeAlias = SoftphoneCredentials  # noqa: Y015
 
-@typing.final
-class SoftphoneProvisioning(google.protobuf.message.Message):
+@_typing.final
+class SoftphoneProvisioning(_message.Message):
     """Everything needed to configure a softphone for one account, except the secrets. Every field is output
     only.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
-    TRANSPORT_SECURITY_FIELD_NUMBER: builtins.int
-    SIP_DOMAIN_FIELD_NUMBER: builtins.int
-    SIP_ADDRESS_FIELD_NUMBER: builtins.int
-    SIP_SERVER_HOST_FIELD_NUMBER: builtins.int
-    SIP_SERVER_PORT_FIELD_NUMBER: builtins.int
-    SIP_TRANSPORT_FIELD_NUMBER: builtins.int
-    OUTBOUND_PROXY_FIELD_NUMBER: builtins.int
-    USERNAME_FIELD_NUMBER: builtins.int
-    AUTH_USERNAME_FIELD_NUMBER: builtins.int
-    REALM_FIELD_NUMBER: builtins.int
-    SRTP_MODE_FIELD_NUMBER: builtins.int
-    CODECS_FIELD_NUMBER: builtins.int
-    SERVER_CA_CERTIFICATE_PEM_FIELD_NUMBER: builtins.int
-    SERVER_CERTIFICATE_SHA256_FINGERPRINT_FIELD_NUMBER: builtins.int
-    CLIENT_CERTIFICATE_NAME_FIELD_NUMBER: builtins.int
-    CLIENT_CERTIFICATE_SHA256_FINGERPRINT_FIELD_NUMBER: builtins.int
-    CLIENT_CERTIFICATE_EXPIRE_TIME_FIELD_NUMBER: builtins.int
-    ZOIPER_INSTRUCTIONS_FIELD_NUMBER: builtins.int
-    CLIENT_CERTIFICATE_SUPPORT_NOTE_FIELD_NUMBER: builtins.int
-    softphone_account_name: builtins.str
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: _builtins.int
+    TRANSPORT_SECURITY_FIELD_NUMBER: _builtins.int
+    SIP_DOMAIN_FIELD_NUMBER: _builtins.int
+    SIP_ADDRESS_FIELD_NUMBER: _builtins.int
+    SIP_SERVER_HOST_FIELD_NUMBER: _builtins.int
+    SIP_SERVER_PORT_FIELD_NUMBER: _builtins.int
+    SIP_TRANSPORT_FIELD_NUMBER: _builtins.int
+    OUTBOUND_PROXY_FIELD_NUMBER: _builtins.int
+    USERNAME_FIELD_NUMBER: _builtins.int
+    AUTH_USERNAME_FIELD_NUMBER: _builtins.int
+    REALM_FIELD_NUMBER: _builtins.int
+    SRTP_MODE_FIELD_NUMBER: _builtins.int
+    CODECS_FIELD_NUMBER: _builtins.int
+    SERVER_CA_CERTIFICATE_PEM_FIELD_NUMBER: _builtins.int
+    SERVER_CERTIFICATE_SHA256_FINGERPRINT_FIELD_NUMBER: _builtins.int
+    CLIENT_CERTIFICATE_NAME_FIELD_NUMBER: _builtins.int
+    CLIENT_CERTIFICATE_SHA256_FINGERPRINT_FIELD_NUMBER: _builtins.int
+    CLIENT_CERTIFICATE_EXPIRE_TIME_FIELD_NUMBER: _builtins.int
+    ZOIPER_INSTRUCTIONS_FIELD_NUMBER: _builtins.int
+    CLIENT_CERTIFICATE_SUPPORT_NOTE_FIELD_NUMBER: _builtins.int
+    softphone_account_name: _builtins.str
     """Resource name of the softphone account this describes.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     """
-    transport_security: global___SoftphoneTransportSecurity.ValueType
+    transport_security: Global___SoftphoneTransportSecurity.ValueType
     """The account&apos;s transport security, which decides <code>sip_server_port</code> and whether a
     client certificate must be imported.
     """
-    sip_domain: builtins.str
+    sip_domain: _builtins.str
     """The SIP domain of the account: the host part of its address of record. Zoiper: <i>Domain</i>."""
-    sip_address: builtins.str
+    sip_address: _builtins.str
     """The full address of record, <code>sip_username@sip_domain</code>."""
-    sip_server_host: builtins.str
+    sip_server_host: _builtins.str
     """Host name or IP address of the project&apos;s Asterisk to connect to. It matches a subject
     alternative name of the server certificate.
     """
-    sip_server_port: builtins.int
+    sip_server_port: _builtins.int
     """TLS port to connect to: the internal mutual-TLS port for
     <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, the external TLS port for
     <code>SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY</code>.
     """
-    sip_transport: builtins.str
+    sip_transport: _builtins.str
     """Signalling transport. Always <code>TLS</code>."""
-    outbound_proxy: builtins.str
+    outbound_proxy: _builtins.str
     """Outbound proxy as <code>host:port</code>: <code>sip_server_host</code> and
     <code>sip_server_port</code>. Zoiper: <i>Outbound proxy</i>.
     """
-    username: builtins.str
+    username: _builtins.str
     """The SIP user. Zoiper: <i>Username</i>."""
-    auth_username: builtins.str
+    auth_username: _builtins.str
     """The SIP digest authentication username. Zoiper: <i>Authentication user</i>."""
-    realm: builtins.str
+    realm: _builtins.str
     """The SIP digest realm the Asterisk challenges with."""
-    srtp_mode: global___SoftphoneSrtpMode.ValueType
+    srtp_mode: Global___SoftphoneSrtpMode.ValueType
     """Media encryption the softphone must use."""
-    server_ca_certificate_pem: builtins.str
+    server_ca_certificate_pem: _builtins.str
     """The certificate to trust for the Asterisk&apos;s TLS server, PEM encoded: its self-signed server
     certificate, which is its own certificate authority. Import it as a trusted CA in the softphone, or
     the TLS handshake fails verification. For a
     <code>SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY</code> account on a deployment that configured
     its own certificate for the external TLS port, this is that certificate (chain) as configured.
     """
-    server_certificate_sha256_fingerprint: builtins.str
+    server_certificate_sha256_fingerprint: _builtins.str
     """SHA-256 fingerprint of the Asterisk&apos;s TLS server certificate (colon-separated upper-case hex),
     for comparing with what the softphone displays on first connect.
     """
-    client_certificate_name: builtins.str
+    client_certificate_name: _builtins.str
     """Resource name of the client certificate to import. Empty for
     <code>SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY</code>.
     """
-    client_certificate_sha256_fingerprint: builtins.str
+    client_certificate_sha256_fingerprint: _builtins.str
     """SHA-256 fingerprint of the client certificate to import: the one inside the PKCS#12 bundle returned
     when it was issued. Empty for <code>SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY</code>. A softphone
     holding a bundle with a different fingerprint holds a superseded or revoked certificate.
     """
-    zoiper_instructions: builtins.str
+    zoiper_instructions: _builtins.str
     """Human-readable, step-by-step Zoiper 5 configuration with the values of this message filled in:
     Accounts &gt; Add account &gt; manual configuration &gt; SIP; then under Advanced the transport
     <code>TLS</code>, the port, the outbound proxy and SRTP; then the certificates to trust and, for
     <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, to import. Plain text, lines separated
     by <code>\\n</code>. Contains no secret: it refers to the SIP password and the PKCS#12 bundle by name.
     """
-    client_certificate_support_note: builtins.str
+    client_certificate_support_note: _builtins.str
     """Note on client-certificate support, which depends on the Zoiper edition: an edition that cannot
     present a client certificate cannot use <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>
     and needs an account with <code>SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY</code> instead.
     """
-    @property
-    def codecs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def codecs(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Audio codecs the Asterisk accepts for this account, in preference order, by their Asterisk
         names: <code>opus</code>, <code>alaw</code> (G.711 A-law, Zoiper <i>PCMA</i>), <code>ulaw</code>
         (G.711 mu-law, Zoiper <i>PCMU</i>).
         """
 
-    @property
-    def client_certificate_expire_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def client_certificate_expire_time(self) -> _timestamp_pb2.Timestamp:
         """Expiry (notAfter) of the client certificate to import. Unset for
         <code>SOFTPHONE_TRANSPORT_SECURITY_SERVER_TLS_ONLY</code>.
         """
@@ -669,34 +683,37 @@ class SoftphoneProvisioning(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        softphone_account_name: builtins.str = ...,
-        transport_security: global___SoftphoneTransportSecurity.ValueType = ...,
-        sip_domain: builtins.str = ...,
-        sip_address: builtins.str = ...,
-        sip_server_host: builtins.str = ...,
-        sip_server_port: builtins.int = ...,
-        sip_transport: builtins.str = ...,
-        outbound_proxy: builtins.str = ...,
-        username: builtins.str = ...,
-        auth_username: builtins.str = ...,
-        realm: builtins.str = ...,
-        srtp_mode: global___SoftphoneSrtpMode.ValueType = ...,
-        codecs: collections.abc.Iterable[builtins.str] | None = ...,
-        server_ca_certificate_pem: builtins.str = ...,
-        server_certificate_sha256_fingerprint: builtins.str = ...,
-        client_certificate_name: builtins.str = ...,
-        client_certificate_sha256_fingerprint: builtins.str = ...,
-        client_certificate_expire_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        zoiper_instructions: builtins.str = ...,
-        client_certificate_support_note: builtins.str = ...,
+        softphone_account_name: _builtins.str = ...,
+        transport_security: Global___SoftphoneTransportSecurity.ValueType = ...,
+        sip_domain: _builtins.str = ...,
+        sip_address: _builtins.str = ...,
+        sip_server_host: _builtins.str = ...,
+        sip_server_port: _builtins.int = ...,
+        sip_transport: _builtins.str = ...,
+        outbound_proxy: _builtins.str = ...,
+        username: _builtins.str = ...,
+        auth_username: _builtins.str = ...,
+        realm: _builtins.str = ...,
+        srtp_mode: Global___SoftphoneSrtpMode.ValueType = ...,
+        codecs: _abc.Iterable[_builtins.str] | None = ...,
+        server_ca_certificate_pem: _builtins.str = ...,
+        server_certificate_sha256_fingerprint: _builtins.str = ...,
+        client_certificate_name: _builtins.str = ...,
+        client_certificate_sha256_fingerprint: _builtins.str = ...,
+        client_certificate_expire_time: _timestamp_pb2.Timestamp | None = ...,
+        zoiper_instructions: _builtins.str = ...,
+        client_certificate_support_note: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["client_certificate_expire_time", b"client_certificate_expire_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["auth_username", b"auth_username", "client_certificate_expire_time", b"client_certificate_expire_time", "client_certificate_name", b"client_certificate_name", "client_certificate_sha256_fingerprint", b"client_certificate_sha256_fingerprint", "client_certificate_support_note", b"client_certificate_support_note", "codecs", b"codecs", "outbound_proxy", b"outbound_proxy", "realm", b"realm", "server_ca_certificate_pem", b"server_ca_certificate_pem", "server_certificate_sha256_fingerprint", b"server_certificate_sha256_fingerprint", "sip_address", b"sip_address", "sip_domain", b"sip_domain", "sip_server_host", b"sip_server_host", "sip_server_port", b"sip_server_port", "sip_transport", b"sip_transport", "softphone_account_name", b"softphone_account_name", "srtp_mode", b"srtp_mode", "transport_security", b"transport_security", "username", b"username", "zoiper_instructions", b"zoiper_instructions"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["client_certificate_expire_time", b"client_certificate_expire_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["auth_username", b"auth_username", "client_certificate_expire_time", b"client_certificate_expire_time", "client_certificate_name", b"client_certificate_name", "client_certificate_sha256_fingerprint", b"client_certificate_sha256_fingerprint", "client_certificate_support_note", b"client_certificate_support_note", "codecs", b"codecs", "outbound_proxy", b"outbound_proxy", "realm", b"realm", "server_ca_certificate_pem", b"server_ca_certificate_pem", "server_certificate_sha256_fingerprint", b"server_certificate_sha256_fingerprint", "sip_address", b"sip_address", "sip_domain", b"sip_domain", "sip_server_host", b"sip_server_host", "sip_server_port", b"sip_server_port", "sip_transport", b"sip_transport", "softphone_account_name", b"softphone_account_name", "srtp_mode", b"srtp_mode", "transport_security", b"transport_security", "username", b"username", "zoiper_instructions", b"zoiper_instructions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SoftphoneProvisioning = SoftphoneProvisioning
+Global___SoftphoneProvisioning: _TypeAlias = SoftphoneProvisioning  # noqa: Y015
 
-@typing.final
-class SoftphoneAccountFilter(google.protobuf.message.Message):
+@_typing.final
+class SoftphoneAccountFilter(_message.Message):
     """////////////////////////////////////////////////////////////////////////////
     Filters and sorting
     ////////////////////////////////////////////////////////////////////////////
@@ -706,66 +723,70 @@ class SoftphoneAccountFilter(google.protobuf.message.Message):
     one repeated field are combined with OR; the entries of <code>labels</code> are combined with AND.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class LabelsEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class LabelsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
+            key: _builtins.str = ...,
+            value: _builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    TRANSPORT_SECURITIES_FIELD_NUMBER: builtins.int
-    ENABLED_FIELD_NUMBER: builtins.int
-    LABELS_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_CONTAINS_FIELD_NUMBER: builtins.int
-    SIP_USERNAME_CONTAINS_FIELD_NUMBER: builtins.int
-    CERTIFICATE_EXPIRES_BEFORE_FIELD_NUMBER: builtins.int
-    CERTIFICATE_EXPIRES_AFTER_FIELD_NUMBER: builtins.int
-    LOCKED_FIELD_NUMBER: builtins.int
-    enabled: builtins.bool
+    TRANSPORT_SECURITIES_FIELD_NUMBER: _builtins.int
+    ENABLED_FIELD_NUMBER: _builtins.int
+    LABELS_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_CONTAINS_FIELD_NUMBER: _builtins.int
+    SIP_USERNAME_CONTAINS_FIELD_NUMBER: _builtins.int
+    CERTIFICATE_EXPIRES_BEFORE_FIELD_NUMBER: _builtins.int
+    CERTIFICATE_EXPIRES_AFTER_FIELD_NUMBER: _builtins.int
+    LOCKED_FIELD_NUMBER: _builtins.int
+    enabled: _builtins.bool
     """Only enabled (<code>true</code>) or only disabled (<code>false</code>) accounts. Unset matches both."""
-    display_name_contains: builtins.str
+    display_name_contains: _builtins.str
     """Case-insensitive substring match against <code>display_name</code>. Empty does not filter. At most
     128 characters.
     """
-    sip_username_contains: builtins.str
+    sip_username_contains: _builtins.str
     """Case-insensitive substring match against <code>sip_username</code>. Empty does not filter. At most
     64 characters.
     """
-    locked: builtins.bool
+    locked: _builtins.bool
     """Only locked (<code>true</code>) or only unlocked (<code>false</code>) accounts, see
     <code>SoftphoneAccount.locked</code>. Unset matches both.
     """
-    @property
-    def transport_securities(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___SoftphoneTransportSecurity.ValueType]:
+    @_builtins.property
+    def transport_securities(self) -> _containers.RepeatedScalarFieldContainer[Global___SoftphoneTransportSecurity.ValueType]:
         """Only accounts with one of these transport securities.
         <code>SOFTPHONE_TRANSPORT_SECURITY_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
         """
 
-    @property
-    def labels(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def labels(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Only accounts carrying every one of these labels. An entry with an empty value matches on the
         presence of the key alone; otherwise the value must match exactly.
         """
 
-    @property
-    def certificate_expires_before(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def certificate_expires_before(self) -> _timestamp_pb2.Timestamp:
         """Only accounts whose ACTIVE certificate expires strictly before this instant. Accounts without an
         ACTIVE certificate never match. Combine with <code>certificate_expires_after</code> for a window.
         """
 
-    @property
-    def certificate_expires_after(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def certificate_expires_after(self) -> _timestamp_pb2.Timestamp:
         """Only accounts whose ACTIVE certificate expires at or after this instant. Accounts without an ACTIVE
         certificate never match. A window whose start is not before its end is rejected with
         <code>INVALID_ARGUMENT</code>.
@@ -774,47 +795,53 @@ class SoftphoneAccountFilter(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        transport_securities: collections.abc.Iterable[global___SoftphoneTransportSecurity.ValueType] | None = ...,
-        enabled: builtins.bool | None = ...,
-        labels: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        display_name_contains: builtins.str = ...,
-        sip_username_contains: builtins.str = ...,
-        certificate_expires_before: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        certificate_expires_after: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        locked: builtins.bool | None = ...,
+        transport_securities: _abc.Iterable[Global___SoftphoneTransportSecurity.ValueType] | None = ...,
+        enabled: _builtins.bool | None = ...,
+        labels: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        display_name_contains: _builtins.str = ...,
+        sip_username_contains: _builtins.str = ...,
+        certificate_expires_before: _timestamp_pb2.Timestamp | None = ...,
+        certificate_expires_after: _timestamp_pb2.Timestamp | None = ...,
+        locked: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_enabled", b"_enabled", "_locked", b"_locked", "certificate_expires_after", b"certificate_expires_after", "certificate_expires_before", b"certificate_expires_before", "enabled", b"enabled", "locked", b"locked"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_enabled", b"_enabled", "_locked", b"_locked", "certificate_expires_after", b"certificate_expires_after", "certificate_expires_before", b"certificate_expires_before", "display_name_contains", b"display_name_contains", "enabled", b"enabled", "labels", b"labels", "locked", b"locked", "sip_username_contains", b"sip_username_contains", "transport_securities", b"transport_securities"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_locked", b"_locked"]) -> typing.Literal["locked"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_enabled", b"_enabled", "_locked", b"_locked", "certificate_expires_after", b"certificate_expires_after", "certificate_expires_before", b"certificate_expires_before", "enabled", b"enabled", "locked", b"locked"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_enabled", b"_enabled", "_locked", b"_locked", "certificate_expires_after", b"certificate_expires_after", "certificate_expires_before", b"certificate_expires_before", "display_name_contains", b"display_name_contains", "enabled", b"enabled", "labels", b"labels", "locked", b"locked", "sip_username_contains", b"sip_username_contains", "transport_securities", b"transport_securities"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__enabled: _TypeAlias = _typing.Literal["enabled"]  # noqa: Y015
+    _WhichOneofArgType__enabled: _TypeAlias = _typing.Literal["_enabled", b"_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__locked: _TypeAlias = _typing.Literal["locked"]  # noqa: Y015
+    _WhichOneofArgType__locked: _TypeAlias = _typing.Literal["_locked", b"_locked"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__enabled) -> _WhichOneofReturnType__enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__locked) -> _WhichOneofReturnType__locked | None: ...
 
-global___SoftphoneAccountFilter = SoftphoneAccountFilter
+Global___SoftphoneAccountFilter: _TypeAlias = SoftphoneAccountFilter  # noqa: Y015
 
-@typing.final
-class SoftphoneCertificateFilter(google.protobuf.message.Message):
+@_typing.final
+class SoftphoneCertificateFilter(_message.Message):
     """Narrows a softphone certificate listing. Combined like
     <a href="index.html#ondewo.vtsi.SoftphoneAccountFilter">SoftphoneAccountFilter</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STATUSES_FIELD_NUMBER: builtins.int
-    EXPIRES_BEFORE_FIELD_NUMBER: builtins.int
-    EXPIRES_AFTER_FIELD_NUMBER: builtins.int
-    @property
-    def statuses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___SoftphoneCertificateStatus.ValueType]:
+    STATUSES_FIELD_NUMBER: _builtins.int
+    EXPIRES_BEFORE_FIELD_NUMBER: _builtins.int
+    EXPIRES_AFTER_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def statuses(self) -> _containers.RepeatedScalarFieldContainer[Global___SoftphoneCertificateStatus.ValueType]:
         """Only certificates with one of these statuses. Empty matches every status.
         <code>SOFTPHONE_CERTIFICATE_STATUS_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
         """
 
-    @property
-    def expires_before(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def expires_before(self) -> _timestamp_pb2.Timestamp:
         """Only certificates whose <code>not_after</code> is strictly before this instant."""
 
-    @property
-    def expires_after(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def expires_after(self) -> _timestamp_pb2.Timestamp:
         """Only certificates whose <code>not_after</code> is at or after this instant. A window whose start is
         not before its end is rejected with <code>INVALID_ARGUMENT</code>.
         """
@@ -822,27 +849,30 @@ class SoftphoneCertificateFilter(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        statuses: collections.abc.Iterable[global___SoftphoneCertificateStatus.ValueType] | None = ...,
-        expires_before: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        expires_after: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        statuses: _abc.Iterable[Global___SoftphoneCertificateStatus.ValueType] | None = ...,
+        expires_before: _timestamp_pb2.Timestamp | None = ...,
+        expires_after: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["expires_after", b"expires_after", "expires_before", b"expires_before"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["expires_after", b"expires_after", "expires_before", b"expires_before", "statuses", b"statuses"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["expires_after", b"expires_after", "expires_before", b"expires_before"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["expires_after", b"expires_after", "expires_before", b"expires_before", "statuses", b"statuses"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SoftphoneCertificateFilter = SoftphoneCertificateFilter
+Global___SoftphoneCertificateFilter: _TypeAlias = SoftphoneCertificateFilter  # noqa: Y015
 
-@typing.final
-class SoftphoneAccountSorting(google.protobuf.message.Message):
+@_typing.final
+class SoftphoneAccountSorting(_message.Message):
     """Sorting of a softphone account listing."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _SoftphoneAccountSortingField:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _SoftphoneAccountSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SoftphoneAccountSorting._SoftphoneAccountSortingField.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _SoftphoneAccountSortingFieldEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[SoftphoneAccountSorting._SoftphoneAccountSortingField.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NO_SOFTPHONE_ACCOUNT_SORTING: SoftphoneAccountSorting._SoftphoneAccountSortingField.ValueType  # 0
         """Default order: by <code>sip_username</code>, ascending."""
         SORT_SOFTPHONE_ACCOUNT_BY_DISPLAY_NAME: SoftphoneAccountSorting._SoftphoneAccountSortingField.ValueType  # 1
@@ -876,29 +906,35 @@ class SoftphoneAccountSorting(google.protobuf.message.Message):
     sort last in either mode.
     """
 
-    SORTING_FIELD_FIELD_NUMBER: builtins.int
-    SORTING_MODE_FIELD_NUMBER: builtins.int
-    sorting_field: global___SoftphoneAccountSorting.SoftphoneAccountSortingField.ValueType
+    SORTING_FIELD_FIELD_NUMBER: _builtins.int
+    SORTING_MODE_FIELD_NUMBER: _builtins.int
+    sorting_field: Global___SoftphoneAccountSorting.SoftphoneAccountSortingField.ValueType
     """The sorting field. Unset means <code>NO_SOFTPHONE_ACCOUNT_SORTING</code>."""
-    sorting_mode: ondewo.vtsi.projects_pb2.VtsiProjectSortingMode.ValueType
+    sorting_mode: _projects_pb2.VtsiProjectSortingMode.ValueType
     """The sorting mode. Unset means <code>ASCENDING</code>."""
     def __init__(
         self,
         *,
-        sorting_field: global___SoftphoneAccountSorting.SoftphoneAccountSortingField.ValueType | None = ...,
-        sorting_mode: ondewo.vtsi.projects_pb2.VtsiProjectSortingMode.ValueType | None = ...,
+        sorting_field: Global___SoftphoneAccountSorting.SoftphoneAccountSortingField.ValueType | None = ...,
+        sorting_mode: _projects_pb2.VtsiProjectSortingMode.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sorting_field", b"_sorting_field"]) -> typing.Literal["sorting_field"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sorting_mode", b"_sorting_mode"]) -> typing.Literal["sorting_mode"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__sorting_field: _TypeAlias = _typing.Literal["sorting_field"]  # noqa: Y015
+    _WhichOneofArgType__sorting_field: _TypeAlias = _typing.Literal["_sorting_field", b"_sorting_field"]  # noqa: Y015
+    _WhichOneofReturnType__sorting_mode: _TypeAlias = _typing.Literal["sorting_mode"]  # noqa: Y015
+    _WhichOneofArgType__sorting_mode: _TypeAlias = _typing.Literal["_sorting_mode", b"_sorting_mode"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sorting_field) -> _WhichOneofReturnType__sorting_field | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sorting_mode) -> _WhichOneofReturnType__sorting_mode | None: ...
 
-global___SoftphoneAccountSorting = SoftphoneAccountSorting
+Global___SoftphoneAccountSorting: _TypeAlias = SoftphoneAccountSorting  # noqa: Y015
 
-@typing.final
-class CreateSoftphoneAccountRequest(google.protobuf.message.Message):
+@_typing.final
+class CreateSoftphoneAccountRequest(_message.Message):
     """////////////////////////////////////////////////////////////////////////////
     Requests and responses
     ////////////////////////////////////////////////////////////////////////////
@@ -907,16 +943,16 @@ class CreateSoftphoneAccountRequest(google.protobuf.message.Message):
     <a href="index.html#ondewo.vtsi.Softphones.CreateSoftphoneAccount">Softphones.CreateSoftphoneAccount</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SOFTPHONE_ACCOUNT_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SOFTPHONE_ACCOUNT_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project in which to create the account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
     no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
     default (the server&apos;s <code>ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S</code>), whichever server
@@ -936,8 +972,8 @@ class CreateSoftphoneAccountRequest(google.protobuf.message.Message):
     <code>locked</code> is refused with <code>FAILED_PRECONDITION</code> (unlock it deliberately with
     <code>RotateSoftphoneCredentials</code>: a replayed key must not undo a revocation).</p>
     """
-    @property
-    def softphone_account(self) -> global___SoftphoneAccount:
+    @_builtins.property
+    def softphone_account(self) -> Global___SoftphoneAccount:
         """The account to create. <code>sip_username</code> is required. Output-only fields must be left
         unset and are otherwise rejected with <code>INVALID_ARGUMENT</code>.
         """
@@ -945,31 +981,34 @@ class CreateSoftphoneAccountRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        softphone_account: global___SoftphoneAccount | None = ...,
-        idempotency_key: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        softphone_account: Global___SoftphoneAccount | None = ...,
+        idempotency_key: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["softphone_account", b"softphone_account"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["idempotency_key", b"idempotency_key", "softphone_account", b"softphone_account", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["softphone_account", b"softphone_account"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["idempotency_key", b"idempotency_key", "softphone_account", b"softphone_account", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CreateSoftphoneAccountRequest = CreateSoftphoneAccountRequest
+Global___CreateSoftphoneAccountRequest: _TypeAlias = CreateSoftphoneAccountRequest  # noqa: Y015
 
-@typing.final
-class CreateSoftphoneAccountResponse(google.protobuf.message.Message):
+@_typing.final
+class CreateSoftphoneAccountResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Softphones.CreateSoftphoneAccount">Softphones.CreateSoftphoneAccount</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOFTPHONE_ACCOUNT_FIELD_NUMBER: builtins.int
-    CREDENTIALS_FIELD_NUMBER: builtins.int
-    @property
-    def softphone_account(self) -> global___SoftphoneAccount:
+    SOFTPHONE_ACCOUNT_FIELD_NUMBER: _builtins.int
+    CREDENTIALS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def softphone_account(self) -> Global___SoftphoneAccount:
         """The created account."""
 
-    @property
-    def credentials(self) -> global___SoftphoneCredentials:
+    @_builtins.property
+    def credentials(self) -> Global___SoftphoneCredentials:
         """ONE-TIME secrets: the SIP password and, for
         <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, the PKCS#12 bundle and its password.
         For a replayed <code>idempotency_key</code>: the newly rotated secrets.
@@ -978,30 +1017,33 @@ class CreateSoftphoneAccountResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        softphone_account: global___SoftphoneAccount | None = ...,
-        credentials: global___SoftphoneCredentials | None = ...,
+        softphone_account: Global___SoftphoneAccount | None = ...,
+        credentials: Global___SoftphoneCredentials | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["credentials", b"credentials", "softphone_account", b"softphone_account"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["credentials", b"credentials", "softphone_account", b"softphone_account"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["credentials", b"credentials", "softphone_account", b"softphone_account"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["credentials", b"credentials", "softphone_account", b"softphone_account"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CreateSoftphoneAccountResponse = CreateSoftphoneAccountResponse
+Global___CreateSoftphoneAccountResponse: _TypeAlias = CreateSoftphoneAccountResponse  # noqa: Y015
 
-@typing.final
-class GetSoftphoneAccountRequest(google.protobuf.message.Message):
+@_typing.final
+class GetSoftphoneAccountRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneAccount">Softphones.GetSoftphoneAccount</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>SoftphoneAccount</code> field paths to populate, e.g.
         <code>display_name</code>, <code>enabled</code>. <code>name</code> is always populated. Unset or
         empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code>.
@@ -1010,32 +1052,35 @@ class GetSoftphoneAccountRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetSoftphoneAccountRequest = GetSoftphoneAccountRequest
+Global___GetSoftphoneAccountRequest: _TypeAlias = GetSoftphoneAccountRequest  # noqa: Y015
 
-@typing.final
-class UpdateSoftphoneAccountRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateSoftphoneAccountRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.UpdateSoftphoneAccount">Softphones.UpdateSoftphoneAccount</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOFTPHONE_ACCOUNT_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    @property
-    def softphone_account(self) -> global___SoftphoneAccount:
+    SOFTPHONE_ACCOUNT_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def softphone_account(self) -> Global___SoftphoneAccount:
         """The account to update, identified by <code>softphone_account.name</code>, carrying the new values of
         the fields named in <code>update_mask</code>.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """Required. The fields to update. Paths are field paths within <code>softphone_account</code> WITHOUT a
         <code>softphone_account.</code> prefix. Updatable paths:
         <code>display_name</code>, <code>transport_security</code>, <code>enabled</code>,
@@ -1058,192 +1103,215 @@ class UpdateSoftphoneAccountRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        softphone_account: global___SoftphoneAccount | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        softphone_account: Global___SoftphoneAccount | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["softphone_account", b"softphone_account", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["softphone_account", b"softphone_account", "update_mask", b"update_mask"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["softphone_account", b"softphone_account", "update_mask", b"update_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["softphone_account", b"softphone_account", "update_mask", b"update_mask"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateSoftphoneAccountRequest = UpdateSoftphoneAccountRequest
+Global___UpdateSoftphoneAccountRequest: _TypeAlias = UpdateSoftphoneAccountRequest  # noqa: Y015
 
-@typing.final
-class DeleteSoftphoneAccountRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteSoftphoneAccountRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.DeleteSoftphoneAccount">Softphones.DeleteSoftphoneAccount</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the account to delete.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     """
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
+        name: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteSoftphoneAccountRequest = DeleteSoftphoneAccountRequest
+Global___DeleteSoftphoneAccountRequest: _TypeAlias = DeleteSoftphoneAccountRequest  # noqa: Y015
 
-@typing.final
-class DeleteSoftphoneAccountResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteSoftphoneAccountResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Softphones.DeleteSoftphoneAccount">Softphones.DeleteSoftphoneAccount</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    REVOKED_CERTIFICATE_COUNT_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    REVOKED_CERTIFICATE_COUNT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the deleted account."""
-    revoked_certificate_count: builtins.int
+    revoked_certificate_count: _builtins.int
     """How many certificates were revoked by the deletion (the ACTIVE one and any SUPERSEDED ones)."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        revoked_certificate_count: builtins.int = ...,
+        name: _builtins.str = ...,
+        revoked_certificate_count: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "revoked_certificate_count", b"revoked_certificate_count"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "revoked_certificate_count", b"revoked_certificate_count"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteSoftphoneAccountResponse = DeleteSoftphoneAccountResponse
+Global___DeleteSoftphoneAccountResponse: _TypeAlias = DeleteSoftphoneAccountResponse  # noqa: Y015
 
-@typing.final
-class ListSoftphoneAccountsRequest(google.protobuf.message.Message):
+@_typing.final
+class ListSoftphoneAccountsRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneAccounts">Softphones.ListSoftphoneAccounts</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FILTER_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    SOFTPHONE_ACCOUNT_SORTING_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FILTER_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    SOFTPHONE_ACCOUNT_SORTING_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project whose accounts to list.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum number of accounts per page. <code>0</code> means the server default of 20; values
     above 1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>.
     """
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response. Opaque; valid only with the same
     <code>vtsi_project_name</code>, <code>filter</code> and <code>softphone_account_sorting</code>.
     """
-    @property
-    def filter(self) -> global___SoftphoneAccountFilter:
+    @_builtins.property
+    def filter(self) -> Global___SoftphoneAccountFilter:
         """Optional. Narrows the listing. Unset lists every account of the project."""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response, as in
         <a href="index.html#ondewo.vtsi.GetSoftphoneAccountRequest">GetSoftphoneAccountRequest.field_mask</a>.
         """
 
-    @property
-    def softphone_account_sorting(self) -> global___SoftphoneAccountSorting:
+    @_builtins.property
+    def softphone_account_sorting(self) -> Global___SoftphoneAccountSorting:
         """Optional. Sorting of the listing. Unset sorts by <code>sip_username</code>, ascending."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        filter: global___SoftphoneAccountFilter | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        page_size: builtins.int = ...,
-        page_token: builtins.str | None = ...,
-        softphone_account_sorting: global___SoftphoneAccountSorting | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        filter: Global___SoftphoneAccountFilter | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        page_size: _builtins.int = ...,
+        page_token: _builtins.str | None = ...,
+        softphone_account_sorting: Global___SoftphoneAccountSorting | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token", "softphone_account_sorting", b"softphone_account_sorting"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_size", b"page_size", "page_token", b"page_token", "softphone_account_sorting", b"softphone_account_sorting", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token", "softphone_account_sorting", b"softphone_account_sorting"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_size", b"page_size", "page_token", b"page_token", "softphone_account_sorting", b"softphone_account_sorting", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
 
-global___ListSoftphoneAccountsRequest = ListSoftphoneAccountsRequest
+Global___ListSoftphoneAccountsRequest: _TypeAlias = ListSoftphoneAccountsRequest  # noqa: Y015
 
-@typing.final
-class ListSoftphoneAccountsResponse(google.protobuf.message.Message):
+@_typing.final
+class ListSoftphoneAccountsResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneAccounts">Softphones.ListSoftphoneAccounts</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOFTPHONE_ACCOUNTS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    SOFTPHONE_ACCOUNTS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token to retrieve the next page. Empty when there are no more results."""
-    @property
-    def softphone_accounts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SoftphoneAccount]:
+    @_builtins.property
+    def softphone_accounts(self) -> _containers.RepeatedCompositeFieldContainer[Global___SoftphoneAccount]:
         """The accounts of this page."""
 
     def __init__(
         self,
         *,
-        softphone_accounts: collections.abc.Iterable[global___SoftphoneAccount] | None = ...,
-        next_page_token: builtins.str = ...,
+        softphone_accounts: _abc.Iterable[Global___SoftphoneAccount] | None = ...,
+        next_page_token: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["next_page_token", b"next_page_token", "softphone_accounts", b"softphone_accounts"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["next_page_token", b"next_page_token", "softphone_accounts", b"softphone_accounts"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListSoftphoneAccountsResponse = ListSoftphoneAccountsResponse
+Global___ListSoftphoneAccountsResponse: _TypeAlias = ListSoftphoneAccountsResponse  # noqa: Y015
 
-@typing.final
-class RotateSoftphoneCredentialsRequest(google.protobuf.message.Message):
+@_typing.final
+class RotateSoftphoneCredentialsRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.RotateSoftphoneCredentials">Softphones.RotateSoftphoneCredentials</a>.
     At least one of <code>rotate_sip_password</code> and <code>rotate_certificate</code> must be
     <code>true</code>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    ROTATE_SIP_PASSWORD_FIELD_NUMBER: builtins.int
-    ROTATE_CERTIFICATE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    ROTATE_SIP_PASSWORD_FIELD_NUMBER: _builtins.int
+    ROTATE_CERTIFICATE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     """
-    rotate_sip_password: builtins.bool
+    rotate_sip_password: _builtins.bool
     """Generate a new SIP password. The old one stops working immediately."""
-    rotate_certificate: builtins.bool
+    rotate_certificate: _builtins.bool
     """Issue a new client certificate and key, and a new SIP password with them. The previous ACTIVE
     certificate, if any, becomes <code>SOFTPHONE_CERTIFICATE_STATUS_SUPERSEDED</code>.
     """
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        rotate_sip_password: builtins.bool = ...,
-        rotate_certificate: builtins.bool = ...,
+        name: _builtins.str = ...,
+        rotate_sip_password: _builtins.bool = ...,
+        rotate_certificate: _builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "rotate_certificate", b"rotate_certificate", "rotate_sip_password", b"rotate_sip_password"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "rotate_certificate", b"rotate_certificate", "rotate_sip_password", b"rotate_sip_password"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RotateSoftphoneCredentialsRequest = RotateSoftphoneCredentialsRequest
+Global___RotateSoftphoneCredentialsRequest: _TypeAlias = RotateSoftphoneCredentialsRequest  # noqa: Y015
 
-@typing.final
-class RotateSoftphoneCredentialsResponse(google.protobuf.message.Message):
+@_typing.final
+class RotateSoftphoneCredentialsResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Softphones.RotateSoftphoneCredentials">Softphones.RotateSoftphoneCredentials</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOFTPHONE_ACCOUNT_FIELD_NUMBER: builtins.int
-    CREDENTIALS_FIELD_NUMBER: builtins.int
-    @property
-    def softphone_account(self) -> global___SoftphoneAccount:
+    SOFTPHONE_ACCOUNT_FIELD_NUMBER: _builtins.int
+    CREDENTIALS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def softphone_account(self) -> Global___SoftphoneAccount:
         """The account after the rotation."""
 
-    @property
-    def credentials(self) -> global___SoftphoneCredentials:
+    @_builtins.property
+    def credentials(self) -> Global___SoftphoneCredentials:
         """ONE-TIME secrets: <code>sip_password</code> always, the PKCS#12 bundle, its password and the
         certificate only when <code>rotate_certificate</code> was set.
         """
@@ -1251,50 +1319,53 @@ class RotateSoftphoneCredentialsResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        softphone_account: global___SoftphoneAccount | None = ...,
-        credentials: global___SoftphoneCredentials | None = ...,
+        softphone_account: Global___SoftphoneAccount | None = ...,
+        credentials: Global___SoftphoneCredentials | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["credentials", b"credentials", "softphone_account", b"softphone_account"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["credentials", b"credentials", "softphone_account", b"softphone_account"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["credentials", b"credentials", "softphone_account", b"softphone_account"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["credentials", b"credentials", "softphone_account", b"softphone_account"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RotateSoftphoneCredentialsResponse = RotateSoftphoneCredentialsResponse
+Global___RotateSoftphoneCredentialsResponse: _TypeAlias = RotateSoftphoneCredentialsResponse  # noqa: Y015
 
-@typing.final
-class ListSoftphoneCertificatesRequest(google.protobuf.message.Message):
+@_typing.final
+class ListSoftphoneCertificatesRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneCertificates">Softphones.ListSoftphoneCertificates</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
-    FILTER_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: _builtins.int
+    FILTER_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """Every certificate of every account of this VTSI project.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    softphone_account_name: builtins.str
+    softphone_account_name: _builtins.str
     """The certificates of one softphone account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     """
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum number of certificates per page, with the same default, cap and validation as
     <a href="index.html#ondewo.vtsi.ListSoftphoneAccountsRequest">ListSoftphoneAccountsRequest.page_size</a>.
     """
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response. Opaque; valid only with the same
     scope and filter.
     """
-    @property
-    def filter(self) -> global___SoftphoneCertificateFilter:
+    @_builtins.property
+    def filter(self) -> Global___SoftphoneCertificateFilter:
         """Optional. Narrows the listing. Unset lists every certificate in scope."""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>SoftphoneCertificate</code> field paths to populate, e.g.
         <code>status</code>, <code>not_after</code>. <code>name</code> is always populated. Unset or empty
         returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code>.
@@ -1303,64 +1374,74 @@ class ListSoftphoneCertificatesRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        softphone_account_name: builtins.str = ...,
-        filter: global___SoftphoneCertificateFilter | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        page_size: builtins.int = ...,
-        page_token: builtins.str | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        softphone_account_name: _builtins.str = ...,
+        filter: Global___SoftphoneCertificateFilter | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        page_size: _builtins.int = ...,
+        page_token: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token", "scope", b"scope", "softphone_account_name", b"softphone_account_name", "vtsi_project_name", b"vtsi_project_name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_size", b"page_size", "page_token", b"page_token", "scope", b"scope", "softphone_account_name", b"softphone_account_name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["scope", b"scope"]) -> typing.Literal["vtsi_project_name", "softphone_account_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token", "scope", b"scope", "softphone_account_name", b"softphone_account_name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_size", b"page_size", "page_token", b"page_token", "scope", b"scope", "softphone_account_name", b"softphone_account_name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    _WhichOneofReturnType_scope: _TypeAlias = _typing.Literal["vtsi_project_name", "softphone_account_name"]  # noqa: Y015
+    _WhichOneofArgType_scope: _TypeAlias = _typing.Literal["scope", b"scope"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_scope) -> _WhichOneofReturnType_scope | None: ...
 
-global___ListSoftphoneCertificatesRequest = ListSoftphoneCertificatesRequest
+Global___ListSoftphoneCertificatesRequest: _TypeAlias = ListSoftphoneCertificatesRequest  # noqa: Y015
 
-@typing.final
-class ListSoftphoneCertificatesResponse(google.protobuf.message.Message):
+@_typing.final
+class ListSoftphoneCertificatesResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneCertificates">Softphones.ListSoftphoneCertificates</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOFTPHONE_CERTIFICATES_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    SOFTPHONE_CERTIFICATES_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token to retrieve the next page. Empty when there are no more results."""
-    @property
-    def softphone_certificates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SoftphoneCertificate]:
+    @_builtins.property
+    def softphone_certificates(self) -> _containers.RepeatedCompositeFieldContainer[Global___SoftphoneCertificate]:
         """The certificates of this page, newest <code>created_at</code> first."""
 
     def __init__(
         self,
         *,
-        softphone_certificates: collections.abc.Iterable[global___SoftphoneCertificate] | None = ...,
-        next_page_token: builtins.str = ...,
+        softphone_certificates: _abc.Iterable[Global___SoftphoneCertificate] | None = ...,
+        next_page_token: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["next_page_token", b"next_page_token", "softphone_certificates", b"softphone_certificates"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["next_page_token", b"next_page_token", "softphone_certificates", b"softphone_certificates"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListSoftphoneCertificatesResponse = ListSoftphoneCertificatesResponse
+Global___ListSoftphoneCertificatesResponse: _TypeAlias = ListSoftphoneCertificatesResponse  # noqa: Y015
 
-@typing.final
-class GetSoftphoneCertificateRequest(google.protobuf.message.Message):
+@_typing.final
+class GetSoftphoneCertificateRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneCertificate">Softphones.GetSoftphoneCertificate</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the certificate.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;/certificates/&lt;certificate_uuid&gt;</code></pre>
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response, as in
         <a href="index.html#ondewo.vtsi.ListSoftphoneCertificatesRequest">ListSoftphoneCertificatesRequest.field_mask</a>.
         """
@@ -1368,80 +1449,91 @@ class GetSoftphoneCertificateRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetSoftphoneCertificateRequest = GetSoftphoneCertificateRequest
+Global___GetSoftphoneCertificateRequest: _TypeAlias = GetSoftphoneCertificateRequest  # noqa: Y015
 
-@typing.final
-class RevokeSoftphoneCertificateRequest(google.protobuf.message.Message):
+@_typing.final
+class RevokeSoftphoneCertificateRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.RevokeSoftphoneCertificate">Softphones.RevokeSoftphoneCertificate</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    REASON_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    REASON_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the certificate to revoke.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;/certificates/&lt;certificate_uuid&gt;</code></pre>
     """
-    reason: builtins.str
+    reason: _builtins.str
     """Optional. Why the certificate is revoked, e.g. <code>device lost</code>. At most 512 characters.
     Stored as <code>revocation_reason</code>.
     """
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        reason: builtins.str = ...,
+        name: _builtins.str = ...,
+        reason: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "reason", b"reason"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "reason", b"reason"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RevokeSoftphoneCertificateRequest = RevokeSoftphoneCertificateRequest
+Global___RevokeSoftphoneCertificateRequest: _TypeAlias = RevokeSoftphoneCertificateRequest  # noqa: Y015
 
-@typing.final
-class GetSoftphoneProvisioningRequest(google.protobuf.message.Message):
+@_typing.final
+class GetSoftphoneProvisioningRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneProvisioning">Softphones.GetSoftphoneProvisioning</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the account to provision.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     """
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
+        name: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetSoftphoneProvisioningRequest = GetSoftphoneProvisioningRequest
+Global___GetSoftphoneProvisioningRequest: _TypeAlias = GetSoftphoneProvisioningRequest  # noqa: Y015
 
-@typing.final
-class GetSoftphoneRegistrationRequest(google.protobuf.message.Message):
+@_typing.final
+class GetSoftphoneRegistrationRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneRegistration">Softphones.GetSoftphoneRegistration</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>SoftphoneRegistration</code> field paths to populate, e.g.
         <code>contacts</code>, <code>observed_at</code>. <code>softphone_account_name</code> is always
         populated. Unset or empty returns every field. An unknown path, or a path below
@@ -1451,96 +1543,105 @@ class GetSoftphoneRegistrationRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetSoftphoneRegistrationRequest = GetSoftphoneRegistrationRequest
+Global___GetSoftphoneRegistrationRequest: _TypeAlias = GetSoftphoneRegistrationRequest  # noqa: Y015
 
-@typing.final
-class SoftphoneRegistration(google.protobuf.message.Message):
+@_typing.final
+class SoftphoneRegistration(_message.Message):
     """The live registrations of one softphone account on its project&apos;s Asterisk. Every field is output
     only. Never carries a secret.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
-    CONTACTS_FIELD_NUMBER: builtins.int
-    OBSERVED_AT_FIELD_NUMBER: builtins.int
-    softphone_account_name: builtins.str
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: _builtins.int
+    CONTACTS_FIELD_NUMBER: _builtins.int
+    OBSERVED_AT_FIELD_NUMBER: _builtins.int
+    softphone_account_name: _builtins.str
     """Resource name of the softphone account.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;softphone_account_uuid&gt;</code></pre>
     """
-    @property
-    def contacts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SoftphoneContact]:
+    @_builtins.property
+    def contacts(self) -> _containers.RepeatedCompositeFieldContainer[Global___SoftphoneContact]:
         """The currently registered contacts (devices), at most the account&apos;s <code>max_contacts</code>,
         ordered by <code>expire_time</code>, latest first. Empty when no device is registered.
         """
 
-    @property
-    def observed_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def observed_at(self) -> _timestamp_pb2.Timestamp:
         """When the server read the registrations from the Asterisk."""
 
     def __init__(
         self,
         *,
-        softphone_account_name: builtins.str = ...,
-        contacts: collections.abc.Iterable[global___SoftphoneContact] | None = ...,
-        observed_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        softphone_account_name: _builtins.str = ...,
+        contacts: _abc.Iterable[Global___SoftphoneContact] | None = ...,
+        observed_at: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["observed_at", b"observed_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contacts", b"contacts", "observed_at", b"observed_at", "softphone_account_name", b"softphone_account_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["observed_at", b"observed_at"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contacts", b"contacts", "observed_at", b"observed_at", "softphone_account_name", b"softphone_account_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SoftphoneRegistration = SoftphoneRegistration
+Global___SoftphoneRegistration: _TypeAlias = SoftphoneRegistration  # noqa: Y015
 
-@typing.final
-class SoftphoneContact(google.protobuf.message.Message):
+@_typing.final
+class SoftphoneContact(_message.Message):
     """One registered contact (device) of a softphone account."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    URI_FIELD_NUMBER: builtins.int
-    USER_AGENT_FIELD_NUMBER: builtins.int
-    SOURCE_ADDRESS_FIELD_NUMBER: builtins.int
-    EXPIRE_TIME_FIELD_NUMBER: builtins.int
-    ROUND_TRIP_MS_FIELD_NUMBER: builtins.int
-    STATUS_FIELD_NUMBER: builtins.int
-    uri: builtins.str
+    URI_FIELD_NUMBER: _builtins.int
+    USER_AGENT_FIELD_NUMBER: _builtins.int
+    SOURCE_ADDRESS_FIELD_NUMBER: _builtins.int
+    EXPIRE_TIME_FIELD_NUMBER: _builtins.int
+    ROUND_TRIP_MS_FIELD_NUMBER: _builtins.int
+    STATUS_FIELD_NUMBER: _builtins.int
+    uri: _builtins.str
     """The contact URI the device registered, e.g.
     <code>sip:alice@198.51.100.7:52114;transport=TLS</code>.
     """
-    user_agent: builtins.str
+    user_agent: _builtins.str
     """The <code>User-Agent</code> header of the device&apos;s registration, e.g. <code>Z 5.6.1 v2.10.20.3</code>.
     Empty when the device sent none.
     """
-    source_address: builtins.str
+    source_address: _builtins.str
     """The source address the registration arrived from, as <code>host:port</code> (an IPv6 host in
     brackets). It can differ from the host of <code>uri</code> behind a NAT.
     """
-    round_trip_ms: builtins.float
+    round_trip_ms: _builtins.float
     """Round-trip time of the last qualify (SIP <code>OPTIONS</code>) in milliseconds. <code>0</code> unless
     <code>status</code> is <code>SOFTPHONE_CONTACT_STATUS_AVAILABLE</code>.
     """
-    status: global___SoftphoneContactStatus.ValueType
+    status: Global___SoftphoneContactStatus.ValueType
     """Reachability of the contact."""
-    @property
-    def expire_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def expire_time(self) -> _timestamp_pb2.Timestamp:
         """When the registration expires unless the device refreshes it."""
 
     def __init__(
         self,
         *,
-        uri: builtins.str = ...,
-        user_agent: builtins.str = ...,
-        source_address: builtins.str = ...,
-        expire_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        round_trip_ms: builtins.float = ...,
-        status: global___SoftphoneContactStatus.ValueType = ...,
+        uri: _builtins.str = ...,
+        user_agent: _builtins.str = ...,
+        source_address: _builtins.str = ...,
+        expire_time: _timestamp_pb2.Timestamp | None = ...,
+        round_trip_ms: _builtins.float = ...,
+        status: Global___SoftphoneContactStatus.ValueType = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["expire_time", b"expire_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["expire_time", b"expire_time", "round_trip_ms", b"round_trip_ms", "source_address", b"source_address", "status", b"status", "uri", b"uri", "user_agent", b"user_agent"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["expire_time", b"expire_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["expire_time", b"expire_time", "round_trip_ms", b"round_trip_ms", "source_address", b"source_address", "status", b"status", "uri", b"uri", "user_agent", b"user_agent"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SoftphoneContact = SoftphoneContact
+Global___SoftphoneContact: _TypeAlias = SoftphoneContact  # noqa: Y015

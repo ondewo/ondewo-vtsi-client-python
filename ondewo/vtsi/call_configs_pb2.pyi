@@ -16,33 +16,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.duration_pb2
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import ondewo.nlu.context_pb2
-import ondewo.nlu.intent_pb2
-import ondewo.s2t.speech_to_text_pb2
-import ondewo.t2s.text_to_speech_pb2
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import duration_pb2 as _duration_pb2
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from ondewo.nlu import context_pb2 as _context_pb2
+from ondewo.nlu import intent_pb2 as _intent_pb2
+from ondewo.s2t import speech_to_text_pb2 as _speech_to_text_pb2
+from ondewo.t2s import text_to_speech_pb2 as _text_to_speech_pb2
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _WarmIntroTextSource:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _WarmIntroTextSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroTextSource.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _WarmIntroTextSourceEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_WarmIntroTextSource.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     WARM_INTRO_TEXT_SOURCE_UNSPECIFIED: _WarmIntroTextSource.ValueType  # 0
     """See <code>WarmTransferConfig.intro_text_source</code>"""
     WARM_INTRO_TEXT_SOURCE_TEMPLATE: _WarmIntroTextSource.ValueType  # 1
@@ -59,14 +59,14 @@ WARM_INTRO_TEXT_SOURCE_TEMPLATE: WarmIntroTextSource.ValueType  # 1
 """<code>WarmTransferConfig.intro_prompt</code> as a template"""
 WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY: WarmIntroTextSource.ValueType  # 2
 """An LLM summary of the call so far, instructed by <code>WarmTransferConfig.intro_prompt</code> (phase B)"""
-global___WarmIntroTextSource = WarmIntroTextSource
+Global___WarmIntroTextSource: _TypeAlias = WarmIntroTextSource  # noqa: Y015
 
 class _WarmIntroUnavailablePolicy:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _WarmIntroUnavailablePolicyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroUnavailablePolicy.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _WarmIntroUnavailablePolicyEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_WarmIntroUnavailablePolicy.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED: _WarmIntroUnavailablePolicy.ValueType  # 0
     """Same as <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>"""
     WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO: _WarmIntroUnavailablePolicy.ValueType  # 1
@@ -87,14 +87,14 @@ WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER: WarmIntroUnavailablePolicy.Value
 """Hang up the target and keep the call with the bot, which tells the caller
 (<code>TRANSFER_OUTCOME_INTRO_UNAVAILABLE</code>)
 """
-global___WarmIntroUnavailablePolicy = WarmIntroUnavailablePolicy
+Global___WarmIntroUnavailablePolicy: _TypeAlias = WarmIntroUnavailablePolicy  # noqa: Y015
 
 class _WarmIntroDecision:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _WarmIntroDecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroDecision.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _WarmIntroDecisionEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_WarmIntroDecision.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     WARM_INTRO_DECISION_UNSPECIFIED: _WarmIntroDecision.ValueType  # 0
     """No decision yet (the intro runs, or it never started)"""
     WARM_INTRO_DECISION_ACCEPTED: _WarmIntroDecision.ValueType  # 1
@@ -115,14 +115,14 @@ WARM_INTRO_DECISION_DECLINED: WarmIntroDecision.ValueType  # 2
 """The target declined; the call stays with the bot"""
 WARM_INTRO_DECISION_NO_DECISION: WarmIntroDecision.ValueType  # 3
 """The target answered but gave no decision in time (also a mailbox that answered)"""
-global___WarmIntroDecision = WarmIntroDecision
+Global___WarmIntroDecision: _TypeAlias = WarmIntroDecision  # noqa: Y015
 
 class _WarmIntroDecidedBy:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _WarmIntroDecidedByEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroDecidedBy.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _WarmIntroDecidedByEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_WarmIntroDecidedBy.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     WARM_INTRO_DECIDED_BY_UNSPECIFIED: _WarmIntroDecidedBy.ValueType  # 0
     """Not decided"""
     WARM_INTRO_DECIDED_BY_DTMF: _WarmIntroDecidedBy.ValueType  # 1
@@ -143,10 +143,10 @@ WARM_INTRO_DECIDED_BY_SPEECH: WarmIntroDecidedBy.ValueType  # 2
 """A spoken answer"""
 WARM_INTRO_DECIDED_BY_TIMEOUT: WarmIntroDecidedBy.ValueType  # 3
 """No answer within <code>decision_timeout_s</code> / <code>max_intro_duration_s</code>"""
-global___WarmIntroDecidedBy = WarmIntroDecidedBy
+Global___WarmIntroDecidedBy: _TypeAlias = WarmIntroDecidedBy  # noqa: Y015
 
-@typing.final
-class BaseServiceConfig(google.protobuf.message.Message):
+@_typing.final
+class BaseServiceConfig(_message.Message):
     """<p>ONDEWO VTSI API</p>
     <p>The service configurations of a call: <code>CommonServicesConfig</code> (speech-to-text, NLU, text-to-speech,
     CSI and voice interaction) and <code>SipCallerConfig</code> (the SIP side of an outbound call), with every message
@@ -165,20 +165,20 @@ class BaseServiceConfig(google.protobuf.message.Message):
     Base configuration of services (ondewo-nlu, text-to-speech, speech-to-text, asterisk)
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    HOST_FIELD_NUMBER: builtins.int
-    PORT_FIELD_NUMBER: builtins.int
-    GRPC_CERT_FIELD_NUMBER: builtins.int
-    host: builtins.str
+    HOST_FIELD_NUMBER: _builtins.int
+    PORT_FIELD_NUMBER: _builtins.int
+    GRPC_CERT_FIELD_NUMBER: _builtins.int
+    host: _builtins.str
     """Host name or IP address of the service. Required: an empty host is refused with
     <code>INVALID_ARGUMENT</code>.
     """
-    port: builtins.int
+    port: _builtins.int
     """TCP port of the service, 1 to 65535. A value of 0 or below (also an unset port) is refused with
     <code>INVALID_ARGUMENT</code>.
     """
-    grpc_cert: builtins.str
+    grpc_cert: _builtins.str
     """PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
     escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
     server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
@@ -187,86 +187,94 @@ class BaseServiceConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        host: builtins.str = ...,
-        port: builtins.int = ...,
-        grpc_cert: builtins.str = ...,
+        host: _builtins.str = ...,
+        port: _builtins.int = ...,
+        grpc_cert: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["grpc_cert", b"grpc_cert", "host", b"host", "port", b"port"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["grpc_cert", b"grpc_cert", "host", b"host", "port", b"port"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___BaseServiceConfig = BaseServiceConfig
+Global___BaseServiceConfig: _TypeAlias = BaseServiceConfig  # noqa: Y015
 
-@typing.final
-class Credentials(google.protobuf.message.Message):
+@_typing.final
+class Credentials(_message.Message):
     """Credentials"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ACCOUNT_NAME_FIELD_NUMBER: builtins.int
-    PASSWORD_FIELD_NUMBER: builtins.int
-    account_name: builtins.str
+    ACCOUNT_NAME_FIELD_NUMBER: _builtins.int
+    PASSWORD_FIELD_NUMBER: _builtins.int
+    account_name: _builtins.str
     """Account name - usually email address"""
-    password: builtins.str
+    password: _builtins.str
     """password of the account"""
     def __init__(
         self,
         *,
-        account_name: builtins.str = ...,
-        password: builtins.str = ...,
+        account_name: _builtins.str = ...,
+        password: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["account_name", b"account_name", "password", b"password"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["account_name", b"account_name", "password", b"password"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Credentials = Credentials
+Global___Credentials: _TypeAlias = Credentials  # noqa: Y015
 
-@typing.final
-class NluVtsiConfig(google.protobuf.message.Message):
+@_typing.final
+class NluVtsiConfig(_message.Message):
     """NLU Configuration"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NLU_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    CREDENTIALS_FIELD_NUMBER: builtins.int
-    AUTH_TOKEN_FIELD_NUMBER: builtins.int
-    AGENT_NAME_FIELD_NUMBER: builtins.int
-    LANGUAGE_CODE_FIELD_NUMBER: builtins.int
-    INITIAL_INTENT_FIELD_NUMBER: builtins.int
-    CONTEXTS_FIELD_NUMBER: builtins.int
-    HTTP_BASIC_AUTH_TOKEN_FIELD_NUMBER: builtins.int
-    PLATFORM_FIELD_NUMBER: builtins.int
-    PREEMPTIVE_GENERATION_CONFIG_FIELD_NUMBER: builtins.int
-    auth_token: builtins.str
+    NLU_BASE_CONFIG_FIELD_NUMBER: _builtins.int
+    CREDENTIALS_FIELD_NUMBER: _builtins.int
+    AUTH_TOKEN_FIELD_NUMBER: _builtins.int
+    AGENT_NAME_FIELD_NUMBER: _builtins.int
+    LANGUAGE_CODE_FIELD_NUMBER: _builtins.int
+    INITIAL_INTENT_FIELD_NUMBER: _builtins.int
+    CONTEXTS_FIELD_NUMBER: _builtins.int
+    HTTP_BASIC_AUTH_TOKEN_FIELD_NUMBER: _builtins.int
+    PLATFORM_FIELD_NUMBER: _builtins.int
+    PREEMPTIVE_GENERATION_CONFIG_FIELD_NUMBER: _builtins.int
+    auth_token: _builtins.str
     """Authentication token"""
-    agent_name: builtins.str
+    agent_name: _builtins.str
     """The resource name of the agent.
     Format: <pre><code>projects/&lt;uuid&gt;/agent</code></pre>
     """
-    language_code: builtins.str
+    language_code: _builtins.str
     """Language of the NLU requests of the call: an ISO 639-1 code (e.g. <code>de</code>, <code>en</code>) or a
     language tag the agent supports (e.g. <code>de-DE</code>). VTSI does not validate it: the NLU agent decides
     whether it supports the value, and an empty value is accepted (a warning is logged, and the agent&apos;s
     default language applies).
     """
-    initial_intent: builtins.str
+    initial_intent: _builtins.str
     """name of intent to trigger at the start of a call"""
-    http_basic_auth_token: builtins.str
+    http_basic_auth_token: _builtins.str
     """http basic auth token"""
-    platform: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType
+    platform: _intent_pb2.Intent.Message.Platform.ValueType
     """Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse"""
-    @property
-    def nlu_base_config(self) -> global___BaseServiceConfig:
+    @_builtins.property
+    def nlu_base_config(self) -> Global___BaseServiceConfig:
         """Base config
         Host, Port, and [Optional] GRPC cert
         """
 
-    @property
-    def credentials(self) -> global___Credentials:
+    @_builtins.property
+    def credentials(self) -> Global___Credentials:
         """Credentials with classical username and password"""
 
-    @property
-    def contexts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ondewo.nlu.context_pb2.Context]:
+    @_builtins.property
+    def contexts(self) -> _containers.RepeatedCompositeFieldContainer[_context_pb2.Context]:
         """ondewo-nlu list of contexts"""
 
-    @property
-    def preemptive_generation_config(self) -> global___NluPreemptiveGenerationConfig:
+    @_builtins.property
+    def preemptive_generation_config(self) -> Global___NluPreemptiveGenerationConfig:
         """Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
         values. Whether preemptive generation runs at all is set with
         <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
@@ -275,117 +283,134 @@ class NluVtsiConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        nlu_base_config: global___BaseServiceConfig | None = ...,
-        credentials: global___Credentials | None = ...,
-        auth_token: builtins.str = ...,
-        agent_name: builtins.str = ...,
-        language_code: builtins.str = ...,
-        initial_intent: builtins.str = ...,
-        contexts: collections.abc.Iterable[ondewo.nlu.context_pb2.Context] | None = ...,
-        http_basic_auth_token: builtins.str = ...,
-        platform: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType | None = ...,
-        preemptive_generation_config: global___NluPreemptiveGenerationConfig | None = ...,
+        nlu_base_config: Global___BaseServiceConfig | None = ...,
+        credentials: Global___Credentials | None = ...,
+        auth_token: _builtins.str = ...,
+        agent_name: _builtins.str = ...,
+        language_code: _builtins.str = ...,
+        initial_intent: _builtins.str = ...,
+        contexts: _abc.Iterable[_context_pb2.Context] | None = ...,
+        http_basic_auth_token: _builtins.str = ...,
+        platform: _intent_pb2.Intent.Message.Platform.ValueType | None = ...,
+        preemptive_generation_config: Global___NluPreemptiveGenerationConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_platform", b"_platform", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_platform", b"_platform", "agent_name", b"agent_name", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_platform", b"_platform"]) -> typing.Literal["platform"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["authentication", b"authentication"]) -> typing.Literal["credentials", "auth_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_platform", b"_platform", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_platform", b"_platform", "agent_name", b"agent_name", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__platform: _TypeAlias = _typing.Literal["platform"]  # noqa: Y015
+    _WhichOneofArgType__platform: _TypeAlias = _typing.Literal["_platform", b"_platform"]  # noqa: Y015
+    _WhichOneofReturnType_authentication: _TypeAlias = _typing.Literal["credentials", "auth_token"]  # noqa: Y015
+    _WhichOneofArgType_authentication: _TypeAlias = _typing.Literal["authentication", b"authentication"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__platform) -> _WhichOneofReturnType__platform | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_authentication) -> _WhichOneofReturnType_authentication | None: ...
 
-global___NluVtsiConfig = NluVtsiConfig
+Global___NluVtsiConfig: _TypeAlias = NluVtsiConfig  # noqa: Y015
 
-@typing.final
-class NluPreemptiveGenerationConfig(google.protobuf.message.Message):
+@_typing.final
+class NluPreemptiveGenerationConfig(_message.Message):
     """Bounds of the preemptive (speculative) NLU requests: on a stable partial transcription the speech-to-speech
     service asks the NLU for the answer of a draft BEFORE the final transcription arrives, and keeps it only when the
     final transcription matches the draft. Every field is optional; an unset field keeps the deployment&apos;s value.
     A value outside its range is refused with <code>INVALID_ARGUMENT</code>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MAX_DRAFTS_PER_TURN_FIELD_NUMBER: builtins.int
-    MIN_STABLE_DWELL_SECONDS_FIELD_NUMBER: builtins.int
-    MIN_INTERVAL_SECONDS_FIELD_NUMBER: builtins.int
-    max_drafts_per_turn: builtins.int
+    MAX_DRAFTS_PER_TURN_FIELD_NUMBER: _builtins.int
+    MIN_STABLE_DWELL_SECONDS_FIELD_NUMBER: _builtins.int
+    MIN_INTERVAL_SECONDS_FIELD_NUMBER: _builtins.int
+    max_drafts_per_turn: _builtins.int
     """Optional: Number of drafts one caller turn may start at most (default: 2, valid range: 0 - 5;
     0 = no drafts)
     """
-    min_stable_dwell_seconds: builtins.float
+    min_stable_dwell_seconds: _builtins.float
     """Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts
     (default: 0.25, valid range: 0 - 2; 0 = no wait)
     """
-    min_interval_seconds: builtins.float
+    min_interval_seconds: _builtins.float
     """Optional: Minimum seconds between the starts of two drafts within one turn (default: 0.5,
     valid range: 0 - 5; 0 = no limit)
     """
     def __init__(
         self,
         *,
-        max_drafts_per_turn: builtins.int | None = ...,
-        min_stable_dwell_seconds: builtins.float | None = ...,
-        min_interval_seconds: builtins.float | None = ...,
+        max_drafts_per_turn: _builtins.int | None = ...,
+        min_stable_dwell_seconds: _builtins.float | None = ...,
+        min_interval_seconds: _builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_max_drafts_per_turn", b"_max_drafts_per_turn", "_min_interval_seconds", b"_min_interval_seconds", "_min_stable_dwell_seconds", b"_min_stable_dwell_seconds", "max_drafts_per_turn", b"max_drafts_per_turn", "min_interval_seconds", b"min_interval_seconds", "min_stable_dwell_seconds", b"min_stable_dwell_seconds"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_max_drafts_per_turn", b"_max_drafts_per_turn", "_min_interval_seconds", b"_min_interval_seconds", "_min_stable_dwell_seconds", b"_min_stable_dwell_seconds", "max_drafts_per_turn", b"max_drafts_per_turn", "min_interval_seconds", b"min_interval_seconds", "min_stable_dwell_seconds", b"min_stable_dwell_seconds"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_drafts_per_turn", b"_max_drafts_per_turn"]) -> typing.Literal["max_drafts_per_turn"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_min_interval_seconds", b"_min_interval_seconds"]) -> typing.Literal["min_interval_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_min_stable_dwell_seconds", b"_min_stable_dwell_seconds"]) -> typing.Literal["min_stable_dwell_seconds"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_max_drafts_per_turn", b"_max_drafts_per_turn", "_min_interval_seconds", b"_min_interval_seconds", "_min_stable_dwell_seconds", b"_min_stable_dwell_seconds", "max_drafts_per_turn", b"max_drafts_per_turn", "min_interval_seconds", b"min_interval_seconds", "min_stable_dwell_seconds", b"min_stable_dwell_seconds"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_max_drafts_per_turn", b"_max_drafts_per_turn", "_min_interval_seconds", b"_min_interval_seconds", "_min_stable_dwell_seconds", b"_min_stable_dwell_seconds", "max_drafts_per_turn", b"max_drafts_per_turn", "min_interval_seconds", b"min_interval_seconds", "min_stable_dwell_seconds", b"min_stable_dwell_seconds"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__max_drafts_per_turn: _TypeAlias = _typing.Literal["max_drafts_per_turn"]  # noqa: Y015
+    _WhichOneofArgType__max_drafts_per_turn: _TypeAlias = _typing.Literal["_max_drafts_per_turn", b"_max_drafts_per_turn"]  # noqa: Y015
+    _WhichOneofReturnType__min_interval_seconds: _TypeAlias = _typing.Literal["min_interval_seconds"]  # noqa: Y015
+    _WhichOneofArgType__min_interval_seconds: _TypeAlias = _typing.Literal["_min_interval_seconds", b"_min_interval_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__min_stable_dwell_seconds: _TypeAlias = _typing.Literal["min_stable_dwell_seconds"]  # noqa: Y015
+    _WhichOneofArgType__min_stable_dwell_seconds: _TypeAlias = _typing.Literal["_min_stable_dwell_seconds", b"_min_stable_dwell_seconds"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__max_drafts_per_turn) -> _WhichOneofReturnType__max_drafts_per_turn | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__min_interval_seconds) -> _WhichOneofReturnType__min_interval_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__min_stable_dwell_seconds) -> _WhichOneofReturnType__min_stable_dwell_seconds | None: ...
 
-global___NluPreemptiveGenerationConfig = NluPreemptiveGenerationConfig
+Global___NluPreemptiveGenerationConfig: _TypeAlias = NluPreemptiveGenerationConfig  # noqa: Y015
 
-@typing.final
-class T2sVtsiConfig(google.protobuf.message.Message):
+@_typing.final
+class T2sVtsiConfig(_message.Message):
     """Text-2-Speech Configuration"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    T2S_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    T2S_REQUEST_CONFIG_FIELD_NUMBER: builtins.int
-    PREEMPTIVE_SYNTHESIS_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def t2s_base_config(self) -> global___BaseServiceConfig:
+    T2S_BASE_CONFIG_FIELD_NUMBER: _builtins.int
+    T2S_REQUEST_CONFIG_FIELD_NUMBER: _builtins.int
+    PREEMPTIVE_SYNTHESIS_CONFIG_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def t2s_base_config(self) -> Global___BaseServiceConfig:
         """Host, Port, and [Optional] GRPC cert"""
 
-    @property
-    def t2s_request_config(self) -> ondewo.t2s.text_to_speech_pb2.RequestConfig:
+    @_builtins.property
+    def t2s_request_config(self) -> _text_to_speech_pb2.RequestConfig:
         """Configuration of Text-2-Speech"""
 
-    @property
-    def preemptive_synthesis_config(self) -> global___T2sPreemptiveSynthesisConfig:
+    @_builtins.property
+    def preemptive_synthesis_config(self) -> Global___T2sPreemptiveSynthesisConfig:
         """Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values"""
 
     def __init__(
         self,
         *,
-        t2s_base_config: global___BaseServiceConfig | None = ...,
-        t2s_request_config: ondewo.t2s.text_to_speech_pb2.RequestConfig | None = ...,
-        preemptive_synthesis_config: global___T2sPreemptiveSynthesisConfig | None = ...,
+        t2s_base_config: Global___BaseServiceConfig | None = ...,
+        t2s_request_config: _text_to_speech_pb2.RequestConfig | None = ...,
+        preemptive_synthesis_config: Global___T2sPreemptiveSynthesisConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["preemptive_synthesis_config", b"preemptive_synthesis_config", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["preemptive_synthesis_config", b"preemptive_synthesis_config", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["preemptive_synthesis_config", b"preemptive_synthesis_config", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["preemptive_synthesis_config", b"preemptive_synthesis_config", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___T2sVtsiConfig = T2sVtsiConfig
+Global___T2sVtsiConfig: _TypeAlias = T2sVtsiConfig  # noqa: Y015
 
-@typing.final
-class T2sPreemptiveSynthesisConfig(google.protobuf.message.Message):
+@_typing.final
+class T2sPreemptiveSynthesisConfig(_message.Message):
     """Speech synthesis of the answer of a preemptive (speculative) draft. Every field is optional; an unset field keeps
     the deployment&apos;s value
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENABLED_FIELD_NUMBER: builtins.int
-    CHUNKED_FIELD_NUMBER: builtins.int
-    enabled: builtins.bool
+    ENABLED_FIELD_NUMBER: _builtins.int
+    CHUNKED_FIELD_NUMBER: _builtins.int
+    enabled: _builtins.bool
     """Optional: Synthesize the answer of a draft before the final transcription arrives, so that a matching draft
     plays at once (default: true). <code>false</code> asks the NLU only and synthesizes at the commit
     """
-    chunked: builtins.bool
+    chunked: _builtins.bool
     """Optional: Hand a matching draft&apos;s answer over chunk by chunk while it is still being synthesized, instead
     of waiting for the whole synthesis (default: false). Needs chunked text-to-speech streaming
     (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>) and is ignored without it.
@@ -394,131 +419,143 @@ class T2sPreemptiveSynthesisConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        enabled: builtins.bool | None = ...,
-        chunked: builtins.bool | None = ...,
+        enabled: _builtins.bool | None = ...,
+        chunked: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_chunked", b"_chunked", "_enabled", b"_enabled", "chunked", b"chunked", "enabled", b"enabled"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_chunked", b"_chunked", "_enabled", b"_enabled", "chunked", b"chunked", "enabled", b"enabled"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_chunked", b"_chunked"]) -> typing.Literal["chunked"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_chunked", b"_chunked", "_enabled", b"_enabled", "chunked", b"chunked", "enabled", b"enabled"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_chunked", b"_chunked", "_enabled", b"_enabled", "chunked", b"chunked", "enabled", b"enabled"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__chunked: _TypeAlias = _typing.Literal["chunked"]  # noqa: Y015
+    _WhichOneofArgType__chunked: _TypeAlias = _typing.Literal["_chunked", b"_chunked"]  # noqa: Y015
+    _WhichOneofReturnType__enabled: _TypeAlias = _typing.Literal["enabled"]  # noqa: Y015
+    _WhichOneofArgType__enabled: _TypeAlias = _typing.Literal["_enabled", b"_enabled"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__chunked) -> _WhichOneofReturnType__chunked | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__enabled) -> _WhichOneofReturnType__enabled | None: ...
 
-global___T2sPreemptiveSynthesisConfig = T2sPreemptiveSynthesisConfig
+Global___T2sPreemptiveSynthesisConfig: _TypeAlias = T2sPreemptiveSynthesisConfig  # noqa: Y015
 
-@typing.final
-class S2tVtsiConfig(google.protobuf.message.Message):
+@_typing.final
+class S2tVtsiConfig(_message.Message):
     """Speech-2-Text Configuration"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    S2T_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    S2T_TRANSCRIBE_REQUEST_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def s2t_base_config(self) -> global___BaseServiceConfig:
+    S2T_BASE_CONFIG_FIELD_NUMBER: _builtins.int
+    S2T_TRANSCRIBE_REQUEST_CONFIG_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def s2t_base_config(self) -> Global___BaseServiceConfig:
         """Host, Port, and [Optional] GRPC cert"""
 
-    @property
-    def s2t_transcribe_request_config(self) -> ondewo.s2t.speech_to_text_pb2.TranscribeRequestConfig:
+    @_builtins.property
+    def s2t_transcribe_request_config(self) -> _speech_to_text_pb2.TranscribeRequestConfig:
         """Configuration of Speech-2-Text"""
 
     def __init__(
         self,
         *,
-        s2t_base_config: global___BaseServiceConfig | None = ...,
-        s2t_transcribe_request_config: ondewo.s2t.speech_to_text_pb2.TranscribeRequestConfig | None = ...,
+        s2t_base_config: Global___BaseServiceConfig | None = ...,
+        s2t_transcribe_request_config: _speech_to_text_pb2.TranscribeRequestConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___S2tVtsiConfig = S2tVtsiConfig
+Global___S2tVtsiConfig: _TypeAlias = S2tVtsiConfig  # noqa: Y015
 
-@typing.final
-class CommonServicesConfig(google.protobuf.message.Message):
+@_typing.final
+class CommonServicesConfig(_message.Message):
     """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI which are common for both listener and caller"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    S2T_VTSI_CONFIG_FIELD_NUMBER: builtins.int
-    NLU_VTSI_CONFIG_FIELD_NUMBER: builtins.int
-    T2S_VTSI_CONFIG_FIELD_NUMBER: builtins.int
-    CSI_VTSI_CONFIG_FIELD_NUMBER: builtins.int
-    VOICE_INTERACTION_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def s2t_vtsi_config(self) -> global___S2tVtsiConfig:
+    S2T_VTSI_CONFIG_FIELD_NUMBER: _builtins.int
+    NLU_VTSI_CONFIG_FIELD_NUMBER: _builtins.int
+    T2S_VTSI_CONFIG_FIELD_NUMBER: _builtins.int
+    CSI_VTSI_CONFIG_FIELD_NUMBER: _builtins.int
+    VOICE_INTERACTION_CONFIG_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def s2t_vtsi_config(self) -> Global___S2tVtsiConfig:
         """speech-to-text service configuration"""
 
-    @property
-    def nlu_vtsi_config(self) -> global___NluVtsiConfig:
+    @_builtins.property
+    def nlu_vtsi_config(self) -> Global___NluVtsiConfig:
         """ondewo-nlu configuration"""
 
-    @property
-    def t2s_vtsi_config(self) -> global___T2sVtsiConfig:
+    @_builtins.property
+    def t2s_vtsi_config(self) -> Global___T2sVtsiConfig:
         """text-to-speech service configuration"""
 
-    @property
-    def csi_vtsi_config(self) -> global___CsiVtsiConfig:
+    @_builtins.property
+    def csi_vtsi_config(self) -> Global___CsiVtsiConfig:
         """CSI service configuration"""
 
-    @property
-    def voice_interaction_config(self) -> global___VoiceInteractionConfig:
+    @_builtins.property
+    def voice_interaction_config(self) -> Global___VoiceInteractionConfig:
         """Voice interaction configuration for turn detection, interruption (barge-in) handling and response timing"""
 
     def __init__(
         self,
         *,
-        s2t_vtsi_config: global___S2tVtsiConfig | None = ...,
-        nlu_vtsi_config: global___NluVtsiConfig | None = ...,
-        t2s_vtsi_config: global___T2sVtsiConfig | None = ...,
-        csi_vtsi_config: global___CsiVtsiConfig | None = ...,
-        voice_interaction_config: global___VoiceInteractionConfig | None = ...,
+        s2t_vtsi_config: Global___S2tVtsiConfig | None = ...,
+        nlu_vtsi_config: Global___NluVtsiConfig | None = ...,
+        t2s_vtsi_config: Global___T2sVtsiConfig | None = ...,
+        csi_vtsi_config: Global___CsiVtsiConfig | None = ...,
+        voice_interaction_config: Global___VoiceInteractionConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CommonServicesConfig = CommonServicesConfig
+Global___CommonServicesConfig: _TypeAlias = CommonServicesConfig  # noqa: Y015
 
-@typing.final
-class VoiceInteractionConfig(google.protobuf.message.Message):
+@_typing.final
+class VoiceInteractionConfig(_message.Message):
     """Configuration of the voice interaction behavior of a call:
     turn detection, interruption (barge-in) handling and response timing
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TURN_DETECTION_CONFIG_FIELD_NUMBER: builtins.int
-    INTERRUPTION_HANDLING_CONFIG_FIELD_NUMBER: builtins.int
-    RESPONSE_TIMING_CONFIG_FIELD_NUMBER: builtins.int
-    ANSWERING_MACHINE_DETECTION_CONFIG_FIELD_NUMBER: builtins.int
-    DTMF_CONFIG_FIELD_NUMBER: builtins.int
-    WARM_TRANSFER_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def turn_detection_config(self) -> global___TurnDetectionConfig:
+    TURN_DETECTION_CONFIG_FIELD_NUMBER: _builtins.int
+    INTERRUPTION_HANDLING_CONFIG_FIELD_NUMBER: _builtins.int
+    RESPONSE_TIMING_CONFIG_FIELD_NUMBER: _builtins.int
+    ANSWERING_MACHINE_DETECTION_CONFIG_FIELD_NUMBER: _builtins.int
+    DTMF_CONFIG_FIELD_NUMBER: _builtins.int
+    WARM_TRANSFER_CONFIG_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def turn_detection_config(self) -> Global___TurnDetectionConfig:
         """Configuration of the turn detection"""
 
-    @property
-    def interruption_handling_config(self) -> global___InterruptionHandlingConfig:
+    @_builtins.property
+    def interruption_handling_config(self) -> Global___InterruptionHandlingConfig:
         """Configuration of the interruption (barge-in) handling"""
 
-    @property
-    def response_timing_config(self) -> global___ResponseTimingConfig:
+    @_builtins.property
+    def response_timing_config(self) -> Global___ResponseTimingConfig:
         """Configuration of the response timing"""
 
-    @property
-    def answering_machine_detection_config(self) -> global___AnsweringMachineDetectionConfig:
+    @_builtins.property
+    def answering_machine_detection_config(self) -> Global___AnsweringMachineDetectionConfig:
         """Configuration of the answering machine detection (AMD) of an outbound call.
         Only accepted for pooled persistent callers: a listener or a one-shot caller that carries it
         is rejected with INVALID_ARGUMENT
         """
 
-    @property
-    def dtmf_config(self) -> global___DtmfConfig:
+    @_builtins.property
+    def dtmf_config(self) -> Global___DtmfConfig:
         """Configuration of the DTMF keys the CALLER presses (keypad input to the bot). Unset keeps the deployment&apos;s
         behaviour (keys on, a key barges in, undeclared keys dropped)
         """
 
-    @property
-    def warm_transfer_config(self) -> global___WarmTransferConfig:
+    @_builtins.property
+    def warm_transfer_config(self) -> Global___WarmTransferConfig:
         """Configuration of the warm intro of a WARM transfer of this call (see <code>WarmTransferConfig</code>). Unset
         inherits the project default <code>VtsiProject.warm_transfer_defaults</code>; a
         <code>TransferCallRequest.warm_transfer_config</code> wins over it for that one transfer
@@ -527,20 +564,23 @@ class VoiceInteractionConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        turn_detection_config: global___TurnDetectionConfig | None = ...,
-        interruption_handling_config: global___InterruptionHandlingConfig | None = ...,
-        response_timing_config: global___ResponseTimingConfig | None = ...,
-        answering_machine_detection_config: global___AnsweringMachineDetectionConfig | None = ...,
-        dtmf_config: global___DtmfConfig | None = ...,
-        warm_transfer_config: global___WarmTransferConfig | None = ...,
+        turn_detection_config: Global___TurnDetectionConfig | None = ...,
+        interruption_handling_config: Global___InterruptionHandlingConfig | None = ...,
+        response_timing_config: Global___ResponseTimingConfig | None = ...,
+        answering_machine_detection_config: Global___AnsweringMachineDetectionConfig | None = ...,
+        dtmf_config: Global___DtmfConfig | None = ...,
+        warm_transfer_config: Global___WarmTransferConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___VoiceInteractionConfig = VoiceInteractionConfig
+Global___VoiceInteractionConfig: _TypeAlias = VoiceInteractionConfig  # noqa: Y015
 
-@typing.final
-class DtmfConfig(google.protobuf.message.Message):
+@_typing.final
+class DtmfConfig(_message.Message):
     """Configuration of the DTMF keys a caller presses. A key reaches the bot only when the bot&apos;s last answer
     declared a key menu or a key entry (ondewo-cai intent tags <code>ondewo-voice:dtmf-menu:&lt;id&gt;</code> /
     <code>ondewo-voice:dtmf-digits:&lt;id&gt;</code>); it is then sent to the NLU as the turn text
@@ -549,24 +589,24 @@ class DtmfConfig(google.protobuf.message.Message):
     the default).
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENABLED_FIELD_NUMBER: builtins.int
-    BARGE_IN_FIELD_NUMBER: builtins.int
-    INTER_DIGIT_TIMEOUT_MS_FIELD_NUMBER: builtins.int
-    UNDECLARED_POLICY_FIELD_NUMBER: builtins.int
-    enabled: builtins.bool
+    ENABLED_FIELD_NUMBER: _builtins.int
+    BARGE_IN_FIELD_NUMBER: _builtins.int
+    INTER_DIGIT_TIMEOUT_MS_FIELD_NUMBER: _builtins.int
+    UNDECLARED_POLICY_FIELD_NUMBER: _builtins.int
+    enabled: _builtins.bool
     """Whether a pressed key is forwarded to the bot at all (default true). <code>false</code> ignores every key of
     the call
     """
-    barge_in: builtins.bool
+    barge_in: _builtins.bool
     """Whether a key pressed while the bot speaks stops the bot, like a spoken interruption (default true)"""
-    inter_digit_timeout_ms: builtins.int
+    inter_digit_timeout_ms: _builtins.int
     """Milliseconds after the last key of a key entry (e.g. a PIN) without a terminator before the entry is sent
     (default 2000, valid range 300 - 10000; a value outside the range is refused with
     <code>INVALID_ARGUMENT</code>)
     """
-    undeclared_policy: builtins.str
+    undeclared_policy: _builtins.str
     """What a key the bot declared nothing for does: <code>DROP</code> (default; the key is ignored and the bot is
     not interrupted) or <code>COMMIT_SINGLE</code> (the key is sent to the NLU as a one-key turn). Any other
     value is refused with <code>INVALID_ARGUMENT</code>
@@ -574,26 +614,36 @@ class DtmfConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        enabled: builtins.bool | None = ...,
-        barge_in: builtins.bool | None = ...,
-        inter_digit_timeout_ms: builtins.int | None = ...,
-        undeclared_policy: builtins.str | None = ...,
+        enabled: _builtins.bool | None = ...,
+        barge_in: _builtins.bool | None = ...,
+        inter_digit_timeout_ms: _builtins.int | None = ...,
+        undeclared_policy: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "undeclared_policy", b"undeclared_policy"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "undeclared_policy", b"undeclared_policy"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_barge_in", b"_barge_in"]) -> typing.Literal["barge_in"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_inter_digit_timeout_ms", b"_inter_digit_timeout_ms"]) -> typing.Literal["inter_digit_timeout_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_undeclared_policy", b"_undeclared_policy"]) -> typing.Literal["undeclared_policy"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "undeclared_policy", b"undeclared_policy"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "undeclared_policy", b"undeclared_policy"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__barge_in: _TypeAlias = _typing.Literal["barge_in"]  # noqa: Y015
+    _WhichOneofArgType__barge_in: _TypeAlias = _typing.Literal["_barge_in", b"_barge_in"]  # noqa: Y015
+    _WhichOneofReturnType__enabled: _TypeAlias = _typing.Literal["enabled"]  # noqa: Y015
+    _WhichOneofArgType__enabled: _TypeAlias = _typing.Literal["_enabled", b"_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__inter_digit_timeout_ms: _TypeAlias = _typing.Literal["inter_digit_timeout_ms"]  # noqa: Y015
+    _WhichOneofArgType__inter_digit_timeout_ms: _TypeAlias = _typing.Literal["_inter_digit_timeout_ms", b"_inter_digit_timeout_ms"]  # noqa: Y015
+    _WhichOneofReturnType__undeclared_policy: _TypeAlias = _typing.Literal["undeclared_policy"]  # noqa: Y015
+    _WhichOneofArgType__undeclared_policy: _TypeAlias = _typing.Literal["_undeclared_policy", b"_undeclared_policy"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__barge_in) -> _WhichOneofReturnType__barge_in | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__enabled) -> _WhichOneofReturnType__enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__inter_digit_timeout_ms) -> _WhichOneofReturnType__inter_digit_timeout_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__undeclared_policy) -> _WhichOneofReturnType__undeclared_policy | None: ...
 
-global___DtmfConfig = DtmfConfig
+Global___DtmfConfig: _TypeAlias = DtmfConfig  # noqa: Y015
 
-@typing.final
-class WarmTransferConfig(google.protobuf.message.Message):
+@_typing.final
+class WarmTransferConfig(_message.Message):
     """<p>Warm intro of a WARM transfer: after the human target answered and before the target is joined, an ONDEWO bot
     (a free listener of the project, in an NLU session of its own) greets the target, confirms that a person is on
     the line, briefs them (who calls and why), asks whether they accept the call and, on a decline, asks what to tell
@@ -625,147 +675,147 @@ class WarmTransferConfig(google.protobuf.message.Message):
     <code>INVALID_ARGUMENT</code>.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENABLED_FIELD_NUMBER: builtins.int
-    INTRO_PROMPT_FIELD_NUMBER: builtins.int
-    INTRO_TEXT_SOURCE_FIELD_NUMBER: builtins.int
-    READY_QUESTION_FIELD_NUMBER: builtins.int
-    CONFIRM_HUMAN_BEFORE_INTRO_FIELD_NUMBER: builtins.int
-    ACCEPT_QUESTION_FIELD_NUMBER: builtins.int
-    DECLINE_REASON_QUESTION_FIELD_NUMBER: builtins.int
-    CALLER_DECLINED_MESSAGE_FIELD_NUMBER: builtins.int
-    CALLER_UNREACHABLE_MESSAGE_FIELD_NUMBER: builtins.int
-    ACCEPT_DTMF_FIELD_NUMBER: builtins.int
-    DECLINE_DTMF_FIELD_NUMBER: builtins.int
-    DECISION_TIMEOUT_S_FIELD_NUMBER: builtins.int
-    MAX_INTRO_DURATION_S_FIELD_NUMBER: builtins.int
-    CALLEE_DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    CALLEE_DESCRIPTION_FIELD_NUMBER: builtins.int
-    ON_INTRO_UNAVAILABLE_FIELD_NUMBER: builtins.int
-    APPLY_TO_BOT_TRANSFERS_FIELD_NUMBER: builtins.int
-    CALLER_HOLD_MESSAGE_FIELD_NUMBER: builtins.int
-    CALLER_HOLD_MUSIC_FIELD_NUMBER: builtins.int
-    CALLER_REASSURE_INTERVAL_S_FIELD_NUMBER: builtins.int
-    LLM_CCAI_SERVICE_NAME_FIELD_NUMBER: builtins.int
-    CALLER_DISCLOSURE_MESSAGE_FIELD_NUMBER: builtins.int
-    CALLER_ACCEPTED_MESSAGE_FIELD_NUMBER: builtins.int
-    STORE_INTRO_AUDIO_FIELD_NUMBER: builtins.int
-    INTRO_LISTENER_NAMES_FIELD_NUMBER: builtins.int
-    enabled: builtins.bool
+    ENABLED_FIELD_NUMBER: _builtins.int
+    INTRO_PROMPT_FIELD_NUMBER: _builtins.int
+    INTRO_TEXT_SOURCE_FIELD_NUMBER: _builtins.int
+    READY_QUESTION_FIELD_NUMBER: _builtins.int
+    CONFIRM_HUMAN_BEFORE_INTRO_FIELD_NUMBER: _builtins.int
+    ACCEPT_QUESTION_FIELD_NUMBER: _builtins.int
+    DECLINE_REASON_QUESTION_FIELD_NUMBER: _builtins.int
+    CALLER_DECLINED_MESSAGE_FIELD_NUMBER: _builtins.int
+    CALLER_UNREACHABLE_MESSAGE_FIELD_NUMBER: _builtins.int
+    ACCEPT_DTMF_FIELD_NUMBER: _builtins.int
+    DECLINE_DTMF_FIELD_NUMBER: _builtins.int
+    DECISION_TIMEOUT_S_FIELD_NUMBER: _builtins.int
+    MAX_INTRO_DURATION_S_FIELD_NUMBER: _builtins.int
+    CALLEE_DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    CALLEE_DESCRIPTION_FIELD_NUMBER: _builtins.int
+    ON_INTRO_UNAVAILABLE_FIELD_NUMBER: _builtins.int
+    APPLY_TO_BOT_TRANSFERS_FIELD_NUMBER: _builtins.int
+    CALLER_HOLD_MESSAGE_FIELD_NUMBER: _builtins.int
+    CALLER_HOLD_MUSIC_FIELD_NUMBER: _builtins.int
+    CALLER_REASSURE_INTERVAL_S_FIELD_NUMBER: _builtins.int
+    LLM_CCAI_SERVICE_NAME_FIELD_NUMBER: _builtins.int
+    CALLER_DISCLOSURE_MESSAGE_FIELD_NUMBER: _builtins.int
+    CALLER_ACCEPTED_MESSAGE_FIELD_NUMBER: _builtins.int
+    STORE_INTRO_AUDIO_FIELD_NUMBER: _builtins.int
+    INTRO_LISTENER_NAMES_FIELD_NUMBER: _builtins.int
+    enabled: _builtins.bool
     """Master switch of the warm intro. Unset at every level means <code>false</code>"""
-    intro_prompt: builtins.str
+    intro_prompt: _builtins.str
     """TEMPLATE: the briefing spoken to the target after the readiness answer, with the placeholders
     <code>{caller_name}</code>, <code>{callee_name}</code>, <code>{topic}</code> and <code>{summary}</code>
     (default e.g. &quot;Ich habe {caller_name} in der Leitung, es geht um {topic}.&quot;). LLM_SUMMARY
     (<i>phase B</i>): the instruction to the LLM that writes the briefing from the call so far. At most 4000
     characters
     """
-    intro_text_source: global___WarmIntroTextSource.ValueType
+    intro_text_source: Global___WarmIntroTextSource.ValueType
     """How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> means
     <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when phase B is enabled and the project has an LLM service,
     else <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> is
     <i>phase B</i>; when the LLM fails or is too slow the TEMPLATE is used (<code>WarmIntroRecord.text_fell_back</code>)
     """
-    ready_question: builtins.str
+    ready_question: _builtins.str
     """The first sentence the target hears, before anything about the caller (it carries no personal data, so a
     mailbox that answers records nothing about the caller). Placeholder <code>{project}</code>. Default (de):
     &quot;Hier ist der digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen
     Sie ja oder drücken Sie 1.&quot; At most 1000 characters
     """
-    confirm_human_before_intro: builtins.bool
+    confirm_human_before_intro: _builtins.bool
     """Whether the briefing is spoken only after the target answered the <code>ready_question</code> (by voice or
     <code>accept_dtmf</code>). Default <code>true</code>: the mailbox guard. <code>false</code> briefs the target
     right after the <code>ready_question</code>
     """
-    accept_question: builtins.str
+    accept_question: _builtins.str
     """The question after the briefing. Default (de): &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder
     2.&quot; At most 1000 characters
     """
-    decline_reason_question: builtins.str
+    decline_reason_question: _builtins.str
     """Asked after a decline, to learn what to tell the caller. Default (de): &quot;Was darf ich dem Anrufer
     ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;. <code>&quot;&quot;</code> means: do not ask,
     the caller hears the decline without a reason. The answer is relayed to the caller only through the bot&apos;s
     NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more masked); VTSI never
     receives it. At most 1000 characters
     """
-    caller_declined_message: builtins.str
+    caller_declined_message: _builtins.str
     """What the caller hears after a decline, placeholders <code>{callee_name}</code> and <code>{reason}</code>.
     Default (de): &quot;{callee_name} kann das Gespräch gerade nicht übernehmen und lässt ausrichten:
     {reason}&quot;; without a reason a variant without the clause is spoken. At most 1000 characters
     """
-    caller_unreachable_message: builtins.str
+    caller_unreachable_message: _builtins.str
     """What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro or
     the intro could not run (with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>). Placeholder
     <code>{callee_name}</code>. At most 1000 characters
     """
-    accept_dtmf: builtins.str
+    accept_dtmf: _builtins.str
     """The key that accepts (and answers the <code>ready_question</code>). Default <code>1</code>; exactly one of
     <code>0-9 * #</code>
     """
-    decline_dtmf: builtins.str
+    decline_dtmf: _builtins.str
     """The key that declines. Default <code>2</code>; exactly one of <code>0-9 * #</code>, different from the
     effective <code>accept_dtmf</code>
     """
-    decision_timeout_s: builtins.int
+    decision_timeout_s: _builtins.int
     """Seconds from a question to the target&apos;s decision before the intro ends with
     <code>WARM_INTRO_DECISION_NO_DECISION</code>. Default 20, valid range 5 - 60
     """
-    max_intro_duration_s: builtins.int
+    max_intro_duration_s: _builtins.int
     """Hard cap in seconds from the target&apos;s answer to the decision. Default 90, valid range 30 - 300. The caller
     waits at most the ring time plus this
     """
-    callee_display_name: builtins.str
+    callee_display_name: _builtins.str
     """Who the target is, spoken as <code>{callee_name}</code>, e.g. &quot;Frau Berger, Buchhaltung&quot;. Unset
     resolves from the target softphone account&apos;s <code>display_name</code>, then from
     <code>VtsiProject.transfer_target_directory</code>. At most 128 characters. Meaningful per transfer only
     """
-    callee_description: builtins.str
+    callee_description: _builtins.str
     """The target&apos;s role and context for the briefing (LLM_SUMMARY). Unset resolves from the target softphone
     account&apos;s <code>description</code>, then from <code>VtsiProject.transfer_target_directory</code>. At most
     512 characters. Meaningful per transfer only
     """
-    on_intro_unavailable: global___WarmIntroUnavailablePolicy.ValueType
+    on_intro_unavailable: Global___WarmIntroUnavailablePolicy.ValueType
     """What happens when the intro cannot run (no free listener, the NLU could not prepare the intro).
     <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code> means
     <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>
     """
-    apply_to_bot_transfers: builtins.bool
+    apply_to_bot_transfers: _builtins.bool
     """Whether the bot&apos;s OWN transfers to a human (the NLU answer&apos;s transfer or human handover) get a warm
     intro too: the transfer is handed to VTSI instead of being sent by the bot. Default <code>false</code>. Valid
     on the call and project levels; set on a <code>TransferCallRequest</code> it is refused with
     <code>INVALID_ARGUMENT</code>
     """
-    caller_hold_message: builtins.str
+    caller_hold_message: _builtins.str
     """Spoken to the caller while the intro runs, after <code>caller_disclosure_message</code>, e.g. &quot;Einen
     Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence). At most 1000
     characters
     """
-    caller_hold_music: builtins.bool
+    caller_hold_music: _builtins.bool
     """<i>Phase B</i>: music on hold for the caller between the hold messages. Default <code>false</code> (silence)"""
-    caller_reassure_interval_s: builtins.int
+    caller_reassure_interval_s: _builtins.int
     """Repeat <code>caller_hold_message</code> every N seconds while the intro runs. <code>0</code> (default): never.
     Valid: 0 or 15 - 120
     """
-    llm_ccai_service_name: builtins.str
+    llm_ccai_service_name: _builtins.str
     """The LLM service of the ONDEWO NLU agent that writes the briefing (LLM_SUMMARY, <i>phase B</i>). Empty: the
     agent&apos;s warm transfer setting, else the project&apos;s first LLM service
     """
-    caller_disclosure_message: builtins.str
+    caller_disclosure_message: _builtins.str
     """Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target.
     Default empty: none. At most 1000 characters
     """
-    caller_accepted_message: builtins.str
+    caller_accepted_message: _builtins.str
     """Spoken to the caller after the target accepted and before the target is joined, placeholder
     <code>{callee_name}</code>, e.g. &quot;Ich verbinde Sie jetzt mit {callee_name}.&quot; The target does not
     hear it. Default empty: none. At most 1000 characters
     """
-    store_intro_audio: builtins.bool
+    store_intro_audio: _builtins.bool
     """Whether the intro bot&apos;s NLU session stores the intro audio (the target&apos;s voice and the bot&apos;s).
     Default <code>false</code>: no audio is stored; the session&apos;s text follows the conversation retention
     """
-    @property
-    def intro_listener_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def intro_listener_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Project level only: listeners (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>)
         reserved as intro bots. Empty (default): any free listener of the project, keeping at least one ready
         listener free for customer calls. At most 50 entries; set on another level it is refused with
@@ -775,173 +825,222 @@ class WarmTransferConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        enabled: builtins.bool | None = ...,
-        intro_prompt: builtins.str | None = ...,
-        intro_text_source: global___WarmIntroTextSource.ValueType = ...,
-        ready_question: builtins.str | None = ...,
-        confirm_human_before_intro: builtins.bool | None = ...,
-        accept_question: builtins.str | None = ...,
-        decline_reason_question: builtins.str | None = ...,
-        caller_declined_message: builtins.str | None = ...,
-        caller_unreachable_message: builtins.str | None = ...,
-        accept_dtmf: builtins.str | None = ...,
-        decline_dtmf: builtins.str | None = ...,
-        decision_timeout_s: builtins.int | None = ...,
-        max_intro_duration_s: builtins.int | None = ...,
-        callee_display_name: builtins.str | None = ...,
-        callee_description: builtins.str | None = ...,
-        on_intro_unavailable: global___WarmIntroUnavailablePolicy.ValueType = ...,
-        apply_to_bot_transfers: builtins.bool | None = ...,
-        caller_hold_message: builtins.str | None = ...,
-        caller_hold_music: builtins.bool | None = ...,
-        caller_reassure_interval_s: builtins.int | None = ...,
-        llm_ccai_service_name: builtins.str | None = ...,
-        caller_disclosure_message: builtins.str | None = ...,
-        caller_accepted_message: builtins.str | None = ...,
-        store_intro_audio: builtins.bool | None = ...,
-        intro_listener_names: collections.abc.Iterable[builtins.str] | None = ...,
+        enabled: _builtins.bool | None = ...,
+        intro_prompt: _builtins.str | None = ...,
+        intro_text_source: Global___WarmIntroTextSource.ValueType = ...,
+        ready_question: _builtins.str | None = ...,
+        confirm_human_before_intro: _builtins.bool | None = ...,
+        accept_question: _builtins.str | None = ...,
+        decline_reason_question: _builtins.str | None = ...,
+        caller_declined_message: _builtins.str | None = ...,
+        caller_unreachable_message: _builtins.str | None = ...,
+        accept_dtmf: _builtins.str | None = ...,
+        decline_dtmf: _builtins.str | None = ...,
+        decision_timeout_s: _builtins.int | None = ...,
+        max_intro_duration_s: _builtins.int | None = ...,
+        callee_display_name: _builtins.str | None = ...,
+        callee_description: _builtins.str | None = ...,
+        on_intro_unavailable: Global___WarmIntroUnavailablePolicy.ValueType = ...,
+        apply_to_bot_transfers: _builtins.bool | None = ...,
+        caller_hold_message: _builtins.str | None = ...,
+        caller_hold_music: _builtins.bool | None = ...,
+        caller_reassure_interval_s: _builtins.int | None = ...,
+        llm_ccai_service_name: _builtins.str | None = ...,
+        caller_disclosure_message: _builtins.str | None = ...,
+        caller_accepted_message: _builtins.str | None = ...,
+        store_intro_audio: _builtins.bool | None = ...,
+        intro_listener_names: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_accept_dtmf", b"_accept_dtmf", "_accept_question", b"_accept_question", "_apply_to_bot_transfers", b"_apply_to_bot_transfers", "_callee_description", b"_callee_description", "_callee_display_name", b"_callee_display_name", "_caller_accepted_message", b"_caller_accepted_message", "_caller_declined_message", b"_caller_declined_message", "_caller_disclosure_message", b"_caller_disclosure_message", "_caller_hold_message", b"_caller_hold_message", "_caller_hold_music", b"_caller_hold_music", "_caller_reassure_interval_s", b"_caller_reassure_interval_s", "_caller_unreachable_message", b"_caller_unreachable_message", "_confirm_human_before_intro", b"_confirm_human_before_intro", "_decision_timeout_s", b"_decision_timeout_s", "_decline_dtmf", b"_decline_dtmf", "_decline_reason_question", b"_decline_reason_question", "_enabled", b"_enabled", "_intro_prompt", b"_intro_prompt", "_llm_ccai_service_name", b"_llm_ccai_service_name", "_max_intro_duration_s", b"_max_intro_duration_s", "_ready_question", b"_ready_question", "_store_intro_audio", b"_store_intro_audio", "accept_dtmf", b"accept_dtmf", "accept_question", b"accept_question", "apply_to_bot_transfers", b"apply_to_bot_transfers", "callee_description", b"callee_description", "callee_display_name", b"callee_display_name", "caller_accepted_message", b"caller_accepted_message", "caller_declined_message", b"caller_declined_message", "caller_disclosure_message", b"caller_disclosure_message", "caller_hold_message", b"caller_hold_message", "caller_hold_music", b"caller_hold_music", "caller_reassure_interval_s", b"caller_reassure_interval_s", "caller_unreachable_message", b"caller_unreachable_message", "confirm_human_before_intro", b"confirm_human_before_intro", "decision_timeout_s", b"decision_timeout_s", "decline_dtmf", b"decline_dtmf", "decline_reason_question", b"decline_reason_question", "enabled", b"enabled", "intro_prompt", b"intro_prompt", "llm_ccai_service_name", b"llm_ccai_service_name", "max_intro_duration_s", b"max_intro_duration_s", "ready_question", b"ready_question", "store_intro_audio", b"store_intro_audio"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_accept_dtmf", b"_accept_dtmf", "_accept_question", b"_accept_question", "_apply_to_bot_transfers", b"_apply_to_bot_transfers", "_callee_description", b"_callee_description", "_callee_display_name", b"_callee_display_name", "_caller_accepted_message", b"_caller_accepted_message", "_caller_declined_message", b"_caller_declined_message", "_caller_disclosure_message", b"_caller_disclosure_message", "_caller_hold_message", b"_caller_hold_message", "_caller_hold_music", b"_caller_hold_music", "_caller_reassure_interval_s", b"_caller_reassure_interval_s", "_caller_unreachable_message", b"_caller_unreachable_message", "_confirm_human_before_intro", b"_confirm_human_before_intro", "_decision_timeout_s", b"_decision_timeout_s", "_decline_dtmf", b"_decline_dtmf", "_decline_reason_question", b"_decline_reason_question", "_enabled", b"_enabled", "_intro_prompt", b"_intro_prompt", "_llm_ccai_service_name", b"_llm_ccai_service_name", "_max_intro_duration_s", b"_max_intro_duration_s", "_ready_question", b"_ready_question", "_store_intro_audio", b"_store_intro_audio", "accept_dtmf", b"accept_dtmf", "accept_question", b"accept_question", "apply_to_bot_transfers", b"apply_to_bot_transfers", "callee_description", b"callee_description", "callee_display_name", b"callee_display_name", "caller_accepted_message", b"caller_accepted_message", "caller_declined_message", b"caller_declined_message", "caller_disclosure_message", b"caller_disclosure_message", "caller_hold_message", b"caller_hold_message", "caller_hold_music", b"caller_hold_music", "caller_reassure_interval_s", b"caller_reassure_interval_s", "caller_unreachable_message", b"caller_unreachable_message", "confirm_human_before_intro", b"confirm_human_before_intro", "decision_timeout_s", b"decision_timeout_s", "decline_dtmf", b"decline_dtmf", "decline_reason_question", b"decline_reason_question", "enabled", b"enabled", "intro_listener_names", b"intro_listener_names", "intro_prompt", b"intro_prompt", "intro_text_source", b"intro_text_source", "llm_ccai_service_name", b"llm_ccai_service_name", "max_intro_duration_s", b"max_intro_duration_s", "on_intro_unavailable", b"on_intro_unavailable", "ready_question", b"ready_question", "store_intro_audio", b"store_intro_audio"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_accept_dtmf", b"_accept_dtmf"]) -> typing.Literal["accept_dtmf"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_accept_question", b"_accept_question"]) -> typing.Literal["accept_question"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_apply_to_bot_transfers", b"_apply_to_bot_transfers"]) -> typing.Literal["apply_to_bot_transfers"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_callee_description", b"_callee_description"]) -> typing.Literal["callee_description"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_callee_display_name", b"_callee_display_name"]) -> typing.Literal["callee_display_name"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_caller_accepted_message", b"_caller_accepted_message"]) -> typing.Literal["caller_accepted_message"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_caller_declined_message", b"_caller_declined_message"]) -> typing.Literal["caller_declined_message"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_caller_disclosure_message", b"_caller_disclosure_message"]) -> typing.Literal["caller_disclosure_message"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_caller_hold_message", b"_caller_hold_message"]) -> typing.Literal["caller_hold_message"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_caller_hold_music", b"_caller_hold_music"]) -> typing.Literal["caller_hold_music"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_caller_reassure_interval_s", b"_caller_reassure_interval_s"]) -> typing.Literal["caller_reassure_interval_s"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_caller_unreachable_message", b"_caller_unreachable_message"]) -> typing.Literal["caller_unreachable_message"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_confirm_human_before_intro", b"_confirm_human_before_intro"]) -> typing.Literal["confirm_human_before_intro"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_decision_timeout_s", b"_decision_timeout_s"]) -> typing.Literal["decision_timeout_s"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_decline_dtmf", b"_decline_dtmf"]) -> typing.Literal["decline_dtmf"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_decline_reason_question", b"_decline_reason_question"]) -> typing.Literal["decline_reason_question"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_intro_prompt", b"_intro_prompt"]) -> typing.Literal["intro_prompt"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_llm_ccai_service_name", b"_llm_ccai_service_name"]) -> typing.Literal["llm_ccai_service_name"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_intro_duration_s", b"_max_intro_duration_s"]) -> typing.Literal["max_intro_duration_s"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_ready_question", b"_ready_question"]) -> typing.Literal["ready_question"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_store_intro_audio", b"_store_intro_audio"]) -> typing.Literal["store_intro_audio"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_accept_dtmf", b"_accept_dtmf", "_accept_question", b"_accept_question", "_apply_to_bot_transfers", b"_apply_to_bot_transfers", "_callee_description", b"_callee_description", "_callee_display_name", b"_callee_display_name", "_caller_accepted_message", b"_caller_accepted_message", "_caller_declined_message", b"_caller_declined_message", "_caller_disclosure_message", b"_caller_disclosure_message", "_caller_hold_message", b"_caller_hold_message", "_caller_hold_music", b"_caller_hold_music", "_caller_reassure_interval_s", b"_caller_reassure_interval_s", "_caller_unreachable_message", b"_caller_unreachable_message", "_confirm_human_before_intro", b"_confirm_human_before_intro", "_decision_timeout_s", b"_decision_timeout_s", "_decline_dtmf", b"_decline_dtmf", "_decline_reason_question", b"_decline_reason_question", "_enabled", b"_enabled", "_intro_prompt", b"_intro_prompt", "_llm_ccai_service_name", b"_llm_ccai_service_name", "_max_intro_duration_s", b"_max_intro_duration_s", "_ready_question", b"_ready_question", "_store_intro_audio", b"_store_intro_audio", "accept_dtmf", b"accept_dtmf", "accept_question", b"accept_question", "apply_to_bot_transfers", b"apply_to_bot_transfers", "callee_description", b"callee_description", "callee_display_name", b"callee_display_name", "caller_accepted_message", b"caller_accepted_message", "caller_declined_message", b"caller_declined_message", "caller_disclosure_message", b"caller_disclosure_message", "caller_hold_message", b"caller_hold_message", "caller_hold_music", b"caller_hold_music", "caller_reassure_interval_s", b"caller_reassure_interval_s", "caller_unreachable_message", b"caller_unreachable_message", "confirm_human_before_intro", b"confirm_human_before_intro", "decision_timeout_s", b"decision_timeout_s", "decline_dtmf", b"decline_dtmf", "decline_reason_question", b"decline_reason_question", "enabled", b"enabled", "intro_prompt", b"intro_prompt", "llm_ccai_service_name", b"llm_ccai_service_name", "max_intro_duration_s", b"max_intro_duration_s", "ready_question", b"ready_question", "store_intro_audio", b"store_intro_audio"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_accept_dtmf", b"_accept_dtmf", "_accept_question", b"_accept_question", "_apply_to_bot_transfers", b"_apply_to_bot_transfers", "_callee_description", b"_callee_description", "_callee_display_name", b"_callee_display_name", "_caller_accepted_message", b"_caller_accepted_message", "_caller_declined_message", b"_caller_declined_message", "_caller_disclosure_message", b"_caller_disclosure_message", "_caller_hold_message", b"_caller_hold_message", "_caller_hold_music", b"_caller_hold_music", "_caller_reassure_interval_s", b"_caller_reassure_interval_s", "_caller_unreachable_message", b"_caller_unreachable_message", "_confirm_human_before_intro", b"_confirm_human_before_intro", "_decision_timeout_s", b"_decision_timeout_s", "_decline_dtmf", b"_decline_dtmf", "_decline_reason_question", b"_decline_reason_question", "_enabled", b"_enabled", "_intro_prompt", b"_intro_prompt", "_llm_ccai_service_name", b"_llm_ccai_service_name", "_max_intro_duration_s", b"_max_intro_duration_s", "_ready_question", b"_ready_question", "_store_intro_audio", b"_store_intro_audio", "accept_dtmf", b"accept_dtmf", "accept_question", b"accept_question", "apply_to_bot_transfers", b"apply_to_bot_transfers", "callee_description", b"callee_description", "callee_display_name", b"callee_display_name", "caller_accepted_message", b"caller_accepted_message", "caller_declined_message", b"caller_declined_message", "caller_disclosure_message", b"caller_disclosure_message", "caller_hold_message", b"caller_hold_message", "caller_hold_music", b"caller_hold_music", "caller_reassure_interval_s", b"caller_reassure_interval_s", "caller_unreachable_message", b"caller_unreachable_message", "confirm_human_before_intro", b"confirm_human_before_intro", "decision_timeout_s", b"decision_timeout_s", "decline_dtmf", b"decline_dtmf", "decline_reason_question", b"decline_reason_question", "enabled", b"enabled", "intro_listener_names", b"intro_listener_names", "intro_prompt", b"intro_prompt", "intro_text_source", b"intro_text_source", "llm_ccai_service_name", b"llm_ccai_service_name", "max_intro_duration_s", b"max_intro_duration_s", "on_intro_unavailable", b"on_intro_unavailable", "ready_question", b"ready_question", "store_intro_audio", b"store_intro_audio"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__accept_dtmf: _TypeAlias = _typing.Literal["accept_dtmf"]  # noqa: Y015
+    _WhichOneofArgType__accept_dtmf: _TypeAlias = _typing.Literal["_accept_dtmf", b"_accept_dtmf"]  # noqa: Y015
+    _WhichOneofReturnType__accept_question: _TypeAlias = _typing.Literal["accept_question"]  # noqa: Y015
+    _WhichOneofArgType__accept_question: _TypeAlias = _typing.Literal["_accept_question", b"_accept_question"]  # noqa: Y015
+    _WhichOneofReturnType__apply_to_bot_transfers: _TypeAlias = _typing.Literal["apply_to_bot_transfers"]  # noqa: Y015
+    _WhichOneofArgType__apply_to_bot_transfers: _TypeAlias = _typing.Literal["_apply_to_bot_transfers", b"_apply_to_bot_transfers"]  # noqa: Y015
+    _WhichOneofReturnType__callee_description: _TypeAlias = _typing.Literal["callee_description"]  # noqa: Y015
+    _WhichOneofArgType__callee_description: _TypeAlias = _typing.Literal["_callee_description", b"_callee_description"]  # noqa: Y015
+    _WhichOneofReturnType__callee_display_name: _TypeAlias = _typing.Literal["callee_display_name"]  # noqa: Y015
+    _WhichOneofArgType__callee_display_name: _TypeAlias = _typing.Literal["_callee_display_name", b"_callee_display_name"]  # noqa: Y015
+    _WhichOneofReturnType__caller_accepted_message: _TypeAlias = _typing.Literal["caller_accepted_message"]  # noqa: Y015
+    _WhichOneofArgType__caller_accepted_message: _TypeAlias = _typing.Literal["_caller_accepted_message", b"_caller_accepted_message"]  # noqa: Y015
+    _WhichOneofReturnType__caller_declined_message: _TypeAlias = _typing.Literal["caller_declined_message"]  # noqa: Y015
+    _WhichOneofArgType__caller_declined_message: _TypeAlias = _typing.Literal["_caller_declined_message", b"_caller_declined_message"]  # noqa: Y015
+    _WhichOneofReturnType__caller_disclosure_message: _TypeAlias = _typing.Literal["caller_disclosure_message"]  # noqa: Y015
+    _WhichOneofArgType__caller_disclosure_message: _TypeAlias = _typing.Literal["_caller_disclosure_message", b"_caller_disclosure_message"]  # noqa: Y015
+    _WhichOneofReturnType__caller_hold_message: _TypeAlias = _typing.Literal["caller_hold_message"]  # noqa: Y015
+    _WhichOneofArgType__caller_hold_message: _TypeAlias = _typing.Literal["_caller_hold_message", b"_caller_hold_message"]  # noqa: Y015
+    _WhichOneofReturnType__caller_hold_music: _TypeAlias = _typing.Literal["caller_hold_music"]  # noqa: Y015
+    _WhichOneofArgType__caller_hold_music: _TypeAlias = _typing.Literal["_caller_hold_music", b"_caller_hold_music"]  # noqa: Y015
+    _WhichOneofReturnType__caller_reassure_interval_s: _TypeAlias = _typing.Literal["caller_reassure_interval_s"]  # noqa: Y015
+    _WhichOneofArgType__caller_reassure_interval_s: _TypeAlias = _typing.Literal["_caller_reassure_interval_s", b"_caller_reassure_interval_s"]  # noqa: Y015
+    _WhichOneofReturnType__caller_unreachable_message: _TypeAlias = _typing.Literal["caller_unreachable_message"]  # noqa: Y015
+    _WhichOneofArgType__caller_unreachable_message: _TypeAlias = _typing.Literal["_caller_unreachable_message", b"_caller_unreachable_message"]  # noqa: Y015
+    _WhichOneofReturnType__confirm_human_before_intro: _TypeAlias = _typing.Literal["confirm_human_before_intro"]  # noqa: Y015
+    _WhichOneofArgType__confirm_human_before_intro: _TypeAlias = _typing.Literal["_confirm_human_before_intro", b"_confirm_human_before_intro"]  # noqa: Y015
+    _WhichOneofReturnType__decision_timeout_s: _TypeAlias = _typing.Literal["decision_timeout_s"]  # noqa: Y015
+    _WhichOneofArgType__decision_timeout_s: _TypeAlias = _typing.Literal["_decision_timeout_s", b"_decision_timeout_s"]  # noqa: Y015
+    _WhichOneofReturnType__decline_dtmf: _TypeAlias = _typing.Literal["decline_dtmf"]  # noqa: Y015
+    _WhichOneofArgType__decline_dtmf: _TypeAlias = _typing.Literal["_decline_dtmf", b"_decline_dtmf"]  # noqa: Y015
+    _WhichOneofReturnType__decline_reason_question: _TypeAlias = _typing.Literal["decline_reason_question"]  # noqa: Y015
+    _WhichOneofArgType__decline_reason_question: _TypeAlias = _typing.Literal["_decline_reason_question", b"_decline_reason_question"]  # noqa: Y015
+    _WhichOneofReturnType__enabled: _TypeAlias = _typing.Literal["enabled"]  # noqa: Y015
+    _WhichOneofArgType__enabled: _TypeAlias = _typing.Literal["_enabled", b"_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__intro_prompt: _TypeAlias = _typing.Literal["intro_prompt"]  # noqa: Y015
+    _WhichOneofArgType__intro_prompt: _TypeAlias = _typing.Literal["_intro_prompt", b"_intro_prompt"]  # noqa: Y015
+    _WhichOneofReturnType__llm_ccai_service_name: _TypeAlias = _typing.Literal["llm_ccai_service_name"]  # noqa: Y015
+    _WhichOneofArgType__llm_ccai_service_name: _TypeAlias = _typing.Literal["_llm_ccai_service_name", b"_llm_ccai_service_name"]  # noqa: Y015
+    _WhichOneofReturnType__max_intro_duration_s: _TypeAlias = _typing.Literal["max_intro_duration_s"]  # noqa: Y015
+    _WhichOneofArgType__max_intro_duration_s: _TypeAlias = _typing.Literal["_max_intro_duration_s", b"_max_intro_duration_s"]  # noqa: Y015
+    _WhichOneofReturnType__ready_question: _TypeAlias = _typing.Literal["ready_question"]  # noqa: Y015
+    _WhichOneofArgType__ready_question: _TypeAlias = _typing.Literal["_ready_question", b"_ready_question"]  # noqa: Y015
+    _WhichOneofReturnType__store_intro_audio: _TypeAlias = _typing.Literal["store_intro_audio"]  # noqa: Y015
+    _WhichOneofArgType__store_intro_audio: _TypeAlias = _typing.Literal["_store_intro_audio", b"_store_intro_audio"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__accept_dtmf) -> _WhichOneofReturnType__accept_dtmf | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__accept_question) -> _WhichOneofReturnType__accept_question | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__apply_to_bot_transfers) -> _WhichOneofReturnType__apply_to_bot_transfers | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__callee_description) -> _WhichOneofReturnType__callee_description | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__callee_display_name) -> _WhichOneofReturnType__callee_display_name | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__caller_accepted_message) -> _WhichOneofReturnType__caller_accepted_message | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__caller_declined_message) -> _WhichOneofReturnType__caller_declined_message | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__caller_disclosure_message) -> _WhichOneofReturnType__caller_disclosure_message | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__caller_hold_message) -> _WhichOneofReturnType__caller_hold_message | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__caller_hold_music) -> _WhichOneofReturnType__caller_hold_music | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__caller_reassure_interval_s) -> _WhichOneofReturnType__caller_reassure_interval_s | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__caller_unreachable_message) -> _WhichOneofReturnType__caller_unreachable_message | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__confirm_human_before_intro) -> _WhichOneofReturnType__confirm_human_before_intro | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__decision_timeout_s) -> _WhichOneofReturnType__decision_timeout_s | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__decline_dtmf) -> _WhichOneofReturnType__decline_dtmf | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__decline_reason_question) -> _WhichOneofReturnType__decline_reason_question | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__enabled) -> _WhichOneofReturnType__enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__intro_prompt) -> _WhichOneofReturnType__intro_prompt | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__llm_ccai_service_name) -> _WhichOneofReturnType__llm_ccai_service_name | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__max_intro_duration_s) -> _WhichOneofReturnType__max_intro_duration_s | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__ready_question) -> _WhichOneofReturnType__ready_question | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__store_intro_audio) -> _WhichOneofReturnType__store_intro_audio | None: ...
 
-global___WarmTransferConfig = WarmTransferConfig
+Global___WarmTransferConfig: _TypeAlias = WarmTransferConfig  # noqa: Y015
 
-@typing.final
-class WarmIntroRecord(google.protobuf.message.Message):
+@_typing.final
+class WarmIntroRecord(_message.Message):
     """<p>Audit of one warm intro, in <code>CallTransferRecord.warm_intro</code>. Output only. Holds NO intro text and NO
     decline reason text.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    INTRO_ID_FIELD_NUMBER: builtins.int
-    DECISION_FIELD_NUMBER: builtins.int
-    DECIDED_BY_FIELD_NUMBER: builtins.int
-    DECLINE_REASON_PRESENT_FIELD_NUMBER: builtins.int
-    INTRO_CALL_NAME_FIELD_NUMBER: builtins.int
-    RING_DURATION_FIELD_NUMBER: builtins.int
-    INTRO_DURATION_FIELD_NUMBER: builtins.int
-    TEXT_SOURCE_FIELD_NUMBER: builtins.int
-    TEXT_FELL_BACK_FIELD_NUMBER: builtins.int
-    CAUSE_FIELD_NUMBER: builtins.int
-    NOTICE_DELIVERED_FIELD_NUMBER: builtins.int
-    INTRO_STARTED_FIELD_NUMBER: builtins.int
-    intro_id: builtins.str
+    INTRO_ID_FIELD_NUMBER: _builtins.int
+    DECISION_FIELD_NUMBER: _builtins.int
+    DECIDED_BY_FIELD_NUMBER: _builtins.int
+    DECLINE_REASON_PRESENT_FIELD_NUMBER: _builtins.int
+    INTRO_CALL_NAME_FIELD_NUMBER: _builtins.int
+    RING_DURATION_FIELD_NUMBER: _builtins.int
+    INTRO_DURATION_FIELD_NUMBER: _builtins.int
+    TEXT_SOURCE_FIELD_NUMBER: _builtins.int
+    TEXT_FELL_BACK_FIELD_NUMBER: _builtins.int
+    CAUSE_FIELD_NUMBER: _builtins.int
+    NOTICE_DELIVERED_FIELD_NUMBER: _builtins.int
+    INTRO_STARTED_FIELD_NUMBER: _builtins.int
+    intro_id: _builtins.str
     """Id of the intro: the participant id of the target&apos;s leg (the <code>participant_id</code> of the events)"""
-    decision: global___WarmIntroDecision.ValueType
+    decision: Global___WarmIntroDecision.ValueType
     """The target&apos;s decision"""
-    decided_by: global___WarmIntroDecidedBy.ValueType
+    decided_by: Global___WarmIntroDecidedBy.ValueType
     """How it was taken"""
-    decline_reason_present: builtins.bool
+    decline_reason_present: _builtins.bool
     """Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU session)"""
-    intro_call_name: builtins.str
+    intro_call_name: _builtins.str
     """The intro bot&apos;s call, labelled <code>{&quot;purpose&quot;: &quot;warm_intro&quot;}</code>. Empty when no
     intro bot answered
     """
-    text_source: global___WarmIntroTextSource.ValueType
+    text_source: Global___WarmIntroTextSource.ValueType
     """The text source actually used"""
-    text_fell_back: builtins.bool
+    text_fell_back: _builtins.bool
     """Whether the LLM summary failed or timed out and the TEMPLATE was used"""
-    cause: builtins.str
+    cause: _builtins.str
     """Bounded kebab-case token naming why the intro ended or did not run, e.g. <code>declined</code>,
     <code>voicemail-suspected</code>, <code>target-hung-up</code>, <code>no-free-listener</code>,
     <code>prepare-failed</code>, <code>intro-timeout</code>; empty on accept
     """
-    notice_delivered: builtins.bool
+    notice_delivered: _builtins.bool
     """Whether the caller&apos;s bot queued the outcome notice (decline / unreachable) for the caller. Only meaningful
     when a notice was owed (every decision but <code>WARM_INTRO_DECISION_ACCEPTED</code>); <code>false</code> there
     goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>
     """
-    intro_started: builtins.bool
+    intro_started: _builtins.bool
     """Whether the intro started (an intro bot answered). <code>false</code> with
     <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code> means the target was joined without an intro;
     <code>cause</code> says why
     """
-    @property
-    def ring_duration(self) -> google.protobuf.duration_pb2.Duration:
+    @_builtins.property
+    def ring_duration(self) -> _duration_pb2.Duration:
         """From the start of the ring to the target&apos;s answer"""
 
-    @property
-    def intro_duration(self) -> google.protobuf.duration_pb2.Duration:
+    @_builtins.property
+    def intro_duration(self) -> _duration_pb2.Duration:
         """From the target&apos;s answer to the decision or the end of the intro"""
 
     def __init__(
         self,
         *,
-        intro_id: builtins.str = ...,
-        decision: global___WarmIntroDecision.ValueType = ...,
-        decided_by: global___WarmIntroDecidedBy.ValueType = ...,
-        decline_reason_present: builtins.bool = ...,
-        intro_call_name: builtins.str = ...,
-        ring_duration: google.protobuf.duration_pb2.Duration | None = ...,
-        intro_duration: google.protobuf.duration_pb2.Duration | None = ...,
-        text_source: global___WarmIntroTextSource.ValueType = ...,
-        text_fell_back: builtins.bool = ...,
-        cause: builtins.str = ...,
-        notice_delivered: builtins.bool = ...,
-        intro_started: builtins.bool = ...,
+        intro_id: _builtins.str = ...,
+        decision: Global___WarmIntroDecision.ValueType = ...,
+        decided_by: Global___WarmIntroDecidedBy.ValueType = ...,
+        decline_reason_present: _builtins.bool = ...,
+        intro_call_name: _builtins.str = ...,
+        ring_duration: _duration_pb2.Duration | None = ...,
+        intro_duration: _duration_pb2.Duration | None = ...,
+        text_source: Global___WarmIntroTextSource.ValueType = ...,
+        text_fell_back: _builtins.bool = ...,
+        cause: _builtins.str = ...,
+        notice_delivered: _builtins.bool = ...,
+        intro_started: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["intro_duration", b"intro_duration", "ring_duration", b"ring_duration"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["cause", b"cause", "decided_by", b"decided_by", "decision", b"decision", "decline_reason_present", b"decline_reason_present", "intro_call_name", b"intro_call_name", "intro_duration", b"intro_duration", "intro_id", b"intro_id", "intro_started", b"intro_started", "notice_delivered", b"notice_delivered", "ring_duration", b"ring_duration", "text_fell_back", b"text_fell_back", "text_source", b"text_source"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["intro_duration", b"intro_duration", "ring_duration", b"ring_duration"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["cause", b"cause", "decided_by", b"decided_by", "decision", b"decision", "decline_reason_present", b"decline_reason_present", "intro_call_name", b"intro_call_name", "intro_duration", b"intro_duration", "intro_id", b"intro_id", "intro_started", b"intro_started", "notice_delivered", b"notice_delivered", "ring_duration", b"ring_duration", "text_fell_back", b"text_fell_back", "text_source", b"text_source"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___WarmIntroRecord = WarmIntroRecord
+Global___WarmIntroRecord: _TypeAlias = WarmIntroRecord  # noqa: Y015
 
-@typing.final
-class TurnDetectionConfig(google.protobuf.message.Message):
+@_typing.final
+class TurnDetectionConfig(_message.Message):
     """Configuration of the turn detection, i.e. deciding when the caller has finished speaking"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _TurnDetectionMode:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TurnDetectionModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TurnDetectionConfig._TurnDetectionMode.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TurnDetectionModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[TurnDetectionConfig._TurnDetectionMode.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         TURN_DETECTION_MODE_UNSPECIFIED: TurnDetectionConfig._TurnDetectionMode.ValueType  # 0
         """Unspecified turn detection mode defaults to SEMANTIC_MODEL"""
         VAD: TurnDetectionConfig._TurnDetectionMode.ValueType  # 1
@@ -964,11 +1063,11 @@ class TurnDetectionConfig(google.protobuf.message.Message):
     """Turn detection based on an audio-native turn detection model"""
 
     class _TurnEagerness:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TurnEagernessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TurnDetectionConfig._TurnEagerness.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TurnEagernessEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[TurnDetectionConfig._TurnEagerness.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         TURN_EAGERNESS_UNSPECIFIED: TurnDetectionConfig._TurnEagerness.ValueType  # 0
         """Unspecified turn eagerness defaults to NORMAL"""
         PATIENT: TurnDetectionConfig._TurnEagerness.ValueType  # 1
@@ -990,15 +1089,15 @@ class TurnDetectionConfig(google.protobuf.message.Message):
     EAGER: TurnDetectionConfig.TurnEagerness.ValueType  # 3
     """Eager turn taking: scales the endpointing delays by a factor of 0.6"""
 
-    @typing.final
-    class EndOfTurnHoldBands(google.protobuf.message.Message):
+    @_typing.final
+    class EndOfTurnHoldBands(_message.Message):
         """Hold bands of the semantic turn detection model"""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        BANDS_FIELD_NUMBER: builtins.int
-        @property
-        def bands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TurnDetectionConfig.EndOfTurnHoldBand]:
+        BANDS_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def bands(self) -> _containers.RepeatedCompositeFieldContainer[Global___TurnDetectionConfig.EndOfTurnHoldBand]:
             """The bands (at most 10). The first band, sorted by <code>upper_probability</code>, whose upper probability
             exceeds the end-of-turn probability decides the hold; a probability above every band is committed at once
             """
@@ -1006,74 +1105,82 @@ class TurnDetectionConfig(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            bands: collections.abc.Iterable[global___TurnDetectionConfig.EndOfTurnHoldBand] | None = ...,
+            bands: _abc.Iterable[Global___TurnDetectionConfig.EndOfTurnHoldBand] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["bands", b"bands"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["bands", b"bands"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class EndOfTurnHoldBand(google.protobuf.message.Message):
+    @_typing.final
+    class EndOfTurnHoldBand(_message.Message):
         """One hold band of the semantic turn detection model"""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        UPPER_PROBABILITY_FIELD_NUMBER: builtins.int
-        MAX_SILENCE_SECONDS_FIELD_NUMBER: builtins.int
-        upper_probability: builtins.float
+        UPPER_PROBABILITY_FIELD_NUMBER: _builtins.int
+        MAX_SILENCE_SECONDS_FIELD_NUMBER: _builtins.int
+        upper_probability: _builtins.float
         """Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1)"""
-        max_silence_seconds: builtins.float
+        max_silence_seconds: _builtins.float
         """Seconds of silence a turn in the band waits before it is committed (valid range: 0 - 4; never longer than
         <code>incomplete_max_silence_seconds</code>)
         """
         def __init__(
             self,
             *,
-            upper_probability: builtins.float = ...,
-            max_silence_seconds: builtins.float = ...,
+            upper_probability: _builtins.float = ...,
+            max_silence_seconds: _builtins.float = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["max_silence_seconds", b"max_silence_seconds", "upper_probability", b"upper_probability"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["max_silence_seconds", b"max_silence_seconds", "upper_probability", b"upper_probability"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    MODE_FIELD_NUMBER: builtins.int
-    MIN_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: builtins.int
-    MAX_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: builtins.int
-    TURN_EAGERNESS_FIELD_NUMBER: builtins.int
-    TURN_DETECTION_SYSTEM_PROMPT_FIELD_NUMBER: builtins.int
-    TURN_DETECTION_USER_PROMPT_FIELD_NUMBER: builtins.int
-    CONVERSATION_CONTEXT_TURNS_FIELD_NUMBER: builtins.int
-    SEMANTIC_MODEL_NAME_FIELD_NUMBER: builtins.int
-    END_OF_TURN_PROBABILITY_THRESHOLD_FIELD_NUMBER: builtins.int
-    HOLD_BANDS_FIELD_NUMBER: builtins.int
-    UNCERTAIN_MIN_WORDS_FIELD_NUMBER: builtins.int
-    INCOMPLETE_MAX_SILENCE_SECONDS_FIELD_NUMBER: builtins.int
-    EXACT_PROBABILITY_FIELD_NUMBER: builtins.int
-    FINAL_MERGE_WINDOW_SECONDS_FIELD_NUMBER: builtins.int
-    DICTATION_CONFIG_FIELD_NUMBER: builtins.int
-    mode: global___TurnDetectionConfig.TurnDetectionMode.ValueType
+    MODE_FIELD_NUMBER: _builtins.int
+    MIN_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: _builtins.int
+    MAX_ENDPOINTING_DELAY_SECONDS_FIELD_NUMBER: _builtins.int
+    TURN_EAGERNESS_FIELD_NUMBER: _builtins.int
+    TURN_DETECTION_SYSTEM_PROMPT_FIELD_NUMBER: _builtins.int
+    TURN_DETECTION_USER_PROMPT_FIELD_NUMBER: _builtins.int
+    CONVERSATION_CONTEXT_TURNS_FIELD_NUMBER: _builtins.int
+    SEMANTIC_MODEL_NAME_FIELD_NUMBER: _builtins.int
+    END_OF_TURN_PROBABILITY_THRESHOLD_FIELD_NUMBER: _builtins.int
+    HOLD_BANDS_FIELD_NUMBER: _builtins.int
+    UNCERTAIN_MIN_WORDS_FIELD_NUMBER: _builtins.int
+    INCOMPLETE_MAX_SILENCE_SECONDS_FIELD_NUMBER: _builtins.int
+    EXACT_PROBABILITY_FIELD_NUMBER: _builtins.int
+    FINAL_MERGE_WINDOW_SECONDS_FIELD_NUMBER: _builtins.int
+    DICTATION_CONFIG_FIELD_NUMBER: _builtins.int
+    mode: Global___TurnDetectionConfig.TurnDetectionMode.ValueType
     """Mode of the turn detection. Defaults to SEMANTIC_MODEL if unspecified"""
-    min_endpointing_delay_seconds: builtins.float
+    min_endpointing_delay_seconds: _builtins.float
     """Optional: Minimum delay in seconds before a confidently detected end of turn is committed
     (default: 0.5, valid range: 0 - 10). When both delays are set, it must not be larger than
     <code>max_endpointing_delay_seconds</code>; a request with min &gt; max, or a value outside the range, is
     refused with <code>INVALID_ARGUMENT</code>
     """
-    max_endpointing_delay_seconds: builtins.float
+    max_endpointing_delay_seconds: _builtins.float
     """Optional: Maximum delay in seconds to wait for an end of turn before the turn is committed
     from the latest stable partial transcription (default: 3.0, valid range: 0 - 10; at least
     <code>min_endpointing_delay_seconds</code> when both are set)
     """
-    turn_eagerness: global___TurnDetectionConfig.TurnEagerness.ValueType
+    turn_eagerness: Global___TurnDetectionConfig.TurnEagerness.ValueType
     """Eagerness of the turn detection: scales both endpointing delays. Defaults to NORMAL if unspecified"""
-    turn_detection_system_prompt: builtins.str
+    turn_detection_system_prompt: _builtins.str
     """Optional: System prompt for the semantic (LLM) turn detection model of the speech-to-text service. Unset uses
     the model&apos;s built-in prompt. Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set
     together with <code>VAD</code> or <code>AUDIO_MODEL</code> it is refused with <code>INVALID_ARGUMENT</code>.
     VTSI enforces no length limit; the speech-to-text service may refuse a prompt that exceeds its model&apos;s
     context
     """
-    turn_detection_user_prompt: builtins.str
+    turn_detection_user_prompt: _builtins.str
     """Optional: User prompt for the semantic (LLM) turn detection model of the speech-to-text service, with the
     rules of <code>turn_detection_system_prompt</code>
     """
-    conversation_context_turns: builtins.int
+    conversation_context_turns: _builtins.int
     """Optional: Number of the latest conversation turns (the caller&apos;s committed turns and the bot&apos;s
     utterances as the caller heard them) handed to the semantic turn detection model of the speech-to-text
     service together with the utterance it judges (default: 0 = off, valid range: 0 - 10). Use it only where
@@ -1082,35 +1189,35 @@ class TurnDetectionConfig(google.protobuf.message.Message):
     unspecified): a value above 0 together with <code>VAD</code> or <code>AUDIO_MODEL</code>, or a value outside
     the range, is refused with <code>INVALID_ARGUMENT</code>
     """
-    semantic_model_name: builtins.str
+    semantic_model_name: _builtins.str
     """Optional: Name of the semantic turn detection model the speech-to-text service asks for this call. Unset uses
     the model configured in the speech-to-text pipeline. The model&apos;s endpoint is deliberately not
     configurable per call. Valid: 1 - 256 characters, no whitespace or control characters. Only valid with the
     mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
     <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
     """
-    end_of_turn_probability_threshold: builtins.float
+    end_of_turn_probability_threshold: _builtins.float
     """Optional: End-of-turn probability at or above which the semantic turn detection model takes the caller to
     have finished the turn (valid range: 0 - 1). Unset uses the speech-to-text service&apos;s configured threshold
     for the language of the call. Used only by an end-of-utterance model; a chat model ignores it. Only valid
     with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
     <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
     """
-    uncertain_min_words: builtins.int
+    uncertain_min_words: _builtins.int
     """Optional: Minimum number of words a turn needs before a hold band may hold it; a shorter turn judged finished
     is committed at once (default: 3, valid range: 0 - 20). Used only by an end-of-utterance model; a chat model
     ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with
     <code>VAD</code> or <code>AUDIO_MODEL</code>, or outside the range, it is refused with
     <code>INVALID_ARGUMENT</code>
     """
-    incomplete_max_silence_seconds: builtins.float
+    incomplete_max_silence_seconds: _builtins.float
     """Optional: Seconds of silence after a turn the semantic turn detection model (of either kind) judged NOT
     finished before it is committed anyway (default: the voice activity detection&apos;s minimum silence, valid
     range: 0 - 4; the speech-to-text service raises a value below that minimum silence to it). Only valid with
     the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
     <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
     """
-    exact_probability: builtins.bool
+    exact_probability: _builtins.bool
     """Optional: Compute the exact end-of-turn probability instead of reading it from the model&apos;s returned top
     log probabilities (default: false). Requires a deployment that returns prompt log probabilities (vLLM
     <code>prompt_logprobs</code>); on any other deployment every turn waits for
@@ -1118,13 +1225,13 @@ class TurnDetectionConfig(google.protobuf.message.Message):
     Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
     <code>AUDIO_MODEL</code> it is refused with <code>INVALID_ARGUMENT</code>
     """
-    final_merge_window_seconds: builtins.float
+    final_merge_window_seconds: _builtins.float
     """Optional: Seconds a speech-to-text final that looks like half a sentence is held, to be merged with the
     caller&apos;s continuation into ONE turn (default: 0 = off, valid range: 0 - 2). Valid with every mode. A value
     outside the range is refused with <code>INVALID_ARGUMENT</code>
     """
-    @property
-    def hold_bands(self) -> global___TurnDetectionConfig.EndOfTurnHoldBands:
+    @_builtins.property
+    def hold_bands(self) -> Global___TurnDetectionConfig.EndOfTurnHoldBands:
         """Optional: Hold bands of the semantic turn detection model: how long a turn judged finished, but only with a
         probability below a band&apos;s upper bound, waits for further silence before it is committed. Set with no
         bands, a turn at or above the threshold is committed at once; unset uses the speech-to-text service&apos;s
@@ -1134,8 +1241,8 @@ class TurnDetectionConfig(google.protobuf.message.Message):
         <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
         """
 
-    @property
-    def dictation_config(self) -> global___DictationConfig:
+    @_builtins.property
+    def dictation_config(self) -> Global___DictationConfig:
         """Configuration of the dictation hold, i.e. waiting for the rest of a dictated value (digits, phone or card
         number, IBAN, address, date, ...) instead of ending the turn at the caller&apos;s pause between its groups.
         Valid with every mode. Unset fields keep the defaults
@@ -1144,117 +1251,145 @@ class TurnDetectionConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        mode: global___TurnDetectionConfig.TurnDetectionMode.ValueType = ...,
-        min_endpointing_delay_seconds: builtins.float | None = ...,
-        max_endpointing_delay_seconds: builtins.float | None = ...,
-        turn_eagerness: global___TurnDetectionConfig.TurnEagerness.ValueType = ...,
-        turn_detection_system_prompt: builtins.str | None = ...,
-        turn_detection_user_prompt: builtins.str | None = ...,
-        conversation_context_turns: builtins.int | None = ...,
-        semantic_model_name: builtins.str | None = ...,
-        end_of_turn_probability_threshold: builtins.float | None = ...,
-        hold_bands: global___TurnDetectionConfig.EndOfTurnHoldBands | None = ...,
-        uncertain_min_words: builtins.int | None = ...,
-        incomplete_max_silence_seconds: builtins.float | None = ...,
-        exact_probability: builtins.bool | None = ...,
-        final_merge_window_seconds: builtins.float | None = ...,
-        dictation_config: global___DictationConfig | None = ...,
+        mode: Global___TurnDetectionConfig.TurnDetectionMode.ValueType = ...,
+        min_endpointing_delay_seconds: _builtins.float | None = ...,
+        max_endpointing_delay_seconds: _builtins.float | None = ...,
+        turn_eagerness: Global___TurnDetectionConfig.TurnEagerness.ValueType = ...,
+        turn_detection_system_prompt: _builtins.str | None = ...,
+        turn_detection_user_prompt: _builtins.str | None = ...,
+        conversation_context_turns: _builtins.int | None = ...,
+        semantic_model_name: _builtins.str | None = ...,
+        end_of_turn_probability_threshold: _builtins.float | None = ...,
+        hold_bands: Global___TurnDetectionConfig.EndOfTurnHoldBands | None = ...,
+        uncertain_min_words: _builtins.int | None = ...,
+        incomplete_max_silence_seconds: _builtins.float | None = ...,
+        exact_probability: _builtins.bool | None = ...,
+        final_merge_window_seconds: _builtins.float | None = ...,
+        dictation_config: Global___DictationConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_semantic_model_name", b"_semantic_model_name", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "semantic_model_name", b"semantic_model_name", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "uncertain_min_words", b"uncertain_min_words"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_semantic_model_name", b"_semantic_model_name", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "mode", b"mode", "semantic_model_name", b"semantic_model_name", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "turn_eagerness", b"turn_eagerness", "uncertain_min_words", b"uncertain_min_words"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_conversation_context_turns", b"_conversation_context_turns"]) -> typing.Literal["conversation_context_turns"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold"]) -> typing.Literal["end_of_turn_probability_threshold"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_exact_probability", b"_exact_probability"]) -> typing.Literal["exact_probability"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_final_merge_window_seconds", b"_final_merge_window_seconds"]) -> typing.Literal["final_merge_window_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds"]) -> typing.Literal["incomplete_max_silence_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds"]) -> typing.Literal["max_endpointing_delay_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds"]) -> typing.Literal["min_endpointing_delay_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_semantic_model_name", b"_semantic_model_name"]) -> typing.Literal["semantic_model_name"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_turn_detection_system_prompt", b"_turn_detection_system_prompt"]) -> typing.Literal["turn_detection_system_prompt"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_turn_detection_user_prompt", b"_turn_detection_user_prompt"]) -> typing.Literal["turn_detection_user_prompt"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_uncertain_min_words", b"_uncertain_min_words"]) -> typing.Literal["uncertain_min_words"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_semantic_model_name", b"_semantic_model_name", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "semantic_model_name", b"semantic_model_name", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "uncertain_min_words", b"uncertain_min_words"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_semantic_model_name", b"_semantic_model_name", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "mode", b"mode", "semantic_model_name", b"semantic_model_name", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "turn_eagerness", b"turn_eagerness", "uncertain_min_words", b"uncertain_min_words"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__conversation_context_turns: _TypeAlias = _typing.Literal["conversation_context_turns"]  # noqa: Y015
+    _WhichOneofArgType__conversation_context_turns: _TypeAlias = _typing.Literal["_conversation_context_turns", b"_conversation_context_turns"]  # noqa: Y015
+    _WhichOneofReturnType__end_of_turn_probability_threshold: _TypeAlias = _typing.Literal["end_of_turn_probability_threshold"]  # noqa: Y015
+    _WhichOneofArgType__end_of_turn_probability_threshold: _TypeAlias = _typing.Literal["_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold"]  # noqa: Y015
+    _WhichOneofReturnType__exact_probability: _TypeAlias = _typing.Literal["exact_probability"]  # noqa: Y015
+    _WhichOneofArgType__exact_probability: _TypeAlias = _typing.Literal["_exact_probability", b"_exact_probability"]  # noqa: Y015
+    _WhichOneofReturnType__final_merge_window_seconds: _TypeAlias = _typing.Literal["final_merge_window_seconds"]  # noqa: Y015
+    _WhichOneofArgType__final_merge_window_seconds: _TypeAlias = _typing.Literal["_final_merge_window_seconds", b"_final_merge_window_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__incomplete_max_silence_seconds: _TypeAlias = _typing.Literal["incomplete_max_silence_seconds"]  # noqa: Y015
+    _WhichOneofArgType__incomplete_max_silence_seconds: _TypeAlias = _typing.Literal["_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__max_endpointing_delay_seconds: _TypeAlias = _typing.Literal["max_endpointing_delay_seconds"]  # noqa: Y015
+    _WhichOneofArgType__max_endpointing_delay_seconds: _TypeAlias = _typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__min_endpointing_delay_seconds: _TypeAlias = _typing.Literal["min_endpointing_delay_seconds"]  # noqa: Y015
+    _WhichOneofArgType__min_endpointing_delay_seconds: _TypeAlias = _typing.Literal["_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__semantic_model_name: _TypeAlias = _typing.Literal["semantic_model_name"]  # noqa: Y015
+    _WhichOneofArgType__semantic_model_name: _TypeAlias = _typing.Literal["_semantic_model_name", b"_semantic_model_name"]  # noqa: Y015
+    _WhichOneofReturnType__turn_detection_system_prompt: _TypeAlias = _typing.Literal["turn_detection_system_prompt"]  # noqa: Y015
+    _WhichOneofArgType__turn_detection_system_prompt: _TypeAlias = _typing.Literal["_turn_detection_system_prompt", b"_turn_detection_system_prompt"]  # noqa: Y015
+    _WhichOneofReturnType__turn_detection_user_prompt: _TypeAlias = _typing.Literal["turn_detection_user_prompt"]  # noqa: Y015
+    _WhichOneofArgType__turn_detection_user_prompt: _TypeAlias = _typing.Literal["_turn_detection_user_prompt", b"_turn_detection_user_prompt"]  # noqa: Y015
+    _WhichOneofReturnType__uncertain_min_words: _TypeAlias = _typing.Literal["uncertain_min_words"]  # noqa: Y015
+    _WhichOneofArgType__uncertain_min_words: _TypeAlias = _typing.Literal["_uncertain_min_words", b"_uncertain_min_words"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__conversation_context_turns) -> _WhichOneofReturnType__conversation_context_turns | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__end_of_turn_probability_threshold) -> _WhichOneofReturnType__end_of_turn_probability_threshold | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__exact_probability) -> _WhichOneofReturnType__exact_probability | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__final_merge_window_seconds) -> _WhichOneofReturnType__final_merge_window_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__incomplete_max_silence_seconds) -> _WhichOneofReturnType__incomplete_max_silence_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__max_endpointing_delay_seconds) -> _WhichOneofReturnType__max_endpointing_delay_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__min_endpointing_delay_seconds) -> _WhichOneofReturnType__min_endpointing_delay_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__semantic_model_name) -> _WhichOneofReturnType__semantic_model_name | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__turn_detection_system_prompt) -> _WhichOneofReturnType__turn_detection_system_prompt | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__turn_detection_user_prompt) -> _WhichOneofReturnType__turn_detection_user_prompt | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__uncertain_min_words) -> _WhichOneofReturnType__uncertain_min_words | None: ...
 
-global___TurnDetectionConfig = TurnDetectionConfig
+Global___TurnDetectionConfig: _TypeAlias = TurnDetectionConfig  # noqa: Y015
 
-@typing.final
-class DictationConfig(google.protobuf.message.Message):
+@_typing.final
+class DictationConfig(_message.Message):
     """Configuration of the dictation hold of a call: a final transcription whose dictated value is not complete yet is
     held until the caller continues, so that the groups of the value reach the NLU as ONE turn. Every unset field
     keeps its default; a field that is out of range is refused with <code>INVALID_ARGUMENT</code>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class HoldMaxSecondsByCategoryEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HoldMaxSecondsByCategoryEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.float
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.float
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: builtins.float = ...,
+            key: _builtins.str = ...,
+            value: _builtins.float = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    HOLD_ENABLED_FIELD_NUMBER: builtins.int
-    EXPECTED_INPUT_ENABLED_FIELD_NUMBER: builtins.int
-    READ_BACK_FROM_BOT_TEXT_ENABLED_FIELD_NUMBER: builtins.int
-    HOLD_GENERIC_MAX_SECONDS_FIELD_NUMBER: builtins.int
-    HOLD_MAX_SECONDS_BY_CATEGORY_FIELD_NUMBER: builtins.int
-    HOLD_INVALID_CHECKSUM_SECONDS_FIELD_NUMBER: builtins.int
-    EARLY_COMMIT_ON_COMPLETE_VALUE_FIELD_NUMBER: builtins.int
-    S2T_SLOT_MIN_DURATION_OFF_SECONDS_FIELD_NUMBER: builtins.int
-    S2T_SLOT_MIN_DURATION_OFF_RESTORE_SECONDS_FIELD_NUMBER: builtins.int
-    hold_enabled: builtins.bool
+    HOLD_ENABLED_FIELD_NUMBER: _builtins.int
+    EXPECTED_INPUT_ENABLED_FIELD_NUMBER: _builtins.int
+    READ_BACK_FROM_BOT_TEXT_ENABLED_FIELD_NUMBER: _builtins.int
+    HOLD_GENERIC_MAX_SECONDS_FIELD_NUMBER: _builtins.int
+    HOLD_MAX_SECONDS_BY_CATEGORY_FIELD_NUMBER: _builtins.int
+    HOLD_INVALID_CHECKSUM_SECONDS_FIELD_NUMBER: _builtins.int
+    EARLY_COMMIT_ON_COMPLETE_VALUE_FIELD_NUMBER: _builtins.int
+    S2T_SLOT_MIN_DURATION_OFF_SECONDS_FIELD_NUMBER: _builtins.int
+    S2T_SLOT_MIN_DURATION_OFF_RESTORE_SECONDS_FIELD_NUMBER: _builtins.int
+    hold_enabled: _builtins.bool
     """Optional: Hold a final transcription whose dictated value is unfinished (default: false)"""
-    expected_input_enabled: builtins.bool
+    expected_input_enabled: _builtins.bool
     """Optional: Read the expected value (slot) from the NLU answer, so that the hold applies the rule of the value
     the bot asked for (default: false; without it only the generic rule holds)
     """
-    read_back_from_bot_text_enabled: builtins.bool
+    read_back_from_bot_text_enabled: _builtins.bool
     """Optional: With <code>expected_input_enabled</code>, take a bot answer that reads a complete value back and asks
     for confirmation as asking for a confirmation of that value (default: false)
     """
-    hold_generic_max_seconds: builtins.float
+    hold_generic_max_seconds: _builtins.float
     """Optional: Seconds the generic rule (no expected value) holds at most (default: 1.5, valid range: 0 - 2;
     0 switches the generic rule off)
     """
-    hold_invalid_checksum_seconds: builtins.float
+    hold_invalid_checksum_seconds: _builtins.float
     """Optional: Seconds a full-length value whose checksum fails is held, so that the bot can ask again
     (default: 1.5, valid range: 0 - 4)
     """
-    early_commit_on_complete_value: builtins.bool
+    early_commit_on_complete_value: _builtins.bool
     """Optional: Commit the turn on a partial transcription as soon as the expected value is complete; needs
     <code>hold_enabled</code> and <code>expected_input_enabled</code> (default: false)
     """
-    s2t_slot_min_duration_off_seconds: builtins.float
+    s2t_slot_min_duration_off_seconds: _builtins.float
     """Optional: Minimum silence in seconds the speech-to-text service waits before it ends an utterance while a value
     is expected (default: 0 = off, valid range: 0 or 0.5 - 4). Only takes effect when a value to restore after the
     turn is known: <code>s2t_slot_min_duration_off_restore_seconds</code> or the minimum silence of the
     speech-to-text configuration
     """
-    s2t_slot_min_duration_off_restore_seconds: builtins.float
+    s2t_slot_min_duration_off_restore_seconds: _builtins.float
     """Optional: Minimum silence in seconds restored on the speech-to-text service after a turn with an expected value
     (default: the minimum silence of the speech-to-text configuration, valid range: 0.05 - 4)
     """
-    @property
-    def hold_max_seconds_by_category(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.float]:
+    @_builtins.property
+    def hold_max_seconds_by_category(self) -> _containers.ScalarMap[_builtins.str, _builtins.float]:
         """Optional: Seconds an unfinished value of a category is held at most, keyed by the category: <code>digits</code>,
         <code>phone</code>, <code>card</code>, <code>expiry_cvc</code>, <code>iban</code>, <code>bic</code>,
         <code>svnr</code>, <code>address</code>, <code>date</code>, <code>time</code>, <code>email</code> or
@@ -1268,83 +1403,101 @@ class DictationConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        hold_enabled: builtins.bool | None = ...,
-        expected_input_enabled: builtins.bool | None = ...,
-        read_back_from_bot_text_enabled: builtins.bool | None = ...,
-        hold_generic_max_seconds: builtins.float | None = ...,
-        hold_max_seconds_by_category: collections.abc.Mapping[builtins.str, builtins.float] | None = ...,
-        hold_invalid_checksum_seconds: builtins.float | None = ...,
-        early_commit_on_complete_value: builtins.bool | None = ...,
-        s2t_slot_min_duration_off_seconds: builtins.float | None = ...,
-        s2t_slot_min_duration_off_restore_seconds: builtins.float | None = ...,
+        hold_enabled: _builtins.bool | None = ...,
+        expected_input_enabled: _builtins.bool | None = ...,
+        read_back_from_bot_text_enabled: _builtins.bool | None = ...,
+        hold_generic_max_seconds: _builtins.float | None = ...,
+        hold_max_seconds_by_category: _abc.Mapping[_builtins.str, _builtins.float] | None = ...,
+        hold_invalid_checksum_seconds: _builtins.float | None = ...,
+        early_commit_on_complete_value: _builtins.bool | None = ...,
+        s2t_slot_min_duration_off_seconds: _builtins.float | None = ...,
+        s2t_slot_min_duration_off_restore_seconds: _builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_early_commit_on_complete_value", b"_early_commit_on_complete_value", "_expected_input_enabled", b"_expected_input_enabled", "_hold_enabled", b"_hold_enabled", "_hold_generic_max_seconds", b"_hold_generic_max_seconds", "_hold_invalid_checksum_seconds", b"_hold_invalid_checksum_seconds", "_read_back_from_bot_text_enabled", b"_read_back_from_bot_text_enabled", "_s2t_slot_min_duration_off_restore_seconds", b"_s2t_slot_min_duration_off_restore_seconds", "_s2t_slot_min_duration_off_seconds", b"_s2t_slot_min_duration_off_seconds", "early_commit_on_complete_value", b"early_commit_on_complete_value", "expected_input_enabled", b"expected_input_enabled", "hold_enabled", b"hold_enabled", "hold_generic_max_seconds", b"hold_generic_max_seconds", "hold_invalid_checksum_seconds", b"hold_invalid_checksum_seconds", "read_back_from_bot_text_enabled", b"read_back_from_bot_text_enabled", "s2t_slot_min_duration_off_restore_seconds", b"s2t_slot_min_duration_off_restore_seconds", "s2t_slot_min_duration_off_seconds", b"s2t_slot_min_duration_off_seconds"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_early_commit_on_complete_value", b"_early_commit_on_complete_value", "_expected_input_enabled", b"_expected_input_enabled", "_hold_enabled", b"_hold_enabled", "_hold_generic_max_seconds", b"_hold_generic_max_seconds", "_hold_invalid_checksum_seconds", b"_hold_invalid_checksum_seconds", "_read_back_from_bot_text_enabled", b"_read_back_from_bot_text_enabled", "_s2t_slot_min_duration_off_restore_seconds", b"_s2t_slot_min_duration_off_restore_seconds", "_s2t_slot_min_duration_off_seconds", b"_s2t_slot_min_duration_off_seconds", "early_commit_on_complete_value", b"early_commit_on_complete_value", "expected_input_enabled", b"expected_input_enabled", "hold_enabled", b"hold_enabled", "hold_generic_max_seconds", b"hold_generic_max_seconds", "hold_invalid_checksum_seconds", b"hold_invalid_checksum_seconds", "hold_max_seconds_by_category", b"hold_max_seconds_by_category", "read_back_from_bot_text_enabled", b"read_back_from_bot_text_enabled", "s2t_slot_min_duration_off_restore_seconds", b"s2t_slot_min_duration_off_restore_seconds", "s2t_slot_min_duration_off_seconds", b"s2t_slot_min_duration_off_seconds"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_early_commit_on_complete_value", b"_early_commit_on_complete_value"]) -> typing.Literal["early_commit_on_complete_value"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_expected_input_enabled", b"_expected_input_enabled"]) -> typing.Literal["expected_input_enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hold_enabled", b"_hold_enabled"]) -> typing.Literal["hold_enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hold_generic_max_seconds", b"_hold_generic_max_seconds"]) -> typing.Literal["hold_generic_max_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hold_invalid_checksum_seconds", b"_hold_invalid_checksum_seconds"]) -> typing.Literal["hold_invalid_checksum_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_read_back_from_bot_text_enabled", b"_read_back_from_bot_text_enabled"]) -> typing.Literal["read_back_from_bot_text_enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_s2t_slot_min_duration_off_restore_seconds", b"_s2t_slot_min_duration_off_restore_seconds"]) -> typing.Literal["s2t_slot_min_duration_off_restore_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_s2t_slot_min_duration_off_seconds", b"_s2t_slot_min_duration_off_seconds"]) -> typing.Literal["s2t_slot_min_duration_off_seconds"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_early_commit_on_complete_value", b"_early_commit_on_complete_value", "_expected_input_enabled", b"_expected_input_enabled", "_hold_enabled", b"_hold_enabled", "_hold_generic_max_seconds", b"_hold_generic_max_seconds", "_hold_invalid_checksum_seconds", b"_hold_invalid_checksum_seconds", "_read_back_from_bot_text_enabled", b"_read_back_from_bot_text_enabled", "_s2t_slot_min_duration_off_restore_seconds", b"_s2t_slot_min_duration_off_restore_seconds", "_s2t_slot_min_duration_off_seconds", b"_s2t_slot_min_duration_off_seconds", "early_commit_on_complete_value", b"early_commit_on_complete_value", "expected_input_enabled", b"expected_input_enabled", "hold_enabled", b"hold_enabled", "hold_generic_max_seconds", b"hold_generic_max_seconds", "hold_invalid_checksum_seconds", b"hold_invalid_checksum_seconds", "read_back_from_bot_text_enabled", b"read_back_from_bot_text_enabled", "s2t_slot_min_duration_off_restore_seconds", b"s2t_slot_min_duration_off_restore_seconds", "s2t_slot_min_duration_off_seconds", b"s2t_slot_min_duration_off_seconds"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_early_commit_on_complete_value", b"_early_commit_on_complete_value", "_expected_input_enabled", b"_expected_input_enabled", "_hold_enabled", b"_hold_enabled", "_hold_generic_max_seconds", b"_hold_generic_max_seconds", "_hold_invalid_checksum_seconds", b"_hold_invalid_checksum_seconds", "_read_back_from_bot_text_enabled", b"_read_back_from_bot_text_enabled", "_s2t_slot_min_duration_off_restore_seconds", b"_s2t_slot_min_duration_off_restore_seconds", "_s2t_slot_min_duration_off_seconds", b"_s2t_slot_min_duration_off_seconds", "early_commit_on_complete_value", b"early_commit_on_complete_value", "expected_input_enabled", b"expected_input_enabled", "hold_enabled", b"hold_enabled", "hold_generic_max_seconds", b"hold_generic_max_seconds", "hold_invalid_checksum_seconds", b"hold_invalid_checksum_seconds", "hold_max_seconds_by_category", b"hold_max_seconds_by_category", "read_back_from_bot_text_enabled", b"read_back_from_bot_text_enabled", "s2t_slot_min_duration_off_restore_seconds", b"s2t_slot_min_duration_off_restore_seconds", "s2t_slot_min_duration_off_seconds", b"s2t_slot_min_duration_off_seconds"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__early_commit_on_complete_value: _TypeAlias = _typing.Literal["early_commit_on_complete_value"]  # noqa: Y015
+    _WhichOneofArgType__early_commit_on_complete_value: _TypeAlias = _typing.Literal["_early_commit_on_complete_value", b"_early_commit_on_complete_value"]  # noqa: Y015
+    _WhichOneofReturnType__expected_input_enabled: _TypeAlias = _typing.Literal["expected_input_enabled"]  # noqa: Y015
+    _WhichOneofArgType__expected_input_enabled: _TypeAlias = _typing.Literal["_expected_input_enabled", b"_expected_input_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__hold_enabled: _TypeAlias = _typing.Literal["hold_enabled"]  # noqa: Y015
+    _WhichOneofArgType__hold_enabled: _TypeAlias = _typing.Literal["_hold_enabled", b"_hold_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__hold_generic_max_seconds: _TypeAlias = _typing.Literal["hold_generic_max_seconds"]  # noqa: Y015
+    _WhichOneofArgType__hold_generic_max_seconds: _TypeAlias = _typing.Literal["_hold_generic_max_seconds", b"_hold_generic_max_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__hold_invalid_checksum_seconds: _TypeAlias = _typing.Literal["hold_invalid_checksum_seconds"]  # noqa: Y015
+    _WhichOneofArgType__hold_invalid_checksum_seconds: _TypeAlias = _typing.Literal["_hold_invalid_checksum_seconds", b"_hold_invalid_checksum_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__read_back_from_bot_text_enabled: _TypeAlias = _typing.Literal["read_back_from_bot_text_enabled"]  # noqa: Y015
+    _WhichOneofArgType__read_back_from_bot_text_enabled: _TypeAlias = _typing.Literal["_read_back_from_bot_text_enabled", b"_read_back_from_bot_text_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__s2t_slot_min_duration_off_restore_seconds: _TypeAlias = _typing.Literal["s2t_slot_min_duration_off_restore_seconds"]  # noqa: Y015
+    _WhichOneofArgType__s2t_slot_min_duration_off_restore_seconds: _TypeAlias = _typing.Literal["_s2t_slot_min_duration_off_restore_seconds", b"_s2t_slot_min_duration_off_restore_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__s2t_slot_min_duration_off_seconds: _TypeAlias = _typing.Literal["s2t_slot_min_duration_off_seconds"]  # noqa: Y015
+    _WhichOneofArgType__s2t_slot_min_duration_off_seconds: _TypeAlias = _typing.Literal["_s2t_slot_min_duration_off_seconds", b"_s2t_slot_min_duration_off_seconds"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__early_commit_on_complete_value) -> _WhichOneofReturnType__early_commit_on_complete_value | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__expected_input_enabled) -> _WhichOneofReturnType__expected_input_enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__hold_enabled) -> _WhichOneofReturnType__hold_enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__hold_generic_max_seconds) -> _WhichOneofReturnType__hold_generic_max_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__hold_invalid_checksum_seconds) -> _WhichOneofReturnType__hold_invalid_checksum_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__read_back_from_bot_text_enabled) -> _WhichOneofReturnType__read_back_from_bot_text_enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__s2t_slot_min_duration_off_restore_seconds) -> _WhichOneofReturnType__s2t_slot_min_duration_off_restore_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__s2t_slot_min_duration_off_seconds) -> _WhichOneofReturnType__s2t_slot_min_duration_off_seconds | None: ...
 
-global___DictationConfig = DictationConfig
+Global___DictationConfig: _TypeAlias = DictationConfig  # noqa: Y015
 
-@typing.final
-class InterruptionHandlingConfig(google.protobuf.message.Message):
+@_typing.final
+class InterruptionHandlingConfig(_message.Message):
     """Configuration of the interruption (barge-in) handling, i.e. the caller speaking while the bot is speaking"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENABLED_FIELD_NUMBER: builtins.int
-    MIN_INTERRUPTION_DURATION_SECONDS_FIELD_NUMBER: builtins.int
-    MIN_INTERRUPTION_WORDS_FIELD_NUMBER: builtins.int
-    FALSE_INTERRUPTION_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
-    RESUME_AFTER_FALSE_INTERRUPTION_FIELD_NUMBER: builtins.int
-    BACKOFF_SECONDS_FIELD_NUMBER: builtins.int
-    FIRST_MESSAGE_PROTECTED_SECONDS_FIELD_NUMBER: builtins.int
-    TRANSCRIBE_ON_DISABLED_INTERRUPTIONS_FIELD_NUMBER: builtins.int
-    INTERRUPTION_FADE_OUT_MS_FIELD_NUMBER: builtins.int
-    enabled: builtins.bool
+    ENABLED_FIELD_NUMBER: _builtins.int
+    MIN_INTERRUPTION_DURATION_SECONDS_FIELD_NUMBER: _builtins.int
+    MIN_INTERRUPTION_WORDS_FIELD_NUMBER: _builtins.int
+    FALSE_INTERRUPTION_TIMEOUT_SECONDS_FIELD_NUMBER: _builtins.int
+    RESUME_AFTER_FALSE_INTERRUPTION_FIELD_NUMBER: _builtins.int
+    BACKOFF_SECONDS_FIELD_NUMBER: _builtins.int
+    FIRST_MESSAGE_PROTECTED_SECONDS_FIELD_NUMBER: _builtins.int
+    TRANSCRIBE_ON_DISABLED_INTERRUPTIONS_FIELD_NUMBER: _builtins.int
+    INTERRUPTION_FADE_OUT_MS_FIELD_NUMBER: _builtins.int
+    enabled: _builtins.bool
     """Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking
     (default: false, i.e. the bot cannot be interrupted)
     """
-    min_interruption_duration_seconds: builtins.float
+    min_interruption_duration_seconds: _builtins.float
     """Optional: Minimum duration in seconds of caller speech while the bot is speaking
     to trigger an interruption (noise gate) (default: 0.5)
     """
-    min_interruption_words: builtins.int
+    min_interruption_words: _builtins.int
     """Optional: Minimum number of transcribed words of caller speech while the bot is speaking
     to trigger an interruption (default: 2)
     """
-    false_interruption_timeout_seconds: builtins.float
+    false_interruption_timeout_seconds: _builtins.float
     """Optional: Time in seconds after an interruption trigger without a committed transcription
     after which the interruption is classified as a false interruption (default: 2.0)
     """
-    resume_after_false_interruption: builtins.bool
+    resume_after_false_interruption: _builtins.bool
     """Optional: Resume the paused bot response after a false interruption,
     e.g. a cough or brief background noise (default: true)
     """
-    backoff_seconds: builtins.float
+    backoff_seconds: _builtins.float
     """Optional: Silence in seconds after a real interruption before the next bot response is played (default: 1.0)"""
-    first_message_protected_seconds: builtins.float
+    first_message_protected_seconds: _builtins.float
     """Optional: Protect the first bot message from interruptions
     for the given number of seconds (default: 0 = no protection)
     """
-    transcribe_on_disabled_interruptions: builtins.bool
+    transcribe_on_disabled_interruptions: _builtins.bool
     """Optional: Transcribe caller speech while the bot is speaking even if interruptions are disabled
     (default: false, i.e. caller speech during bot speech is not transcribed while <code>enabled</code> is false)
     """
-    interruption_fade_out_ms: builtins.int
+    interruption_fade_out_ms: _builtins.int
     """Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
     interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
     A value outside the range is refused with <code>INVALID_ARGUMENT</code>
@@ -1352,132 +1505,168 @@ class InterruptionHandlingConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        enabled: builtins.bool | None = ...,
-        min_interruption_duration_seconds: builtins.float | None = ...,
-        min_interruption_words: builtins.int | None = ...,
-        false_interruption_timeout_seconds: builtins.float | None = ...,
-        resume_after_false_interruption: builtins.bool | None = ...,
-        backoff_seconds: builtins.float | None = ...,
-        first_message_protected_seconds: builtins.float | None = ...,
-        transcribe_on_disabled_interruptions: builtins.bool | None = ...,
-        interruption_fade_out_ms: builtins.int | None = ...,
+        enabled: _builtins.bool | None = ...,
+        min_interruption_duration_seconds: _builtins.float | None = ...,
+        min_interruption_words: _builtins.int | None = ...,
+        false_interruption_timeout_seconds: _builtins.float | None = ...,
+        resume_after_false_interruption: _builtins.bool | None = ...,
+        backoff_seconds: _builtins.float | None = ...,
+        first_message_protected_seconds: _builtins.float | None = ...,
+        transcribe_on_disabled_interruptions: _builtins.bool | None = ...,
+        interruption_fade_out_ms: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_backoff_seconds", b"_backoff_seconds"]) -> typing.Literal["backoff_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds"]) -> typing.Literal["false_interruption_timeout_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_first_message_protected_seconds", b"_first_message_protected_seconds"]) -> typing.Literal["first_message_protected_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_interruption_fade_out_ms", b"_interruption_fade_out_ms"]) -> typing.Literal["interruption_fade_out_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_min_interruption_duration_seconds", b"_min_interruption_duration_seconds"]) -> typing.Literal["min_interruption_duration_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_min_interruption_words", b"_min_interruption_words"]) -> typing.Literal["min_interruption_words"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_resume_after_false_interruption", b"_resume_after_false_interruption"]) -> typing.Literal["resume_after_false_interruption"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions"]) -> typing.Literal["transcribe_on_disabled_interruptions"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__backoff_seconds: _TypeAlias = _typing.Literal["backoff_seconds"]  # noqa: Y015
+    _WhichOneofArgType__backoff_seconds: _TypeAlias = _typing.Literal["_backoff_seconds", b"_backoff_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__enabled: _TypeAlias = _typing.Literal["enabled"]  # noqa: Y015
+    _WhichOneofArgType__enabled: _TypeAlias = _typing.Literal["_enabled", b"_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__false_interruption_timeout_seconds: _TypeAlias = _typing.Literal["false_interruption_timeout_seconds"]  # noqa: Y015
+    _WhichOneofArgType__false_interruption_timeout_seconds: _TypeAlias = _typing.Literal["_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__first_message_protected_seconds: _TypeAlias = _typing.Literal["first_message_protected_seconds"]  # noqa: Y015
+    _WhichOneofArgType__first_message_protected_seconds: _TypeAlias = _typing.Literal["_first_message_protected_seconds", b"_first_message_protected_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__interruption_fade_out_ms: _TypeAlias = _typing.Literal["interruption_fade_out_ms"]  # noqa: Y015
+    _WhichOneofArgType__interruption_fade_out_ms: _TypeAlias = _typing.Literal["_interruption_fade_out_ms", b"_interruption_fade_out_ms"]  # noqa: Y015
+    _WhichOneofReturnType__min_interruption_duration_seconds: _TypeAlias = _typing.Literal["min_interruption_duration_seconds"]  # noqa: Y015
+    _WhichOneofArgType__min_interruption_duration_seconds: _TypeAlias = _typing.Literal["_min_interruption_duration_seconds", b"_min_interruption_duration_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__min_interruption_words: _TypeAlias = _typing.Literal["min_interruption_words"]  # noqa: Y015
+    _WhichOneofArgType__min_interruption_words: _TypeAlias = _typing.Literal["_min_interruption_words", b"_min_interruption_words"]  # noqa: Y015
+    _WhichOneofReturnType__resume_after_false_interruption: _TypeAlias = _typing.Literal["resume_after_false_interruption"]  # noqa: Y015
+    _WhichOneofArgType__resume_after_false_interruption: _TypeAlias = _typing.Literal["_resume_after_false_interruption", b"_resume_after_false_interruption"]  # noqa: Y015
+    _WhichOneofReturnType__transcribe_on_disabled_interruptions: _TypeAlias = _typing.Literal["transcribe_on_disabled_interruptions"]  # noqa: Y015
+    _WhichOneofArgType__transcribe_on_disabled_interruptions: _TypeAlias = _typing.Literal["_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__backoff_seconds) -> _WhichOneofReturnType__backoff_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__enabled) -> _WhichOneofReturnType__enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__false_interruption_timeout_seconds) -> _WhichOneofReturnType__false_interruption_timeout_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__first_message_protected_seconds) -> _WhichOneofReturnType__first_message_protected_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__interruption_fade_out_ms) -> _WhichOneofReturnType__interruption_fade_out_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__min_interruption_duration_seconds) -> _WhichOneofReturnType__min_interruption_duration_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__min_interruption_words) -> _WhichOneofReturnType__min_interruption_words | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__resume_after_false_interruption) -> _WhichOneofReturnType__resume_after_false_interruption | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__transcribe_on_disabled_interruptions) -> _WhichOneofReturnType__transcribe_on_disabled_interruptions | None: ...
 
-global___InterruptionHandlingConfig = InterruptionHandlingConfig
+Global___InterruptionHandlingConfig: _TypeAlias = InterruptionHandlingConfig  # noqa: Y015
 
-@typing.final
-class ResponseTimingConfig(google.protobuf.message.Message):
+@_typing.final
+class ResponseTimingConfig(_message.Message):
     """Configuration of the response timing, i.e. when and how the bot responds"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TURN_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
-    SILENCE_END_CALL_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
-    SOFT_TIMEOUT_CONFIG_FIELD_NUMBER: builtins.int
-    PREEMPTIVE_GENERATION_ENABLED_FIELD_NUMBER: builtins.int
-    T2S_CHUNKED_STREAMING_ENABLED_FIELD_NUMBER: builtins.int
-    turn_timeout_seconds: builtins.float
+    TURN_TIMEOUT_SECONDS_FIELD_NUMBER: _builtins.int
+    SILENCE_END_CALL_TIMEOUT_SECONDS_FIELD_NUMBER: _builtins.int
+    SOFT_TIMEOUT_CONFIG_FIELD_NUMBER: _builtins.int
+    PREEMPTIVE_GENERATION_ENABLED_FIELD_NUMBER: _builtins.int
+    T2S_CHUNKED_STREAMING_ENABLED_FIELD_NUMBER: _builtins.int
+    turn_timeout_seconds: _builtins.float
     """Optional: Seconds of caller silence after a bot response until a follow-up event
     is triggered (default: 20.0, valid range: 1.0 - 30.0)
     """
-    silence_end_call_timeout_seconds: builtins.float
+    silence_end_call_timeout_seconds: _builtins.float
     """Optional: Seconds of caller silence until the call is ended.
     Unset = off (-1 is also accepted as explicit off)
     """
-    preemptive_generation_enabled: builtins.bool
+    preemptive_generation_enabled: _builtins.bool
     """Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
     Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
     setting, which is true unless changed). Still honoured when it is set alone; set together with
     <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
     with <code>INVALID_ARGUMENT</code>
     """
-    t2s_chunked_streaming_enabled: builtins.bool
+    t2s_chunked_streaming_enabled: _builtins.bool
     """Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)"""
-    @property
-    def soft_timeout_config(self) -> global___SoftTimeoutConfig:
+    @_builtins.property
+    def soft_timeout_config(self) -> Global___SoftTimeoutConfig:
         """Configuration of the soft timeout filler messages"""
 
     def __init__(
         self,
         *,
-        turn_timeout_seconds: builtins.float | None = ...,
-        silence_end_call_timeout_seconds: builtins.float | None = ...,
-        soft_timeout_config: global___SoftTimeoutConfig | None = ...,
-        preemptive_generation_enabled: builtins.bool | None = ...,
-        t2s_chunked_streaming_enabled: builtins.bool | None = ...,
+        turn_timeout_seconds: _builtins.float | None = ...,
+        silence_end_call_timeout_seconds: _builtins.float | None = ...,
+        soft_timeout_config: Global___SoftTimeoutConfig | None = ...,
+        preemptive_generation_enabled: _builtins.bool | None = ...,
+        t2s_chunked_streaming_enabled: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled"]) -> typing.Literal["preemptive_generation_enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds"]) -> typing.Literal["silence_end_call_timeout_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled"]) -> typing.Literal["t2s_chunked_streaming_enabled"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_turn_timeout_seconds", b"_turn_timeout_seconds"]) -> typing.Literal["turn_timeout_seconds"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__preemptive_generation_enabled: _TypeAlias = _typing.Literal["preemptive_generation_enabled"]  # noqa: Y015
+    _WhichOneofArgType__preemptive_generation_enabled: _TypeAlias = _typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__silence_end_call_timeout_seconds: _TypeAlias = _typing.Literal["silence_end_call_timeout_seconds"]  # noqa: Y015
+    _WhichOneofArgType__silence_end_call_timeout_seconds: _TypeAlias = _typing.Literal["_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__t2s_chunked_streaming_enabled: _TypeAlias = _typing.Literal["t2s_chunked_streaming_enabled"]  # noqa: Y015
+    _WhichOneofArgType__t2s_chunked_streaming_enabled: _TypeAlias = _typing.Literal["_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__turn_timeout_seconds: _TypeAlias = _typing.Literal["turn_timeout_seconds"]  # noqa: Y015
+    _WhichOneofArgType__turn_timeout_seconds: _TypeAlias = _typing.Literal["_turn_timeout_seconds", b"_turn_timeout_seconds"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__preemptive_generation_enabled) -> _WhichOneofReturnType__preemptive_generation_enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__silence_end_call_timeout_seconds) -> _WhichOneofReturnType__silence_end_call_timeout_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__t2s_chunked_streaming_enabled) -> _WhichOneofReturnType__t2s_chunked_streaming_enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__turn_timeout_seconds) -> _WhichOneofReturnType__turn_timeout_seconds | None: ...
 
-global___ResponseTimingConfig = ResponseTimingConfig
+Global___ResponseTimingConfig: _TypeAlias = ResponseTimingConfig  # noqa: Y015
 
-@typing.final
-class SoftTimeoutConfig(google.protobuf.message.Message):
+@_typing.final
+class SoftTimeoutConfig(_message.Message):
     """Configuration of the soft timeout, i.e. filler messages played
     when the response generation takes longer than the timeout
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
-    MESSAGES_FIELD_NUMBER: builtins.int
-    MAX_PER_GENERATION_FIELD_NUMBER: builtins.int
-    timeout_seconds: builtins.float
+    TIMEOUT_SECONDS_FIELD_NUMBER: _builtins.int
+    MESSAGES_FIELD_NUMBER: _builtins.int
+    MAX_PER_GENERATION_FIELD_NUMBER: _builtins.int
+    timeout_seconds: _builtins.float
     """Optional: Seconds after which a filler message is played while the response is still being generated.
     Unset = off (-1 is also accepted as explicit off). Recommended: 3.0
     """
-    max_per_generation: builtins.int
+    max_per_generation: _builtins.int
     """Optional: Maximum number of filler messages per response generation (default: 1)"""
-    @property
-    def messages(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def messages(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Filler messages, rotated per soft timeout (maximum 7 messages, each 1 - 200 characters)"""
 
     def __init__(
         self,
         *,
-        timeout_seconds: builtins.float | None = ...,
-        messages: collections.abc.Iterable[builtins.str] | None = ...,
-        max_per_generation: builtins.int | None = ...,
+        timeout_seconds: _builtins.float | None = ...,
+        messages: _abc.Iterable[_builtins.str] | None = ...,
+        max_per_generation: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_max_per_generation", b"_max_per_generation", "_timeout_seconds", b"_timeout_seconds", "max_per_generation", b"max_per_generation", "timeout_seconds", b"timeout_seconds"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_max_per_generation", b"_max_per_generation", "_timeout_seconds", b"_timeout_seconds", "max_per_generation", b"max_per_generation", "messages", b"messages", "timeout_seconds", b"timeout_seconds"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_per_generation", b"_max_per_generation"]) -> typing.Literal["max_per_generation"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_timeout_seconds", b"_timeout_seconds"]) -> typing.Literal["timeout_seconds"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_max_per_generation", b"_max_per_generation", "_timeout_seconds", b"_timeout_seconds", "max_per_generation", b"max_per_generation", "timeout_seconds", b"timeout_seconds"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_max_per_generation", b"_max_per_generation", "_timeout_seconds", b"_timeout_seconds", "max_per_generation", b"max_per_generation", "messages", b"messages", "timeout_seconds", b"timeout_seconds"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__max_per_generation: _TypeAlias = _typing.Literal["max_per_generation"]  # noqa: Y015
+    _WhichOneofArgType__max_per_generation: _TypeAlias = _typing.Literal["_max_per_generation", b"_max_per_generation"]  # noqa: Y015
+    _WhichOneofReturnType__timeout_seconds: _TypeAlias = _typing.Literal["timeout_seconds"]  # noqa: Y015
+    _WhichOneofArgType__timeout_seconds: _TypeAlias = _typing.Literal["_timeout_seconds", b"_timeout_seconds"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__max_per_generation) -> _WhichOneofReturnType__max_per_generation | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__timeout_seconds) -> _WhichOneofReturnType__timeout_seconds | None: ...
 
-global___SoftTimeoutConfig = SoftTimeoutConfig
+Global___SoftTimeoutConfig: _TypeAlias = SoftTimeoutConfig  # noqa: Y015
 
-@typing.final
-class AnsweringMachineDetectionConfig(google.protobuf.message.Message):
+@_typing.final
+class AnsweringMachineDetectionConfig(_message.Message):
     """Configuration of the answering machine detection (AMD) of an outbound call, i.e. deciding in the first
     seconds after the callee answered whether a person, an answering machine, a fax, an IVR or a network
     announcement picked up, and hanging up on the non-human ones.
@@ -1503,14 +1692,14 @@ class AnsweringMachineDetectionConfig(google.protobuf.message.Message):
     the callee in many jurisdictions (e.g. in Germany § 7 UWG). HANG_UP is therefore the default action.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _AmdAction:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _AmdActionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AnsweringMachineDetectionConfig._AmdAction.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _AmdActionEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[AnsweringMachineDetectionConfig._AmdAction.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         AMD_ACTION_UNSPECIFIED: AnsweringMachineDetectionConfig._AmdAction.ValueType  # 0
         """Unspecified action defaults to HANG_UP"""
         HANG_UP: AnsweringMachineDetectionConfig._AmdAction.ValueType  # 1
@@ -1553,11 +1742,11 @@ class AnsweringMachineDetectionConfig(google.protobuf.message.Message):
     """
 
     class _AmdSensitivity:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _AmdSensitivityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AnsweringMachineDetectionConfig._AmdSensitivity.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _AmdSensitivityEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[AnsweringMachineDetectionConfig._AmdSensitivity.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         AMD_SENSITIVITY_UNSPECIFIED: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 0
         """Unspecified sensitivity defaults to LOW"""
         LOW: AnsweringMachineDetectionConfig._AmdSensitivity.ValueType  # 1
@@ -1579,105 +1768,105 @@ class AnsweringMachineDetectionConfig(google.protobuf.message.Message):
     HIGH: AnsweringMachineDetectionConfig.AmdSensitivity.ValueType  # 3
     """Most aggressive: detects more machines at a higher risk of hanging up on a person"""
 
-    ACTIVE_FIELD_NUMBER: builtins.int
-    ACTION_FIELD_NUMBER: builtins.int
-    SENSITIVITY_FIELD_NUMBER: builtins.int
-    MAX_DECISION_TIME_MS_FIELD_NUMBER: builtins.int
-    MAX_MACHINE_WAIT_MS_FIELD_NUMBER: builtins.int
-    BEEP_WAIT_AFTER_GREETING_MS_FIELD_NUMBER: builtins.int
-    INITIAL_SILENCE_MS_FIELD_NUMBER: builtins.int
-    MAX_HUMAN_GREETING_MS_FIELD_NUMBER: builtins.int
-    GREETING_END_SILENCE_MS_FIELD_NUMBER: builtins.int
-    BEEP_DETECTION_ACTIVE_FIELD_NUMBER: builtins.int
-    ADDITIONAL_MACHINE_PHRASES_FIELD_NUMBER: builtins.int
-    ADDITIONAL_HUMAN_PHRASES_FIELD_NUMBER: builtins.int
-    HANG_UP_ON_FAX_FIELD_NUMBER: builtins.int
-    HANG_UP_ON_NETWORK_ANNOUNCEMENT_FIELD_NUMBER: builtins.int
-    HANG_UP_ON_IVR_FIELD_NUMBER: builtins.int
-    HANG_UP_ON_CALL_SCREENING_FIELD_NUMBER: builtins.int
-    VOICE_MESSAGE_INTENT_FIELD_NUMBER: builtins.int
-    VOICE_MESSAGE_MAX_BEEP_WAIT_MS_FIELD_NUMBER: builtins.int
-    VOICE_MESSAGE_TIMEOUT_MS_FIELD_NUMBER: builtins.int
-    KEYWORD_DETECTION_ACTIVE_FIELD_NUMBER: builtins.int
-    CADENCE_DETECTION_ACTIVE_FIELD_NUMBER: builtins.int
-    active: builtins.bool
+    ACTIVE_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    SENSITIVITY_FIELD_NUMBER: _builtins.int
+    MAX_DECISION_TIME_MS_FIELD_NUMBER: _builtins.int
+    MAX_MACHINE_WAIT_MS_FIELD_NUMBER: _builtins.int
+    BEEP_WAIT_AFTER_GREETING_MS_FIELD_NUMBER: _builtins.int
+    INITIAL_SILENCE_MS_FIELD_NUMBER: _builtins.int
+    MAX_HUMAN_GREETING_MS_FIELD_NUMBER: _builtins.int
+    GREETING_END_SILENCE_MS_FIELD_NUMBER: _builtins.int
+    BEEP_DETECTION_ACTIVE_FIELD_NUMBER: _builtins.int
+    ADDITIONAL_MACHINE_PHRASES_FIELD_NUMBER: _builtins.int
+    ADDITIONAL_HUMAN_PHRASES_FIELD_NUMBER: _builtins.int
+    HANG_UP_ON_FAX_FIELD_NUMBER: _builtins.int
+    HANG_UP_ON_NETWORK_ANNOUNCEMENT_FIELD_NUMBER: _builtins.int
+    HANG_UP_ON_IVR_FIELD_NUMBER: _builtins.int
+    HANG_UP_ON_CALL_SCREENING_FIELD_NUMBER: _builtins.int
+    VOICE_MESSAGE_INTENT_FIELD_NUMBER: _builtins.int
+    VOICE_MESSAGE_MAX_BEEP_WAIT_MS_FIELD_NUMBER: _builtins.int
+    VOICE_MESSAGE_TIMEOUT_MS_FIELD_NUMBER: _builtins.int
+    KEYWORD_DETECTION_ACTIVE_FIELD_NUMBER: _builtins.int
+    CADENCE_DETECTION_ACTIVE_FIELD_NUMBER: _builtins.int
+    active: _builtins.bool
     """Optional: Master switch of the answering machine detection (default: false)"""
-    action: global___AnsweringMachineDetectionConfig.AmdAction.ValueType
+    action: Global___AnsweringMachineDetectionConfig.AmdAction.ValueType
     """Optional: Action on a non-human verdict (default: HANG_UP)"""
-    sensitivity: global___AnsweringMachineDetectionConfig.AmdSensitivity.ValueType
+    sensitivity: Global___AnsweringMachineDetectionConfig.AmdSensitivity.ValueType
     """Optional: Sensitivity of the detection (default: LOW)"""
-    max_decision_time_ms: builtins.int
+    max_decision_time_ms: _builtins.int
     """Optional: Maximum time in milliseconds after the callee answered to reach a verdict when no
     machine-leaning evidence was seen; the verdict is UNKNOWN when it is reached
     (default: 4000, valid range: 1500 - 10000)
     """
-    max_machine_wait_ms: builtins.int
+    max_machine_wait_ms: _builtins.int
     """Optional: Maximum time in milliseconds after the callee answered to reach a verdict once
     machine-leaning evidence extended the decision window (default: 11000, valid range: 4000 - 20000)
     """
-    beep_wait_after_greeting_ms: builtins.int
+    beep_wait_after_greeting_ms: _builtins.int
     """Optional: Time in milliseconds to wait for a beep after a long greeting ended
     (default: 1500, valid range: 0 - 4000)
     """
-    initial_silence_ms: builtins.int
+    initial_silence_ms: _builtins.int
     """Optional: Silence in milliseconds after the callee answered without any speech, after which the verdict
     is NO_SPEECH, which is treated like a person (default: 3500, valid range: 1000 - 10000)
     """
-    max_human_greeting_ms: builtins.int
+    max_human_greeting_ms: _builtins.int
     """Optional: Continuous speech in milliseconds beyond which a greeting is machine-leaning
     (default: 2400, valid range: 1000 - 6000)
     """
-    greeting_end_silence_ms: builtins.int
+    greeting_end_silence_ms: _builtins.int
     """Optional: Silence in milliseconds after the first speech burst that ends a human greeting
     (default: 900, valid range: 300 - 3000)
     """
-    beep_detection_active: builtins.bool
+    beep_detection_active: _builtins.bool
     """Optional: Enable the tone detector for the beep of an answering machine (default: true)"""
-    hang_up_on_fax: builtins.bool
+    hang_up_on_fax: _builtins.bool
     """Optional: Hang up on a FAX verdict when the action is HANG_UP (default: true)"""
-    hang_up_on_network_announcement: builtins.bool
+    hang_up_on_network_announcement: _builtins.bool
     """Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. "the number is not reachable",
     when the action is HANG_UP (default: true)
     """
-    hang_up_on_ivr: builtins.bool
+    hang_up_on_ivr: _builtins.bool
     """Optional: Hang up on an IVR verdict, i.e. an automated menu, when the action is HANG_UP (default: false)"""
-    hang_up_on_call_screening: builtins.bool
+    hang_up_on_call_screening: _builtins.bool
     """Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of
     the call, when the action is HANG_UP (default: false)
     """
-    voice_message_intent: builtins.str
+    voice_message_intent: _builtins.str
     """Optional: Name of the NLU intent whose fulfillment is the voice message when the action is
     LEAVE_VOICE_MESSAGE; it is triggered once (default: the welcome intent of the NLU project,
     1 - 200 characters when set)
     """
-    voice_message_max_beep_wait_ms: builtins.int
+    voice_message_max_beep_wait_ms: _builtins.int
     """Optional: Maximum time in milliseconds after the verdict to wait for the beep, or for the end of the
     machine greeting, before the voice message is spoken when the action is LEAVE_VOICE_MESSAGE;
     0 speaks immediately (default: 10000, valid range: 0 - 30000)
     """
-    voice_message_timeout_ms: builtins.int
+    voice_message_timeout_ms: _builtins.int
     """Optional: Maximum time in milliseconds after the verdict until the call is hung up when the action is
     LEAVE_VOICE_MESSAGE, also when the voice message has not finished playing
     (default: 30000, valid range: 5000 - 120000)
     """
-    keyword_detection_active: builtins.bool
+    keyword_detection_active: _builtins.bool
     """Optional: Enable the detection of machine and person phrases in the transcribed greeting, i.e. the
     built-in phrase lists plus additional_machine_phrases and additional_human_phrases; turning it off
     removes this evidence and the detection rules that need it (default: true)
     """
-    cadence_detection_active: builtins.bool
+    cadence_detection_active: _builtins.bool
     """Optional: Enable the detection based on the speech and silence cadence of the greeting, e.g. its
     length and the silence after it; turning it off removes this evidence and the detection rules that
     need it (default: true)
     """
-    @property
-    def additional_machine_phrases(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def additional_machine_phrases(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Additional phrases that indicate an answering machine, added to the built-in de and en phrase lists
         (maximum 50 phrases, each 1 - 80 characters)
         """
 
-    @property
-    def additional_human_phrases(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def additional_human_phrases(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Additional phrases that indicate a person, added to the built-in de and en phrase lists
         (maximum 50 phrases, each 1 - 80 characters)
         """
@@ -1685,117 +1874,165 @@ class AnsweringMachineDetectionConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        active: builtins.bool | None = ...,
-        action: global___AnsweringMachineDetectionConfig.AmdAction.ValueType | None = ...,
-        sensitivity: global___AnsweringMachineDetectionConfig.AmdSensitivity.ValueType | None = ...,
-        max_decision_time_ms: builtins.int | None = ...,
-        max_machine_wait_ms: builtins.int | None = ...,
-        beep_wait_after_greeting_ms: builtins.int | None = ...,
-        initial_silence_ms: builtins.int | None = ...,
-        max_human_greeting_ms: builtins.int | None = ...,
-        greeting_end_silence_ms: builtins.int | None = ...,
-        beep_detection_active: builtins.bool | None = ...,
-        additional_machine_phrases: collections.abc.Iterable[builtins.str] | None = ...,
-        additional_human_phrases: collections.abc.Iterable[builtins.str] | None = ...,
-        hang_up_on_fax: builtins.bool | None = ...,
-        hang_up_on_network_announcement: builtins.bool | None = ...,
-        hang_up_on_ivr: builtins.bool | None = ...,
-        hang_up_on_call_screening: builtins.bool | None = ...,
-        voice_message_intent: builtins.str | None = ...,
-        voice_message_max_beep_wait_ms: builtins.int | None = ...,
-        voice_message_timeout_ms: builtins.int | None = ...,
-        keyword_detection_active: builtins.bool | None = ...,
-        cadence_detection_active: builtins.bool | None = ...,
+        active: _builtins.bool | None = ...,
+        action: Global___AnsweringMachineDetectionConfig.AmdAction.ValueType | None = ...,
+        sensitivity: Global___AnsweringMachineDetectionConfig.AmdSensitivity.ValueType | None = ...,
+        max_decision_time_ms: _builtins.int | None = ...,
+        max_machine_wait_ms: _builtins.int | None = ...,
+        beep_wait_after_greeting_ms: _builtins.int | None = ...,
+        initial_silence_ms: _builtins.int | None = ...,
+        max_human_greeting_ms: _builtins.int | None = ...,
+        greeting_end_silence_ms: _builtins.int | None = ...,
+        beep_detection_active: _builtins.bool | None = ...,
+        additional_machine_phrases: _abc.Iterable[_builtins.str] | None = ...,
+        additional_human_phrases: _abc.Iterable[_builtins.str] | None = ...,
+        hang_up_on_fax: _builtins.bool | None = ...,
+        hang_up_on_network_announcement: _builtins.bool | None = ...,
+        hang_up_on_ivr: _builtins.bool | None = ...,
+        hang_up_on_call_screening: _builtins.bool | None = ...,
+        voice_message_intent: _builtins.str | None = ...,
+        voice_message_max_beep_wait_ms: _builtins.int | None = ...,
+        voice_message_timeout_ms: _builtins.int | None = ...,
+        keyword_detection_active: _builtins.bool | None = ...,
+        cadence_detection_active: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_action", b"_action", "_active", b"_active", "_beep_detection_active", b"_beep_detection_active", "_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms", "_cadence_detection_active", b"_cadence_detection_active", "_greeting_end_silence_ms", b"_greeting_end_silence_ms", "_hang_up_on_call_screening", b"_hang_up_on_call_screening", "_hang_up_on_fax", b"_hang_up_on_fax", "_hang_up_on_ivr", b"_hang_up_on_ivr", "_hang_up_on_network_announcement", b"_hang_up_on_network_announcement", "_initial_silence_ms", b"_initial_silence_ms", "_keyword_detection_active", b"_keyword_detection_active", "_max_decision_time_ms", b"_max_decision_time_ms", "_max_human_greeting_ms", b"_max_human_greeting_ms", "_max_machine_wait_ms", b"_max_machine_wait_ms", "_sensitivity", b"_sensitivity", "_voice_message_intent", b"_voice_message_intent", "_voice_message_max_beep_wait_ms", b"_voice_message_max_beep_wait_ms", "_voice_message_timeout_ms", b"_voice_message_timeout_ms", "action", b"action", "active", b"active", "beep_detection_active", b"beep_detection_active", "beep_wait_after_greeting_ms", b"beep_wait_after_greeting_ms", "cadence_detection_active", b"cadence_detection_active", "greeting_end_silence_ms", b"greeting_end_silence_ms", "hang_up_on_call_screening", b"hang_up_on_call_screening", "hang_up_on_fax", b"hang_up_on_fax", "hang_up_on_ivr", b"hang_up_on_ivr", "hang_up_on_network_announcement", b"hang_up_on_network_announcement", "initial_silence_ms", b"initial_silence_ms", "keyword_detection_active", b"keyword_detection_active", "max_decision_time_ms", b"max_decision_time_ms", "max_human_greeting_ms", b"max_human_greeting_ms", "max_machine_wait_ms", b"max_machine_wait_ms", "sensitivity", b"sensitivity", "voice_message_intent", b"voice_message_intent", "voice_message_max_beep_wait_ms", b"voice_message_max_beep_wait_ms", "voice_message_timeout_ms", b"voice_message_timeout_ms"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_action", b"_action", "_active", b"_active", "_beep_detection_active", b"_beep_detection_active", "_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms", "_cadence_detection_active", b"_cadence_detection_active", "_greeting_end_silence_ms", b"_greeting_end_silence_ms", "_hang_up_on_call_screening", b"_hang_up_on_call_screening", "_hang_up_on_fax", b"_hang_up_on_fax", "_hang_up_on_ivr", b"_hang_up_on_ivr", "_hang_up_on_network_announcement", b"_hang_up_on_network_announcement", "_initial_silence_ms", b"_initial_silence_ms", "_keyword_detection_active", b"_keyword_detection_active", "_max_decision_time_ms", b"_max_decision_time_ms", "_max_human_greeting_ms", b"_max_human_greeting_ms", "_max_machine_wait_ms", b"_max_machine_wait_ms", "_sensitivity", b"_sensitivity", "_voice_message_intent", b"_voice_message_intent", "_voice_message_max_beep_wait_ms", b"_voice_message_max_beep_wait_ms", "_voice_message_timeout_ms", b"_voice_message_timeout_ms", "action", b"action", "active", b"active", "additional_human_phrases", b"additional_human_phrases", "additional_machine_phrases", b"additional_machine_phrases", "beep_detection_active", b"beep_detection_active", "beep_wait_after_greeting_ms", b"beep_wait_after_greeting_ms", "cadence_detection_active", b"cadence_detection_active", "greeting_end_silence_ms", b"greeting_end_silence_ms", "hang_up_on_call_screening", b"hang_up_on_call_screening", "hang_up_on_fax", b"hang_up_on_fax", "hang_up_on_ivr", b"hang_up_on_ivr", "hang_up_on_network_announcement", b"hang_up_on_network_announcement", "initial_silence_ms", b"initial_silence_ms", "keyword_detection_active", b"keyword_detection_active", "max_decision_time_ms", b"max_decision_time_ms", "max_human_greeting_ms", b"max_human_greeting_ms", "max_machine_wait_ms", b"max_machine_wait_ms", "sensitivity", b"sensitivity", "voice_message_intent", b"voice_message_intent", "voice_message_max_beep_wait_ms", b"voice_message_max_beep_wait_ms", "voice_message_timeout_ms", b"voice_message_timeout_ms"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_action", b"_action"]) -> typing.Literal["action"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_active", b"_active"]) -> typing.Literal["active"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_beep_detection_active", b"_beep_detection_active"]) -> typing.Literal["beep_detection_active"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms"]) -> typing.Literal["beep_wait_after_greeting_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_cadence_detection_active", b"_cadence_detection_active"]) -> typing.Literal["cadence_detection_active"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_greeting_end_silence_ms", b"_greeting_end_silence_ms"]) -> typing.Literal["greeting_end_silence_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_call_screening", b"_hang_up_on_call_screening"]) -> typing.Literal["hang_up_on_call_screening"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_fax", b"_hang_up_on_fax"]) -> typing.Literal["hang_up_on_fax"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_ivr", b"_hang_up_on_ivr"]) -> typing.Literal["hang_up_on_ivr"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_hang_up_on_network_announcement", b"_hang_up_on_network_announcement"]) -> typing.Literal["hang_up_on_network_announcement"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_initial_silence_ms", b"_initial_silence_ms"]) -> typing.Literal["initial_silence_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_keyword_detection_active", b"_keyword_detection_active"]) -> typing.Literal["keyword_detection_active"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_decision_time_ms", b"_max_decision_time_ms"]) -> typing.Literal["max_decision_time_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_human_greeting_ms", b"_max_human_greeting_ms"]) -> typing.Literal["max_human_greeting_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_max_machine_wait_ms", b"_max_machine_wait_ms"]) -> typing.Literal["max_machine_wait_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sensitivity", b"_sensitivity"]) -> typing.Literal["sensitivity"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_voice_message_intent", b"_voice_message_intent"]) -> typing.Literal["voice_message_intent"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_voice_message_max_beep_wait_ms", b"_voice_message_max_beep_wait_ms"]) -> typing.Literal["voice_message_max_beep_wait_ms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_voice_message_timeout_ms", b"_voice_message_timeout_ms"]) -> typing.Literal["voice_message_timeout_ms"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_action", b"_action", "_active", b"_active", "_beep_detection_active", b"_beep_detection_active", "_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms", "_cadence_detection_active", b"_cadence_detection_active", "_greeting_end_silence_ms", b"_greeting_end_silence_ms", "_hang_up_on_call_screening", b"_hang_up_on_call_screening", "_hang_up_on_fax", b"_hang_up_on_fax", "_hang_up_on_ivr", b"_hang_up_on_ivr", "_hang_up_on_network_announcement", b"_hang_up_on_network_announcement", "_initial_silence_ms", b"_initial_silence_ms", "_keyword_detection_active", b"_keyword_detection_active", "_max_decision_time_ms", b"_max_decision_time_ms", "_max_human_greeting_ms", b"_max_human_greeting_ms", "_max_machine_wait_ms", b"_max_machine_wait_ms", "_sensitivity", b"_sensitivity", "_voice_message_intent", b"_voice_message_intent", "_voice_message_max_beep_wait_ms", b"_voice_message_max_beep_wait_ms", "_voice_message_timeout_ms", b"_voice_message_timeout_ms", "action", b"action", "active", b"active", "beep_detection_active", b"beep_detection_active", "beep_wait_after_greeting_ms", b"beep_wait_after_greeting_ms", "cadence_detection_active", b"cadence_detection_active", "greeting_end_silence_ms", b"greeting_end_silence_ms", "hang_up_on_call_screening", b"hang_up_on_call_screening", "hang_up_on_fax", b"hang_up_on_fax", "hang_up_on_ivr", b"hang_up_on_ivr", "hang_up_on_network_announcement", b"hang_up_on_network_announcement", "initial_silence_ms", b"initial_silence_ms", "keyword_detection_active", b"keyword_detection_active", "max_decision_time_ms", b"max_decision_time_ms", "max_human_greeting_ms", b"max_human_greeting_ms", "max_machine_wait_ms", b"max_machine_wait_ms", "sensitivity", b"sensitivity", "voice_message_intent", b"voice_message_intent", "voice_message_max_beep_wait_ms", b"voice_message_max_beep_wait_ms", "voice_message_timeout_ms", b"voice_message_timeout_ms"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_action", b"_action", "_active", b"_active", "_beep_detection_active", b"_beep_detection_active", "_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms", "_cadence_detection_active", b"_cadence_detection_active", "_greeting_end_silence_ms", b"_greeting_end_silence_ms", "_hang_up_on_call_screening", b"_hang_up_on_call_screening", "_hang_up_on_fax", b"_hang_up_on_fax", "_hang_up_on_ivr", b"_hang_up_on_ivr", "_hang_up_on_network_announcement", b"_hang_up_on_network_announcement", "_initial_silence_ms", b"_initial_silence_ms", "_keyword_detection_active", b"_keyword_detection_active", "_max_decision_time_ms", b"_max_decision_time_ms", "_max_human_greeting_ms", b"_max_human_greeting_ms", "_max_machine_wait_ms", b"_max_machine_wait_ms", "_sensitivity", b"_sensitivity", "_voice_message_intent", b"_voice_message_intent", "_voice_message_max_beep_wait_ms", b"_voice_message_max_beep_wait_ms", "_voice_message_timeout_ms", b"_voice_message_timeout_ms", "action", b"action", "active", b"active", "additional_human_phrases", b"additional_human_phrases", "additional_machine_phrases", b"additional_machine_phrases", "beep_detection_active", b"beep_detection_active", "beep_wait_after_greeting_ms", b"beep_wait_after_greeting_ms", "cadence_detection_active", b"cadence_detection_active", "greeting_end_silence_ms", b"greeting_end_silence_ms", "hang_up_on_call_screening", b"hang_up_on_call_screening", "hang_up_on_fax", b"hang_up_on_fax", "hang_up_on_ivr", b"hang_up_on_ivr", "hang_up_on_network_announcement", b"hang_up_on_network_announcement", "initial_silence_ms", b"initial_silence_ms", "keyword_detection_active", b"keyword_detection_active", "max_decision_time_ms", b"max_decision_time_ms", "max_human_greeting_ms", b"max_human_greeting_ms", "max_machine_wait_ms", b"max_machine_wait_ms", "sensitivity", b"sensitivity", "voice_message_intent", b"voice_message_intent", "voice_message_max_beep_wait_ms", b"voice_message_max_beep_wait_ms", "voice_message_timeout_ms", b"voice_message_timeout_ms"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__action: _TypeAlias = _typing.Literal["action"]  # noqa: Y015
+    _WhichOneofArgType__action: _TypeAlias = _typing.Literal["_action", b"_action"]  # noqa: Y015
+    _WhichOneofReturnType__active: _TypeAlias = _typing.Literal["active"]  # noqa: Y015
+    _WhichOneofArgType__active: _TypeAlias = _typing.Literal["_active", b"_active"]  # noqa: Y015
+    _WhichOneofReturnType__beep_detection_active: _TypeAlias = _typing.Literal["beep_detection_active"]  # noqa: Y015
+    _WhichOneofArgType__beep_detection_active: _TypeAlias = _typing.Literal["_beep_detection_active", b"_beep_detection_active"]  # noqa: Y015
+    _WhichOneofReturnType__beep_wait_after_greeting_ms: _TypeAlias = _typing.Literal["beep_wait_after_greeting_ms"]  # noqa: Y015
+    _WhichOneofArgType__beep_wait_after_greeting_ms: _TypeAlias = _typing.Literal["_beep_wait_after_greeting_ms", b"_beep_wait_after_greeting_ms"]  # noqa: Y015
+    _WhichOneofReturnType__cadence_detection_active: _TypeAlias = _typing.Literal["cadence_detection_active"]  # noqa: Y015
+    _WhichOneofArgType__cadence_detection_active: _TypeAlias = _typing.Literal["_cadence_detection_active", b"_cadence_detection_active"]  # noqa: Y015
+    _WhichOneofReturnType__greeting_end_silence_ms: _TypeAlias = _typing.Literal["greeting_end_silence_ms"]  # noqa: Y015
+    _WhichOneofArgType__greeting_end_silence_ms: _TypeAlias = _typing.Literal["_greeting_end_silence_ms", b"_greeting_end_silence_ms"]  # noqa: Y015
+    _WhichOneofReturnType__hang_up_on_call_screening: _TypeAlias = _typing.Literal["hang_up_on_call_screening"]  # noqa: Y015
+    _WhichOneofArgType__hang_up_on_call_screening: _TypeAlias = _typing.Literal["_hang_up_on_call_screening", b"_hang_up_on_call_screening"]  # noqa: Y015
+    _WhichOneofReturnType__hang_up_on_fax: _TypeAlias = _typing.Literal["hang_up_on_fax"]  # noqa: Y015
+    _WhichOneofArgType__hang_up_on_fax: _TypeAlias = _typing.Literal["_hang_up_on_fax", b"_hang_up_on_fax"]  # noqa: Y015
+    _WhichOneofReturnType__hang_up_on_ivr: _TypeAlias = _typing.Literal["hang_up_on_ivr"]  # noqa: Y015
+    _WhichOneofArgType__hang_up_on_ivr: _TypeAlias = _typing.Literal["_hang_up_on_ivr", b"_hang_up_on_ivr"]  # noqa: Y015
+    _WhichOneofReturnType__hang_up_on_network_announcement: _TypeAlias = _typing.Literal["hang_up_on_network_announcement"]  # noqa: Y015
+    _WhichOneofArgType__hang_up_on_network_announcement: _TypeAlias = _typing.Literal["_hang_up_on_network_announcement", b"_hang_up_on_network_announcement"]  # noqa: Y015
+    _WhichOneofReturnType__initial_silence_ms: _TypeAlias = _typing.Literal["initial_silence_ms"]  # noqa: Y015
+    _WhichOneofArgType__initial_silence_ms: _TypeAlias = _typing.Literal["_initial_silence_ms", b"_initial_silence_ms"]  # noqa: Y015
+    _WhichOneofReturnType__keyword_detection_active: _TypeAlias = _typing.Literal["keyword_detection_active"]  # noqa: Y015
+    _WhichOneofArgType__keyword_detection_active: _TypeAlias = _typing.Literal["_keyword_detection_active", b"_keyword_detection_active"]  # noqa: Y015
+    _WhichOneofReturnType__max_decision_time_ms: _TypeAlias = _typing.Literal["max_decision_time_ms"]  # noqa: Y015
+    _WhichOneofArgType__max_decision_time_ms: _TypeAlias = _typing.Literal["_max_decision_time_ms", b"_max_decision_time_ms"]  # noqa: Y015
+    _WhichOneofReturnType__max_human_greeting_ms: _TypeAlias = _typing.Literal["max_human_greeting_ms"]  # noqa: Y015
+    _WhichOneofArgType__max_human_greeting_ms: _TypeAlias = _typing.Literal["_max_human_greeting_ms", b"_max_human_greeting_ms"]  # noqa: Y015
+    _WhichOneofReturnType__max_machine_wait_ms: _TypeAlias = _typing.Literal["max_machine_wait_ms"]  # noqa: Y015
+    _WhichOneofArgType__max_machine_wait_ms: _TypeAlias = _typing.Literal["_max_machine_wait_ms", b"_max_machine_wait_ms"]  # noqa: Y015
+    _WhichOneofReturnType__sensitivity: _TypeAlias = _typing.Literal["sensitivity"]  # noqa: Y015
+    _WhichOneofArgType__sensitivity: _TypeAlias = _typing.Literal["_sensitivity", b"_sensitivity"]  # noqa: Y015
+    _WhichOneofReturnType__voice_message_intent: _TypeAlias = _typing.Literal["voice_message_intent"]  # noqa: Y015
+    _WhichOneofArgType__voice_message_intent: _TypeAlias = _typing.Literal["_voice_message_intent", b"_voice_message_intent"]  # noqa: Y015
+    _WhichOneofReturnType__voice_message_max_beep_wait_ms: _TypeAlias = _typing.Literal["voice_message_max_beep_wait_ms"]  # noqa: Y015
+    _WhichOneofArgType__voice_message_max_beep_wait_ms: _TypeAlias = _typing.Literal["_voice_message_max_beep_wait_ms", b"_voice_message_max_beep_wait_ms"]  # noqa: Y015
+    _WhichOneofReturnType__voice_message_timeout_ms: _TypeAlias = _typing.Literal["voice_message_timeout_ms"]  # noqa: Y015
+    _WhichOneofArgType__voice_message_timeout_ms: _TypeAlias = _typing.Literal["_voice_message_timeout_ms", b"_voice_message_timeout_ms"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__action) -> _WhichOneofReturnType__action | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__active) -> _WhichOneofReturnType__active | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__beep_detection_active) -> _WhichOneofReturnType__beep_detection_active | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__beep_wait_after_greeting_ms) -> _WhichOneofReturnType__beep_wait_after_greeting_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__cadence_detection_active) -> _WhichOneofReturnType__cadence_detection_active | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__greeting_end_silence_ms) -> _WhichOneofReturnType__greeting_end_silence_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__hang_up_on_call_screening) -> _WhichOneofReturnType__hang_up_on_call_screening | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__hang_up_on_fax) -> _WhichOneofReturnType__hang_up_on_fax | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__hang_up_on_ivr) -> _WhichOneofReturnType__hang_up_on_ivr | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__hang_up_on_network_announcement) -> _WhichOneofReturnType__hang_up_on_network_announcement | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__initial_silence_ms) -> _WhichOneofReturnType__initial_silence_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__keyword_detection_active) -> _WhichOneofReturnType__keyword_detection_active | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__max_decision_time_ms) -> _WhichOneofReturnType__max_decision_time_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__max_human_greeting_ms) -> _WhichOneofReturnType__max_human_greeting_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__max_machine_wait_ms) -> _WhichOneofReturnType__max_machine_wait_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sensitivity) -> _WhichOneofReturnType__sensitivity | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__voice_message_intent) -> _WhichOneofReturnType__voice_message_intent | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__voice_message_max_beep_wait_ms) -> _WhichOneofReturnType__voice_message_max_beep_wait_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__voice_message_timeout_ms) -> _WhichOneofReturnType__voice_message_timeout_ms | None: ...
 
-global___AnsweringMachineDetectionConfig = AnsweringMachineDetectionConfig
+Global___AnsweringMachineDetectionConfig: _TypeAlias = AnsweringMachineDetectionConfig  # noqa: Y015
 
-@typing.final
-class SipBaseConfig(google.protobuf.message.Message):
+@_typing.final
+class SipBaseConfig(_message.Message):
     """The base config is for both the listener and caller. If you only provide it you will get a listener
     You will need to provide <code>SipCallerConfig</code> for the caller
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SIP_SIM_VERSION_FIELD_NUMBER: builtins.int
-    sip_sim_version: builtins.str
+    SIP_SIM_VERSION_FIELD_NUMBER: _builtins.int
+    sip_sim_version: _builtins.str
     """version of sip to use for call, semantic versioning e.g., 1.0.0, 1.1.0-pre-release, etc."""
     def __init__(
         self,
         *,
-        sip_sim_version: builtins.str = ...,
+        sip_sim_version: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["sip_sim_version", b"sip_sim_version"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["sip_sim_version", b"sip_sim_version"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SipBaseConfig = SipBaseConfig
+Global___SipBaseConfig: _TypeAlias = SipBaseConfig  # noqa: Y015
 
-@typing.final
-class SipCallerConfig(google.protobuf.message.Message):
+@_typing.final
+class SipCallerConfig(_message.Message):
     """Configuration of the SIP caller"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class SipHeadersEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class SipHeadersEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
+            key: _builtins.str = ...,
+            value: _builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    SIP_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    CALLEE_ID_FIELD_NUMBER: builtins.int
-    SIP_HEADERS_FIELD_NUMBER: builtins.int
-    callee_id: builtins.str
+    SIP_BASE_CONFIG_FIELD_NUMBER: _builtins.int
+    CALLEE_ID_FIELD_NUMBER: _builtins.int
+    SIP_HEADERS_FIELD_NUMBER: _builtins.int
+    callee_id: _builtins.str
     """The callee to dial: a phone number, e.g. <code>+4365012345678</code>, or a SIP / VoIP id, e.g.
     <code>ondewo0001@ondewo.com</code> or a dialplan extension of the project&apos;s Asterisk. Required, at most
     2048 characters. A value with no letter and no <code>@</code> is a phone number and must match
@@ -1806,12 +2043,12 @@ class SipCallerConfig(google.protobuf.message.Message):
     <code>callee_id</code> is resolved once when the call is added (see
     <code>Campaign.campaign_sip_caller_config</code>).
     """
-    @property
-    def sip_base_config(self) -> global___SipBaseConfig:
+    @_builtins.property
+    def sip_base_config(self) -> Global___SipBaseConfig:
         """SIP configuration"""
 
-    @property
-    def sip_headers(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def sip_headers(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """SIP headers sent on the outbound INVITE, header name to value, e.g.
         <code>{"X-ondewo-phonesystem-call-id": "4711"}</code>. At most 64 entries, otherwise
         <code>INVALID_ARGUMENT</code>. Keys are sent as SIP header names, so they should be valid header names (by
@@ -1824,29 +2061,32 @@ class SipCallerConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        sip_base_config: global___SipBaseConfig | None = ...,
-        callee_id: builtins.str = ...,
-        sip_headers: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
+        sip_base_config: Global___SipBaseConfig | None = ...,
+        callee_id: _builtins.str = ...,
+        sip_headers: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["sip_base_config", b"sip_base_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["callee_id", b"callee_id", "sip_base_config", b"sip_base_config", "sip_headers", b"sip_headers"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["sip_base_config", b"sip_base_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["callee_id", b"callee_id", "sip_base_config", b"sip_base_config", "sip_headers", b"sip_headers"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SipCallerConfig = SipCallerConfig
+Global___SipCallerConfig: _TypeAlias = SipCallerConfig  # noqa: Y015
 
-@typing.final
-class CsiVtsiConfig(google.protobuf.message.Message):
+@_typing.final
+class CsiVtsiConfig(_message.Message):
     """CSI configuration"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    S2T_VTSI_CALLBACKS_FIELD_NUMBER: builtins.int
-    NLU_VTSI_CALLBACKS_FIELD_NUMBER: builtins.int
-    T2S_VTSI_CALLBACKS_FIELD_NUMBER: builtins.int
-    AUDIO_OBJECT_STORE_CONFIG_FIELD_NUMBER: builtins.int
-    MESSAGE_BROKER_CONFIG_FIELD_NUMBER: builtins.int
-    ACTIVATE_CONTROL_MESSAGES_FIELD_NUMBER: builtins.int
-    PREEMPTIVE_GENERATION_CONFIG_FIELD_NUMBER: builtins.int
-    activate_control_messages: builtins.bool
+    S2T_VTSI_CALLBACKS_FIELD_NUMBER: _builtins.int
+    NLU_VTSI_CALLBACKS_FIELD_NUMBER: _builtins.int
+    T2S_VTSI_CALLBACKS_FIELD_NUMBER: _builtins.int
+    AUDIO_OBJECT_STORE_CONFIG_FIELD_NUMBER: _builtins.int
+    MESSAGE_BROKER_CONFIG_FIELD_NUMBER: _builtins.int
+    ACTIVATE_CONTROL_MESSAGES_FIELD_NUMBER: _builtins.int
+    PREEMPTIVE_GENERATION_CONFIG_FIELD_NUMBER: _builtins.int
+    activate_control_messages: _builtins.bool
     """Setting to activate if it is possible to send control messages
     <ul>
       <li>via RabbitMQ to remote control the system</li>
@@ -1859,49 +2099,53 @@ class CsiVtsiConfig(google.protobuf.message.Message):
     <pre><code>false</code></pre> and silently disabled control messages for callers that never
     mentioned them.
     """
-    @property
-    def s2t_vtsi_callbacks(self) -> global___S2tVtsiCallbacks:
+    @_builtins.property
+    def s2t_vtsi_callbacks(self) -> Global___S2tVtsiCallbacks:
         """Callback for the Speech-2-Text platform"""
 
-    @property
-    def nlu_vtsi_callbacks(self) -> global___NluVtsiCallbacks:
+    @_builtins.property
+    def nlu_vtsi_callbacks(self) -> Global___NluVtsiCallbacks:
         """Callback for the NLU platform"""
 
-    @property
-    def t2s_vtsi_callbacks(self) -> global___T2sVtsiCallbacks:
+    @_builtins.property
+    def t2s_vtsi_callbacks(self) -> Global___T2sVtsiCallbacks:
         """Callback for the Text-2-Speech platform"""
 
-    @property
-    def audio_object_store_config(self) -> global___AudioObjectStorageConfig:
+    @_builtins.property
+    def audio_object_store_config(self) -> Global___AudioObjectStorageConfig:
         """Configuration of the Minio Audio Object Store"""
 
-    @property
-    def message_broker_config(self) -> global___MessageBrokerConfig:
+    @_builtins.property
+    def message_broker_config(self) -> Global___MessageBrokerConfig:
         """Configuration of the RabbitMQ Message Broker"""
 
-    @property
-    def preemptive_generation_config(self) -> global___CsiPreemptiveGenerationConfig:
+    @_builtins.property
+    def preemptive_generation_config(self) -> Global___CsiPreemptiveGenerationConfig:
         """Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values"""
 
     def __init__(
         self,
         *,
-        s2t_vtsi_callbacks: global___S2tVtsiCallbacks | None = ...,
-        nlu_vtsi_callbacks: global___NluVtsiCallbacks | None = ...,
-        t2s_vtsi_callbacks: global___T2sVtsiCallbacks | None = ...,
-        audio_object_store_config: global___AudioObjectStorageConfig | None = ...,
-        message_broker_config: global___MessageBrokerConfig | None = ...,
-        activate_control_messages: builtins.bool | None = ...,
-        preemptive_generation_config: global___CsiPreemptiveGenerationConfig | None = ...,
+        s2t_vtsi_callbacks: Global___S2tVtsiCallbacks | None = ...,
+        nlu_vtsi_callbacks: Global___NluVtsiCallbacks | None = ...,
+        t2s_vtsi_callbacks: Global___T2sVtsiCallbacks | None = ...,
+        audio_object_store_config: Global___AudioObjectStorageConfig | None = ...,
+        message_broker_config: Global___MessageBrokerConfig | None = ...,
+        activate_control_messages: _builtins.bool | None = ...,
+        preemptive_generation_config: Global___CsiPreemptiveGenerationConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "preemptive_generation_config", b"preemptive_generation_config", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "preemptive_generation_config", b"preemptive_generation_config", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_control_messages", b"_activate_control_messages"]) -> typing.Literal["activate_control_messages"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "preemptive_generation_config", b"preemptive_generation_config", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_activate_control_messages", b"_activate_control_messages", "activate_control_messages", b"activate_control_messages", "audio_object_store_config", b"audio_object_store_config", "message_broker_config", b"message_broker_config", "nlu_vtsi_callbacks", b"nlu_vtsi_callbacks", "preemptive_generation_config", b"preemptive_generation_config", "s2t_vtsi_callbacks", b"s2t_vtsi_callbacks", "t2s_vtsi_callbacks", b"t2s_vtsi_callbacks"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__activate_control_messages: _TypeAlias = _typing.Literal["activate_control_messages"]  # noqa: Y015
+    _WhichOneofArgType__activate_control_messages: _TypeAlias = _typing.Literal["_activate_control_messages", b"_activate_control_messages"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__activate_control_messages) -> _WhichOneofReturnType__activate_control_messages | None: ...
 
-global___CsiVtsiConfig = CsiVtsiConfig
+Global___CsiVtsiConfig: _TypeAlias = CsiVtsiConfig  # noqa: Y015
 
-@typing.final
-class CsiPreemptiveGenerationConfig(google.protobuf.message.Message):
+@_typing.final
+class CsiPreemptiveGenerationConfig(_message.Message):
     """Preemptive (speculative) generation of the answer: on a stable partial transcription a draft answer is generated
     before the final transcription arrives, and played only when the final transcription matches it; a draft that
     does not match is discarded and the caller hears nothing of it. Every field is optional; an unset field keeps
@@ -1910,16 +2154,16 @@ class CsiPreemptiveGenerationConfig(google.protobuf.message.Message):
     draft with <code>T2sVtsiConfig.preemptive_synthesis_config</code>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENABLED_FIELD_NUMBER: builtins.int
-    COMMIT_WAIT_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
-    enabled: builtins.bool
+    ENABLED_FIELD_NUMBER: _builtins.int
+    COMMIT_WAIT_TIMEOUT_SECONDS_FIELD_NUMBER: _builtins.int
+    enabled: _builtins.bool
     """Optional: Enable preemptive generation (default: the deployment&apos;s setting, which is true unless changed).
     Replaces the deprecated <code>ResponseTimingConfig.preemptive_generation_enabled</code>; set together with it
     to a different value, the request is refused with <code>INVALID_ARGUMENT</code>
     """
-    commit_wait_timeout_seconds: builtins.float
+    commit_wait_timeout_seconds: _builtins.float
     """Optional: Seconds a draft that matches the final transcription may still take before it is discarded and the
     turn is answered normally (default: 3.0, valid range: 0 - 3). While
     <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the commit waits for the whole draft; while it is on,
@@ -1928,186 +2172,222 @@ class CsiPreemptiveGenerationConfig(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        enabled: builtins.bool | None = ...,
-        commit_wait_timeout_seconds: builtins.float | None = ...,
+        enabled: _builtins.bool | None = ...,
+        commit_wait_timeout_seconds: _builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_commit_wait_timeout_seconds", b"_commit_wait_timeout_seconds", "_enabled", b"_enabled", "commit_wait_timeout_seconds", b"commit_wait_timeout_seconds", "enabled", b"enabled"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_commit_wait_timeout_seconds", b"_commit_wait_timeout_seconds", "_enabled", b"_enabled", "commit_wait_timeout_seconds", b"commit_wait_timeout_seconds", "enabled", b"enabled"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_commit_wait_timeout_seconds", b"_commit_wait_timeout_seconds"]) -> typing.Literal["commit_wait_timeout_seconds"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_enabled", b"_enabled"]) -> typing.Literal["enabled"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_commit_wait_timeout_seconds", b"_commit_wait_timeout_seconds", "_enabled", b"_enabled", "commit_wait_timeout_seconds", b"commit_wait_timeout_seconds", "enabled", b"enabled"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_commit_wait_timeout_seconds", b"_commit_wait_timeout_seconds", "_enabled", b"_enabled", "commit_wait_timeout_seconds", b"commit_wait_timeout_seconds", "enabled", b"enabled"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__commit_wait_timeout_seconds: _TypeAlias = _typing.Literal["commit_wait_timeout_seconds"]  # noqa: Y015
+    _WhichOneofArgType__commit_wait_timeout_seconds: _TypeAlias = _typing.Literal["_commit_wait_timeout_seconds", b"_commit_wait_timeout_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__enabled: _TypeAlias = _typing.Literal["enabled"]  # noqa: Y015
+    _WhichOneofArgType__enabled: _TypeAlias = _typing.Literal["_enabled", b"_enabled"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__commit_wait_timeout_seconds) -> _WhichOneofReturnType__commit_wait_timeout_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__enabled) -> _WhichOneofReturnType__enabled | None: ...
 
-global___CsiPreemptiveGenerationConfig = CsiPreemptiveGenerationConfig
+Global___CsiPreemptiveGenerationConfig: _TypeAlias = CsiPreemptiveGenerationConfig  # noqa: Y015
 
-@typing.final
-class AudioObjectStorageConfig(google.protobuf.message.Message):
+@_typing.final
+class AudioObjectStorageConfig(_message.Message):
     """Minio Audio Object Store"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ACTIVATE_AUDIO_OBJECT_STORAGE_FIELD_NUMBER: builtins.int
-    AUDIO_OBJECT_STORAGE_SERVICES_ACTIVATION_CONFIG_FIELD_NUMBER: builtins.int
-    activate_audio_object_storage: builtins.bool
+    ACTIVATE_AUDIO_OBJECT_STORAGE_FIELD_NUMBER: _builtins.int
+    AUDIO_OBJECT_STORAGE_SERVICES_ACTIVATION_CONFIG_FIELD_NUMBER: _builtins.int
+    activate_audio_object_storage: _builtins.bool
     """Audio storage should be activated or not"""
-    @property
-    def audio_object_storage_services_activation_config(self) -> global___AudioObjectStorageServicesActivationConfig:
+    @_builtins.property
+    def audio_object_storage_services_activation_config(self) -> Global___AudioObjectStorageServicesActivationConfig:
         """Configuration of the Minio Audio Object Store"""
 
     def __init__(
         self,
         *,
-        activate_audio_object_storage: builtins.bool | None = ...,
-        audio_object_storage_services_activation_config: global___AudioObjectStorageServicesActivationConfig | None = ...,
+        activate_audio_object_storage: _builtins.bool | None = ...,
+        audio_object_storage_services_activation_config: Global___AudioObjectStorageServicesActivationConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_audio_object_storage", b"_activate_audio_object_storage", "activate_audio_object_storage", b"activate_audio_object_storage", "audio_object_storage_services_activation_config", b"audio_object_storage_services_activation_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_audio_object_storage", b"_activate_audio_object_storage", "activate_audio_object_storage", b"activate_audio_object_storage", "audio_object_storage_services_activation_config", b"audio_object_storage_services_activation_config"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_audio_object_storage", b"_activate_audio_object_storage"]) -> typing.Literal["activate_audio_object_storage"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_activate_audio_object_storage", b"_activate_audio_object_storage", "activate_audio_object_storage", b"activate_audio_object_storage", "audio_object_storage_services_activation_config", b"audio_object_storage_services_activation_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_activate_audio_object_storage", b"_activate_audio_object_storage", "activate_audio_object_storage", b"activate_audio_object_storage", "audio_object_storage_services_activation_config", b"audio_object_storage_services_activation_config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__activate_audio_object_storage: _TypeAlias = _typing.Literal["activate_audio_object_storage"]  # noqa: Y015
+    _WhichOneofArgType__activate_audio_object_storage: _TypeAlias = _typing.Literal["_activate_audio_object_storage", b"_activate_audio_object_storage"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__activate_audio_object_storage) -> _WhichOneofReturnType__activate_audio_object_storage | None: ...
 
-global___AudioObjectStorageConfig = AudioObjectStorageConfig
+Global___AudioObjectStorageConfig: _TypeAlias = AudioObjectStorageConfig  # noqa: Y015
 
-@typing.final
-class AudioObjectStorageServicesActivationConfig(google.protobuf.message.Message):
+@_typing.final
+class AudioObjectStorageServicesActivationConfig(_message.Message):
     """Configuration of the Minio Audio Object Store"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ACTIVATE_S2T_FIELD_NUMBER: builtins.int
-    ACTIVATE_T2S_FIELD_NUMBER: builtins.int
-    activate_s2t: builtins.bool
+    ACTIVATE_S2T_FIELD_NUMBER: _builtins.int
+    ACTIVATE_T2S_FIELD_NUMBER: _builtins.int
+    activate_s2t: _builtins.bool
     """Should audio object store save audio sent to the Speech-2-Text platform"""
-    activate_t2s: builtins.bool
+    activate_t2s: _builtins.bool
     """Should audio object store save audio generated from the Text-2-Speech platform"""
     def __init__(
         self,
         *,
-        activate_s2t: builtins.bool | None = ...,
-        activate_t2s: builtins.bool | None = ...,
+        activate_s2t: _builtins.bool | None = ...,
+        activate_t2s: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_s2t", b"_activate_s2t", "_activate_t2s", b"_activate_t2s", "activate_s2t", b"activate_s2t", "activate_t2s", b"activate_t2s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_s2t", b"_activate_s2t", "_activate_t2s", b"_activate_t2s", "activate_s2t", b"activate_s2t", "activate_t2s", b"activate_t2s"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_s2t", b"_activate_s2t"]) -> typing.Literal["activate_s2t"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_t2s", b"_activate_t2s"]) -> typing.Literal["activate_t2s"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_activate_s2t", b"_activate_s2t", "_activate_t2s", b"_activate_t2s", "activate_s2t", b"activate_s2t", "activate_t2s", b"activate_t2s"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_activate_s2t", b"_activate_s2t", "_activate_t2s", b"_activate_t2s", "activate_s2t", b"activate_s2t", "activate_t2s", b"activate_t2s"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__activate_s2t: _TypeAlias = _typing.Literal["activate_s2t"]  # noqa: Y015
+    _WhichOneofArgType__activate_s2t: _TypeAlias = _typing.Literal["_activate_s2t", b"_activate_s2t"]  # noqa: Y015
+    _WhichOneofReturnType__activate_t2s: _TypeAlias = _typing.Literal["activate_t2s"]  # noqa: Y015
+    _WhichOneofArgType__activate_t2s: _TypeAlias = _typing.Literal["_activate_t2s", b"_activate_t2s"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__activate_s2t) -> _WhichOneofReturnType__activate_s2t | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__activate_t2s) -> _WhichOneofReturnType__activate_t2s | None: ...
 
-global___AudioObjectStorageServicesActivationConfig = AudioObjectStorageServicesActivationConfig
+Global___AudioObjectStorageServicesActivationConfig: _TypeAlias = AudioObjectStorageServicesActivationConfig  # noqa: Y015
 
-@typing.final
-class MessageBrokerConfig(google.protobuf.message.Message):
+@_typing.final
+class MessageBrokerConfig(_message.Message):
     """Configuration of the RabbitMQ Message Broker"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ACTIVATE_MESSAGE_BROKER_FIELD_NUMBER: builtins.int
-    MESSAGE_BROKER_SERVICES_ACTIVATION_CONFIG_FIELD_NUMBER: builtins.int
-    RABBIT_MQ_CONFIG_FIELD_NUMBER: builtins.int
-    activate_message_broker: builtins.bool
+    ACTIVATE_MESSAGE_BROKER_FIELD_NUMBER: _builtins.int
+    MESSAGE_BROKER_SERVICES_ACTIVATION_CONFIG_FIELD_NUMBER: _builtins.int
+    RABBIT_MQ_CONFIG_FIELD_NUMBER: _builtins.int
+    activate_message_broker: _builtins.bool
     """Should the broker be activated or not"""
-    @property
-    def message_broker_services_activation_config(self) -> global___MessageBrokerServicesActivationConfig:
+    @_builtins.property
+    def message_broker_services_activation_config(self) -> Global___MessageBrokerServicesActivationConfig:
         """Configuration of the Broker service activation"""
 
-    @property
-    def rabbit_mq_config(self) -> global___RabbitMqConfig:
+    @_builtins.property
+    def rabbit_mq_config(self) -> Global___RabbitMqConfig:
         """Configuration of the RabbitMQ Message Broker"""
 
     def __init__(
         self,
         *,
-        activate_message_broker: builtins.bool | None = ...,
-        message_broker_services_activation_config: global___MessageBrokerServicesActivationConfig | None = ...,
-        rabbit_mq_config: global___RabbitMqConfig | None = ...,
+        activate_message_broker: _builtins.bool | None = ...,
+        message_broker_services_activation_config: Global___MessageBrokerServicesActivationConfig | None = ...,
+        rabbit_mq_config: Global___RabbitMqConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_message_broker", b"_activate_message_broker", "activate_message_broker", b"activate_message_broker", "message_broker_config", b"message_broker_config", "message_broker_services_activation_config", b"message_broker_services_activation_config", "rabbit_mq_config", b"rabbit_mq_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_message_broker", b"_activate_message_broker", "activate_message_broker", b"activate_message_broker", "message_broker_config", b"message_broker_config", "message_broker_services_activation_config", b"message_broker_services_activation_config", "rabbit_mq_config", b"rabbit_mq_config"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_message_broker", b"_activate_message_broker"]) -> typing.Literal["activate_message_broker"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["message_broker_config", b"message_broker_config"]) -> typing.Literal["rabbit_mq_config"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_activate_message_broker", b"_activate_message_broker", "activate_message_broker", b"activate_message_broker", "message_broker_config", b"message_broker_config", "message_broker_services_activation_config", b"message_broker_services_activation_config", "rabbit_mq_config", b"rabbit_mq_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_activate_message_broker", b"_activate_message_broker", "activate_message_broker", b"activate_message_broker", "message_broker_config", b"message_broker_config", "message_broker_services_activation_config", b"message_broker_services_activation_config", "rabbit_mq_config", b"rabbit_mq_config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__activate_message_broker: _TypeAlias = _typing.Literal["activate_message_broker"]  # noqa: Y015
+    _WhichOneofArgType__activate_message_broker: _TypeAlias = _typing.Literal["_activate_message_broker", b"_activate_message_broker"]  # noqa: Y015
+    _WhichOneofReturnType_message_broker_config: _TypeAlias = _typing.Literal["rabbit_mq_config"]  # noqa: Y015
+    _WhichOneofArgType_message_broker_config: _TypeAlias = _typing.Literal["message_broker_config", b"message_broker_config"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__activate_message_broker) -> _WhichOneofReturnType__activate_message_broker | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_message_broker_config) -> _WhichOneofReturnType_message_broker_config | None: ...
 
-global___MessageBrokerConfig = MessageBrokerConfig
+Global___MessageBrokerConfig: _TypeAlias = MessageBrokerConfig  # noqa: Y015
 
-@typing.final
-class MessageBrokerServicesActivationConfig(google.protobuf.message.Message):
+@_typing.final
+class MessageBrokerServicesActivationConfig(_message.Message):
     """Configuration of the RabbitMQ Message Broker"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ACTIVATE_S2T_FIELD_NUMBER: builtins.int
-    ACTIVATE_NLU_FIELD_NUMBER: builtins.int
-    ACTIVATE_T2S_FIELD_NUMBER: builtins.int
-    ACTIVATE_SIP_FIELD_NUMBER: builtins.int
-    activate_s2t: builtins.bool
+    ACTIVATE_S2T_FIELD_NUMBER: _builtins.int
+    ACTIVATE_NLU_FIELD_NUMBER: _builtins.int
+    ACTIVATE_T2S_FIELD_NUMBER: _builtins.int
+    ACTIVATE_SIP_FIELD_NUMBER: _builtins.int
+    activate_s2t: _builtins.bool
     """should RabbitMQ Message Broker be activated for Speech-2-Text platform"""
-    activate_nlu: builtins.bool
+    activate_nlu: _builtins.bool
     """should RabbitMQ Message Broker be activated for NLU platform"""
-    activate_t2s: builtins.bool
+    activate_t2s: _builtins.bool
     """should RabbitMQ Message Broker be activated for Text-2-Speech platform"""
-    activate_sip: builtins.bool
+    activate_sip: _builtins.bool
     """should RabbitMQ Message Broker be activated for SIP platform"""
     def __init__(
         self,
         *,
-        activate_s2t: builtins.bool | None = ...,
-        activate_nlu: builtins.bool | None = ...,
-        activate_t2s: builtins.bool | None = ...,
-        activate_sip: builtins.bool | None = ...,
+        activate_s2t: _builtins.bool | None = ...,
+        activate_nlu: _builtins.bool | None = ...,
+        activate_t2s: _builtins.bool | None = ...,
+        activate_sip: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_activate_nlu", b"_activate_nlu", "_activate_s2t", b"_activate_s2t", "_activate_sip", b"_activate_sip", "_activate_t2s", b"_activate_t2s", "activate_nlu", b"activate_nlu", "activate_s2t", b"activate_s2t", "activate_sip", b"activate_sip", "activate_t2s", b"activate_t2s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_activate_nlu", b"_activate_nlu", "_activate_s2t", b"_activate_s2t", "_activate_sip", b"_activate_sip", "_activate_t2s", b"_activate_t2s", "activate_nlu", b"activate_nlu", "activate_s2t", b"activate_s2t", "activate_sip", b"activate_sip", "activate_t2s", b"activate_t2s"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_nlu", b"_activate_nlu"]) -> typing.Literal["activate_nlu"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_s2t", b"_activate_s2t"]) -> typing.Literal["activate_s2t"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_sip", b"_activate_sip"]) -> typing.Literal["activate_sip"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_activate_t2s", b"_activate_t2s"]) -> typing.Literal["activate_t2s"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_activate_nlu", b"_activate_nlu", "_activate_s2t", b"_activate_s2t", "_activate_sip", b"_activate_sip", "_activate_t2s", b"_activate_t2s", "activate_nlu", b"activate_nlu", "activate_s2t", b"activate_s2t", "activate_sip", b"activate_sip", "activate_t2s", b"activate_t2s"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_activate_nlu", b"_activate_nlu", "_activate_s2t", b"_activate_s2t", "_activate_sip", b"_activate_sip", "_activate_t2s", b"_activate_t2s", "activate_nlu", b"activate_nlu", "activate_s2t", b"activate_s2t", "activate_sip", b"activate_sip", "activate_t2s", b"activate_t2s"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__activate_nlu: _TypeAlias = _typing.Literal["activate_nlu"]  # noqa: Y015
+    _WhichOneofArgType__activate_nlu: _TypeAlias = _typing.Literal["_activate_nlu", b"_activate_nlu"]  # noqa: Y015
+    _WhichOneofReturnType__activate_s2t: _TypeAlias = _typing.Literal["activate_s2t"]  # noqa: Y015
+    _WhichOneofArgType__activate_s2t: _TypeAlias = _typing.Literal["_activate_s2t", b"_activate_s2t"]  # noqa: Y015
+    _WhichOneofReturnType__activate_sip: _TypeAlias = _typing.Literal["activate_sip"]  # noqa: Y015
+    _WhichOneofArgType__activate_sip: _TypeAlias = _typing.Literal["_activate_sip", b"_activate_sip"]  # noqa: Y015
+    _WhichOneofReturnType__activate_t2s: _TypeAlias = _typing.Literal["activate_t2s"]  # noqa: Y015
+    _WhichOneofArgType__activate_t2s: _TypeAlias = _typing.Literal["_activate_t2s", b"_activate_t2s"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__activate_nlu) -> _WhichOneofReturnType__activate_nlu | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__activate_s2t) -> _WhichOneofReturnType__activate_s2t | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__activate_sip) -> _WhichOneofReturnType__activate_sip | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__activate_t2s) -> _WhichOneofReturnType__activate_t2s | None: ...
 
-global___MessageBrokerServicesActivationConfig = MessageBrokerServicesActivationConfig
+Global___MessageBrokerServicesActivationConfig: _TypeAlias = MessageBrokerServicesActivationConfig  # noqa: Y015
 
-@typing.final
-class RabbitMqConfig(google.protobuf.message.Message):
+@_typing.final
+class RabbitMqConfig(_message.Message):
     """Configuration of the RabbitMQ Message Broker"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    HOST_FIELD_NUMBER: builtins.int
-    PORT_FIELD_NUMBER: builtins.int
-    PORT_2_FIELD_NUMBER: builtins.int
-    USER_FIELD_NUMBER: builtins.int
-    PASSWORD_FIELD_NUMBER: builtins.int
-    host: builtins.str
+    HOST_FIELD_NUMBER: _builtins.int
+    PORT_FIELD_NUMBER: _builtins.int
+    PORT_2_FIELD_NUMBER: _builtins.int
+    USER_FIELD_NUMBER: _builtins.int
+    PASSWORD_FIELD_NUMBER: _builtins.int
+    host: _builtins.str
     """host where the rabbit mq server runs"""
-    port: builtins.int
+    port: _builtins.int
     """AMQP port of the RabbitMQ server (typically <code>5672</code>), 1 to 65535; used for the messages and for the
     connectivity check at start. 0 or below is <code>INVALID_ARGUMENT</code>
     """
-    port_2: builtins.int
+    port_2: _builtins.int
     """Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. It is passed to
     the call&apos;s CSI process as <code>RABBIT_PORT_2</code> and is not used for the connectivity check. 0 or below
     is <code>INVALID_ARGUMENT</code>
     """
-    user: builtins.str
+    user: _builtins.str
     """user of server"""
-    password: builtins.str
+    password: _builtins.str
     """password of server"""
     def __init__(
         self,
         *,
-        host: builtins.str = ...,
-        port: builtins.int = ...,
-        port_2: builtins.int = ...,
-        user: builtins.str = ...,
-        password: builtins.str = ...,
+        host: _builtins.str = ...,
+        port: _builtins.int = ...,
+        port_2: _builtins.int = ...,
+        user: _builtins.str = ...,
+        password: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["host", b"host", "password", b"password", "port", b"port", "port_2", b"port_2", "user", b"user"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["host", b"host", "password", b"password", "port", b"port", "port_2", b"port_2", "user", b"user"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RabbitMqConfig = RabbitMqConfig
+Global___RabbitMqConfig: _TypeAlias = RabbitMqConfig  # noqa: Y015
 
-@typing.final
-class S2tVtsiCallbacks(google.protobuf.message.Message):
+@_typing.final
+class S2tVtsiCallbacks(_message.Message):
     """Callbacks for the Speech-2-Text platform.
     <p>Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The
     callbacks are accepted and validated but currently NOT executed: no component of the call consumes them. The
@@ -2115,30 +2395,34 @@ class S2tVtsiCallbacks(google.protobuf.message.Message):
     documented then; do not rely on any effect.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PRE_S2T_CALLBACKS_FIELD_NUMBER: builtins.int
-    POST_S2T_CALLBACKS_FIELD_NUMBER: builtins.int
-    @property
-    def pre_s2t_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    PRE_S2T_CALLBACKS_FIELD_NUMBER: _builtins.int
+    POST_S2T_CALLBACKS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def pre_s2t_callbacks(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Callback executed before the Speech-2-Text will be called"""
 
-    @property
-    def post_s2t_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def post_s2t_callbacks(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Callback executed after the Speech-2-Text has been called"""
 
     def __init__(
         self,
         *,
-        pre_s2t_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
-        post_s2t_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
+        pre_s2t_callbacks: _abc.Iterable[_builtins.str] | None = ...,
+        post_s2t_callbacks: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["post_s2t_callbacks", b"post_s2t_callbacks", "pre_s2t_callbacks", b"pre_s2t_callbacks"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["post_s2t_callbacks", b"post_s2t_callbacks", "pre_s2t_callbacks", b"pre_s2t_callbacks"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___S2tVtsiCallbacks = S2tVtsiCallbacks
+Global___S2tVtsiCallbacks: _TypeAlias = S2tVtsiCallbacks  # noqa: Y015
 
-@typing.final
-class NluVtsiCallbacks(google.protobuf.message.Message):
+@_typing.final
+class NluVtsiCallbacks(_message.Message):
     """Callbacks for the NLU platform.
     <p>Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The
     callbacks are accepted and validated but currently NOT executed: no component of the call consumes them. The
@@ -2146,30 +2430,34 @@ class NluVtsiCallbacks(google.protobuf.message.Message):
     documented then; do not rely on any effect.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PRE_NLU_CALLBACKS_FIELD_NUMBER: builtins.int
-    POST_NLU_CALLBACKS_FIELD_NUMBER: builtins.int
-    @property
-    def pre_nlu_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    PRE_NLU_CALLBACKS_FIELD_NUMBER: _builtins.int
+    POST_NLU_CALLBACKS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def pre_nlu_callbacks(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Callback executed before the NLU will be called"""
 
-    @property
-    def post_nlu_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def post_nlu_callbacks(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Callback executed after the NLU has been called"""
 
     def __init__(
         self,
         *,
-        pre_nlu_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
-        post_nlu_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
+        pre_nlu_callbacks: _abc.Iterable[_builtins.str] | None = ...,
+        post_nlu_callbacks: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["post_nlu_callbacks", b"post_nlu_callbacks", "pre_nlu_callbacks", b"pre_nlu_callbacks"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["post_nlu_callbacks", b"post_nlu_callbacks", "pre_nlu_callbacks", b"pre_nlu_callbacks"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___NluVtsiCallbacks = NluVtsiCallbacks
+Global___NluVtsiCallbacks: _TypeAlias = NluVtsiCallbacks  # noqa: Y015
 
-@typing.final
-class T2sVtsiCallbacks(google.protobuf.message.Message):
+@_typing.final
+class T2sVtsiCallbacks(_message.Message):
     """Callbacks for the Text-2-Speech platform.
     <p>Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The
     callbacks are accepted and validated but currently NOT executed: no component of the call consumes them. The
@@ -2177,24 +2465,28 @@ class T2sVtsiCallbacks(google.protobuf.message.Message):
     documented then; do not rely on any effect.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PRE_T2S_CALLBACKS_FIELD_NUMBER: builtins.int
-    POST_T2S_CALLBACKS_FIELD_NUMBER: builtins.int
-    @property
-    def pre_t2s_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    PRE_T2S_CALLBACKS_FIELD_NUMBER: _builtins.int
+    POST_T2S_CALLBACKS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def pre_t2s_callbacks(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Callback executed before the Text-2-Speech will be called"""
 
-    @property
-    def post_t2s_callbacks(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def post_t2s_callbacks(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Callback executed after the Text-2-Speech has been called"""
 
     def __init__(
         self,
         *,
-        pre_t2s_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
-        post_t2s_callbacks: collections.abc.Iterable[builtins.str] | None = ...,
+        pre_t2s_callbacks: _abc.Iterable[_builtins.str] | None = ...,
+        post_t2s_callbacks: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["post_t2s_callbacks", b"post_t2s_callbacks", "pre_t2s_callbacks", b"pre_t2s_callbacks"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["post_t2s_callbacks", b"post_t2s_callbacks", "pre_t2s_callbacks", b"pre_t2s_callbacks"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___T2sVtsiCallbacks = T2sVtsiCallbacks
+Global___T2sVtsiCallbacks: _TypeAlias = T2sVtsiCallbacks  # noqa: Y015

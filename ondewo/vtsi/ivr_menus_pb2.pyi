@@ -16,32 +16,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.field_mask_pb2
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import google.protobuf.timestamp_pb2
-import ondewo.vtsi.calls_pb2
-import ondewo.vtsi.campaigns_pb2
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import field_mask_pb2 as _field_mask_pb2
+from google.protobuf import message as _message
+from google.protobuf import timestamp_pb2 as _timestamp_pb2
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from ondewo.vtsi import calls_pb2 as _calls_pb2
+from ondewo.vtsi import campaigns_pb2 as _campaigns_pb2
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _IvrNodeType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _IvrNodeTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IvrNodeType.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _IvrNodeTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IvrNodeType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     IVR_NODE_TYPE_UNSPECIFIED: _IvrNodeType.ValueType  # 0
     """Not allowed"""
     IVR_NODE_TYPE_MENU: _IvrNodeType.ValueType  # 1
@@ -74,14 +74,14 @@ IVR_NODE_TYPE_SCHEDULE: IvrNodeType.ValueType  # 5
 """Opening hours: <code>next_node_id</code> inside, <code>closed_next_node_id</code> outside"""
 IVR_NODE_TYPE_GOTO_MENU: IvrNodeType.ValueType  # 6
 """Continue in another published menu of the project (<code>goto_menu_name</code>)"""
-global___IvrNodeType = IvrNodeType
+Global___IvrNodeType: _TypeAlias = IvrNodeType  # noqa: Y015
 
 class _IvrMenuState:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _IvrMenuStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IvrMenuState.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _IvrMenuStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IvrMenuState.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     IVR_MENU_STATE_UNSPECIFIED: _IvrMenuState.ValueType  # 0
     """Not set"""
     IVR_MENU_STATE_DRAFT: _IvrMenuState.ValueType  # 1
@@ -102,14 +102,14 @@ IVR_MENU_STATE_PUBLISHED: IvrMenuState.ValueType  # 2
 """The current revision is published"""
 IVR_MENU_STATE_PUBLISH_FAILED: IvrMenuState.ValueType  # 3
 """The last publish failed; the previous published revision, if any, stays live"""
-global___IvrMenuState = IvrMenuState
+Global___IvrMenuState: _TypeAlias = IvrMenuState  # noqa: Y015
 
 class _IvrMenuOrderBy:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _IvrMenuOrderByEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IvrMenuOrderBy.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _IvrMenuOrderByEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IvrMenuOrderBy.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     IVR_MENU_ORDER_BY_UNSPECIFIED: _IvrMenuOrderBy.ValueType  # 0
     """Same as <code>IVR_MENU_ORDER_BY_DISPLAY_NAME</code>"""
     IVR_MENU_ORDER_BY_DISPLAY_NAME: _IvrMenuOrderBy.ValueType  # 1
@@ -126,14 +126,14 @@ IVR_MENU_ORDER_BY_DISPLAY_NAME: IvrMenuOrderBy.ValueType  # 1
 """By display name, ascending"""
 IVR_MENU_ORDER_BY_MODIFIED_AT_DESC: IvrMenuOrderBy.ValueType  # 2
 """By <code>modified_at</code>, newest first"""
-global___IvrMenuOrderBy = IvrMenuOrderBy
+Global___IvrMenuOrderBy: _TypeAlias = IvrMenuOrderBy  # noqa: Y015
 
 class _IvrMenuIssueSeverity:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _IvrMenuIssueSeverityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IvrMenuIssueSeverity.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _IvrMenuIssueSeverityEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IvrMenuIssueSeverity.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     IVR_MENU_ISSUE_SEVERITY_UNSPECIFIED: _IvrMenuIssueSeverity.ValueType  # 0
     """Not set"""
     IVR_MENU_ISSUE_SEVERITY_ERROR: _IvrMenuIssueSeverity.ValueType  # 1
@@ -150,14 +150,14 @@ IVR_MENU_ISSUE_SEVERITY_ERROR: IvrMenuIssueSeverity.ValueType  # 1
 """Create, Update and Publish refuse the menu"""
 IVR_MENU_ISSUE_SEVERITY_WARNING: IvrMenuIssueSeverity.ValueType  # 2
 """Accepted, but probably not intended"""
-global___IvrMenuIssueSeverity = IvrMenuIssueSeverity
+Global___IvrMenuIssueSeverity: _TypeAlias = IvrMenuIssueSeverity  # noqa: Y015
 
 class _IvrMenuTestState:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _IvrMenuTestStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IvrMenuTestState.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _IvrMenuTestStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IvrMenuTestState.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     IVR_MENU_TEST_STATE_UNSPECIFIED: _IvrMenuTestState.ValueType  # 0
     """Not set"""
     IVR_MENU_TEST_STATE_RUNNING: _IvrMenuTestState.ValueType  # 1
@@ -182,10 +182,10 @@ IVR_MENU_TEST_STATE_TIMED_OUT: IvrMenuTestState.ValueType  # 3
 """The test call was still in a menu after <code>max_duration_s</code>"""
 IVR_MENU_TEST_STATE_FAILED: IvrMenuTestState.ValueType  # 4
 """The test call could not run or ended unexpectedly; <code>error_message</code> says why"""
-global___IvrMenuTestState = IvrMenuTestState
+Global___IvrMenuTestState: _TypeAlias = IvrMenuTestState  # noqa: Y015
 
-@typing.final
-class IvrMenu(google.protobuf.message.Message):
+@_typing.final
+class IvrMenu(_message.Message):
     """////////////////////////////////////////////////////////////////////////////
     Resources
     ////////////////////////////////////////////////////////////////////////////
@@ -196,384 +196,412 @@ class IvrMenu(google.protobuf.message.Message):
     next publish.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class LayoutEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class LayoutEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> global___IvrNodePosition: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___IvrNodePosition: ...
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: global___IvrNodePosition | None = ...,
+            key: _builtins.str = ...,
+            value: Global___IvrNodePosition | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class NodeStatsEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class NodeStatsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> global___IvrNodeStats: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___IvrNodeStats: ...
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: global___IvrNodeStats | None = ...,
+            key: _builtins.str = ...,
+            value: Global___IvrNodeStats | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    ENTRY_NODE_ID_FIELD_NUMBER: builtins.int
-    NODES_FIELD_NUMBER: builtins.int
-    LANGUAGE_CODE_FIELD_NUMBER: builtins.int
-    T2S_PIPELINE_ID_FIELD_NUMBER: builtins.int
-    INBOUND_PHONE_NUMBERS_FIELD_NUMBER: builtins.int
-    DEFAULT_INBOUND_FIELD_NUMBER: builtins.int
-    DISABLED_FIELD_NUMBER: builtins.int
-    STATE_FIELD_NUMBER: builtins.int
-    REVISION_FIELD_NUMBER: builtins.int
-    PUBLISHED_REVISION_FIELD_NUMBER: builtins.int
-    STATE_MESSAGE_FIELD_NUMBER: builtins.int
-    LAYOUT_FIELD_NUMBER: builtins.int
-    CREATED_BY_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    MODIFIED_BY_FIELD_NUMBER: builtins.int
-    MODIFIED_AT_FIELD_NUMBER: builtins.int
-    PUBLISHED_AT_FIELD_NUMBER: builtins.int
-    PUBLISHED_BY_FIELD_NUMBER: builtins.int
-    NODE_STATS_FIELD_NUMBER: builtins.int
-    NODE_STATS_UPDATED_AT_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    ENTRY_NODE_ID_FIELD_NUMBER: _builtins.int
+    NODES_FIELD_NUMBER: _builtins.int
+    LANGUAGE_CODE_FIELD_NUMBER: _builtins.int
+    T2S_PIPELINE_ID_FIELD_NUMBER: _builtins.int
+    INBOUND_PHONE_NUMBERS_FIELD_NUMBER: _builtins.int
+    DEFAULT_INBOUND_FIELD_NUMBER: _builtins.int
+    DISABLED_FIELD_NUMBER: _builtins.int
+    STATE_FIELD_NUMBER: _builtins.int
+    REVISION_FIELD_NUMBER: _builtins.int
+    PUBLISHED_REVISION_FIELD_NUMBER: _builtins.int
+    STATE_MESSAGE_FIELD_NUMBER: _builtins.int
+    LAYOUT_FIELD_NUMBER: _builtins.int
+    CREATED_BY_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    MODIFIED_BY_FIELD_NUMBER: _builtins.int
+    MODIFIED_AT_FIELD_NUMBER: _builtins.int
+    PUBLISHED_AT_FIELD_NUMBER: _builtins.int
+    PUBLISHED_BY_FIELD_NUMBER: _builtins.int
+    NODE_STATS_FIELD_NUMBER: _builtins.int
+    NODE_STATS_UPDATED_AT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Output only. Resource name of the menu.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Required. Unique within the project, 1 to 128 characters. Sent sanitized to a bot as
     <code>X-ondewo-ivr-menu</code>.
     """
-    description: builtins.str
+    description: _builtins.str
     """At most 1000 characters."""
-    entry_node_id: builtins.str
+    entry_node_id: _builtins.str
     """Required. The node a caller enters first; must name a node of <code>nodes</code>."""
-    language_code: builtins.str
+    language_code: _builtins.str
     """Language of the text prompts for text-to-speech, e.g. <code>de-DE</code>. Empty: the project&apos;s default."""
-    t2s_pipeline_id: builtins.str
+    t2s_pipeline_id: _builtins.str
     """Text-to-speech pipeline of the text prompts. Empty: the project&apos;s default pipeline."""
-    default_inbound: builtins.bool
+    default_inbound: _builtins.bool
     """Whether this menu takes every inbound number no menu names. At most one menu per project."""
-    disabled: builtins.bool
+    disabled: _builtins.bool
     """<code>true</code>: the menu&apos;s numbers are unrouted on the next publish (the menu is kept)."""
-    state: global___IvrMenuState.ValueType
+    state: Global___IvrMenuState.ValueType
     """Output only. Publication state."""
-    revision: builtins.int
+    revision: _builtins.int
     """Output only. The current revision, +1 per accepted graph change; 1 after create."""
-    published_revision: builtins.int
+    published_revision: _builtins.int
     """Output only. The published revision; <code>0</code> = never published."""
-    state_message: builtins.str
+    state_message: _builtins.str
     """Output only. Why the last publish failed (bounded text without personal data); empty otherwise."""
-    created_by: builtins.str
+    created_by: _builtins.str
     """Output only. The user who created the menu."""
-    modified_by: builtins.str
+    modified_by: _builtins.str
     """Output only. The user who saved the current revision."""
-    published_by: builtins.str
+    published_by: _builtins.str
     """Output only. The user who published it."""
-    @property
-    def nodes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IvrNode]:
+    @_builtins.property
+    def nodes(self) -> _containers.RepeatedCompositeFieldContainer[Global___IvrNode]:
         """Required. The nodes, 1 to <code>ONDEWO_VTSI_IVR_MAX_NODES</code>; order is irrelevant. Every node must be
         reachable from <code>entry_node_id</code>.
         """
 
-    @property
-    def inbound_phone_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def inbound_phone_numbers(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """E.164 phone numbers (DIDs) of the project&apos;s SIP trunk routed into this menu once it is published. A number
         can be bound by one menu only.
         """
 
-    @property
-    def layout(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___IvrNodePosition]:
+    @_builtins.property
+    def layout(self) -> _containers.MessageMap[_builtins.str, Global___IvrNodePosition]:
         """Canvas positions of the nodes for the editor, keyed by <code>node_id</code>. Opaque to the server and not
         versioned.
         """
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. Creation time."""
 
-    @property
-    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When the current revision was saved."""
 
-    @property
-    def published_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def published_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When the published revision was published."""
 
-    @property
-    def node_stats(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___IvrNodeStats]:
+    @_builtins.property
+    def node_stats(self) -> _containers.MessageMap[_builtins.str, Global___IvrNodeStats]:
         """Output only, and only with the <code>field_mask</code> path <code>node_stats</code>: how often callers entered
         each node, keyed by <code>node_id</code>, for EVERY call through the menu (also those routed straight to a
         person, which leave no call record). Approximate: counted in the Asterisk and collected about once a minute.
         """
 
-    @property
-    def node_stats_updated_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def node_stats_updated_at(self) -> _timestamp_pb2.Timestamp:
         """Output only, with <code>node_stats</code>: when the counters were last collected."""
 
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        description: builtins.str = ...,
-        entry_node_id: builtins.str = ...,
-        nodes: collections.abc.Iterable[global___IvrNode] | None = ...,
-        language_code: builtins.str = ...,
-        t2s_pipeline_id: builtins.str = ...,
-        inbound_phone_numbers: collections.abc.Iterable[builtins.str] | None = ...,
-        default_inbound: builtins.bool = ...,
-        disabled: builtins.bool = ...,
-        state: global___IvrMenuState.ValueType = ...,
-        revision: builtins.int = ...,
-        published_revision: builtins.int = ...,
-        state_message: builtins.str = ...,
-        layout: collections.abc.Mapping[builtins.str, global___IvrNodePosition] | None = ...,
-        created_by: builtins.str = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        modified_by: builtins.str = ...,
-        modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        published_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        published_by: builtins.str = ...,
-        node_stats: collections.abc.Mapping[builtins.str, global___IvrNodeStats] | None = ...,
-        node_stats_updated_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        description: _builtins.str = ...,
+        entry_node_id: _builtins.str = ...,
+        nodes: _abc.Iterable[Global___IvrNode] | None = ...,
+        language_code: _builtins.str = ...,
+        t2s_pipeline_id: _builtins.str = ...,
+        inbound_phone_numbers: _abc.Iterable[_builtins.str] | None = ...,
+        default_inbound: _builtins.bool = ...,
+        disabled: _builtins.bool = ...,
+        state: Global___IvrMenuState.ValueType = ...,
+        revision: _builtins.int = ...,
+        published_revision: _builtins.int = ...,
+        state_message: _builtins.str = ...,
+        layout: _abc.Mapping[_builtins.str, Global___IvrNodePosition] | None = ...,
+        created_by: _builtins.str = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        modified_by: _builtins.str = ...,
+        modified_at: _timestamp_pb2.Timestamp | None = ...,
+        published_at: _timestamp_pb2.Timestamp | None = ...,
+        published_by: _builtins.str = ...,
+        node_stats: _abc.Mapping[_builtins.str, Global___IvrNodeStats] | None = ...,
+        node_stats_updated_at: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["created_at", b"created_at", "modified_at", b"modified_at", "node_stats_updated_at", b"node_stats_updated_at", "published_at", b"published_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["created_at", b"created_at", "created_by", b"created_by", "default_inbound", b"default_inbound", "description", b"description", "disabled", b"disabled", "display_name", b"display_name", "entry_node_id", b"entry_node_id", "inbound_phone_numbers", b"inbound_phone_numbers", "language_code", b"language_code", "layout", b"layout", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "node_stats", b"node_stats", "node_stats_updated_at", b"node_stats_updated_at", "nodes", b"nodes", "published_at", b"published_at", "published_by", b"published_by", "published_revision", b"published_revision", "revision", b"revision", "state", b"state", "state_message", b"state_message", "t2s_pipeline_id", b"t2s_pipeline_id"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["created_at", b"created_at", "modified_at", b"modified_at", "node_stats_updated_at", b"node_stats_updated_at", "published_at", b"published_at"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["created_at", b"created_at", "created_by", b"created_by", "default_inbound", b"default_inbound", "description", b"description", "disabled", b"disabled", "display_name", b"display_name", "entry_node_id", b"entry_node_id", "inbound_phone_numbers", b"inbound_phone_numbers", "language_code", b"language_code", "layout", b"layout", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "node_stats", b"node_stats", "node_stats_updated_at", b"node_stats_updated_at", "nodes", b"nodes", "published_at", b"published_at", "published_by", b"published_by", "published_revision", b"published_revision", "revision", b"revision", "state", b"state", "state_message", b"state_message", "t2s_pipeline_id", b"t2s_pipeline_id"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrMenu = IvrMenu
+Global___IvrMenu: _TypeAlias = IvrMenu  # noqa: Y015
 
-@typing.final
-class IvrNode(google.protobuf.message.Message):
+@_typing.final
+class IvrNode(_message.Message):
     """<p>One node of an IVR menu. Which fields apply depends on <code>type</code>; a field set on a node type it does not
     apply to is refused with <code>INVALID_ARGUMENT</code>.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NODE_ID_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    PROMPT_FIELD_NUMBER: builtins.int
-    OPTIONS_FIELD_NUMBER: builtins.int
-    TIMEOUT_S_FIELD_NUMBER: builtins.int
-    MAX_RETRIES_FIELD_NUMBER: builtins.int
-    TIMEOUT_NEXT_NODE_ID_FIELD_NUMBER: builtins.int
-    INVALID_NEXT_NODE_ID_FIELD_NUMBER: builtins.int
-    NEXT_NODE_ID_FIELD_NUMBER: builtins.int
-    ROUTE_TARGET_FIELD_NUMBER: builtins.int
-    SCHEDULE_FIELD_NUMBER: builtins.int
-    CLOSED_NEXT_NODE_ID_FIELD_NUMBER: builtins.int
-    BUSY_NEXT_NODE_ID_FIELD_NUMBER: builtins.int
-    REPROMPT_FIELD_NUMBER: builtins.int
-    GOTO_MENU_NAME_FIELD_NUMBER: builtins.int
-    node_id: builtins.str
+    NODE_ID_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    PROMPT_FIELD_NUMBER: _builtins.int
+    OPTIONS_FIELD_NUMBER: _builtins.int
+    TIMEOUT_S_FIELD_NUMBER: _builtins.int
+    MAX_RETRIES_FIELD_NUMBER: _builtins.int
+    TIMEOUT_NEXT_NODE_ID_FIELD_NUMBER: _builtins.int
+    INVALID_NEXT_NODE_ID_FIELD_NUMBER: _builtins.int
+    NEXT_NODE_ID_FIELD_NUMBER: _builtins.int
+    ROUTE_TARGET_FIELD_NUMBER: _builtins.int
+    SCHEDULE_FIELD_NUMBER: _builtins.int
+    CLOSED_NEXT_NODE_ID_FIELD_NUMBER: _builtins.int
+    BUSY_NEXT_NODE_ID_FIELD_NUMBER: _builtins.int
+    REPROMPT_FIELD_NUMBER: _builtins.int
+    GOTO_MENU_NAME_FIELD_NUMBER: _builtins.int
+    node_id: _builtins.str
     """Required. <code>^[a-z0-9_-]{1,64}$</code>, unique within the menu."""
-    display_name: builtins.str
+    display_name: _builtins.str
     """At most 128 characters: the node&apos;s name in the editor and its label in <code>X-ondewo-ivr-path</code>
     (reduced to <code>[A-Za-z0-9_-]{1,32}</code>).
     """
-    type: global___IvrNodeType.ValueType
+    type: Global___IvrNodeType.ValueType
     """Required. The kind of node."""
-    timeout_s: builtins.int
+    timeout_s: _builtins.int
     """MENU: seconds to wait for a key after the prompt; <code>0</code> = 5, valid 1 - 30."""
-    max_retries: builtins.int
+    max_retries: _builtins.int
     """MENU: how often an invalid key or a timeout replays the prompt before
     <code>invalid_next_node_id</code> / <code>timeout_next_node_id</code>; <code>0</code> = 2, valid 1 - 5.
     """
-    timeout_next_node_id: builtins.str
+    timeout_next_node_id: _builtins.str
     """MENU: the node after the last retry without a key; empty: hang up."""
-    invalid_next_node_id: builtins.str
+    invalid_next_node_id: _builtins.str
     """MENU: the node after the last invalid key; empty: <code>timeout_next_node_id</code>."""
-    next_node_id: builtins.str
+    next_node_id: _builtins.str
     """PLAY: the node after the prompt. SCHEDULE: the node inside the opening hours."""
-    closed_next_node_id: builtins.str
+    closed_next_node_id: _builtins.str
     """SCHEDULE: the node outside the opening hours."""
-    busy_next_node_id: builtins.str
+    busy_next_node_id: _builtins.str
     """ROUTE: the node when the target does not answer or is busy; empty: a busy announcement, then hang up."""
-    goto_menu_name: builtins.str
+    goto_menu_name: _builtins.str
     """GOTO_MENU (required): another menu of the same project,
     <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>. The caller enters
     that menu&apos;s PUBLISHED revision at its entry node; the hop limit counts across menus, so a cycle of menus
     ends after <code>ONDEWO_VTSI_IVR_MAX_HOPS</code> entries. Naming the menu itself is refused.
     """
-    @property
-    def prompt(self) -> global___IvrPrompt:
+    @_builtins.property
+    def prompt(self) -> Global___IvrPrompt:
         """MENU (required) and PLAY (required): played when the node is entered."""
 
-    @property
-    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IvrOption]:
+    @_builtins.property
+    def options(self) -> _containers.RepeatedCompositeFieldContainer[Global___IvrOption]:
         """MENU: one option per key, 1 to 12."""
 
-    @property
-    def route_target(self) -> ondewo.vtsi.calls_pb2.CallTarget:
+    @_builtins.property
+    def route_target(self) -> _calls_pb2.CallTarget:
         """ROUTE (required): <code>phone_number</code> (must pass <code>VtsiProject.transfer_phone_number_allowlist</code>),
         <code>softphone_account_name</code>, <code>listener_name</code> or <code>listener_queue</code> of the same
         project; <code>ivr_menu_name</code> is refused (use a GOTO_MENU node).
         """
 
-    @property
-    def schedule(self) -> ondewo.vtsi.campaigns_pb2.CampaignCallingWindow:
+    @_builtins.property
+    def schedule(self) -> _campaigns_pb2.CampaignCallingWindow:
         """SCHEDULE (required): the opening hours, as a time zone and weekly slots."""
 
-    @property
-    def reprompt(self) -> global___IvrPrompt:
+    @_builtins.property
+    def reprompt(self) -> Global___IvrPrompt:
         """MENU: played on an invalid key or a timeout before the prompt is repeated; unset: none."""
 
     def __init__(
         self,
         *,
-        node_id: builtins.str = ...,
-        display_name: builtins.str = ...,
-        type: global___IvrNodeType.ValueType = ...,
-        prompt: global___IvrPrompt | None = ...,
-        options: collections.abc.Iterable[global___IvrOption] | None = ...,
-        timeout_s: builtins.int = ...,
-        max_retries: builtins.int = ...,
-        timeout_next_node_id: builtins.str = ...,
-        invalid_next_node_id: builtins.str = ...,
-        next_node_id: builtins.str = ...,
-        route_target: ondewo.vtsi.calls_pb2.CallTarget | None = ...,
-        schedule: ondewo.vtsi.campaigns_pb2.CampaignCallingWindow | None = ...,
-        closed_next_node_id: builtins.str = ...,
-        busy_next_node_id: builtins.str = ...,
-        reprompt: global___IvrPrompt | None = ...,
-        goto_menu_name: builtins.str = ...,
+        node_id: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        type: Global___IvrNodeType.ValueType = ...,
+        prompt: Global___IvrPrompt | None = ...,
+        options: _abc.Iterable[Global___IvrOption] | None = ...,
+        timeout_s: _builtins.int = ...,
+        max_retries: _builtins.int = ...,
+        timeout_next_node_id: _builtins.str = ...,
+        invalid_next_node_id: _builtins.str = ...,
+        next_node_id: _builtins.str = ...,
+        route_target: _calls_pb2.CallTarget | None = ...,
+        schedule: _campaigns_pb2.CampaignCallingWindow | None = ...,
+        closed_next_node_id: _builtins.str = ...,
+        busy_next_node_id: _builtins.str = ...,
+        reprompt: Global___IvrPrompt | None = ...,
+        goto_menu_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["prompt", b"prompt", "reprompt", b"reprompt", "route_target", b"route_target", "schedule", b"schedule"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["busy_next_node_id", b"busy_next_node_id", "closed_next_node_id", b"closed_next_node_id", "display_name", b"display_name", "goto_menu_name", b"goto_menu_name", "invalid_next_node_id", b"invalid_next_node_id", "max_retries", b"max_retries", "next_node_id", b"next_node_id", "node_id", b"node_id", "options", b"options", "prompt", b"prompt", "reprompt", b"reprompt", "route_target", b"route_target", "schedule", b"schedule", "timeout_next_node_id", b"timeout_next_node_id", "timeout_s", b"timeout_s", "type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["prompt", b"prompt", "reprompt", b"reprompt", "route_target", b"route_target", "schedule", b"schedule"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["busy_next_node_id", b"busy_next_node_id", "closed_next_node_id", b"closed_next_node_id", "display_name", b"display_name", "goto_menu_name", b"goto_menu_name", "invalid_next_node_id", b"invalid_next_node_id", "max_retries", b"max_retries", "next_node_id", b"next_node_id", "node_id", b"node_id", "options", b"options", "prompt", b"prompt", "reprompt", b"reprompt", "route_target", b"route_target", "schedule", b"schedule", "timeout_next_node_id", b"timeout_next_node_id", "timeout_s", b"timeout_s", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrNode = IvrNode
+Global___IvrNode: _TypeAlias = IvrNode  # noqa: Y015
 
-@typing.final
-class IvrOption(google.protobuf.message.Message):
+@_typing.final
+class IvrOption(_message.Message):
     """<p>One key of a MENU node</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DTMF_FIELD_NUMBER: builtins.int
-    NEXT_NODE_ID_FIELD_NUMBER: builtins.int
-    LABEL_FIELD_NUMBER: builtins.int
-    dtmf: builtins.str
+    DTMF_FIELD_NUMBER: _builtins.int
+    NEXT_NODE_ID_FIELD_NUMBER: _builtins.int
+    LABEL_FIELD_NUMBER: _builtins.int
+    dtmf: _builtins.str
     """Required. Exactly one of <code>0-9 * #</code>, unique within the node."""
-    next_node_id: builtins.str
+    next_node_id: _builtins.str
     """Required. The node the key leads to."""
-    label: builtins.str
+    label: _builtins.str
     """At most 64 characters: the edge label in the editor and in <code>X-ondewo-ivr-path</code> (sanitized as
     <code>IvrNode.display_name</code>).
     """
     def __init__(
         self,
         *,
-        dtmf: builtins.str = ...,
-        next_node_id: builtins.str = ...,
-        label: builtins.str = ...,
+        dtmf: _builtins.str = ...,
+        next_node_id: _builtins.str = ...,
+        label: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dtmf", b"dtmf", "label", b"label", "next_node_id", b"next_node_id"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dtmf", b"dtmf", "label", b"label", "next_node_id", b"next_node_id"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrOption = IvrOption
+Global___IvrOption: _TypeAlias = IvrOption  # noqa: Y015
 
-@typing.final
-class IvrPrompt(google.protobuf.message.Message):
+@_typing.final
+class IvrPrompt(_message.Message):
     """<p>An audio prompt. Exactly one source must be set.</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TEXT_FIELD_NUMBER: builtins.int
-    WAV_FIELD_NUMBER: builtins.int
-    ASTERISK_SOUND_FIELD_NUMBER: builtins.int
-    SHA256_FIELD_NUMBER: builtins.int
-    text: builtins.str
+    TEXT_FIELD_NUMBER: _builtins.int
+    WAV_FIELD_NUMBER: _builtins.int
+    ASTERISK_SOUND_FIELD_NUMBER: _builtins.int
+    SHA256_FIELD_NUMBER: _builtins.int
+    text: _builtins.str
     """Text, 1 to 1000 characters, synthesized by VTSI with text-to-speech at publish (cached by content)."""
-    wav: builtins.bytes
+    wav: _builtins.bytes
     """A RIFF WAV file: PCM 16 bit mono at 8000 or 16000 Hz (not transcoded), at most
     <code>ONDEWO_VTSI_IVR_MAX_PROMPT_BYTES</code> and 120 seconds.
     """
-    asterisk_sound: builtins.str
+    asterisk_sound: _builtins.str
     """A stock Asterisk sound from the allowlist in <code>docs/ivr_menus.md</code>, e.g. <code>beep</code>."""
-    sha256: builtins.str
+    sha256: _builtins.str
     """Output only. SHA-256 (hex) of the rendered audio; empty before the first publish."""
     def __init__(
         self,
         *,
-        text: builtins.str = ...,
-        wav: builtins.bytes = ...,
-        asterisk_sound: builtins.str = ...,
-        sha256: builtins.str = ...,
+        text: _builtins.str = ...,
+        wav: _builtins.bytes = ...,
+        asterisk_sound: _builtins.str = ...,
+        sha256: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["asterisk_sound", b"asterisk_sound", "source", b"source", "text", b"text", "wav", b"wav"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["asterisk_sound", b"asterisk_sound", "sha256", b"sha256", "source", b"source", "text", b"text", "wav", b"wav"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["source", b"source"]) -> typing.Literal["text", "wav", "asterisk_sound"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["asterisk_sound", b"asterisk_sound", "source", b"source", "text", b"text", "wav", b"wav"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["asterisk_sound", b"asterisk_sound", "sha256", b"sha256", "source", b"source", "text", b"text", "wav", b"wav"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_source: _TypeAlias = _typing.Literal["text", "wav", "asterisk_sound"]  # noqa: Y015
+    _WhichOneofArgType_source: _TypeAlias = _typing.Literal["source", b"source"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_source) -> _WhichOneofReturnType_source | None: ...
 
-global___IvrPrompt = IvrPrompt
+Global___IvrPrompt: _TypeAlias = IvrPrompt  # noqa: Y015
 
-@typing.final
-class IvrNodePosition(google.protobuf.message.Message):
+@_typing.final
+class IvrNodePosition(_message.Message):
     """<p>Position of a node on the editor canvas</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    X_FIELD_NUMBER: builtins.int
-    Y_FIELD_NUMBER: builtins.int
-    x: builtins.float
+    X_FIELD_NUMBER: _builtins.int
+    Y_FIELD_NUMBER: _builtins.int
+    x: _builtins.float
     """Horizontal position"""
-    y: builtins.float
+    y: _builtins.float
     """Vertical position"""
     def __init__(
         self,
         *,
-        x: builtins.float = ...,
-        y: builtins.float = ...,
+        x: _builtins.float = ...,
+        y: _builtins.float = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["x", b"x", "y", b"y"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["x", b"x", "y", b"y"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrNodePosition = IvrNodePosition
+Global___IvrNodePosition: _TypeAlias = IvrNodePosition  # noqa: Y015
 
-@typing.final
-class IvrNodeStats(google.protobuf.message.Message):
+@_typing.final
+class IvrNodeStats(_message.Message):
     """<p>Traffic counters of one node, in <code>IvrMenu.node_stats</code>. Approximate.</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PUBLISHED_REVISION_ENTRIES_FIELD_NUMBER: builtins.int
-    TOTAL_ENTRIES_FIELD_NUMBER: builtins.int
-    published_revision_entries: builtins.int
+    PUBLISHED_REVISION_ENTRIES_FIELD_NUMBER: _builtins.int
+    TOTAL_ENTRIES_FIELD_NUMBER: _builtins.int
+    published_revision_entries: _builtins.int
     """Entries into the node in the published revision since it was published."""
-    total_entries: builtins.int
+    total_entries: _builtins.int
     """Entries into the node over every revision still rendered in the Asterisk."""
     def __init__(
         self,
         *,
-        published_revision_entries: builtins.int = ...,
-        total_entries: builtins.int = ...,
+        published_revision_entries: _builtins.int = ...,
+        total_entries: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["published_revision_entries", b"published_revision_entries", "total_entries", b"total_entries"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["published_revision_entries", b"published_revision_entries", "total_entries", b"total_entries"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrNodeStats = IvrNodeStats
+Global___IvrNodeStats: _TypeAlias = IvrNodeStats  # noqa: Y015
 
-@typing.final
-class CreateIvrMenuRequest(google.protobuf.message.Message):
+@_typing.final
+class CreateIvrMenuRequest(_message.Message):
     """////////////////////////////////////////////////////////////////////////////
     Requests and responses
     ////////////////////////////////////////////////////////////////////////////
@@ -581,28 +609,28 @@ class CreateIvrMenuRequest(google.protobuf.message.Message):
     Request to create an IVR menu
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    IVR_MENU_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    IVR_MENU_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """Required. The project: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key with the semantics of
     <a href="index.html#ondewo.vtsi.CreateCampaignRequest">CreateCampaignRequest.idempotency_key</a>: at most 255
     printable ASCII characters, scoped to the project and to this RPC, kept 24 hours.
     """
-    validate_only: builtins.bool
+    validate_only: _builtins.bool
     """Optional. Run every check and return the would-be menu; write and emit nothing."""
-    @property
-    def ivr_menu(self) -> global___IvrMenu:
+    @_builtins.property
+    def ivr_menu(self) -> Global___IvrMenu:
         """Required. The menu; its output-only fields must be unset."""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>IvrMenu</code> field paths to return. <code>name</code> is always
         returned. Unset or empty returns every field except <code>node_stats</code>.
         """
@@ -610,37 +638,40 @@ class CreateIvrMenuRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        ivr_menu: global___IvrMenu | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        idempotency_key: builtins.str = ...,
-        validate_only: builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        ivr_menu: Global___IvrMenu | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        idempotency_key: _builtins.str = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "ivr_menu", b"ivr_menu"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "ivr_menu", b"ivr_menu", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "ivr_menu", b"ivr_menu"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "ivr_menu", b"ivr_menu", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CreateIvrMenuRequest = CreateIvrMenuRequest
+Global___CreateIvrMenuRequest: _TypeAlias = CreateIvrMenuRequest  # noqa: Y015
 
-@typing.final
-class GetIvrMenuRequest(google.protobuf.message.Message):
+@_typing.final
+class GetIvrMenuRequest(_message.Message):
     """Request to get an IVR menu"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """<pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>"""
-    display_name: builtins.str
+    display_name: _builtins.str
     """The display name, resolved within <code>vtsi_project_name</code>"""
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """The project: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>. Required with
     <code>display_name</code>; checked against <code>name</code> when both are set.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response, as <code>CreateIvrMenuRequest.field_mask</code>. The path <code>node_stats</code>
         adds the traffic counters, which are never returned otherwise.
         """
@@ -648,178 +679,197 @@ class GetIvrMenuRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["display_name", b"display_name", "field_mask", b"field_mask", "ivr_menu", b"ivr_menu", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["display_name", b"display_name", "field_mask", b"field_mask", "ivr_menu", b"ivr_menu", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["ivr_menu", b"ivr_menu"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["display_name", b"display_name", "field_mask", b"field_mask", "ivr_menu", b"ivr_menu", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["display_name", b"display_name", "field_mask", b"field_mask", "ivr_menu", b"ivr_menu", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_ivr_menu: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_ivr_menu: _TypeAlias = _typing.Literal["ivr_menu", b"ivr_menu"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_ivr_menu) -> _WhichOneofReturnType_ivr_menu | None: ...
 
-global___GetIvrMenuRequest = GetIvrMenuRequest
+Global___GetIvrMenuRequest: _TypeAlias = GetIvrMenuRequest  # noqa: Y015
 
-@typing.final
-class UpdateIvrMenuRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateIvrMenuRequest(_message.Message):
     """Request to update an IVR menu"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    IVR_MENU_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    EXPECTED_REVISION_FIELD_NUMBER: builtins.int
-    validate_only: builtins.bool
+    IVR_MENU_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    EXPECTED_REVISION_FIELD_NUMBER: _builtins.int
+    validate_only: _builtins.bool
     """Optional. Run every check and return the would-be menu; write and emit nothing."""
-    expected_revision: builtins.int
+    expected_revision: _builtins.int
     """Optional. <code>0</code>: no check. Otherwise the revision the client edited; a different current revision is
     refused with <code>ABORTED</code> <code>reason=revision-mismatch</code> and nothing is written.
     """
-    @property
-    def ivr_menu(self) -> global___IvrMenu:
+    @_builtins.property
+    def ivr_menu(self) -> Global___IvrMenu:
         """Required. The menu, identified by <code>ivr_menu.name</code>, carrying the new values of the fields named in
         <code>update_mask</code>.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """Required. Paths within <code>ivr_menu</code> WITHOUT an <code>ivr_menu.</code> prefix, e.g.
         <code>nodes</code>, <code>inbound_phone_numbers</code>, <code>layout</code>. Repeated and map fields are
         replaced whole. A path named but not set clears the field. An unknown or output-only path is refused with
         <code>INVALID_ARGUMENT</code> naming it.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response, as <code>CreateIvrMenuRequest.field_mask</code>."""
 
     def __init__(
         self,
         *,
-        ivr_menu: global___IvrMenu | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
-        expected_revision: builtins.int = ...,
+        ivr_menu: Global___IvrMenu | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
+        expected_revision: _builtins.int = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "ivr_menu", b"ivr_menu", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["expected_revision", b"expected_revision", "field_mask", b"field_mask", "ivr_menu", b"ivr_menu", "update_mask", b"update_mask", "validate_only", b"validate_only"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "ivr_menu", b"ivr_menu", "update_mask", b"update_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["expected_revision", b"expected_revision", "field_mask", b"field_mask", "ivr_menu", b"ivr_menu", "update_mask", b"update_mask", "validate_only", b"validate_only"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateIvrMenuRequest = UpdateIvrMenuRequest
+Global___UpdateIvrMenuRequest: _TypeAlias = UpdateIvrMenuRequest  # noqa: Y015
 
-@typing.final
-class DeleteIvrMenuRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteIvrMenuRequest(_message.Message):
     """Request to delete an IVR menu"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FORCE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FORCE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """<pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>"""
-    display_name: builtins.str
+    display_name: _builtins.str
     """The display name, resolved within <code>vtsi_project_name</code>"""
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """The project, required with <code>display_name</code>."""
-    force: builtins.bool
+    force: _builtins.bool
     """<code>false</code> refuses a PUBLISHED menu with bound phone numbers (<code>FAILED_PRECONDITION</code>
     <code>reason=menu-published</code>); <code>true</code> unroutes them and deletes.
     """
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        force: builtins.bool = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        force: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["display_name", b"display_name", "ivr_menu", b"ivr_menu", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["display_name", b"display_name", "force", b"force", "ivr_menu", b"ivr_menu", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["ivr_menu", b"ivr_menu"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["display_name", b"display_name", "ivr_menu", b"ivr_menu", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["display_name", b"display_name", "force", b"force", "ivr_menu", b"ivr_menu", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_ivr_menu: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_ivr_menu: _TypeAlias = _typing.Literal["ivr_menu", b"ivr_menu"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_ivr_menu) -> _WhichOneofReturnType_ivr_menu | None: ...
 
-global___DeleteIvrMenuRequest = DeleteIvrMenuRequest
+Global___DeleteIvrMenuRequest: _TypeAlias = DeleteIvrMenuRequest  # noqa: Y015
 
-@typing.final
-class DeleteIvrMenuResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteIvrMenuResponse(_message.Message):
     """Response to the deletion of an IVR menu"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    UNROUTED_PHONE_NUMBERS_FIELD_NUMBER: builtins.int
-    DEFAULT_INBOUND_REMOVED_FIELD_NUMBER: builtins.int
-    unrouted_phone_numbers: builtins.int
+    UNROUTED_PHONE_NUMBERS_FIELD_NUMBER: _builtins.int
+    DEFAULT_INBOUND_REMOVED_FIELD_NUMBER: _builtins.int
+    unrouted_phone_numbers: _builtins.int
     """How many phone numbers now fall back to the project&apos;s routing without a menu."""
-    default_inbound_removed: builtins.bool
+    default_inbound_removed: _builtins.bool
     """Whether the deleted menu was the project&apos;s <code>default_inbound</code> menu."""
     def __init__(
         self,
         *,
-        unrouted_phone_numbers: builtins.int = ...,
-        default_inbound_removed: builtins.bool = ...,
+        unrouted_phone_numbers: _builtins.int = ...,
+        default_inbound_removed: _builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["default_inbound_removed", b"default_inbound_removed", "unrouted_phone_numbers", b"unrouted_phone_numbers"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["default_inbound_removed", b"default_inbound_removed", "unrouted_phone_numbers", b"unrouted_phone_numbers"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteIvrMenuResponse = DeleteIvrMenuResponse
+Global___DeleteIvrMenuResponse: _TypeAlias = DeleteIvrMenuResponse  # noqa: Y015
 
-@typing.final
-class IvrMenuFilter(google.protobuf.message.Message):
+@_typing.final
+class IvrMenuFilter(_message.Message):
     """Filter of <code>ListIvrMenus</code>; every set field must match"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DISPLAY_NAME_CONTAINS_FIELD_NUMBER: builtins.int
-    STATE_FIELD_NUMBER: builtins.int
-    INBOUND_PHONE_NUMBER_FIELD_NUMBER: builtins.int
-    display_name_contains: builtins.str
+    DISPLAY_NAME_CONTAINS_FIELD_NUMBER: _builtins.int
+    STATE_FIELD_NUMBER: _builtins.int
+    INBOUND_PHONE_NUMBER_FIELD_NUMBER: _builtins.int
+    display_name_contains: _builtins.str
     """Case-insensitive substring of <code>display_name</code>; empty does not filter."""
-    state: global___IvrMenuState.ValueType
+    state: Global___IvrMenuState.ValueType
     """<code>IVR_MENU_STATE_UNSPECIFIED</code>: any state."""
-    inbound_phone_number: builtins.str
+    inbound_phone_number: _builtins.str
     """Exact E.164 number of <code>inbound_phone_numbers</code>; empty does not filter."""
     def __init__(
         self,
         *,
-        display_name_contains: builtins.str = ...,
-        state: global___IvrMenuState.ValueType = ...,
-        inbound_phone_number: builtins.str = ...,
+        display_name_contains: _builtins.str = ...,
+        state: Global___IvrMenuState.ValueType = ...,
+        inbound_phone_number: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["display_name_contains", b"display_name_contains", "inbound_phone_number", b"inbound_phone_number", "state", b"state"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["display_name_contains", b"display_name_contains", "inbound_phone_number", b"inbound_phone_number", "state", b"state"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrMenuFilter = IvrMenuFilter
+Global___IvrMenuFilter: _TypeAlias = IvrMenuFilter  # noqa: Y015
 
-@typing.final
-class ListIvrMenusRequest(google.protobuf.message.Message):
+@_typing.final
+class ListIvrMenusRequest(_message.Message):
     """Request to list the IVR menus of a project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FILTER_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    ORDER_BY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FILTER_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    ORDER_BY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """Required. The project: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum menus per page. <code>0</code> means 20; values above 1000 are clamped to 1000; negative
     values are refused with <code>INVALID_ARGUMENT</code>.
     """
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response; valid only with the same project, filter
     and order.
     """
-    order_by: global___IvrMenuOrderBy.ValueType
+    order_by: Global___IvrMenuOrderBy.ValueType
     """Optional. Sort order."""
-    @property
-    def filter(self) -> global___IvrMenuFilter:
+    @_builtins.property
+    def filter(self) -> Global___IvrMenuFilter:
         """Optional. Narrows the listed menus."""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>IvrMenu</code> field paths of each listed menu, as
         <code>CreateIvrMenuRequest.field_mask</code>.
         """
@@ -827,82 +877,93 @@ class ListIvrMenusRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        filter: global___IvrMenuFilter | None = ...,
-        page_size: builtins.int = ...,
-        page_token: builtins.str | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        order_by: global___IvrMenuOrderBy.ValueType = ...,
+        vtsi_project_name: _builtins.str = ...,
+        filter: Global___IvrMenuFilter | None = ...,
+        page_size: _builtins.int = ...,
+        page_token: _builtins.str | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        order_by: Global___IvrMenuOrderBy.ValueType = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "order_by", b"order_by", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "order_by", b"order_by", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
 
-global___ListIvrMenusRequest = ListIvrMenusRequest
+Global___ListIvrMenusRequest: _TypeAlias = ListIvrMenusRequest  # noqa: Y015
 
-@typing.final
-class ListIvrMenusResponse(google.protobuf.message.Message):
+@_typing.final
+class ListIvrMenusResponse(_message.Message):
     """Response to list the IVR menus of a project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    IVR_MENUS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    IVR_MENUS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token of the next page; empty on the last page."""
-    @property
-    def ivr_menus(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IvrMenu]:
+    @_builtins.property
+    def ivr_menus(self) -> _containers.RepeatedCompositeFieldContainer[Global___IvrMenu]:
         """The menus of this page."""
 
     def __init__(
         self,
         *,
-        ivr_menus: collections.abc.Iterable[global___IvrMenu] | None = ...,
-        next_page_token: builtins.str = ...,
+        ivr_menus: _abc.Iterable[Global___IvrMenu] | None = ...,
+        next_page_token: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["ivr_menus", b"ivr_menus", "next_page_token", b"next_page_token"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ivr_menus", b"ivr_menus", "next_page_token", b"next_page_token"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListIvrMenusResponse = ListIvrMenusResponse
+Global___ListIvrMenusResponse: _TypeAlias = ListIvrMenusResponse  # noqa: Y015
 
-@typing.final
-class ValidateIvrMenuRequest(google.protobuf.message.Message):
+@_typing.final
+class ValidateIvrMenuRequest(_message.Message):
     """Request to validate an IVR menu draft"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    IVR_MENU_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    IVR_MENU_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """Required. The project: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    @property
-    def ivr_menu(self) -> global___IvrMenu:
+    @_builtins.property
+    def ivr_menu(self) -> Global___IvrMenu:
         """Required. The draft as edited; <code>name</code> may be empty for a menu not created yet."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        ivr_menu: global___IvrMenu | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        ivr_menu: Global___IvrMenu | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ivr_menu", b"ivr_menu"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ivr_menu", b"ivr_menu", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ivr_menu", b"ivr_menu"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ivr_menu", b"ivr_menu", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ValidateIvrMenuRequest = ValidateIvrMenuRequest
+Global___ValidateIvrMenuRequest: _TypeAlias = ValidateIvrMenuRequest  # noqa: Y015
 
-@typing.final
-class IvrMenuIssue(google.protobuf.message.Message):
+@_typing.final
+class IvrMenuIssue(_message.Message):
     """<p>One problem of an IVR menu draft</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SEVERITY_FIELD_NUMBER: builtins.int
-    CODE_FIELD_NUMBER: builtins.int
-    PATH_FIELD_NUMBER: builtins.int
-    NODE_ID_FIELD_NUMBER: builtins.int
-    MESSAGE_FIELD_NUMBER: builtins.int
-    severity: global___IvrMenuIssueSeverity.ValueType
+    SEVERITY_FIELD_NUMBER: _builtins.int
+    CODE_FIELD_NUMBER: _builtins.int
+    PATH_FIELD_NUMBER: _builtins.int
+    NODE_ID_FIELD_NUMBER: _builtins.int
+    MESSAGE_FIELD_NUMBER: _builtins.int
+    severity: Global___IvrMenuIssueSeverity.ValueType
     """Whether the issue blocks a save or a publish"""
-    code: builtins.str
+    code: _builtins.str
     """Stable kebab-case token, e.g. <code>dangling-next-node</code>, <code>duplicate-key</code>,
     <code>unreachable-node</code>, <code>keyless-cycle</code>, <code>number-not-allowed</code>,
     <code>unknown-softphone</code>, <code>unknown-listener</code>, <code>unknown-menu</code>,
@@ -910,428 +971,481 @@ class IvrMenuIssue(google.protobuf.message.Message):
     <code>prompt-format</code>, <code>prompt-too-large</code>, <code>field-not-for-node-type</code>,
     <code>menu-without-prompt</code> (a WARNING). The list in <code>docs/ivr_menus.md</code> is complete.
     """
-    path: builtins.str
+    path: _builtins.str
     """Path of the offending field, e.g. <code>nodes[node_id=billing].options[dtmf=2].next_node_id</code>."""
-    node_id: builtins.str
+    node_id: _builtins.str
     """The node of the issue; empty for an issue of the whole menu."""
-    message: builtins.str
+    message: _builtins.str
     """English description for logs; a user interface translates by <code>code</code>."""
     def __init__(
         self,
         *,
-        severity: global___IvrMenuIssueSeverity.ValueType = ...,
-        code: builtins.str = ...,
-        path: builtins.str = ...,
-        node_id: builtins.str = ...,
-        message: builtins.str = ...,
+        severity: Global___IvrMenuIssueSeverity.ValueType = ...,
+        code: _builtins.str = ...,
+        path: _builtins.str = ...,
+        node_id: _builtins.str = ...,
+        message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["code", b"code", "message", b"message", "node_id", b"node_id", "path", b"path", "severity", b"severity"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["code", b"code", "message", b"message", "node_id", b"node_id", "path", b"path", "severity", b"severity"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrMenuIssue = IvrMenuIssue
+Global___IvrMenuIssue: _TypeAlias = IvrMenuIssue  # noqa: Y015
 
-@typing.final
-class ValidateIvrMenuResponse(google.protobuf.message.Message):
+@_typing.final
+class ValidateIvrMenuResponse(_message.Message):
     """Response to validate an IVR menu draft"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ISSUES_FIELD_NUMBER: builtins.int
-    VALID_FIELD_NUMBER: builtins.int
-    valid: builtins.bool
+    ISSUES_FIELD_NUMBER: _builtins.int
+    VALID_FIELD_NUMBER: _builtins.int
+    valid: _builtins.bool
     """Whether no issue is an ERROR"""
-    @property
-    def issues(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IvrMenuIssue]:
+    @_builtins.property
+    def issues(self) -> _containers.RepeatedCompositeFieldContainer[Global___IvrMenuIssue]:
         """Every issue found"""
 
     def __init__(
         self,
         *,
-        issues: collections.abc.Iterable[global___IvrMenuIssue] | None = ...,
-        valid: builtins.bool = ...,
+        issues: _abc.Iterable[Global___IvrMenuIssue] | None = ...,
+        valid: _builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["issues", b"issues", "valid", b"valid"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["issues", b"issues", "valid", b"valid"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ValidateIvrMenuResponse = ValidateIvrMenuResponse
+Global___ValidateIvrMenuResponse: _TypeAlias = ValidateIvrMenuResponse  # noqa: Y015
 
-@typing.final
-class PublishIvrMenuRequest(google.protobuf.message.Message):
+@_typing.final
+class PublishIvrMenuRequest(_message.Message):
     """Request to publish an IVR menu"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    REVISION_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    REVISION_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Required. <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>"""
-    revision: builtins.int
+    revision: _builtins.int
     """<code>0</code>: the current revision. Any other revision must be the current one, else <code>ABORTED</code>
     <code>reason=revision-mismatch</code>.
     """
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        revision: builtins.int = ...,
+        name: _builtins.str = ...,
+        revision: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "revision", b"revision"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "revision", b"revision"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___PublishIvrMenuRequest = PublishIvrMenuRequest
+Global___PublishIvrMenuRequest: _TypeAlias = PublishIvrMenuRequest  # noqa: Y015
 
-@typing.final
-class CloneIvrMenuRequest(google.protobuf.message.Message):
+@_typing.final
+class CloneIvrMenuRequest(_message.Message):
     """Request to clone an IVR menu. The clone has no <code>inbound_phone_numbers</code>, <code>default_inbound</code>
     <code>false</code> and the state DRAFT.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    REVISION_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    REVISION_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Required. The source menu: <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>"""
-    display_name: builtins.str
+    display_name: _builtins.str
     """Required. The clone&apos;s display name, unique within the project."""
-    revision: builtins.int
+    revision: _builtins.int
     """The source revision; <code>0</code>: the current one."""
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key, as <code>CreateIvrMenuRequest.idempotency_key</code>."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        revision: builtins.int = ...,
-        idempotency_key: builtins.str = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        revision: _builtins.int = ...,
+        idempotency_key: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["display_name", b"display_name", "idempotency_key", b"idempotency_key", "name", b"name", "revision", b"revision"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["display_name", b"display_name", "idempotency_key", b"idempotency_key", "name", b"name", "revision", b"revision"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CloneIvrMenuRequest = CloneIvrMenuRequest
+Global___CloneIvrMenuRequest: _TypeAlias = CloneIvrMenuRequest  # noqa: Y015
 
-@typing.final
-class ListIvrMenuRevisionsRequest(google.protobuf.message.Message):
+@_typing.final
+class ListIvrMenuRevisionsRequest(_message.Message):
     """Request to list the revisions of an IVR menu"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Required. <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>"""
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum revisions per page. <code>0</code> means 20; values above 100 are clamped to 100."""
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response for the same menu."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        page_size: builtins.int = ...,
-        page_token: builtins.str | None = ...,
+        name: _builtins.str = ...,
+        page_size: _builtins.int = ...,
+        page_token: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "name", b"name", "page_size", b"page_size", "page_token", b"page_token"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "page_token", b"page_token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "name", b"name", "page_size", b"page_size", "page_token", b"page_token"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
 
-global___ListIvrMenuRevisionsRequest = ListIvrMenuRevisionsRequest
+Global___ListIvrMenuRevisionsRequest: _TypeAlias = ListIvrMenuRevisionsRequest  # noqa: Y015
 
-@typing.final
-class IvrMenuRevision(google.protobuf.message.Message):
+@_typing.final
+class IvrMenuRevision(_message.Message):
     """<p>One saved revision of an IVR menu</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    REVISION_FIELD_NUMBER: builtins.int
-    SNAPSHOT_FIELD_NUMBER: builtins.int
-    MODIFIED_BY_FIELD_NUMBER: builtins.int
-    MODIFIED_AT_FIELD_NUMBER: builtins.int
-    PUBLISHED_FIELD_NUMBER: builtins.int
-    LIVE_FIELD_NUMBER: builtins.int
-    revision: builtins.int
+    REVISION_FIELD_NUMBER: _builtins.int
+    SNAPSHOT_FIELD_NUMBER: _builtins.int
+    MODIFIED_BY_FIELD_NUMBER: _builtins.int
+    MODIFIED_AT_FIELD_NUMBER: _builtins.int
+    PUBLISHED_FIELD_NUMBER: _builtins.int
+    LIVE_FIELD_NUMBER: _builtins.int
+    revision: _builtins.int
     """The revision number"""
-    modified_by: builtins.str
+    modified_by: _builtins.str
     """Who saved it"""
-    published: builtins.bool
+    published: _builtins.bool
     """Whether it was ever published"""
-    live: builtins.bool
+    live: _builtins.bool
     """Whether it is still rendered in the Asterisk (it is published, or a caller may still be inside it)"""
-    @property
-    def snapshot(self) -> global___IvrMenu:
+    @_builtins.property
+    def snapshot(self) -> Global___IvrMenu:
         """The graph fields as saved at that revision (no <code>layout</code>, no routing fields, no output-only
         fields)
         """
 
-    @property
-    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_at(self) -> _timestamp_pb2.Timestamp:
         """When it was saved"""
 
     def __init__(
         self,
         *,
-        revision: builtins.int = ...,
-        snapshot: global___IvrMenu | None = ...,
-        modified_by: builtins.str = ...,
-        modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        published: builtins.bool = ...,
-        live: builtins.bool = ...,
+        revision: _builtins.int = ...,
+        snapshot: Global___IvrMenu | None = ...,
+        modified_by: _builtins.str = ...,
+        modified_at: _timestamp_pb2.Timestamp | None = ...,
+        published: _builtins.bool = ...,
+        live: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["modified_at", b"modified_at", "snapshot", b"snapshot"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["live", b"live", "modified_at", b"modified_at", "modified_by", b"modified_by", "published", b"published", "revision", b"revision", "snapshot", b"snapshot"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["modified_at", b"modified_at", "snapshot", b"snapshot"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["live", b"live", "modified_at", b"modified_at", "modified_by", b"modified_by", "published", b"published", "revision", b"revision", "snapshot", b"snapshot"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrMenuRevision = IvrMenuRevision
+Global___IvrMenuRevision: _TypeAlias = IvrMenuRevision  # noqa: Y015
 
-@typing.final
-class ListIvrMenuRevisionsResponse(google.protobuf.message.Message):
+@_typing.final
+class ListIvrMenuRevisionsResponse(_message.Message):
     """Response to list the revisions of an IVR menu"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    REVISIONS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    REVISIONS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token of the next page; empty on the last page."""
-    @property
-    def revisions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IvrMenuRevision]:
+    @_builtins.property
+    def revisions(self) -> _containers.RepeatedCompositeFieldContainer[Global___IvrMenuRevision]:
         """The revisions of this page, newest first"""
 
     def __init__(
         self,
         *,
-        revisions: collections.abc.Iterable[global___IvrMenuRevision] | None = ...,
-        next_page_token: builtins.str = ...,
+        revisions: _abc.Iterable[Global___IvrMenuRevision] | None = ...,
+        next_page_token: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["next_page_token", b"next_page_token", "revisions", b"revisions"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["next_page_token", b"next_page_token", "revisions", b"revisions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListIvrMenuRevisionsResponse = ListIvrMenuRevisionsResponse
+Global___ListIvrMenuRevisionsResponse: _TypeAlias = ListIvrMenuRevisionsResponse  # noqa: Y015
 
-@typing.final
-class IvrTestStep(google.protobuf.message.Message):
+@_typing.final
+class IvrTestStep(_message.Message):
     """<p>One step of the key script of a test call</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    WAIT_MS_FIELD_NUMBER: builtins.int
-    DTMF_FIELD_NUMBER: builtins.int
-    wait_ms: builtins.int
+    WAIT_MS_FIELD_NUMBER: _builtins.int
+    DTMF_FIELD_NUMBER: _builtins.int
+    wait_ms: _builtins.int
     """Milliseconds to wait after the previous step (for the first step: after the call entered the menu) before
     <code>dtmf</code> is pressed. <code>0</code> means 1000; at most 30000. A key pressed during a prompt
     interrupts it, as for a real caller.
     """
-    dtmf: builtins.str
+    dtmf: _builtins.str
     """The keys to press, <code>^[0-9*#]{0,8}$</code>; empty presses nothing, so the next step waits out the
     node&apos;s timeout (the timeout path).
     """
     def __init__(
         self,
         *,
-        wait_ms: builtins.int = ...,
-        dtmf: builtins.str = ...,
+        wait_ms: _builtins.int = ...,
+        dtmf: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dtmf", b"dtmf", "wait_ms", b"wait_ms"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dtmf", b"dtmf", "wait_ms", b"wait_ms"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrTestStep = IvrTestStep
+Global___IvrTestStep: _TypeAlias = IvrTestStep  # noqa: Y015
 
-@typing.final
-class TestIvrMenuRequest(google.protobuf.message.Message):
+@_typing.final
+class TestIvrMenuRequest(_message.Message):
     """Request to start a test call through the published revision of an IVR menu"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    STEPS_FIELD_NUMBER: builtins.int
-    MAX_DURATION_S_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    STEPS_FIELD_NUMBER: _builtins.int
+    MAX_DURATION_S_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Required. <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>"""
-    max_duration_s: builtins.int
+    max_duration_s: _builtins.int
     """Seconds the test call may last after its last step; <code>0</code> means 60, at most
     <code>ONDEWO_VTSI_IVR_TEST_MAX_DURATION_S</code> (300). A test still in a menu then is
     <code>IVR_MENU_TEST_STATE_TIMED_OUT</code>.
     """
-    @property
-    def steps(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IvrTestStep]:
+    @_builtins.property
+    def steps(self) -> _containers.RepeatedCompositeFieldContainer[Global___IvrTestStep]:
         """The key script, at most 20 steps. Empty: no key is pressed."""
 
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        steps: collections.abc.Iterable[global___IvrTestStep] | None = ...,
-        max_duration_s: builtins.int = ...,
+        name: _builtins.str = ...,
+        steps: _abc.Iterable[Global___IvrTestStep] | None = ...,
+        max_duration_s: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["max_duration_s", b"max_duration_s", "name", b"name", "steps", b"steps"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["max_duration_s", b"max_duration_s", "name", b"name", "steps", b"steps"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TestIvrMenuRequest = TestIvrMenuRequest
+Global___TestIvrMenuRequest: _TypeAlias = TestIvrMenuRequest  # noqa: Y015
 
-@typing.final
-class GetIvrMenuTestRequest(google.protobuf.message.Message):
+@_typing.final
+class GetIvrMenuTestRequest(_message.Message):
     """Request to get a test call of an IVR menu"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Required. The test, as <code>IvrMenuTest.name</code>."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
+        name: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetIvrMenuTestRequest = GetIvrMenuTestRequest
+Global___GetIvrMenuTestRequest: _TypeAlias = GetIvrMenuTestRequest  # noqa: Y015
 
-@typing.final
-class IvrTraversalStep(google.protobuf.message.Message):
+@_typing.final
+class IvrTraversalStep(_message.Message):
     """<p>One node entry of a test call</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NODE_ID_FIELD_NUMBER: builtins.int
-    INPUT_FIELD_NUMBER: builtins.int
-    NEXT_NODE_ID_FIELD_NUMBER: builtins.int
-    ENTERED_AT_FIELD_NUMBER: builtins.int
-    IVR_MENU_NAME_FIELD_NUMBER: builtins.int
-    node_id: builtins.str
+    NODE_ID_FIELD_NUMBER: _builtins.int
+    INPUT_FIELD_NUMBER: _builtins.int
+    NEXT_NODE_ID_FIELD_NUMBER: _builtins.int
+    ENTERED_AT_FIELD_NUMBER: _builtins.int
+    IVR_MENU_NAME_FIELD_NUMBER: _builtins.int
+    node_id: _builtins.str
     """The node entered (of the menu named by <code>ivr_menu_name</code>, which changes after a GOTO_MENU node)"""
-    input: builtins.str
+    input: _builtins.str
     """What led out of the node: the key, <code>t</code> (timeout) or <code>i</code> (invalid key); empty for a node
     left without input
     """
-    next_node_id: builtins.str
+    next_node_id: _builtins.str
     """The node entered next; empty for the last node"""
-    ivr_menu_name: builtins.str
+    ivr_menu_name: _builtins.str
     """The menu of <code>node_id</code>:
     <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>
     """
-    @property
-    def entered_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def entered_at(self) -> _timestamp_pb2.Timestamp:
         """When the node was entered, to the millisecond (the Asterisk&apos;s clock)"""
 
     def __init__(
         self,
         *,
-        node_id: builtins.str = ...,
-        input: builtins.str = ...,
-        next_node_id: builtins.str = ...,
-        entered_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        ivr_menu_name: builtins.str = ...,
+        node_id: _builtins.str = ...,
+        input: _builtins.str = ...,
+        next_node_id: _builtins.str = ...,
+        entered_at: _timestamp_pb2.Timestamp | None = ...,
+        ivr_menu_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["entered_at", b"entered_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["entered_at", b"entered_at", "input", b"input", "ivr_menu_name", b"ivr_menu_name", "next_node_id", b"next_node_id", "node_id", b"node_id"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["entered_at", b"entered_at"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["entered_at", b"entered_at", "input", b"input", "ivr_menu_name", b"ivr_menu_name", "next_node_id", b"next_node_id", "node_id", b"node_id"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrTraversalStep = IvrTraversalStep
+Global___IvrTraversalStep: _TypeAlias = IvrTraversalStep  # noqa: Y015
 
-@typing.final
-class IvrMenuTest(google.protobuf.message.Message):
+@_typing.final
+class IvrMenuTest(_message.Message):
     """<p>A test call of an IVR menu, started by <code>TestIvrMenu</code>. Leaves no call record and no NLU session.</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    TEST_ID_FIELD_NUMBER: builtins.int
-    STATE_FIELD_NUMBER: builtins.int
-    REVISION_FIELD_NUMBER: builtins.int
-    PATH_FIELD_NUMBER: builtins.int
-    FINAL_NODE_ID_FIELD_NUMBER: builtins.int
-    ROUTE_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    STARTED_AT_FIELD_NUMBER: builtins.int
-    FINISHED_AT_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    TEST_ID_FIELD_NUMBER: _builtins.int
+    STATE_FIELD_NUMBER: _builtins.int
+    REVISION_FIELD_NUMBER: _builtins.int
+    PATH_FIELD_NUMBER: _builtins.int
+    FINAL_NODE_ID_FIELD_NUMBER: _builtins.int
+    ROUTE_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    STARTED_AT_FIELD_NUMBER: _builtins.int
+    FINISHED_AT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the test.
     The format is:
     <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;/tests/&lt;test_id&gt;</code></pre>
     """
-    test_id: builtins.str
+    test_id: _builtins.str
     """The test id: 32 lower-case hex characters."""
-    state: global___IvrMenuTestState.ValueType
+    state: Global___IvrMenuTestState.ValueType
     """The state of the test"""
-    revision: builtins.int
+    revision: _builtins.int
     """The revision traversed (the published revision when the test started)"""
-    final_node_id: builtins.str
+    final_node_id: _builtins.str
     """The last node entered; empty before the first"""
-    route: builtins.str
+    route: _builtins.str
     """What the terminal ROUTE stub recorded, <code>route:&lt;kind&gt;:&lt;target&gt;</code> (<code>kind</code>
     being <code>phone_number</code> with the number masked to its last 3 digits, <code>softphone</code>,
     <code>listener</code> or <code>listener_queue</code>); empty when the test did not end on a ROUTE node
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """Why the test failed; empty otherwise"""
-    @property
-    def path(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IvrTraversalStep]:
+    @_builtins.property
+    def path(self) -> _containers.RepeatedCompositeFieldContainer[Global___IvrTraversalStep]:
         """The nodes entered so far, in order"""
 
-    @property
-    def started_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def started_at(self) -> _timestamp_pb2.Timestamp:
         """When the test call started"""
 
-    @property
-    def finished_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def finished_at(self) -> _timestamp_pb2.Timestamp:
         """When it ended; unset while it runs"""
 
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        test_id: builtins.str = ...,
-        state: global___IvrMenuTestState.ValueType = ...,
-        revision: builtins.int = ...,
-        path: collections.abc.Iterable[global___IvrTraversalStep] | None = ...,
-        final_node_id: builtins.str = ...,
-        route: builtins.str = ...,
-        error_message: builtins.str = ...,
-        started_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        finished_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        name: _builtins.str = ...,
+        test_id: _builtins.str = ...,
+        state: Global___IvrMenuTestState.ValueType = ...,
+        revision: _builtins.int = ...,
+        path: _abc.Iterable[Global___IvrTraversalStep] | None = ...,
+        final_node_id: _builtins.str = ...,
+        route: _builtins.str = ...,
+        error_message: _builtins.str = ...,
+        started_at: _timestamp_pb2.Timestamp | None = ...,
+        finished_at: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["finished_at", b"finished_at", "started_at", b"started_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "final_node_id", b"final_node_id", "finished_at", b"finished_at", "name", b"name", "path", b"path", "revision", b"revision", "route", b"route", "started_at", b"started_at", "state", b"state", "test_id", b"test_id"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["finished_at", b"finished_at", "started_at", b"started_at"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "final_node_id", b"final_node_id", "finished_at", b"finished_at", "name", b"name", "path", b"path", "revision", b"revision", "route", b"route", "started_at", b"started_at", "state", b"state", "test_id", b"test_id"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IvrMenuTest = IvrMenuTest
+Global___IvrMenuTest: _TypeAlias = IvrMenuTest  # noqa: Y015
 
-@typing.final
-class GetIvrMenuDialplanRequest(google.protobuf.message.Message):
+@_typing.final
+class GetIvrMenuDialplanRequest(_message.Message):
     """Request to get the rendered dialplan of an IVR menu revision"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    REVISION_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    REVISION_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Required. <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>"""
-    revision: builtins.int
+    revision: _builtins.int
     """<code>0</code>: the published revision."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        revision: builtins.int = ...,
+        name: _builtins.str = ...,
+        revision: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "revision", b"revision"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "revision", b"revision"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetIvrMenuDialplanRequest = GetIvrMenuDialplanRequest
+Global___GetIvrMenuDialplanRequest: _TypeAlias = GetIvrMenuDialplanRequest  # noqa: Y015
 
-@typing.final
-class GetIvrMenuDialplanResponse(google.protobuf.message.Message):
+@_typing.final
+class GetIvrMenuDialplanResponse(_message.Message):
     """Response with the rendered dialplan of an IVR menu revision"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DIALPLAN_FIELD_NUMBER: builtins.int
-    PROMPT_FILES_FIELD_NUMBER: builtins.int
-    dialplan: builtins.str
+    DIALPLAN_FIELD_NUMBER: _builtins.int
+    PROMPT_FILES_FIELD_NUMBER: _builtins.int
+    dialplan: _builtins.str
     """The rendered dialplan contexts of that revision"""
-    @property
-    def prompt_files(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def prompt_files(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Absolute paths of its prompt files inside the Asterisk container"""
 
     def __init__(
         self,
         *,
-        dialplan: builtins.str = ...,
-        prompt_files: collections.abc.Iterable[builtins.str] | None = ...,
+        dialplan: _builtins.str = ...,
+        prompt_files: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dialplan", b"dialplan", "prompt_files", b"prompt_files"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dialplan", b"dialplan", "prompt_files", b"prompt_files"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetIvrMenuDialplanResponse = GetIvrMenuDialplanResponse
+Global___GetIvrMenuDialplanResponse: _TypeAlias = GetIvrMenuDialplanResponse  # noqa: Y015

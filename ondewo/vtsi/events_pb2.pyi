@@ -16,33 +16,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.duration_pb2
-import google.protobuf.field_mask_pb2
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import google.protobuf.timestamp_pb2
-import ondewo.sip.sip_pb2
-import ondewo.vtsi.campaigns_pb2
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import duration_pb2 as _duration_pb2
+from google.protobuf import field_mask_pb2 as _field_mask_pb2
+from google.protobuf import message as _message
+from google.protobuf import timestamp_pb2 as _timestamp_pb2
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from ondewo.sip import sip_pb2 as _sip_pb2
+from ondewo.vtsi import campaigns_pb2 as _campaigns_pb2
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _VtsiEvent:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _VtsiEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VtsiEvent.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _VtsiEventEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_VtsiEvent.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     VTSI_EVENT_UNSPECIFIED: _VtsiEvent.ValueType  # 0
     """Unspecified. Never emitted; refused in a subscription."""
     VTSI_EVENT_CALL_CREATED: _VtsiEvent.ValueType  # 100
@@ -1054,14 +1054,14 @@ VTSI_EVENT_IVR_MENU_TESTED: VtsiEvent.ValueType  # 1006
 """A test call of an IVR menu finished; attributes <code>test_id</code>, <code>state</code>
 (<code>IvrMenuTestState</code> name without prefix) and <code>steps</code> (the number of nodes entered).
 """
-global___VtsiEvent = VtsiEvent
+Global___VtsiEvent: _TypeAlias = VtsiEvent  # noqa: Y015
 
 class _WebhookHttpMethod:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _WebhookHttpMethodEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WebhookHttpMethod.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _WebhookHttpMethodEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_WebhookHttpMethod.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     WEBHOOK_HTTP_METHOD_UNSPECIFIED: _WebhookHttpMethod.ValueType  # 0
     """Unspecified: <code>POST</code>."""
     WEBHOOK_HTTP_METHOD_POST: _WebhookHttpMethod.ValueType  # 1
@@ -1083,10 +1083,10 @@ WEBHOOK_HTTP_METHOD_POST: WebhookHttpMethod.ValueType  # 1
 """POST."""
 WEBHOOK_HTTP_METHOD_PUT: WebhookHttpMethod.ValueType  # 2
 """PUT."""
-global___WebhookHttpMethod = WebhookHttpMethod
+Global___WebhookHttpMethod: _TypeAlias = WebhookHttpMethod  # noqa: Y015
 
-@typing.final
-class VtsiEventMessage(google.protobuf.message.Message):
+@_typing.final
+class VtsiEventMessage(_message.Message):
     """////////////////////////////////////////////////////////////////////////////
     Resources
     ////////////////////////////////////////////////////////////////////////////
@@ -1095,78 +1095,82 @@ class VtsiEventMessage(google.protobuf.message.Message):
     and the unit of the <code>SubscribeVtsiEvents</code> stream.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class AttributesEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class AttributesEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
+            key: _builtins.str = ...,
+            value: _builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    EVENT_ID_FIELD_NUMBER: builtins.int
-    EVENT_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    RESOURCE_NAME_FIELD_NUMBER: builtins.int
-    EVENT_TIME_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_DESCRIPTION_FIELD_NUMBER: builtins.int
-    PREVIOUS_SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    ATTRIBUTES_FIELD_NUMBER: builtins.int
-    CAMPAIGN_STATISTICS_FIELD_NUMBER: builtins.int
-    RESOURCE_SEQUENCE_FIELD_NUMBER: builtins.int
-    event_id: builtins.str
+    EVENT_ID_FIELD_NUMBER: _builtins.int
+    EVENT_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    RESOURCE_NAME_FIELD_NUMBER: _builtins.int
+    EVENT_TIME_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_DESCRIPTION_FIELD_NUMBER: _builtins.int
+    PREVIOUS_SIP_STATUS_TYPE_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    ATTRIBUTES_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_STATISTICS_FIELD_NUMBER: _builtins.int
+    RESOURCE_SEQUENCE_FIELD_NUMBER: _builtins.int
+    event_id: _builtins.str
     """Unique id of the event (uuid). A retried webhook request carries the same id, and a call
     status change observed by several server replicas carries one id, so it identifies a
     duplicate.
     """
-    event: global___VtsiEvent.ValueType
+    event: Global___VtsiEvent.ValueType
     """The event."""
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the event.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    resource_name: builtins.str
+    resource_name: _builtins.str
     """The resource the event is about (call, caller, listener, scheduled caller, campaign, campaign
     call, project, softphone account, IVR menu).
     """
-    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType
     """SIP status after the change, for call and campaign call events."""
-    sip_status_description: builtins.str
+    sip_status_description: _builtins.str
     """SIP status description, where the event has one."""
-    previous_sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    previous_sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType
     """SIP status before the change, for <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED</code>."""
-    call_name: builtins.str
+    call_name: _builtins.str
     """The call the event is about or produced, where there is one."""
-    campaign_name: builtins.str
+    campaign_name: _builtins.str
     """The campaign the event belongs to, where known."""
-    description: builtins.str
+    description: _builtins.str
     """Human-readable description, e.g. why something failed."""
-    resource_sequence: builtins.int
+    resource_sequence: _builtins.int
     """Increases with every change of <code>resource_name</code> that produced an event, so a
     receiver can order events of one resource that arrived out of order. Defined (&gt; 0) for
     call events (the call&apos;s status change number), campaign call events and campaign state
     events; <code>0</code> where the resource has no such counter, then order by
     <code>event_time</code>.
     """
-    @property
-    def event_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def event_time(self) -> _timestamp_pb2.Timestamp:
         """When the event happened."""
 
-    @property
-    def attributes(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def attributes(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Further event-specific values, e.g. <code>caller_name</code>, <code>listener_name</code>,
         <code>phone_number</code>, <code>container_name</code>, <code>attempt_number</code>,
         <code>previous_status</code>. The keys and value formats of each event are documented at its
@@ -1174,89 +1178,95 @@ class VtsiEventMessage(google.protobuf.message.Message):
         256 characters. Receivers must ignore keys they do not know: later versions may add keys.
         """
 
-    @property
-    def campaign_statistics(self) -> ondewo.vtsi.campaigns_pb2.CampaignStatistics:
+    @_builtins.property
+    def campaign_statistics(self) -> _campaigns_pb2.CampaignStatistics:
         """Statistics of the campaign, on campaign events."""
 
     def __init__(
         self,
         *,
-        event_id: builtins.str = ...,
-        event: global___VtsiEvent.ValueType = ...,
-        vtsi_project_name: builtins.str = ...,
-        resource_name: builtins.str = ...,
-        event_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType | None = ...,
-        sip_status_description: builtins.str = ...,
-        previous_sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType | None = ...,
-        call_name: builtins.str = ...,
-        campaign_name: builtins.str = ...,
-        description: builtins.str = ...,
-        attributes: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        campaign_statistics: ondewo.vtsi.campaigns_pb2.CampaignStatistics | None = ...,
-        resource_sequence: builtins.int = ...,
+        event_id: _builtins.str = ...,
+        event: Global___VtsiEvent.ValueType = ...,
+        vtsi_project_name: _builtins.str = ...,
+        resource_name: _builtins.str = ...,
+        event_time: _timestamp_pb2.Timestamp | None = ...,
+        sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType | None = ...,
+        sip_status_description: _builtins.str = ...,
+        previous_sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType | None = ...,
+        call_name: _builtins.str = ...,
+        campaign_name: _builtins.str = ...,
+        description: _builtins.str = ...,
+        attributes: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        campaign_statistics: _campaigns_pb2.CampaignStatistics | None = ...,
+        resource_sequence: _builtins.int = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_previous_sip_status_type", b"_previous_sip_status_type", "_sip_status_type", b"_sip_status_type", "campaign_statistics", b"campaign_statistics", "event_time", b"event_time", "previous_sip_status_type", b"previous_sip_status_type", "sip_status_type", b"sip_status_type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_previous_sip_status_type", b"_previous_sip_status_type", "_sip_status_type", b"_sip_status_type", "attributes", b"attributes", "call_name", b"call_name", "campaign_name", b"campaign_name", "campaign_statistics", b"campaign_statistics", "description", b"description", "event", b"event", "event_id", b"event_id", "event_time", b"event_time", "previous_sip_status_type", b"previous_sip_status_type", "resource_name", b"resource_name", "resource_sequence", b"resource_sequence", "sip_status_description", b"sip_status_description", "sip_status_type", b"sip_status_type", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_previous_sip_status_type", b"_previous_sip_status_type"]) -> typing.Literal["previous_sip_status_type"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sip_status_type", b"_sip_status_type"]) -> typing.Literal["sip_status_type"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_previous_sip_status_type", b"_previous_sip_status_type", "_sip_status_type", b"_sip_status_type", "campaign_statistics", b"campaign_statistics", "event_time", b"event_time", "previous_sip_status_type", b"previous_sip_status_type", "sip_status_type", b"sip_status_type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_previous_sip_status_type", b"_previous_sip_status_type", "_sip_status_type", b"_sip_status_type", "attributes", b"attributes", "call_name", b"call_name", "campaign_name", b"campaign_name", "campaign_statistics", b"campaign_statistics", "description", b"description", "event", b"event", "event_id", b"event_id", "event_time", b"event_time", "previous_sip_status_type", b"previous_sip_status_type", "resource_name", b"resource_name", "resource_sequence", b"resource_sequence", "sip_status_description", b"sip_status_description", "sip_status_type", b"sip_status_type", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__previous_sip_status_type: _TypeAlias = _typing.Literal["previous_sip_status_type"]  # noqa: Y015
+    _WhichOneofArgType__previous_sip_status_type: _TypeAlias = _typing.Literal["_previous_sip_status_type", b"_previous_sip_status_type"]  # noqa: Y015
+    _WhichOneofReturnType__sip_status_type: _TypeAlias = _typing.Literal["sip_status_type"]  # noqa: Y015
+    _WhichOneofArgType__sip_status_type: _TypeAlias = _typing.Literal["_sip_status_type", b"_sip_status_type"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__previous_sip_status_type) -> _WhichOneofReturnType__previous_sip_status_type | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sip_status_type) -> _WhichOneofReturnType__sip_status_type | None: ...
 
-global___VtsiEventMessage = VtsiEventMessage
+Global___VtsiEventMessage: _TypeAlias = VtsiEventMessage  # noqa: Y015
 
-@typing.final
-class VtsiEventSubscription(google.protobuf.message.Message):
+@_typing.final
+class VtsiEventSubscription(_message.Message):
     """Which events of a project are delivered to which webhooks."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    EVENTS_FIELD_NUMBER: builtins.int
-    ALL_EVENTS_FIELD_NUMBER: builtins.int
-    RESOURCE_NAME_PREFIXES_FIELD_NUMBER: builtins.int
-    WEBHOOK_NAMES_FIELD_NUMBER: builtins.int
-    DISABLED_FIELD_NUMBER: builtins.int
-    CREATED_BY_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    MODIFIED_BY_FIELD_NUMBER: builtins.int
-    MODIFIED_AT_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAMES_FIELD_NUMBER: builtins.int
-    EXCLUDED_EVENTS_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    EVENTS_FIELD_NUMBER: _builtins.int
+    ALL_EVENTS_FIELD_NUMBER: _builtins.int
+    RESOURCE_NAME_PREFIXES_FIELD_NUMBER: _builtins.int
+    WEBHOOK_NAMES_FIELD_NUMBER: _builtins.int
+    DISABLED_FIELD_NUMBER: _builtins.int
+    CREATED_BY_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    MODIFIED_BY_FIELD_NUMBER: _builtins.int
+    MODIFIED_AT_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAMES_FIELD_NUMBER: _builtins.int
+    EXCLUDED_EVENTS_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Output only. Resource name.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """Output only. VTSI project of the subscription.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
     empty display name stays empty (no default is generated). Updatable.
     """
-    all_events: builtins.bool
+    all_events: _builtins.bool
     """Deliver every event, including events added in later versions, except
     <code>excluded_events</code>. Updatable.
     """
-    disabled: builtins.bool
+    disabled: _builtins.bool
     """<code>false</code> (the default): events are delivered. <code>true</code>: nothing is
     delivered and <code>SubscribeVtsiEvents</code> refuses the subscription. Updatable.
     """
-    created_by: builtins.str
+    created_by: _builtins.str
     """Output only. The user who created the subscription."""
-    modified_by: builtins.str
+    modified_by: _builtins.str
     """Output only. The user who last modified the subscription."""
-    @property
-    def events(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiEvent.ValueType]:
+    @_builtins.property
+    def events(self) -> _containers.RepeatedScalarFieldContainer[Global___VtsiEvent.ValueType]:
         """The events to deliver. Required unless <code>all_events</code> is set; must be empty when it
         is. At most one entry per value (duplicates are ignored). Updatable.
         """
 
-    @property
-    def resource_name_prefixes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def resource_name_prefixes(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Deliver only events whose <code>resource_name</code> starts with one of these prefixes, e.g.
         a caller name (<code>projects/&lt;p&gt;/callers/&lt;c&gt;</code> also selects that
         caller&apos;s calls) or a campaign name (selects the campaign and its campaign calls, NOT the
@@ -1265,22 +1275,22 @@ class VtsiEventSubscription(google.protobuf.message.Message):
         50. Updatable.
         """
 
-    @property
-    def webhook_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def webhook_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Webhooks of the same project the events are sent to. Empty means none (the subscription is
         then only useful to <code>SubscribeVtsiEvents</code>). At most 20. Updatable.
         """
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. Creation time."""
 
-    @property
-    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. Last modification time."""
 
-    @property
-    def campaign_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Deliver only events whose <code>campaign_name</code> is one of these campaign resource names:
         the campaign&apos;s own events, its campaign call events and the call, caller and scheduled
         caller events of the calls it placed. Call events produced while a campaign attempt is being
@@ -1290,8 +1300,8 @@ class VtsiEventSubscription(google.protobuf.message.Message):
         <code>resource_name_prefixes</code> by AND. At most 50. Updatable.
         """
 
-    @property
-    def excluded_events(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiEvent.ValueType]:
+    @_builtins.property
+    def excluded_events(self) -> _containers.RepeatedScalarFieldContainer[Global___VtsiEvent.ValueType]:
         """Events NOT to deliver, subtracted from the selection of <code>events</code> / <code>all_events</code>,
         e.g. <code>all_events</code> with <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED</code> and
         <code>VTSI_EVENT_CAMPAIGN_PROGRESS</code> excluded. Empty means nothing is excluded.
@@ -1303,142 +1313,152 @@ class VtsiEventSubscription(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        events: collections.abc.Iterable[global___VtsiEvent.ValueType] | None = ...,
-        all_events: builtins.bool = ...,
-        resource_name_prefixes: collections.abc.Iterable[builtins.str] | None = ...,
-        webhook_names: collections.abc.Iterable[builtins.str] | None = ...,
-        disabled: builtins.bool = ...,
-        created_by: builtins.str = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        modified_by: builtins.str = ...,
-        modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        campaign_names: collections.abc.Iterable[builtins.str] | None = ...,
-        excluded_events: collections.abc.Iterable[global___VtsiEvent.ValueType] | None = ...,
+        name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        events: _abc.Iterable[Global___VtsiEvent.ValueType] | None = ...,
+        all_events: _builtins.bool = ...,
+        resource_name_prefixes: _abc.Iterable[_builtins.str] | None = ...,
+        webhook_names: _abc.Iterable[_builtins.str] | None = ...,
+        disabled: _builtins.bool = ...,
+        created_by: _builtins.str = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        modified_by: _builtins.str = ...,
+        modified_at: _timestamp_pb2.Timestamp | None = ...,
+        campaign_names: _abc.Iterable[_builtins.str] | None = ...,
+        excluded_events: _abc.Iterable[Global___VtsiEvent.ValueType] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["created_at", b"created_at", "modified_at", b"modified_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["all_events", b"all_events", "campaign_names", b"campaign_names", "created_at", b"created_at", "created_by", b"created_by", "disabled", b"disabled", "display_name", b"display_name", "events", b"events", "excluded_events", b"excluded_events", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "resource_name_prefixes", b"resource_name_prefixes", "vtsi_project_name", b"vtsi_project_name", "webhook_names", b"webhook_names"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["created_at", b"created_at", "modified_at", b"modified_at"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["all_events", b"all_events", "campaign_names", b"campaign_names", "created_at", b"created_at", "created_by", b"created_by", "disabled", b"disabled", "display_name", b"display_name", "events", b"events", "excluded_events", b"excluded_events", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "resource_name_prefixes", b"resource_name_prefixes", "vtsi_project_name", b"vtsi_project_name", "webhook_names", b"webhook_names"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___VtsiEventSubscription = VtsiEventSubscription
+Global___VtsiEventSubscription: _TypeAlias = VtsiEventSubscription  # noqa: Y015
 
-@typing.final
-class WebhookDeliveryStatistics(google.protobuf.message.Message):
+@_typing.final
+class WebhookDeliveryStatistics(_message.Message):
     """Delivery counters of a webhook. Approximate: summed over every server replica and flushed every
     few seconds.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DELIVERED_COUNT_FIELD_NUMBER: builtins.int
-    FAILED_COUNT_FIELD_NUMBER: builtins.int
-    DROPPED_COUNT_FIELD_NUMBER: builtins.int
-    LAST_DELIVERY_TIME_FIELD_NUMBER: builtins.int
-    LAST_SUCCESS_TIME_FIELD_NUMBER: builtins.int
-    LAST_HTTP_STATUS_CODE_FIELD_NUMBER: builtins.int
-    LAST_ERROR_FIELD_NUMBER: builtins.int
-    delivered_count: builtins.int
+    DELIVERED_COUNT_FIELD_NUMBER: _builtins.int
+    FAILED_COUNT_FIELD_NUMBER: _builtins.int
+    DROPPED_COUNT_FIELD_NUMBER: _builtins.int
+    LAST_DELIVERY_TIME_FIELD_NUMBER: _builtins.int
+    LAST_SUCCESS_TIME_FIELD_NUMBER: _builtins.int
+    LAST_HTTP_STATUS_CODE_FIELD_NUMBER: _builtins.int
+    LAST_ERROR_FIELD_NUMBER: _builtins.int
+    delivered_count: _builtins.int
     """Requests answered with a 2xx status."""
-    failed_count: builtins.int
+    failed_count: _builtins.int
     """Events given up after the last retry."""
-    dropped_count: builtins.int
+    dropped_count: _builtins.int
     """Events dropped without a request because the server&apos;s webhook queue was full, or because
     the webhook&apos;s circuit was open after repeated failures.
     """
-    last_http_status_code: builtins.int
+    last_http_status_code: _builtins.int
     """HTTP status of the last answer, 0 when no answer was received."""
-    last_error: builtins.str
+    last_error: _builtins.str
     """Why the last request failed, e.g. <code>timeout</code>, <code>connection_error</code>,
     <code>http_503</code>. Never contains a header value or a URL query.
     """
-    @property
-    def last_delivery_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def last_delivery_time(self) -> _timestamp_pb2.Timestamp:
         """Time of the last request."""
 
-    @property
-    def last_success_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def last_success_time(self) -> _timestamp_pb2.Timestamp:
         """Time of the last 2xx answer."""
 
     def __init__(
         self,
         *,
-        delivered_count: builtins.int = ...,
-        failed_count: builtins.int = ...,
-        dropped_count: builtins.int = ...,
-        last_delivery_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        last_success_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        last_http_status_code: builtins.int = ...,
-        last_error: builtins.str = ...,
+        delivered_count: _builtins.int = ...,
+        failed_count: _builtins.int = ...,
+        dropped_count: _builtins.int = ...,
+        last_delivery_time: _timestamp_pb2.Timestamp | None = ...,
+        last_success_time: _timestamp_pb2.Timestamp | None = ...,
+        last_http_status_code: _builtins.int = ...,
+        last_error: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["last_delivery_time", b"last_delivery_time", "last_success_time", b"last_success_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["delivered_count", b"delivered_count", "dropped_count", b"dropped_count", "failed_count", b"failed_count", "last_delivery_time", b"last_delivery_time", "last_error", b"last_error", "last_http_status_code", b"last_http_status_code", "last_success_time", b"last_success_time"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["last_delivery_time", b"last_delivery_time", "last_success_time", b"last_success_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["delivered_count", b"delivered_count", "dropped_count", b"dropped_count", "failed_count", b"failed_count", "last_delivery_time", b"last_delivery_time", "last_error", b"last_error", "last_http_status_code", b"last_http_status_code", "last_success_time", b"last_success_time"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___WebhookDeliveryStatistics = WebhookDeliveryStatistics
+Global___WebhookDeliveryStatistics: _TypeAlias = WebhookDeliveryStatistics  # noqa: Y015
 
-@typing.final
-class Webhook(google.protobuf.message.Message):
+@_typing.final
+class Webhook(_message.Message):
     """An HTTP(S) endpoint that receives one request per event."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class CustomHeadersEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class CustomHeadersEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
+            key: _builtins.str = ...,
+            value: _builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    URL_FIELD_NUMBER: builtins.int
-    HTTP_METHOD_FIELD_NUMBER: builtins.int
-    CUSTOM_HEADERS_FIELD_NUMBER: builtins.int
-    DISABLED_FIELD_NUMBER: builtins.int
-    TIMEOUT_FIELD_NUMBER: builtins.int
-    DELIVERY_STATISTICS_FIELD_NUMBER: builtins.int
-    CREATED_BY_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    MODIFIED_BY_FIELD_NUMBER: builtins.int
-    MODIFIED_AT_FIELD_NUMBER: builtins.int
-    SIGNING_SECRET_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    URL_FIELD_NUMBER: _builtins.int
+    HTTP_METHOD_FIELD_NUMBER: _builtins.int
+    CUSTOM_HEADERS_FIELD_NUMBER: _builtins.int
+    DISABLED_FIELD_NUMBER: _builtins.int
+    TIMEOUT_FIELD_NUMBER: _builtins.int
+    DELIVERY_STATISTICS_FIELD_NUMBER: _builtins.int
+    CREATED_BY_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    MODIFIED_BY_FIELD_NUMBER: _builtins.int
+    MODIFIED_AT_FIELD_NUMBER: _builtins.int
+    SIGNING_SECRET_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Output only. Resource name.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """Output only. VTSI project of the webhook.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
     empty display name stays empty (no default is generated). Updatable.
     """
-    url: builtins.str
+    url: _builtins.str
     """Required. http:// or https:// URL, at most 2048 characters, without user information. Any
     host is allowed. Updatable.
     """
-    http_method: global___WebhookHttpMethod.ValueType
+    http_method: Global___WebhookHttpMethod.ValueType
     """HTTP method. Unset means POST. Updatable."""
-    disabled: builtins.bool
+    disabled: _builtins.bool
     """<code>false</code> (the default): events are sent. <code>true</code>: nothing is sent (except
     by <code>TestWebhook</code>). Updatable.
     """
-    created_by: builtins.str
+    created_by: _builtins.str
     """Output only. The user who created the webhook."""
-    modified_by: builtins.str
+    modified_by: _builtins.str
     """Output only. The user who last modified the webhook."""
-    signing_secret: builtins.str
+    signing_secret: _builtins.str
     """Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
     that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
     <code>********</code> when a secret is stored and an empty string when none is; it is never logged and
@@ -1465,8 +1485,8 @@ class Webhook(google.protobuf.message.Message):
     stored secret, so a Get-modify-Update round trip does not change it. <code>TestWebhook</code> signs like
     a real delivery and is the way to check a receiver&apos;s verification before relying on it.</p>
     """
-    @property
-    def custom_headers(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def custom_headers(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Optional extra request headers, e.g. <code>Authorization</code>. WRITE-ONLY VALUES: every RPC
         returns each value as <code>********</code>. At most 20 headers; names are HTTP tokens of at
         most 128 characters; values at most 4096 characters without line breaks. Reserved and refused:
@@ -1476,87 +1496,90 @@ class Webhook(google.protobuf.message.Message):
         another origin).
         """
 
-    @property
-    def timeout(self) -> google.protobuf.duration_pb2.Duration:
+    @_builtins.property
+    def timeout(self) -> _duration_pb2.Duration:
         """Request timeout. Unset means the server default (5 s); allowed 1 s to 30 s. Updatable."""
 
-    @property
-    def delivery_statistics(self) -> global___WebhookDeliveryStatistics:
+    @_builtins.property
+    def delivery_statistics(self) -> Global___WebhookDeliveryStatistics:
         """Output only. Delivery counters."""
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. Creation time."""
 
-    @property
-    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. Last modification time."""
 
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        url: builtins.str = ...,
-        http_method: global___WebhookHttpMethod.ValueType = ...,
-        custom_headers: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        disabled: builtins.bool = ...,
-        timeout: google.protobuf.duration_pb2.Duration | None = ...,
-        delivery_statistics: global___WebhookDeliveryStatistics | None = ...,
-        created_by: builtins.str = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        modified_by: builtins.str = ...,
-        modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        signing_secret: builtins.str = ...,
+        name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        url: _builtins.str = ...,
+        http_method: Global___WebhookHttpMethod.ValueType = ...,
+        custom_headers: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        disabled: _builtins.bool = ...,
+        timeout: _duration_pb2.Duration | None = ...,
+        delivery_statistics: Global___WebhookDeliveryStatistics | None = ...,
+        created_by: _builtins.str = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        modified_by: _builtins.str = ...,
+        modified_at: _timestamp_pb2.Timestamp | None = ...,
+        signing_secret: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["created_at", b"created_at", "delivery_statistics", b"delivery_statistics", "modified_at", b"modified_at", "timeout", b"timeout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["created_at", b"created_at", "created_by", b"created_by", "custom_headers", b"custom_headers", "delivery_statistics", b"delivery_statistics", "disabled", b"disabled", "display_name", b"display_name", "http_method", b"http_method", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "signing_secret", b"signing_secret", "timeout", b"timeout", "url", b"url", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["created_at", b"created_at", "delivery_statistics", b"delivery_statistics", "modified_at", b"modified_at", "timeout", b"timeout"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["created_at", b"created_at", "created_by", b"created_by", "custom_headers", b"custom_headers", "delivery_statistics", b"delivery_statistics", "disabled", b"disabled", "display_name", b"display_name", "http_method", b"http_method", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "signing_secret", b"signing_secret", "timeout", b"timeout", "url", b"url", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Webhook = Webhook
+Global___Webhook: _TypeAlias = Webhook  # noqa: Y015
 
-@typing.final
-class VtsiEventFilter(google.protobuf.message.Message):
+@_typing.final
+class VtsiEventFilter(_message.Message):
     """Selects events for <code>SubscribeVtsiEvents</code> without a stored subscription, and narrows a
     <code>RedeliverWebhookEvents</code> window. Every set field narrows the selection (AND); the entries of one
     list are alternatives (OR).
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    EVENTS_FIELD_NUMBER: builtins.int
-    RESOURCE_NAME_PREFIXES_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAMES_FIELD_NUMBER: builtins.int
-    ALL_EVENTS_FIELD_NUMBER: builtins.int
-    EXCLUDED_EVENTS_FIELD_NUMBER: builtins.int
-    all_events: builtins.bool
+    EVENTS_FIELD_NUMBER: _builtins.int
+    RESOURCE_NAME_PREFIXES_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAMES_FIELD_NUMBER: _builtins.int
+    ALL_EVENTS_FIELD_NUMBER: _builtins.int
+    EXCLUDED_EVENTS_FIELD_NUMBER: _builtins.int
+    all_events: _builtins.bool
     """Every event, explicitly; equivalent to an empty <code>events</code> and present for symmetry with
     <code>VtsiEventSubscription.all_events</code>. Set together with a non-empty <code>events</code> is
     rejected with <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def events(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiEvent.ValueType]:
+    @_builtins.property
+    def events(self) -> _containers.RepeatedScalarFieldContainer[Global___VtsiEvent.ValueType]:
         """Only these events. Empty means every event (unlike <code>VtsiEventSubscription.events</code>, where
         empty is refused unless <code>all_events</code> is set: a filter is a one-off request, so "no
         constraint" is its natural empty value). <code>VTSI_EVENT_UNSPECIFIED</code> or a reserved value is
         rejected with <code>INVALID_ARGUMENT</code>.
         """
 
-    @property
-    def resource_name_prefixes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def resource_name_prefixes(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Only events whose <code>resource_name</code> starts with one of these prefixes. Empty means
         every resource of the project. Same semantics as
         <code>VtsiEventSubscription.resource_name_prefixes</code>.
         """
 
-    @property
-    def campaign_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Only events of these campaigns. Same semantics as
         <code>VtsiEventSubscription.campaign_names</code>.
         """
 
-    @property
-    def excluded_events(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiEvent.ValueType]:
+    @_builtins.property
+    def excluded_events(self) -> _containers.RepeatedScalarFieldContainer[Global___VtsiEvent.ValueType]:
         """Events NOT to select, subtracted from the selection of <code>events</code> / <code>all_events</code>.
         Same semantics and limits as <code>VtsiEventSubscription.excluded_events</code>.
         """
@@ -1564,18 +1587,22 @@ class VtsiEventFilter(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        events: collections.abc.Iterable[global___VtsiEvent.ValueType] | None = ...,
-        resource_name_prefixes: collections.abc.Iterable[builtins.str] | None = ...,
-        campaign_names: collections.abc.Iterable[builtins.str] | None = ...,
-        all_events: builtins.bool = ...,
-        excluded_events: collections.abc.Iterable[global___VtsiEvent.ValueType] | None = ...,
+        events: _abc.Iterable[Global___VtsiEvent.ValueType] | None = ...,
+        resource_name_prefixes: _abc.Iterable[_builtins.str] | None = ...,
+        campaign_names: _abc.Iterable[_builtins.str] | None = ...,
+        all_events: _builtins.bool = ...,
+        excluded_events: _abc.Iterable[Global___VtsiEvent.ValueType] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["all_events", b"all_events", "campaign_names", b"campaign_names", "events", b"events", "excluded_events", b"excluded_events", "resource_name_prefixes", b"resource_name_prefixes"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["all_events", b"all_events", "campaign_names", b"campaign_names", "events", b"events", "excluded_events", b"excluded_events", "resource_name_prefixes", b"resource_name_prefixes"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___VtsiEventFilter = VtsiEventFilter
+Global___VtsiEventFilter: _TypeAlias = VtsiEventFilter  # noqa: Y015
 
-@typing.final
-class CreateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
+@_typing.final
+class CreateVtsiEventSubscriptionRequest(_message.Message):
     """////////////////////////////////////////////////////////////////////////////
     Requests and responses
     ////////////////////////////////////////////////////////////////////////////
@@ -1583,24 +1610,24 @@ class CreateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
     The request message for <code>Events.CreateVtsiEventSubscription</code>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    EVENT_SUBSCRIPTION_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    EVENT_SUBSCRIPTION_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
     <code>NOT_FOUND</code>.
     """
-    @property
-    def event_subscription(self) -> global___VtsiEventSubscription:
+    @_builtins.property
+    def event_subscription(self) -> Global___VtsiEventSubscription:
         """The subscription to create. Output-only fields (<code>name</code>, <code>vtsi_project_name</code>,
         <code>created_*</code>, <code>modified_*</code>) must be unset.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
         <code>VtsiEventSubscription</code> (no prefix), e.g. <code>name</code>, <code>events</code>. Nested paths through singular message fields are allowed; a path
         below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
@@ -1611,30 +1638,33 @@ class CreateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        event_subscription: global___VtsiEventSubscription | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        event_subscription: Global___VtsiEventSubscription | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CreateVtsiEventSubscriptionRequest = CreateVtsiEventSubscriptionRequest
+Global___CreateVtsiEventSubscriptionRequest: _TypeAlias = CreateVtsiEventSubscriptionRequest  # noqa: Y015
 
-@typing.final
-class GetVtsiEventSubscriptionRequest(google.protobuf.message.Message):
+@_typing.final
+class GetVtsiEventSubscriptionRequest(_message.Message):
     """The request message for <code>Events.GetVtsiEventSubscription</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the subscription.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
         <code>VtsiEventSubscription</code> (no prefix), e.g. <code>events</code>, <code>webhook_names</code>. Nested paths through singular message fields are allowed; a path
         below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
@@ -1645,32 +1675,35 @@ class GetVtsiEventSubscriptionRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetVtsiEventSubscriptionRequest = GetVtsiEventSubscriptionRequest
+Global___GetVtsiEventSubscriptionRequest: _TypeAlias = GetVtsiEventSubscriptionRequest  # noqa: Y015
 
-@typing.final
-class UpdateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateVtsiEventSubscriptionRequest(_message.Message):
     """The request message for <code>Events.UpdateVtsiEventSubscription</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    EVENT_SUBSCRIPTION_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    @property
-    def event_subscription(self) -> global___VtsiEventSubscription:
+    EVENT_SUBSCRIPTION_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def event_subscription(self) -> Global___VtsiEventSubscription:
         """The subscription, identified by <code>event_subscription.name</code>
         (<code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code>; malformed is
         <code>INVALID_ARGUMENT</code>), carrying the new values of the fields named in <code>update_mask</code>.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """Required. Paths without prefix: <code>display_name</code>, <code>events</code>,
         <code>all_events</code>, <code>resource_name_prefixes</code>, <code>campaign_names</code>,
         <code>webhook_names</code>, <code>disabled</code>. An empty mask or another path is rejected
@@ -1678,8 +1711,8 @@ class UpdateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
         <code>false</code> and empty lists. <code>excluded_events</code> is updatable too.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
         <code>VtsiEventSubscription</code> (no prefix). Nested paths through singular message fields are allowed; a path
         below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
@@ -1690,30 +1723,33 @@ class UpdateVtsiEventSubscriptionRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        event_subscription: global___VtsiEventSubscription | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        event_subscription: Global___VtsiEventSubscription | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask", "update_mask", b"update_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["event_subscription", b"event_subscription", "field_mask", b"field_mask", "update_mask", b"update_mask"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateVtsiEventSubscriptionRequest = UpdateVtsiEventSubscriptionRequest
+Global___UpdateVtsiEventSubscriptionRequest: _TypeAlias = UpdateVtsiEventSubscriptionRequest  # noqa: Y015
 
-@typing.final
-class DeleteVtsiEventSubscriptionRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteVtsiEventSubscriptionRequest(_message.Message):
     """The request message for <code>Events.DeleteVtsiEventSubscription</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the subscription.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>DeleteVtsiEventSubscriptionResponse</code> field paths to populate
         (as <code>DeleteCampaignRequest.field_mask</code>). <code>name</code> is always populated. Unset or empty
         returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before
@@ -1723,53 +1759,60 @@ class DeleteVtsiEventSubscriptionRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteVtsiEventSubscriptionRequest = DeleteVtsiEventSubscriptionRequest
+Global___DeleteVtsiEventSubscriptionRequest: _TypeAlias = DeleteVtsiEventSubscriptionRequest  # noqa: Y015
 
-@typing.final
-class DeleteVtsiEventSubscriptionResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteVtsiEventSubscriptionResponse(_message.Message):
     """The response message for <code>Events.DeleteVtsiEventSubscription</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the deleted subscription."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
+        name: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteVtsiEventSubscriptionResponse = DeleteVtsiEventSubscriptionResponse
+Global___DeleteVtsiEventSubscriptionResponse: _TypeAlias = DeleteVtsiEventSubscriptionResponse  # noqa: Y015
 
-@typing.final
-class ListVtsiEventSubscriptionsRequest(google.protobuf.message.Message):
+@_typing.final
+class ListVtsiEventSubscriptionsRequest(_message.Message):
     """The request message for <code>Events.ListVtsiEventSubscriptions</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
     <code>NOT_FOUND</code>.
     """
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. <code>0</code> means 20; above 1000 clamped; negative rejected."""
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response."""
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in every returned
         <code>VtsiEventSubscription</code>, relative to the <code>VtsiEventSubscription</code> message (no
         <code>event_subscriptions.</code> prefix), e.g. <code>display_name</code>, <code>events</code>.
@@ -1783,63 +1826,71 @@ class ListVtsiEventSubscriptionsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        page_size: builtins.int = ...,
-        page_token: builtins.str | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        page_size: _builtins.int = ...,
+        page_token: _builtins.str | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_token", b"page_token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
 
-global___ListVtsiEventSubscriptionsRequest = ListVtsiEventSubscriptionsRequest
+Global___ListVtsiEventSubscriptionsRequest: _TypeAlias = ListVtsiEventSubscriptionsRequest  # noqa: Y015
 
-@typing.final
-class ListVtsiEventSubscriptionsResponse(google.protobuf.message.Message):
+@_typing.final
+class ListVtsiEventSubscriptionsResponse(_message.Message):
     """The response message for <code>Events.ListVtsiEventSubscriptions</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    EVENT_SUBSCRIPTIONS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    EVENT_SUBSCRIPTIONS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token for the next page. Empty when there are no more results."""
-    @property
-    def event_subscriptions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiEventSubscription]:
+    @_builtins.property
+    def event_subscriptions(self) -> _containers.RepeatedCompositeFieldContainer[Global___VtsiEventSubscription]:
         """The subscriptions of this page, newest first."""
 
     def __init__(
         self,
         *,
-        event_subscriptions: collections.abc.Iterable[global___VtsiEventSubscription] | None = ...,
-        next_page_token: builtins.str = ...,
+        event_subscriptions: _abc.Iterable[Global___VtsiEventSubscription] | None = ...,
+        next_page_token: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["event_subscriptions", b"event_subscriptions", "next_page_token", b"next_page_token"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["event_subscriptions", b"event_subscriptions", "next_page_token", b"next_page_token"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListVtsiEventSubscriptionsResponse = ListVtsiEventSubscriptionsResponse
+Global___ListVtsiEventSubscriptionsResponse: _TypeAlias = ListVtsiEventSubscriptionsResponse  # noqa: Y015
 
-@typing.final
-class CreateWebhookRequest(google.protobuf.message.Message):
+@_typing.final
+class CreateWebhookRequest(_message.Message):
     """The request message for <code>Events.CreateWebhook</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    WEBHOOK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    WEBHOOK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
     <code>NOT_FOUND</code>.
     """
-    @property
-    def webhook(self) -> global___Webhook:
+    @_builtins.property
+    def webhook(self) -> Global___Webhook:
         """The webhook to create. Output-only fields (<code>name</code>, <code>vtsi_project_name</code>,
         <code>delivery_statistics</code>, <code>created_*</code>, <code>modified_*</code>) must be unset.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
         <code>Webhook</code> (no prefix), e.g. <code>name</code>, <code>url</code>. Nested paths through singular message fields are allowed; a path
         below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
@@ -1850,30 +1901,33 @@ class CreateWebhookRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        webhook: global___Webhook | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        webhook: Global___Webhook | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "webhook", b"webhook"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name", "webhook", b"webhook"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "webhook", b"webhook"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name", "webhook", b"webhook"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CreateWebhookRequest = CreateWebhookRequest
+Global___CreateWebhookRequest: _TypeAlias = CreateWebhookRequest  # noqa: Y015
 
-@typing.final
-class GetWebhookRequest(google.protobuf.message.Message):
+@_typing.final
+class GetWebhookRequest(_message.Message):
     """The request message for <code>Events.GetWebhook</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the webhook.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
         <code>Webhook</code> (no prefix), e.g. <code>url</code>, <code>delivery_statistics</code>. Nested paths through singular message fields are allowed; a path
         below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
@@ -1884,32 +1938,35 @@ class GetWebhookRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetWebhookRequest = GetWebhookRequest
+Global___GetWebhookRequest: _TypeAlias = GetWebhookRequest  # noqa: Y015
 
-@typing.final
-class UpdateWebhookRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateWebhookRequest(_message.Message):
     """The request message for <code>Events.UpdateWebhook</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    WEBHOOK_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    @property
-    def webhook(self) -> global___Webhook:
+    WEBHOOK_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def webhook(self) -> Global___Webhook:
         """The webhook, identified by <code>webhook.name</code>
         (<code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code>; malformed is
         <code>INVALID_ARGUMENT</code>), carrying the new values of the fields named in <code>update_mask</code>.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """Required. Paths without prefix: <code>display_name</code>, <code>url</code>,
         <code>http_method</code>, <code>custom_headers</code>, <code>disabled</code>,
         <code>timeout</code>. An empty mask or another path is rejected with
@@ -1921,8 +1978,8 @@ class UpdateWebhookRequest(google.protobuf.message.Message):
         empty one removes it, <code>********</code> keeps it (see <code>Webhook.signing_secret</code>).
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
         <code>Webhook</code> (no prefix). Nested paths through singular message fields are allowed; a path
         below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
@@ -1933,30 +1990,33 @@ class UpdateWebhookRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        webhook: global___Webhook | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        webhook: Global___Webhook | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "webhook", b"webhook"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "webhook", b"webhook"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "webhook", b"webhook"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "webhook", b"webhook"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateWebhookRequest = UpdateWebhookRequest
+Global___UpdateWebhookRequest: _TypeAlias = UpdateWebhookRequest  # noqa: Y015
 
-@typing.final
-class DeleteWebhookRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteWebhookRequest(_message.Message):
     """The request message for <code>Events.DeleteWebhook</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the webhook.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>DeleteWebhookResponse</code> field paths to populate, e.g.
         <code>detached_subscription_count</code> (as <code>DeleteCampaignRequest.field_mask</code>).
         <code>name</code> is always populated. Unset or empty returns every field. An unknown path is rejected
@@ -1967,57 +2027,64 @@ class DeleteWebhookRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteWebhookRequest = DeleteWebhookRequest
+Global___DeleteWebhookRequest: _TypeAlias = DeleteWebhookRequest  # noqa: Y015
 
-@typing.final
-class DeleteWebhookResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteWebhookResponse(_message.Message):
     """The response message for <code>Events.DeleteWebhook</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DETACHED_SUBSCRIPTION_COUNT_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DETACHED_SUBSCRIPTION_COUNT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the deleted webhook."""
-    detached_subscription_count: builtins.int
+    detached_subscription_count: _builtins.int
     """How many event subscriptions referenced it and no longer do."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        detached_subscription_count: builtins.int = ...,
+        name: _builtins.str = ...,
+        detached_subscription_count: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["detached_subscription_count", b"detached_subscription_count", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["detached_subscription_count", b"detached_subscription_count", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteWebhookResponse = DeleteWebhookResponse
+Global___DeleteWebhookResponse: _TypeAlias = DeleteWebhookResponse  # noqa: Y015
 
-@typing.final
-class ListWebhooksRequest(google.protobuf.message.Message):
+@_typing.final
+class ListWebhooksRequest(_message.Message):
     """The request message for <code>Events.ListWebhooks</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
     <code>NOT_FOUND</code>.
     """
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. <code>0</code> means 20; above 1000 clamped; negative rejected."""
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response."""
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in every returned <code>Webhook</code>,
         relative to the <code>Webhook</code> message (no <code>webhooks.</code> prefix), e.g.
         <code>display_name</code>, <code>url</code>, <code>delivery_statistics</code>. Nested paths through
@@ -2032,55 +2099,63 @@ class ListWebhooksRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        page_size: builtins.int = ...,
-        page_token: builtins.str | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        page_size: _builtins.int = ...,
+        page_token: _builtins.str | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_token", b"page_token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
 
-global___ListWebhooksRequest = ListWebhooksRequest
+Global___ListWebhooksRequest: _TypeAlias = ListWebhooksRequest  # noqa: Y015
 
-@typing.final
-class ListWebhooksResponse(google.protobuf.message.Message):
+@_typing.final
+class ListWebhooksResponse(_message.Message):
     """The response message for <code>Events.ListWebhooks</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    WEBHOOKS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    WEBHOOKS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token for the next page. Empty when there are no more results."""
-    @property
-    def webhooks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Webhook]:
+    @_builtins.property
+    def webhooks(self) -> _containers.RepeatedCompositeFieldContainer[Global___Webhook]:
         """The webhooks of this page, newest first. Custom header values are masked."""
 
     def __init__(
         self,
         *,
-        webhooks: collections.abc.Iterable[global___Webhook] | None = ...,
-        next_page_token: builtins.str = ...,
+        webhooks: _abc.Iterable[Global___Webhook] | None = ...,
+        next_page_token: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["next_page_token", b"next_page_token", "webhooks", b"webhooks"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["next_page_token", b"next_page_token", "webhooks", b"webhooks"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListWebhooksResponse = ListWebhooksResponse
+Global___ListWebhooksResponse: _TypeAlias = ListWebhooksResponse  # noqa: Y015
 
-@typing.final
-class TestWebhookRequest(google.protobuf.message.Message):
+@_typing.final
+class TestWebhookRequest(_message.Message):
     """The request message for <code>Events.TestWebhook</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    SAMPLE_EVENT_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    SAMPLE_EVENT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the webhook.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
     """
-    sample_event: global___VtsiEvent.ValueType
+    sample_event: Global___VtsiEvent.ValueType
     """Optional. Send an event shaped like this real event instead of <code>VTSI_EVENT_WEBHOOK_TEST</code>, so
     a receiver can be tested against the payload it will get: <code>event</code> is this value, the header
     <code>X-Ondewo-Vtsi-Event</code> its name, <code>event_id</code> a fresh uuid,
@@ -2099,67 +2174,74 @@ class TestWebhookRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        sample_event: global___VtsiEvent.ValueType = ...,
+        name: _builtins.str = ...,
+        sample_event: Global___VtsiEvent.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "sample_event", b"sample_event"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "sample_event", b"sample_event"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TestWebhookRequest = TestWebhookRequest
+Global___TestWebhookRequest: _TypeAlias = TestWebhookRequest  # noqa: Y015
 
-@typing.final
-class TestWebhookResponse(google.protobuf.message.Message):
+@_typing.final
+class TestWebhookResponse(_message.Message):
     """The response message for <code>Events.TestWebhook</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SUCCESS_FIELD_NUMBER: builtins.int
-    HTTP_STATUS_CODE_FIELD_NUMBER: builtins.int
-    LATENCY_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    EVENT_ID_FIELD_NUMBER: builtins.int
-    success: builtins.bool
+    SUCCESS_FIELD_NUMBER: _builtins.int
+    HTTP_STATUS_CODE_FIELD_NUMBER: _builtins.int
+    LATENCY_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    EVENT_ID_FIELD_NUMBER: _builtins.int
+    success: _builtins.bool
     """True when the endpoint answered with a 2xx status."""
-    http_status_code: builtins.int
+    http_status_code: _builtins.int
     """HTTP status of the answer, 0 when none was received."""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Why the request failed (no header value, no URL query). Empty on success."""
-    event_id: builtins.str
+    event_id: _builtins.str
     """<code>event_id</code> of the test event that was sent."""
-    @property
-    def latency(self) -> google.protobuf.duration_pb2.Duration:
+    @_builtins.property
+    def latency(self) -> _duration_pb2.Duration:
         """Time until the answer or the failure."""
 
     def __init__(
         self,
         *,
-        success: builtins.bool = ...,
-        http_status_code: builtins.int = ...,
-        latency: google.protobuf.duration_pb2.Duration | None = ...,
-        error_message: builtins.str = ...,
-        event_id: builtins.str = ...,
+        success: _builtins.bool = ...,
+        http_status_code: _builtins.int = ...,
+        latency: _duration_pb2.Duration | None = ...,
+        error_message: _builtins.str = ...,
+        event_id: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["latency", b"latency"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "event_id", b"event_id", "http_status_code", b"http_status_code", "latency", b"latency", "success", b"success"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["latency", b"latency"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "event_id", b"event_id", "http_status_code", b"http_status_code", "latency", b"latency", "success", b"success"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TestWebhookResponse = TestWebhookResponse
+Global___TestWebhookResponse: _TypeAlias = TestWebhookResponse  # noqa: Y015
 
-@typing.final
-class SubscribeVtsiEventsRequest(google.protobuf.message.Message):
+@_typing.final
+class SubscribeVtsiEventsRequest(_message.Message):
     """The request message for <code>Events.SubscribeVtsiEvents</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    EVENT_SUBSCRIPTION_NAME_FIELD_NUMBER: builtins.int
-    FILTER_FIELD_NUMBER: builtins.int
-    RESUME_TOKEN_FIELD_NUMBER: builtins.int
-    START_TIME_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    EVENT_SUBSCRIPTION_NAME_FIELD_NUMBER: _builtins.int
+    FILTER_FIELD_NUMBER: _builtins.int
+    RESUME_TOKEN_FIELD_NUMBER: _builtins.int
+    START_TIME_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
     <code>NOT_FOUND</code>.
     """
-    event_subscription_name: builtins.str
+    event_subscription_name: _builtins.str
     """Select events exactly as this subscription does: its <code>events</code> or
     <code>all_events</code>, minus its <code>excluded_events</code>, narrowed by its
     <code>resource_name_prefixes</code> and <code>campaign_names</code> (its <code>webhook_names</code>
@@ -2169,17 +2251,17 @@ class SubscribeVtsiEventsRequest(google.protobuf.message.Message):
     enabled (<code>FAILED_PRECONDITION</code> otherwise). The format is:
     <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
     """
-    resume_token: builtins.str
+    resume_token: _builtins.str
     """Optional. The <code>resume_token</code> of a previous response: continue after it.
     Unset starts with events that happen from now on (or at <code>start_time</code>). Mutually exclusive
     with <code>start_time</code> (both set is <code>INVALID_ARGUMENT</code>).
     """
-    @property
-    def filter(self) -> global___VtsiEventFilter:
+    @_builtins.property
+    def filter(self) -> Global___VtsiEventFilter:
         """An inline filter."""
 
-    @property
-    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def start_time(self) -> _timestamp_pb2.Timestamp:
         """Optional. Replay from the server&apos;s event journal: the stream first delivers the journaled events of
         the project that occurred at or after this time and match the selector, oldest first (journal order),
         then continues live without a gap or a duplicate at the seam. Mutually exclusive with
@@ -2194,45 +2276,51 @@ class SubscribeVtsiEventsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        event_subscription_name: builtins.str = ...,
-        filter: global___VtsiEventFilter | None = ...,
-        resume_token: builtins.str | None = ...,
-        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        event_subscription_name: _builtins.str = ...,
+        filter: Global___VtsiEventFilter | None = ...,
+        resume_token: _builtins.str | None = ...,
+        start_time: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_resume_token", b"_resume_token", "event_subscription_name", b"event_subscription_name", "filter", b"filter", "resume_token", b"resume_token", "selector", b"selector", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_resume_token", b"_resume_token", "event_subscription_name", b"event_subscription_name", "filter", b"filter", "resume_token", b"resume_token", "selector", b"selector", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_resume_token", b"_resume_token"]) -> typing.Literal["resume_token"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["selector", b"selector"]) -> typing.Literal["event_subscription_name", "filter"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_resume_token", b"_resume_token", "event_subscription_name", b"event_subscription_name", "filter", b"filter", "resume_token", b"resume_token", "selector", b"selector", "start_time", b"start_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_resume_token", b"_resume_token", "event_subscription_name", b"event_subscription_name", "filter", b"filter", "resume_token", b"resume_token", "selector", b"selector", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__resume_token: _TypeAlias = _typing.Literal["resume_token"]  # noqa: Y015
+    _WhichOneofArgType__resume_token: _TypeAlias = _typing.Literal["_resume_token", b"_resume_token"]  # noqa: Y015
+    _WhichOneofReturnType_selector: _TypeAlias = _typing.Literal["event_subscription_name", "filter"]  # noqa: Y015
+    _WhichOneofArgType_selector: _TypeAlias = _typing.Literal["selector", b"selector"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__resume_token) -> _WhichOneofReturnType__resume_token | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_selector) -> _WhichOneofReturnType_selector | None: ...
 
-global___SubscribeVtsiEventsRequest = SubscribeVtsiEventsRequest
+Global___SubscribeVtsiEventsRequest: _TypeAlias = SubscribeVtsiEventsRequest  # noqa: Y015
 
-@typing.final
-class SubscribeVtsiEventsResponse(google.protobuf.message.Message):
+@_typing.final
+class SubscribeVtsiEventsResponse(_message.Message):
     """The response message for <code>Events.SubscribeVtsiEvents</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    EVENTS_FIELD_NUMBER: builtins.int
-    RESUME_TOKEN_FIELD_NUMBER: builtins.int
-    DROPPED_EVENT_COUNT_FIELD_NUMBER: builtins.int
-    END_REASON_FIELD_NUMBER: builtins.int
-    END_REASON_TYPE_FIELD_NUMBER: builtins.int
-    resume_token: builtins.str
+    EVENTS_FIELD_NUMBER: _builtins.int
+    RESUME_TOKEN_FIELD_NUMBER: _builtins.int
+    DROPPED_EVENT_COUNT_FIELD_NUMBER: _builtins.int
+    END_REASON_FIELD_NUMBER: _builtins.int
+    END_REASON_TYPE_FIELD_NUMBER: _builtins.int
+    resume_token: _builtins.str
     """Pass this as <code>SubscribeVtsiEventsRequest.resume_token</code> after a disconnect. Opaque.
     It records every event this stream has delivered or passed over, so resuming neither skips an
     event that committed late nor (normally) repeats one; a stream far behind can receive an
     event twice, never miss one that is still in the journal.
     """
-    dropped_event_count: builtins.int
+    dropped_event_count: _builtins.int
     """Events this stream skipped because the client read too slowly (the server buffer was full)."""
-    end_reason: builtins.str
+    end_reason: _builtins.str
     """Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
     <code>end_reason_type</code> instead.
     """
-    end_reason_type: ondewo.vtsi.campaigns_pb2.StreamEndReason.ValueType
+    end_reason_type: _campaigns_pb2.StreamEndReason.ValueType
     """Set on the last message when the server ended the stream, next to <code>end_reason</code>: one of
     <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_CLIENT_TOO_SLOW</code>,
     <code>STREAM_END_REASON_SUBSCRIPTION_DELETED</code>, <code>STREAM_END_REASON_SUBSCRIPTION_DISABLED</code>,
@@ -2240,40 +2328,44 @@ class SubscribeVtsiEventsResponse(google.protobuf.message.Message):
     <code>STREAM_END_REASON_UNSPECIFIED</code> on every other message (and on the last message of a server
     that predates this field).
     """
-    @property
-    def events(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiEventMessage]:
+    @_builtins.property
+    def events(self) -> _containers.RepeatedCompositeFieldContainer[Global___VtsiEventMessage]:
         """Events, oldest first. Empty on a keep-alive."""
 
     def __init__(
         self,
         *,
-        events: collections.abc.Iterable[global___VtsiEventMessage] | None = ...,
-        resume_token: builtins.str = ...,
-        dropped_event_count: builtins.int = ...,
-        end_reason: builtins.str = ...,
-        end_reason_type: ondewo.vtsi.campaigns_pb2.StreamEndReason.ValueType = ...,
+        events: _abc.Iterable[Global___VtsiEventMessage] | None = ...,
+        resume_token: _builtins.str = ...,
+        dropped_event_count: _builtins.int = ...,
+        end_reason: _builtins.str = ...,
+        end_reason_type: _campaigns_pb2.StreamEndReason.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dropped_event_count", b"dropped_event_count", "end_reason", b"end_reason", "end_reason_type", b"end_reason_type", "events", b"events", "resume_token", b"resume_token"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dropped_event_count", b"dropped_event_count", "end_reason", b"end_reason", "end_reason_type", b"end_reason_type", "events", b"events", "resume_token", b"resume_token"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SubscribeVtsiEventsResponse = SubscribeVtsiEventsResponse
+Global___SubscribeVtsiEventsResponse: _TypeAlias = SubscribeVtsiEventsResponse  # noqa: Y015
 
-@typing.final
-class RedeliverWebhookEventsRequest(google.protobuf.message.Message):
+@_typing.final
+class RedeliverWebhookEventsRequest(_message.Message):
     """The request message for <code>Events.RedeliverWebhookEvents</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    WEBHOOK_NAME_FIELD_NUMBER: builtins.int
-    EVENT_IDS_FIELD_NUMBER: builtins.int
-    START_TIME_FIELD_NUMBER: builtins.int
-    END_TIME_FIELD_NUMBER: builtins.int
-    FILTER_FIELD_NUMBER: builtins.int
-    webhook_name: builtins.str
+    WEBHOOK_NAME_FIELD_NUMBER: _builtins.int
+    EVENT_IDS_FIELD_NUMBER: _builtins.int
+    START_TIME_FIELD_NUMBER: _builtins.int
+    END_TIME_FIELD_NUMBER: _builtins.int
+    FILTER_FIELD_NUMBER: _builtins.int
+    webhook_name: _builtins.str
     """Required. Resource name of the webhook to send the events to; it must be enabled.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
     """
-    @property
-    def event_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def event_ids(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The events to send again, by <code>event_id</code> (uuid), at most 1000, duplicates ignored. Sent in
         journal order (oldest first), whatever the webhook&apos;s subscriptions select (naming an event is the
         selection) but only events of the webhook&apos;s project: an id that the journal does not hold for this
@@ -2282,22 +2374,22 @@ class RedeliverWebhookEventsRequest(google.protobuf.message.Message):
         <code>start_time</code> must be set.
         """
 
-    @property
-    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def start_time(self) -> _timestamp_pb2.Timestamp:
         """Start of a time window, inclusive, on the event&apos;s <code>event_time</code>: send the journaled events of
         the project in the window that the webhook&apos;s ENABLED event subscriptions select now (as for a live
         event), narrowed by <code>filter</code>, oldest first. Older than the journal retention is
         <code>OUT_OF_RANGE</code>.
         """
 
-    @property
-    def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def end_time(self) -> _timestamp_pb2.Timestamp:
         """End of the window, exclusive. Unset means now. Must be after <code>start_time</code> and is only valid
         with it.
         """
 
-    @property
-    def filter(self) -> global___VtsiEventFilter:
+    @_builtins.property
+    def filter(self) -> Global___VtsiEventFilter:
         """Optional. Narrows the selection further (AND), with the semantics of the inline filter of
         <code>SubscribeVtsiEventsRequest</code>; applied to <code>event_ids</code> too.
         """
@@ -2305,40 +2397,43 @@ class RedeliverWebhookEventsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        webhook_name: builtins.str = ...,
-        event_ids: collections.abc.Iterable[builtins.str] | None = ...,
-        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        filter: global___VtsiEventFilter | None = ...,
+        webhook_name: _builtins.str = ...,
+        event_ids: _abc.Iterable[_builtins.str] | None = ...,
+        start_time: _timestamp_pb2.Timestamp | None = ...,
+        end_time: _timestamp_pb2.Timestamp | None = ...,
+        filter: Global___VtsiEventFilter | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["end_time", b"end_time", "filter", b"filter", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["end_time", b"end_time", "event_ids", b"event_ids", "filter", b"filter", "start_time", b"start_time", "webhook_name", b"webhook_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["end_time", b"end_time", "filter", b"filter", "start_time", b"start_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["end_time", b"end_time", "event_ids", b"event_ids", "filter", b"filter", "start_time", b"start_time", "webhook_name", b"webhook_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RedeliverWebhookEventsRequest = RedeliverWebhookEventsRequest
+Global___RedeliverWebhookEventsRequest: _TypeAlias = RedeliverWebhookEventsRequest  # noqa: Y015
 
-@typing.final
-class RedeliverWebhookEventsResponse(google.protobuf.message.Message):
+@_typing.final
+class RedeliverWebhookEventsResponse(_message.Message):
     """The response message for <code>Events.RedeliverWebhookEvents</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENQUEUED_COUNT_FIELD_NUMBER: builtins.int
-    NOT_IN_JOURNAL_COUNT_FIELD_NUMBER: builtins.int
-    NOT_ENQUEUED_COUNT_FIELD_NUMBER: builtins.int
-    NEXT_START_TIME_FIELD_NUMBER: builtins.int
-    enqueued_count: builtins.int
+    ENQUEUED_COUNT_FIELD_NUMBER: _builtins.int
+    NOT_IN_JOURNAL_COUNT_FIELD_NUMBER: _builtins.int
+    NOT_ENQUEUED_COUNT_FIELD_NUMBER: _builtins.int
+    NEXT_START_TIME_FIELD_NUMBER: _builtins.int
+    enqueued_count: _builtins.int
     """Events queued for the webhook by this request."""
-    not_in_journal_count: builtins.int
+    not_in_journal_count: _builtins.int
     """Named <code>event_ids</code> the journal does not hold for the webhook&apos;s project (expired, never
     journaled, unknown, or of another project). <code>0</code> for a window.
     """
-    not_enqueued_count: builtins.int
+    not_enqueued_count: _builtins.int
     """Selected events that were NOT queued: beyond the per-request bound of 1000, or because the
     server&apos;s webhook queue (<code>ONDEWO_VTSI_WEBHOOK_MAX_QUEUED_EVENTS_PER_WEBHOOK</code>, 1000 by
     default) was full. Send them with another request (for a window: from <code>next_start_time</code>).
     """
-    @property
-    def next_start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def next_start_time(self) -> _timestamp_pb2.Timestamp:
         """For a window with <code>not_enqueued_count</code> above 0: the <code>event_time</code> of the first event
         that was not queued; pass it as the next request&apos;s <code>start_time</code> (with the same
         <code>end_time</code>). Events with the same <code>event_time</code> as the last queued one may then be
@@ -2348,12 +2443,15 @@ class RedeliverWebhookEventsResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        enqueued_count: builtins.int = ...,
-        not_in_journal_count: builtins.int = ...,
-        not_enqueued_count: builtins.int = ...,
-        next_start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        enqueued_count: _builtins.int = ...,
+        not_in_journal_count: _builtins.int = ...,
+        not_enqueued_count: _builtins.int = ...,
+        next_start_time: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["next_start_time", b"next_start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["enqueued_count", b"enqueued_count", "next_start_time", b"next_start_time", "not_enqueued_count", b"not_enqueued_count", "not_in_journal_count", b"not_in_journal_count"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["next_start_time", b"next_start_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["enqueued_count", b"enqueued_count", "next_start_time", b"next_start_time", "not_enqueued_count", b"not_enqueued_count", "not_in_journal_count", b"not_in_journal_count"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RedeliverWebhookEventsResponse = RedeliverWebhookEventsResponse
+Global___RedeliverWebhookEventsResponse: _TypeAlias = RedeliverWebhookEventsResponse  # noqa: Y015

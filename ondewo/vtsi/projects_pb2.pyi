@@ -16,31 +16,36 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.field_mask_pb2
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import google.protobuf.timestamp_pb2
-import ondewo.vtsi.call_configs_pb2
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import field_mask_pb2 as _field_mask_pb2
+from google.protobuf import message as _message
+from google.protobuf import timestamp_pb2 as _timestamp_pb2
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from ondewo.vtsi import call_configs_pb2 as _call_configs_pb2
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 13):
+    from warnings import deprecated as _deprecated
+else:
+    from typing_extensions import deprecated as _deprecated
+
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _WarmIntroAvailability:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _WarmIntroAvailabilityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WarmIntroAvailability.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _WarmIntroAvailabilityEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_WarmIntroAvailability.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     WARM_INTRO_AVAILABILITY_UNSPECIFIED: _WarmIntroAvailability.ValueType  # 0
     """Not computed (e.g. an older server)"""
     WARM_INTRO_AVAILABILITY_AVAILABLE: _WarmIntroAvailability.ValueType  # 1
@@ -69,14 +74,14 @@ WARM_INTRO_AVAILABILITY_NEEDS_LISTENER: WarmIntroAvailability.ValueType  # 4
 """The project has no listener to run the intro (a project with pooled callers only)"""
 WARM_INTRO_AVAILABILITY_NEEDS_CALL_CONTROL_KEY: WarmIntroAvailability.ValueType  # 5
 """The deployment has no call-control key (<code>ONDEWO_VTSI_CALL_CONTROL_KEY</code>)"""
-global___WarmIntroAvailability = WarmIntroAvailability
+Global___WarmIntroAvailability: _TypeAlias = WarmIntroAvailability  # noqa: Y015
 
 class _IvrAvailability:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _IvrAvailabilityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IvrAvailability.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _IvrAvailabilityEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IvrAvailability.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     IVR_AVAILABILITY_UNSPECIFIED: _IvrAvailability.ValueType  # 0
     """Not computed (e.g. an older server)"""
     IVR_AVAILABILITY_AVAILABLE: _IvrAvailability.ValueType  # 1
@@ -97,14 +102,14 @@ IVR_AVAILABILITY_DISABLED_BY_DEPLOYMENT: IvrAvailability.ValueType  # 2
 """The deployment switch <code>ONDEWO_VTSI_IVR_ACTIVE</code> is off"""
 IVR_AVAILABILITY_NEEDS_LOCAL_ASTERISK: IvrAvailability.ValueType  # 3
 """The project&apos;s Asterisk is not run by this server"""
-global___IvrAvailability = IvrAvailability
+Global___IvrAvailability: _TypeAlias = IvrAvailability  # noqa: Y015
 
 class _TrunkRegistrationState:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _TrunkRegistrationStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TrunkRegistrationState.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _TrunkRegistrationStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_TrunkRegistrationState.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     TRUNK_REGISTRATION_STATE_UNSPECIFIED: _TrunkRegistrationState.ValueType  # 0
     """Not known: the project is not <code>DEPLOYED</code>, or its Asterisk has not been observed yet."""
     TRUNK_REGISTRATION_STATE_REGISTERED: _TrunkRegistrationState.ValueType  # 1
@@ -145,14 +150,14 @@ TRUNK_REGISTRATION_STATE_NOT_CONFIGURED: TrunkRegistrationState.ValueType  # 4
 <code>trunk-registration</code> in <code>pjsip show registrations</code>), e.g. no SIP trunk is
 configured, or <code>asterisk_configs_files</code> / a target directory define none.
 """
-global___TrunkRegistrationState = TrunkRegistrationState
+Global___TrunkRegistrationState: _TypeAlias = TrunkRegistrationState  # noqa: Y015
 
 class _VtsiProjectStatus:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _VtsiProjectStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VtsiProjectStatus.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _VtsiProjectStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_VtsiProjectStatus.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     UNSPECIFIED: _VtsiProjectStatus.ValueType  # 0
     """No status specified. Never returned for a stored project."""
     UNDEPLOYED: _VtsiProjectStatus.ValueType  # 1
@@ -211,14 +216,14 @@ can be deployed again, updated or deleted, and undeploying it makes it <code>UND
 Since 9.1.0; a 9.0.0 server reports a failed deployment as <code>UNDEPLOYED</code>, and a client
 built against 9.0.0 sees the unknown value 8.
 """
-global___VtsiProjectStatus = VtsiProjectStatus
+Global___VtsiProjectStatus: _TypeAlias = VtsiProjectStatus  # noqa: Y015
 
 class _SipTrunkTransport:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _SipTrunkTransportEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SipTrunkTransport.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _SipTrunkTransportEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_SipTrunkTransport.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     SIP_TRUNK_TRANSPORT_UNSPECIFIED: _SipTrunkTransport.ValueType  # 0
     """Unspecified transport: identical to <pre><code>SIP_TRUNK_TRANSPORT_TLS</code></pre>. Encryption is
     the default, so the zero value is the secure one.
@@ -243,14 +248,14 @@ SIP_TRUNK_TRANSPORT_UDP: SipTrunkTransport.ValueType  # 2
 """Plain UDP transport. Requires <pre><code>sip_trunk_source_cidr</code></pre>."""
 SIP_TRUNK_TRANSPORT_TCP: SipTrunkTransport.ValueType  # 3
 """Plain TCP transport. Requires <pre><code>sip_trunk_source_cidr</code></pre>."""
-global___SipTrunkTransport = SipTrunkTransport
+Global___SipTrunkTransport: _TypeAlias = SipTrunkTransport  # noqa: Y015
 
 class _VtsiProjectSortingMode:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _VtsiProjectSortingModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VtsiProjectSortingMode.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _VtsiProjectSortingModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_VtsiProjectSortingMode.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     ASCENDING: _VtsiProjectSortingMode.ValueType  # 0
     """The ascending sorting mode.
     When sorting using this mode, VtsiProject objects will be arranged
@@ -280,14 +285,14 @@ DESCENDING: VtsiProjectSortingMode.ValueType  # 1
 When sorting using this mode, VtsiProject objects will be arranged
 in descending order based on the specified criteria.
 """
-global___VtsiProjectSortingMode = VtsiProjectSortingMode
+Global___VtsiProjectSortingMode: _TypeAlias = VtsiProjectSortingMode  # noqa: Y015
 
 class _VtsiProjectView:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _VtsiProjectViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VtsiProjectView.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _VtsiProjectViewEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_VtsiProjectView.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     VTSI_PROJECT_VIEW_UNSPECIFIED: _VtsiProjectView.ValueType  # 0
     """Unspecified VTSI_PROJECT view: the view is defined by the call:"""
     VTSI_PROJECT_VIEW_FULL: _VtsiProjectView.ValueType  # 1
@@ -315,65 +320,68 @@ VTSI_PROJECT_VIEW_SHALLOW: VtsiProjectView.ValueType  # 2
 """Shallow VTSI_PROJECT view: populates all the fields except configs."""
 VTSI_PROJECT_VIEW_MINIMUM: VtsiProjectView.ValueType  # 3
 """Minimum view including only VTSI_PROJECT UUID and VTSI_PROJECT display name"""
-global___VtsiProjectView = VtsiProjectView
+Global___VtsiProjectView: _TypeAlias = VtsiProjectView  # noqa: Y015
 
-@typing.final
-class VtsiProject(google.protobuf.message.Message):
+@_typing.final
+class VtsiProject(_message.Message):
     """The VTSI project with its configuration setting"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class TransferTargetDirectoryEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class TransferTargetDirectoryEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> global___TransferTargetDirectoryItem: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___TransferTargetDirectoryItem: ...
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: global___TransferTargetDirectoryItem | None = ...,
+            key: _builtins.str = ...,
+            value: Global___TransferTargetDirectoryItem | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    MAX_CALLERS_FIELD_NUMBER: builtins.int
-    MAX_LISTENERS_FIELD_NUMBER: builtins.int
-    ASTERISK_CONFIGS_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_STATUS_FIELD_NUMBER: builtins.int
-    CREATED_BY_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    MODIFIED_BY_FIELD_NUMBER: builtins.int
-    MODIFIED_AT_FIELD_NUMBER: builtins.int
-    ACTIVE_CALLERS_FIELD_NUMBER: builtins.int
-    ACTIVE_LISTENERS_FIELD_NUMBER: builtins.int
-    ASTERISK_PORT_FIELD_NUMBER: builtins.int
-    NLU_AGENT_NAMES_FIELD_NUMBER: builtins.int
-    DEPLOYED_CALLERS_FIELD_NUMBER: builtins.int
-    DEPLOYED_LISTENERS_FIELD_NUMBER: builtins.int
-    TRANSFER_PHONE_NUMBER_ALLOWLIST_FIELD_NUMBER: builtins.int
-    STATUS_MESSAGE_FIELD_NUMBER: builtins.int
-    STATUS_CHANGED_AT_FIELD_NUMBER: builtins.int
-    TRUNK_REGISTRATION_STATE_FIELD_NUMBER: builtins.int
-    ASTERISK_VERSION_EFFECTIVE_FIELD_NUMBER: builtins.int
-    WARM_TRANSFER_DEFAULTS_FIELD_NUMBER: builtins.int
-    FEATURE_AVAILABILITY_FIELD_NUMBER: builtins.int
-    IVR_MENUS_ENABLED_FIELD_NUMBER: builtins.int
-    TRANSFER_TARGET_DIRECTORY_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    MAX_CALLERS_FIELD_NUMBER: _builtins.int
+    MAX_LISTENERS_FIELD_NUMBER: _builtins.int
+    ASTERISK_CONFIGS_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_STATUS_FIELD_NUMBER: _builtins.int
+    CREATED_BY_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    MODIFIED_BY_FIELD_NUMBER: _builtins.int
+    MODIFIED_AT_FIELD_NUMBER: _builtins.int
+    ACTIVE_CALLERS_FIELD_NUMBER: _builtins.int
+    ACTIVE_LISTENERS_FIELD_NUMBER: _builtins.int
+    ASTERISK_PORT_FIELD_NUMBER: _builtins.int
+    NLU_AGENT_NAMES_FIELD_NUMBER: _builtins.int
+    DEPLOYED_CALLERS_FIELD_NUMBER: _builtins.int
+    DEPLOYED_LISTENERS_FIELD_NUMBER: _builtins.int
+    TRANSFER_PHONE_NUMBER_ALLOWLIST_FIELD_NUMBER: _builtins.int
+    STATUS_MESSAGE_FIELD_NUMBER: _builtins.int
+    STATUS_CHANGED_AT_FIELD_NUMBER: _builtins.int
+    TRUNK_REGISTRATION_STATE_FIELD_NUMBER: _builtins.int
+    ASTERISK_VERSION_EFFECTIVE_FIELD_NUMBER: _builtins.int
+    WARM_TRANSFER_DEFAULTS_FIELD_NUMBER: _builtins.int
+    FEATURE_AVAILABILITY_FIELD_NUMBER: _builtins.int
+    IVR_MENUS_ENABLED_FIELD_NUMBER: _builtins.int
+    TRANSFER_TARGET_DIRECTORY_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Required. The project name.
     Format: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Only when a new VtsiProject is created the name can be undefined/empty
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """OPTIONAL: The display name of the project"""
-    max_callers: builtins.int
+    max_callers: _builtins.int
     """The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
     provisioned on its Asterisk. <code>0</code> means NO caller can be started (it is not
     &quot;unlimited&quot;); negative values are refused with <code>INVALID_ARGUMENT</code>. A
@@ -382,24 +390,24 @@ class VtsiProject(google.protobuf.message.Message):
     <code>DEPLOYED</code> project REDEPLOYS the project, which ends every running call (see
     <code>UpdateVtsiProject</code>); lowering it below the number of running callers is not refused.
     """
-    max_listeners: builtins.int
+    max_listeners: _builtins.int
     """The maximum number of listeners that this project can have, i.e. the number of listener SIP
     accounts provisioned on its Asterisk. Same semantics as <code>max_callers</code>:
     <code>0</code> means no listener can be started, a <code>StartListener</code> /
     <code>StartListeners</code> beyond the free capacity is <code>RESOURCE_EXHAUSTED</code>, and a change
     on a <code>DEPLOYED</code> project redeploys it.
     """
-    vtsi_project_status: global___VtsiProjectStatus.ValueType
+    vtsi_project_status: Global___VtsiProjectStatus.ValueType
     """The status of the VTSI project."""
-    created_by: builtins.str
+    created_by: _builtins.str
     """The user who created the vtsi project. Readonly."""
-    modified_by: builtins.str
+    modified_by: _builtins.str
     """The user who modified the vtsi project. Readonly."""
-    active_callers: builtins.int
+    active_callers: _builtins.int
     """The number of active callers in this project."""
-    active_listeners: builtins.int
+    active_listeners: _builtins.int
     """The number of active listeners in this project."""
-    asterisk_port: builtins.int
+    asterisk_port: _builtins.int
     """The port of the asterisk server. The same value as <code>asterisk_configs.asterisk_port</code>, of
     which it is a convenience copy: <code>asterisk_configs.asterisk_port</code> is authoritative, and
     every response carries the project&apos;s port in both. On create and update, <code>0</code> means
@@ -408,58 +416,58 @@ class VtsiProject(google.protobuf.message.Message):
     <code>INVALID_ARGUMENT</code>. Changing the port of a <code>DEPLOYED</code> project redeploys it and
     voids every softphone client certificate (the certificate authorities belong to the port).
     """
-    deployed_callers: builtins.int
+    deployed_callers: _builtins.int
     """The number of deployed callers in this project."""
-    deployed_listeners: builtins.int
+    deployed_listeners: _builtins.int
     """The number of deployed listeners in this project."""
-    status_message: builtins.str
+    status_message: _builtins.str
     """Output only. Human-readable detail of the current <code>vtsi_project_status</code>: the reason of a
     <code>DEPLOY_FAILED</code> project (the same text as the <code>description</code> of the
     <code>VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED</code> event), or the reason the last undeploy or update
     of the project failed. Empty when there is nothing to report; cleared by the next successful status
     change. Secrets are redacted. Ignored on create and update.
     """
-    trunk_registration_state: global___TrunkRegistrationState.ValueType
+    trunk_registration_state: Global___TrunkRegistrationState.ValueType
     """Output only. Registration state of the project&apos;s SIP trunk with the carrier, as last observed
     on the running Asterisk (<code>pjsip show registrations</code>), refreshed every
     <code>ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S</code> seconds (default 30), so it may lag by that
     much. <code>TRUNK_REGISTRATION_STATE_UNSPECIFIED</code> when the project is not
     <code>DEPLOYED</code> or has not been observed yet. Ignored on create and update.
     """
-    asterisk_version_effective: builtins.str
+    asterisk_version_effective: _builtins.str
     """Output only. The Asterisk version the project&apos;s container RUNS, i.e. the docker image tag of the
     ONDEWO Asterisk image it was deployed from: <code>asterisk_configs.asterisk_version</code> when
     pinned, otherwise the server default (<code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code>) at the moment
     of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
     would start, e.g. after the server default changed. Ignored on create and update.
     """
-    ivr_menus_enabled: builtins.bool
+    ivr_menus_enabled: _builtins.bool
     """OPTIONAL: Whether the project&apos;s published IVR menus route its inbound phone numbers. Unset means
     <code>true</code>. <code>false</code> switches every route off at once (every inbound number reaches the
     listener queue as without a menu) and keeps the menus and their phone number bindings, so <code>true</code>
     restores them. Updatable with the update mask path <code>ivr_menus_enabled</code>; it reloads no Asterisk and
     ends no call.
     """
-    @property
-    def asterisk_configs(self) -> global___AsteriskConfigs:
+    @_builtins.property
+    def asterisk_configs(self) -> Global___AsteriskConfigs:
         """Configs to start the asterisk server."""
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """Creation time of the vtsi project. Readonly."""
 
-    @property
-    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_at(self) -> _timestamp_pb2.Timestamp:
         """Modification time of the vtsi project. Readonly."""
 
-    @property
-    def nlu_agent_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def nlu_agent_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Associated NLU agents.
         Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
         """
 
-    @property
-    def transfer_phone_number_allowlist(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def transfer_phone_number_allowlist(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
         <pre><code>TransferCall</code></pre> and a <pre><code>CallTarget.phone_number</code></pre>. Each entry is an E.164
         number or number prefix (<pre><code>^\\+[1-9][0-9]{0,14}$</code></pre>), e.g. <pre><code>+43</code></pre> or
@@ -469,14 +477,14 @@ class VtsiProject(google.protobuf.message.Message):
         Updatable with the update mask path <pre><code>transfer_phone_number_allowlist</code></pre>.
         """
 
-    @property
-    def status_changed_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def status_changed_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When <code>vtsi_project_status</code> last changed. Unset for a project whose status
         has not changed since an older server created it. Ignored on create and update.
         """
 
-    @property
-    def warm_transfer_defaults(self) -> ondewo.vtsi.call_configs_pb2.WarmTransferConfig:
+    @_builtins.property
+    def warm_transfer_defaults(self) -> _call_configs_pb2.WarmTransferConfig:
         """OPTIONAL: The project&apos;s default warm intro of a WARM transfer (see
         <a href="index.html#ondewo.vtsi.WarmTransferConfig">WarmTransferConfig</a>): the level below a call&apos;s
         <code>VoiceInteractionConfig.warm_transfer_config</code> and a
@@ -488,15 +496,15 @@ class VtsiProject(google.protobuf.message.Message):
         <code>warm_transfer_defaults.enabled</code>. Touches no Asterisk.
         """
 
-    @property
-    def feature_availability(self) -> global___VtsiProjectFeatureAvailability:
+    @_builtins.property
+    def feature_availability(self) -> Global___VtsiProjectFeatureAvailability:
         """Output only. Which features can run in this project with the deployment, the Asterisk and the listeners it
         has now, computed on every <code>GetVtsiProject</code> / <code>ListVtsiProjects</code> (it costs no RPC).
         Read it instead of learning from a refusal. Ignored on create and update.
         """
 
-    @property
-    def transfer_target_directory(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TransferTargetDirectoryItem]:
+    @_builtins.property
+    def transfer_target_directory(self) -> _containers.MessageMap[_builtins.str, Global___TransferTargetDirectoryItem]:
         """OPTIONAL: Directory of the project&apos;s human transfer targets, keyed by the target: an E.164 phone number
         (<code>^\\+[1-9][0-9]{6,14}$</code>, which must pass <code>transfer_phone_number_allowlist</code>) or the
         <code>sip_username</code> of a softphone account of the project. It names a target in a warm intro
@@ -511,106 +519,118 @@ class VtsiProject(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        max_callers: builtins.int = ...,
-        max_listeners: builtins.int = ...,
-        asterisk_configs: global___AsteriskConfigs | None = ...,
-        vtsi_project_status: global___VtsiProjectStatus.ValueType = ...,
-        created_by: builtins.str = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        modified_by: builtins.str = ...,
-        modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        active_callers: builtins.int = ...,
-        active_listeners: builtins.int = ...,
-        asterisk_port: builtins.int = ...,
-        nlu_agent_names: collections.abc.Iterable[builtins.str] | None = ...,
-        deployed_callers: builtins.int = ...,
-        deployed_listeners: builtins.int = ...,
-        transfer_phone_number_allowlist: collections.abc.Iterable[builtins.str] | None = ...,
-        status_message: builtins.str = ...,
-        status_changed_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        trunk_registration_state: global___TrunkRegistrationState.ValueType = ...,
-        asterisk_version_effective: builtins.str = ...,
-        warm_transfer_defaults: ondewo.vtsi.call_configs_pb2.WarmTransferConfig | None = ...,
-        feature_availability: global___VtsiProjectFeatureAvailability | None = ...,
-        ivr_menus_enabled: builtins.bool | None = ...,
-        transfer_target_directory: collections.abc.Mapping[builtins.str, global___TransferTargetDirectoryItem] | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        max_callers: _builtins.int = ...,
+        max_listeners: _builtins.int = ...,
+        asterisk_configs: Global___AsteriskConfigs | None = ...,
+        vtsi_project_status: Global___VtsiProjectStatus.ValueType = ...,
+        created_by: _builtins.str = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        modified_by: _builtins.str = ...,
+        modified_at: _timestamp_pb2.Timestamp | None = ...,
+        active_callers: _builtins.int = ...,
+        active_listeners: _builtins.int = ...,
+        asterisk_port: _builtins.int = ...,
+        nlu_agent_names: _abc.Iterable[_builtins.str] | None = ...,
+        deployed_callers: _builtins.int = ...,
+        deployed_listeners: _builtins.int = ...,
+        transfer_phone_number_allowlist: _abc.Iterable[_builtins.str] | None = ...,
+        status_message: _builtins.str = ...,
+        status_changed_at: _timestamp_pb2.Timestamp | None = ...,
+        trunk_registration_state: Global___TrunkRegistrationState.ValueType = ...,
+        asterisk_version_effective: _builtins.str = ...,
+        warm_transfer_defaults: _call_configs_pb2.WarmTransferConfig | None = ...,
+        feature_availability: Global___VtsiProjectFeatureAvailability | None = ...,
+        ivr_menus_enabled: _builtins.bool | None = ...,
+        transfer_target_directory: _abc.Mapping[_builtins.str, Global___TransferTargetDirectoryItem] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_ivr_menus_enabled", b"_ivr_menus_enabled", "asterisk_configs", b"asterisk_configs", "created_at", b"created_at", "feature_availability", b"feature_availability", "ivr_menus_enabled", b"ivr_menus_enabled", "modified_at", b"modified_at", "status_changed_at", b"status_changed_at", "warm_transfer_defaults", b"warm_transfer_defaults"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_ivr_menus_enabled", b"_ivr_menus_enabled", "active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "asterisk_version_effective", b"asterisk_version_effective", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "feature_availability", b"feature_availability", "ivr_menus_enabled", b"ivr_menus_enabled", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "status_changed_at", b"status_changed_at", "status_message", b"status_message", "transfer_phone_number_allowlist", b"transfer_phone_number_allowlist", "transfer_target_directory", b"transfer_target_directory", "trunk_registration_state", b"trunk_registration_state", "vtsi_project_status", b"vtsi_project_status", "warm_transfer_defaults", b"warm_transfer_defaults"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_ivr_menus_enabled", b"_ivr_menus_enabled"]) -> typing.Literal["ivr_menus_enabled"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_ivr_menus_enabled", b"_ivr_menus_enabled", "asterisk_configs", b"asterisk_configs", "created_at", b"created_at", "feature_availability", b"feature_availability", "ivr_menus_enabled", b"ivr_menus_enabled", "modified_at", b"modified_at", "status_changed_at", b"status_changed_at", "warm_transfer_defaults", b"warm_transfer_defaults"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_ivr_menus_enabled", b"_ivr_menus_enabled", "active_callers", b"active_callers", "active_listeners", b"active_listeners", "asterisk_configs", b"asterisk_configs", "asterisk_port", b"asterisk_port", "asterisk_version_effective", b"asterisk_version_effective", "created_at", b"created_at", "created_by", b"created_by", "deployed_callers", b"deployed_callers", "deployed_listeners", b"deployed_listeners", "display_name", b"display_name", "feature_availability", b"feature_availability", "ivr_menus_enabled", b"ivr_menus_enabled", "max_callers", b"max_callers", "max_listeners", b"max_listeners", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "nlu_agent_names", b"nlu_agent_names", "status_changed_at", b"status_changed_at", "status_message", b"status_message", "transfer_phone_number_allowlist", b"transfer_phone_number_allowlist", "transfer_target_directory", b"transfer_target_directory", "trunk_registration_state", b"trunk_registration_state", "vtsi_project_status", b"vtsi_project_status", "warm_transfer_defaults", b"warm_transfer_defaults"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__ivr_menus_enabled: _TypeAlias = _typing.Literal["ivr_menus_enabled"]  # noqa: Y015
+    _WhichOneofArgType__ivr_menus_enabled: _TypeAlias = _typing.Literal["_ivr_menus_enabled", b"_ivr_menus_enabled"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__ivr_menus_enabled) -> _WhichOneofReturnType__ivr_menus_enabled | None: ...
 
-global___VtsiProject = VtsiProject
+Global___VtsiProject: _TypeAlias = VtsiProject  # noqa: Y015
 
-@typing.final
-class TransferTargetDirectoryItem(google.protobuf.message.Message):
+@_typing.final
+class TransferTargetDirectoryItem(_message.Message):
     """<p>One human transfer target of <code>VtsiProject.transfer_target_directory</code>. Carries no secret</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    display_name: builtins.str
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    display_name: _builtins.str
     """Who the target is, e.g. <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters"""
-    description: builtins.str
+    description: _builtins.str
     """The target&apos;s role and context, for a warm intro&apos;s briefing. At most 512 characters"""
     def __init__(
         self,
         *,
-        display_name: builtins.str = ...,
-        description: builtins.str = ...,
+        display_name: _builtins.str = ...,
+        description: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["description", b"description", "display_name", b"display_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["description", b"description", "display_name", b"display_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TransferTargetDirectoryItem = TransferTargetDirectoryItem
+Global___TransferTargetDirectoryItem: _TypeAlias = TransferTargetDirectoryItem  # noqa: Y015
 
-@typing.final
-class VtsiProjectFeatureAvailability(google.protobuf.message.Message):
+@_typing.final
+class VtsiProjectFeatureAvailability(_message.Message):
     """<p>Which features can run in a VTSI project. Output only</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    WARM_INTRO_FIELD_NUMBER: builtins.int
-    WARM_INTRO_PHASE_B_FIELD_NUMBER: builtins.int
-    IVR_FIELD_NUMBER: builtins.int
-    warm_intro: global___WarmIntroAvailability.ValueType
+    WARM_INTRO_FIELD_NUMBER: _builtins.int
+    WARM_INTRO_PHASE_B_FIELD_NUMBER: _builtins.int
+    IVR_FIELD_NUMBER: _builtins.int
+    warm_intro: Global___WarmIntroAvailability.ValueType
     """Whether a WARM transfer can run a warm intro"""
-    warm_intro_phase_b: builtins.bool
+    warm_intro_phase_b: _builtins.bool
     """Whether the phase-B fields of <code>WarmTransferConfig</code> (LLM summary, hold music) are accepted"""
-    ivr: global___IvrAvailability.ValueType
+    ivr: Global___IvrAvailability.ValueType
     """Whether the project can publish and route IVR menus"""
     def __init__(
         self,
         *,
-        warm_intro: global___WarmIntroAvailability.ValueType = ...,
-        warm_intro_phase_b: builtins.bool = ...,
-        ivr: global___IvrAvailability.ValueType = ...,
+        warm_intro: Global___WarmIntroAvailability.ValueType = ...,
+        warm_intro_phase_b: _builtins.bool = ...,
+        ivr: Global___IvrAvailability.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["ivr", b"ivr", "warm_intro", b"warm_intro", "warm_intro_phase_b", b"warm_intro_phase_b"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ivr", b"ivr", "warm_intro", b"warm_intro", "warm_intro_phase_b", b"warm_intro_phase_b"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___VtsiProjectFeatureAvailability = VtsiProjectFeatureAvailability
+Global___VtsiProjectFeatureAvailability: _TypeAlias = VtsiProjectFeatureAvailability  # noqa: Y015
 
-@typing.final
-class AsteriskConfigsVariables(google.protobuf.message.Message):
+@_typing.final
+class AsteriskConfigsVariables(_message.Message):
     """Configuration variables for the Asterisk server"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SIP_TRUNK_USERNAME_FIELD_NUMBER: builtins.int
-    SIP_TRUNK_PASSWORD_FIELD_NUMBER: builtins.int
-    SIP_TRUNK_HOST_FIELD_NUMBER: builtins.int
-    TRANSFER_NUMBER_FIELD_NUMBER: builtins.int
-    TRANSFER_NUMBER_HOST_FIELD_NUMBER: builtins.int
-    SIP_TRUNK_PHONE_NUMBER_FIELD_NUMBER: builtins.int
-    SIP_TRUNK_TRANSPORT_FIELD_NUMBER: builtins.int
-    SIP_TRUNK_SOURCE_CIDR_FIELD_NUMBER: builtins.int
-    SIP_TRUNK_CA_CERTIFICATES_PEM_FIELD_NUMBER: builtins.int
-    SIP_TRUNK_VERIFY_SERVER_FIELD_NUMBER: builtins.int
-    SOFTPHONE_PERMIT_CIDRS_FIELD_NUMBER: builtins.int
-    sip_trunk_username: builtins.str
+    SIP_TRUNK_USERNAME_FIELD_NUMBER: _builtins.int
+    SIP_TRUNK_PASSWORD_FIELD_NUMBER: _builtins.int
+    SIP_TRUNK_HOST_FIELD_NUMBER: _builtins.int
+    TRANSFER_NUMBER_FIELD_NUMBER: _builtins.int
+    TRANSFER_NUMBER_HOST_FIELD_NUMBER: _builtins.int
+    SIP_TRUNK_PHONE_NUMBER_FIELD_NUMBER: _builtins.int
+    SIP_TRUNK_TRANSPORT_FIELD_NUMBER: _builtins.int
+    SIP_TRUNK_SOURCE_CIDR_FIELD_NUMBER: _builtins.int
+    SIP_TRUNK_CA_CERTIFICATES_PEM_FIELD_NUMBER: _builtins.int
+    SIP_TRUNK_VERIFY_SERVER_FIELD_NUMBER: _builtins.int
+    SOFTPHONE_PERMIT_CIDRS_FIELD_NUMBER: _builtins.int
+    sip_trunk_username: _builtins.str
     """SIP trunk username."""
-    sip_trunk_password: builtins.str
+    sip_trunk_password: _builtins.str
     """SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
     to every caller allowed to read <code>asterisk_configs</code> (see the <code>Projects</code> service
     description for who that is). Server logs and <code>status_message</code> redact it.
@@ -620,20 +640,20 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     <code>asterisk_configs</code> or <code>asterisk_configs.asterisk_configs_variables</code>, an empty
     value CLEARS it.
     """
-    sip_trunk_host: builtins.str
+    sip_trunk_host: _builtins.str
     """SIP trunk host."""
-    transfer_number: builtins.str
+    transfer_number: _builtins.str
     """Transfer number."""
-    transfer_number_host: builtins.str
+    transfer_number_host: _builtins.str
     """Transfer number host."""
-    sip_trunk_phone_number: builtins.str
+    sip_trunk_phone_number: _builtins.str
     """SIP trunk phone number / caller id."""
-    sip_trunk_transport: global___SipTrunkTransport.ValueType
+    sip_trunk_transport: Global___SipTrunkTransport.ValueType
     """OPTIONAL: transport for the SIP trunk. Unset == <pre><code>SIP_TRUNK_TRANSPORT_UNSPECIFIED</code></pre>
     == <pre><code>SIP_TRUNK_TRANSPORT_TLS</code></pre>: encryption is the default, so a caller that says
     nothing gets an encrypted trunk.
     """
-    sip_trunk_source_cidr: builtins.str
+    sip_trunk_source_cidr: _builtins.str
     """OPTIONAL: the source address or CIDR the carrier sends from, e.g. <pre><code>203.0.113.7/32</code></pre>.
     REQUIRED when <pre><code>sip_trunk_transport</code></pre> is
     <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>,
@@ -643,7 +663,7 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     and it does so silently, so an unresolvable name would read as a working trunk that never matches an
     inbound call.
     """
-    sip_trunk_ca_certificates_pem: builtins.str
+    sip_trunk_ca_certificates_pem: _builtins.str
     """OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
     or more <pre><code>-----BEGIN CERTIFICATE-----</code></pre> blocks and nothing else.
     Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
@@ -657,7 +677,7 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
     This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
     """
-    sip_trunk_verify_server: builtins.bool
+    sip_trunk_verify_server: _builtins.bool
     """OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
     When true, Asterisk verifies the carrier's certificate chain against
     <pre><code>sip_trunk_ca_certificates_pem</code></pre> and its host name against
@@ -669,8 +689,8 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre> trunk is REFUSED with
     <pre><code>INVALID_ARGUMENT</code></pre>; false there is accepted and changes nothing.
     """
-    @property
-    def softphone_permit_cidrs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def softphone_permit_cidrs(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Optional: Source addresses that may reach this project&apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
         written in full with an explicit prefix length (e.g. <code>203.0.113.0/24</code>). Every softphone account gets
         <code>deny</code> for every IPv4 and IPv6 source plus one <code>permit</code> per entry. This is the source
@@ -690,40 +710,48 @@ class AsteriskConfigsVariables(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        sip_trunk_username: builtins.str = ...,
-        sip_trunk_password: builtins.str = ...,
-        sip_trunk_host: builtins.str = ...,
-        transfer_number: builtins.str = ...,
-        transfer_number_host: builtins.str = ...,
-        sip_trunk_phone_number: builtins.str = ...,
-        sip_trunk_transport: global___SipTrunkTransport.ValueType = ...,
-        sip_trunk_source_cidr: builtins.str | None = ...,
-        sip_trunk_ca_certificates_pem: builtins.str | None = ...,
-        sip_trunk_verify_server: builtins.bool | None = ...,
-        softphone_permit_cidrs: collections.abc.Iterable[builtins.str] | None = ...,
+        sip_trunk_username: _builtins.str = ...,
+        sip_trunk_password: _builtins.str = ...,
+        sip_trunk_host: _builtins.str = ...,
+        transfer_number: _builtins.str = ...,
+        transfer_number_host: _builtins.str = ...,
+        sip_trunk_phone_number: _builtins.str = ...,
+        sip_trunk_transport: Global___SipTrunkTransport.ValueType = ...,
+        sip_trunk_source_cidr: _builtins.str | None = ...,
+        sip_trunk_ca_certificates_pem: _builtins.str | None = ...,
+        sip_trunk_verify_server: _builtins.bool | None = ...,
+        softphone_permit_cidrs: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem", "_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "_sip_trunk_verify_server", b"_sip_trunk_verify_server", "sip_trunk_ca_certificates_pem", b"sip_trunk_ca_certificates_pem", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_verify_server", b"sip_trunk_verify_server"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem", "_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "_sip_trunk_verify_server", b"_sip_trunk_verify_server", "sip_trunk_ca_certificates_pem", b"sip_trunk_ca_certificates_pem", "sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_transport", b"sip_trunk_transport", "sip_trunk_username", b"sip_trunk_username", "sip_trunk_verify_server", b"sip_trunk_verify_server", "softphone_permit_cidrs", b"softphone_permit_cidrs", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem"]) -> typing.Literal["sip_trunk_ca_certificates_pem"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sip_trunk_source_cidr", b"_sip_trunk_source_cidr"]) -> typing.Literal["sip_trunk_source_cidr"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sip_trunk_verify_server", b"_sip_trunk_verify_server"]) -> typing.Literal["sip_trunk_verify_server"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem", "_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "_sip_trunk_verify_server", b"_sip_trunk_verify_server", "sip_trunk_ca_certificates_pem", b"sip_trunk_ca_certificates_pem", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_verify_server", b"sip_trunk_verify_server"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem", "_sip_trunk_source_cidr", b"_sip_trunk_source_cidr", "_sip_trunk_verify_server", b"_sip_trunk_verify_server", "sip_trunk_ca_certificates_pem", b"sip_trunk_ca_certificates_pem", "sip_trunk_host", b"sip_trunk_host", "sip_trunk_password", b"sip_trunk_password", "sip_trunk_phone_number", b"sip_trunk_phone_number", "sip_trunk_source_cidr", b"sip_trunk_source_cidr", "sip_trunk_transport", b"sip_trunk_transport", "sip_trunk_username", b"sip_trunk_username", "sip_trunk_verify_server", b"sip_trunk_verify_server", "softphone_permit_cidrs", b"softphone_permit_cidrs", "transfer_number", b"transfer_number", "transfer_number_host", b"transfer_number_host"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__sip_trunk_ca_certificates_pem: _TypeAlias = _typing.Literal["sip_trunk_ca_certificates_pem"]  # noqa: Y015
+    _WhichOneofArgType__sip_trunk_ca_certificates_pem: _TypeAlias = _typing.Literal["_sip_trunk_ca_certificates_pem", b"_sip_trunk_ca_certificates_pem"]  # noqa: Y015
+    _WhichOneofReturnType__sip_trunk_source_cidr: _TypeAlias = _typing.Literal["sip_trunk_source_cidr"]  # noqa: Y015
+    _WhichOneofArgType__sip_trunk_source_cidr: _TypeAlias = _typing.Literal["_sip_trunk_source_cidr", b"_sip_trunk_source_cidr"]  # noqa: Y015
+    _WhichOneofReturnType__sip_trunk_verify_server: _TypeAlias = _typing.Literal["sip_trunk_verify_server"]  # noqa: Y015
+    _WhichOneofArgType__sip_trunk_verify_server: _TypeAlias = _typing.Literal["_sip_trunk_verify_server", b"_sip_trunk_verify_server"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sip_trunk_ca_certificates_pem) -> _WhichOneofReturnType__sip_trunk_ca_certificates_pem | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sip_trunk_source_cidr) -> _WhichOneofReturnType__sip_trunk_source_cidr | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sip_trunk_verify_server) -> _WhichOneofReturnType__sip_trunk_verify_server | None: ...
 
-global___AsteriskConfigsVariables = AsteriskConfigsVariables
+Global___AsteriskConfigsVariables: _TypeAlias = AsteriskConfigsVariables  # noqa: Y015
 
-@typing.final
-class AsteriskConfigsFiles(google.protobuf.message.Message):
+@_typing.final
+class AsteriskConfigsFiles(_message.Message):
     """Configuration files for the Asterisk server"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PJSIP_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
-    EXTENSIONS_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
-    QUEUES_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
-    MODULES_CONF_FILE_STRING_FIELD_NUMBER: builtins.int
-    pjsip_conf_file_string: builtins.str
+    PJSIP_CONF_FILE_STRING_FIELD_NUMBER: _builtins.int
+    EXTENSIONS_CONF_FILE_STRING_FIELD_NUMBER: _builtins.int
+    QUEUES_CONF_FILE_STRING_FIELD_NUMBER: _builtins.int
+    MODULES_CONF_FILE_STRING_FIELD_NUMBER: _builtins.int
+    pjsip_conf_file_string: _builtins.str
     """pjsip.conf file as string.
     Renamed from <pre><code>sip_conf_file_string</code></pre> in 9.0.0: the chan_sip driver this field
     was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
@@ -731,42 +759,46 @@ class AsteriskConfigsFiles(google.protobuf.message.Message):
     unchanged and no <pre><code>json_name</code></pre> override was added, so the change is binary
     wire-compatible in both directions and source-breaking only.
     """
-    extensions_conf_file_string: builtins.str
+    extensions_conf_file_string: _builtins.str
     """extensions.conf file as string"""
-    queues_conf_file_string: builtins.str
+    queues_conf_file_string: _builtins.str
     """queues.conf file as string"""
-    modules_conf_file_string: builtins.str
+    modules_conf_file_string: _builtins.str
     """modules.conf file as string"""
     def __init__(
         self,
         *,
-        pjsip_conf_file_string: builtins.str = ...,
-        extensions_conf_file_string: builtins.str = ...,
-        queues_conf_file_string: builtins.str = ...,
-        modules_conf_file_string: builtins.str = ...,
+        pjsip_conf_file_string: _builtins.str = ...,
+        extensions_conf_file_string: _builtins.str = ...,
+        queues_conf_file_string: _builtins.str = ...,
+        modules_conf_file_string: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["extensions_conf_file_string", b"extensions_conf_file_string", "modules_conf_file_string", b"modules_conf_file_string", "pjsip_conf_file_string", b"pjsip_conf_file_string", "queues_conf_file_string", b"queues_conf_file_string"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["extensions_conf_file_string", b"extensions_conf_file_string", "modules_conf_file_string", b"modules_conf_file_string", "pjsip_conf_file_string", b"pjsip_conf_file_string", "queues_conf_file_string", b"queues_conf_file_string"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AsteriskConfigsFiles = AsteriskConfigsFiles
+Global___AsteriskConfigsFiles: _TypeAlias = AsteriskConfigsFiles  # noqa: Y015
 
-@typing.final
-class AsteriskConfigs(google.protobuf.message.Message):
+@_typing.final
+class AsteriskConfigs(_message.Message):
     """Configurations object for the Asterisk server"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ASTERISK_CONFIGS_VARIABLES_FIELD_NUMBER: builtins.int
-    ASTERISK_CONFIGS_FILES_FIELD_NUMBER: builtins.int
-    ASTERISK_CONFIGS_TARGET_DIRECTORY_NAME_FIELD_NUMBER: builtins.int
-    ASTERISK_PORT_FIELD_NUMBER: builtins.int
-    ASTERISK_VERSION_FIELD_NUMBER: builtins.int
-    asterisk_configs_target_directory_name: builtins.str
+    ASTERISK_CONFIGS_VARIABLES_FIELD_NUMBER: _builtins.int
+    ASTERISK_CONFIGS_FILES_FIELD_NUMBER: _builtins.int
+    ASTERISK_CONFIGS_TARGET_DIRECTORY_NAME_FIELD_NUMBER: _builtins.int
+    ASTERISK_PORT_FIELD_NUMBER: _builtins.int
+    ASTERISK_VERSION_FIELD_NUMBER: _builtins.int
+    asterisk_configs_target_directory_name: _builtins.str
     """Configs will be mapped in from a preconfigured asterisk target directory."""
-    asterisk_port: builtins.int
+    asterisk_port: _builtins.int
     """OPTIONAL: The port where Asterisk should start. Authoritative copy of
     <code>VtsiProject.asterisk_port</code> (see there). <code>0</code> on create assigns a free port.
     """
-    asterisk_version: builtins.str
+    asterisk_version: _builtins.str
     """OPTIONAL: The Asterisk version to start, given as the docker image tag of the ONDEWO
     Asterisk image, e.g. <pre><code>alpine-3.18-18.20.2</code></pre>.
     The tag must match the docker tag grammar
@@ -776,46 +808,62 @@ class AsteriskConfigs(google.protobuf.message.Message):
     The version a deployed project actually runs is <code>VtsiProject.asterisk_version_effective</code>.
     Sending an empty string is NOT the same as leaving it unset and is rejected.
     """
-    @property
-    def asterisk_configs_variables(self) -> global___AsteriskConfigsVariables:
+    @_builtins.property
+    def asterisk_configs_variables(self) -> Global___AsteriskConfigsVariables:
         """Configs as variables which will fill those variables using a blue print."""
 
-    @property
-    def asterisk_configs_files(self) -> global___AsteriskConfigsFiles:
+    @_builtins.property
+    def asterisk_configs_files(self) -> Global___AsteriskConfigsFiles:
         """Configs as files which will set up the configs using those files."""
 
     def __init__(
         self,
         *,
-        asterisk_configs_variables: global___AsteriskConfigsVariables | None = ...,
-        asterisk_configs_files: global___AsteriskConfigsFiles | None = ...,
-        asterisk_configs_target_directory_name: builtins.str = ...,
-        asterisk_port: builtins.int = ...,
-        asterisk_version: builtins.str | None = ...,
+        asterisk_configs_variables: Global___AsteriskConfigsVariables | None = ...,
+        asterisk_configs_files: Global___AsteriskConfigsFiles | None = ...,
+        asterisk_configs_target_directory_name: _builtins.str = ...,
+        asterisk_port: _builtins.int = ...,
+        asterisk_version: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_asterisk_version", b"_asterisk_version", "asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables", "asterisk_version", b"asterisk_version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_asterisk_version", b"_asterisk_version", "asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables", "asterisk_port", b"asterisk_port", "asterisk_version", b"asterisk_version"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_asterisk_version", b"_asterisk_version"]) -> typing.Literal["asterisk_version"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["asterisk_configs_oneof", b"asterisk_configs_oneof"]) -> typing.Literal["asterisk_configs_variables", "asterisk_configs_files", "asterisk_configs_target_directory_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_asterisk_version", b"_asterisk_version", "asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables", "asterisk_version", b"asterisk_version"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_asterisk_version", b"_asterisk_version", "asterisk_configs_files", b"asterisk_configs_files", "asterisk_configs_oneof", b"asterisk_configs_oneof", "asterisk_configs_target_directory_name", b"asterisk_configs_target_directory_name", "asterisk_configs_variables", b"asterisk_configs_variables", "asterisk_port", b"asterisk_port", "asterisk_version", b"asterisk_version"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__asterisk_version: _TypeAlias = _typing.Literal["asterisk_version"]  # noqa: Y015
+    _WhichOneofArgType__asterisk_version: _TypeAlias = _typing.Literal["_asterisk_version", b"_asterisk_version"]  # noqa: Y015
+    _WhichOneofReturnType_asterisk_configs_oneof: _TypeAlias = _typing.Literal["asterisk_configs_variables", "asterisk_configs_files", "asterisk_configs_target_directory_name"]  # noqa: Y015
+    _WhichOneofArgType_asterisk_configs_oneof: _TypeAlias = _typing.Literal["asterisk_configs_oneof", b"asterisk_configs_oneof"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__asterisk_version) -> _WhichOneofReturnType__asterisk_version | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_asterisk_configs_oneof) -> _WhichOneofReturnType_asterisk_configs_oneof | None: ...
 
-global___AsteriskConfigs = AsteriskConfigs
+Global___AsteriskConfigs: _TypeAlias = AsteriskConfigs  # noqa: Y015
 
-@typing.final
-class CreateVtsiProjectRequest(google.protobuf.message.Message):
+@_typing.final
+class CreateVtsiProjectRequest(_message.Message):
     """Request for creating a VTSI project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    error_message: builtins.str
-    """Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
-    compatibility.
-    """
-    validate_only: builtins.bool
+    VTSI_PROJECT_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def error_message(self) -> _builtins.str:
+        """Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+        compatibility.
+        """
+
+    @error_message.setter
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def error_message(self, value: _builtins.str) -> None:
+        """Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+        compatibility.
+        """
+
+    validate_only: _builtins.bool
     """Optional. Validate only: run every check of a real create (validation, authorization) and return
     the would-be project in <code>CreateVtsiProjectResponse.vtsi_project</code>, but write, reserve and
     emit nothing. The fields the server assigns at creation are left empty in that answer because
@@ -824,8 +872,8 @@ class CreateVtsiProjectRequest(google.protobuf.message.Message):
     not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
     <code>false</code>.
     """
-    @property
-    def vtsi_project(self) -> global___VtsiProject:
+    @_builtins.property
+    def vtsi_project(self) -> Global___VtsiProject:
         """VTSI project
         Recommended is to leave &quot;name&quot; empty. The project name here is optional.
         If no name is given a new parent name is created. The parent has the format:
@@ -835,29 +883,32 @@ class CreateVtsiProjectRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project: global___VtsiProject | None = ...,
-        error_message: builtins.str = ...,
-        validate_only: builtins.bool = ...,
+        vtsi_project: Global___VtsiProject | None = ...,
+        error_message: _builtins.str = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "validate_only", b"validate_only", "vtsi_project", b"vtsi_project"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["vtsi_project", b"vtsi_project"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "validate_only", b"validate_only", "vtsi_project", b"vtsi_project"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CreateVtsiProjectRequest = CreateVtsiProjectRequest
+Global___CreateVtsiProjectRequest: _TypeAlias = CreateVtsiProjectRequest  # noqa: Y015
 
-@typing.final
-class CreateVtsiProjectResponse(google.protobuf.message.Message):
+@_typing.final
+class CreateVtsiProjectResponse(_message.Message):
     """Response of the create project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    error_message: builtins.str
+    VTSI_PROJECT_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    error_message: _builtins.str
     """Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
     description). Kept for wire compatibility.
     """
-    @property
-    def vtsi_project(self) -> global___VtsiProject:
+    @_builtins.property
+    def vtsi_project(self) -> Global___VtsiProject:
         """The created project, <code>UNDEPLOYED</code>, with its assigned name and port (with
         <code>validate_only</code>: the would-be project).
         """
@@ -865,29 +916,32 @@ class CreateVtsiProjectResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project: global___VtsiProject | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project: Global___VtsiProject | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "vtsi_project", b"vtsi_project"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["vtsi_project", b"vtsi_project"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "vtsi_project", b"vtsi_project"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CreateVtsiProjectResponse = CreateVtsiProjectResponse
+Global___CreateVtsiProjectResponse: _TypeAlias = CreateVtsiProjectResponse  # noqa: Y015
 
-@typing.final
-class GetVtsiProjectRequest(google.protobuf.message.Message):
+@_typing.final
+class GetVtsiProjectRequest(_message.Message):
     """Request to retrieve a VTSI project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_VIEW_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_VIEW_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    vtsi_project_view: global___VtsiProjectView.ValueType
+    vtsi_project_view: Global___VtsiProjectView.ValueType
     """Optional. Specify the view of the returned VtsiProject (full view by default)"""
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>VtsiProject</code> field paths to populate, e.g.
         <code>display_name</code>, <code>vtsi_project_status</code>, <code>status_message</code>,
         <code>asterisk_configs.asterisk_version</code>. Same convention as
@@ -900,66 +954,69 @@ class GetVtsiProjectRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        vtsi_project_view: global___VtsiProjectView.ValueType = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        vtsi_project_view: Global___VtsiProjectView.ValueType = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name", "vtsi_project_view", b"vtsi_project_view"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetVtsiProjectRequest = GetVtsiProjectRequest
+Global___GetVtsiProjectRequest: _TypeAlias = GetVtsiProjectRequest  # noqa: Y015
 
-@typing.final
-class ListVtsiProjectsRequest(google.protobuf.message.Message):
+@_typing.final
+class ListVtsiProjectsRequest(_message.Message):
     """Request to list VTSI projects. The filters are combined with AND; the values within one repeated
     field are combined with OR; an unset field or an empty repeated field does not filter.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_VIEW_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_SORTING_FIELD_NUMBER: builtins.int
-    NLU_AGENT_NAMES_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    STATUSES_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_CONTAINS_FIELD_NUMBER: builtins.int
-    CREATED_AFTER_FIELD_NUMBER: builtins.int
-    CREATED_BEFORE_FIELD_NUMBER: builtins.int
-    vtsi_project_view: global___VtsiProjectView.ValueType
+    VTSI_PROJECT_VIEW_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_SORTING_FIELD_NUMBER: _builtins.int
+    NLU_AGENT_NAMES_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    STATUSES_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_CONTAINS_FIELD_NUMBER: _builtins.int
+    CREATED_AFTER_FIELD_NUMBER: _builtins.int
+    CREATED_BEFORE_FIELD_NUMBER: _builtins.int
+    vtsi_project_view: Global___VtsiProjectView.ValueType
     """Optional. Specify the view of the returned VtsiProject (full view by default)"""
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
     it (its format is internal and may change). Keep every other request field (filters, sorting,
     <code>page_size</code>) unchanged while paging: a token sent with other filters or sorting is not
     guaranteed to be rejected and then returns that position of the other listing.
     """
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum number of projects per page. <code>0</code> means the server default of 25;
     values above 1000 are clamped to 1000; negative values are rejected with
     <code>INVALID_ARGUMENT</code>. Fewer projects than <code>page_size</code> may be returned (e.g. after
     the authorization filter), and only an empty <code>next_page_token</code> means the end of the list.
     """
-    display_name_contains: builtins.str
+    display_name_contains: _builtins.str
     """Optional. Case-insensitive substring match against <code>display_name</code>. Empty does not
     filter. At most 256 characters.
     """
-    @property
-    def vtsi_project_sorting(self) -> global___VtsiProjectSorting:
+    @_builtins.property
+    def vtsi_project_sorting(self) -> Global___VtsiProjectSorting:
         """Optional. Field to define the sorting of the list of VTSI projects in the response.
         Unset or <code>NO_VTSI_PROJECT_SORTING</code>: by <code>display_name</code>, ascending (ties by the
         project&apos;s internal id), which is a stable order.
         """
 
-    @property
-    def nlu_agent_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def nlu_agent_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Optional. Only projects associated with at least one of these NLU agents.
         Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in every returned <code>VtsiProject</code>,
         relative to the <code>VtsiProject</code> message (no <code>vtsi_projects.</code> prefix), e.g.
         <code>display_name</code>, <code>vtsi_project_status</code>,
@@ -972,18 +1029,18 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
         <code>page_token</code> stays valid with another mask.
         """
 
-    @property
-    def statuses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___VtsiProjectStatus.ValueType]:
+    @_builtins.property
+    def statuses(self) -> _containers.RepeatedScalarFieldContainer[Global___VtsiProjectStatus.ValueType]:
         """Optional. Only projects in one of these statuses. <code>UNSPECIFIED</code> is rejected with
         <code>INVALID_ARGUMENT</code>.
         """
 
-    @property
-    def created_after(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_after(self) -> _timestamp_pb2.Timestamp:
         """Optional. Only projects created at or after this instant."""
 
-    @property
-    def created_before(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_before(self) -> _timestamp_pb2.Timestamp:
         """Optional. Only projects created strictly before this instant. A window whose start
         (<code>created_after</code>) is not before its end is rejected with <code>INVALID_ARGUMENT</code>.
         """
@@ -991,64 +1048,74 @@ class ListVtsiProjectsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_view: global___VtsiProjectView.ValueType = ...,
-        page_token: builtins.str | None = ...,
-        vtsi_project_sorting: global___VtsiProjectSorting | None = ...,
-        nlu_agent_names: collections.abc.Iterable[builtins.str] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        page_size: builtins.int = ...,
-        statuses: collections.abc.Iterable[global___VtsiProjectStatus.ValueType] | None = ...,
-        display_name_contains: builtins.str = ...,
-        created_after: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        created_before: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        vtsi_project_view: Global___VtsiProjectView.ValueType = ...,
+        page_token: _builtins.str | None = ...,
+        vtsi_project_sorting: Global___VtsiProjectSorting | None = ...,
+        nlu_agent_names: _abc.Iterable[_builtins.str] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        page_size: _builtins.int = ...,
+        statuses: _abc.Iterable[Global___VtsiProjectStatus.ValueType] | None = ...,
+        display_name_contains: _builtins.str = ...,
+        created_after: _timestamp_pb2.Timestamp | None = ...,
+        created_before: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "created_after", b"created_after", "created_before", b"created_before", "field_mask", b"field_mask", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "created_after", b"created_after", "created_before", b"created_before", "display_name_contains", b"display_name_contains", "field_mask", b"field_mask", "nlu_agent_names", b"nlu_agent_names", "page_size", b"page_size", "page_token", b"page_token", "statuses", b"statuses", "vtsi_project_sorting", b"vtsi_project_sorting", "vtsi_project_view", b"vtsi_project_view"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_vtsi_project_sorting", b"_vtsi_project_sorting"]) -> typing.Literal["vtsi_project_sorting"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "created_after", b"created_after", "created_before", b"created_before", "field_mask", b"field_mask", "page_token", b"page_token", "vtsi_project_sorting", b"vtsi_project_sorting"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "_vtsi_project_sorting", b"_vtsi_project_sorting", "created_after", b"created_after", "created_before", b"created_before", "display_name_contains", b"display_name_contains", "field_mask", b"field_mask", "nlu_agent_names", b"nlu_agent_names", "page_size", b"page_size", "page_token", b"page_token", "statuses", b"statuses", "vtsi_project_sorting", b"vtsi_project_sorting", "vtsi_project_view", b"vtsi_project_view"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    _WhichOneofReturnType__vtsi_project_sorting: _TypeAlias = _typing.Literal["vtsi_project_sorting"]  # noqa: Y015
+    _WhichOneofArgType__vtsi_project_sorting: _TypeAlias = _typing.Literal["_vtsi_project_sorting", b"_vtsi_project_sorting"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__vtsi_project_sorting) -> _WhichOneofReturnType__vtsi_project_sorting | None: ...
 
-global___ListVtsiProjectsRequest = ListVtsiProjectsRequest
+Global___ListVtsiProjectsRequest: _TypeAlias = ListVtsiProjectsRequest  # noqa: Y015
 
-@typing.final
-class ListVtsiProjectsResponse(google.protobuf.message.Message):
+@_typing.final
+class ListVtsiProjectsResponse(_message.Message):
     """This is a protobuf message definition for the response of getting a list of VTSI projects."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECTS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    VTSI_PROJECTS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token to retrieve the next page of results. Opaque (see
     <code>ListVtsiProjectsRequest.page_token</code>). Empty when there are no more results.
     """
-    @property
-    def vtsi_projects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VtsiProject]:
+    @_builtins.property
+    def vtsi_projects(self) -> _containers.RepeatedCompositeFieldContainer[Global___VtsiProject]:
         """The VTSI projects of this page."""
 
     def __init__(
         self,
         *,
-        vtsi_projects: collections.abc.Iterable[global___VtsiProject] | None = ...,
-        next_page_token: builtins.str = ...,
+        vtsi_projects: _abc.Iterable[Global___VtsiProject] | None = ...,
+        next_page_token: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["next_page_token", b"next_page_token", "vtsi_projects", b"vtsi_projects"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["next_page_token", b"next_page_token", "vtsi_projects", b"vtsi_projects"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListVtsiProjectsResponse = ListVtsiProjectsResponse
+Global___ListVtsiProjectsResponse: _TypeAlias = ListVtsiProjectsResponse  # noqa: Y015
 
-@typing.final
-class VtsiProjectSorting(google.protobuf.message.Message):
+@_typing.final
+class VtsiProjectSorting(_message.Message):
     """This protobuf message defines the sorting order for VTSI (Virtual Telephone System Integration) projects."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _VtsiProjectSortingField:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _VtsiProjectSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[VtsiProjectSorting._VtsiProjectSortingField.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _VtsiProjectSortingFieldEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[VtsiProjectSorting._VtsiProjectSortingField.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NO_VTSI_PROJECT_SORTING: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 0
         """The default order: by <code>display_name</code>, ascending."""
         SORT_VTSI_PROJECT_BY_NAME: VtsiProjectSorting._VtsiProjectSortingField.ValueType  # 1
@@ -1076,54 +1143,60 @@ class VtsiProjectSorting(google.protobuf.message.Message):
     SORT_VTSI_PROJECT_BY_LAST_MODIFIED: VtsiProjectSorting.VtsiProjectSortingField.ValueType  # 4
     """Sort by last modified date"""
 
-    SORTING_FIELD_FIELD_NUMBER: builtins.int
-    SORTING_MODE_FIELD_NUMBER: builtins.int
-    sorting_field: global___VtsiProjectSorting.VtsiProjectSortingField.ValueType
+    SORTING_FIELD_FIELD_NUMBER: _builtins.int
+    SORTING_MODE_FIELD_NUMBER: _builtins.int
+    sorting_field: Global___VtsiProjectSorting.VtsiProjectSortingField.ValueType
     """sorting field for vtsi projects sorting"""
-    sorting_mode: global___VtsiProjectSortingMode.ValueType
+    sorting_mode: Global___VtsiProjectSortingMode.ValueType
     """Sorting mode"""
     def __init__(
         self,
         *,
-        sorting_field: global___VtsiProjectSorting.VtsiProjectSortingField.ValueType | None = ...,
-        sorting_mode: global___VtsiProjectSortingMode.ValueType | None = ...,
+        sorting_field: Global___VtsiProjectSorting.VtsiProjectSortingField.ValueType | None = ...,
+        sorting_mode: Global___VtsiProjectSortingMode.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sorting_field", b"_sorting_field"]) -> typing.Literal["sorting_field"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sorting_mode", b"_sorting_mode"]) -> typing.Literal["sorting_mode"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_sorting_field", b"_sorting_field", "_sorting_mode", b"_sorting_mode", "sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__sorting_field: _TypeAlias = _typing.Literal["sorting_field"]  # noqa: Y015
+    _WhichOneofArgType__sorting_field: _TypeAlias = _typing.Literal["_sorting_field", b"_sorting_field"]  # noqa: Y015
+    _WhichOneofReturnType__sorting_mode: _TypeAlias = _typing.Literal["sorting_mode"]  # noqa: Y015
+    _WhichOneofArgType__sorting_mode: _TypeAlias = _typing.Literal["_sorting_mode", b"_sorting_mode"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sorting_field) -> _WhichOneofReturnType__sorting_field | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sorting_mode) -> _WhichOneofReturnType__sorting_mode | None: ...
 
-global___VtsiProjectSorting = VtsiProjectSorting
+Global___VtsiProjectSorting: _TypeAlias = VtsiProjectSorting  # noqa: Y015
 
-@typing.final
-class UpdateVtsiProjectRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateVtsiProjectRequest(_message.Message):
     """Request to update a VTSI project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    validate_only: builtins.bool
+    VTSI_PROJECT_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    validate_only: _builtins.bool
     """Optional. Validate only: merge the update over the stored project and run every check of a real
     update (validation, authorization, the configuration render), and return the would-be project in
     <code>UpdateVtsiProjectResponse.vtsi_project</code>, but write nothing, touch no Asterisk, end no
     call and emit nothing. A successful validation does not guarantee that a later update succeeds
     (the project may change meanwhile). Default <code>false</code>.
     """
-    @property
-    def vtsi_project(self) -> global___VtsiProject:
+    @_builtins.property
+    def vtsi_project(self) -> Global___VtsiProject:
         """The project to update, identified by <code>vtsi_project.name</code>
         (<pre><code>projects/&lt;project_uuid&gt;/project</code></pre>), carrying the new values. The
         output-only fields (<code>vtsi_project_status</code>, the audit, counter and status fields) are
         ignored.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """OPTIONAL: The mask to control which fields get updated.
         Paths are field paths within <pre><code>vtsi_project</code></pre> and carry no leading
         <pre><code>vtsi_project.</code></pre> prefix, e.g. <pre><code>display_name</code></pre>,
@@ -1155,8 +1228,8 @@ class UpdateVtsiProjectRequest(google.protobuf.message.Message):
         </ul>
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>VtsiProject</code> field paths to populate in
         <code>UpdateVtsiProjectResponse.vtsi_project</code>, relative to the <code>VtsiProject</code> (no
         <code>vtsi_project.</code> prefix). Same convention as
@@ -1169,33 +1242,36 @@ class UpdateVtsiProjectRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project: global___VtsiProject | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
+        vtsi_project: Global___VtsiProject | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "validate_only", b"validate_only", "vtsi_project", b"vtsi_project"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "vtsi_project", b"vtsi_project"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "update_mask", b"update_mask", "validate_only", b"validate_only", "vtsi_project", b"vtsi_project"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateVtsiProjectRequest = UpdateVtsiProjectRequest
+Global___UpdateVtsiProjectRequest: _TypeAlias = UpdateVtsiProjectRequest  # noqa: Y015
 
-@typing.final
-class UpdateVtsiProjectResponse(google.protobuf.message.Message):
+@_typing.final
+class UpdateVtsiProjectResponse(_message.Message):
     """Response to the update of a VTSI project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
     description). Kept for wire compatibility.
     """
-    @property
-    def vtsi_project(self) -> global___VtsiProject:
+    @_builtins.property
+    def vtsi_project(self) -> Global___VtsiProject:
         """The project after the update (with <code>validate_only</code>: the would-be project), in the full
         view, redacted like <code>GetVtsiProject</code> and narrowed by
         <code>UpdateVtsiProjectRequest.field_mask</code>. Left unset by a 9.0.0 server.
@@ -1204,134 +1280,161 @@ class UpdateVtsiProjectResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        error_message: builtins.str = ...,
-        vtsi_project: global___VtsiProject | None = ...,
+        name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
+        vtsi_project: Global___VtsiProject | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["vtsi_project", b"vtsi_project"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name", "vtsi_project", b"vtsi_project"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["vtsi_project", b"vtsi_project"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "name", b"name", "vtsi_project", b"vtsi_project"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateVtsiProjectResponse = UpdateVtsiProjectResponse
+Global___UpdateVtsiProjectResponse: _TypeAlias = UpdateVtsiProjectResponse  # noqa: Y015
 
-@typing.final
-class DeleteVtsiProjectRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteVtsiProjectRequest(_message.Message):
     """Request to delete a VTSI project
     A deployed VTSI project is undeployed automatically before it is deleted (see
     <a href="index.html#ondewo.vtsi.Projects.DeleteVtsiProject">DeleteVtsiProject</a>).
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
+        name: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteVtsiProjectRequest = DeleteVtsiProjectRequest
+Global___DeleteVtsiProjectRequest: _TypeAlias = DeleteVtsiProjectRequest  # noqa: Y015
 
-@typing.final
-class DeleteVtsiProjectResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteVtsiProjectResponse(_message.Message):
     """Response to delete a VTSI project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Never set: errors are reported as gRPC status codes. Kept for wire compatibility."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteVtsiProjectResponse = DeleteVtsiProjectResponse
+Global___DeleteVtsiProjectResponse: _TypeAlias = DeleteVtsiProjectResponse  # noqa: Y015
 
-@typing.final
-class DeployVtsiProjectRequest(google.protobuf.message.Message):
+@_typing.final
+class DeployVtsiProjectRequest(_message.Message):
     """Request to deploy a vtsi project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
+        name: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeployVtsiProjectRequest = DeployVtsiProjectRequest
+Global___DeployVtsiProjectRequest: _TypeAlias = DeployVtsiProjectRequest  # noqa: Y015
 
-@typing.final
-class DeployVtsiProjectResponse(google.protobuf.message.Message):
+@_typing.final
+class DeployVtsiProjectResponse(_message.Message):
     """Response to deploy a vtsi project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Never set: errors are reported as gRPC status codes. Kept for wire compatibility."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeployVtsiProjectResponse = DeployVtsiProjectResponse
+Global___DeployVtsiProjectResponse: _TypeAlias = DeployVtsiProjectResponse  # noqa: Y015
 
-@typing.final
-class UndeployVtsiProjectRequest(google.protobuf.message.Message):
+@_typing.final
+class UndeployVtsiProjectRequest(_message.Message):
     """Request to undeploy a vtsi project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
+        name: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UndeployVtsiProjectRequest = UndeployVtsiProjectRequest
+Global___UndeployVtsiProjectRequest: _TypeAlias = UndeployVtsiProjectRequest  # noqa: Y015
 
-@typing.final
-class UndeployVtsiProjectResponse(google.protobuf.message.Message):
+@_typing.final
+class UndeployVtsiProjectResponse(_message.Message):
     """Response to undeploy a vtsi project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Never set: errors are reported as gRPC status codes. Kept for wire compatibility."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UndeployVtsiProjectResponse = UndeployVtsiProjectResponse
+Global___UndeployVtsiProjectResponse: _TypeAlias = UndeployVtsiProjectResponse  # noqa: Y015

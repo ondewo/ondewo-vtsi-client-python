@@ -5,7 +5,7 @@ import warnings
 
 from ondewo.vtsi import softphones_pb2 as ondewo_dot_vtsi_dot_softphones__pb2
 
-GRPC_GENERATED_VERSION = '1.67.1'
+GRPC_GENERATED_VERSION = '1.85.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -18,14 +18,14 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in ondewo/vtsi/softphones_pb2_grpc.py depends on'
+        + ' but the generated code in ondewo/vtsi/softphones_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class SoftphonesStub(object):
+class SoftphonesStub:
     """<p>ONDEWO VTSI API</p>
     <p>Manages the SOFTPHONE ACCOUNTS of a VTSI project: SIP accounts on the project&apos;s Asterisk that
     a human uses from a softphone such as Zoiper, to call into the project&apos;s listeners or to be reached
@@ -122,7 +122,7 @@ class SoftphonesStub(object):
                 _registered_method=True)
 
 
-class SoftphonesServicer(object):
+class SoftphonesServicer:
     """<p>ONDEWO VTSI API</p>
     <p>Manages the SOFTPHONE ACCOUNTS of a VTSI project: SIP accounts on the project&apos;s Asterisk that
     a human uses from a softphone such as Zoiper, to call into the project&apos;s listeners or to be reached
@@ -425,7 +425,7 @@ def add_SoftphonesServicer_to_server(servicer, server):
 
 
  # This class is part of an EXPERIMENTAL API.
-class Softphones(object):
+class Softphones:
     """<p>ONDEWO VTSI API</p>
     <p>Manages the SOFTPHONE ACCOUNTS of a VTSI project: SIP accounts on the project&apos;s Asterisk that
     a human uses from a softphone such as Zoiper, to call into the project&apos;s listeners or to be reached

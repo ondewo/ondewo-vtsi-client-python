@@ -16,85 +16,88 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.field_mask_pb2
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import google.protobuf.timestamp_pb2
-import ondewo.nlu.intent_pb2
-import ondewo.sip.sip_pb2
-import ondewo.vtsi.call_configs_pb2
-import ondewo.vtsi.campaigns_pb2
-import ondewo.vtsi.projects_pb2
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import field_mask_pb2 as _field_mask_pb2
+from google.protobuf import message as _message
+from google.protobuf import timestamp_pb2 as _timestamp_pb2
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from ondewo.nlu import intent_pb2 as _intent_pb2
+from ondewo.sip import sip_pb2 as _sip_pb2
+from ondewo.vtsi import call_configs_pb2 as _call_configs_pb2
+from ondewo.vtsi import campaigns_pb2 as _campaigns_pb2
+from ondewo.vtsi import projects_pb2 as _projects_pb2
+from ondewo.vtsi.call_configs_pb2 import AnsweringMachineDetectionConfig as AnsweringMachineDetectionConfig
+from ondewo.vtsi.call_configs_pb2 import AudioObjectStorageConfig as AudioObjectStorageConfig
+from ondewo.vtsi.call_configs_pb2 import AudioObjectStorageServicesActivationConfig as AudioObjectStorageServicesActivationConfig
+from ondewo.vtsi.call_configs_pb2 import BaseServiceConfig as BaseServiceConfig
+from ondewo.vtsi.call_configs_pb2 import CommonServicesConfig as CommonServicesConfig
+from ondewo.vtsi.call_configs_pb2 import Credentials as Credentials
+from ondewo.vtsi.call_configs_pb2 import CsiPreemptiveGenerationConfig as CsiPreemptiveGenerationConfig
+from ondewo.vtsi.call_configs_pb2 import CsiVtsiConfig as CsiVtsiConfig
+from ondewo.vtsi.call_configs_pb2 import DictationConfig as DictationConfig
+from ondewo.vtsi.call_configs_pb2 import DtmfConfig as DtmfConfig
+from ondewo.vtsi.call_configs_pb2 import InterruptionHandlingConfig as InterruptionHandlingConfig
+from ondewo.vtsi.call_configs_pb2 import MessageBrokerConfig as MessageBrokerConfig
+from ondewo.vtsi.call_configs_pb2 import MessageBrokerServicesActivationConfig as MessageBrokerServicesActivationConfig
+from ondewo.vtsi.call_configs_pb2 import NluPreemptiveGenerationConfig as NluPreemptiveGenerationConfig
+from ondewo.vtsi.call_configs_pb2 import NluVtsiCallbacks as NluVtsiCallbacks
+from ondewo.vtsi.call_configs_pb2 import NluVtsiConfig as NluVtsiConfig
+from ondewo.vtsi.call_configs_pb2 import RabbitMqConfig as RabbitMqConfig
+from ondewo.vtsi.call_configs_pb2 import ResponseTimingConfig as ResponseTimingConfig
+from ondewo.vtsi.call_configs_pb2 import S2tVtsiCallbacks as S2tVtsiCallbacks
+from ondewo.vtsi.call_configs_pb2 import S2tVtsiConfig as S2tVtsiConfig
+from ondewo.vtsi.call_configs_pb2 import SipBaseConfig as SipBaseConfig
+from ondewo.vtsi.call_configs_pb2 import SipCallerConfig as SipCallerConfig
+from ondewo.vtsi.call_configs_pb2 import SoftTimeoutConfig as SoftTimeoutConfig
+from ondewo.vtsi.call_configs_pb2 import T2sPreemptiveSynthesisConfig as T2sPreemptiveSynthesisConfig
+from ondewo.vtsi.call_configs_pb2 import T2sVtsiCallbacks as T2sVtsiCallbacks
+from ondewo.vtsi.call_configs_pb2 import T2sVtsiConfig as T2sVtsiConfig
+from ondewo.vtsi.call_configs_pb2 import TurnDetectionConfig as TurnDetectionConfig
+from ondewo.vtsi.call_configs_pb2 import VoiceInteractionConfig as VoiceInteractionConfig
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_DECIDED_BY_DTMF as WARM_INTRO_DECIDED_BY_DTMF
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_DECIDED_BY_SPEECH as WARM_INTRO_DECIDED_BY_SPEECH
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_DECIDED_BY_TIMEOUT as WARM_INTRO_DECIDED_BY_TIMEOUT
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_DECIDED_BY_UNSPECIFIED as WARM_INTRO_DECIDED_BY_UNSPECIFIED
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_DECISION_ACCEPTED as WARM_INTRO_DECISION_ACCEPTED
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_DECISION_DECLINED as WARM_INTRO_DECISION_DECLINED
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_DECISION_NO_DECISION as WARM_INTRO_DECISION_NO_DECISION
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_DECISION_UNSPECIFIED as WARM_INTRO_DECISION_UNSPECIFIED
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY as WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_TEXT_SOURCE_TEMPLATE as WARM_INTRO_TEXT_SOURCE_TEMPLATE
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_TEXT_SOURCE_UNSPECIFIED as WARM_INTRO_TEXT_SOURCE_UNSPECIFIED
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO as WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER as WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER
+from ondewo.vtsi.call_configs_pb2 import WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED as WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED
+from ondewo.vtsi.call_configs_pb2 import WarmIntroDecidedBy as WarmIntroDecidedBy
+from ondewo.vtsi.call_configs_pb2 import WarmIntroDecision as WarmIntroDecision
+from ondewo.vtsi.call_configs_pb2 import WarmIntroRecord as WarmIntroRecord
+from ondewo.vtsi.call_configs_pb2 import WarmIntroTextSource as WarmIntroTextSource
+from ondewo.vtsi.call_configs_pb2 import WarmIntroUnavailablePolicy as WarmIntroUnavailablePolicy
+from ondewo.vtsi.call_configs_pb2 import WarmTransferConfig as WarmTransferConfig
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    import typing_extensions
-from ondewo.vtsi.call_configs_pb2 import (
-    AnsweringMachineDetectionConfig as AnsweringMachineDetectionConfig,
-    AudioObjectStorageConfig as AudioObjectStorageConfig,
-    AudioObjectStorageServicesActivationConfig as AudioObjectStorageServicesActivationConfig,
-    BaseServiceConfig as BaseServiceConfig,
-    CommonServicesConfig as CommonServicesConfig,
-    Credentials as Credentials,
-    CsiPreemptiveGenerationConfig as CsiPreemptiveGenerationConfig,
-    CsiVtsiConfig as CsiVtsiConfig,
-    DictationConfig as DictationConfig,
-    DtmfConfig as DtmfConfig,
-    InterruptionHandlingConfig as InterruptionHandlingConfig,
-    MessageBrokerConfig as MessageBrokerConfig,
-    MessageBrokerServicesActivationConfig as MessageBrokerServicesActivationConfig,
-    NluPreemptiveGenerationConfig as NluPreemptiveGenerationConfig,
-    NluVtsiCallbacks as NluVtsiCallbacks,
-    NluVtsiConfig as NluVtsiConfig,
-    RabbitMqConfig as RabbitMqConfig,
-    ResponseTimingConfig as ResponseTimingConfig,
-    S2tVtsiCallbacks as S2tVtsiCallbacks,
-    S2tVtsiConfig as S2tVtsiConfig,
-    SipBaseConfig as SipBaseConfig,
-    SipCallerConfig as SipCallerConfig,
-    SoftTimeoutConfig as SoftTimeoutConfig,
-    T2sPreemptiveSynthesisConfig as T2sPreemptiveSynthesisConfig,
-    T2sVtsiCallbacks as T2sVtsiCallbacks,
-    T2sVtsiConfig as T2sVtsiConfig,
-    TurnDetectionConfig as TurnDetectionConfig,
-    VoiceInteractionConfig as VoiceInteractionConfig,
-    WARM_INTRO_DECIDED_BY_DTMF as WARM_INTRO_DECIDED_BY_DTMF,
-    WARM_INTRO_DECIDED_BY_SPEECH as WARM_INTRO_DECIDED_BY_SPEECH,
-    WARM_INTRO_DECIDED_BY_TIMEOUT as WARM_INTRO_DECIDED_BY_TIMEOUT,
-    WARM_INTRO_DECIDED_BY_UNSPECIFIED as WARM_INTRO_DECIDED_BY_UNSPECIFIED,
-    WARM_INTRO_DECISION_ACCEPTED as WARM_INTRO_DECISION_ACCEPTED,
-    WARM_INTRO_DECISION_DECLINED as WARM_INTRO_DECISION_DECLINED,
-    WARM_INTRO_DECISION_NO_DECISION as WARM_INTRO_DECISION_NO_DECISION,
-    WARM_INTRO_DECISION_UNSPECIFIED as WARM_INTRO_DECISION_UNSPECIFIED,
-    WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY as WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY,
-    WARM_INTRO_TEXT_SOURCE_TEMPLATE as WARM_INTRO_TEXT_SOURCE_TEMPLATE,
-    WARM_INTRO_TEXT_SOURCE_UNSPECIFIED as WARM_INTRO_TEXT_SOURCE_UNSPECIFIED,
-    WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO as WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO,
-    WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER as WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER,
-    WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED as WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED,
-    WarmIntroDecidedBy as WarmIntroDecidedBy,
-    WarmIntroDecision as WarmIntroDecision,
-    WarmIntroRecord as WarmIntroRecord,
-    WarmIntroTextSource as WarmIntroTextSource,
-    WarmIntroUnavailablePolicy as WarmIntroUnavailablePolicy,
-    WarmTransferConfig as WarmTransferConfig,
-)
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 13):
+    from warnings import deprecated as _deprecated
+else:
+    from typing_extensions import deprecated as _deprecated
+
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _ScheduledCallerStatus:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _ScheduledCallerStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ScheduledCallerStatus.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _ScheduledCallerStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_ScheduledCallerStatus.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     SCHEDULED_CALLER_STATUS_UNSPECIFIED: _ScheduledCallerStatus.ValueType  # 0
     """Unspecified status"""
     SCHEDULED_CALLER_STATUS_PENDING: _ScheduledCallerStatus.ValueType  # 1
@@ -123,14 +126,14 @@ SCHEDULED_CALLER_STATUS_FAILED: ScheduledCallerStatus.ValueType  # 4
 """Starting the call failed; see error_message"""
 SCHEDULED_CALLER_STATUS_CANCELLED: ScheduledCallerStatus.ValueType  # 5
 """Cancelled before it fired"""
-global___ScheduledCallerStatus = ScheduledCallerStatus
+Global___ScheduledCallerStatus: _TypeAlias = ScheduledCallerStatus  # noqa: Y015
 
 class _TransferMode:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _TransferModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TransferMode.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _TransferModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_TransferMode.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     TRANSFER_MODE_UNSPECIFIED: _TransferMode.ValueType  # 0
     """Same as <code>TRANSFER_MODE_BLIND</code>"""
     TRANSFER_MODE_BLIND: _TransferMode.ValueType  # 1
@@ -157,14 +160,14 @@ TRANSFER_MODE_WARM: TransferMode.ValueType  # 2
 """The target is rung into the call first; the bot leaves only after the target joined, and keeps the call when the
 target is busy or does not answer. Requires an Asterisk 22 project
 """
-global___TransferMode = TransferMode
+Global___TransferMode: _TypeAlias = TransferMode  # noqa: Y015
 
 class _TransferOutcome:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _TransferOutcomeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_TransferOutcome.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _TransferOutcomeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_TransferOutcome.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     TRANSFER_OUTCOME_UNSPECIFIED: _TransferOutcome.ValueType  # 0
     """No outcome recorded"""
     TRANSFER_OUTCOME_ACCEPTED: _TransferOutcome.ValueType  # 1
@@ -249,14 +252,14 @@ TRANSFER_OUTCOME_INTRO_UNAVAILABLE: TransferOutcome.ValueType  # 12
 <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>; the target was hung up and the call stays with
 the bot
 """
-global___TransferOutcome = TransferOutcome
+Global___TransferOutcome: _TypeAlias = TransferOutcome  # noqa: Y015
 
 class _CallMediaSetting:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CallMediaSettingEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallMediaSetting.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CallMediaSettingEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CallMediaSetting.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CALL_MEDIA_SETTING_UNCHANGED: _CallMediaSetting.ValueType  # 0
     """Leave the flag as it is"""
     CALL_MEDIA_SETTING_ON: _CallMediaSetting.ValueType  # 1
@@ -273,14 +276,14 @@ CALL_MEDIA_SETTING_ON: CallMediaSetting.ValueType  # 1
 """On: the bot speaks (<code>bot_voice</code>) or listens (<code>bot_listening</code>)"""
 CALL_MEDIA_SETTING_OFF: CallMediaSetting.ValueType  # 2
 """Off: the bot is muted (<code>bot_voice</code>) or does not listen (<code>bot_listening</code>)"""
-global___CallMediaSetting = CallMediaSetting
+Global___CallMediaSetting: _TypeAlias = CallMediaSetting  # noqa: Y015
 
 class _ParticipantMode:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _ParticipantModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ParticipantMode.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _ParticipantModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_ParticipantMode.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     PARTICIPANT_MODE_UNSPECIFIED: _ParticipantMode.ValueType  # 0
     """Same as <code>PARTICIPANT_MODE_CONFERENCE</code>"""
     PARTICIPANT_MODE_CONFERENCE: _ParticipantMode.ValueType  # 1
@@ -297,14 +300,14 @@ PARTICIPANT_MODE_CONFERENCE: ParticipantMode.ValueType  # 1
 """The participant is joined into the call: Asterisk mixes the caller, the bot and the participant"""
 PARTICIPANT_MODE_MONITOR: ParticipantMode.ValueType  # 2
 """The participant listens only; the caller and the bot do not hear it"""
-global___ParticipantMode = ParticipantMode
+Global___ParticipantMode: _TypeAlias = ParticipantMode  # noqa: Y015
 
 class _BotPolicyOnJoin:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _BotPolicyOnJoinEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_BotPolicyOnJoin.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _BotPolicyOnJoinEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_BotPolicyOnJoin.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     BOT_POLICY_ON_JOIN_UNSPECIFIED: _BotPolicyOnJoin.ValueType  # 0
     """Same as <code>BOT_POLICY_ON_JOIN_KEEP</code>: the bot keeps talking"""
     BOT_POLICY_ON_JOIN_PAUSE: _BotPolicyOnJoin.ValueType  # 1
@@ -325,14 +328,14 @@ BOT_POLICY_ON_JOIN_PAUSE_LISTENING: BotPolicyOnJoin.ValueType  # 2
 """The bot may still speak, but does not hear the participant (nor the caller)"""
 BOT_POLICY_ON_JOIN_KEEP: BotPolicyOnJoin.ValueType  # 3
 """The bot keeps talking and listening, and it WILL answer what the participant says"""
-global___BotPolicyOnJoin = BotPolicyOnJoin
+Global___BotPolicyOnJoin: _TypeAlias = BotPolicyOnJoin  # noqa: Y015
 
 class _ParticipantState:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _ParticipantStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ParticipantState.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _ParticipantStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_ParticipantState.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     PARTICIPANT_STATE_UNSPECIFIED: _ParticipantState.ValueType  # 0
     """No state recorded"""
     PARTICIPANT_STATE_RINGING: _ParticipantState.ValueType  # 1
@@ -357,14 +360,14 @@ PARTICIPANT_STATE_FAILED: ParticipantState.ValueType  # 3
 """The participant never joined; <code>end_reason</code> says why"""
 PARTICIPANT_STATE_LEFT: ParticipantState.ValueType  # 4
 """The participant left the call; <code>end_reason</code> says why"""
-global___ParticipantState = ParticipantState
+Global___ParticipantState: _TypeAlias = ParticipantState  # noqa: Y015
 
 class _ParticipantEndReason:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _ParticipantEndReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ParticipantEndReason.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _ParticipantEndReasonEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_ParticipantEndReason.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     PARTICIPANT_END_REASON_UNSPECIFIED: _ParticipantEndReason.ValueType  # 0
     """No end reason: the participant is still ringing or joined, or its end reason is a string this enum has no
     value for (read <code>CallParticipant.end_reason</code> then)
@@ -416,14 +419,14 @@ PARTICIPANT_END_REASON_JOIN_FAILED: ParticipantEndReason.ValueType  # 8
 """<code>JOIN_FAILED</code>: the participant answered but could not be joined into the call"""
 PARTICIPANT_END_REASON_TIMEOUT: ParticipantEndReason.ValueType  # 9
 """<code>TIMEOUT</code>: the server gave up waiting for the participant&apos;s state"""
-global___ParticipantEndReason = ParticipantEndReason
+Global___ParticipantEndReason: _TypeAlias = ParticipantEndReason  # noqa: Y015
 
 class _CallAudioMode:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CallAudioModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallAudioMode.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CallAudioModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CallAudioMode.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CALL_AUDIO_MODE_UNSPECIFIED: _CallAudioMode.ValueType  # 0
     """Same as <code>CALL_AUDIO_MODE_LISTEN</code>"""
     CALL_AUDIO_MODE_LISTEN: _CallAudioMode.ValueType  # 1
@@ -440,14 +443,14 @@ CALL_AUDIO_MODE_LISTEN: CallAudioMode.ValueType  # 1
 """Receive the call audio only"""
 CALL_AUDIO_MODE_TALK: CallAudioMode.ValueType  # 2
 """Receive the caller&apos;s audio and send audio to the caller. Requires <code>take_over</code>"""
-global___CallAudioMode = CallAudioMode
+Global___CallAudioMode: _TypeAlias = CallAudioMode  # noqa: Y015
 
 class _CallAudioEndReason:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CallAudioEndReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallAudioEndReason.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CallAudioEndReasonEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CallAudioEndReason.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CALL_AUDIO_END_REASON_UNSPECIFIED: _CallAudioEndReason.ValueType  # 0
     """No reason recorded"""
     CALL_AUDIO_END_REASON_CLIENT_CLOSED: _CallAudioEndReason.ValueType  # 1
@@ -480,14 +483,14 @@ CALL_AUDIO_END_REASON_STALLED: CallAudioEndReason.ValueType  # 5
 """The client did not read the audio in time"""
 CALL_AUDIO_END_REASON_INTERNAL: CallAudioEndReason.ValueType  # 6
 """An internal error ended the stream"""
-global___CallAudioEndReason = CallAudioEndReason
+Global___CallAudioEndReason: _TypeAlias = CallAudioEndReason  # noqa: Y015
 
 class _CallView:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CallViewEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallView.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CallViewEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CallView.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     MINIMUM: _CallView.ValueType  # 0
     """Gives only minimum info about the call"""
     SHALLOW: _CallView.ValueType  # 1
@@ -509,14 +512,14 @@ SHALLOW: CallView.ValueType  # 1
 """Gives further basic info like call name, start_time, end_time, current sip status"""
 FULL: CallView.ValueType  # 2
 """Gives you the full info with status history and the services statuses"""
-global___CallView = CallView
+Global___CallView: _TypeAlias = CallView  # noqa: Y015
 
 class _CallStatus:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CallStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallStatus.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CallStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CallStatus.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CALL_STATUS_UNSPECIFIED: _CallStatus.ValueType  # 0
     """Unspecified call status: does not filter"""
     CALL_STATUS_ACTIVE: _CallStatus.ValueType  # 1
@@ -537,14 +540,14 @@ CALL_STATUS_INACTIVE: CallStatus.ValueType  # 2
 """Call is inactive (<code>Call.active</code> is false): ended, or the waiting call of a persistent listener or
 pooled caller
 """
-global___CallStatus = CallStatus
+Global___CallStatus: _TypeAlias = CallStatus  # noqa: Y015
 
 class _CallType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CallTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallType.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CallTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CallType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     BOTH: _CallType.ValueType  # 0
     """Both listener and caller: the zero value, used only as "any type" in a filter; never a stored call&apos;s type"""
     LISTENER: _CallType.ValueType  # 1
@@ -570,86 +573,89 @@ CALLER: CallType.ValueType  # 2
 """Caller"""
 SCHEDULED_CALLER: CallType.ValueType  # 3
 """Scheduled Caller"""
-global___CallType = CallType
+Global___CallType: _TypeAlias = CallType  # noqa: Y015
 
-@typing.final
-class AsteriskConfig(google.protobuf.message.Message):
+@_typing.final
+class AsteriskConfig(_message.Message):
     """Asterisk configuration"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ASTERISK_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def asterisk_base_config(self) -> ondewo.vtsi.call_configs_pb2.BaseServiceConfig:
+    ASTERISK_BASE_CONFIG_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def asterisk_base_config(self) -> _call_configs_pb2.BaseServiceConfig:
         """Host, Port, and [Optional] GRPC cert"""
 
     def __init__(
         self,
         *,
-        asterisk_base_config: ondewo.vtsi.call_configs_pb2.BaseServiceConfig | None = ...,
+        asterisk_base_config: _call_configs_pb2.BaseServiceConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["asterisk_base_config", b"asterisk_base_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["asterisk_base_config", b"asterisk_base_config"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["asterisk_base_config", b"asterisk_base_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["asterisk_base_config", b"asterisk_base_config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AsteriskConfig = AsteriskConfig
+Global___AsteriskConfig: _TypeAlias = AsteriskConfig  # noqa: Y015
 
-@typing.final
-class Listener(google.protobuf.message.Message):
+@_typing.final
+class Listener(_message.Message):
     """Listener represents a listener instance that waits for incoming calls.
     <p>A listener is persistent: its container takes one call after the other, and <code>call_name</code> names
     the current call (or the record that waits for the next one). Listeners are never pooled, so a
     <code>Listener</code> has no <code>pooled</code> field.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    SIP_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    ACTIVE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    SIP_BASE_CONFIG_FIELD_NUMBER: _builtins.int
+    COMMON_SERVICES_CONFIG_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    ACTIVE_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the listener, of the form
     <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
     Output only. Identifies the listener on <code>UpdateListener</code>.
     """
-    call_name: builtins.str
+    call_name: _builtins.str
     """The call name that was assigned to the call
     <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     Output only.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """Output only. VTSI project of the listener, the project segment of <code>name</code>, of the form
     <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Set in every view. A 9.0.0 server leaves it empty.
     """
-    active: builtins.bool
+    active: _builtins.bool
     """Output only. Whether the listener&apos;s current call is active (set up or connected), i.e.
     <code>Call.active</code> of <code>call_name</code>; false while the listener waits for a call. The same value
     as <code>CallResourceStatus.active</code> of the status streams. Set in the SHALLOW and FULL views.
     """
-    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType
     """Output only. SIP status type of the listener&apos;s current or last call (<code>Call.sip_status_type</code> of
     <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
     value) when it never had a call record. Set in the SHALLOW and FULL views.
     """
-    @property
-    def sip_base_config(self) -> ondewo.vtsi.call_configs_pb2.SipBaseConfig:
+    @_builtins.property
+    def sip_base_config(self) -> _call_configs_pb2.SipBaseConfig:
         """SIP service configuration. Updatable with <code>UpdateListener</code> (stored configuration only, see
         there).
         """
 
-    @property
-    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
+    @_builtins.property
+    def common_services_config(self) -> _call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateListener</code>
         (stored configuration only, see there).
         """
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When the listener was created (<code>StartListener</code> or a recycle by the server that
         recreated it). Set in the SHALLOW and FULL views.
         """
@@ -657,68 +663,71 @@ class Listener(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        sip_base_config: ondewo.vtsi.call_configs_pb2.SipBaseConfig | None = ...,
-        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
-        vtsi_project_name: builtins.str = ...,
-        active: builtins.bool = ...,
-        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        sip_base_config: _call_configs_pb2.SipBaseConfig | None = ...,
+        common_services_config: _call_configs_pb2.CommonServicesConfig | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        active: _builtins.bool = ...,
+        sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "created_at", b"created_at", "sip_base_config", b"sip_base_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["active", b"active", "call_name", b"call_name", "common_services_config", b"common_services_config", "created_at", b"created_at", "name", b"name", "sip_base_config", b"sip_base_config", "sip_status_type", b"sip_status_type", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["common_services_config", b"common_services_config", "created_at", b"created_at", "sip_base_config", b"sip_base_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["active", b"active", "call_name", b"call_name", "common_services_config", b"common_services_config", "created_at", b"created_at", "name", b"name", "sip_base_config", b"sip_base_config", "sip_status_type", b"sip_status_type", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Listener = Listener
+Global___Listener: _TypeAlias = Listener  # noqa: Y015
 
-@typing.final
-class Caller(google.protobuf.message.Message):
+@_typing.final
+class Caller(_message.Message):
     """Caller represents a caller instance that initiates outbound calls"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    SIP_CALLER_CONFIG_FIELD_NUMBER: builtins.int
-    COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    ACTIVE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    POOLED_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    SIP_CALLER_CONFIG_FIELD_NUMBER: _builtins.int
+    COMMON_SERVICES_CONFIG_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    ACTIVE_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    POOLED_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the caller, of the form
     <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
     Output only. Identifies the caller on <code>UpdateCaller</code>.
     """
-    call_name: builtins.str
+    call_name: _builtins.str
     """The call name that was assigned to the call
     <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     Output only.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """Output only. VTSI project of the caller, the project segment of <code>name</code>, of the form
     <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Set in every view. A 9.0.0 server leaves it empty.
     """
-    active: builtins.bool
+    active: _builtins.bool
     """Output only. Whether the caller&apos;s current call is active (set up or connected), i.e.
     <code>Call.active</code> of <code>call_name</code>; false for an idle pooled caller and for a caller whose
     call ended. The same value as <code>CallResourceStatus.active</code> of the status streams. Set in the
     SHALLOW and FULL views.
     """
-    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType
     """Output only. SIP status type of the caller&apos;s current or last call (<code>Call.sip_status_type</code> of
     <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
     value) when it never had a call record. Set in the SHALLOW and FULL views.
     """
-    pooled: builtins.bool
+    pooled: _builtins.bool
     """Output only. Whether the caller is a POOLED (persistent) caller, which the server keeps warm between calls
     and reuses for later <code>StartCaller</code> requests with the same configuration, rather than a one-shot
     caller that is one call. Set in the SHALLOW and FULL views.
     """
-    campaign_name: builtins.str
+    campaign_name: _builtins.str
     """Output only. The campaign of the caller&apos;s current or last campaign attempt
     (<code>CampaignCallAttempt.caller_name</code> names this caller), of the form
     <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
@@ -726,20 +735,20 @@ class Caller(google.protobuf.message.Message):
     campaigns one after the other; this field names only the latest one (<code>ListCallers</code> with a campaign
     selector finds every caller of a campaign). Set in the SHALLOW and FULL views.
     """
-    @property
-    def sip_caller_config(self) -> ondewo.vtsi.call_configs_pb2.SipCallerConfig:
+    @_builtins.property
+    def sip_caller_config(self) -> _call_configs_pb2.SipCallerConfig:
         """SIP service configuration. Updatable with <code>UpdateCaller</code> (stored configuration only, see
         there).
         """
 
-    @property
-    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
+    @_builtins.property
+    def common_services_config(self) -> _call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateCaller</code>
         (stored configuration only, see there).
         """
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When the caller was created (<code>StartCaller</code>, the dispatch of a campaign attempt or of
         a scheduled caller, or a recycle by the server that recreated a pooled caller). Set in the SHALLOW and FULL
         views.
@@ -748,36 +757,39 @@ class Caller(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        sip_caller_config: ondewo.vtsi.call_configs_pb2.SipCallerConfig | None = ...,
-        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
-        vtsi_project_name: builtins.str = ...,
-        active: builtins.bool = ...,
-        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        pooled: builtins.bool = ...,
-        campaign_name: builtins.str = ...,
+        name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        sip_caller_config: _call_configs_pb2.SipCallerConfig | None = ...,
+        common_services_config: _call_configs_pb2.CommonServicesConfig | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        active: _builtins.bool = ...,
+        sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        pooled: _builtins.bool = ...,
+        campaign_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "created_at", b"created_at", "sip_caller_config", b"sip_caller_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["active", b"active", "call_name", b"call_name", "campaign_name", b"campaign_name", "common_services_config", b"common_services_config", "created_at", b"created_at", "name", b"name", "pooled", b"pooled", "sip_caller_config", b"sip_caller_config", "sip_status_type", b"sip_status_type", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["common_services_config", b"common_services_config", "created_at", b"created_at", "sip_caller_config", b"sip_caller_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["active", b"active", "call_name", b"call_name", "campaign_name", b"campaign_name", "common_services_config", b"common_services_config", "created_at", b"created_at", "name", b"name", "pooled", b"pooled", "sip_caller_config", b"sip_caller_config", "sip_status_type", b"sip_status_type", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Caller = Caller
+Global___Caller: _TypeAlias = Caller  # noqa: Y015
 
-@typing.final
-class StartListenerRequest(google.protobuf.message.Message):
+@_typing.final
+class StartListenerRequest(_message.Message):
     """Request for starting a listener"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SIP_BASE_CONFIG_FIELD_NUMBER: builtins.int
-    COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SIP_BASE_CONFIG_FIELD_NUMBER: _builtins.int
+    COMMON_SERVICES_CONFIG_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    validate_only: builtins.bool
+    validate_only: _builtins.bool
     """Optional. Dry run: when true, the request runs every validation <code>StartListener</code> runs, including the live
     validation of the configuration against the upstream services (NLU, S2T, T2S, RabbitMQ) and the
     project&apos;s listener limit, but starts, deploys and stores NOTHING and emits no event. It answers with the
@@ -790,16 +802,16 @@ class StartListenerRequest(google.protobuf.message.Message):
     is rejected with <code>INVALID_ARGUMENT</code> naming the entry; use the enclosing request&apos;s own
     <code>validate_only</code> where it has one.</p>
     """
-    @property
-    def sip_base_config(self) -> ondewo.vtsi.call_configs_pb2.SipBaseConfig:
+    @_builtins.property
+    def sip_base_config(self) -> _call_configs_pb2.SipBaseConfig:
         """SIP service configuration"""
 
-    @property
-    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
+    @_builtins.property
+    def common_services_config(self) -> _call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in <code>StartListenerResponse.listener</code>, relative to the
         <code>Listener</code> message (no <code>listener.</code> prefix), e.g. <code>call_name</code>, <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular
         message fields are allowed; a path below a repeated or map field is not. <code>listener.name</code> and the
@@ -816,35 +828,38 @@ class StartListenerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        sip_base_config: ondewo.vtsi.call_configs_pb2.SipBaseConfig | None = ...,
-        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        sip_base_config: _call_configs_pb2.SipBaseConfig | None = ...,
+        common_services_config: _call_configs_pb2.CommonServicesConfig | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "field_mask", b"field_mask", "sip_base_config", b"sip_base_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "field_mask", b"field_mask", "sip_base_config", b"sip_base_config", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["common_services_config", b"common_services_config", "field_mask", b"field_mask", "sip_base_config", b"sip_base_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["common_services_config", b"common_services_config", "field_mask", b"field_mask", "sip_base_config", b"sip_base_config", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartListenerRequest = StartListenerRequest
+Global___StartListenerRequest: _TypeAlias = StartListenerRequest  # noqa: Y015
 
-@typing.final
-class StartListenerResponse(google.protobuf.message.Message):
+@_typing.final
+class StartListenerResponse(_message.Message):
     """Response to start a listener, and one entry of <code>StartListenersResponse</code>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    LISTENER_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    LISTENER_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Always empty: <code>StartListener</code> reports its errors as gRPC status codes, and an entry of
     <code>StartListenersResponse</code> exists only for a listener that was started (failures are accounted for
     in <code>StartListenersResponse.error_message</code>)
     """
-    @property
-    def listener(self) -> global___Listener:
+    @_builtins.property
+    def listener(self) -> Global___Listener:
         """The listener that was started (with <code>validate_only</code>: the listener that would have been started),
         shaped by the request&apos;s <code>field_mask</code>
         """
@@ -852,29 +867,32 @@ class StartListenerResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        listener: global___Listener | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        listener: Global___Listener | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["listener", b"listener"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "listener", b"listener", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["listener", b"listener"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "listener", b"listener", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartListenerResponse = StartListenerResponse
+Global___StartListenerResponse: _TypeAlias = StartListenerResponse  # noqa: Y015
 
-@typing.final
-class StartListenersRequest(google.protobuf.message.Message):
+@_typing.final
+class StartListenersRequest(_message.Message):
     """Request to start multiple listeners"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    LISTENER_REQUESTS_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    LISTENER_REQUESTS_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
     deduplication. A retry carrying the same key returns the response of the first successful attempt instead
     of running the request a second time, whichever server replica it reaches, for as long as the server
@@ -885,7 +903,7 @@ class StartListenersRequest(google.protobuf.message.Message):
     no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
     make a single caller or listener idempotent, send it as a batch of one.
     """
-    validate_only: builtins.bool
+    validate_only: _builtins.bool
     """Optional. Dry run of the whole batch: every entry is validated like <code>StartListener</code> with
     <code>validate_only</code> (see <code>StartListenerRequest.validate_only</code>), the project&apos;s listener
     limit is checked for the batch as a whole, nothing is started, deployed or stored and no event is emitted.
@@ -895,12 +913,12 @@ class StartListenersRequest(google.protobuf.message.Message):
     <code>validate_only</code> must be unset. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
     the server version before relying on it.
     """
-    @property
-    def listener_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartListenerRequest]:
+    @_builtins.property
+    def listener_requests(self) -> _containers.RepeatedCompositeFieldContainer[Global___StartListenerRequest]:
         """Listeners that should be started"""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the <code>listener</code> of EVERY entry of
         <code>StartListenersResponse.listener_responses</code>, relative to the <code>Listener</code> message (no prefix), e.g.
         <code>call_name</code>. Nested paths through singular message fields are allowed; a path below a repeated or map
@@ -916,34 +934,37 @@ class StartListenersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        listener_requests: collections.abc.Iterable[global___StartListenerRequest] | None = ...,
-        idempotency_key: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        listener_requests: _abc.Iterable[Global___StartListenerRequest] | None = ...,
+        idempotency_key: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "listener_requests", b"listener_requests", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "listener_requests", b"listener_requests", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartListenersRequest = StartListenersRequest
+Global___StartListenersRequest: _TypeAlias = StartListenersRequest  # noqa: Y015
 
-@typing.final
-class StartListenersResponse(google.protobuf.message.Message):
+@_typing.final
+class StartListenersResponse(_message.Message):
     """Response to start multiple listeners"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    LISTENER_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    LISTENER_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty when every requested listener was started. Otherwise an accounting of the batch: how many listeners were
     requested, how many were started, and why each of the others was not
     """
-    @property
-    def listener_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartListenerResponse]:
+    @_builtins.property
+    def listener_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___StartListenerResponse]:
         """One entry per listener that was STARTED, in request order. A requested listener that failed to start was rolled
         back and has NO entry here (so the list can be shorter than the request); <code>error_message</code> accounts
         for it.
@@ -952,28 +973,32 @@ class StartListenersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        listener_responses: collections.abc.Iterable[global___StartListenerResponse] | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        listener_responses: _abc.Iterable[Global___StartListenerResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "listener_responses", b"listener_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "listener_responses", b"listener_responses", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartListenersResponse = StartListenersResponse
+Global___StartListenersResponse: _TypeAlias = StartListenersResponse  # noqa: Y015
 
-@typing.final
-class StartCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class StartCallerRequest(_message.Message):
     """Request for starting a caller"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SIP_CALLER_CONFIG_FIELD_NUMBER: builtins.int
-    COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SIP_CALLER_CONFIG_FIELD_NUMBER: _builtins.int
+    COMMON_SERVICES_CONFIG_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    validate_only: builtins.bool
+    validate_only: _builtins.bool
     """Optional. Dry run: when true, the request runs every validation <code>StartCaller</code> runs, including the live
     validation of the configuration against the upstream services (NLU, S2T, T2S, RabbitMQ) and the
     project&apos;s caller limit, but starts, deploys and stores NOTHING and emits no event. It answers with the
@@ -987,16 +1012,16 @@ class StartCallerRequest(google.protobuf.message.Message):
     is rejected with <code>INVALID_ARGUMENT</code> naming the entry; use the enclosing request&apos;s own
     <code>validate_only</code> where it has one.</p>
     """
-    @property
-    def sip_caller_config(self) -> ondewo.vtsi.call_configs_pb2.SipCallerConfig:
+    @_builtins.property
+    def sip_caller_config(self) -> _call_configs_pb2.SipCallerConfig:
         """SIP service configuration"""
 
-    @property
-    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
+    @_builtins.property
+    def common_services_config(self) -> _call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in <code>StartCallerResponse.caller</code>, relative to the
         <code>Caller</code> message (no <code>caller.</code> prefix), e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular
         message fields are allowed; a path below a repeated or map field is not. <code>caller.name</code> and the
@@ -1013,35 +1038,38 @@ class StartCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        sip_caller_config: ondewo.vtsi.call_configs_pb2.SipCallerConfig | None = ...,
-        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        sip_caller_config: _call_configs_pb2.SipCallerConfig | None = ...,
+        common_services_config: _call_configs_pb2.CommonServicesConfig | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "field_mask", b"field_mask", "sip_caller_config", b"sip_caller_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "field_mask", b"field_mask", "sip_caller_config", b"sip_caller_config", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["common_services_config", b"common_services_config", "field_mask", b"field_mask", "sip_caller_config", b"sip_caller_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["common_services_config", b"common_services_config", "field_mask", b"field_mask", "sip_caller_config", b"sip_caller_config", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartCallerRequest = StartCallerRequest
+Global___StartCallerRequest: _TypeAlias = StartCallerRequest  # noqa: Y015
 
-@typing.final
-class StartCallerResponse(google.protobuf.message.Message):
+@_typing.final
+class StartCallerResponse(_message.Message):
     """Response to start a caller, and one entry of <code>StartCallersResponse</code>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALLER_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALLER_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Always empty: <code>StartCaller</code> reports its errors as gRPC status codes, and an entry of
     <code>StartCallersResponse</code> exists only for a caller that was started (failures are accounted for in
     <code>StartCallersResponse.error_message</code>)
     """
-    @property
-    def caller(self) -> global___Caller:
+    @_builtins.property
+    def caller(self) -> Global___Caller:
         """The caller that was started (with <code>validate_only</code>: the caller that would have been started),
         shaped by the request&apos;s <code>field_mask</code>
         """
@@ -1049,29 +1077,32 @@ class StartCallerResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        caller: global___Caller | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        caller: Global___Caller | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["caller", b"caller"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caller", b"caller", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["caller", b"caller"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["caller", b"caller", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartCallerResponse = StartCallerResponse
+Global___StartCallerResponse: _TypeAlias = StartCallerResponse  # noqa: Y015
 
-@typing.final
-class StartCallersRequest(google.protobuf.message.Message):
+@_typing.final
+class StartCallersRequest(_message.Message):
     """Request to start multiple callers"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALLER_REQUESTS_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALLER_REQUESTS_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
     deduplication. A retry carrying the same key returns the response of the first successful attempt instead
     of running the request a second time, whichever server replica it reaches, for as long as the server
@@ -1082,7 +1113,7 @@ class StartCallersRequest(google.protobuf.message.Message):
     no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
     make a single caller or listener idempotent, send it as a batch of one.
     """
-    validate_only: builtins.bool
+    validate_only: _builtins.bool
     """Optional. Dry run of the whole batch: every entry is validated like <code>StartCaller</code> with
     <code>validate_only</code> (see <code>StartCallerRequest.validate_only</code>), the project&apos;s caller limit
     is checked for the batch as a whole, nothing is started, deployed or stored and no event is emitted. The
@@ -1092,12 +1123,12 @@ class StartCallersRequest(google.protobuf.message.Message):
     <code>validate_only</code> must be unset. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
     the server version before relying on it.
     """
-    @property
-    def caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerRequest]:
+    @_builtins.property
+    def caller_requests(self) -> _containers.RepeatedCompositeFieldContainer[Global___StartCallerRequest]:
         """Callers that should be started"""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the <code>caller</code> of EVERY entry of
         <code>StartCallersResponse.caller_responses</code>, relative to the <code>Caller</code> message (no prefix), e.g.
         <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path below a repeated or map
@@ -1113,34 +1144,37 @@ class StartCallersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        caller_requests: collections.abc.Iterable[global___StartCallerRequest] | None = ...,
-        idempotency_key: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        caller_requests: _abc.Iterable[Global___StartCallerRequest] | None = ...,
+        idempotency_key: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["caller_requests", b"caller_requests", "field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartCallersRequest = StartCallersRequest
+Global___StartCallersRequest: _TypeAlias = StartCallersRequest  # noqa: Y015
 
-@typing.final
-class StartCallersResponse(google.protobuf.message.Message):
+@_typing.final
+class StartCallersResponse(_message.Message):
     """Response to the start callers request"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALLER_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALLER_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty when every requested caller was started. Otherwise an accounting of the batch: how many callers were
     requested, how many were started, and why each of the others was not
     """
-    @property
-    def caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerResponse]:
+    @_builtins.property
+    def caller_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___StartCallerResponse]:
         """One entry per caller that was STARTED, in request order. A requested caller that failed to start was rolled
         back and has NO entry here (so the list can be shorter than the request); <code>error_message</code> accounts
         for it.
@@ -1149,61 +1183,65 @@ class StartCallersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        caller_responses: collections.abc.Iterable[global___StartCallerResponse] | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        caller_responses: _abc.Iterable[Global___StartCallerResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["caller_responses", b"caller_responses", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["caller_responses", b"caller_responses", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartCallersResponse = StartCallersResponse
+Global___StartCallersResponse: _TypeAlias = StartCallersResponse  # noqa: Y015
 
-@typing.final
-class ListCallersRequest(google.protobuf.message.Message):
+@_typing.final
+class ListCallersRequest(_message.Message):
     """Represents a request to list callers."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    CALL_VIEW_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    ACTIVE_ONLY_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPES_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    CALL_VIEW_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    ACTIVE_ONLY_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPES_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name for which to perform the call.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
     API. Valid only with the same <code>vtsi_project_name</code>, campaign selector, <code>active_only</code> and
     <code>sip_status_types</code>; a token issued for another listing is
     rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>, <code>call_view</code> and
     <code>field_mask</code> may change between pages.
     """
-    call_view: global___CallView.ValueType
+    call_view: Global___CallView.ValueType
     """Optional. How much of each caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>."""
-    campaign_name: builtins.str
+    campaign_name: _builtins.str
     """Resource name of the campaign. It must be a campaign of <code>vtsi_project_name</code>.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    campaign_display_name: builtins.str
+    campaign_display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>.
     """
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum number of callers per page. <code>0</code> keeps the page size the <code>page_token</code>
     was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
     negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
     """
-    active_only: builtins.bool
+    active_only: _builtins.bool
     """Optional. Only callers whose current call is active (<code>Caller.active</code>), as
     <code>StreamCallerStatusRequest.active_only</code>. False does not filter.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in every returned <code>Caller</code>,
         relative to the <code>Caller</code> message (no <code>callers.</code> prefix), e.g.
         <code>call_name</code>, <code>sip_caller_config.callee_id</code>,
@@ -1216,8 +1254,8 @@ class ListCallersRequest(google.protobuf.message.Message):
         a <code>page_token</code> stays valid with another mask.
         """
 
-    @property
-    def sip_status_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType]:
+    @_builtins.property
+    def sip_status_types(self) -> _containers.RepeatedScalarFieldContainer[_sip_pb2.SipStatus.StatusType.ValueType]:
         """Optional. Only callers whose current or last call has one of these SIP status types
         (<code>Caller.sip_status_type</code>). A caller that never had a call has none and matches no entry. Empty
         does not filter. Combined with the other filters by AND.
@@ -1226,45 +1264,53 @@ class ListCallersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        page_token: builtins.str | None = ...,
-        call_view: global___CallView.ValueType | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        campaign_name: builtins.str = ...,
-        campaign_display_name: builtins.str = ...,
-        page_size: builtins.int = ...,
-        active_only: builtins.bool = ...,
-        sip_status_types: collections.abc.Iterable[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType] | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        page_token: _builtins.str | None = ...,
+        call_view: Global___CallView.ValueType | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        campaign_name: _builtins.str = ...,
+        campaign_display_name: _builtins.str = ...,
+        page_size: _builtins.int = ...,
+        active_only: _builtins.bool = ...,
+        sip_status_types: _abc.Iterable[_sip_pb2.SipStatus.StatusType.ValueType] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "active_only", b"active_only", "call_view", b"call_view", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "sip_status_types", b"sip_status_types", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["campaign_name", "campaign_display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "field_mask", b"field_mask", "page_token", b"page_token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "active_only", b"active_only", "call_view", b"call_view", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "sip_status_types", b"sip_status_types", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_view: _TypeAlias = _typing.Literal["call_view"]  # noqa: Y015
+    _WhichOneofArgType__call_view: _TypeAlias = _typing.Literal["_call_view", b"_call_view"]  # noqa: Y015
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["campaign_name", "campaign_display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_view) -> _WhichOneofReturnType__call_view | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___ListCallersRequest = ListCallersRequest
+Global___ListCallersRequest: _TypeAlias = ListCallersRequest  # noqa: Y015
 
-@typing.final
-class ListCallersResponse(google.protobuf.message.Message):
+@_typing.final
+class ListCallersResponse(_message.Message):
     """Represents the response for listing callers."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CALLERS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    TOTAL_SIZE_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    CALLERS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    TOTAL_SIZE_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token to retrieve the next page of results. Opaque. Empty when there are no more results."""
-    total_size: builtins.int
+    total_size: _builtins.int
     """The number of callers the request matches across all pages (its selector and filters, not
     <code>page_size</code>), counted exactly when this page was read. It can change between the pages of one
     listing as callers are started, stopped or deleted.
     """
-    @property
-    def callers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Caller]:
+    @_builtins.property
+    def callers(self) -> _containers.RepeatedCompositeFieldContainer[Global___Caller]:
         """The callers of this page, ordered by the caller&apos;s uuid (the last segment of <code>name</code>),
         ascending.
         """
@@ -1272,25 +1318,29 @@ class ListCallersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        callers: collections.abc.Iterable[global___Caller] | None = ...,
-        next_page_token: builtins.str = ...,
-        total_size: builtins.int = ...,
+        callers: _abc.Iterable[Global___Caller] | None = ...,
+        next_page_token: _builtins.str = ...,
+        total_size: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["callers", b"callers", "next_page_token", b"next_page_token", "total_size", b"total_size"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["callers", b"callers", "next_page_token", b"next_page_token", "total_size", b"total_size"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListCallersResponse = ListCallersResponse
+Global___ListCallersResponse: _TypeAlias = ListCallersResponse  # noqa: Y015
 
-@typing.final
-class GetCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class GetCallerRequest(_message.Message):
     """Represents a request to get a specific caller."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    CALL_VIEW_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    CALL_VIEW_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the caller, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Required (empty or malformed is <code>INVALID_ARGUMENT</code>, an unknown project <code>NOT_FOUND</code>).
     <p>Redundant with the project segment of <code>name</code>, and the same rule holds for every single-resource
@@ -1303,18 +1353,18 @@ class GetCallerRequest(google.protobuf.message.Message):
     the resource exists in another project. (The batch requests, which check their entries before anything is
     done, answer such an entry with <code>INVALID_ARGUMENT</code> instead.)</p>
     """
-    name: builtins.str
+    name: _builtins.str
     """The name of the caller to retrieve, of the form
     <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
     """
-    call_view: global___CallView.ValueType
+    call_view: Global___CallView.ValueType
     """Optional. How much of the caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
     <code>MINIMUM</code>: <code>name</code>, <code>call_name</code> and <code>vtsi_project_name</code>;
     <code>SHALLOW</code>: also <code>sip_caller_config</code> and the output-only state; <code>FULL</code>: also
     <code>common_services_config</code> (redacted by role).
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the returned <code>Caller</code>, relative to
         the <code>Caller</code> message, e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed;
         a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
@@ -1327,52 +1377,56 @@ class GetCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        name: builtins.str = ...,
-        call_view: global___CallView.ValueType | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        name: _builtins.str = ...,
+        call_view: Global___CallView.ValueType | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_view: _TypeAlias = _typing.Literal["call_view"]  # noqa: Y015
+    _WhichOneofArgType__call_view: _TypeAlias = _typing.Literal["_call_view", b"_call_view"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_view) -> _WhichOneofReturnType__call_view | None: ...
 
-global___GetCallerRequest = GetCallerRequest
+Global___GetCallerRequest: _TypeAlias = GetCallerRequest  # noqa: Y015
 
-@typing.final
-class ListListenersRequest(google.protobuf.message.Message):
+@_typing.final
+class ListListenersRequest(_message.Message):
     """Represents a request to list listeners."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    CALL_VIEW_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    ACTIVE_ONLY_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPES_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    CALL_VIEW_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    ACTIVE_ONLY_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPES_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name for which to perform the call.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
     API. Valid only with the same <code>vtsi_project_name</code>, <code>active_only</code> and <code>sip_status_types</code>; a token issued for another listing is
     rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>, <code>call_view</code> and
     <code>field_mask</code> may change between pages.
     """
-    call_view: global___CallView.ValueType
+    call_view: Global___CallView.ValueType
     """Optional. How much of each listener to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>."""
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum number of listeners per page, with the default, cap and validation of
     <code>ListCallersRequest.page_size</code>.
     """
-    active_only: builtins.bool
+    active_only: _builtins.bool
     """Optional. Only listeners whose current call is active (<code>Listener.active</code>), as
     <code>StreamListenerStatusRequest.active_only</code>. False does not filter.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in every returned <code>Listener</code>,
         relative to the <code>Listener</code> message (no <code>listeners.</code> prefix), e.g.
         <code>call_name</code>, <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths
@@ -1385,8 +1439,8 @@ class ListListenersRequest(google.protobuf.message.Message):
         another mask.
         """
 
-    @property
-    def sip_status_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType]:
+    @_builtins.property
+    def sip_status_types(self) -> _containers.RepeatedScalarFieldContainer[_sip_pb2.SipStatus.StatusType.ValueType]:
         """Optional. Only listeners whose current or last call has one of these SIP status types
         (<code>Listener.sip_status_type</code>), with the rules of <code>ListCallersRequest.sip_status_types</code>.
         """
@@ -1394,40 +1448,46 @@ class ListListenersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        page_token: builtins.str | None = ...,
-        call_view: global___CallView.ValueType | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        page_size: builtins.int = ...,
-        active_only: builtins.bool = ...,
-        sip_status_types: collections.abc.Iterable[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType] | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        page_token: _builtins.str | None = ...,
+        call_view: Global___CallView.ValueType | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        page_size: _builtins.int = ...,
+        active_only: _builtins.bool = ...,
+        sip_status_types: _abc.Iterable[_sip_pb2.SipStatus.StatusType.ValueType] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "active_only", b"active_only", "call_view", b"call_view", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "sip_status_types", b"sip_status_types", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "active_only", b"active_only", "call_view", b"call_view", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "sip_status_types", b"sip_status_types", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_view: _TypeAlias = _typing.Literal["call_view"]  # noqa: Y015
+    _WhichOneofArgType__call_view: _TypeAlias = _typing.Literal["_call_view", b"_call_view"]  # noqa: Y015
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_view) -> _WhichOneofReturnType__call_view | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
 
-global___ListListenersRequest = ListListenersRequest
+Global___ListListenersRequest: _TypeAlias = ListListenersRequest  # noqa: Y015
 
-@typing.final
-class ListListenersResponse(google.protobuf.message.Message):
+@_typing.final
+class ListListenersResponse(_message.Message):
     """Represents the response for listing listeners."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LISTENERS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    TOTAL_SIZE_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    LISTENERS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    TOTAL_SIZE_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token to retrieve the next page of results. Opaque. Empty when there are no more results."""
-    total_size: builtins.int
+    total_size: _builtins.int
     """The number of listeners the request matches across all pages (its filters, not <code>page_size</code>),
     counted exactly when this page was read; as <code>ListCallersResponse.total_size</code>.
     """
-    @property
-    def listeners(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Listener]:
+    @_builtins.property
+    def listeners(self) -> _containers.RepeatedCompositeFieldContainer[Global___Listener]:
         """The listeners of this page, ordered by the listener&apos;s uuid (the last segment of <code>name</code>),
         ascending.
         """
@@ -1435,40 +1495,44 @@ class ListListenersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        listeners: collections.abc.Iterable[global___Listener] | None = ...,
-        next_page_token: builtins.str = ...,
-        total_size: builtins.int = ...,
+        listeners: _abc.Iterable[Global___Listener] | None = ...,
+        next_page_token: _builtins.str = ...,
+        total_size: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["listeners", b"listeners", "next_page_token", b"next_page_token", "total_size", b"total_size"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["listeners", b"listeners", "next_page_token", b"next_page_token", "total_size", b"total_size"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListListenersResponse = ListListenersResponse
+Global___ListListenersResponse: _TypeAlias = ListListenersResponse  # noqa: Y015
 
-@typing.final
-class GetListenerRequest(google.protobuf.message.Message):
+@_typing.final
+class GetListenerRequest(_message.Message):
     """Represents a request to get a specific listener."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    CALL_VIEW_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    CALL_VIEW_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the listener, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Required. Redundant with the project segment of <code>name</code>, by the rule of
     <code>GetCallerRequest.vtsi_project_name</code>.
     """
-    name: builtins.str
+    name: _builtins.str
     """The name of the listener to retrieve, of the form
     <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
     """
-    call_view: global___CallView.ValueType
+    call_view: Global___CallView.ValueType
     """Optional. How much of the listener to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
     The views populate the fields as <code>GetCallerRequest.call_view</code> does, with
     <code>sip_base_config</code> in place of <code>sip_caller_config</code>.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the returned <code>Listener</code>, relative to
         the <code>Listener</code> message, e.g. <code>call_name</code>, <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message fields are allowed;
         a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
@@ -1481,29 +1545,33 @@ class GetListenerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        name: builtins.str = ...,
-        call_view: global___CallView.ValueType | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        name: _builtins.str = ...,
+        call_view: Global___CallView.ValueType | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_view: _TypeAlias = _typing.Literal["call_view"]  # noqa: Y015
+    _WhichOneofArgType__call_view: _TypeAlias = _typing.Literal["_call_view", b"_call_view"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_view) -> _WhichOneofReturnType__call_view | None: ...
 
-global___GetListenerRequest = GetListenerRequest
+Global___GetListenerRequest: _TypeAlias = GetListenerRequest  # noqa: Y015
 
-@typing.final
-class StopListenerRequest(google.protobuf.message.Message):
+@_typing.final
+class StopListenerRequest(_message.Message):
     """Represents a request to stop a specific listener."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the listener to stop in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths of <code>StopListenerResponse</code> to populate, i.e.
         <code>error_message</code> (the response carries no <code>Listener</code>). <code>name</code> is always populated.
         Unset or empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming
@@ -1513,25 +1581,28 @@ class StopListenerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopListenerRequest = StopListenerRequest
+Global___StopListenerRequest: _TypeAlias = StopListenerRequest  # noqa: Y015
 
-@typing.final
-class StopListenerResponse(google.protobuf.message.Message):
+@_typing.final
+class StopListenerResponse(_message.Message):
     """Response to stopping a listener, and one entry of <code>StopListenersResponse</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the stopped listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty on success. <code>StopListener</code> reports its errors as gRPC status codes, so it is empty there. In an
     entry of <code>StopListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
     status code <code>StopListener</code> would have answered, e.g.
@@ -1540,23 +1611,27 @@ class StopListenerResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopListenerResponse = StopListenerResponse
+Global___StopListenerResponse: _TypeAlias = StopListenerResponse  # noqa: Y015
 
-@typing.final
-class StopListenersRequest(google.protobuf.message.Message):
+@_typing.final
+class StopListenersRequest(_message.Message):
     """Represents a request to stop multiple listeners."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAMES_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    NAMES_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """Optional. VTSI project of every listener of the request, of the form
     <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     When set, the request is checked as a whole like <code>UpdateListenersRequest</code> before anything is
@@ -1568,12 +1643,12 @@ class StopListenersRequest(google.protobuf.message.Message):
     another project is that entry&apos;s <code>NOT_FOUND</code>) and a name given twice is stopped once and
     reported once. Either way, no entry and more than 1000 distinct names are <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The names of the listeners to stop, 1 to 1000 distinct names, in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in EVERY entry of
         <code>StopListenersResponse.stop_listener_responses</code>, relative to the entry message <code>StopListenerResponse</code>, i.e.
         <code>error_message</code> (the entries carry no <code>Listener</code>). <code>name</code> of each entry and the
@@ -1585,29 +1660,32 @@ class StopListenersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        names: collections.abc.Iterable[builtins.str] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        vtsi_project_name: builtins.str = ...,
+        names: _abc.Iterable[_builtins.str] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopListenersRequest = StopListenersRequest
+Global___StopListenersRequest: _TypeAlias = StopListenersRequest  # noqa: Y015
 
-@typing.final
-class StopListenersResponse(google.protobuf.message.Message):
+@_typing.final
+class StopListenersResponse(_message.Message):
     """Response to stop multiple listeners"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STOP_LISTENER_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    error_message: builtins.str
+    STOP_LISTENER_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    error_message: _builtins.str
     """A summary when at least one entry failed (e.g. <code>2 of 5 listeners were not stopped</code>), empty when every
     entry succeeded. The failed entries carry their own <code>error_message</code>.
     """
-    @property
-    def stop_listener_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopListenerResponse]:
+    @_builtins.property
+    def stop_listener_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___StopListenerResponse]:
         """One entry per distinct name of the request, in request order (a name given twice is reported once), each
         with its own <code>error_message</code>.
         """
@@ -1615,25 +1693,29 @@ class StopListenersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        stop_listener_responses: collections.abc.Iterable[global___StopListenerResponse] | None = ...,
-        error_message: builtins.str = ...,
+        stop_listener_responses: _abc.Iterable[Global___StopListenerResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "stop_listener_responses", b"stop_listener_responses"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "stop_listener_responses", b"stop_listener_responses"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopListenersResponse = StopListenersResponse
+Global___StopListenersResponse: _TypeAlias = StopListenersResponse  # noqa: Y015
 
-@typing.final
-class StopCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class StopCallerRequest(_message.Message):
     """Represents a request to stop a specific caller."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the caller to stop in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths of <code>StopCallerResponse</code> to populate, i.e.
         <code>error_message</code> (the response carries no <code>Caller</code>). <code>name</code> is always populated.
         Unset or empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming
@@ -1643,25 +1725,28 @@ class StopCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopCallerRequest = StopCallerRequest
+Global___StopCallerRequest: _TypeAlias = StopCallerRequest  # noqa: Y015
 
-@typing.final
-class StopCallerResponse(google.protobuf.message.Message):
+@_typing.final
+class StopCallerResponse(_message.Message):
     """Response to stopping a caller, and one entry of <code>StopCallersResponse</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the stopped caller in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty on success. <code>StopCaller</code> reports its errors as gRPC status codes, so it is empty there. In an
     entry of <code>StopCallersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
     status code <code>StopCaller</code> would have answered, e.g.
@@ -1670,23 +1755,27 @@ class StopCallerResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopCallerResponse = StopCallerResponse
+Global___StopCallerResponse: _TypeAlias = StopCallerResponse  # noqa: Y015
 
-@typing.final
-class StopCallersRequest(google.protobuf.message.Message):
+@_typing.final
+class StopCallersRequest(_message.Message):
     """Represents a request to stop multiple callers."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAMES_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    NAMES_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """Optional. VTSI project of every caller of the request, of the form
     <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     When set, the request is checked as a whole like <code>UpdateCallersRequest</code> before anything is
@@ -1698,12 +1787,12 @@ class StopCallersRequest(google.protobuf.message.Message):
     another project is that entry&apos;s <code>NOT_FOUND</code>) and a name given twice is stopped once and
     reported once. Either way, no entry and more than 1000 distinct names are <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The names of the callers to stop, 1 to 1000 distinct names, in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in EVERY entry of
         <code>StopCallersResponse.stop_caller_responses</code>, relative to the entry message <code>StopCallerResponse</code>, i.e.
         <code>error_message</code> (the entries carry no <code>Caller</code>). <code>name</code> of each entry and the
@@ -1715,29 +1804,32 @@ class StopCallersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        names: collections.abc.Iterable[builtins.str] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        vtsi_project_name: builtins.str = ...,
+        names: _abc.Iterable[_builtins.str] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopCallersRequest = StopCallersRequest
+Global___StopCallersRequest: _TypeAlias = StopCallersRequest  # noqa: Y015
 
-@typing.final
-class StopCallersResponse(google.protobuf.message.Message):
+@_typing.final
+class StopCallersResponse(_message.Message):
     """Response to stop multiple callers"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STOP_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    error_message: builtins.str
+    STOP_CALLER_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    error_message: _builtins.str
     """A summary when at least one entry failed (e.g. <code>2 of 5 callers were not stopped</code>), empty when every
     entry succeeded. The failed entries carry their own <code>error_message</code>.
     """
-    @property
-    def stop_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopCallerResponse]:
+    @_builtins.property
+    def stop_caller_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___StopCallerResponse]:
         """One entry per distinct name of the request, in request order (a name given twice is reported once), each
         with its own <code>error_message</code>.
         """
@@ -1745,25 +1837,29 @@ class StopCallersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        stop_caller_responses: collections.abc.Iterable[global___StopCallerResponse] | None = ...,
-        error_message: builtins.str = ...,
+        stop_caller_responses: _abc.Iterable[Global___StopCallerResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "stop_caller_responses", b"stop_caller_responses"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "stop_caller_responses", b"stop_caller_responses"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopCallersResponse = StopCallersResponse
+Global___StopCallersResponse: _TypeAlias = StopCallersResponse  # noqa: Y015
 
-@typing.final
-class DeleteListenerRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteListenerRequest(_message.Message):
     """Represents a request to delete a specific listener."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the listener to delete in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths of <code>DeleteListenerResponse</code> to populate, i.e.
         <code>error_message</code> (the response carries no <code>Listener</code>). <code>name</code> is always populated.
         Unset or empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming
@@ -1773,25 +1869,28 @@ class DeleteListenerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteListenerRequest = DeleteListenerRequest
+Global___DeleteListenerRequest: _TypeAlias = DeleteListenerRequest  # noqa: Y015
 
-@typing.final
-class DeleteListenerResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteListenerResponse(_message.Message):
     """Response to deleting a listener, and one entry of <code>DeleteListenersResponse</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the deleted listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty on success. <code>DeleteListener</code> reports its errors as gRPC status codes, so it is empty there. In an
     entry of <code>DeleteListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
     status code <code>DeleteListener</code> would have answered, e.g.
@@ -1800,23 +1899,27 @@ class DeleteListenerResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteListenerResponse = DeleteListenerResponse
+Global___DeleteListenerResponse: _TypeAlias = DeleteListenerResponse  # noqa: Y015
 
-@typing.final
-class DeleteListenersRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteListenersRequest(_message.Message):
     """Represents a request to delete multiple listeners."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAMES_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    NAMES_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """Optional. VTSI project of every listener of the request, of the form
     <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     When set, the request is checked as a whole like <code>UpdateListenersRequest</code> before anything is
@@ -1828,12 +1931,12 @@ class DeleteListenersRequest(google.protobuf.message.Message):
     another project is that entry&apos;s <code>NOT_FOUND</code>) and a name given twice is deleted once and
     reported once. Either way, no entry and more than 1000 distinct names are <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The names of the listeners to delete, 1 to 1000 distinct names, in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>"""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in EVERY entry of
         <code>DeleteListenersResponse.delete_listener_responses</code>, relative to the entry message <code>DeleteListenerResponse</code>, i.e.
         <code>error_message</code> (the entries carry no <code>Listener</code>). <code>name</code> of each entry and the
@@ -1845,29 +1948,32 @@ class DeleteListenersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        names: collections.abc.Iterable[builtins.str] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        vtsi_project_name: builtins.str = ...,
+        names: _abc.Iterable[_builtins.str] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteListenersRequest = DeleteListenersRequest
+Global___DeleteListenersRequest: _TypeAlias = DeleteListenersRequest  # noqa: Y015
 
-@typing.final
-class DeleteListenersResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteListenersResponse(_message.Message):
     """Response to delete multiple listeners"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DELETE_LISTENER_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    error_message: builtins.str
+    DELETE_LISTENER_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    error_message: _builtins.str
     """A summary when at least one entry failed (e.g. <code>2 of 5 listeners were not deleted</code>), empty when every
     entry succeeded. The failed entries carry their own <code>error_message</code>.
     """
-    @property
-    def delete_listener_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeleteListenerResponse]:
+    @_builtins.property
+    def delete_listener_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___DeleteListenerResponse]:
         """One entry per distinct name of the request, in request order (a name given twice is reported once), each
         with its own <code>error_message</code>.
         """
@@ -1875,25 +1981,29 @@ class DeleteListenersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        delete_listener_responses: collections.abc.Iterable[global___DeleteListenerResponse] | None = ...,
-        error_message: builtins.str = ...,
+        delete_listener_responses: _abc.Iterable[Global___DeleteListenerResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["delete_listener_responses", b"delete_listener_responses", "error_message", b"error_message"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["delete_listener_responses", b"delete_listener_responses", "error_message", b"error_message"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteListenersResponse = DeleteListenersResponse
+Global___DeleteListenersResponse: _TypeAlias = DeleteListenersResponse  # noqa: Y015
 
-@typing.final
-class DeleteCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteCallerRequest(_message.Message):
     """Represents a request to delete a specific caller."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the caller to delete in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths of <code>DeleteCallerResponse</code> to populate, i.e.
         <code>error_message</code> (the response carries no <code>Caller</code>). <code>name</code> is always populated.
         Unset or empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming
@@ -1903,25 +2013,28 @@ class DeleteCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteCallerRequest = DeleteCallerRequest
+Global___DeleteCallerRequest: _TypeAlias = DeleteCallerRequest  # noqa: Y015
 
-@typing.final
-class DeleteCallerResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteCallerResponse(_message.Message):
     """Response to deleting a caller, and one entry of <code>DeleteCallersResponse</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the deleted caller in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty on success. <code>DeleteCaller</code> reports its errors as gRPC status codes, so it is empty there. In an
     entry of <code>DeleteCallersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
     status code <code>DeleteCaller</code> would have answered, e.g.
@@ -1930,23 +2043,27 @@ class DeleteCallerResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteCallerResponse = DeleteCallerResponse
+Global___DeleteCallerResponse: _TypeAlias = DeleteCallerResponse  # noqa: Y015
 
-@typing.final
-class DeleteCallersRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteCallersRequest(_message.Message):
     """Represents a request to delete multiple callers."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAMES_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    NAMES_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """Optional. VTSI project of every caller of the request, of the form
     <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     When set, the request is checked as a whole like <code>UpdateCallersRequest</code> before anything is
@@ -1958,12 +2075,12 @@ class DeleteCallersRequest(google.protobuf.message.Message):
     another project is that entry&apos;s <code>NOT_FOUND</code>) and a name given twice is deleted once and
     reported once. Either way, no entry and more than 1000 distinct names are <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The names of the callers to delete, 1 to 1000 distinct names, in the form <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>"""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in EVERY entry of
         <code>DeleteCallersResponse.delete_caller_responses</code>, relative to the entry message <code>DeleteCallerResponse</code>, i.e.
         <code>error_message</code> (the entries carry no <code>Caller</code>). <code>name</code> of each entry and the
@@ -1975,29 +2092,32 @@ class DeleteCallersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        names: collections.abc.Iterable[builtins.str] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        vtsi_project_name: builtins.str = ...,
+        names: _abc.Iterable[_builtins.str] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteCallersRequest = DeleteCallersRequest
+Global___DeleteCallersRequest: _TypeAlias = DeleteCallersRequest  # noqa: Y015
 
-@typing.final
-class DeleteCallersResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteCallersResponse(_message.Message):
     """Response to delete multiple callers"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DELETE_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    error_message: builtins.str
+    DELETE_CALLER_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    error_message: _builtins.str
     """A summary when at least one entry failed (e.g. <code>2 of 5 callers were not deleted</code>), empty when every
     entry succeeded. The failed entries carry their own <code>error_message</code>.
     """
-    @property
-    def delete_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeleteCallerResponse]:
+    @_builtins.property
+    def delete_caller_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___DeleteCallerResponse]:
         """One entry per distinct name of the request, in request order (a name given twice is reported once), each
         with its own <code>error_message</code>.
         """
@@ -2005,24 +2125,28 @@ class DeleteCallersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        delete_caller_responses: collections.abc.Iterable[global___DeleteCallerResponse] | None = ...,
-        error_message: builtins.str = ...,
+        delete_caller_responses: _abc.Iterable[Global___DeleteCallerResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["delete_caller_responses", b"delete_caller_responses", "error_message", b"error_message"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["delete_caller_responses", b"delete_caller_responses", "error_message", b"error_message"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteCallersResponse = DeleteCallersResponse
+Global___DeleteCallersResponse: _TypeAlias = DeleteCallersResponse  # noqa: Y015
 
-@typing.final
-class UpdateCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateCallerRequest(_message.Message):
     """The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateCaller">Calls.UpdateCaller</a>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CALLER_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    validate_only: builtins.bool
+    CALLER_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    validate_only: _builtins.bool
     """Optional. Dry run: when true, the request runs every validation <code>UpdateCaller</code> runs (the
     <code>update_mask</code> rules, the credential rule and the validation of the resulting configuration as a
     <code>StartCallerRequest</code>, the live checks against the upstream services included) but writes NOTHING
@@ -2032,15 +2156,15 @@ class UpdateCallerRequest(google.protobuf.message.Message):
     the server version before relying on it. In an entry of <code>UpdateCallersRequest</code> it must be
     unset (use <code>UpdateCallersRequest.validate_only</code>).
     """
-    @property
-    def caller(self) -> global___Caller:
+    @_builtins.property
+    def caller(self) -> Global___Caller:
         """The caller to update, identified by <code>caller.name</code>
         (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>), carrying the new values
         of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """Required. Paths relative to <code>Caller</code>, WITHOUT a <code>caller.</code> prefix. Updatable paths:
         <code>sip_caller_config</code> and <code>common_services_config</code>, each also as any nested sub-path
         (e.g. <code>sip_caller_config.callee_id</code>, <code>sip_caller_config.sip_headers</code>,
@@ -2077,8 +2201,8 @@ class UpdateCallerRequest(google.protobuf.message.Message):
         update a sub-path instead.</p>
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in <code>UpdateCallerResponse.caller</code>,
         relative to the <code>Caller</code> message (no <code>caller.</code> prefix), e.g.
         <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a
@@ -2094,57 +2218,63 @@ class UpdateCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        caller: global___Caller | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
+        caller: Global___Caller | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["caller", b"caller", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caller", b"caller", "field_mask", b"field_mask", "update_mask", b"update_mask", "validate_only", b"validate_only"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["caller", b"caller", "field_mask", b"field_mask", "update_mask", b"update_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["caller", b"caller", "field_mask", b"field_mask", "update_mask", b"update_mask", "validate_only", b"validate_only"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateCallerRequest = UpdateCallerRequest
+Global___UpdateCallerRequest: _TypeAlias = UpdateCallerRequest  # noqa: Y015
 
-@typing.final
-class UpdateCallerResponse(google.protobuf.message.Message):
+@_typing.final
+class UpdateCallerResponse(_message.Message):
     """The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateCaller">Calls.UpdateCaller</a>, and one
     entry of <code>UpdateCallersResponse</code>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    CALLER_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    CALLER_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the caller the request named, in the form
     <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
     Always populated, also for a failed entry of <code>UpdateCallers</code>.
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty on success. <code>UpdateCaller</code> reports every error as a gRPC status code, so it is always
     empty there. In an entry of <code>UpdateCallersResponse</code> it is the error of that entry, prefixed with
     the name of the gRPC status code <code>UpdateCaller</code> would have answered, e.g.
     <code>NOT_FOUND: caller projects/.../callers/... does not exist</code> or
     <code>INVALID_ARGUMENT: update_mask path 'call_name' is output only</code>.
     """
-    @property
-    def caller(self) -> global___Caller:
+    @_builtins.property
+    def caller(self) -> Global___Caller:
         """The caller after the update, shaped by the request&apos;s <code>field_mask</code>. Unset for a failed entry."""
 
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        caller: global___Caller | None = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        caller: Global___Caller | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["caller", b"caller"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caller", b"caller", "error_message", b"error_message", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["caller", b"caller"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["caller", b"caller", "error_message", b"error_message", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateCallerResponse = UpdateCallerResponse
+Global___UpdateCallerResponse: _TypeAlias = UpdateCallerResponse  # noqa: Y015
 
-@typing.final
-class UpdateCallersRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateCallersRequest(_message.Message):
     """The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateCallers">Calls.UpdateCallers</a>.
     <p>Rejected as a whole, nothing being written, with: <code>INVALID_ARGUMENT</code> for a malformed
     <code>vtsi_project_name</code>, no entry, more than 1000 entries, two entries naming the same caller, an entry
@@ -2157,28 +2287,28 @@ class UpdateCallersRequest(google.protobuf.message.Message):
     <code>NOT_FOUND</code>.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    UPDATE_CALLER_REQUESTS_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    UPDATE_CALLER_REQUESTS_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of every caller of the request.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    validate_only: builtins.bool
+    validate_only: _builtins.bool
     """Optional. Dry run of every entry, each like <code>UpdateCallerRequest.validate_only</code>: the request-level
     checks and every entry are validated and reported as for a real request, and nothing is written. The
     entries&apos; own <code>validate_only</code> must be unset. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
     the server version before relying on it.
     """
-    @property
-    def update_caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UpdateCallerRequest]:
+    @_builtins.property
+    def update_caller_requests(self) -> _containers.RepeatedCompositeFieldContainer[Global___UpdateCallerRequest]:
         """The updates, applied one by one and each like <code>UpdateCaller</code>."""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the <code>caller</code> of EVERY entry of
         <code>UpdateCallersResponse.update_caller_responses</code>, relative to the <code>Caller</code> message (no
         prefix), as in <code>UpdateCallerRequest.field_mask</code>. <code>caller.name</code>, <code>name</code>
@@ -2188,74 +2318,81 @@ class UpdateCallersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        update_caller_requests: collections.abc.Iterable[global___UpdateCallerRequest] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        update_caller_requests: _abc.Iterable[Global___UpdateCallerRequest] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_caller_requests", b"update_caller_requests", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "update_caller_requests", b"update_caller_requests", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateCallersRequest = UpdateCallersRequest
+Global___UpdateCallersRequest: _TypeAlias = UpdateCallersRequest  # noqa: Y015
 
-@typing.final
-class UpdateCallersResponse(google.protobuf.message.Message):
+@_typing.final
+class UpdateCallersResponse(_message.Message):
     """The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateCallers">Calls.UpdateCallers</a>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    UPDATE_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    UPDATE_CALLER_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the request.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """A summary when at least one entry failed (e.g. <code>2 of 5 updates failed</code>), empty when every entry
     succeeded. The failed entries carry their own <code>error_message</code>.
     """
-    @property
-    def update_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UpdateCallerResponse]:
+    @_builtins.property
+    def update_caller_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___UpdateCallerResponse]:
         """One entry per entry of the request, in request order."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        update_caller_responses: collections.abc.Iterable[global___UpdateCallerResponse] | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        update_caller_responses: _abc.Iterable[Global___UpdateCallerResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "update_caller_responses", b"update_caller_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "update_caller_responses", b"update_caller_responses", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateCallersResponse = UpdateCallersResponse
+Global___UpdateCallersResponse: _TypeAlias = UpdateCallersResponse  # noqa: Y015
 
-@typing.final
-class UpdateListenerRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateListenerRequest(_message.Message):
     """The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateListener">Calls.UpdateListener</a>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LISTENER_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    validate_only: builtins.bool
+    LISTENER_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    validate_only: _builtins.bool
     """Optional. Dry run, as <code>UpdateCallerRequest.validate_only</code> with <code>UpdateListener</code> and a
     <code>StartListenerRequest</code> as the validation of the result: nothing is written, the response is the
     listener as it would be after the update. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
     the server version before relying on it. In an entry of <code>UpdateListenersRequest</code>
     it must be unset (use <code>UpdateListenersRequest.validate_only</code>).
     """
-    @property
-    def listener(self) -> global___Listener:
+    @_builtins.property
+    def listener(self) -> Global___Listener:
         """The listener to update, identified by <code>listener.name</code>
         (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>), carrying the new
         values of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """Required. Paths relative to <code>Listener</code>, WITHOUT a <code>listener.</code> prefix. Updatable
         paths: <code>sip_base_config</code> and <code>common_services_config</code>, each also as any nested
         sub-path (e.g. <code>sip_base_config.sip_sim_version</code>,
@@ -2266,8 +2403,8 @@ class UpdateListenerRequest(google.protobuf.message.Message):
         <code>UpdateCallerRequest.update_mask</code>.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in <code>UpdateListenerResponse.listener</code>,
         relative to the <code>Listener</code> message (no <code>listener.</code> prefix), with the rules of
         <code>UpdateCallerRequest.field_mask</code> (<code>GetListener</code> with <code>call_view = FULL</code>
@@ -2278,36 +2415,39 @@ class UpdateListenerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        listener: global___Listener | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
+        listener: Global___Listener | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "listener", b"listener", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "listener", b"listener", "update_mask", b"update_mask", "validate_only", b"validate_only"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "listener", b"listener", "update_mask", b"update_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "listener", b"listener", "update_mask", b"update_mask", "validate_only", b"validate_only"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateListenerRequest = UpdateListenerRequest
+Global___UpdateListenerRequest: _TypeAlias = UpdateListenerRequest  # noqa: Y015
 
-@typing.final
-class UpdateListenerResponse(google.protobuf.message.Message):
+@_typing.final
+class UpdateListenerResponse(_message.Message):
     """The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateListener">Calls.UpdateListener</a>, and
     one entry of <code>UpdateListenersResponse</code>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    LISTENER_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    LISTENER_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the listener the request named, in the form
     <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
     Always populated, also for a failed entry of <code>UpdateListeners</code>.
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty on success; as <code>UpdateCallerResponse.error_message</code>."""
-    @property
-    def listener(self) -> global___Listener:
+    @_builtins.property
+    def listener(self) -> Global___Listener:
         """The listener after the update, shaped by the request&apos;s <code>field_mask</code>. Unset for a failed
         entry.
         """
@@ -2315,44 +2455,47 @@ class UpdateListenerResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        listener: global___Listener | None = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        listener: Global___Listener | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["listener", b"listener"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "listener", b"listener", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["listener", b"listener"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "listener", b"listener", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateListenerResponse = UpdateListenerResponse
+Global___UpdateListenerResponse: _TypeAlias = UpdateListenerResponse  # noqa: Y015
 
-@typing.final
-class UpdateListenersRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateListenersRequest(_message.Message):
     """The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateListeners">Calls.UpdateListeners</a>.
     <p>Rejected as a whole exactly like <code>UpdateCallersRequest</code>, with listeners instead of callers and
     <code>UpdateListener</code> as the role reference; every other error is reported per entry, e.g. a
     well-formed name of the right project that names no listener is that entry&apos;s <code>NOT_FOUND</code>.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    UPDATE_LISTENER_REQUESTS_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    VALIDATE_ONLY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    UPDATE_LISTENER_REQUESTS_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    VALIDATE_ONLY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of every listener of the request.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    validate_only: builtins.bool
+    validate_only: _builtins.bool
     """Optional. Dry run of every entry, each like <code>UpdateListenerRequest.validate_only</code>; nothing is
     written. The entries&apos; own <code>validate_only</code> must be unset. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
     the server version before relying on it.
     """
-    @property
-    def update_listener_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UpdateListenerRequest]:
+    @_builtins.property
+    def update_listener_requests(self) -> _containers.RepeatedCompositeFieldContainer[Global___UpdateListenerRequest]:
         """The updates, applied one by one and each like <code>UpdateListener</code>."""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the <code>listener</code> of EVERY entry of
         <code>UpdateListenersResponse.update_listener_responses</code>, relative to the <code>Listener</code>
         message (no prefix), as in <code>UpdateListenerRequest.field_mask</code>. <code>listener.name</code>,
@@ -2363,77 +2506,84 @@ class UpdateListenersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        update_listener_requests: collections.abc.Iterable[global___UpdateListenerRequest] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        validate_only: builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        update_listener_requests: _abc.Iterable[Global___UpdateListenerRequest] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        validate_only: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_listener_requests", b"update_listener_requests", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "update_listener_requests", b"update_listener_requests", "validate_only", b"validate_only", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateListenersRequest = UpdateListenersRequest
+Global___UpdateListenersRequest: _TypeAlias = UpdateListenersRequest  # noqa: Y015
 
-@typing.final
-class UpdateListenersResponse(google.protobuf.message.Message):
+@_typing.final
+class UpdateListenersResponse(_message.Message):
     """The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateListeners">Calls.UpdateListeners</a>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    UPDATE_LISTENER_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    UPDATE_LISTENER_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the request.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """A summary when at least one entry failed, empty when every entry succeeded; as
     <code>UpdateCallersResponse.error_message</code>.
     """
-    @property
-    def update_listener_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UpdateListenerResponse]:
+    @_builtins.property
+    def update_listener_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___UpdateListenerResponse]:
         """One entry per entry of the request, in request order."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        update_listener_responses: collections.abc.Iterable[global___UpdateListenerResponse] | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        update_listener_responses: _abc.Iterable[Global___UpdateListenerResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "update_listener_responses", b"update_listener_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "update_listener_responses", b"update_listener_responses", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateListenersResponse = UpdateListenersResponse
+Global___UpdateListenersResponse: _TypeAlias = UpdateListenersResponse  # noqa: Y015
 
-@typing.final
-class StartScheduledCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class StartScheduledCallerRequest(_message.Message):
     """Request for starting a scheduled call"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    REQUEST_FIELD_NUMBER: builtins.int
-    SCHEDULED_TIME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    REQUEST_FIELD_NUMBER: _builtins.int
+    SCHEDULED_TIME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    @property
-    def request(self) -> global___StartCallerRequest:
+    @_builtins.property
+    def request(self) -> Global___StartCallerRequest:
         """The caller to start at <code>scheduled_time</code>, validated like a <code>StartCallerRequest</code> of
         <code>StartCaller</code> (the live checks of the configuration run when the call is started, not when it
         is scheduled). Its own <code>field_mask</code> and <code>validate_only</code> must be unset, otherwise the
         request is refused with <code>INVALID_ARGUMENT</code>.
         """
 
-    @property
-    def scheduled_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def scheduled_time(self) -> _timestamp_pb2.Timestamp:
         """Time at or after which the call is started, in UTC. The scheduler checks for due scheduled callers
         periodically, so the call starts at the first check at or after this time (typically within a few seconds),
         never before it. A time in the past is due at once.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in
         <code>StartScheduledCallerResponse.scheduled_caller</code>, relative to the <code>ScheduledCaller</code>
         message (no <code>scheduled_caller.</code> prefix), e.g. <code>status</code>, <code>scheduled_time</code>,
@@ -2453,29 +2603,32 @@ class StartScheduledCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        request: global___StartCallerRequest | None = ...,
-        scheduled_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        request: Global___StartCallerRequest | None = ...,
+        scheduled_time: _timestamp_pb2.Timestamp | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "request", b"request", "scheduled_time", b"scheduled_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "request", b"request", "scheduled_time", b"scheduled_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "request", b"request", "scheduled_time", b"scheduled_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "request", b"request", "scheduled_time", b"scheduled_time", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartScheduledCallerRequest = StartScheduledCallerRequest
+Global___StartScheduledCallerRequest: _TypeAlias = StartScheduledCallerRequest  # noqa: Y015
 
-@typing.final
-class StartScheduledCallersRequest(google.protobuf.message.Message):
+@_typing.final
+class StartScheduledCallersRequest(_message.Message):
     """Request to start scheduled callers"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SCHEDULED_CALLER_REQUESTS_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SCHEDULED_CALLER_REQUESTS_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
     deduplication. A retry carrying the same key returns the response of the first successful attempt instead
     of running the request a second time, whichever server replica it reaches, for as long as the server
@@ -2486,16 +2639,16 @@ class StartScheduledCallersRequest(google.protobuf.message.Message):
     no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
     make a single caller or listener idempotent, send it as a batch of one.
     """
-    @property
-    def scheduled_caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerRequest]:
+    @_builtins.property
+    def scheduled_caller_requests(self) -> _containers.RepeatedCompositeFieldContainer[Global___StartScheduledCallerRequest]:
         """The scheduled callers to create, 1 to 1000, each like <code>StartScheduledCaller</code> and on its own (not
         atomic: an entry that fails is reported in its <code>StartScheduledCallerResponse.error_message</code> and
         does not stop the others). Each entry&apos;s <code>vtsi_project_name</code> is overwritten with this
         request&apos;s; its <code>field_mask</code> must be unset.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the <code>scheduled_caller</code> of EVERY entry
         of <code>StartScheduledCallersResponse.scheduled_caller_responses</code>, relative to the
         <code>ScheduledCaller</code> message (no prefix), as in <code>StartScheduledCallerRequest.field_mask</code>.
@@ -2509,28 +2662,31 @@ class StartScheduledCallersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        scheduled_caller_requests: collections.abc.Iterable[global___StartScheduledCallerRequest] | None = ...,
-        idempotency_key: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        scheduled_caller_requests: _abc.Iterable[Global___StartScheduledCallerRequest] | None = ...,
+        idempotency_key: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartScheduledCallersRequest = StartScheduledCallersRequest
+Global___StartScheduledCallersRequest: _TypeAlias = StartScheduledCallersRequest  # noqa: Y015
 
-@typing.final
-class StartScheduledCallersResponse(google.protobuf.message.Message):
+@_typing.final
+class StartScheduledCallersResponse(_message.Message):
     """Response to start multiple scheduled callers"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SCHEDULED_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SCHEDULED_CALLER_RESPONSES_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    @property
-    def scheduled_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerResponse]:
+    @_builtins.property
+    def scheduled_caller_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___StartScheduledCallerResponse]:
         """One entry per entry of the request, in request order: the scheduled caller that was created, or the
         entry&apos;s error
         """
@@ -2538,28 +2694,32 @@ class StartScheduledCallersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        scheduled_caller_responses: collections.abc.Iterable[global___StartScheduledCallerResponse] | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        scheduled_caller_responses: _abc.Iterable[Global___StartScheduledCallerResponse] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["scheduled_caller_responses", b"scheduled_caller_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["scheduled_caller_responses", b"scheduled_caller_responses", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartScheduledCallersResponse = StartScheduledCallersResponse
+Global___StartScheduledCallersResponse: _TypeAlias = StartScheduledCallersResponse  # noqa: Y015
 
-@typing.final
-class AddCallersToCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class AddCallersToCampaignRequest(_message.Message):
     """The request message for <a href="index.html#ondewo.vtsi.Calls.AddCallersToCampaign">Calls.AddCallersToCampaign</a>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALLER_REQUESTS_FIELD_NUMBER: builtins.int
-    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALLER_REQUESTS_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the callers and the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
     deduplication. A retry carrying the same key returns the response of the first successful attempt instead
     of running the request a second time, whichever server replica it reaches, for as long as the server
@@ -2570,80 +2730,86 @@ class AddCallersToCampaignRequest(google.protobuf.message.Message):
     no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
     make a single caller or listener idempotent, send it as a batch of one.
     """
-    @property
-    def caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartCallerRequest]:
+    @_builtins.property
+    def caller_requests(self) -> _containers.RepeatedCompositeFieldContainer[Global___StartCallerRequest]:
         """Callers to add, at least one. The project&apos;s caller limit is checked per started call, not for the request."""
 
-    @property
-    def campaign_assignment(self) -> ondewo.vtsi.campaigns_pb2.CampaignAssignment:
+    @_builtins.property
+    def campaign_assignment(self) -> _campaigns_pb2.CampaignAssignment:
         """Required. Which campaign, and whether it starts dialling."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        caller_requests: collections.abc.Iterable[global___StartCallerRequest] | None = ...,
-        campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
-        idempotency_key: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        caller_requests: _abc.Iterable[Global___StartCallerRequest] | None = ...,
+        campaign_assignment: _campaigns_pb2.CampaignAssignment | None = ...,
+        idempotency_key: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caller_requests", b"caller_requests", "campaign_assignment", b"campaign_assignment", "idempotency_key", b"idempotency_key", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign_assignment", b"campaign_assignment"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["caller_requests", b"caller_requests", "campaign_assignment", b"campaign_assignment", "idempotency_key", b"idempotency_key", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AddCallersToCampaignRequest = AddCallersToCampaignRequest
+Global___AddCallersToCampaignRequest: _TypeAlias = AddCallersToCampaignRequest  # noqa: Y015
 
-@typing.final
-class AddCallersToCampaignResponse(google.protobuf.message.Message):
+@_typing.final
+class AddCallersToCampaignResponse(_message.Message):
     """The response message for <a href="index.html#ondewo.vtsi.Calls.AddCallersToCampaign">Calls.AddCallersToCampaign</a>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the callers and the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    @property
-    def campaign(self) -> ondewo.vtsi.campaigns_pb2.Campaign:
+    @_builtins.property
+    def campaign(self) -> _campaigns_pb2.Campaign:
         """The campaign the callers were added to. Its call defaults (<code>campaign_common_services_config</code>,
         <code>campaign_sip_caller_config</code>) are always left unset here; read them with
         <code>Campaigns.GetCampaign</code>.
         """
 
-    @property
-    def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_call_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The campaign calls created by this request, in request order."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        campaign: ondewo.vtsi.campaigns_pb2.Campaign | None = ...,
-        campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        campaign: _campaigns_pb2.Campaign | None = ...,
+        campaign_call_names: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AddCallersToCampaignResponse = AddCallersToCampaignResponse
+Global___AddCallersToCampaignResponse: _TypeAlias = AddCallersToCampaignResponse  # noqa: Y015
 
-@typing.final
-class AddScheduledCallersToCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class AddScheduledCallersToCampaignRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Calls.AddScheduledCallersToCampaign">Calls.AddScheduledCallersToCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SCHEDULED_CALLER_REQUESTS_FIELD_NUMBER: builtins.int
-    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SCHEDULED_CALLER_REQUESTS_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_ASSIGNMENT_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the scheduled callers and the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
     deduplication. A retry carrying the same key returns the response of the first successful attempt instead
     of running the request a second time, whichever server replica it reaches, for as long as the server
@@ -2654,88 +2820,94 @@ class AddScheduledCallersToCampaignRequest(google.protobuf.message.Message):
     no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
     make a single caller or listener idempotent, send it as a batch of one.
     """
-    @property
-    def scheduled_caller_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerRequest]:
+    @_builtins.property
+    def scheduled_caller_requests(self) -> _containers.RepeatedCompositeFieldContainer[Global___StartScheduledCallerRequest]:
         """Scheduled callers to add, at least one. A scheduled caller of a campaign can be cancelled with
         <code>CancelScheduledCaller</code> only while its campaign call has no attempt dispatching or in progress.
         """
 
-    @property
-    def campaign_assignment(self) -> ondewo.vtsi.campaigns_pb2.CampaignAssignment:
+    @_builtins.property
+    def campaign_assignment(self) -> _campaigns_pb2.CampaignAssignment:
         """Required. Which campaign, and whether it starts dialling."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        scheduled_caller_requests: collections.abc.Iterable[global___StartScheduledCallerRequest] | None = ...,
-        campaign_assignment: ondewo.vtsi.campaigns_pb2.CampaignAssignment | None = ...,
-        idempotency_key: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        scheduled_caller_requests: _abc.Iterable[Global___StartScheduledCallerRequest] | None = ...,
+        campaign_assignment: _campaigns_pb2.CampaignAssignment | None = ...,
+        idempotency_key: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign_assignment", b"campaign_assignment", "idempotency_key", b"idempotency_key", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign_assignment", b"campaign_assignment"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign_assignment", b"campaign_assignment", "idempotency_key", b"idempotency_key", "scheduled_caller_requests", b"scheduled_caller_requests", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AddScheduledCallersToCampaignRequest = AddScheduledCallersToCampaignRequest
+Global___AddScheduledCallersToCampaignRequest: _TypeAlias = AddScheduledCallersToCampaignRequest  # noqa: Y015
 
-@typing.final
-class AddScheduledCallersToCampaignResponse(google.protobuf.message.Message):
+@_typing.final
+class AddScheduledCallersToCampaignResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Calls.AddScheduledCallersToCampaign">Calls.AddScheduledCallersToCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SCHEDULED_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
-    CAMPAIGN_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SCHEDULED_CALLER_RESPONSES_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the scheduled callers and the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    @property
-    def scheduled_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StartScheduledCallerResponse]:
+    @_builtins.property
+    def scheduled_caller_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___StartScheduledCallerResponse]:
         """The scheduled callers created, in request order."""
 
-    @property
-    def campaign(self) -> ondewo.vtsi.campaigns_pb2.Campaign:
+    @_builtins.property
+    def campaign(self) -> _campaigns_pb2.Campaign:
         """The campaign the scheduled callers were added to. Its call defaults
         (<code>campaign_common_services_config</code>, <code>campaign_sip_caller_config</code>) are always
         left unset here; read them with <code>Campaigns.GetCampaign</code>.
         """
 
-    @property
-    def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_call_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The campaign calls created by this request, in request order."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        scheduled_caller_responses: collections.abc.Iterable[global___StartScheduledCallerResponse] | None = ...,
-        campaign: ondewo.vtsi.campaigns_pb2.Campaign | None = ...,
-        campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        scheduled_caller_responses: _abc.Iterable[Global___StartScheduledCallerResponse] | None = ...,
+        campaign: _campaigns_pb2.Campaign | None = ...,
+        campaign_call_names: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "scheduled_caller_responses", b"scheduled_caller_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "scheduled_caller_responses", b"scheduled_caller_responses", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AddScheduledCallersToCampaignResponse = AddScheduledCallersToCampaignResponse
+Global___AddScheduledCallersToCampaignResponse: _TypeAlias = AddScheduledCallersToCampaignResponse  # noqa: Y015
 
-@typing.final
-class StartScheduledCallerResponse(google.protobuf.message.Message):
+@_typing.final
+class StartScheduledCallerResponse(_message.Message):
     """Response to start a scheduled caller, and one entry of <code>StartScheduledCallersResponse</code>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SCHEDULED_CALLER_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SCHEDULED_CALLER_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty on success, otherwise why the scheduled caller was not created (nothing was created for this entry)"""
-    @property
-    def scheduled_caller(self) -> global___ScheduledCaller:
+    @_builtins.property
+    def scheduled_caller(self) -> Global___ScheduledCaller:
         """The scheduled caller that was created, shaped by the request&apos;s <code>field_mask</code>. Unset when
         <code>error_message</code> is set.
         """
@@ -2743,51 +2915,54 @@ class StartScheduledCallerResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        scheduled_caller: global___ScheduledCaller | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        scheduled_caller: Global___ScheduledCaller | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["scheduled_caller", b"scheduled_caller"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "scheduled_caller", b"scheduled_caller", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["scheduled_caller", b"scheduled_caller"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "scheduled_caller", b"scheduled_caller", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StartScheduledCallerResponse = StartScheduledCallerResponse
+Global___StartScheduledCallerResponse: _TypeAlias = StartScheduledCallerResponse  # noqa: Y015
 
-@typing.final
-class ScheduledCaller(google.protobuf.message.Message):
+@_typing.final
+class ScheduledCaller(_message.Message):
     """ScheduledCaller message - a Caller with a schedule when to start calling"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    SIP_CONFIG_FIELD_NUMBER: builtins.int
-    COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
-    SCHEDULED_TIME_FIELD_NUMBER: builtins.int
-    SIP_CALLER_CONFIG_FIELD_NUMBER: builtins.int
-    STATUS_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    FIRED_AT_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    RETRY_OF_SCHEDULED_CALLER_NAME_FIELD_NUMBER: builtins.int
-    RETRIED_BY_SCHEDULED_CALLER_NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    SIP_CONFIG_FIELD_NUMBER: _builtins.int
+    COMMON_SERVICES_CONFIG_FIELD_NUMBER: _builtins.int
+    SCHEDULED_TIME_FIELD_NUMBER: _builtins.int
+    SIP_CALLER_CONFIG_FIELD_NUMBER: _builtins.int
+    STATUS_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    FIRED_AT_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    RETRY_OF_SCHEDULED_CALLER_NAME_FIELD_NUMBER: _builtins.int
+    RETRIED_BY_SCHEDULED_CALLER_NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the scheduled caller
     <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
     """
-    call_name: builtins.str
+    call_name: _builtins.str
     """The call name that was assigned to the call
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
-    status: global___ScheduledCallerStatus.ValueType
+    status: Global___ScheduledCallerStatus.ValueType
     """Lifecycle state of this scheduled caller"""
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project name that owns this scheduled caller of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Why starting the call failed. Only populated when the status is SCHEDULED_CALLER_STATUS_FAILED"""
-    campaign_name: builtins.str
+    campaign_name: _builtins.str
     """Resource name of the campaign this scheduled caller belongs to. Empty when it belongs to none.
     A campaign&apos;s scheduled caller mirrors its campaign call: <code>status</code> is
     <code>PENDING</code> while the call is not started or waits for a retry,
@@ -2796,48 +2971,48 @@ class ScheduledCaller(google.protobuf.message.Message):
     <code>call_name</code> and <code>error_message</code> are those of the latest attempt. Its
     own retry settings are not used; the campaign&apos;s apply.
     """
-    retry_of_scheduled_caller_name: builtins.str
+    retry_of_scheduled_caller_name: _builtins.str
     """Output only. Set on a scheduled caller that <code>RetryScheduledCaller</code> created: the FAILED scheduled
     caller it retries, of the form
     <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
     Empty for a scheduled caller created by <code>StartScheduledCaller(s)</code> or
     <code>AddScheduledCallersToCampaign</code>. Kept when the retried scheduled caller is deleted.
     """
-    retried_by_scheduled_caller_name: builtins.str
+    retried_by_scheduled_caller_name: _builtins.str
     """Output only. Set on a FAILED scheduled caller once <code>RetryScheduledCaller</code> retried it: the
     scheduled caller the retry created. A FAILED scheduled caller is retried at most once; retry the newest one of
     a chain. Empty otherwise.
     """
-    @property
-    def sip_config(self) -> ondewo.vtsi.call_configs_pb2.SipBaseConfig:
+    @_builtins.property
+    def sip_config(self) -> _call_configs_pb2.SipBaseConfig:
         """SIP service configuration.
         This is the sip_base_config half of sip_caller_config below and is kept for wire compatibility
         with clients built before field 6 existed
         """
 
-    @property
-    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
+    @_builtins.property
+    def common_services_config(self) -> _call_configs_pb2.CommonServicesConfig:
         """Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI"""
 
-    @property
-    def scheduled_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def scheduled_time(self) -> _timestamp_pb2.Timestamp:
         """Time at or after which the call is started, in UTC (see
         <code>StartScheduledCallerRequest.scheduled_time</code>). Updatable with <code>UpdateScheduledCaller</code>
         while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>.
         """
 
-    @property
-    def sip_caller_config(self) -> ondewo.vtsi.call_configs_pb2.SipCallerConfig:
+    @_builtins.property
+    def sip_caller_config(self) -> _call_configs_pb2.SipCallerConfig:
         """Full SIP caller configuration, including the callee_id that will be dialled and the sip_headers
         that will be sent. sip_config (field 3) carries only the sip_base_config half of this message
         """
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """Time the scheduled caller was created"""
 
-    @property
-    def fired_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def fired_at(self) -> _timestamp_pb2.Timestamp:
         """Time the call was actually started, or the attempt failed. Unset while the status is
         SCHEDULED_CALLER_STATUS_PENDING, SCHEDULED_CALLER_STATUS_FIRING or
         SCHEDULED_CALLER_STATUS_CANCELLED
@@ -2846,51 +3021,54 @@ class ScheduledCaller(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        sip_config: ondewo.vtsi.call_configs_pb2.SipBaseConfig | None = ...,
-        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
-        scheduled_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        sip_caller_config: ondewo.vtsi.call_configs_pb2.SipCallerConfig | None = ...,
-        status: global___ScheduledCallerStatus.ValueType = ...,
-        vtsi_project_name: builtins.str = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        fired_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        error_message: builtins.str = ...,
-        campaign_name: builtins.str = ...,
-        retry_of_scheduled_caller_name: builtins.str = ...,
-        retried_by_scheduled_caller_name: builtins.str = ...,
+        name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        sip_config: _call_configs_pb2.SipBaseConfig | None = ...,
+        common_services_config: _call_configs_pb2.CommonServicesConfig | None = ...,
+        scheduled_time: _timestamp_pb2.Timestamp | None = ...,
+        sip_caller_config: _call_configs_pb2.SipCallerConfig | None = ...,
+        status: Global___ScheduledCallerStatus.ValueType = ...,
+        vtsi_project_name: _builtins.str = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        fired_at: _timestamp_pb2.Timestamp | None = ...,
+        error_message: _builtins.str = ...,
+        campaign_name: _builtins.str = ...,
+        retry_of_scheduled_caller_name: _builtins.str = ...,
+        retried_by_scheduled_caller_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["common_services_config", b"common_services_config", "created_at", b"created_at", "fired_at", b"fired_at", "scheduled_time", b"scheduled_time", "sip_caller_config", b"sip_caller_config", "sip_config", b"sip_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "campaign_name", b"campaign_name", "common_services_config", b"common_services_config", "created_at", b"created_at", "error_message", b"error_message", "fired_at", b"fired_at", "name", b"name", "retried_by_scheduled_caller_name", b"retried_by_scheduled_caller_name", "retry_of_scheduled_caller_name", b"retry_of_scheduled_caller_name", "scheduled_time", b"scheduled_time", "sip_caller_config", b"sip_caller_config", "sip_config", b"sip_config", "status", b"status", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["common_services_config", b"common_services_config", "created_at", b"created_at", "fired_at", b"fired_at", "scheduled_time", b"scheduled_time", "sip_caller_config", b"sip_caller_config", "sip_config", b"sip_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "campaign_name", b"campaign_name", "common_services_config", b"common_services_config", "created_at", b"created_at", "error_message", b"error_message", "fired_at", b"fired_at", "name", b"name", "retried_by_scheduled_caller_name", b"retried_by_scheduled_caller_name", "retry_of_scheduled_caller_name", b"retry_of_scheduled_caller_name", "scheduled_time", b"scheduled_time", "sip_caller_config", b"sip_caller_config", "sip_config", b"sip_config", "status", b"status", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ScheduledCaller = ScheduledCaller
+Global___ScheduledCaller: _TypeAlias = ScheduledCaller  # noqa: Y015
 
-@typing.final
-class GetScheduledCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class GetScheduledCallerRequest(_message.Message):
     """Represents a request to get a specific scheduled caller."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    CALL_VIEW_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    CALL_VIEW_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Redundant with the project segment of <code>name</code>: when set it must name the same project (see
     <code>GetCallerRequest.vtsi_project_name</code>).
     """
-    name: builtins.str
+    name: _builtins.str
     """The name of the scheduled caller to retrieve of the form
     <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
     """
-    call_view: global___CallView.ValueType
+    call_view: Global___CallView.ValueType
     """Optional. How much of the scheduled caller to populate; see <code>CallView</code>. Unset means
     <code>SHALLOW</code>.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the returned <code>ScheduledCaller</code>,
         relative to the <code>ScheduledCaller</code> message, e.g. <code>status</code>, <code>scheduled_time</code>,
         <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path
@@ -2904,67 +3082,71 @@ class GetScheduledCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        name: builtins.str = ...,
-        call_view: global___CallView.ValueType | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        name: _builtins.str = ...,
+        call_view: Global___CallView.ValueType | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_view: _TypeAlias = _typing.Literal["call_view"]  # noqa: Y015
+    _WhichOneofArgType__call_view: _TypeAlias = _typing.Literal["_call_view", b"_call_view"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_view) -> _WhichOneofReturnType__call_view | None: ...
 
-global___GetScheduledCallerRequest = GetScheduledCallerRequest
+Global___GetScheduledCallerRequest: _TypeAlias = GetScheduledCallerRequest  # noqa: Y015
 
-@typing.final
-class ListScheduledCallersRequest(google.protobuf.message.Message):
+@_typing.final
+class ListScheduledCallersRequest(_message.Message):
     """Represents a request to list the scheduled callers of a VTSI project."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    CALL_VIEW_FIELD_NUMBER: builtins.int
-    STATUSES_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    SCHEDULED_AFTER_FIELD_NUMBER: builtins.int
-    SCHEDULED_BEFORE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    CALL_VIEW_FIELD_NUMBER: _builtins.int
+    STATUSES_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    SCHEDULED_AFTER_FIELD_NUMBER: _builtins.int
+    SCHEDULED_BEFORE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name for which to perform the call.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
     API. Valid only with the same <code>vtsi_project_name</code>, <code>statuses</code>,
     <code>campaign_name</code>, <code>scheduled_after</code> and <code>scheduled_before</code>; a token issued
     for another listing is rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>,
     <code>call_view</code> and <code>field_mask</code> may change between pages.
     """
-    call_view: global___CallView.ValueType
+    call_view: Global___CallView.ValueType
     """Optional. How much of each scheduled caller to populate; see <code>CallView</code>. Unset means
     <code>SHALLOW</code>.
     """
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum number of scheduled callers per page. <code>0</code> keeps the page size the
     <code>page_token</code> was issued with, and means the server default of 25 on a first page; values above
     1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between
     the pages of one listing.
     """
-    campaign_name: builtins.str
+    campaign_name: _builtins.str
     """Optional. Only the scheduled callers of this campaign (<code>ScheduledCaller.campaign_name</code>). Empty
     does not filter. It must be a campaign of <code>vtsi_project_name</code>: a malformed name or a campaign of
     another project is <code>INVALID_ARGUMENT</code>, an unknown campaign <code>NOT_FOUND</code>.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    @property
-    def statuses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ScheduledCallerStatus.ValueType]:
+    @_builtins.property
+    def statuses(self) -> _containers.RepeatedScalarFieldContainer[Global___ScheduledCallerStatus.ValueType]:
         """Optional. Only return scheduled callers in one of these states.
         An empty list returns every state.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in every returned
         <code>ScheduledCaller</code>, relative to the <code>ScheduledCaller</code> message (no
         <code>scheduled_callers.</code> prefix), e.g. <code>scheduled_time</code>,
@@ -2977,14 +3159,14 @@ class ListScheduledCallersRequest(google.protobuf.message.Message):
         <code>page_token</code> stays valid with another mask.
         """
 
-    @property
-    def scheduled_after(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def scheduled_after(self) -> _timestamp_pb2.Timestamp:
         """Optional. Only scheduled callers whose <code>scheduled_time</code> is at or after this instant (inclusive).
         Unset does not filter.
         """
 
-    @property
-    def scheduled_before(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def scheduled_before(self) -> _timestamp_pb2.Timestamp:
         """Optional. Only scheduled callers whose <code>scheduled_time</code> is strictly before this instant
         (exclusive), so that consecutive windows never overlap. Unset does not filter. When both bounds are set,
         <code>scheduled_before</code> must be after <code>scheduled_after</code>, otherwise
@@ -2994,43 +3176,49 @@ class ListScheduledCallersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        page_token: builtins.str | None = ...,
-        call_view: global___CallView.ValueType | None = ...,
-        statuses: collections.abc.Iterable[global___ScheduledCallerStatus.ValueType] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        page_size: builtins.int = ...,
-        campaign_name: builtins.str = ...,
-        scheduled_after: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        scheduled_before: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        page_token: _builtins.str | None = ...,
+        call_view: Global___CallView.ValueType | None = ...,
+        statuses: _abc.Iterable[Global___ScheduledCallerStatus.ValueType] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        page_size: _builtins.int = ...,
+        campaign_name: _builtins.str = ...,
+        scheduled_after: _timestamp_pb2.Timestamp | None = ...,
+        scheduled_before: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token", "scheduled_after", b"scheduled_after", "scheduled_before", b"scheduled_before"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "campaign_name", b"campaign_name", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "scheduled_after", b"scheduled_after", "scheduled_before", b"scheduled_before", "statuses", b"statuses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token", "scheduled_after", b"scheduled_after", "scheduled_before", b"scheduled_before"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "_page_token", b"_page_token", "call_view", b"call_view", "campaign_name", b"campaign_name", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "scheduled_after", b"scheduled_after", "scheduled_before", b"scheduled_before", "statuses", b"statuses", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_view: _TypeAlias = _typing.Literal["call_view"]  # noqa: Y015
+    _WhichOneofArgType__call_view: _TypeAlias = _typing.Literal["_call_view", b"_call_view"]  # noqa: Y015
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_view) -> _WhichOneofReturnType__call_view | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
 
-global___ListScheduledCallersRequest = ListScheduledCallersRequest
+Global___ListScheduledCallersRequest: _TypeAlias = ListScheduledCallersRequest  # noqa: Y015
 
-@typing.final
-class ListScheduledCallersResponse(google.protobuf.message.Message):
+@_typing.final
+class ListScheduledCallersResponse(_message.Message):
     """Represents the response for listing scheduled callers."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SCHEDULED_CALLERS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    TOTAL_SIZE_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    SCHEDULED_CALLERS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    TOTAL_SIZE_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token to retrieve the next page of results. Opaque. Empty when there are no more results."""
-    total_size: builtins.int
+    total_size: _builtins.int
     """The number of scheduled callers the request matches across all pages (its filters, not
     <code>page_size</code>), counted exactly when this page was read. It can change between the pages of one
     listing as scheduled callers are created or change state.
     """
-    @property
-    def scheduled_callers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ScheduledCaller]:
+    @_builtins.property
+    def scheduled_callers(self) -> _containers.RepeatedCompositeFieldContainer[Global___ScheduledCaller]:
         """The scheduled callers of this page, ordered by <code>scheduled_time</code>, oldest first; scheduled callers
         with the same <code>scheduled_time</code> are ordered by their uuid (the last segment of <code>name</code>),
         ascending.
@@ -3039,31 +3227,35 @@ class ListScheduledCallersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        scheduled_callers: collections.abc.Iterable[global___ScheduledCaller] | None = ...,
-        next_page_token: builtins.str = ...,
-        total_size: builtins.int = ...,
+        scheduled_callers: _abc.Iterable[Global___ScheduledCaller] | None = ...,
+        next_page_token: _builtins.str = ...,
+        total_size: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["next_page_token", b"next_page_token", "scheduled_callers", b"scheduled_callers", "total_size", b"total_size"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["next_page_token", b"next_page_token", "scheduled_callers", b"scheduled_callers", "total_size", b"total_size"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListScheduledCallersResponse = ListScheduledCallersResponse
+Global___ListScheduledCallersResponse: _TypeAlias = ListScheduledCallersResponse  # noqa: Y015
 
-@typing.final
-class CancelScheduledCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class CancelScheduledCallerRequest(_message.Message):
     """Represents a request to cancel a scheduled caller that has not fired yet."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    name: builtins.str
+    name: _builtins.str
     """The name of the scheduled caller to cancel of the form
     <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths of <code>CancelScheduledCallerResponse</code> to populate, i.e.
         <code>status</code>, <code>cancelled</code> and <code>error_message</code> (the response carries no
         <code>ScheduledCaller</code>). <code>name</code> is always populated. Unset or empty returns every field. An
@@ -3075,41 +3267,44 @@ class CancelScheduledCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CancelScheduledCallerRequest = CancelScheduledCallerRequest
+Global___CancelScheduledCallerRequest: _TypeAlias = CancelScheduledCallerRequest  # noqa: Y015
 
-@typing.final
-class CancelScheduledCallerResponse(google.protobuf.message.Message):
+@_typing.final
+class CancelScheduledCallerResponse(_message.Message):
     """Response to cancelling a scheduled caller, and one entry of <code>CancelScheduledCallersResponse</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    STATUS_FIELD_NUMBER: builtins.int
-    CANCELLED_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    STATUS_FIELD_NUMBER: _builtins.int
+    CANCELLED_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the scheduled caller of the form
     <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
     Always populated, also for a failed entry of <code>CancelScheduledCallers</code>.
     """
-    status: global___ScheduledCallerStatus.ValueType
+    status: Global___ScheduledCallerStatus.ValueType
     """The state of the scheduled caller AFTER this request. A scheduled caller that was already
     firing, done, failed or cancelled keeps the state it had
     """
-    cancelled: builtins.bool
+    cancelled: _builtins.bool
     """True when this request performed the transition to SCHEDULED_CALLER_STATUS_CANCELLED.
     False means the scheduled caller was already in a state it cannot be cancelled from -
     read status to find out which one, this is not an error. Cancelling an already cancelled scheduled caller
     is therefore idempotent: <code>cancelled = false</code>, <code>status = SCHEDULED_CALLER_STATUS_CANCELLED</code>.
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """Why the scheduled caller was not cancelled, where there is more to say than <code>status</code>: set (with
     <code>cancelled = false</code>) for a scheduled caller of a campaign whose attempt is dispatching or in
     progress; empty otherwise, also for a scheduled caller that was simply no longer PENDING.
@@ -3122,17 +3317,21 @@ class CancelScheduledCallerResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        status: global___ScheduledCallerStatus.ValueType = ...,
-        cancelled: builtins.bool = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        status: Global___ScheduledCallerStatus.ValueType = ...,
+        cancelled: _builtins.bool = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["cancelled", b"cancelled", "error_message", b"error_message", "name", b"name", "status", b"status"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["cancelled", b"cancelled", "error_message", b"error_message", "name", b"name", "status", b"status"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CancelScheduledCallerResponse = CancelScheduledCallerResponse
+Global___CancelScheduledCallerResponse: _TypeAlias = CancelScheduledCallerResponse  # noqa: Y015
 
-@typing.final
-class CancelScheduledCallersRequest(google.protobuf.message.Message):
+@_typing.final
+class CancelScheduledCallersRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Calls.CancelScheduledCallers">Calls.CancelScheduledCallers</a>.
     <p>Rejected as a whole, nothing being cancelled, with: <code>INVALID_ARGUMENT</code> for a malformed
@@ -3144,23 +3343,23 @@ class CancelScheduledCallersRequest(google.protobuf.message.Message):
     the right project that names no scheduled caller is that entry&apos;s <code>NOT_FOUND</code>.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    NAMES_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    NAMES_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of every scheduled caller of the request.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    @property
-    def names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The scheduled callers to cancel, 1 to 1000 distinct names of the form
         <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in EVERY entry of
         <code>CancelScheduledCallersResponse.cancel_scheduled_caller_responses</code>, relative to the entry message
         <code>CancelScheduledCallerResponse</code>, i.e. <code>status</code>, <code>cancelled</code> and
@@ -3172,38 +3371,41 @@ class CancelScheduledCallersRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        names: collections.abc.Iterable[builtins.str] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        names: _abc.Iterable[_builtins.str] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "names", b"names", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CancelScheduledCallersRequest = CancelScheduledCallersRequest
+Global___CancelScheduledCallersRequest: _TypeAlias = CancelScheduledCallersRequest  # noqa: Y015
 
-@typing.final
-class CancelScheduledCallersResponse(google.protobuf.message.Message):
+@_typing.final
+class CancelScheduledCallersResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Calls.CancelScheduledCallers">Calls.CancelScheduledCallers</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CANCEL_SCHEDULED_CALLER_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CANCEL_SCHEDULED_CALLER_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the request.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """A summary when at least one entry failed, i.e. carries an <code>error_message</code> prefixed with a gRPC
     status code name (e.g. <code>2 of 5 cancellations failed</code>); empty when no entry failed. An entry with
     <code>cancelled = false</code> because of its state is not a failure, whether or not it explains itself in
     <code>error_message</code>.
     """
-    @property
-    def cancel_scheduled_caller_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CancelScheduledCallerResponse]:
+    @_builtins.property
+    def cancel_scheduled_caller_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___CancelScheduledCallerResponse]:
         """One entry per name of the request, in request order, each like the response of
         <code>CancelScheduledCaller</code> (an entry that could not be cancelled because of its state is
         <code>cancelled = false</code> without an <code>error_message</code>, as there).
@@ -3212,35 +3414,39 @@ class CancelScheduledCallersResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        cancel_scheduled_caller_responses: collections.abc.Iterable[global___CancelScheduledCallerResponse] | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        cancel_scheduled_caller_responses: _abc.Iterable[Global___CancelScheduledCallerResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["cancel_scheduled_caller_responses", b"cancel_scheduled_caller_responses", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["cancel_scheduled_caller_responses", b"cancel_scheduled_caller_responses", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CancelScheduledCallersResponse = CancelScheduledCallersResponse
+Global___CancelScheduledCallersResponse: _TypeAlias = CancelScheduledCallersResponse  # noqa: Y015
 
-@typing.final
-class UpdateScheduledCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateScheduledCallerRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Calls.UpdateScheduledCaller">Calls.UpdateScheduledCaller</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SCHEDULED_CALLER_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    @property
-    def scheduled_caller(self) -> global___ScheduledCaller:
+    SCHEDULED_CALLER_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def scheduled_caller(self) -> Global___ScheduledCaller:
         """The scheduled caller to update, identified by <code>scheduled_caller.name</code>
         (<pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>),
         carrying the new values of the fields named in <code>update_mask</code>. Its fields that no path names are
         ignored.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """Required. Paths relative to <code>ScheduledCaller</code>, WITHOUT a <code>scheduled_caller.</code> prefix.
         The only updatable paths are:
         <ul>
@@ -3257,8 +3463,8 @@ class UpdateScheduledCallerRequest(google.protobuf.message.Message):
         nothing is written. To change anything else, cancel the scheduled caller and start a new one.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the returned <code>ScheduledCaller</code>,
         relative to the <code>ScheduledCaller</code> message, with the rules of
         <code>GetScheduledCallerRequest.field_mask</code>. The returned scheduled caller is the one
@@ -3269,44 +3475,47 @@ class UpdateScheduledCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        scheduled_caller: global___ScheduledCaller | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        scheduled_caller: Global___ScheduledCaller | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "scheduled_caller", b"scheduled_caller", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "scheduled_caller", b"scheduled_caller", "update_mask", b"update_mask"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "scheduled_caller", b"scheduled_caller", "update_mask", b"update_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "scheduled_caller", b"scheduled_caller", "update_mask", b"update_mask"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateScheduledCallerRequest = UpdateScheduledCallerRequest
+Global___UpdateScheduledCallerRequest: _TypeAlias = UpdateScheduledCallerRequest  # noqa: Y015
 
-@typing.final
-class RetryScheduledCallerRequest(google.protobuf.message.Message):
+@_typing.final
+class RetryScheduledCallerRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Calls.RetryScheduledCaller">Calls.RetryScheduledCaller</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    SCHEDULED_TIME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    SCHEDULED_TIME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the scheduled caller. Redundant with the project segment of <code>name</code>: when set it
     must name the same project (see <code>GetCallerRequest.vtsi_project_name</code>).
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    name: builtins.str
+    name: _builtins.str
     """The FAILED scheduled caller to retry, of the form
     <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
     """
-    @property
-    def scheduled_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def scheduled_time(self) -> _timestamp_pb2.Timestamp:
         """Optional. When the retry fires, in UTC. Unset means now: the retry is due at once and starts at the
         scheduler&apos;s next check. A time in the past is treated like unset.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the returned (new) <code>ScheduledCaller</code>,
         with the rules of <code>GetScheduledCallerRequest.field_mask</code>. An unknown path is rejected with
         <code>INVALID_ARGUMENT</code> naming it, before anything is created.
@@ -3315,37 +3524,40 @@ class RetryScheduledCallerRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        name: builtins.str = ...,
-        scheduled_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        name: _builtins.str = ...,
+        scheduled_time: _timestamp_pb2.Timestamp | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "scheduled_time", b"scheduled_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "name", b"name", "scheduled_time", b"scheduled_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "scheduled_time", b"scheduled_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "name", b"name", "scheduled_time", b"scheduled_time", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RetryScheduledCallerRequest = RetryScheduledCallerRequest
+Global___RetryScheduledCallerRequest: _TypeAlias = RetryScheduledCallerRequest  # noqa: Y015
 
-@typing.final
-class StopCallRequest(google.protobuf.message.Message):
+@_typing.final
+class StopCallRequest(_message.Message):
     """Request to stop a call: hang it up and stop (release) the listener or caller that serves it."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Required. Redundant with the project segment of <code>call_name</code>, by the rule of
     <code>GetCallerRequest.vtsi_project_name</code>.
     """
-    call_name: builtins.str
+    call_name: _builtins.str
     """call name to stop
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths of <code>StopCallResponse</code> to populate, i.e.
         <code>vtsi_project_name</code> and <code>error_message</code> (the response carries no
         <code>Call</code>). <code>call_name</code> is always populated. Unset or empty returns every field. An
@@ -3356,32 +3568,35 @@ class StopCallRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopCallRequest = StopCallRequest
+Global___StopCallRequest: _TypeAlias = StopCallRequest  # noqa: Y015
 
-@typing.final
-class StopCallResponse(google.protobuf.message.Message):
+@_typing.final
+class StopCallResponse(_message.Message):
     """Response to stop a call, and one entry of <code>StopCallsResponse</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """The call the request named
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty when the call&apos;s listener or caller was released. <code>Call ... was not released</code> when there
     was nothing left to release (e.g. it had already been stopped); the RPC still succeeds. Errors that are not
     about this outcome are gRPC status codes for <code>StopCall</code>; in an entry of
@@ -3392,36 +3607,40 @@ class StopCallResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "error_message", b"error_message", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopCallResponse = StopCallResponse
+Global___StopCallResponse: _TypeAlias = StopCallResponse  # noqa: Y015
 
-@typing.final
-class StopCallsRequest(google.protobuf.message.Message):
+@_typing.final
+class StopCallsRequest(_message.Message):
     """Request to stop several calls, each like <code>StopCall</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAMES_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAMES_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of every call of the request, of the form
     <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    @property
-    def call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def call_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The calls to stop, 1 to 1000 names (a name given twice is stopped and reported once)
         For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
         For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in EVERY entry of
         <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
         <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
@@ -3434,29 +3653,32 @@ class StopCallsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_names: collections.abc.Iterable[builtins.str] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_names: _abc.Iterable[_builtins.str] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_names", b"call_names", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_names", b"call_names", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopCallsRequest = StopCallsRequest
+Global___StopCallsRequest: _TypeAlias = StopCallsRequest  # noqa: Y015
 
-@typing.final
-class StopCallsResponse(google.protobuf.message.Message):
+@_typing.final
+class StopCallsResponse(_message.Message):
     """Response of <code>StopCalls</code> and <code>StopAllCalls</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STOP_CALL_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    error_message: builtins.str
+    STOP_CALL_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    error_message: _builtins.str
     """Empty when no entry carries an <code>error_message</code>; otherwise the entries&apos; messages joined, so a
     client can log one string. Read the entries for the per-call outcome.
     """
-    @property
-    def stop_call_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StopCallResponse]:
+    @_builtins.property
+    def stop_call_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___StopCallResponse]:
         """One entry per stopped call: for <code>StopCalls</code> one per distinct requested name, in request order;
         for <code>StopAllCalls</code> one per call it stopped, ordered by <code>call_name</code>, ascending (empty when
         there was nothing to stop).
@@ -3465,28 +3687,32 @@ class StopCallsResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        stop_call_responses: collections.abc.Iterable[global___StopCallResponse] | None = ...,
-        error_message: builtins.str = ...,
+        stop_call_responses: _abc.Iterable[Global___StopCallResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "stop_call_responses", b"stop_call_responses"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "stop_call_responses", b"stop_call_responses"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopCallsResponse = StopCallsResponse
+Global___StopCallsResponse: _TypeAlias = StopCallsResponse  # noqa: Y015
 
-@typing.final
-class StopAllCallsRequest(google.protobuf.message.Message):
+@_typing.final
+class StopAllCallsRequest(_message.Message):
     """Request to stop all calls of a VTSI project (hang them up and release their listeners and callers), or, with
     <code>call_filter</code>, those of them the filter matches.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    CALL_FILTER_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    CALL_FILTER_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project whose calls are stopped, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in EVERY entry of
         <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
         <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
@@ -3496,8 +3722,8 @@ class StopAllCallsRequest(google.protobuf.message.Message):
         shapes only the response: the calls are stopped regardless.
         """
 
-    @property
-    def call_filter(self) -> global___CallFilter:
+    @_builtins.property
+    def call_filter(self) -> Global___CallFilter:
         """Optional. Narrows the calls that are stopped: of the calls <code>StopAllCalls</code> stops without a filter
         (the project&apos;s current calls, each with the listener or caller that serves it), only those this filter
         matches, with the semantics, validation and errors of <code>ListCallsRequest.call_filter</code> (the
@@ -3511,65 +3737,72 @@ class StopAllCallsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        call_filter: global___CallFilter | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        call_filter: Global___CallFilter | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["call_filter", b"call_filter", "field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_filter", b"call_filter", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["call_filter", b"call_filter", "field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_filter", b"call_filter", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StopAllCallsRequest = StopAllCallsRequest
+Global___StopAllCallsRequest: _TypeAlias = StopAllCallsRequest  # noqa: Y015
 
-@typing.final
-class TransferCallRequest(google.protobuf.message.Message):
+@_typing.final
+class TransferCallRequest(_message.Message):
     """Request to transfer calls"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class HeadersEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HeadersEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
+            key: _builtins.str = ...,
+            value: _builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    TRANSFER_ID_FIELD_NUMBER: builtins.int
-    TARGET_FIELD_NUMBER: builtins.int
-    MODE_FIELD_NUMBER: builtins.int
-    HEADERS_FIELD_NUMBER: builtins.int
-    RING_TIMEOUT_S_FIELD_NUMBER: builtins.int
-    REQUEST_ID_FIELD_NUMBER: builtins.int
-    WARM_TRANSFER_CONFIG_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    TRANSFER_ID_FIELD_NUMBER: _builtins.int
+    TARGET_FIELD_NUMBER: _builtins.int
+    MODE_FIELD_NUMBER: _builtins.int
+    HEADERS_FIELD_NUMBER: _builtins.int
+    RING_TIMEOUT_S_FIELD_NUMBER: _builtins.int
+    REQUEST_ID_FIELD_NUMBER: _builtins.int
+    WARM_TRANSFER_CONFIG_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """call name to transfer
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
-    transfer_id: builtins.str
+    transfer_id: _builtins.str
     """LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
     <code>^\\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
     <code>INVALID_ARGUMENT</code>
     """
-    mode: global___TransferMode.ValueType
+    mode: Global___TransferMode.ValueType
     """How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>"""
-    ring_timeout_s: builtins.int
+    ring_timeout_s: _builtins.int
     """WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
     <code>30</code>
     """
-    request_id: builtins.str
+    request_id: _builtins.str
     """Optional idempotency key, with the semantics of <code>InviteToCallRequest.request_id</code>: 1 to 255 visible
     ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
     and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
@@ -3581,20 +3814,20 @@ class TransferCallRequest(google.protobuf.message.Message):
     A replay writes no second audit record and emits no event. Empty means no deduplication. In a
     <code>TransferCallsRequest</code> each entry carries its own key.
     """
-    @property
-    def target(self) -> global___CallTarget:
+    @_builtins.property
+    def target(self) -> Global___CallTarget:
         """Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>"""
 
-    @property
-    def headers(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def headers(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
         entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
         dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
         number target
         """
 
-    @property
-    def warm_transfer_config(self) -> ondewo.vtsi.call_configs_pb2.WarmTransferConfig:
+    @_builtins.property
+    def warm_transfer_config(self) -> _call_configs_pb2.WarmTransferConfig:
         """WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
         <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
         <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
@@ -3616,46 +3849,49 @@ class TransferCallRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        transfer_id: builtins.str = ...,
-        target: global___CallTarget | None = ...,
-        mode: global___TransferMode.ValueType = ...,
-        headers: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        ring_timeout_s: builtins.int = ...,
-        request_id: builtins.str = ...,
-        warm_transfer_config: ondewo.vtsi.call_configs_pb2.WarmTransferConfig | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        transfer_id: _builtins.str = ...,
+        target: Global___CallTarget | None = ...,
+        mode: Global___TransferMode.ValueType = ...,
+        headers: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        ring_timeout_s: _builtins.int = ...,
+        request_id: _builtins.str = ...,
+        warm_transfer_config: _call_configs_pb2.WarmTransferConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["target", b"target", "warm_transfer_config", b"warm_transfer_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "headers", b"headers", "mode", b"mode", "request_id", b"request_id", "ring_timeout_s", b"ring_timeout_s", "target", b"target", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name", "warm_transfer_config", b"warm_transfer_config"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["target", b"target", "warm_transfer_config", b"warm_transfer_config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "headers", b"headers", "mode", b"mode", "request_id", b"request_id", "ring_timeout_s", b"ring_timeout_s", "target", b"target", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name", "warm_transfer_config", b"warm_transfer_config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TransferCallRequest = TransferCallRequest
+Global___TransferCallRequest: _TypeAlias = TransferCallRequest  # noqa: Y015
 
-@typing.final
-class CallTarget(google.protobuf.message.Message):
+@_typing.final
+class CallTarget(_message.Message):
     """<p>Target of a transfer</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PHONE_NUMBER_FIELD_NUMBER: builtins.int
-    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
-    LISTENER_NAME_FIELD_NUMBER: builtins.int
-    LISTENER_QUEUE_FIELD_NUMBER: builtins.int
-    IVR_MENU_NAME_FIELD_NUMBER: builtins.int
-    phone_number: builtins.str
+    PHONE_NUMBER_FIELD_NUMBER: _builtins.int
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: _builtins.int
+    LISTENER_NAME_FIELD_NUMBER: _builtins.int
+    LISTENER_QUEUE_FIELD_NUMBER: _builtins.int
+    IVR_MENU_NAME_FIELD_NUMBER: _builtins.int
+    phone_number: _builtins.str
     """Phone number in E.164 form, e.g. <code>+4312345678</code> (<code>^\\+[1-9][0-9]{6,14}$</code>). Any E.164 number
     is allowed unless the project configures <code>VtsiProject.transfer_phone_number_allowlist</code>
     """
-    softphone_account_name: builtins.str
+    softphone_account_name: _builtins.str
     """A softphone account of the same project:
     <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;account_uuid&gt;</code></pre>. It must be enabled,
     routed and registered
     """
-    listener_name: builtins.str
+    listener_name: _builtins.str
     """A listener of the same project: <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>.
     The call goes to that listener&apos;s idle container; a busy listener is refused (<code>listener-busy</code>)
     """
-    ivr_menu_name: builtins.str
+    ivr_menu_name: _builtins.str
     """A PUBLISHED IVR menu of the same project:
     <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>. The caller enters
     the menu&apos;s published revision at its entry node. <code>TRANSFER_MODE_BLIND</code> only; with
@@ -3663,139 +3899,152 @@ class CallTarget(google.protobuf.message.Message):
     published is refused with <code>FAILED_PRECONDITION</code> <code>reason=menu-not-published</code>, and a
     deployment without IVR menus with <code>UNIMPLEMENTED</code> <code>reason=ivr-disabled</code>
     """
-    @property
-    def listener_queue(self) -> global___ListenerQueueTarget:
+    @_builtins.property
+    def listener_queue(self) -> Global___ListenerQueueTarget:
         """The project&apos;s listener queue: any idle listener of the project takes the call"""
 
     def __init__(
         self,
         *,
-        phone_number: builtins.str = ...,
-        softphone_account_name: builtins.str = ...,
-        listener_name: builtins.str = ...,
-        listener_queue: global___ListenerQueueTarget | None = ...,
-        ivr_menu_name: builtins.str = ...,
+        phone_number: _builtins.str = ...,
+        softphone_account_name: _builtins.str = ...,
+        listener_name: _builtins.str = ...,
+        listener_queue: Global___ListenerQueueTarget | None = ...,
+        ivr_menu_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ivr_menu_name", b"ivr_menu_name", "listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ivr_menu_name", b"ivr_menu_name", "listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["target", b"target"]) -> typing.Literal["phone_number", "softphone_account_name", "listener_name", "listener_queue", "ivr_menu_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ivr_menu_name", b"ivr_menu_name", "listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ivr_menu_name", b"ivr_menu_name", "listener_name", b"listener_name", "listener_queue", b"listener_queue", "phone_number", b"phone_number", "softphone_account_name", b"softphone_account_name", "target", b"target"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_target: _TypeAlias = _typing.Literal["phone_number", "softphone_account_name", "listener_name", "listener_queue", "ivr_menu_name"]  # noqa: Y015
+    _WhichOneofArgType_target: _TypeAlias = _typing.Literal["target", b"target"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_target) -> _WhichOneofReturnType_target | None: ...
 
-global___CallTarget = CallTarget
+Global___CallTarget: _TypeAlias = CallTarget  # noqa: Y015
 
-@typing.final
-class ListenerQueueTarget(google.protobuf.message.Message):
+@_typing.final
+class ListenerQueueTarget(_message.Message):
     """<p>The project&apos;s listener queue as a transfer target. Carries no fields</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     def __init__(
         self,
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListenerQueueTarget = ListenerQueueTarget
+Global___ListenerQueueTarget: _TypeAlias = ListenerQueueTarget  # noqa: Y015
 
-@typing.final
-class TransferCallResponse(google.protobuf.message.Message):
+@_typing.final
+class TransferCallResponse(_message.Message):
     """Response to transfer a call to a phone number or voip number"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    TRANSFER_ID_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    OUTCOME_FIELD_NUMBER: builtins.int
-    RESOLVED_TARGET_FIELD_NUMBER: builtins.int
-    SIP_RESPONSE_CODE_FIELD_NUMBER: builtins.int
-    ERROR_REASON_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    TRANSFER_ID_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    OUTCOME_FIELD_NUMBER: _builtins.int
+    RESOLVED_TARGET_FIELD_NUMBER: _builtins.int
+    SIP_RESPONSE_CODE_FIELD_NUMBER: _builtins.int
+    ERROR_REASON_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """call name to transfer
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
-    transfer_id: builtins.str
+    transfer_id: _builtins.str
     """The legacy raw target of the request (<code>TransferCallRequest.transfer_id</code>), echoed; empty for a
     typed <code>target</code> (see <code>resolved_target</code>)
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty unless the transfer failed. <code>TransferCall</code> reports a refusal before any side effect as a gRPC
     status and a telephony outcome in <code>outcome</code> / <code>error_reason</code>, so it is empty there. In an
     entry of <code>TransferCallsResponse</code> it is the error of an entry <code>TransferCall</code> would have
     refused with a gRPC status, prefixed with the name of that status code, e.g.
     <code>FAILED_PRECONDITION: reason=call-not-connected</code>.
     """
-    outcome: global___TransferOutcome.ValueType
+    outcome: Global___TransferOutcome.ValueType
     """Outcome of the transfer. A WARM transfer with a warm intro answers <code>TRANSFER_OUTCOME_PENDING</code>; its
     final outcome arrives in <code>Call.last_transfer</code> and the events
     """
-    resolved_target: builtins.str
+    resolved_target: _builtins.str
     """The dialplan extension the target resolved to, e.g. <code>ondewo0007</code>, a softphone user name,
     <code>ondewoqueue</code> or the E.164 number
     """
-    sip_response_code: builtins.int
+    sip_response_code: _builtins.int
     """SIP response code of the REFER where known (<code>202</code> accepted, the refusal code otherwise), else
     <code>0</code>
     """
-    error_reason: builtins.str
+    error_reason: _builtins.str
     """Stable reason token of a refusal or failure, e.g. <code>target-not-registered</code>, <code>listener-busy</code>,
     <code>queue-empty</code>, <code>self-transfer</code>, <code>number-not-allowed</code>; empty on success
     """
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        transfer_id: builtins.str = ...,
-        error_message: builtins.str = ...,
-        outcome: global___TransferOutcome.ValueType = ...,
-        resolved_target: builtins.str = ...,
-        sip_response_code: builtins.int = ...,
-        error_reason: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        transfer_id: _builtins.str = ...,
+        error_message: _builtins.str = ...,
+        outcome: Global___TransferOutcome.ValueType = ...,
+        resolved_target: _builtins.str = ...,
+        sip_response_code: _builtins.int = ...,
+        error_reason: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "error_message", b"error_message", "error_reason", b"error_reason", "outcome", b"outcome", "resolved_target", b"resolved_target", "sip_response_code", b"sip_response_code", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "error_message", b"error_message", "error_reason", b"error_reason", "outcome", b"outcome", "resolved_target", b"resolved_target", "sip_response_code", b"sip_response_code", "transfer_id", b"transfer_id", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TransferCallResponse = TransferCallResponse
+Global___TransferCallResponse: _TypeAlias = TransferCallResponse  # noqa: Y015
 
-@typing.final
-class CallTransferRecord(google.protobuf.message.Message):
+@_typing.final
+class CallTransferRecord(_message.Message):
     """<p>Record of the last transfer attempt of a call</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TARGET_FIELD_NUMBER: builtins.int
-    RESOLVED_TARGET_FIELD_NUMBER: builtins.int
-    MODE_FIELD_NUMBER: builtins.int
-    OUTCOME_FIELD_NUMBER: builtins.int
-    SIP_RESPONSE_CODE_FIELD_NUMBER: builtins.int
-    TIME_FIELD_NUMBER: builtins.int
-    WARM_INTRO_FIELD_NUMBER: builtins.int
-    EFFECTIVE_WARM_TRANSFER_CONFIG_FIELD_NUMBER: builtins.int
-    resolved_target: builtins.str
+    TARGET_FIELD_NUMBER: _builtins.int
+    RESOLVED_TARGET_FIELD_NUMBER: _builtins.int
+    MODE_FIELD_NUMBER: _builtins.int
+    OUTCOME_FIELD_NUMBER: _builtins.int
+    SIP_RESPONSE_CODE_FIELD_NUMBER: _builtins.int
+    TIME_FIELD_NUMBER: _builtins.int
+    WARM_INTRO_FIELD_NUMBER: _builtins.int
+    EFFECTIVE_WARM_TRANSFER_CONFIG_FIELD_NUMBER: _builtins.int
+    resolved_target: _builtins.str
     """The dialplan extension the target resolved to"""
-    mode: global___TransferMode.ValueType
+    mode: Global___TransferMode.ValueType
     """Mode of the transfer"""
-    outcome: global___TransferOutcome.ValueType
+    outcome: Global___TransferOutcome.ValueType
     """Outcome of the transfer"""
-    sip_response_code: builtins.int
+    sip_response_code: _builtins.int
     """SIP response code of the REFER where known, else <code>0</code>"""
-    @property
-    def target(self) -> global___CallTarget:
+    @_builtins.property
+    def target(self) -> Global___CallTarget:
         """Requested typed target; unset for a legacy <code>transfer_id</code> transfer"""
 
-    @property
-    def time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def time(self) -> _timestamp_pb2.Timestamp:
         """When the outcome was recorded"""
 
-    @property
-    def warm_intro(self) -> ondewo.vtsi.call_configs_pb2.WarmIntroRecord:
+    @_builtins.property
+    def warm_intro(self) -> _call_configs_pb2.WarmIntroRecord:
         """The warm intro of the transfer; unset when the transfer ran no intro and tried none. A busy, unanswered or
         unreachable target keeps the outcome it had before 9.5.0 (<code>TRANSFER_OUTCOME_TIMEOUT</code>, ...)
         """
 
-    @property
-    def effective_warm_transfer_config(self) -> ondewo.vtsi.call_configs_pb2.WarmTransferConfig:
+    @_builtins.property
+    def effective_warm_transfer_config(self) -> _call_configs_pb2.WarmTransferConfig:
         """The RESOLVED warm intro configuration the transfer ran with (every level merged, defaults filled in), for
         support. Holds configuration texts only, never a briefing or a decline reason. Unset when no intro was
         enabled
@@ -3804,163 +4053,173 @@ class CallTransferRecord(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        target: global___CallTarget | None = ...,
-        resolved_target: builtins.str = ...,
-        mode: global___TransferMode.ValueType = ...,
-        outcome: global___TransferOutcome.ValueType = ...,
-        sip_response_code: builtins.int = ...,
-        time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        warm_intro: ondewo.vtsi.call_configs_pb2.WarmIntroRecord | None = ...,
-        effective_warm_transfer_config: ondewo.vtsi.call_configs_pb2.WarmTransferConfig | None = ...,
+        target: Global___CallTarget | None = ...,
+        resolved_target: _builtins.str = ...,
+        mode: Global___TransferMode.ValueType = ...,
+        outcome: Global___TransferOutcome.ValueType = ...,
+        sip_response_code: _builtins.int = ...,
+        time: _timestamp_pb2.Timestamp | None = ...,
+        warm_intro: _call_configs_pb2.WarmIntroRecord | None = ...,
+        effective_warm_transfer_config: _call_configs_pb2.WarmTransferConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["effective_warm_transfer_config", b"effective_warm_transfer_config", "target", b"target", "time", b"time", "warm_intro", b"warm_intro"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["effective_warm_transfer_config", b"effective_warm_transfer_config", "mode", b"mode", "outcome", b"outcome", "resolved_target", b"resolved_target", "sip_response_code", b"sip_response_code", "target", b"target", "time", b"time", "warm_intro", b"warm_intro"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["effective_warm_transfer_config", b"effective_warm_transfer_config", "target", b"target", "time", b"time", "warm_intro", b"warm_intro"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["effective_warm_transfer_config", b"effective_warm_transfer_config", "mode", b"mode", "outcome", b"outcome", "resolved_target", b"resolved_target", "sip_response_code", b"sip_response_code", "target", b"target", "time", b"time", "warm_intro", b"warm_intro"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallTransferRecord = CallTransferRecord
+Global___CallTransferRecord: _TypeAlias = CallTransferRecord  # noqa: Y015
 
-@typing.final
-class CallMediaControlState(google.protobuf.message.Message):
+@_typing.final
+class CallMediaControlState(_message.Message):
     """<p>Effective media control state of a call</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    BOT_MUTED_FIELD_NUMBER: builtins.int
-    LISTENING_PAUSED_FIELD_NUMBER: builtins.int
-    CONNECTED_AUDIO_STREAMS_FIELD_NUMBER: builtins.int
-    JOINED_PARTICIPANTS_FIELD_NUMBER: builtins.int
-    bot_muted: builtins.bool
+    BOT_MUTED_FIELD_NUMBER: _builtins.int
+    LISTENING_PAUSED_FIELD_NUMBER: _builtins.int
+    CONNECTED_AUDIO_STREAMS_FIELD_NUMBER: _builtins.int
+    JOINED_PARTICIPANTS_FIELD_NUMBER: _builtins.int
+    bot_muted: _builtins.bool
     """The bot is muted (by an operator, a TALK take-over or a participant bot policy)"""
-    listening_paused: builtins.bool
+    listening_paused: _builtins.bool
     """The bot does not listen to the caller"""
-    connected_audio_streams: builtins.int
+    connected_audio_streams: _builtins.int
     """Number of connected <code>StreamCallAudio</code> / <code>ListenCallAudio</code> streams"""
-    joined_participants: builtins.int
+    joined_participants: _builtins.int
     """Number of joined participants"""
     def __init__(
         self,
         *,
-        bot_muted: builtins.bool = ...,
-        listening_paused: builtins.bool = ...,
-        connected_audio_streams: builtins.int = ...,
-        joined_participants: builtins.int = ...,
+        bot_muted: _builtins.bool = ...,
+        listening_paused: _builtins.bool = ...,
+        connected_audio_streams: _builtins.int = ...,
+        joined_participants: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["bot_muted", b"bot_muted", "connected_audio_streams", b"connected_audio_streams", "joined_participants", b"joined_participants", "listening_paused", b"listening_paused"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["bot_muted", b"bot_muted", "connected_audio_streams", b"connected_audio_streams", "joined_participants", b"joined_participants", "listening_paused", b"listening_paused"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallMediaControlState = CallMediaControlState
+Global___CallMediaControlState: _TypeAlias = CallMediaControlState  # noqa: Y015
 
-@typing.final
-class CallParticipant(google.protobuf.message.Message):
+@_typing.final
+class CallParticipant(_message.Message):
     """<p>A participant invited into a call</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PARTICIPANT_ID_FIELD_NUMBER: builtins.int
-    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
-    MODE_FIELD_NUMBER: builtins.int
-    STATE_FIELD_NUMBER: builtins.int
-    INVITED_AT_FIELD_NUMBER: builtins.int
-    JOINED_AT_FIELD_NUMBER: builtins.int
-    LEFT_AT_FIELD_NUMBER: builtins.int
-    END_REASON_FIELD_NUMBER: builtins.int
-    INVITED_BY_FIELD_NUMBER: builtins.int
-    BOT_POLICY_FIELD_NUMBER: builtins.int
-    END_REASON_TYPE_FIELD_NUMBER: builtins.int
-    participant_id: builtins.str
+    PARTICIPANT_ID_FIELD_NUMBER: _builtins.int
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: _builtins.int
+    MODE_FIELD_NUMBER: _builtins.int
+    STATE_FIELD_NUMBER: _builtins.int
+    INVITED_AT_FIELD_NUMBER: _builtins.int
+    JOINED_AT_FIELD_NUMBER: _builtins.int
+    LEFT_AT_FIELD_NUMBER: _builtins.int
+    END_REASON_FIELD_NUMBER: _builtins.int
+    INVITED_BY_FIELD_NUMBER: _builtins.int
+    BOT_POLICY_FIELD_NUMBER: _builtins.int
+    END_REASON_TYPE_FIELD_NUMBER: _builtins.int
+    participant_id: _builtins.str
     """Identifier of the participant, 9 digits, unique among the project&apos;s live invites"""
-    softphone_account_name: builtins.str
+    softphone_account_name: _builtins.str
     """The invited softphone account:
     <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;account_uuid&gt;</code></pre>
     """
-    mode: global___ParticipantMode.ValueType
+    mode: Global___ParticipantMode.ValueType
     """How the participant takes part"""
-    state: global___ParticipantState.ValueType
+    state: Global___ParticipantState.ValueType
     """State of the participant"""
-    end_reason: builtins.str
+    end_reason: _builtins.str
     """Why the participant failed or left: <code>NOANSWER</code>, <code>BUSY</code>, <code>CHANUNAVAIL</code>,
     <code>CALL_ENDED</code>, <code>REMOVED</code>, <code>HANGUP</code>, <code>HANDED_OVER</code>,
     <code>JOIN_FAILED</code> or <code>TIMEOUT</code>; empty while ringing or joined. Kept for clients built before
     <code>end_reason_type</code> existed; both are always set together.
     """
-    invited_by: builtins.str
+    invited_by: _builtins.str
     """Identity of who invited the participant (audit)"""
-    bot_policy: global___BotPolicyOnJoin.ValueType
+    bot_policy: Global___BotPolicyOnJoin.ValueType
     """Bot policy applied while this participant is ringing or joined"""
-    end_reason_type: global___ParticipantEndReason.ValueType
+    end_reason_type: Global___ParticipantEndReason.ValueType
     """Output only. The typed form of <code>end_reason</code>: <code>PARTICIPANT_END_REASON_UNSPECIFIED</code> while
     ringing or joined, otherwise the value of the string in <code>end_reason</code> (e.g. <code>NOANSWER</code> is
     <code>PARTICIPANT_END_REASON_NO_ANSWER</code>). A 9.0.0 server leaves it unset; read <code>end_reason</code>
     then.
     """
-    @property
-    def invited_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def invited_at(self) -> _timestamp_pb2.Timestamp:
         """When the participant was invited"""
 
-    @property
-    def joined_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def joined_at(self) -> _timestamp_pb2.Timestamp:
         """When the participant joined; unset if it never joined"""
 
-    @property
-    def left_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def left_at(self) -> _timestamp_pb2.Timestamp:
         """When the participant failed or left; unset while ringing or joined"""
 
     def __init__(
         self,
         *,
-        participant_id: builtins.str = ...,
-        softphone_account_name: builtins.str = ...,
-        mode: global___ParticipantMode.ValueType = ...,
-        state: global___ParticipantState.ValueType = ...,
-        invited_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        joined_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        left_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        end_reason: builtins.str = ...,
-        invited_by: builtins.str = ...,
-        bot_policy: global___BotPolicyOnJoin.ValueType = ...,
-        end_reason_type: global___ParticipantEndReason.ValueType = ...,
+        participant_id: _builtins.str = ...,
+        softphone_account_name: _builtins.str = ...,
+        mode: Global___ParticipantMode.ValueType = ...,
+        state: Global___ParticipantState.ValueType = ...,
+        invited_at: _timestamp_pb2.Timestamp | None = ...,
+        joined_at: _timestamp_pb2.Timestamp | None = ...,
+        left_at: _timestamp_pb2.Timestamp | None = ...,
+        end_reason: _builtins.str = ...,
+        invited_by: _builtins.str = ...,
+        bot_policy: Global___BotPolicyOnJoin.ValueType = ...,
+        end_reason_type: Global___ParticipantEndReason.ValueType = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["invited_at", b"invited_at", "joined_at", b"joined_at", "left_at", b"left_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bot_policy", b"bot_policy", "end_reason", b"end_reason", "end_reason_type", b"end_reason_type", "invited_at", b"invited_at", "invited_by", b"invited_by", "joined_at", b"joined_at", "left_at", b"left_at", "mode", b"mode", "participant_id", b"participant_id", "softphone_account_name", b"softphone_account_name", "state", b"state"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["invited_at", b"invited_at", "joined_at", b"joined_at", "left_at", b"left_at"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["bot_policy", b"bot_policy", "end_reason", b"end_reason", "end_reason_type", b"end_reason_type", "invited_at", b"invited_at", "invited_by", b"invited_by", "joined_at", b"joined_at", "left_at", b"left_at", "mode", b"mode", "participant_id", b"participant_id", "softphone_account_name", b"softphone_account_name", "state", b"state"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallParticipant = CallParticipant
+Global___CallParticipant: _TypeAlias = CallParticipant  # noqa: Y015
 
-@typing.final
-class InviteToCallRequest(google.protobuf.message.Message):
+@_typing.final
+class InviteToCallRequest(_message.Message):
     """<p>Request to invite a softphone account into a call</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: builtins.int
-    MODE_FIELD_NUMBER: builtins.int
-    RING_TIMEOUT_S_FIELD_NUMBER: builtins.int
-    BOT_POLICY_FIELD_NUMBER: builtins.int
-    CALLER_ID_DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    REQUEST_ID_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER: _builtins.int
+    MODE_FIELD_NUMBER: _builtins.int
+    RING_TIMEOUT_S_FIELD_NUMBER: _builtins.int
+    BOT_POLICY_FIELD_NUMBER: _builtins.int
+    CALLER_ID_DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    REQUEST_ID_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Name of the connected call to invite into
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
-    softphone_account_name: builtins.str
+    softphone_account_name: _builtins.str
     """Softphone account of the same project to invite:
     <pre><code>projects/&lt;project_uuid&gt;/softphoneAccounts/&lt;account_uuid&gt;</code></pre>
     """
-    mode: global___ParticipantMode.ValueType
+    mode: Global___ParticipantMode.ValueType
     """How the participant takes part. Unspecified means <code>PARTICIPANT_MODE_CONFERENCE</code>"""
-    ring_timeout_s: builtins.int
+    ring_timeout_s: _builtins.int
     """How long the softphone may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means <code>30</code>"""
-    bot_policy: global___BotPolicyOnJoin.ValueType
+    bot_policy: Global___BotPolicyOnJoin.ValueType
     """What the bot does while the participant is ringing or joined. Unspecified means <code>BOT_POLICY_ON_JOIN_KEEP</code>
     (the bot keeps talking)
     """
-    caller_id_display_name: builtins.str
+    caller_id_display_name: _builtins.str
     """Caller-ID display name shown on the softphone. Sanitized by the server; default
     <code>ONDEWO &lt;listener or caller name&gt;</code>
     """
-    request_id: builtins.str
+    request_id: _builtins.str
     """Optional idempotency key: 1 to 255 visible ASCII characters, scoped to <code>call_name</code>. A repeated
     request with the same <code>call_name</code> and <code>request_id</code> returns the participant of the first
     request (in its CURRENT state) instead of inviting again, for as long as the call record exists. The same key
@@ -3971,122 +4230,137 @@ class InviteToCallRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        softphone_account_name: builtins.str = ...,
-        mode: global___ParticipantMode.ValueType = ...,
-        ring_timeout_s: builtins.int = ...,
-        bot_policy: global___BotPolicyOnJoin.ValueType = ...,
-        caller_id_display_name: builtins.str = ...,
-        request_id: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        softphone_account_name: _builtins.str = ...,
+        mode: Global___ParticipantMode.ValueType = ...,
+        ring_timeout_s: _builtins.int = ...,
+        bot_policy: Global___BotPolicyOnJoin.ValueType = ...,
+        caller_id_display_name: _builtins.str = ...,
+        request_id: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["bot_policy", b"bot_policy", "call_name", b"call_name", "caller_id_display_name", b"caller_id_display_name", "mode", b"mode", "request_id", b"request_id", "ring_timeout_s", b"ring_timeout_s", "softphone_account_name", b"softphone_account_name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["bot_policy", b"bot_policy", "call_name", b"call_name", "caller_id_display_name", b"caller_id_display_name", "mode", b"mode", "request_id", b"request_id", "ring_timeout_s", b"ring_timeout_s", "softphone_account_name", b"softphone_account_name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___InviteToCallRequest = InviteToCallRequest
+Global___InviteToCallRequest: _TypeAlias = InviteToCallRequest  # noqa: Y015
 
-@typing.final
-class InviteToCallResponse(google.protobuf.message.Message):
+@_typing.final
+class InviteToCallResponse(_message.Message):
     """<p>Response of <code>InviteToCall</code></p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    PARTICIPANT_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    PARTICIPANT_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Name of the call"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
     Kept for wire compatibility.
     """
-    @property
-    def participant(self) -> global___CallParticipant:
+    @_builtins.property
+    def participant(self) -> Global___CallParticipant:
         """The invited participant"""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        participant: global___CallParticipant | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        participant: Global___CallParticipant | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["participant", b"participant"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "error_message", b"error_message", "participant", b"participant", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["participant", b"participant"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "error_message", b"error_message", "participant", b"participant", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___InviteToCallResponse = InviteToCallResponse
+Global___InviteToCallResponse: _TypeAlias = InviteToCallResponse  # noqa: Y015
 
-@typing.final
-class SendCallDtmfRequest(google.protobuf.message.Message):
+@_typing.final
+class SendCallDtmfRequest(_message.Message):
     """<p>Request of <code>SendCallDtmf</code></p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    DIGITS_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    DIGITS_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Name of the connected call"""
-    digits: builtins.str
+    digits: _builtins.str
     """The keys to press, in order: 1 to 64 of <code>0-9</code>, <code>*</code>, <code>#</code> and
     <code>A-D</code>. Never logged; treat it like a password (it may be a PIN).
     """
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        digits: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        digits: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "digits", b"digits", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "digits", b"digits", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SendCallDtmfRequest = SendCallDtmfRequest
+Global___SendCallDtmfRequest: _TypeAlias = SendCallDtmfRequest  # noqa: Y015
 
-@typing.final
-class SendCallDtmfResponse(google.protobuf.message.Message):
+@_typing.final
+class SendCallDtmfResponse(_message.Message):
     """<p>Response of <code>SendCallDtmf</code></p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    QUEUED_KEYS_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    QUEUED_KEYS_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Name of the call"""
-    queued_keys: builtins.int
+    queued_keys: _builtins.int
     """Number of keys queued: the length of <code>digits</code>"""
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        queued_keys: builtins.int = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        queued_keys: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "queued_keys", b"queued_keys", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "queued_keys", b"queued_keys", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SendCallDtmfResponse = SendCallDtmfResponse
+Global___SendCallDtmfResponse: _TypeAlias = SendCallDtmfResponse  # noqa: Y015
 
-@typing.final
-class RemoveCallParticipantRequest(google.protobuf.message.Message):
+@_typing.final
+class RemoveCallParticipantRequest(_message.Message):
     """<p>Request to hang up a participant of a call</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    PARTICIPANT_ID_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    PARTICIPANT_ID_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Name of the call"""
-    participant_id: builtins.str
+    participant_id: _builtins.str
     """Identifier of the participant (<code>CallParticipant.participant_id</code>). It must be a participant of
     <code>call_name</code>: an unknown identifier, or one of another call, is <code>NOT_FOUND</code> with
     <code>reason=participant-not-found</code>.
@@ -4094,64 +4368,71 @@ class RemoveCallParticipantRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        participant_id: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        participant_id: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "participant_id", b"participant_id", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "participant_id", b"participant_id", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RemoveCallParticipantRequest = RemoveCallParticipantRequest
+Global___RemoveCallParticipantRequest: _TypeAlias = RemoveCallParticipantRequest  # noqa: Y015
 
-@typing.final
-class RemoveCallParticipantResponse(google.protobuf.message.Message):
+@_typing.final
+class RemoveCallParticipantResponse(_message.Message):
     """<p>Response of <code>RemoveCallParticipant</code></p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    PARTICIPANT_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    PARTICIPANT_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Name of the call"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
     Kept for wire compatibility.
     """
-    @property
-    def participant(self) -> global___CallParticipant:
+    @_builtins.property
+    def participant(self) -> Global___CallParticipant:
         """The participant after the request"""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        participant: global___CallParticipant | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        participant: Global___CallParticipant | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["participant", b"participant"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "error_message", b"error_message", "participant", b"participant", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["participant", b"participant"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "error_message", b"error_message", "participant", b"participant", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RemoveCallParticipantResponse = RemoveCallParticipantResponse
+Global___RemoveCallParticipantResponse: _TypeAlias = RemoveCallParticipantResponse  # noqa: Y015
 
-@typing.final
-class SetCallMediaControlRequest(google.protobuf.message.Message):
+@_typing.final
+class SetCallMediaControlRequest(_message.Message):
     """<p>Request to mute the bot of a call and/or stop it listening</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    BOT_VOICE_FIELD_NUMBER: builtins.int
-    BOT_LISTENING_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    BOT_VOICE_FIELD_NUMBER: _builtins.int
+    BOT_LISTENING_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Name of the connected call"""
-    bot_voice: global___CallMediaSetting.ValueType
+    bot_voice: Global___CallMediaSetting.ValueType
     """<code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again,
     <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
     <p>Both <code>bot_voice</code> and <code>bot_listening</code> <code>UNCHANGED</code> is a valid READ of the
@@ -4161,316 +4442,354 @@ class SetCallMediaControlRequest(google.protobuf.message.Message):
     it with <code>INVALID_ARGUMENT</code>; <code>Call.media_control</code> (<code>GetCall</code>) reads the same
     state from any server.</p>
     """
-    bot_listening: global___CallMediaSetting.ValueType
+    bot_listening: Global___CallMediaSetting.ValueType
     """<code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it,
     <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
     """
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        bot_voice: global___CallMediaSetting.ValueType = ...,
-        bot_listening: global___CallMediaSetting.ValueType = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        bot_voice: Global___CallMediaSetting.ValueType = ...,
+        bot_listening: Global___CallMediaSetting.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["bot_listening", b"bot_listening", "bot_voice", b"bot_voice", "call_name", b"call_name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["bot_listening", b"bot_listening", "bot_voice", b"bot_voice", "call_name", b"call_name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SetCallMediaControlRequest = SetCallMediaControlRequest
+Global___SetCallMediaControlRequest: _TypeAlias = SetCallMediaControlRequest  # noqa: Y015
 
-@typing.final
-class SetCallMediaControlResponse(google.protobuf.message.Message):
+@_typing.final
+class SetCallMediaControlResponse(_message.Message):
     """<p>Response of <code>SetCallMediaControl</code></p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    STATE_FIELD_NUMBER: builtins.int
-    CHANGED_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    STATE_FIELD_NUMBER: _builtins.int
+    CHANGED_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Name of the call"""
-    changed: builtins.bool
+    changed: _builtins.bool
     """<code>true</code> if the effective state changed; <code>false</code> for a repeat of the current level and for
     a read (both settings <code>UNCHANGED</code>)
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
     Kept for wire compatibility.
     """
-    @property
-    def state(self) -> global___CallMediaControlState:
+    @_builtins.property
+    def state(self) -> Global___CallMediaControlState:
         """Effective media control state after the request"""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        state: global___CallMediaControlState | None = ...,
-        changed: builtins.bool = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        state: Global___CallMediaControlState | None = ...,
+        changed: _builtins.bool = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["state", b"state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "changed", b"changed", "error_message", b"error_message", "state", b"state", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["state", b"state"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "changed", b"changed", "error_message", b"error_message", "state", b"state", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SetCallMediaControlResponse = SetCallMediaControlResponse
+Global___SetCallMediaControlResponse: _TypeAlias = SetCallMediaControlResponse  # noqa: Y015
 
-@typing.final
-class StreamCallAudioConfig(google.protobuf.message.Message):
+@_typing.final
+class StreamCallAudioConfig(_message.Message):
     """<p>Configuration of a call audio stream. The first request of <code>StreamCallAudio</code></p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    MODE_FIELD_NUMBER: builtins.int
-    SAMPLE_RATE_HZ_FIELD_NUMBER: builtins.int
-    TAKE_OVER_FIELD_NUMBER: builtins.int
-    MAX_DURATION_S_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    MODE_FIELD_NUMBER: _builtins.int
+    SAMPLE_RATE_HZ_FIELD_NUMBER: _builtins.int
+    TAKE_OVER_FIELD_NUMBER: _builtins.int
+    MAX_DURATION_S_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Name of the connected call"""
-    mode: global___CallAudioMode.ValueType
+    mode: Global___CallAudioMode.ValueType
     """Mode of the stream. Unspecified means LISTEN"""
-    sample_rate_hz: builtins.int
+    sample_rate_hz: _builtins.int
     """Sample rate in Hz in both directions: <code>8000</code> or <code>16000</code>; <code>0</code> means <code>16000</code>.
     Audio is LINEAR16 little-endian mono in 20 ms frames
     """
-    take_over: builtins.bool
+    take_over: _builtins.bool
     """REQUIRED for TALK: the bot is muted and does not listen while the stream is connected"""
-    max_duration_s: builtins.int
+    max_duration_s: _builtins.int
     """Maximum duration of the stream in seconds. <code>0</code> means the server maximum"""
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        mode: global___CallAudioMode.ValueType = ...,
-        sample_rate_hz: builtins.int = ...,
-        take_over: builtins.bool = ...,
-        max_duration_s: builtins.int = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        mode: Global___CallAudioMode.ValueType = ...,
+        sample_rate_hz: _builtins.int = ...,
+        take_over: _builtins.bool = ...,
+        max_duration_s: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["call_name", b"call_name", "max_duration_s", b"max_duration_s", "mode", b"mode", "sample_rate_hz", b"sample_rate_hz", "take_over", b"take_over", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_name", b"call_name", "max_duration_s", b"max_duration_s", "mode", b"mode", "sample_rate_hz", b"sample_rate_hz", "take_over", b"take_over", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StreamCallAudioConfig = StreamCallAudioConfig
+Global___StreamCallAudioConfig: _TypeAlias = StreamCallAudioConfig  # noqa: Y015
 
-@typing.final
-class CallAudioFrame(google.protobuf.message.Message):
+@_typing.final
+class CallAudioFrame(_message.Message):
     """<p>One 20 ms frame of call audio</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PCM_S16LE_FIELD_NUMBER: builtins.int
-    SEQUENCE_FIELD_NUMBER: builtins.int
-    pcm_s16le: builtins.bytes
+    PCM_S16LE_FIELD_NUMBER: _builtins.int
+    SEQUENCE_FIELD_NUMBER: _builtins.int
+    pcm_s16le: _builtins.bytes
     """LINEAR16 little-endian mono samples, <code>sample_rate_hz * 0.02 * 2</code> bytes"""
-    sequence: builtins.int
+    sequence: _builtins.int
     """Monotonic sequence number of the frame within its direction of the stream"""
     def __init__(
         self,
         *,
-        pcm_s16le: builtins.bytes = ...,
-        sequence: builtins.int = ...,
+        pcm_s16le: _builtins.bytes = ...,
+        sequence: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["pcm_s16le", b"pcm_s16le", "sequence", b"sequence"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["pcm_s16le", b"pcm_s16le", "sequence", b"sequence"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallAudioFrame = CallAudioFrame
+Global___CallAudioFrame: _TypeAlias = CallAudioFrame  # noqa: Y015
 
-@typing.final
-class StreamCallAudioRequest(google.protobuf.message.Message):
+@_typing.final
+class StreamCallAudioRequest(_message.Message):
     """<p>Request of <code>StreamCallAudio</code></p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONFIG_FIELD_NUMBER: builtins.int
-    AUDIO_FIELD_NUMBER: builtins.int
-    AGENT_MUTED_FIELD_NUMBER: builtins.int
-    agent_muted: builtins.bool
+    CONFIG_FIELD_NUMBER: _builtins.int
+    AUDIO_FIELD_NUMBER: _builtins.int
+    AGENT_MUTED_FIELD_NUMBER: _builtins.int
+    agent_muted: _builtins.bool
     """<code>true</code>: the agent&apos;s audio is not sent to the caller until set to <code>false</code>"""
-    @property
-    def config(self) -> global___StreamCallAudioConfig:
+    @_builtins.property
+    def config(self) -> Global___StreamCallAudioConfig:
         """Configuration; must be the first request and is accepted only once"""
 
-    @property
-    def audio(self) -> global___CallAudioFrame:
+    @_builtins.property
+    def audio(self) -> Global___CallAudioFrame:
         """Agent audio to send to the caller (TALK only)"""
 
     def __init__(
         self,
         *,
-        config: global___StreamCallAudioConfig | None = ...,
-        audio: global___CallAudioFrame | None = ...,
-        agent_muted: builtins.bool = ...,
+        config: Global___StreamCallAudioConfig | None = ...,
+        audio: Global___CallAudioFrame | None = ...,
+        agent_muted: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["agent_muted", b"agent_muted", "audio", b"audio", "config", b"config", "request", b"request"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["agent_muted", b"agent_muted", "audio", b"audio", "config", b"config", "request", b"request"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["request", b"request"]) -> typing.Literal["config", "audio", "agent_muted"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["agent_muted", b"agent_muted", "audio", b"audio", "config", b"config", "request", b"request"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["agent_muted", b"agent_muted", "audio", b"audio", "config", b"config", "request", b"request"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_request: _TypeAlias = _typing.Literal["config", "audio", "agent_muted"]  # noqa: Y015
+    _WhichOneofArgType_request: _TypeAlias = _typing.Literal["request", b"request"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_request) -> _WhichOneofReturnType_request | None: ...
 
-global___StreamCallAudioRequest = StreamCallAudioRequest
+Global___StreamCallAudioRequest: _TypeAlias = StreamCallAudioRequest  # noqa: Y015
 
-@typing.final
-class CallAudioStarted(google.protobuf.message.Message):
+@_typing.final
+class CallAudioStarted(_message.Message):
     """<p>Sent once when a call audio stream is connected</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STREAM_ID_FIELD_NUMBER: builtins.int
-    SAMPLE_RATE_HZ_FIELD_NUMBER: builtins.int
-    FRAME_MS_FIELD_NUMBER: builtins.int
-    MODE_FIELD_NUMBER: builtins.int
-    stream_id: builtins.str
+    STREAM_ID_FIELD_NUMBER: _builtins.int
+    SAMPLE_RATE_HZ_FIELD_NUMBER: _builtins.int
+    FRAME_MS_FIELD_NUMBER: _builtins.int
+    MODE_FIELD_NUMBER: _builtins.int
+    stream_id: _builtins.str
     """Identifier of the stream (audit correlation)"""
-    sample_rate_hz: builtins.int
+    sample_rate_hz: _builtins.int
     """Sample rate in Hz in both directions"""
-    frame_ms: builtins.int
+    frame_ms: _builtins.int
     """Frame length in milliseconds"""
-    mode: global___CallAudioMode.ValueType
+    mode: Global___CallAudioMode.ValueType
     """Mode of the stream"""
     def __init__(
         self,
         *,
-        stream_id: builtins.str = ...,
-        sample_rate_hz: builtins.int = ...,
-        frame_ms: builtins.int = ...,
-        mode: global___CallAudioMode.ValueType = ...,
+        stream_id: _builtins.str = ...,
+        sample_rate_hz: _builtins.int = ...,
+        frame_ms: _builtins.int = ...,
+        mode: Global___CallAudioMode.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["frame_ms", b"frame_ms", "mode", b"mode", "sample_rate_hz", b"sample_rate_hz", "stream_id", b"stream_id"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["frame_ms", b"frame_ms", "mode", b"mode", "sample_rate_hz", b"sample_rate_hz", "stream_id", b"stream_id"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallAudioStarted = CallAudioStarted
+Global___CallAudioStarted: _TypeAlias = CallAudioStarted  # noqa: Y015
 
-@typing.final
-class CallAudioStats(google.protobuf.message.Message):
+@_typing.final
+class CallAudioStats(_message.Message):
     """<p>Counters of a call audio stream, sent periodically</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FRAMES_SENT_FIELD_NUMBER: builtins.int
-    FRAMES_DROPPED_FIELD_NUMBER: builtins.int
-    FRAMES_RECEIVED_FIELD_NUMBER: builtins.int
-    UNDERRUNS_FIELD_NUMBER: builtins.int
-    FRAMES_DISCARDED_FIELD_NUMBER: builtins.int
-    frames_sent: builtins.int
+    FRAMES_SENT_FIELD_NUMBER: _builtins.int
+    FRAMES_DROPPED_FIELD_NUMBER: _builtins.int
+    FRAMES_RECEIVED_FIELD_NUMBER: _builtins.int
+    UNDERRUNS_FIELD_NUMBER: _builtins.int
+    FRAMES_DISCARDED_FIELD_NUMBER: _builtins.int
+    frames_sent: _builtins.int
     """Frames sent to the client"""
-    frames_dropped: builtins.int
+    frames_dropped: _builtins.int
     """Frames to the client dropped because the client read too slowly"""
-    frames_received: builtins.int
+    frames_received: _builtins.int
     """Frames received from the client"""
-    underruns: builtins.int
+    underruns: _builtins.int
     """Playback underruns of the agent audio"""
-    frames_discarded: builtins.int
+    frames_discarded: _builtins.int
     """Frames from the client discarded because the playback buffer was full"""
     def __init__(
         self,
         *,
-        frames_sent: builtins.int = ...,
-        frames_dropped: builtins.int = ...,
-        frames_received: builtins.int = ...,
-        underruns: builtins.int = ...,
-        frames_discarded: builtins.int = ...,
+        frames_sent: _builtins.int = ...,
+        frames_dropped: _builtins.int = ...,
+        frames_received: _builtins.int = ...,
+        underruns: _builtins.int = ...,
+        frames_discarded: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["frames_discarded", b"frames_discarded", "frames_dropped", b"frames_dropped", "frames_received", b"frames_received", "frames_sent", b"frames_sent", "underruns", b"underruns"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["frames_discarded", b"frames_discarded", "frames_dropped", b"frames_dropped", "frames_received", b"frames_received", "frames_sent", b"frames_sent", "underruns", b"underruns"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallAudioStats = CallAudioStats
+Global___CallAudioStats: _TypeAlias = CallAudioStats  # noqa: Y015
 
-@typing.final
-class CallAudioEnded(google.protobuf.message.Message):
+@_typing.final
+class CallAudioEnded(_message.Message):
     """<p>Sent once when a call audio stream ends normally</p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    REASON_FIELD_NUMBER: builtins.int
-    DETAIL_FIELD_NUMBER: builtins.int
-    reason: global___CallAudioEndReason.ValueType
+    REASON_FIELD_NUMBER: _builtins.int
+    DETAIL_FIELD_NUMBER: _builtins.int
+    reason: Global___CallAudioEndReason.ValueType
     """Why the stream ended"""
-    detail: builtins.str
+    detail: _builtins.str
     """Optional detail, a stable token"""
     def __init__(
         self,
         *,
-        reason: global___CallAudioEndReason.ValueType = ...,
-        detail: builtins.str = ...,
+        reason: Global___CallAudioEndReason.ValueType = ...,
+        detail: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["detail", b"detail", "reason", b"reason"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["detail", b"detail", "reason", b"reason"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallAudioEnded = CallAudioEnded
+Global___CallAudioEnded: _TypeAlias = CallAudioEnded  # noqa: Y015
 
-@typing.final
-class StreamCallAudioResponse(google.protobuf.message.Message):
+@_typing.final
+class StreamCallAudioResponse(_message.Message):
     """<p>Response of <code>StreamCallAudio</code> and <code>ListenCallAudio</code></p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STARTED_FIELD_NUMBER: builtins.int
-    AUDIO_FIELD_NUMBER: builtins.int
-    STATS_FIELD_NUMBER: builtins.int
-    ENDED_FIELD_NUMBER: builtins.int
-    @property
-    def started(self) -> global___CallAudioStarted:
+    STARTED_FIELD_NUMBER: _builtins.int
+    AUDIO_FIELD_NUMBER: _builtins.int
+    STATS_FIELD_NUMBER: _builtins.int
+    ENDED_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def started(self) -> Global___CallAudioStarted:
         """The stream is connected"""
 
-    @property
-    def audio(self) -> global___CallAudioFrame:
+    @_builtins.property
+    def audio(self) -> Global___CallAudioFrame:
         """Call audio"""
 
-    @property
-    def stats(self) -> global___CallAudioStats:
+    @_builtins.property
+    def stats(self) -> Global___CallAudioStats:
         """Stream counters"""
 
-    @property
-    def ended(self) -> global___CallAudioEnded:
+    @_builtins.property
+    def ended(self) -> Global___CallAudioEnded:
         """The stream ended"""
 
     def __init__(
         self,
         *,
-        started: global___CallAudioStarted | None = ...,
-        audio: global___CallAudioFrame | None = ...,
-        stats: global___CallAudioStats | None = ...,
-        ended: global___CallAudioEnded | None = ...,
+        started: Global___CallAudioStarted | None = ...,
+        audio: Global___CallAudioFrame | None = ...,
+        stats: Global___CallAudioStats | None = ...,
+        ended: Global___CallAudioEnded | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["audio", b"audio", "ended", b"ended", "response", b"response", "started", b"started", "stats", b"stats"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["audio", b"audio", "ended", b"ended", "response", b"response", "started", b"started", "stats", b"stats"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["response", b"response"]) -> typing.Literal["started", "audio", "stats", "ended"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["audio", b"audio", "ended", b"ended", "response", b"response", "started", b"started", "stats", b"stats"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["audio", b"audio", "ended", b"ended", "response", b"response", "started", b"started", "stats", b"stats"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_response: _TypeAlias = _typing.Literal["started", "audio", "stats", "ended"]  # noqa: Y015
+    _WhichOneofArgType_response: _TypeAlias = _typing.Literal["response", b"response"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_response) -> _WhichOneofReturnType_response | None: ...
 
-global___StreamCallAudioResponse = StreamCallAudioResponse
+Global___StreamCallAudioResponse: _TypeAlias = StreamCallAudioResponse  # noqa: Y015
 
-@typing.final
-class ListenCallAudioRequest(google.protobuf.message.Message):
+@_typing.final
+class ListenCallAudioRequest(_message.Message):
     """<p>Request of <code>ListenCallAudio</code></p>"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONFIG_FIELD_NUMBER: builtins.int
-    @property
-    def config(self) -> global___StreamCallAudioConfig:
+    CONFIG_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def config(self) -> Global___StreamCallAudioConfig:
         """Configuration of the stream; <code>mode</code> must be LISTEN or unspecified and <code>take_over</code> false"""
 
     def __init__(
         self,
         *,
-        config: global___StreamCallAudioConfig | None = ...,
+        config: Global___StreamCallAudioConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["config", b"config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["config", b"config"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["config", b"config"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["config", b"config"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListenCallAudioRequest = ListenCallAudioRequest
+Global___ListenCallAudioRequest: _TypeAlias = ListenCallAudioRequest  # noqa: Y015
 
-@typing.final
-class TransferCallsRequest(google.protobuf.message.Message):
+@_typing.final
+class TransferCallsRequest(_message.Message):
     """Request to transfer multiple calls"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    TRANSFER_CALL_REQUESTS_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    TRANSFER_CALL_REQUESTS_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    @property
-    def transfer_call_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TransferCallRequest]:
+    @_builtins.property
+    def transfer_call_requests(self) -> _containers.RepeatedCompositeFieldContainer[Global___TransferCallRequest]:
         """The transfers, 1 to 1000, applied one by one and each like <code>TransferCall</code> (not atomic: a failed
         entry does not stop the others). An entry with an empty <code>vtsi_project_name</code> takes this
         request&apos;s; an entry naming another project, or a call of another project, fails on its own (its
@@ -4480,31 +4799,35 @@ class TransferCallsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        transfer_call_requests: collections.abc.Iterable[global___TransferCallRequest] | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        transfer_call_requests: _abc.Iterable[Global___TransferCallRequest] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["transfer_call_requests", b"transfer_call_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["transfer_call_requests", b"transfer_call_requests", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TransferCallsRequest = TransferCallsRequest
+Global___TransferCallsRequest: _TypeAlias = TransferCallsRequest  # noqa: Y015
 
-@typing.final
-class TransferCallsResponse(google.protobuf.message.Message):
+@_typing.final
+class TransferCallsResponse(_message.Message):
     """Response to transfer a call to a phone number or voip number"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    TRANSFER_CALL_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    TRANSFER_CALL_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """A summary when at least one entry failed (e.g. <code>Errors occurred during the transfer of 2 out of 5
     calls.</code>), empty when no entry carries an <code>error_message</code>. Telephony outcomes are read from
     each entry&apos;s <code>outcome</code>.
     """
-    @property
-    def transfer_call_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TransferCallResponse]:
+    @_builtins.property
+    def transfer_call_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___TransferCallResponse]:
         """One entry per entry of the request, in request order: the outcome of that transfer, or its
         <code>error_message</code>
         """
@@ -4512,38 +4835,42 @@ class TransferCallsResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        transfer_call_responses: collections.abc.Iterable[global___TransferCallResponse] | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        transfer_call_responses: _abc.Iterable[Global___TransferCallResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "transfer_call_responses", b"transfer_call_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "transfer_call_responses", b"transfer_call_responses", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TransferCallsResponse = TransferCallsResponse
+Global___TransferCallsResponse: _TypeAlias = TransferCallsResponse  # noqa: Y015
 
-@typing.final
-class GetCallRequest(google.protobuf.message.Message):
+@_typing.final
+class GetCallRequest(_message.Message):
     """Request to get a call"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    CALL_VIEW_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    CALL_VIEW_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     Required. Redundant with the project segment of <code>call_name</code>, by the rule of
     <code>GetCallerRequest.vtsi_project_name</code>.
     """
-    call_name: builtins.str
+    call_name: _builtins.str
     """call name
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
-    call_view: global___CallView.ValueType
+    call_view: Global___CallView.ValueType
     """Optional. How much of the call to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>."""
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the returned <code>Call</code>, relative to the
         <code>Call</code> message, e.g. <code>call_type</code>, <code>phone_number</code>, <code>labels</code>,
         <code>sip_status.status_type</code>. Nested paths through singular message fields are allowed; a path
@@ -4557,105 +4884,113 @@ class GetCallRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        call_view: global___CallView.ValueType | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        call_view: Global___CallView.ValueType | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_view", b"_call_view", "call_name", b"call_name", "call_view", b"call_view", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "call_view", b"call_view", "field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_view", b"_call_view", "call_name", b"call_name", "call_view", b"call_view", "field_mask", b"field_mask", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_view: _TypeAlias = _typing.Literal["call_view"]  # noqa: Y015
+    _WhichOneofArgType__call_view: _TypeAlias = _typing.Literal["_call_view", b"_call_view"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_view) -> _WhichOneofReturnType__call_view | None: ...
 
-global___GetCallRequest = GetCallRequest
+Global___GetCallRequest: _TypeAlias = GetCallRequest  # noqa: Y015
 
-@typing.final
-class Call(google.protobuf.message.Message):
+@_typing.final
+class Call(_message.Message):
     """A call of a listener or caller: one record per call, kept after the call ended. Every field is output only
     except <code>labels</code> (see <code>UpdateCall</code>). The WAITING record of a persistent listener or pooled
     caller (status <code>NO_ONGOING_CALL</code>, not active, no start time) is a <code>Call</code> too.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class LabelsEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class LabelsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
+            key: _builtins.str = ...,
+            value: _builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    SIP_ACCOUNT_FIELD_NUMBER: builtins.int
-    CONTAINER_NAME_FIELD_NUMBER: builtins.int
-    CALL_TYPE_FIELD_NUMBER: builtins.int
-    PHONE_NUMBER_FIELD_NUMBER: builtins.int
-    START_TIME_FIELD_NUMBER: builtins.int
-    END_TIME_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_FIELD_NUMBER: builtins.int
-    SIP_STATUS_HISTORY_FIELD_NUMBER: builtins.int
-    SERVICES_STATUSES_FIELD_NUMBER: builtins.int
-    ACTIVE_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
-    SIP_PORT_FIELD_NUMBER: builtins.int
-    CSI_PORT_FIELD_NUMBER: builtins.int
-    NLU_SESSION_NAME_FIELD_NUMBER: builtins.int
-    PLATFORMS_FIELD_NUMBER: builtins.int
-    REDIAL_RECOMMENDED_FIELD_NUMBER: builtins.int
-    REDIAL_REASON_FIELD_NUMBER: builtins.int
-    ANSWERING_MACHINE_DETECTION_END_DESCRIPTION_FIELD_NUMBER: builtins.int
-    MEDIA_CONTROL_FIELD_NUMBER: builtins.int
-    PARTICIPANTS_FIELD_NUMBER: builtins.int
-    LAST_TRANSFER_FIELD_NUMBER: builtins.int
-    SIP_CALL_ID_FIELD_NUMBER: builtins.int
-    LABELS_FIELD_NUMBER: builtins.int
-    IVR_MENU_DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    IVR_PATH_FIELD_NUMBER: builtins.int
-    IVR_MENU_NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    SIP_ACCOUNT_FIELD_NUMBER: _builtins.int
+    CONTAINER_NAME_FIELD_NUMBER: _builtins.int
+    CALL_TYPE_FIELD_NUMBER: _builtins.int
+    PHONE_NUMBER_FIELD_NUMBER: _builtins.int
+    START_TIME_FIELD_NUMBER: _builtins.int
+    END_TIME_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_HISTORY_FIELD_NUMBER: _builtins.int
+    SERVICES_STATUSES_FIELD_NUMBER: _builtins.int
+    ACTIVE_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    COMMON_SERVICES_CONFIG_FIELD_NUMBER: _builtins.int
+    SIP_PORT_FIELD_NUMBER: _builtins.int
+    CSI_PORT_FIELD_NUMBER: _builtins.int
+    NLU_SESSION_NAME_FIELD_NUMBER: _builtins.int
+    PLATFORMS_FIELD_NUMBER: _builtins.int
+    REDIAL_RECOMMENDED_FIELD_NUMBER: _builtins.int
+    REDIAL_REASON_FIELD_NUMBER: _builtins.int
+    ANSWERING_MACHINE_DETECTION_END_DESCRIPTION_FIELD_NUMBER: _builtins.int
+    MEDIA_CONTROL_FIELD_NUMBER: _builtins.int
+    PARTICIPANTS_FIELD_NUMBER: _builtins.int
+    LAST_TRANSFER_FIELD_NUMBER: _builtins.int
+    SIP_CALL_ID_FIELD_NUMBER: _builtins.int
+    LABELS_FIELD_NUMBER: _builtins.int
+    IVR_MENU_DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    IVR_PATH_FIELD_NUMBER: _builtins.int
+    IVR_MENU_NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """call name
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
-    sip_account: builtins.str
+    sip_account: _builtins.str
     """The SIP account (on the project&apos;s Asterisk) the call&apos;s container registered with, e.g.
     <code>ondewo0007</code>
     """
-    container_name: builtins.str
+    container_name: _builtins.str
     """Name of the call&apos;s ondewo-sip container, as <code>docker ps</code> shows it"""
-    call_type: global___CallType.ValueType
+    call_type: Global___CallType.ValueType
     """<code>LISTENER</code>, <code>CALLER</code> or <code>SCHEDULED_CALLER</code>; never <code>BOTH</code> (see
     <code>CallType</code>)
     """
-    phone_number: builtins.str
+    phone_number: _builtins.str
     """The callee (outbound call) or the calling party (inbound call): a phone number or a VoIP id, as dialled or
     as received
     """
-    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType
     """The call&apos;s current SIP status type, or its last one once the call ended"""
-    active: builtins.bool
+    active: _builtins.bool
     """Whether the call is active, i.e. set up or connected"""
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    sip_port: builtins.int
+    sip_port: _builtins.int
     """Port (1 to 65535) of the gRPC server of the call&apos;s ondewo-sip container"""
-    csi_port: builtins.int
+    csi_port: _builtins.int
     """Port (1 to 65535) of the gRPC server of the call&apos;s CSI (speech-to-speech) process"""
-    nlu_session_name: builtins.str
+    nlu_session_name: _builtins.str
     """NLU session name"""
-    platforms: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType
+    platforms: _intent_pb2.Intent.Message.Platform.ValueType
     """Messages for each of the Intent.Message.Platform were sent to the user"""
-    redial_recommended: builtins.bool
+    redial_recommended: _builtins.bool
     """Optional: Whether the callee should be called again later, set only when the answering machine
     detection (AMD) ended the call: true for an answering machine or a network announcement hung up
     on without a voice message, false once a voice message was left and false for a fax.
@@ -4663,11 +4998,11 @@ class Call(google.protobuf.message.Message):
     The AMD verdict, cause and confidence of the call are in sip_status.amd_result.
     No call is redialled automatically; the marker is for the campaign logic of the client
     """
-    redial_reason: builtins.str
+    redial_reason: _builtins.str
     """Optional: Reason of redial_recommended, set together with it. One of
     "answering_machine", "network_announcement" or "fax"
     """
-    answering_machine_detection_end_description: builtins.str
+    answering_machine_detection_end_description: _builtins.str
     """Optional: Description of how a call ended by the answering machine detection (AMD) ended, i.e. the
     description of its terminal ondewo.sip.SipStatus.StatusType.OUTGOING_CALL_FINISHED status. One of
     "Answering machine detected with hang up",
@@ -4676,61 +5011,61 @@ class Call(google.protobuf.message.Message):
     "Answering machine detected, call ended by the answering machine after leaving a voice message".
     Unset when AMD did not end the call
     """
-    sip_call_id: builtins.str
+    sip_call_id: _builtins.str
     """Identifier the call&apos;s SIP container minted for the call (<code>ondewo.sip.SipStatus.call_id</code>). Empty until
     the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then.
     Set in the SHALLOW and FULL views
     """
-    ivr_menu_display_name: builtins.str
+    ivr_menu_display_name: _builtins.str
     """Output only. The display name of the IVR menu the caller came through before the bot took the call (from
     <code>X-ondewo-ivr-menu</code>); empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL
     views
     """
-    ivr_path: builtins.str
+    ivr_path: _builtins.str
     """Output only. The option labels the caller took through the IVR menus, e.g. <code>main:1&gt;billing:2</code>
     (from <code>X-ondewo-ivr-path</code>, at most 256 characters); empty when the call did not pass an IVR menu.
     Set in the SHALLOW and FULL views
     """
-    ivr_menu_name: builtins.str
+    ivr_menu_name: _builtins.str
     """Output only. Resource name of the IVR menu that handled the call&apos;s IVR leg, i.e. the menu
     <code>ivr_menu_display_name</code> names, so a client can find the menu by id instead of by its label.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>
     Empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL views
     """
-    @property
-    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def start_time(self) -> _timestamp_pb2.Timestamp:
         """When the call started (the SIP call was set up); unset for the waiting record of a persistent listener or
         pooled caller
         """
 
-    @property
-    def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def end_time(self) -> _timestamp_pb2.Timestamp:
         """When the call ended; unset while the call is active"""
 
-    @property
-    def sip_status(self) -> ondewo.sip.sip_pb2.SipStatus:
+    @_builtins.property
+    def sip_status(self) -> _sip_pb2.SipStatus:
         """current sip status"""
 
-    @property
-    def sip_status_history(self) -> ondewo.sip.sip_pb2.SipStatusHistoryResponse:
+    @_builtins.property
+    def sip_status_history(self) -> _sip_pb2.SipStatusHistoryResponse:
         """sip status history"""
 
-    @property
-    def services_statuses(self) -> global___AllServicesStatuses:
+    @_builtins.property
+    def services_statuses(self) -> Global___AllServicesStatuses:
         """All container health statuses"""
 
-    @property
-    def common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
+    @_builtins.property
+    def common_services_config(self) -> _call_configs_pb2.CommonServicesConfig:
         """Detailed configuration of the services used for the call such as S2T, T2S, NLU, SIP and CSI"""
 
-    @property
-    def media_control(self) -> global___CallMediaControlState:
+    @_builtins.property
+    def media_control(self) -> Global___CallMediaControlState:
         """Media control state of the call (bot muted, listening paused, connected audio streams, joined participants).
         Set in the SHALLOW and FULL views
         """
 
-    @property
-    def participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallParticipant]:
+    @_builtins.property
+    def participants(self) -> _containers.RepeatedCompositeFieldContainer[Global___CallParticipant]:
         """Participants invited into the call (<code>InviteToCall</code>), oldest invitation first. FULL view: all of
         them, including those that FAILED or LEFT; SHALLOW view: only those still RINGING or JOINED; MINIMUM view:
         none. So the complete participant history of a call is read with <code>GetCall</code>,
@@ -4738,12 +5073,12 @@ class Call(google.protobuf.message.Message):
         are kept as long as the call record.
         """
 
-    @property
-    def last_transfer(self) -> global___CallTransferRecord:
+    @_builtins.property
+    def last_transfer(self) -> Global___CallTransferRecord:
         """The last transfer attempt of the call; unset if there was none. Set in the SHALLOW and FULL views"""
 
-    @property
-    def labels(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def labels(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Client-defined descriptive labels of the call, e.g. <code>{"ticket": "4711", "outcome": "callback"}</code>.
         Empty until a client sets them; the server never sets or interprets them. Written ONLY by
         <code>UpdateCall</code> / <code>UpdateCalls</code> with the <code>update_mask</code> path
@@ -4762,65 +5097,89 @@ class Call(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        sip_account: builtins.str = ...,
-        container_name: builtins.str = ...,
-        call_type: global___CallType.ValueType = ...,
-        phone_number: builtins.str = ...,
-        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
-        sip_status: ondewo.sip.sip_pb2.SipStatus | None = ...,
-        sip_status_history: ondewo.sip.sip_pb2.SipStatusHistoryResponse | None = ...,
-        services_statuses: global___AllServicesStatuses | None = ...,
-        active: builtins.bool = ...,
-        vtsi_project_name: builtins.str = ...,
-        common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
-        sip_port: builtins.int | None = ...,
-        csi_port: builtins.int | None = ...,
-        nlu_session_name: builtins.str | None = ...,
-        platforms: ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType | None = ...,
-        redial_recommended: builtins.bool | None = ...,
-        redial_reason: builtins.str | None = ...,
-        answering_machine_detection_end_description: builtins.str | None = ...,
-        media_control: global___CallMediaControlState | None = ...,
-        participants: collections.abc.Iterable[global___CallParticipant] | None = ...,
-        last_transfer: global___CallTransferRecord | None = ...,
-        sip_call_id: builtins.str = ...,
-        labels: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        ivr_menu_display_name: builtins.str = ...,
-        ivr_path: builtins.str = ...,
-        ivr_menu_name: builtins.str = ...,
+        name: _builtins.str = ...,
+        sip_account: _builtins.str = ...,
+        container_name: _builtins.str = ...,
+        call_type: Global___CallType.ValueType = ...,
+        phone_number: _builtins.str = ...,
+        start_time: _timestamp_pb2.Timestamp | None = ...,
+        end_time: _timestamp_pb2.Timestamp | None = ...,
+        sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType = ...,
+        sip_status: _sip_pb2.SipStatus | None = ...,
+        sip_status_history: _sip_pb2.SipStatusHistoryResponse | None = ...,
+        services_statuses: Global___AllServicesStatuses | None = ...,
+        active: _builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        common_services_config: _call_configs_pb2.CommonServicesConfig | None = ...,
+        sip_port: _builtins.int | None = ...,
+        csi_port: _builtins.int | None = ...,
+        nlu_session_name: _builtins.str | None = ...,
+        platforms: _intent_pb2.Intent.Message.Platform.ValueType | None = ...,
+        redial_recommended: _builtins.bool | None = ...,
+        redial_reason: _builtins.str | None = ...,
+        answering_machine_detection_end_description: _builtins.str | None = ...,
+        media_control: Global___CallMediaControlState | None = ...,
+        participants: _abc.Iterable[Global___CallParticipant] | None = ...,
+        last_transfer: Global___CallTransferRecord | None = ...,
+        sip_call_id: _builtins.str = ...,
+        labels: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        ivr_menu_display_name: _builtins.str = ...,
+        ivr_path: _builtins.str = ...,
+        ivr_menu_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "common_services_config", b"common_services_config", "csi_port", b"csi_port", "end_time", b"end_time", "last_transfer", b"last_transfer", "media_control", b"media_control", "nlu_session_name", b"nlu_session_name", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "end_time", b"end_time", "ivr_menu_display_name", b"ivr_menu_display_name", "ivr_menu_name", b"ivr_menu_name", "ivr_path", b"ivr_path", "labels", b"labels", "last_transfer", b"last_transfer", "media_control", b"media_control", "name", b"name", "nlu_session_name", b"nlu_session_name", "participants", b"participants", "phone_number", b"phone_number", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_call_id", b"sip_call_id", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description"]) -> typing.Literal["answering_machine_detection_end_description"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_common_services_config", b"_common_services_config"]) -> typing.Literal["common_services_config"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_csi_port", b"_csi_port"]) -> typing.Literal["csi_port"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_nlu_session_name", b"_nlu_session_name"]) -> typing.Literal["nlu_session_name"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_platforms", b"_platforms"]) -> typing.Literal["platforms"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_redial_reason", b"_redial_reason"]) -> typing.Literal["redial_reason"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_redial_recommended", b"_redial_recommended"]) -> typing.Literal["redial_recommended"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_services_statuses", b"_services_statuses"]) -> typing.Literal["services_statuses"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sip_port", b"_sip_port"]) -> typing.Literal["sip_port"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sip_status", b"_sip_status"]) -> typing.Literal["sip_status"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_sip_status_history", b"_sip_status_history"]) -> typing.Literal["sip_status_history"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "common_services_config", b"common_services_config", "csi_port", b"csi_port", "end_time", b"end_time", "last_transfer", b"last_transfer", "media_control", b"media_control", "nlu_session_name", b"nlu_session_name", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "start_time", b"start_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "end_time", b"end_time", "ivr_menu_display_name", b"ivr_menu_display_name", "ivr_menu_name", b"ivr_menu_name", "ivr_path", b"ivr_path", "labels", b"labels", "last_transfer", b"last_transfer", "media_control", b"media_control", "name", b"name", "nlu_session_name", b"nlu_session_name", "participants", b"participants", "phone_number", b"phone_number", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_call_id", b"sip_call_id", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__answering_machine_detection_end_description: _TypeAlias = _typing.Literal["answering_machine_detection_end_description"]  # noqa: Y015
+    _WhichOneofArgType__answering_machine_detection_end_description: _TypeAlias = _typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description"]  # noqa: Y015
+    _WhichOneofReturnType__common_services_config: _TypeAlias = _typing.Literal["common_services_config"]  # noqa: Y015
+    _WhichOneofArgType__common_services_config: _TypeAlias = _typing.Literal["_common_services_config", b"_common_services_config"]  # noqa: Y015
+    _WhichOneofReturnType__csi_port: _TypeAlias = _typing.Literal["csi_port"]  # noqa: Y015
+    _WhichOneofArgType__csi_port: _TypeAlias = _typing.Literal["_csi_port", b"_csi_port"]  # noqa: Y015
+    _WhichOneofReturnType__nlu_session_name: _TypeAlias = _typing.Literal["nlu_session_name"]  # noqa: Y015
+    _WhichOneofArgType__nlu_session_name: _TypeAlias = _typing.Literal["_nlu_session_name", b"_nlu_session_name"]  # noqa: Y015
+    _WhichOneofReturnType__platforms: _TypeAlias = _typing.Literal["platforms"]  # noqa: Y015
+    _WhichOneofArgType__platforms: _TypeAlias = _typing.Literal["_platforms", b"_platforms"]  # noqa: Y015
+    _WhichOneofReturnType__redial_reason: _TypeAlias = _typing.Literal["redial_reason"]  # noqa: Y015
+    _WhichOneofArgType__redial_reason: _TypeAlias = _typing.Literal["_redial_reason", b"_redial_reason"]  # noqa: Y015
+    _WhichOneofReturnType__redial_recommended: _TypeAlias = _typing.Literal["redial_recommended"]  # noqa: Y015
+    _WhichOneofArgType__redial_recommended: _TypeAlias = _typing.Literal["_redial_recommended", b"_redial_recommended"]  # noqa: Y015
+    _WhichOneofReturnType__services_statuses: _TypeAlias = _typing.Literal["services_statuses"]  # noqa: Y015
+    _WhichOneofArgType__services_statuses: _TypeAlias = _typing.Literal["_services_statuses", b"_services_statuses"]  # noqa: Y015
+    _WhichOneofReturnType__sip_port: _TypeAlias = _typing.Literal["sip_port"]  # noqa: Y015
+    _WhichOneofArgType__sip_port: _TypeAlias = _typing.Literal["_sip_port", b"_sip_port"]  # noqa: Y015
+    _WhichOneofReturnType__sip_status: _TypeAlias = _typing.Literal["sip_status"]  # noqa: Y015
+    _WhichOneofArgType__sip_status: _TypeAlias = _typing.Literal["_sip_status", b"_sip_status"]  # noqa: Y015
+    _WhichOneofReturnType__sip_status_history: _TypeAlias = _typing.Literal["sip_status_history"]  # noqa: Y015
+    _WhichOneofArgType__sip_status_history: _TypeAlias = _typing.Literal["_sip_status_history", b"_sip_status_history"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__answering_machine_detection_end_description) -> _WhichOneofReturnType__answering_machine_detection_end_description | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__common_services_config) -> _WhichOneofReturnType__common_services_config | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__csi_port) -> _WhichOneofReturnType__csi_port | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__nlu_session_name) -> _WhichOneofReturnType__nlu_session_name | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__platforms) -> _WhichOneofReturnType__platforms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__redial_reason) -> _WhichOneofReturnType__redial_reason | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__redial_recommended) -> _WhichOneofReturnType__redial_recommended | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__services_statuses) -> _WhichOneofReturnType__services_statuses | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sip_port) -> _WhichOneofReturnType__sip_port | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sip_status) -> _WhichOneofReturnType__sip_status | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sip_status_history) -> _WhichOneofReturnType__sip_status_history | None: ...
 
-global___Call = Call
+Global___Call: _TypeAlias = Call  # noqa: Y015
 
-@typing.final
-class CallFilter(google.protobuf.message.Message):
+@_typing.final
+class CallFilter(_message.Message):
     """Narrows a set of calls of one project: the calls <code>ListCalls</code> lists, <code>GetCallStatistics</code>
     counts and <code>StopAllCalls</code> stops. Every field is optional; an unset field, or an empty repeated field
     or map, does not filter. Fields are combined with AND, the values within one repeated field with OR (except
@@ -4830,121 +5189,127 @@ class CallFilter(google.protobuf.message.Message):
     stopped.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class LabelsEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class LabelsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
         def __init__(
             self,
             *,
-            key: builtins.str = ...,
-            value: builtins.str = ...,
+            key: _builtins.str = ...,
+            value: _builtins.str = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    CALL_NAMES_FIELD_NUMBER: builtins.int
-    NLU_SESSION_NAMES_FIELD_NUMBER: builtins.int
-    SIP_ACCOUNTS_FIELD_NUMBER: builtins.int
-    PHONE_NUMBERS_FIELD_NUMBER: builtins.int
-    CONTAINER_NAMES_FIELD_NUMBER: builtins.int
-    SIP_PORTS_FIELD_NUMBER: builtins.int
-    CSI_PORTS_FIELD_NUMBER: builtins.int
-    CALL_TYPES_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPES_FIELD_NUMBER: builtins.int
-    CALL_STATUS_FIELD_NUMBER: builtins.int
-    START_TIME_FIELD_NUMBER: builtins.int
-    END_TIME_FIELD_NUMBER: builtins.int
-    DURATION_IN_S_MIN_FIELD_NUMBER: builtins.int
-    DURATION_IN_S_MAX_FIELD_NUMBER: builtins.int
-    PLATFORMS_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    LABELS_FIELD_NUMBER: builtins.int
-    CALLER_NAMES_FIELD_NUMBER: builtins.int
-    LISTENER_NAMES_FIELD_NUMBER: builtins.int
-    REDIAL_RECOMMENDED_FIELD_NUMBER: builtins.int
-    TRANSFER_OUTCOMES_FIELD_NUMBER: builtins.int
-    SIP_PORT_NUMBERS_FIELD_NUMBER: builtins.int
-    CSI_PORT_NUMBERS_FIELD_NUMBER: builtins.int
-    call_status: global___CallStatus.ValueType
+    CALL_NAMES_FIELD_NUMBER: _builtins.int
+    NLU_SESSION_NAMES_FIELD_NUMBER: _builtins.int
+    SIP_ACCOUNTS_FIELD_NUMBER: _builtins.int
+    PHONE_NUMBERS_FIELD_NUMBER: _builtins.int
+    CONTAINER_NAMES_FIELD_NUMBER: _builtins.int
+    SIP_PORTS_FIELD_NUMBER: _builtins.int
+    CSI_PORTS_FIELD_NUMBER: _builtins.int
+    CALL_TYPES_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPES_FIELD_NUMBER: _builtins.int
+    CALL_STATUS_FIELD_NUMBER: _builtins.int
+    START_TIME_FIELD_NUMBER: _builtins.int
+    END_TIME_FIELD_NUMBER: _builtins.int
+    DURATION_IN_S_MIN_FIELD_NUMBER: _builtins.int
+    DURATION_IN_S_MAX_FIELD_NUMBER: _builtins.int
+    PLATFORMS_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    LABELS_FIELD_NUMBER: _builtins.int
+    CALLER_NAMES_FIELD_NUMBER: _builtins.int
+    LISTENER_NAMES_FIELD_NUMBER: _builtins.int
+    REDIAL_RECOMMENDED_FIELD_NUMBER: _builtins.int
+    TRANSFER_OUTCOMES_FIELD_NUMBER: _builtins.int
+    SIP_PORT_NUMBERS_FIELD_NUMBER: _builtins.int
+    CSI_PORT_NUMBERS_FIELD_NUMBER: _builtins.int
+    call_status: Global___CallStatus.ValueType
     """Optional: Only active (<code>CALL_STATUS_ACTIVE</code>) or only inactive (<code>CALL_STATUS_INACTIVE</code>)
     calls. Unset or <code>CALL_STATUS_UNSPECIFIED</code> does not filter.
     """
-    duration_in_s_min: builtins.float
+    duration_in_s_min: _builtins.float
     """Optional: Match only calls whose duration in seconds is larger than or equal to this value (inclusive). The
     duration is <code>end_time - start_time</code>, and for an active call the time since its start, so an active
     call can match. <code>0</code> does not filter, so the explicit value 0 is the same as unset.
     """
-    duration_in_s_max: builtins.float
+    duration_in_s_max: _builtins.float
     """Optional: Match only calls whose duration in seconds is smaller than or equal to this value (inclusive),
     computed as for <code>duration_in_s_min</code>. <code>0</code> does not filter.
     """
-    campaign_name: builtins.str
+    campaign_name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    campaign_display_name: builtins.str
+    campaign_display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     the request&apos;s <code>vtsi_project_name</code>.
     """
-    redial_recommended: builtins.bool
+    redial_recommended: _builtins.bool
     """Optional: Only calls whose <code>Call.redial_recommended</code> equals this value. Unset does not filter.
     <code>false</code> matches only calls whose field is SET to false (AMD ended the call with a voice message
     left, or on a fax); calls on which AMD did not decide, i.e. whose field is unset, match neither value.
     """
-    @property
-    def call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def call_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Optional: Filter by call names (<code>Call.name</code>), exact match."""
 
-    @property
-    def nlu_session_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def nlu_session_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Optional: Filter by NLU session names (<code>Call.nlu_session_name</code>), exact match."""
 
-    @property
-    def sip_accounts(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def sip_accounts(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Optional: Filter by SIP accounts (<code>Call.sip_account</code>), exact match."""
 
-    @property
-    def phone_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def phone_numbers(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Optional: Filter by phone numbers (<code>Call.phone_number</code>), exact match as stored (no
         normalisation: <code>+43...</code> and <code>0043...</code> are different values).
         """
 
-    @property
-    def container_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def container_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Optional: Filter by container names (<code>Call.container_name</code>), exact match."""
 
-    @property
-    def sip_ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def sip_ports(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Deprecated: use <code>sip_port_numbers</code>. Filter by SIP ports given as decimal strings, e.g.
         <code>"5060"</code>; a value that is not a decimal integer is <code>INVALID_ARGUMENT</code>. Still honoured,
         OR-ed with <code>sip_port_numbers</code>.
         """
 
-    @property
-    def csi_ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def csi_ports(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Deprecated: use <code>csi_port_numbers</code>. Filter by CSI ports given as decimal strings, with the rules of
         <code>sip_ports</code>. Still honoured, OR-ed with <code>csi_port_numbers</code>.
         """
 
-    @property
-    def call_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CallType.ValueType]:
+    @_builtins.property
+    def call_types(self) -> _containers.RepeatedScalarFieldContainer[Global___CallType.ValueType]:
         """Optional: Filter by call types (<code>Call.call_type</code>). Empty, or a list containing <code>BOTH</code>,
         matches every type.
         """
 
-    @property
-    def sip_status_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType]:
+    @_builtins.property
+    def sip_status_types(self) -> _containers.RepeatedScalarFieldContainer[_sip_pb2.SipStatus.StatusType.ValueType]:
         """Optional: Filter by the call&apos;s current or last SIP status type (<code>Call.sip_status_type</code>)."""
 
-    @property
-    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def start_time(self) -> _timestamp_pb2.Timestamp:
         """Optional: Only calls that STARTED at or after this instant: <code>Call.start_time &gt;= start_time</code>
         (inclusive). Calls without a start time (the waiting call of a persistent listener or pooled caller) never
         match while it is set. Unset, or the zero timestamp, does not filter.
@@ -4954,29 +5319,29 @@ class CallFilter(google.protobuf.message.Message):
         at some instant, use <code>call_status</code> and the duration bounds instead.</p>
         """
 
-    @property
-    def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def end_time(self) -> _timestamp_pb2.Timestamp:
         """Optional: Only calls that ENDED at or before this instant: <code>Call.end_time &lt;= end_time</code>
         (inclusive). An active call has no end time and therefore never matches while it is set. Unset, or the zero
         timestamp, does not filter. See <code>start_time</code> for the window semantics.
         """
 
-    @property
-    def platforms(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType]:
+    @_builtins.property
+    def platforms(self) -> _containers.RepeatedScalarFieldContainer[_intent_pb2.Intent.Message.Platform.ValueType]:
         """Optional: Filter by the NLU message platform of the call (<code>Call.platforms</code>), e.g.
         <code>Platform.PLATFORM_UNSPECIFIED</code> (the default platform: text).
         """
 
-    @property
-    def labels(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def labels(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Optional: Only calls carrying every one of these labels (<code>Call.labels</code>). An entry with an empty
         value matches on the presence of the key alone; otherwise the value must match exactly (case-sensitive).
         Keys must satisfy the key bounds of <code>Call.labels</code> and at most 64 entries are accepted, otherwise
         <code>INVALID_ARGUMENT</code> naming the key. Same semantics as <code>SoftphoneAccountFilter.labels</code>.
         """
 
-    @property
-    def caller_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def caller_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Optional: Only calls placed by one of these callers (the calls whose <code>name</code> lies below one of
         them). Each entry is a caller resource name of the request&apos;s project,
         <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>; a malformed name or a
@@ -4985,29 +5350,29 @@ class CallFilter(google.protobuf.message.Message):
         when it belongs to one of the named callers or one of the named listeners. Both empty does not filter.
         """
 
-    @property
-    def listener_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def listener_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Optional: Only calls taken by one of these listeners, with the rules of <code>caller_names</code> (OR-ed with
         it). Each entry is of the form
         <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
         """
 
-    @property
-    def transfer_outcomes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___TransferOutcome.ValueType]:
+    @_builtins.property
+    def transfer_outcomes(self) -> _containers.RepeatedScalarFieldContainer[Global___TransferOutcome.ValueType]:
         """Optional: Only calls whose last transfer attempt (<code>Call.last_transfer.outcome</code>) had one of these
         outcomes. <code>TRANSFER_OUTCOME_UNSPECIFIED</code> in the list matches the calls without any transfer
         attempt. Empty does not filter.
         """
 
-    @property
-    def sip_port_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def sip_port_numbers(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Optional: Filter by SIP ports (<code>Call.sip_port</code>), 1 to 65535 each, otherwise
         <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>sip_ports</code>; when both are set
         their values are combined (OR).
         """
 
-    @property
-    def csi_port_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def csi_port_numbers(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Optional: Filter by CSI ports (<code>Call.csi_port</code>), 1 to 65535 each, otherwise
         <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>csi_ports</code>; when both are set
         their values are combined (OR).
@@ -5016,62 +5381,78 @@ class CallFilter(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        call_names: collections.abc.Iterable[builtins.str] | None = ...,
-        nlu_session_names: collections.abc.Iterable[builtins.str] | None = ...,
-        sip_accounts: collections.abc.Iterable[builtins.str] | None = ...,
-        phone_numbers: collections.abc.Iterable[builtins.str] | None = ...,
-        container_names: collections.abc.Iterable[builtins.str] | None = ...,
-        sip_ports: collections.abc.Iterable[builtins.str] | None = ...,
-        csi_ports: collections.abc.Iterable[builtins.str] | None = ...,
-        call_types: collections.abc.Iterable[global___CallType.ValueType] | None = ...,
-        sip_status_types: collections.abc.Iterable[ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType] | None = ...,
-        call_status: global___CallStatus.ValueType | None = ...,
-        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        duration_in_s_min: builtins.float | None = ...,
-        duration_in_s_max: builtins.float | None = ...,
-        platforms: collections.abc.Iterable[ondewo.nlu.intent_pb2.Intent.Message.Platform.ValueType] | None = ...,
-        campaign_name: builtins.str = ...,
-        campaign_display_name: builtins.str = ...,
-        labels: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        caller_names: collections.abc.Iterable[builtins.str] | None = ...,
-        listener_names: collections.abc.Iterable[builtins.str] | None = ...,
-        redial_recommended: builtins.bool | None = ...,
-        transfer_outcomes: collections.abc.Iterable[global___TransferOutcome.ValueType] | None = ...,
-        sip_port_numbers: collections.abc.Iterable[builtins.int] | None = ...,
-        csi_port_numbers: collections.abc.Iterable[builtins.int] | None = ...,
+        call_names: _abc.Iterable[_builtins.str] | None = ...,
+        nlu_session_names: _abc.Iterable[_builtins.str] | None = ...,
+        sip_accounts: _abc.Iterable[_builtins.str] | None = ...,
+        phone_numbers: _abc.Iterable[_builtins.str] | None = ...,
+        container_names: _abc.Iterable[_builtins.str] | None = ...,
+        sip_ports: _abc.Iterable[_builtins.str] | None = ...,
+        csi_ports: _abc.Iterable[_builtins.str] | None = ...,
+        call_types: _abc.Iterable[Global___CallType.ValueType] | None = ...,
+        sip_status_types: _abc.Iterable[_sip_pb2.SipStatus.StatusType.ValueType] | None = ...,
+        call_status: Global___CallStatus.ValueType | None = ...,
+        start_time: _timestamp_pb2.Timestamp | None = ...,
+        end_time: _timestamp_pb2.Timestamp | None = ...,
+        duration_in_s_min: _builtins.float | None = ...,
+        duration_in_s_max: _builtins.float | None = ...,
+        platforms: _abc.Iterable[_intent_pb2.Intent.Message.Platform.ValueType] | None = ...,
+        campaign_name: _builtins.str = ...,
+        campaign_display_name: _builtins.str = ...,
+        labels: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        caller_names: _abc.Iterable[_builtins.str] | None = ...,
+        listener_names: _abc.Iterable[_builtins.str] | None = ...,
+        redial_recommended: _builtins.bool | None = ...,
+        transfer_outcomes: _abc.Iterable[Global___TransferOutcome.ValueType] | None = ...,
+        sip_port_numbers: _abc.Iterable[_builtins.int] | None = ...,
+        csi_port_numbers: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_status", b"_call_status", "_duration_in_s_max", b"_duration_in_s_max", "_duration_in_s_min", b"_duration_in_s_min", "_end_time", b"_end_time", "_redial_recommended", b"_redial_recommended", "_start_time", b"_start_time", "call_status", b"call_status", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "duration_in_s_max", b"duration_in_s_max", "duration_in_s_min", b"duration_in_s_min", "end_time", b"end_time", "redial_recommended", b"redial_recommended", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_status", b"_call_status", "_duration_in_s_max", b"_duration_in_s_max", "_duration_in_s_min", b"_duration_in_s_min", "_end_time", b"_end_time", "_redial_recommended", b"_redial_recommended", "_start_time", b"_start_time", "call_names", b"call_names", "call_status", b"call_status", "call_types", b"call_types", "caller_names", b"caller_names", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "container_names", b"container_names", "csi_port_numbers", b"csi_port_numbers", "csi_ports", b"csi_ports", "duration_in_s_max", b"duration_in_s_max", "duration_in_s_min", b"duration_in_s_min", "end_time", b"end_time", "labels", b"labels", "listener_names", b"listener_names", "nlu_session_names", b"nlu_session_names", "phone_numbers", b"phone_numbers", "platforms", b"platforms", "redial_recommended", b"redial_recommended", "sip_accounts", b"sip_accounts", "sip_port_numbers", b"sip_port_numbers", "sip_ports", b"sip_ports", "sip_status_types", b"sip_status_types", "start_time", b"start_time", "transfer_outcomes", b"transfer_outcomes"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_call_status", b"_call_status"]) -> typing.Literal["call_status"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_duration_in_s_max", b"_duration_in_s_max"]) -> typing.Literal["duration_in_s_max"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_duration_in_s_min", b"_duration_in_s_min"]) -> typing.Literal["duration_in_s_min"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_end_time", b"_end_time"]) -> typing.Literal["end_time"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_redial_recommended", b"_redial_recommended"]) -> typing.Literal["redial_recommended"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_start_time", b"_start_time"]) -> typing.Literal["start_time"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["campaign_name", "campaign_display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_status", b"_call_status", "_duration_in_s_max", b"_duration_in_s_max", "_duration_in_s_min", b"_duration_in_s_min", "_end_time", b"_end_time", "_redial_recommended", b"_redial_recommended", "_start_time", b"_start_time", "call_status", b"call_status", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "duration_in_s_max", b"duration_in_s_max", "duration_in_s_min", b"duration_in_s_min", "end_time", b"end_time", "redial_recommended", b"redial_recommended", "start_time", b"start_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_status", b"_call_status", "_duration_in_s_max", b"_duration_in_s_max", "_duration_in_s_min", b"_duration_in_s_min", "_end_time", b"_end_time", "_redial_recommended", b"_redial_recommended", "_start_time", b"_start_time", "call_names", b"call_names", "call_status", b"call_status", "call_types", b"call_types", "caller_names", b"caller_names", "campaign", b"campaign", "campaign_display_name", b"campaign_display_name", "campaign_name", b"campaign_name", "container_names", b"container_names", "csi_port_numbers", b"csi_port_numbers", "csi_ports", b"csi_ports", "duration_in_s_max", b"duration_in_s_max", "duration_in_s_min", b"duration_in_s_min", "end_time", b"end_time", "labels", b"labels", "listener_names", b"listener_names", "nlu_session_names", b"nlu_session_names", "phone_numbers", b"phone_numbers", "platforms", b"platforms", "redial_recommended", b"redial_recommended", "sip_accounts", b"sip_accounts", "sip_port_numbers", b"sip_port_numbers", "sip_ports", b"sip_ports", "sip_status_types", b"sip_status_types", "start_time", b"start_time", "transfer_outcomes", b"transfer_outcomes"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_status: _TypeAlias = _typing.Literal["call_status"]  # noqa: Y015
+    _WhichOneofArgType__call_status: _TypeAlias = _typing.Literal["_call_status", b"_call_status"]  # noqa: Y015
+    _WhichOneofReturnType__duration_in_s_max: _TypeAlias = _typing.Literal["duration_in_s_max"]  # noqa: Y015
+    _WhichOneofArgType__duration_in_s_max: _TypeAlias = _typing.Literal["_duration_in_s_max", b"_duration_in_s_max"]  # noqa: Y015
+    _WhichOneofReturnType__duration_in_s_min: _TypeAlias = _typing.Literal["duration_in_s_min"]  # noqa: Y015
+    _WhichOneofArgType__duration_in_s_min: _TypeAlias = _typing.Literal["_duration_in_s_min", b"_duration_in_s_min"]  # noqa: Y015
+    _WhichOneofReturnType__end_time: _TypeAlias = _typing.Literal["end_time"]  # noqa: Y015
+    _WhichOneofArgType__end_time: _TypeAlias = _typing.Literal["_end_time", b"_end_time"]  # noqa: Y015
+    _WhichOneofReturnType__redial_recommended: _TypeAlias = _typing.Literal["redial_recommended"]  # noqa: Y015
+    _WhichOneofArgType__redial_recommended: _TypeAlias = _typing.Literal["_redial_recommended", b"_redial_recommended"]  # noqa: Y015
+    _WhichOneofReturnType__start_time: _TypeAlias = _typing.Literal["start_time"]  # noqa: Y015
+    _WhichOneofArgType__start_time: _TypeAlias = _typing.Literal["_start_time", b"_start_time"]  # noqa: Y015
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["campaign_name", "campaign_display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_status) -> _WhichOneofReturnType__call_status | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__duration_in_s_max) -> _WhichOneofReturnType__duration_in_s_max | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__duration_in_s_min) -> _WhichOneofReturnType__duration_in_s_min | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__end_time) -> _WhichOneofReturnType__end_time | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__redial_recommended) -> _WhichOneofReturnType__redial_recommended | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__start_time) -> _WhichOneofReturnType__start_time | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___CallFilter = CallFilter
+Global___CallFilter: _TypeAlias = CallFilter  # noqa: Y015
 
-@typing.final
-class CallSorting(google.protobuf.message.Message):
+@_typing.final
+class CallSorting(_message.Message):
     """Sorting of a <code>ListCalls</code> listing."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _CallSortingField:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _CallSortingFieldEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CallSorting._CallSortingField.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _CallSortingFieldEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[CallSorting._CallSortingField.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NO_CALL_SORTING: CallSorting._CallSortingField.ValueType  # 0
         """The default order of <code>ListCalls</code> (see <code>ListCallsResponse.calls</code>): by
         <code>start_time</code>, ascending. <code>sorting_mode</code> is ignored.
@@ -5093,11 +5474,11 @@ class CallSorting(google.protobuf.message.Message):
     or pooled caller) come last in either mode.
     """
 
-    SORTING_FIELD_FIELD_NUMBER: builtins.int
-    SORTING_MODE_FIELD_NUMBER: builtins.int
-    sorting_field: global___CallSorting.CallSortingField.ValueType
+    SORTING_FIELD_FIELD_NUMBER: _builtins.int
+    SORTING_MODE_FIELD_NUMBER: _builtins.int
+    sorting_field: Global___CallSorting.CallSortingField.ValueType
     """The sorting field. Unset means <code>NO_CALL_SORTING</code>."""
-    sorting_mode: ondewo.vtsi.projects_pb2.VtsiProjectSortingMode.ValueType
+    sorting_mode: _projects_pb2.VtsiProjectSortingMode.ValueType
     """The sorting mode: <code>ASCENDING</code> (the zero value, oldest first) or <code>DESCENDING</code> (newest
     first). Calls with the same value are ordered by their uuid (the last segment of <code>name</code>),
     ascending, in either mode, so the order is stable across pages.
@@ -5105,51 +5486,55 @@ class CallSorting(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        sorting_field: global___CallSorting.CallSortingField.ValueType = ...,
-        sorting_mode: ondewo.vtsi.projects_pb2.VtsiProjectSortingMode.ValueType = ...,
+        sorting_field: Global___CallSorting.CallSortingField.ValueType = ...,
+        sorting_mode: _projects_pb2.VtsiProjectSortingMode.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["sorting_field", b"sorting_field", "sorting_mode", b"sorting_mode"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallSorting = CallSorting
+Global___CallSorting: _TypeAlias = CallSorting  # noqa: Y015
 
-@typing.final
-class ListCallsRequest(google.protobuf.message.Message):
+@_typing.final
+class ListCallsRequest(_message.Message):
     """Request to list calls"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_VIEW_FIELD_NUMBER: builtins.int
-    CALL_FILTER_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    CALL_SORTING_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_VIEW_FIELD_NUMBER: _builtins.int
+    CALL_FILTER_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    CALL_SORTING_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    call_view: global___CallView.ValueType
+    call_view: Global___CallView.ValueType
     """Optional. How much of each call to populate; see <code>CallView</code>. Unset means
     <code>SHALLOW</code>.
     """
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
     API. Valid only with the same <code>vtsi_project_name</code>, <code>call_filter</code> and
     <code>call_sorting</code>; a token issued for another listing is rejected with <code>INVALID_ARGUMENT</code>.
     <code>page_size</code>, <code>call_view</code> and <code>field_mask</code> may change between pages.
     """
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum number of calls per page. <code>0</code> keeps the page size the <code>page_token</code>
     was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
     negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
     """
-    @property
-    def call_filter(self) -> global___CallFilter:
+    @_builtins.property
+    def call_filter(self) -> Global___CallFilter:
         """Optional. A filter to narrow the response down to calls of interest; see <code>CallFilter</code>. Unset or
         empty lists every call of the project.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in every returned <code>Call</code>, relative
         to the <code>Call</code> message (no <code>calls.</code> prefix), e.g. <code>call_type</code>,
         <code>phone_number</code>, <code>start_time</code>. Nested paths through singular message fields are
@@ -5161,49 +5546,57 @@ class ListCallsRequest(google.protobuf.message.Message):
         <code>page_token</code> stays valid with another mask.
         """
 
-    @property
-    def call_sorting(self) -> global___CallSorting:
+    @_builtins.property
+    def call_sorting(self) -> Global___CallSorting:
         """Optional. Sorting of the listing. Unset keeps the default order (see <code>ListCallsResponse.calls</code>)."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_view: global___CallView.ValueType | None = ...,
-        call_filter: global___CallFilter | None = ...,
-        page_token: builtins.str | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        page_size: builtins.int = ...,
-        call_sorting: global___CallSorting | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_view: Global___CallView.ValueType | None = ...,
+        call_filter: Global___CallFilter | None = ...,
+        page_token: _builtins.str | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        page_size: _builtins.int = ...,
+        call_sorting: Global___CallSorting | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_call_filter", b"_call_filter", "_call_view", b"_call_view", "_page_token", b"_page_token", "call_filter", b"call_filter", "call_sorting", b"call_sorting", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_call_filter", b"_call_filter", "_call_view", b"_call_view", "_page_token", b"_page_token", "call_filter", b"call_filter", "call_sorting", b"call_sorting", "call_view", b"call_view", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_call_filter", b"_call_filter"]) -> typing.Literal["call_filter"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_call_view", b"_call_view"]) -> typing.Literal["call_view"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_filter", b"_call_filter", "_call_view", b"_call_view", "_page_token", b"_page_token", "call_filter", b"call_filter", "call_sorting", b"call_sorting", "call_view", b"call_view", "field_mask", b"field_mask", "page_token", b"page_token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_filter", b"_call_filter", "_call_view", b"_call_view", "_page_token", b"_page_token", "call_filter", b"call_filter", "call_sorting", b"call_sorting", "call_view", b"call_view", "field_mask", b"field_mask", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_filter: _TypeAlias = _typing.Literal["call_filter"]  # noqa: Y015
+    _WhichOneofArgType__call_filter: _TypeAlias = _typing.Literal["_call_filter", b"_call_filter"]  # noqa: Y015
+    _WhichOneofReturnType__call_view: _TypeAlias = _typing.Literal["call_view"]  # noqa: Y015
+    _WhichOneofArgType__call_view: _TypeAlias = _typing.Literal["_call_view", b"_call_view"]  # noqa: Y015
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_filter) -> _WhichOneofReturnType__call_filter | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_view) -> _WhichOneofReturnType__call_view | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
 
-global___ListCallsRequest = ListCallsRequest
+Global___ListCallsRequest: _TypeAlias = ListCallsRequest  # noqa: Y015
 
-@typing.final
-class ListCallsResponse(google.protobuf.message.Message):
+@_typing.final
+class ListCallsResponse(_message.Message):
     """Response to list the calls of a project"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CALLS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    TOTAL_SIZE_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    CALLS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    TOTAL_SIZE_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token to retrieve the next page of results. Opaque. Empty when there are no more results."""
-    total_size: builtins.int
+    total_size: _builtins.int
     """The number of calls the request matches across all pages (its filter, not <code>page_size</code>), counted
     exactly when this page was read. It can change between the pages of one listing as calls are created.
     """
-    @property
-    def calls(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Call]:
+    @_builtins.property
+    def calls(self) -> _containers.RepeatedCompositeFieldContainer[Global___Call]:
         """The calls of this page, in the order <code>call_sorting</code> asked for. The default order (no
         <code>call_sorting</code>, or <code>NO_CALL_SORTING</code>) is by <code>start_time</code>, oldest first,
         calls without a start time (the waiting call of a persistent listener or pooled caller) last, and calls with
@@ -5213,33 +5606,37 @@ class ListCallsResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        calls: collections.abc.Iterable[global___Call] | None = ...,
-        next_page_token: builtins.str = ...,
-        total_size: builtins.int = ...,
+        calls: _abc.Iterable[Global___Call] | None = ...,
+        next_page_token: _builtins.str = ...,
+        total_size: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["calls", b"calls", "next_page_token", b"next_page_token", "total_size", b"total_size"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["calls", b"calls", "next_page_token", b"next_page_token", "total_size", b"total_size"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListCallsResponse = ListCallsResponse
+Global___ListCallsResponse: _TypeAlias = ListCallsResponse  # noqa: Y015
 
-@typing.final
-class UpdateCallRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateCallRequest(_message.Message):
     """The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateCall">Calls.UpdateCall</a>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CALL_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    @property
-    def call(self) -> global___Call:
+    CALL_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def call(self) -> Global___Call:
         """The call to update, identified by <code>call.name</code>
         (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre> or
         <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>),
         carrying the new <code>labels</code>. Every other field is ignored.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """Required. Paths relative to <code>Call</code>, WITHOUT a <code>call.</code> prefix. The only updatable
         path is <code>labels</code>, which replaces the whole map with <code>call.labels</code> (unset or empty
         clears it). An empty mask, any other path (every other field of a <code>Call</code> is output only) or a
@@ -5248,8 +5645,8 @@ class UpdateCallRequest(google.protobuf.message.Message):
         <code>Call.labels</code> are rejected with <code>INVALID_ARGUMENT</code> naming the label.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in <code>UpdateCallResponse.call</code>, relative
         to the <code>Call</code> message (no <code>call.</code> prefix), e.g. <code>labels</code>,
         <code>active</code>. Nested paths through singular message fields are allowed; a path below a repeated or
@@ -5264,50 +5661,56 @@ class UpdateCallRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        call: global___Call | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        call: Global___Call | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["call", b"call", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call", b"call", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["call", b"call", "field_mask", b"field_mask", "update_mask", b"update_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call", b"call", "field_mask", b"field_mask", "update_mask", b"update_mask"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateCallRequest = UpdateCallRequest
+Global___UpdateCallRequest: _TypeAlias = UpdateCallRequest  # noqa: Y015
 
-@typing.final
-class UpdateCallResponse(google.protobuf.message.Message):
+@_typing.final
+class UpdateCallResponse(_message.Message):
     """The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateCall">Calls.UpdateCall</a>, and one entry
     of <code>UpdateCallsResponse</code>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    CALL_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    CALL_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the call the request named. Always populated, also for a failed entry of
     <code>UpdateCalls</code>.
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """Empty on success; as <code>UpdateCallerResponse.error_message</code>."""
-    @property
-    def call(self) -> global___Call:
+    @_builtins.property
+    def call(self) -> Global___Call:
         """The call after the update, shaped by the request&apos;s <code>field_mask</code>. Unset for a failed entry."""
 
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        call: global___Call | None = ...,
-        error_message: builtins.str = ...,
+        name: _builtins.str = ...,
+        call: Global___Call | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["call", b"call"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call", b"call", "error_message", b"error_message", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["call", b"call"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call", b"call", "error_message", b"error_message", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateCallResponse = UpdateCallResponse
+Global___UpdateCallResponse: _TypeAlias = UpdateCallResponse  # noqa: Y015
 
-@typing.final
-class UpdateCallsRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateCallsRequest(_message.Message):
     """The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateCalls">Calls.UpdateCalls</a>.
     <p>Rejected as a whole exactly like <code>UpdateCallersRequest</code>, with calls instead of callers and
     <code>UpdateCall</code> as the role reference (<code>INVALID_ARGUMENT</code> for a malformed
@@ -5319,21 +5722,21 @@ class UpdateCallsRequest(google.protobuf.message.Message):
     that entry&apos;s <code>NOT_FOUND</code>.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    UPDATE_CALL_REQUESTS_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    UPDATE_CALL_REQUESTS_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of every call of the request.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    @property
-    def update_call_requests(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UpdateCallRequest]:
+    @_builtins.property
+    def update_call_requests(self) -> _containers.RepeatedCompositeFieldContainer[Global___UpdateCallRequest]:
         """The updates, applied one by one and each like <code>UpdateCall</code>."""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in the <code>call</code> of EVERY entry of
         <code>UpdateCallsResponse.update_call_responses</code>, relative to the <code>Call</code> message (no
         prefix), as in <code>UpdateCallRequest.field_mask</code>. <code>call.name</code>, <code>name</code> and
@@ -5343,61 +5746,68 @@ class UpdateCallsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        update_call_requests: collections.abc.Iterable[global___UpdateCallRequest] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        update_call_requests: _abc.Iterable[Global___UpdateCallRequest] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "update_call_requests", b"update_call_requests", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "update_call_requests", b"update_call_requests", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateCallsRequest = UpdateCallsRequest
+Global___UpdateCallsRequest: _TypeAlias = UpdateCallsRequest  # noqa: Y015
 
-@typing.final
-class UpdateCallsResponse(google.protobuf.message.Message):
+@_typing.final
+class UpdateCallsResponse(_message.Message):
     """The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateCalls">Calls.UpdateCalls</a>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    UPDATE_CALL_RESPONSES_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    UPDATE_CALL_RESPONSES_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the request.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    error_message: builtins.str
+    error_message: _builtins.str
     """A summary when at least one entry failed, empty when every entry succeeded; as
     <code>UpdateCallersResponse.error_message</code>.
     """
-    @property
-    def update_call_responses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UpdateCallResponse]:
+    @_builtins.property
+    def update_call_responses(self) -> _containers.RepeatedCompositeFieldContainer[Global___UpdateCallResponse]:
         """One entry per entry of the request, in request order."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        update_call_responses: collections.abc.Iterable[global___UpdateCallResponse] | None = ...,
-        error_message: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        update_call_responses: _abc.Iterable[Global___UpdateCallResponse] | None = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "update_call_responses", b"update_call_responses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "update_call_responses", b"update_call_responses", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateCallsResponse = UpdateCallsResponse
+Global___UpdateCallsResponse: _TypeAlias = UpdateCallsResponse  # noqa: Y015
 
-@typing.final
-class GetCallStatisticsRequest(google.protobuf.message.Message):
+@_typing.final
+class GetCallStatisticsRequest(_message.Message):
     """The request message for <a href="index.html#ondewo.vtsi.Calls.GetCallStatistics">Calls.GetCallStatistics</a>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALL_FILTER_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALL_FILTER_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project whose calls are counted.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    @property
-    def call_filter(self) -> global___CallFilter:
+    @_builtins.property
+    def call_filter(self) -> Global___CallFilter:
         """Optional. Counts only the calls this filter matches, with exactly the semantics, validation and errors of
         <code>ListCallsRequest.call_filter</code> (the campaign selector included). Unset or empty counts every call
         of the project that <code>ListCalls</code> would list, the waiting call of a persistent listener or pooled
@@ -5407,110 +5817,129 @@ class GetCallStatisticsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        call_filter: global___CallFilter | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        call_filter: Global___CallFilter | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["call_filter", b"call_filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_filter", b"call_filter", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["call_filter", b"call_filter"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_filter", b"call_filter", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetCallStatisticsRequest = GetCallStatisticsRequest
+Global___GetCallStatisticsRequest: _TypeAlias = GetCallStatisticsRequest  # noqa: Y015
 
-@typing.final
-class SipStatusTypeCount(google.protobuf.message.Message):
+@_typing.final
+class SipStatusTypeCount(_message.Message):
     """Number of calls with one SIP status type, an entry of <code>CallStatistics.sip_status_type_counts</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
-    COUNT_FIELD_NUMBER: builtins.int
-    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    SIP_STATUS_TYPE_FIELD_NUMBER: _builtins.int
+    COUNT_FIELD_NUMBER: _builtins.int
+    sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType
     """The SIP status type (<code>Call.sip_status_type</code>, the call&apos;s current or last status)."""
-    count: builtins.int
+    count: _builtins.int
     """Number of matching calls whose <code>Call.sip_status_type</code> is <code>sip_status_type</code>."""
     def __init__(
         self,
         *,
-        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
-        count: builtins.int = ...,
+        sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType = ...,
+        count: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["count", b"count", "sip_status_type", b"sip_status_type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["count", b"count", "sip_status_type", b"sip_status_type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SipStatusTypeCount = SipStatusTypeCount
+Global___SipStatusTypeCount: _TypeAlias = SipStatusTypeCount  # noqa: Y015
 
-@typing.final
-class CallTypeCount(google.protobuf.message.Message):
+@_typing.final
+class CallTypeCount(_message.Message):
     """Number of calls of one type, an entry of <code>CallStatistics.call_type_counts</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CALL_TYPE_FIELD_NUMBER: builtins.int
-    COUNT_FIELD_NUMBER: builtins.int
-    call_type: global___CallType.ValueType
+    CALL_TYPE_FIELD_NUMBER: _builtins.int
+    COUNT_FIELD_NUMBER: _builtins.int
+    call_type: Global___CallType.ValueType
     """<code>LISTENER</code>, <code>CALLER</code> or <code>SCHEDULED_CALLER</code>; never <code>BOTH</code>, which
     is not the type of a stored call.
     """
-    count: builtins.int
+    count: _builtins.int
     """Number of matching calls of that type."""
     def __init__(
         self,
         *,
-        call_type: global___CallType.ValueType = ...,
-        count: builtins.int = ...,
+        call_type: Global___CallType.ValueType = ...,
+        count: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["call_type", b"call_type", "count", b"count"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_type", b"call_type", "count", b"count"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallTypeCount = CallTypeCount
+Global___CallTypeCount: _TypeAlias = CallTypeCount  # noqa: Y015
 
-@typing.final
-class AmdVerdictCount(google.protobuf.message.Message):
+@_typing.final
+class AmdVerdictCount(_message.Message):
     """Number of calls with one answering machine detection verdict, an entry of
     <code>CallStatistics.amd_verdict_counts</code>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VERDICT_FIELD_NUMBER: builtins.int
-    COUNT_FIELD_NUMBER: builtins.int
-    verdict: ondewo.sip.sip_pb2.AnsweringMachineDetectionResult.Verdict.ValueType
+    VERDICT_FIELD_NUMBER: _builtins.int
+    COUNT_FIELD_NUMBER: _builtins.int
+    verdict: _sip_pb2.AnsweringMachineDetectionResult.Verdict.ValueType
     """The verdict, read from <code>Call.sip_status.amd_result.verdict</code>."""
-    count: builtins.int
+    count: _builtins.int
     """Number of matching calls with that verdict."""
     def __init__(
         self,
         *,
-        verdict: ondewo.sip.sip_pb2.AnsweringMachineDetectionResult.Verdict.ValueType = ...,
-        count: builtins.int = ...,
+        verdict: _sip_pb2.AnsweringMachineDetectionResult.Verdict.ValueType = ...,
+        count: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["count", b"count", "verdict", b"verdict"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["count", b"count", "verdict", b"verdict"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AmdVerdictCount = AmdVerdictCount
+Global___AmdVerdictCount: _TypeAlias = AmdVerdictCount  # noqa: Y015
 
-@typing.final
-class TransferOutcomeCount(google.protobuf.message.Message):
+@_typing.final
+class TransferOutcomeCount(_message.Message):
     """Number of calls whose last transfer attempt had one outcome, an entry of
     <code>CallStatistics.transfer_outcome_counts</code>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OUTCOME_FIELD_NUMBER: builtins.int
-    COUNT_FIELD_NUMBER: builtins.int
-    outcome: global___TransferOutcome.ValueType
+    OUTCOME_FIELD_NUMBER: _builtins.int
+    COUNT_FIELD_NUMBER: _builtins.int
+    outcome: Global___TransferOutcome.ValueType
     """The outcome of the call&apos;s last transfer attempt (<code>Call.last_transfer.outcome</code>)."""
-    count: builtins.int
+    count: _builtins.int
     """Number of matching calls whose last transfer attempt had that outcome."""
     def __init__(
         self,
         *,
-        outcome: global___TransferOutcome.ValueType = ...,
-        count: builtins.int = ...,
+        outcome: Global___TransferOutcome.ValueType = ...,
+        count: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["count", b"count", "outcome", b"outcome"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["count", b"count", "outcome", b"outcome"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TransferOutcomeCount = TransferOutcomeCount
+Global___TransferOutcomeCount: _TypeAlias = TransferOutcomeCount  # noqa: Y015
 
-@typing.final
-class CallStatistics(google.protobuf.message.Message):
+@_typing.final
+class CallStatistics(_message.Message):
     """Aggregate figures over the calls of a project that a <code>CallFilter</code> matches, as returned by
     <a href="index.html#ondewo.vtsi.Calls.GetCallStatistics">Calls.GetCallStatistics</a>.
     <p>Every figure is computed in ONE read of the call records, so the figures are consistent with each other at
@@ -5519,60 +5948,60 @@ class CallStatistics(google.protobuf.message.Message):
     left out), ordered by the enum number, ascending.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    TOTAL_FIELD_NUMBER: builtins.int
-    ACTIVE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPE_COUNTS_FIELD_NUMBER: builtins.int
-    CALL_TYPE_COUNTS_FIELD_NUMBER: builtins.int
-    ENDED_CALLS_FIELD_NUMBER: builtins.int
-    TOTAL_DURATION_S_FIELD_NUMBER: builtins.int
-    AVERAGE_DURATION_S_FIELD_NUMBER: builtins.int
-    REDIAL_RECOMMENDED_FIELD_NUMBER: builtins.int
-    AMD_VERDICT_COUNTS_FIELD_NUMBER: builtins.int
-    TRANSFER_OUTCOME_COUNTS_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    TOTAL_FIELD_NUMBER: _builtins.int
+    ACTIVE_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPE_COUNTS_FIELD_NUMBER: _builtins.int
+    CALL_TYPE_COUNTS_FIELD_NUMBER: _builtins.int
+    ENDED_CALLS_FIELD_NUMBER: _builtins.int
+    TOTAL_DURATION_S_FIELD_NUMBER: _builtins.int
+    AVERAGE_DURATION_S_FIELD_NUMBER: _builtins.int
+    REDIAL_RECOMMENDED_FIELD_NUMBER: _builtins.int
+    AMD_VERDICT_COUNTS_FIELD_NUMBER: _builtins.int
+    TRANSFER_OUTCOME_COUNTS_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project of the request.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    total: builtins.int
+    total: _builtins.int
     """Number of matching calls: the <code>total_size</code> a <code>ListCalls</code> with the same filter would
     report at the same moment.
     """
-    active: builtins.int
+    active: _builtins.int
     """Number of matching calls that are active (<code>Call.active</code>)."""
-    ended_calls: builtins.int
+    ended_calls: _builtins.int
     """Number of matching calls that have a duration, i.e. that started and ended (<code>start_time</code> and
     <code>end_time</code> both set). Active calls and the waiting call of a persistent listener or pooled caller
     have none. The denominator of <code>average_duration_s</code>.
     """
-    total_duration_s: builtins.float
+    total_duration_s: _builtins.float
     """Sum of the durations (<code>end_time - start_time</code>) of the <code>ended_calls</code>, in seconds."""
-    average_duration_s: builtins.float
+    average_duration_s: _builtins.float
     """<code>total_duration_s / ended_calls</code>, in seconds; <code>0</code> when <code>ended_calls</code> is 0."""
-    redial_recommended: builtins.int
+    redial_recommended: _builtins.int
     """Number of matching calls with <code>Call.redial_recommended</code> = true."""
-    @property
-    def sip_status_type_counts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SipStatusTypeCount]:
+    @_builtins.property
+    def sip_status_type_counts(self) -> _containers.RepeatedCompositeFieldContainer[Global___SipStatusTypeCount]:
         """Matching calls by their current or last SIP status type. The counts add up to <code>total</code>."""
 
-    @property
-    def call_type_counts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallTypeCount]:
+    @_builtins.property
+    def call_type_counts(self) -> _containers.RepeatedCompositeFieldContainer[Global___CallTypeCount]:
         """Matching calls by type (<code>LISTENER</code>, <code>CALLER</code>, <code>SCHEDULED_CALLER</code>). The
         counts add up to
         <code>total</code>.
         """
 
-    @property
-    def amd_verdict_counts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AmdVerdictCount]:
+    @_builtins.property
+    def amd_verdict_counts(self) -> _containers.RepeatedCompositeFieldContainer[Global___AmdVerdictCount]:
         """Matching calls by the verdict of their answering machine detection
         (<code>Call.sip_status.amd_result.verdict</code>). Calls without an AMD result are not counted here, so the
         counts add up to the number of calls that carry one.
         """
 
-    @property
-    def transfer_outcome_counts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TransferOutcomeCount]:
+    @_builtins.property
+    def transfer_outcome_counts(self) -> _containers.RepeatedCompositeFieldContainer[Global___TransferOutcomeCount]:
         """Matching calls by the outcome of their last transfer attempt (<code>Call.last_transfer.outcome</code>).
         Calls without a transfer attempt are not counted here, so the counts add up to the number of calls that
         carry one.
@@ -5581,286 +6010,316 @@ class CallStatistics(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        total: builtins.int = ...,
-        active: builtins.int = ...,
-        sip_status_type_counts: collections.abc.Iterable[global___SipStatusTypeCount] | None = ...,
-        call_type_counts: collections.abc.Iterable[global___CallTypeCount] | None = ...,
-        ended_calls: builtins.int = ...,
-        total_duration_s: builtins.float = ...,
-        average_duration_s: builtins.float = ...,
-        redial_recommended: builtins.int = ...,
-        amd_verdict_counts: collections.abc.Iterable[global___AmdVerdictCount] | None = ...,
-        transfer_outcome_counts: collections.abc.Iterable[global___TransferOutcomeCount] | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        total: _builtins.int = ...,
+        active: _builtins.int = ...,
+        sip_status_type_counts: _abc.Iterable[Global___SipStatusTypeCount] | None = ...,
+        call_type_counts: _abc.Iterable[Global___CallTypeCount] | None = ...,
+        ended_calls: _builtins.int = ...,
+        total_duration_s: _builtins.float = ...,
+        average_duration_s: _builtins.float = ...,
+        redial_recommended: _builtins.int = ...,
+        amd_verdict_counts: _abc.Iterable[Global___AmdVerdictCount] | None = ...,
+        transfer_outcome_counts: _abc.Iterable[Global___TransferOutcomeCount] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["active", b"active", "amd_verdict_counts", b"amd_verdict_counts", "average_duration_s", b"average_duration_s", "call_type_counts", b"call_type_counts", "ended_calls", b"ended_calls", "redial_recommended", b"redial_recommended", "sip_status_type_counts", b"sip_status_type_counts", "total", b"total", "total_duration_s", b"total_duration_s", "transfer_outcome_counts", b"transfer_outcome_counts", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["active", b"active", "amd_verdict_counts", b"amd_verdict_counts", "average_duration_s", b"average_duration_s", "call_type_counts", b"call_type_counts", "ended_calls", b"ended_calls", "redial_recommended", b"redial_recommended", "sip_status_type_counts", b"sip_status_type_counts", "total", b"total", "total_duration_s", b"total_duration_s", "transfer_outcome_counts", b"transfer_outcome_counts", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallStatistics = CallStatistics
+Global___CallStatistics: _TypeAlias = CallStatistics  # noqa: Y015
 
-@typing.final
-class AllServicesStatuses(google.protobuf.message.Message):
+@_typing.final
+class AllServicesStatuses(_message.Message):
     """Status of ondewo-sip instance"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STATUS_SIP_FIELD_NUMBER: builtins.int
-    STATUS_ASTERISK_FIELD_NUMBER: builtins.int
-    STATUS_NLU_FIELD_NUMBER: builtins.int
-    STATUS_STT_FIELD_NUMBER: builtins.int
-    STATUS_TTS_FIELD_NUMBER: builtins.int
-    @property
-    def status_sip(self) -> global___ServiceStatus:
+    STATUS_SIP_FIELD_NUMBER: _builtins.int
+    STATUS_ASTERISK_FIELD_NUMBER: _builtins.int
+    STATUS_NLU_FIELD_NUMBER: _builtins.int
+    STATUS_STT_FIELD_NUMBER: _builtins.int
+    STATUS_TTS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def status_sip(self) -> Global___ServiceStatus:
         """health status for sip"""
 
-    @property
-    def status_asterisk(self) -> global___ServiceStatus:
+    @_builtins.property
+    def status_asterisk(self) -> Global___ServiceStatus:
         """status of the associated asterisk server"""
 
-    @property
-    def status_nlu(self) -> global___ServiceStatus:
+    @_builtins.property
+    def status_nlu(self) -> Global___ServiceStatus:
         """status of the nlu instance associated with the call"""
 
-    @property
-    def status_stt(self) -> global___ServiceStatus:
+    @_builtins.property
+    def status_stt(self) -> Global___ServiceStatus:
         """status of the associated speech-to-text service"""
 
-    @property
-    def status_tts(self) -> global___ServiceStatus:
+    @_builtins.property
+    def status_tts(self) -> Global___ServiceStatus:
         """status of the associated text-to-speech service"""
 
     def __init__(
         self,
         *,
-        status_sip: global___ServiceStatus | None = ...,
-        status_asterisk: global___ServiceStatus | None = ...,
-        status_nlu: global___ServiceStatus | None = ...,
-        status_stt: global___ServiceStatus | None = ...,
-        status_tts: global___ServiceStatus | None = ...,
+        status_sip: Global___ServiceStatus | None = ...,
+        status_asterisk: Global___ServiceStatus | None = ...,
+        status_nlu: Global___ServiceStatus | None = ...,
+        status_stt: Global___ServiceStatus | None = ...,
+        status_tts: Global___ServiceStatus | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["status_asterisk", b"status_asterisk", "status_nlu", b"status_nlu", "status_sip", b"status_sip", "status_stt", b"status_stt", "status_tts", b"status_tts"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["status_asterisk", b"status_asterisk", "status_nlu", b"status_nlu", "status_sip", b"status_sip", "status_stt", b"status_stt", "status_tts", b"status_tts"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["status_asterisk", b"status_asterisk", "status_nlu", b"status_nlu", "status_sip", b"status_sip", "status_stt", b"status_stt", "status_tts", b"status_tts"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["status_asterisk", b"status_asterisk", "status_nlu", b"status_nlu", "status_sip", b"status_sip", "status_stt", b"status_stt", "status_tts", b"status_tts"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AllServicesStatuses = AllServicesStatuses
+Global___AllServicesStatuses: _TypeAlias = AllServicesStatuses  # noqa: Y015
 
-@typing.final
-class ServiceStatus(google.protobuf.message.Message):
+@_typing.final
+class ServiceStatus(_message.Message):
     """Status of service"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    HEALTHY_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    healthy: builtins.bool
+    HEALTHY_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    healthy: _builtins.bool
     """Whether the service answered its health check"""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Why the service is unhealthy; empty when <code>healthy</code> is true"""
     def __init__(
         self,
         *,
-        healthy: builtins.bool = ...,
-        error_message: builtins.str = ...,
+        healthy: _builtins.bool = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_message", b"error_message", "healthy", b"healthy"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_message", b"error_message", "healthy", b"healthy"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ServiceStatus = ServiceStatus
+Global___ServiceStatus: _TypeAlias = ServiceStatus  # noqa: Y015
 
-@typing.final
-class CallResourceStatus(google.protobuf.message.Message):
+@_typing.final
+class CallResourceStatus(_message.Message):
     """The status of one caller, listener or scheduled caller, as streamed by the status streams."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    RESOURCE_NAME_FIELD_NUMBER: builtins.int
-    CALL_TYPE_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    ACTIVE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_DESCRIPTION_FIELD_NUMBER: builtins.int
-    START_TIME_FIELD_NUMBER: builtins.int
-    END_TIME_FIELD_NUMBER: builtins.int
-    PHONE_NUMBER_FIELD_NUMBER: builtins.int
-    SCHEDULED_CALLER_STATUS_FIELD_NUMBER: builtins.int
-    SCHEDULED_TIME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    resource_name: builtins.str
+    RESOURCE_NAME_FIELD_NUMBER: _builtins.int
+    CALL_TYPE_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    ACTIVE_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_DESCRIPTION_FIELD_NUMBER: _builtins.int
+    START_TIME_FIELD_NUMBER: _builtins.int
+    END_TIME_FIELD_NUMBER: _builtins.int
+    PHONE_NUMBER_FIELD_NUMBER: _builtins.int
+    SCHEDULED_CALLER_STATUS_FIELD_NUMBER: _builtins.int
+    SCHEDULED_TIME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    resource_name: _builtins.str
     """The caller, listener or scheduled caller."""
-    call_type: global___CallType.ValueType
+    call_type: Global___CallType.ValueType
     """CALLER, LISTENER or SCHEDULED_CALLER."""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Its current or last call. Empty when it has none."""
-    active: builtins.bool
+    active: _builtins.bool
     """Whether its call is active."""
-    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType
     """SIP status of its current or last call."""
-    sip_status_description: builtins.str
+    sip_status_description: _builtins.str
     """Description of that SIP status."""
-    phone_number: builtins.str
+    phone_number: _builtins.str
     """Callee or caller number of its current or last call."""
-    scheduled_caller_status: global___ScheduledCallerStatus.ValueType
+    scheduled_caller_status: Global___ScheduledCallerStatus.ValueType
     """For SCHEDULED_CALLER: its lifecycle state."""
-    campaign_name: builtins.str
+    campaign_name: _builtins.str
     """The campaign it belongs to, if any."""
-    error_message: builtins.str
+    error_message: _builtins.str
     """For SCHEDULED_CALLER: why it failed."""
-    @property
-    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def start_time(self) -> _timestamp_pb2.Timestamp:
         """Start of its current or last call."""
 
-    @property
-    def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def end_time(self) -> _timestamp_pb2.Timestamp:
         """End of its last call. Unset while a call runs."""
 
-    @property
-    def scheduled_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def scheduled_time(self) -> _timestamp_pb2.Timestamp:
         """For SCHEDULED_CALLER: its scheduled time."""
 
     def __init__(
         self,
         *,
-        resource_name: builtins.str = ...,
-        call_type: global___CallType.ValueType = ...,
-        call_name: builtins.str = ...,
-        active: builtins.bool = ...,
-        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
-        sip_status_description: builtins.str = ...,
-        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        phone_number: builtins.str = ...,
-        scheduled_caller_status: global___ScheduledCallerStatus.ValueType = ...,
-        scheduled_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        campaign_name: builtins.str = ...,
-        error_message: builtins.str = ...,
+        resource_name: _builtins.str = ...,
+        call_type: Global___CallType.ValueType = ...,
+        call_name: _builtins.str = ...,
+        active: _builtins.bool = ...,
+        sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType = ...,
+        sip_status_description: _builtins.str = ...,
+        start_time: _timestamp_pb2.Timestamp | None = ...,
+        end_time: _timestamp_pb2.Timestamp | None = ...,
+        phone_number: _builtins.str = ...,
+        scheduled_caller_status: Global___ScheduledCallerStatus.ValueType = ...,
+        scheduled_time: _timestamp_pb2.Timestamp | None = ...,
+        campaign_name: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["end_time", b"end_time", "scheduled_time", b"scheduled_time", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["active", b"active", "call_name", b"call_name", "call_type", b"call_type", "campaign_name", b"campaign_name", "end_time", b"end_time", "error_message", b"error_message", "phone_number", b"phone_number", "resource_name", b"resource_name", "scheduled_caller_status", b"scheduled_caller_status", "scheduled_time", b"scheduled_time", "sip_status_description", b"sip_status_description", "sip_status_type", b"sip_status_type", "start_time", b"start_time"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["end_time", b"end_time", "scheduled_time", b"scheduled_time", "start_time", b"start_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["active", b"active", "call_name", b"call_name", "call_type", b"call_type", "campaign_name", b"campaign_name", "end_time", b"end_time", "error_message", b"error_message", "phone_number", b"phone_number", "resource_name", b"resource_name", "scheduled_caller_status", b"scheduled_caller_status", "scheduled_time", b"scheduled_time", "sip_status_description", b"sip_status_description", "sip_status_type", b"sip_status_type", "start_time", b"start_time"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallResourceStatus = CallResourceStatus
+Global___CallResourceStatus: _TypeAlias = CallResourceStatus  # noqa: Y015
 
-@typing.final
-class StreamCallerStatusRequest(google.protobuf.message.Message):
+@_typing.final
+class StreamCallerStatusRequest(_message.Message):
     """The request message for <code>Calls.StreamCallerStatus</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CALLER_NAMES_FIELD_NUMBER: builtins.int
-    ACTIVE_ONLY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CALLER_NAMES_FIELD_NUMBER: _builtins.int
+    ACTIVE_ONLY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    active_only: builtins.bool
+    active_only: _builtins.bool
     """Only callers whose call is active."""
-    @property
-    def caller_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def caller_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Only these callers. Empty means every caller of the project."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        caller_names: collections.abc.Iterable[builtins.str] | None = ...,
-        active_only: builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        caller_names: _abc.Iterable[_builtins.str] | None = ...,
+        active_only: _builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["active_only", b"active_only", "caller_names", b"caller_names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["active_only", b"active_only", "caller_names", b"caller_names", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StreamCallerStatusRequest = StreamCallerStatusRequest
+Global___StreamCallerStatusRequest: _TypeAlias = StreamCallerStatusRequest  # noqa: Y015
 
-@typing.final
-class StreamListenerStatusRequest(google.protobuf.message.Message):
+@_typing.final
+class StreamListenerStatusRequest(_message.Message):
     """The request message for <code>Calls.StreamListenerStatus</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    LISTENER_NAMES_FIELD_NUMBER: builtins.int
-    ACTIVE_ONLY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    LISTENER_NAMES_FIELD_NUMBER: _builtins.int
+    ACTIVE_ONLY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    active_only: builtins.bool
+    active_only: _builtins.bool
     """Only listeners whose call is active."""
-    @property
-    def listener_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def listener_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Only these listeners. Empty means every listener of the project."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        listener_names: collections.abc.Iterable[builtins.str] | None = ...,
-        active_only: builtins.bool = ...,
+        vtsi_project_name: _builtins.str = ...,
+        listener_names: _abc.Iterable[_builtins.str] | None = ...,
+        active_only: _builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["active_only", b"active_only", "listener_names", b"listener_names", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["active_only", b"active_only", "listener_names", b"listener_names", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StreamListenerStatusRequest = StreamListenerStatusRequest
+Global___StreamListenerStatusRequest: _TypeAlias = StreamListenerStatusRequest  # noqa: Y015
 
-@typing.final
-class StreamScheduledCallerStatusRequest(google.protobuf.message.Message):
+@_typing.final
+class StreamScheduledCallerStatusRequest(_message.Message):
     """The request message for <code>Calls.StreamScheduledCallerStatus</code>."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    SCHEDULED_CALLER_NAMES_FIELD_NUMBER: builtins.int
-    STATUSES_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    SCHEDULED_CALLER_NAMES_FIELD_NUMBER: _builtins.int
+    STATUSES_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>"""
-    campaign_name: builtins.str
+    campaign_name: _builtins.str
     """Only scheduled callers of this campaign. Empty means any."""
-    @property
-    def scheduled_caller_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def scheduled_caller_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Only these scheduled callers. Empty means every scheduled caller of the project."""
 
-    @property
-    def statuses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ScheduledCallerStatus.ValueType]:
+    @_builtins.property
+    def statuses(self) -> _containers.RepeatedScalarFieldContainer[Global___ScheduledCallerStatus.ValueType]:
         """Only scheduled callers in these states. Empty means every state."""
 
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        scheduled_caller_names: collections.abc.Iterable[builtins.str] | None = ...,
-        statuses: collections.abc.Iterable[global___ScheduledCallerStatus.ValueType] | None = ...,
-        campaign_name: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        scheduled_caller_names: _abc.Iterable[_builtins.str] | None = ...,
+        statuses: _abc.Iterable[Global___ScheduledCallerStatus.ValueType] | None = ...,
+        campaign_name: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["campaign_name", b"campaign_name", "scheduled_caller_names", b"scheduled_caller_names", "statuses", b"statuses", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign_name", b"campaign_name", "scheduled_caller_names", b"scheduled_caller_names", "statuses", b"statuses", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StreamScheduledCallerStatusRequest = StreamScheduledCallerStatusRequest
+Global___StreamScheduledCallerStatusRequest: _TypeAlias = StreamScheduledCallerStatusRequest  # noqa: Y015
 
-@typing.final
-class StreamCallResourceStatusResponse(google.protobuf.message.Message):
+@_typing.final
+class StreamCallResourceStatusResponse(_message.Message):
     """The response message of the three status streams."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STATUSES_FIELD_NUMBER: builtins.int
-    REMOVED_RESOURCE_NAMES_FIELD_NUMBER: builtins.int
-    SNAPSHOT_FIELD_NUMBER: builtins.int
-    SNAPSHOT_TRUNCATED_FIELD_NUMBER: builtins.int
-    END_REASON_FIELD_NUMBER: builtins.int
-    snapshot: builtins.bool
+    STATUSES_FIELD_NUMBER: _builtins.int
+    REMOVED_RESOURCE_NAMES_FIELD_NUMBER: _builtins.int
+    SNAPSHOT_FIELD_NUMBER: _builtins.int
+    SNAPSHOT_TRUNCATED_FIELD_NUMBER: _builtins.int
+    END_REASON_FIELD_NUMBER: _builtins.int
+    snapshot: _builtins.bool
     """True on the first message, which carries every matching resource."""
-    snapshot_truncated: builtins.bool
+    snapshot_truncated: _builtins.bool
     """True when the snapshot was cut at the server limit (5000 resources)."""
-    end_reason: builtins.str
+    end_reason: _builtins.str
     """Set on the last message when the server ended the stream. Empty otherwise."""
-    @property
-    def statuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallResourceStatus]:
+    @_builtins.property
+    def statuses(self) -> _containers.RepeatedCompositeFieldContainer[Global___CallResourceStatus]:
         """Resources that changed (every matching resource in the snapshot)."""
 
-    @property
-    def removed_resource_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def removed_resource_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Resources that no longer exist or no longer match."""
 
     def __init__(
         self,
         *,
-        statuses: collections.abc.Iterable[global___CallResourceStatus] | None = ...,
-        removed_resource_names: collections.abc.Iterable[builtins.str] | None = ...,
-        snapshot: builtins.bool = ...,
-        snapshot_truncated: builtins.bool = ...,
-        end_reason: builtins.str = ...,
+        statuses: _abc.Iterable[Global___CallResourceStatus] | None = ...,
+        removed_resource_names: _abc.Iterable[_builtins.str] | None = ...,
+        snapshot: _builtins.bool = ...,
+        snapshot_truncated: _builtins.bool = ...,
+        end_reason: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["end_reason", b"end_reason", "removed_resource_names", b"removed_resource_names", "snapshot", b"snapshot", "snapshot_truncated", b"snapshot_truncated", "statuses", b"statuses"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["end_reason", b"end_reason", "removed_resource_names", b"removed_resource_names", "snapshot", b"snapshot", "snapshot_truncated", b"snapshot_truncated", "statuses", b"statuses"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StreamCallResourceStatusResponse = StreamCallResourceStatusResponse
+Global___StreamCallResourceStatusResponse: _TypeAlias = StreamCallResourceStatusResponse  # noqa: Y015

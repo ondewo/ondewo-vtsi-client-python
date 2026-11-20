@@ -16,33 +16,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.duration_pb2
-import google.protobuf.field_mask_pb2
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import google.protobuf.timestamp_pb2
-import ondewo.sip.sip_pb2
-import ondewo.vtsi.call_configs_pb2
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import duration_pb2 as _duration_pb2
+from google.protobuf import field_mask_pb2 as _field_mask_pb2
+from google.protobuf import message as _message
+from google.protobuf import timestamp_pb2 as _timestamp_pb2
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from ondewo.sip import sip_pb2 as _sip_pb2
+from ondewo.vtsi import call_configs_pb2 as _call_configs_pb2
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _CampaignState:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CampaignStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CampaignState.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CampaignStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CampaignState.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CAMPAIGN_STATE_UNSPECIFIED: _CampaignState.ValueType  # 0
     """Unspecified."""
     CAMPAIGN_STATE_CREATED: _CampaignState.ValueType  # 1
@@ -104,14 +104,14 @@ CAMPAIGN_STATE_COMPLETED: CampaignState.ValueType  # 7
 """Every call of the campaign is completed, failed or cancelled. Adding calls to a completed
 campaign makes it <code>RUNNING</code> again.
 """
-global___CampaignState = CampaignState
+Global___CampaignState: _TypeAlias = CampaignState  # noqa: Y015
 
 class _CampaignCallState:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CampaignCallStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CampaignCallState.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CampaignCallStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CampaignCallState.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CAMPAIGN_CALL_STATE_UNSPECIFIED: _CampaignCallState.ValueType  # 0
     """Unspecified."""
     CAMPAIGN_CALL_STATE_NOT_STARTED: _CampaignCallState.ValueType  # 1
@@ -152,14 +152,14 @@ CAMPAIGN_CALL_STATE_CANCELLED: CampaignCallState.ValueType  # 7
 """Its running call was ended by <code>HardStopCampaign</code> (confirmed), or its scheduled
 caller was cancelled before an attempt was running.
 """
-global___CampaignCallState = CampaignCallState
+Global___CampaignCallState: _TypeAlias = CampaignCallState  # noqa: Y015
 
 class _CampaignStartMode:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CampaignStartModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CampaignStartMode.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CampaignStartModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CampaignStartMode.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CAMPAIGN_START_MODE_UNSPECIFIED: _CampaignStartMode.ValueType  # 0
     """The default: a NEW campaign is created <code>RUNNING</code>; an EXISTING campaign keeps its
     state (except that a <code>COMPLETED</code> one becomes <code>RUNNING</code> again). An existing
@@ -197,14 +197,14 @@ CAMPAIGN_START_MODE_DO_NOT_START: CampaignStartMode.ValueType  # 2
 (a <code>COMPLETED</code> one still becomes <code>RUNNING</code>, because it has unfinished
 calls again).
 """
-global___CampaignStartMode = CampaignStartMode
+Global___CampaignStartMode: _TypeAlias = CampaignStartMode  # noqa: Y015
 
 class _CampaignCallSource:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CampaignCallSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CampaignCallSource.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CampaignCallSourceEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CampaignCallSource.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CAMPAIGN_CALL_SOURCE_UNSPECIFIED: _CampaignCallSource.ValueType  # 0
     """Unspecified."""
     CAMPAIGN_CALL_SOURCE_CALLER: _CampaignCallSource.ValueType  # 1
@@ -225,14 +225,14 @@ CAMPAIGN_CALL_SOURCE_SCHEDULED_CALLER: CampaignCallSource.ValueType  # 2
 """Added by <code>AddScheduledCallersToCampaign</code>: started at or after its scheduled time when the
 campaign has a free slot. Its <code>ScheduledCaller</code> follows the campaign call.
 """
-global___CampaignCallSource = CampaignCallSource
+Global___CampaignCallSource: _TypeAlias = CampaignCallSource  # noqa: Y015
 
 class _CampaignCallAttemptOutcome:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CampaignCallAttemptOutcomeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CampaignCallAttemptOutcome.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CampaignCallAttemptOutcomeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CampaignCallAttemptOutcome.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CAMPAIGN_CALL_ATTEMPT_OUTCOME_UNSPECIFIED: _CampaignCallAttemptOutcome.ValueType  # 0
     """Unspecified."""
     CAMPAIGN_CALL_ATTEMPT_OUTCOME_IN_PROGRESS: _CampaignCallAttemptOutcome.ValueType  # 1
@@ -257,14 +257,14 @@ CAMPAIGN_CALL_ATTEMPT_OUTCOME_FAILED: CampaignCallAttemptOutcome.ValueType  # 3
 """Starting the call failed, or the call ended without being connected."""
 CAMPAIGN_CALL_ATTEMPT_OUTCOME_CANCELLED: CampaignCallAttemptOutcome.ValueType  # 4
 """Its call was ended by <code>HardStopCampaign</code> (the attempt counts)."""
-global___CampaignCallAttemptOutcome = CampaignCallAttemptOutcome
+Global___CampaignCallAttemptOutcome: _TypeAlias = CampaignCallAttemptOutcome  # noqa: Y015
 
 class _CallingWindowDayOfWeek:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CallingWindowDayOfWeekEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CallingWindowDayOfWeek.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CallingWindowDayOfWeekEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CallingWindowDayOfWeek.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CALLING_WINDOW_DAY_OF_WEEK_UNSPECIFIED: _CallingWindowDayOfWeek.ValueType  # 0
     """Unspecified. Refused in a slot with <code>INVALID_ARGUMENT</code>."""
     CALLING_WINDOW_DAY_OF_WEEK_MONDAY: _CallingWindowDayOfWeek.ValueType  # 1
@@ -304,14 +304,14 @@ CALLING_WINDOW_DAY_OF_WEEK_SATURDAY: CallingWindowDayOfWeek.ValueType  # 6
 """Saturday."""
 CALLING_WINDOW_DAY_OF_WEEK_SUNDAY: CallingWindowDayOfWeek.ValueType  # 7
 """Sunday."""
-global___CallingWindowDayOfWeek = CallingWindowDayOfWeek
+Global___CallingWindowDayOfWeek: _TypeAlias = CallingWindowDayOfWeek  # noqa: Y015
 
 class _CampaignOrderBy:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CampaignOrderByEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CampaignOrderBy.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CampaignOrderByEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CampaignOrderBy.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     CAMPAIGN_ORDER_BY_UNSPECIFIED: _CampaignOrderBy.ValueType  # 0
     """The default: <code>created_at</code>, newest first (the order of every release before this value
     existed); identical to <code>CAMPAIGN_ORDER_BY_CREATED_AT_DESC</code>.
@@ -348,14 +348,14 @@ CAMPAIGN_ORDER_BY_DISPLAY_NAME_ASC: CampaignOrderBy.ValueType  # 3
 """<code>display_name</code>, ascending, compared byte-wise (case-sensitive, <code>B</code> before
 <code>a</code>).
 """
-global___CampaignOrderBy = CampaignOrderBy
+Global___CampaignOrderBy: _TypeAlias = CampaignOrderBy  # noqa: Y015
 
 class _StreamEndReason:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _StreamEndReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_StreamEndReason.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _StreamEndReasonEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_StreamEndReason.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     STREAM_END_REASON_UNSPECIFIED: _StreamEndReason.ValueType  # 0
     """Not ended by the server (every message but the last one), or a server that predates this field
     (then only <code>end_reason</code> is set): reconnect.
@@ -415,10 +415,10 @@ STREAM_END_REASON_PROJECT_DELETED: StreamEndReason.ValueType  # 5
 """The project of the stream was deleted. Do not reconnect."""
 STREAM_END_REASON_SERVER_SHUTDOWN: StreamEndReason.ValueType  # 6
 """The server replica serving the stream is shutting down. Reconnect (another replica serves it)."""
-global___StreamEndReason = StreamEndReason
+Global___StreamEndReason: _TypeAlias = StreamEndReason  # noqa: Y015
 
-@typing.final
-class Campaign(google.protobuf.message.Message):
+@_typing.final
+class Campaign(_message.Message):
     """////////////////////////////////////////////////////////////////////////////
     Resources
     ////////////////////////////////////////////////////////////////////////////
@@ -426,47 +426,47 @@ class Campaign(google.protobuf.message.Message):
     A campaign: a set of outbound calls started with a limit on how many run at the same time.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_ID_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    MAX_PARALLEL_CALLS_FIELD_NUMBER: builtins.int
-    MAX_ATTEMPTS_FIELD_NUMBER: builtins.int
-    RETRY_DELAY_FIELD_NUMBER: builtins.int
-    STATE_FIELD_NUMBER: builtins.int
-    STATE_REASON_FIELD_NUMBER: builtins.int
-    STATISTICS_FIELD_NUMBER: builtins.int
-    CREATED_BY_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    MODIFIED_BY_FIELD_NUMBER: builtins.int
-    MODIFIED_AT_FIELD_NUMBER: builtins.int
-    STARTED_AT_FIELD_NUMBER: builtins.int
-    STOPPED_AT_FIELD_NUMBER: builtins.int
-    COMPLETED_AT_FIELD_NUMBER: builtins.int
-    CAMPAIGN_COMMON_SERVICES_CONFIG_FIELD_NUMBER: builtins.int
-    CAMPAIGN_SIP_CALLER_CONFIG_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALLERS_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALLERS_TRUNCATED_FIELD_NUMBER: builtins.int
-    CALLING_WINDOW_FIELD_NUMBER: builtins.int
-    OUTSIDE_CALLING_WINDOW_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_ID_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    MAX_PARALLEL_CALLS_FIELD_NUMBER: _builtins.int
+    MAX_ATTEMPTS_FIELD_NUMBER: _builtins.int
+    RETRY_DELAY_FIELD_NUMBER: _builtins.int
+    STATE_FIELD_NUMBER: _builtins.int
+    STATE_REASON_FIELD_NUMBER: _builtins.int
+    STATISTICS_FIELD_NUMBER: _builtins.int
+    CREATED_BY_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    MODIFIED_BY_FIELD_NUMBER: _builtins.int
+    MODIFIED_AT_FIELD_NUMBER: _builtins.int
+    STARTED_AT_FIELD_NUMBER: _builtins.int
+    STOPPED_AT_FIELD_NUMBER: _builtins.int
+    COMPLETED_AT_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_COMMON_SERVICES_CONFIG_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_SIP_CALLER_CONFIG_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_CALLERS_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_CALLERS_TRUNCATED_FIELD_NUMBER: _builtins.int
+    CALLING_WINDOW_FIELD_NUMBER: _builtins.int
+    OUTSIDE_CALLING_WINDOW_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Output only. Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     Ignored on create; identifies the campaign on update.
     """
-    campaign_id: builtins.str
+    campaign_id: _builtins.str
     """Output only. The <code>&lt;campaign_uuid&gt;</code> part of <code>name</code>."""
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """Output only. Resource name of the VTSI project the campaign belongs to.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Human-readable name, unique within the project, at most 128 characters. Empty on create means
     <code>campaign-&lt;campaign_uuid&gt;</code>. Updatable.
     """
-    max_parallel_calls: builtins.int
+    max_parallel_calls: _builtins.int
     """Maximum number of calls of this campaign that are being started or are running at the same
     time. <code>0</code> on create means the server default
     (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_MAX_PARALLEL_CALLS</code>, 1 by default); the allowed range is 1 to the
@@ -474,7 +474,7 @@ class Campaign(google.protobuf.message.Message):
     project&apos;s <code>max_callers</code> still bounds the
     number of callers that exist at all. Updatable; lowering it never ends a running call.
     """
-    max_attempts: builtins.int
+    max_attempts: _builtins.int
     """Maximum number of attempts per call, the first one included. <code>0</code> on create means
     the server default of 1, i.e. no retry; the allowed range is 1 to
     <code>ONDEWO_VTSI_CAMPAIGN_MAX_ATTEMPTS_LIMIT</code> (10 by default). Updatable. It is read
@@ -485,18 +485,18 @@ class Campaign(google.protobuf.message.Message):
     does. A call requeued by <code>RetryCampaignCalls</code> may exceed it (see
     <code>CampaignCall.max_attempts</code>).
     """
-    state: global___CampaignState.ValueType
+    state: Global___CampaignState.ValueType
     """Output only. Lifecycle state."""
-    state_reason: builtins.str
+    state_reason: _builtins.str
     """Output only. Why the campaign is in its state when the server changed it on its own, e.g.
     <code>stopped after 3 consecutive failures that cannot succeed by repetition: ...</code>.
     Empty otherwise.
     """
-    created_by: builtins.str
+    created_by: _builtins.str
     """Output only. The user who created the campaign."""
-    modified_by: builtins.str
+    modified_by: _builtins.str
     """Output only. The user who last modified the campaign."""
-    campaign_callers_truncated: builtins.bool
+    campaign_callers_truncated: _builtins.bool
     """Output only. True when <code>campaign_callers</code> may be incomplete: it was cut at its bound of 1000
     names and the campaign has more callers, the campaign has 10000 or more attempts (the most the server
     reads for it), or (on <code>UpdateCampaign</code> and the lifecycle RPCs only) the callers could not be
@@ -506,7 +506,7 @@ class Campaign(google.protobuf.message.Message):
     only when the <code>field_mask</code> names it explicitly; a <code>field_mask</code> names it like any
     other path (name both to read the names and whether they are complete).
     """
-    outside_calling_window: builtins.bool
+    outside_calling_window: _builtins.bool
     """Output only. True while the campaign is <code>RUNNING</code>, has a <code>calling_window</code> and the
     current time is outside every slot of it, i.e. it starts no call until
     <code>calling_window.next_window_start</code>. False in every other case (no window, inside a slot, or
@@ -514,40 +514,40 @@ class Campaign(google.protobuf.message.Message):
     <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED</code> / <code>..._CLOSED</code> report the edges of a
     running campaign. Returned like <code>calling_window</code>.
     """
-    @property
-    def retry_delay(self) -> google.protobuf.duration_pb2.Duration:
+    @_builtins.property
+    def retry_delay(self) -> _duration_pb2.Duration:
         """Time to wait after a failed attempt before the next one is started. Unset on create means the
         server default (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_RETRY_DELAY_S</code>, 60 s by default); allowed range
         0 s to 7 days. Updatable. With a <code>calling_window</code>, a retry that falls due outside every slot
         waits for the next slot.
         """
 
-    @property
-    def statistics(self) -> global___CampaignStatistics:
+    @_builtins.property
+    def statistics(self) -> Global___CampaignStatistics:
         """Output only. Progress of the campaign."""
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. Creation time."""
 
-    @property
-    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. Last modification time, including state changes made by the server."""
 
-    @property
-    def started_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def started_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When the campaign was first started."""
 
-    @property
-    def stopped_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def stopped_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When the campaign last reached <code>STOPPED</code> or <code>HARD_STOPPED</code>."""
 
-    @property
-    def completed_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def completed_at(self) -> _timestamp_pb2.Timestamp:
         """Output only. When the campaign reached <code>COMPLETED</code>."""
 
-    @property
-    def campaign_common_services_config(self) -> ondewo.vtsi.call_configs_pb2.CommonServicesConfig:
+    @_builtins.property
+    def campaign_common_services_config(self) -> _call_configs_pb2.CommonServicesConfig:
         """Optional. Default <code>CommonServicesConfig</code> of EVERY call of the campaign (speech-to-text,
         NLU, text-to-speech, CSI and voice interaction). Settable on <code>CreateCampaign</code> and on
         <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
@@ -599,8 +599,8 @@ class Campaign(google.protobuf.message.Message):
         credentials with the withheld (empty) ones; update a sub-path instead.</p>
         """
 
-    @property
-    def campaign_sip_caller_config(self) -> ondewo.vtsi.call_configs_pb2.SipCallerConfig:
+    @_builtins.property
+    def campaign_sip_caller_config(self) -> _call_configs_pb2.SipCallerConfig:
         """Optional. Default <code>SipCallerConfig</code> of EVERY call of the campaign (SIP image version,
         callee and SIP headers). Settable on <code>CreateCampaign</code> and on
         <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
@@ -626,8 +626,8 @@ class Campaign(google.protobuf.message.Message):
         same responses.</p>
         """
 
-    @property
-    def campaign_callers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_callers(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Output only. Resource names
         (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>) of the callers of the
         campaign: the callers that placed at least one attempt of one of its campaign calls
@@ -662,8 +662,8 @@ class Campaign(google.protobuf.message.Message):
         <code>update_mask</code> is rejected as output only.</p>
         """
 
-    @property
-    def calling_window(self) -> global___CampaignCallingWindow:
+    @_builtins.property
+    def calling_window(self) -> Global___CampaignCallingWindow:
         """Optional. When calls of the campaign may be started: weekly slots in an IANA time zone, see
         <a href="index.html#ondewo.vtsi.CampaignCallingWindow">CampaignCallingWindow</a>. Unset (the default)
         means at any time, as before this field existed. Settable on <code>CreateCampaign</code>,
@@ -680,37 +680,40 @@ class Campaign(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        campaign_id: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        max_parallel_calls: builtins.int = ...,
-        max_attempts: builtins.int = ...,
-        retry_delay: google.protobuf.duration_pb2.Duration | None = ...,
-        state: global___CampaignState.ValueType = ...,
-        state_reason: builtins.str = ...,
-        statistics: global___CampaignStatistics | None = ...,
-        created_by: builtins.str = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        modified_by: builtins.str = ...,
-        modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        started_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        stopped_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        completed_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        campaign_common_services_config: ondewo.vtsi.call_configs_pb2.CommonServicesConfig | None = ...,
-        campaign_sip_caller_config: ondewo.vtsi.call_configs_pb2.SipCallerConfig | None = ...,
-        campaign_callers: collections.abc.Iterable[builtins.str] | None = ...,
-        campaign_callers_truncated: builtins.bool = ...,
-        calling_window: global___CampaignCallingWindow | None = ...,
-        outside_calling_window: builtins.bool = ...,
+        name: _builtins.str = ...,
+        campaign_id: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        max_parallel_calls: _builtins.int = ...,
+        max_attempts: _builtins.int = ...,
+        retry_delay: _duration_pb2.Duration | None = ...,
+        state: Global___CampaignState.ValueType = ...,
+        state_reason: _builtins.str = ...,
+        statistics: Global___CampaignStatistics | None = ...,
+        created_by: _builtins.str = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        modified_by: _builtins.str = ...,
+        modified_at: _timestamp_pb2.Timestamp | None = ...,
+        started_at: _timestamp_pb2.Timestamp | None = ...,
+        stopped_at: _timestamp_pb2.Timestamp | None = ...,
+        completed_at: _timestamp_pb2.Timestamp | None = ...,
+        campaign_common_services_config: _call_configs_pb2.CommonServicesConfig | None = ...,
+        campaign_sip_caller_config: _call_configs_pb2.SipCallerConfig | None = ...,
+        campaign_callers: _abc.Iterable[_builtins.str] | None = ...,
+        campaign_callers_truncated: _builtins.bool = ...,
+        calling_window: Global___CampaignCallingWindow | None = ...,
+        outside_calling_window: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["calling_window", b"calling_window", "campaign_common_services_config", b"campaign_common_services_config", "campaign_sip_caller_config", b"campaign_sip_caller_config", "completed_at", b"completed_at", "created_at", b"created_at", "modified_at", b"modified_at", "retry_delay", b"retry_delay", "started_at", b"started_at", "statistics", b"statistics", "stopped_at", b"stopped_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["calling_window", b"calling_window", "campaign_callers", b"campaign_callers", "campaign_callers_truncated", b"campaign_callers_truncated", "campaign_common_services_config", b"campaign_common_services_config", "campaign_id", b"campaign_id", "campaign_sip_caller_config", b"campaign_sip_caller_config", "completed_at", b"completed_at", "created_at", b"created_at", "created_by", b"created_by", "display_name", b"display_name", "max_attempts", b"max_attempts", "max_parallel_calls", b"max_parallel_calls", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "outside_calling_window", b"outside_calling_window", "retry_delay", b"retry_delay", "started_at", b"started_at", "state", b"state", "state_reason", b"state_reason", "statistics", b"statistics", "stopped_at", b"stopped_at", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["calling_window", b"calling_window", "campaign_common_services_config", b"campaign_common_services_config", "campaign_sip_caller_config", b"campaign_sip_caller_config", "completed_at", b"completed_at", "created_at", b"created_at", "modified_at", b"modified_at", "retry_delay", b"retry_delay", "started_at", b"started_at", "statistics", b"statistics", "stopped_at", b"stopped_at"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["calling_window", b"calling_window", "campaign_callers", b"campaign_callers", "campaign_callers_truncated", b"campaign_callers_truncated", "campaign_common_services_config", b"campaign_common_services_config", "campaign_id", b"campaign_id", "campaign_sip_caller_config", b"campaign_sip_caller_config", "completed_at", b"completed_at", "created_at", b"created_at", "created_by", b"created_by", "display_name", b"display_name", "max_attempts", b"max_attempts", "max_parallel_calls", b"max_parallel_calls", "modified_at", b"modified_at", "modified_by", b"modified_by", "name", b"name", "outside_calling_window", b"outside_calling_window", "retry_delay", b"retry_delay", "started_at", b"started_at", "state", b"state", "state_reason", b"state_reason", "statistics", b"statistics", "stopped_at", b"stopped_at", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Campaign = Campaign
+Global___Campaign: _TypeAlias = Campaign  # noqa: Y015
 
-@typing.final
-class CampaignCallingWindow(google.protobuf.message.Message):
+@_typing.final
+class CampaignCallingWindow(_message.Message):
     """When the calls of a campaign may be started: a set of weekly slots, each a day of the week and a range
     of minutes of that day, in one time zone.
     <p>Effect: the campaign engine starts an attempt (a first attempt, a retry, or a due scheduled call) only
@@ -735,21 +738,21 @@ class CampaignCallingWindow(google.protobuf.message.Message):
     back) takes effect at its first occurrence.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TIME_ZONE_FIELD_NUMBER: builtins.int
-    SLOTS_FIELD_NUMBER: builtins.int
-    NEXT_WINDOW_START_FIELD_NUMBER: builtins.int
-    time_zone: builtins.str
+    TIME_ZONE_FIELD_NUMBER: _builtins.int
+    SLOTS_FIELD_NUMBER: _builtins.int
+    NEXT_WINDOW_START_FIELD_NUMBER: _builtins.int
+    time_zone: _builtins.str
     """Required. IANA time zone name in which the slots are read, e.g. <code>Europe/Vienna</code>. At most
     64 characters.
     """
-    @property
-    def slots(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallingWindowSlot]:
+    @_builtins.property
+    def slots(self) -> _containers.RepeatedCompositeFieldContainer[Global___CallingWindowSlot]:
         """Required. The weekly slots, 1 to 50. Order is irrelevant."""
 
-    @property
-    def next_window_start(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def next_window_start(self) -> _timestamp_pb2.Timestamp:
         """Output only. The start of the next slot strictly after the moment the campaign was read, as an
         absolute time (UTC); while inside a slot, the start of the slot after the current one ends (the end of
         a run of overlapping or touching slots). Unset when the window has no future slot (cannot happen for a
@@ -759,49 +762,56 @@ class CampaignCallingWindow(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        time_zone: builtins.str = ...,
-        slots: collections.abc.Iterable[global___CallingWindowSlot] | None = ...,
-        next_window_start: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        time_zone: _builtins.str = ...,
+        slots: _abc.Iterable[Global___CallingWindowSlot] | None = ...,
+        next_window_start: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["next_window_start", b"next_window_start"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["next_window_start", b"next_window_start", "slots", b"slots", "time_zone", b"time_zone"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["next_window_start", b"next_window_start"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["next_window_start", b"next_window_start", "slots", b"slots", "time_zone", b"time_zone"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CampaignCallingWindow = CampaignCallingWindow
+Global___CampaignCallingWindow: _TypeAlias = CampaignCallingWindow  # noqa: Y015
 
-@typing.final
-class CallingWindowSlot(google.protobuf.message.Message):
+@_typing.final
+class CallingWindowSlot(_message.Message):
     """One weekly slot of a <code>CampaignCallingWindow</code>: on <code>day_of_week</code>, from
     <code>start_minute</code> (inclusive) to <code>end_minute</code> (exclusive), counted in minutes after local
     midnight of <code>CampaignCallingWindow.time_zone</code>. Example: Monday 09:00 to 17:30 is
     <code>{day_of_week: CALLING_WINDOW_DAY_OF_WEEK_MONDAY, start_minute: 540, end_minute: 1050}</code>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DAY_OF_WEEK_FIELD_NUMBER: builtins.int
-    START_MINUTE_FIELD_NUMBER: builtins.int
-    END_MINUTE_FIELD_NUMBER: builtins.int
-    day_of_week: global___CallingWindowDayOfWeek.ValueType
+    DAY_OF_WEEK_FIELD_NUMBER: _builtins.int
+    START_MINUTE_FIELD_NUMBER: _builtins.int
+    END_MINUTE_FIELD_NUMBER: _builtins.int
+    day_of_week: Global___CallingWindowDayOfWeek.ValueType
     """Required. The day, in the window&apos;s time zone."""
-    start_minute: builtins.int
+    start_minute: _builtins.int
     """Start of the slot in minutes after local midnight, inclusive: 0 to 1439."""
-    end_minute: builtins.int
+    end_minute: _builtins.int
     """End of the slot in minutes after local midnight, exclusive: 1 to 1440 (1440 = the end of the day),
     greater than <code>start_minute</code>.
     """
     def __init__(
         self,
         *,
-        day_of_week: global___CallingWindowDayOfWeek.ValueType = ...,
-        start_minute: builtins.int = ...,
-        end_minute: builtins.int = ...,
+        day_of_week: Global___CallingWindowDayOfWeek.ValueType = ...,
+        start_minute: _builtins.int = ...,
+        end_minute: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["day_of_week", b"day_of_week", "end_minute", b"end_minute", "start_minute", b"start_minute"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["day_of_week", b"day_of_week", "end_minute", b"end_minute", "start_minute", b"start_minute"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallingWindowSlot = CallingWindowSlot
+Global___CallingWindowSlot: _TypeAlias = CallingWindowSlot  # noqa: Y015
 
-@typing.final
-class CampaignStatistics(google.protobuf.message.Message):
+@_typing.final
+class CampaignStatistics(_message.Message):
     """Progress of a campaign. Every call of the campaign is counted in exactly one of
     <code>not_started</code>, <code>in_progress</code>, <code>retry_pending</code>,
     <code>completed</code>, <code>failed</code> and <code>cancelled</code>; their sum is
@@ -826,53 +836,53 @@ class CampaignStatistics(google.protobuf.message.Message):
     snapshot.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    TOTAL_FIELD_NUMBER: builtins.int
-    NOT_STARTED_FIELD_NUMBER: builtins.int
-    IN_PROGRESS_FIELD_NUMBER: builtins.int
-    RETRY_PENDING_FIELD_NUMBER: builtins.int
-    COMPLETED_FIELD_NUMBER: builtins.int
-    FAILED_FIELD_NUMBER: builtins.int
-    CANCELLED_FIELD_NUMBER: builtins.int
-    TOTAL_ATTEMPTS_FIELD_NUMBER: builtins.int
-    PROGRESS_PERCENT_FIELD_NUMBER: builtins.int
-    SCHEDULED_NOT_DUE_FIELD_NUMBER: builtins.int
-    CALLS_RETRIED_FIELD_NUMBER: builtins.int
-    AVERAGE_CONNECTED_DURATION_FIELD_NUMBER: builtins.int
-    ANSWERING_MACHINE_DETECTED_FIELD_NUMBER: builtins.int
-    campaign_name: builtins.str
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    TOTAL_FIELD_NUMBER: _builtins.int
+    NOT_STARTED_FIELD_NUMBER: _builtins.int
+    IN_PROGRESS_FIELD_NUMBER: _builtins.int
+    RETRY_PENDING_FIELD_NUMBER: _builtins.int
+    COMPLETED_FIELD_NUMBER: _builtins.int
+    FAILED_FIELD_NUMBER: _builtins.int
+    CANCELLED_FIELD_NUMBER: _builtins.int
+    TOTAL_ATTEMPTS_FIELD_NUMBER: _builtins.int
+    PROGRESS_PERCENT_FIELD_NUMBER: _builtins.int
+    SCHEDULED_NOT_DUE_FIELD_NUMBER: _builtins.int
+    CALLS_RETRIED_FIELD_NUMBER: _builtins.int
+    AVERAGE_CONNECTED_DURATION_FIELD_NUMBER: _builtins.int
+    ANSWERING_MACHINE_DETECTED_FIELD_NUMBER: _builtins.int
+    campaign_name: _builtins.str
     """Resource name of the campaign."""
-    total: builtins.int
+    total: _builtins.int
     """Number of calls in the campaign."""
-    not_started: builtins.int
+    not_started: _builtins.int
     """Calls with no attempt started yet (<code>CAMPAIGN_CALL_STATE_NOT_STARTED</code>)."""
-    in_progress: builtins.int
+    in_progress: _builtins.int
     """Calls being started or running (<code>DISPATCHING</code> + <code>IN_PROGRESS</code>)."""
-    retry_pending: builtins.int
+    retry_pending: _builtins.int
     """Calls whose attempt failed and that wait for their next attempt."""
-    completed: builtins.int
+    completed: _builtins.int
     """Calls that connected and ended normally."""
-    failed: builtins.int
+    failed: _builtins.int
     """Calls that failed after their last attempt."""
-    cancelled: builtins.int
+    cancelled: _builtins.int
     """Calls cancelled by a hard stop or by cancelling their scheduled caller."""
-    total_attempts: builtins.int
+    total_attempts: _builtins.int
     """Attempts started in total, over every call."""
-    progress_percent: builtins.float
+    progress_percent: _builtins.float
     """Share of calls that are finished (completed + failed + cancelled), 0 to 100."""
-    scheduled_not_due: builtins.int
+    scheduled_not_due: _builtins.int
     """Of <code>not_started</code>: scheduled calls whose scheduled time has not come yet."""
-    calls_retried: builtins.int
+    calls_retried: _builtins.int
     """Calls that needed more than one attempt (<code>attempts</code> &gt; 1), whatever their state."""
-    answering_machine_detected: builtins.int
+    answering_machine_detected: _builtins.int
     """Attempts whose call reported <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code> (answering machine
     detection), whatever the call did next; each attempt counts once. <code>0</code> also when answering
     machine detection is not configured for the campaign&apos;s calls.
     """
-    @property
-    def average_connected_duration(self) -> google.protobuf.duration_pb2.Duration:
+    @_builtins.property
+    def average_connected_duration(self) -> _duration_pb2.Duration:
         """Mean connected time of the campaign&apos;s FINISHED attempts that were connected: from the moment the
         attempt&apos;s call reached <code>OUTGOING_CALL_CONNECTED</code> to the moment it ended, averaged over
         those attempts (a running call is not counted until it ended). Unset when no attempt has connected and
@@ -882,179 +892,185 @@ class CampaignStatistics(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        campaign_name: builtins.str = ...,
-        total: builtins.int = ...,
-        not_started: builtins.int = ...,
-        in_progress: builtins.int = ...,
-        retry_pending: builtins.int = ...,
-        completed: builtins.int = ...,
-        failed: builtins.int = ...,
-        cancelled: builtins.int = ...,
-        total_attempts: builtins.int = ...,
-        progress_percent: builtins.float = ...,
-        scheduled_not_due: builtins.int = ...,
-        calls_retried: builtins.int = ...,
-        average_connected_duration: google.protobuf.duration_pb2.Duration | None = ...,
-        answering_machine_detected: builtins.int = ...,
+        campaign_name: _builtins.str = ...,
+        total: _builtins.int = ...,
+        not_started: _builtins.int = ...,
+        in_progress: _builtins.int = ...,
+        retry_pending: _builtins.int = ...,
+        completed: _builtins.int = ...,
+        failed: _builtins.int = ...,
+        cancelled: _builtins.int = ...,
+        total_attempts: _builtins.int = ...,
+        progress_percent: _builtins.float = ...,
+        scheduled_not_due: _builtins.int = ...,
+        calls_retried: _builtins.int = ...,
+        average_connected_duration: _duration_pb2.Duration | None = ...,
+        answering_machine_detected: _builtins.int = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["average_connected_duration", b"average_connected_duration"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["answering_machine_detected", b"answering_machine_detected", "average_connected_duration", b"average_connected_duration", "calls_retried", b"calls_retried", "campaign_name", b"campaign_name", "cancelled", b"cancelled", "completed", b"completed", "failed", b"failed", "in_progress", b"in_progress", "not_started", b"not_started", "progress_percent", b"progress_percent", "retry_pending", b"retry_pending", "scheduled_not_due", b"scheduled_not_due", "total", b"total", "total_attempts", b"total_attempts"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["average_connected_duration", b"average_connected_duration"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["answering_machine_detected", b"answering_machine_detected", "average_connected_duration", b"average_connected_duration", "calls_retried", b"calls_retried", "campaign_name", b"campaign_name", "cancelled", b"cancelled", "completed", b"completed", "failed", b"failed", "in_progress", b"in_progress", "not_started", b"not_started", "progress_percent", b"progress_percent", "retry_pending", b"retry_pending", "scheduled_not_due", b"scheduled_not_due", "total", b"total", "total_attempts", b"total_attempts"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CampaignStatistics = CampaignStatistics
+Global___CampaignStatistics: _TypeAlias = CampaignStatistics  # noqa: Y015
 
-@typing.final
-class CampaignCallAttempt(google.protobuf.message.Message):
+@_typing.final
+class CampaignCallAttempt(_message.Message):
     """One attempt of a campaign call."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ATTEMPT_NUMBER_FIELD_NUMBER: builtins.int
-    CALLER_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    START_TIME_FIELD_NUMBER: builtins.int
-    END_TIME_FIELD_NUMBER: builtins.int
-    OUTCOME_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_DESCRIPTION_FIELD_NUMBER: builtins.int
-    ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    attempt_number: builtins.int
+    ATTEMPT_NUMBER_FIELD_NUMBER: _builtins.int
+    CALLER_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    START_TIME_FIELD_NUMBER: _builtins.int
+    END_TIME_FIELD_NUMBER: _builtins.int
+    OUTCOME_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_DESCRIPTION_FIELD_NUMBER: _builtins.int
+    ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    attempt_number: _builtins.int
     """1 for the first attempt."""
-    caller_name: builtins.str
+    caller_name: _builtins.str
     """Resource name of the caller that placed the attempt, empty when starting it failed."""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Resource name of the call of the attempt, empty when starting it failed.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
     """
-    outcome: global___CampaignCallAttemptOutcome.ValueType
+    outcome: Global___CampaignCallAttemptOutcome.ValueType
     """Outcome of the attempt."""
-    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType
     """Last SIP status of the attempt&apos;s call."""
-    sip_status_description: builtins.str
+    sip_status_description: _builtins.str
     """Description of the last SIP status of the attempt&apos;s call."""
-    error_message: builtins.str
+    error_message: _builtins.str
     """Why the attempt failed. Empty unless <code>outcome</code> is <code>FAILED</code>."""
-    @property
-    def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def start_time(self) -> _timestamp_pb2.Timestamp:
         """When the attempt was started."""
 
-    @property
-    def end_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def end_time(self) -> _timestamp_pb2.Timestamp:
         """When the attempt ended. Unset while it is in progress."""
 
     def __init__(
         self,
         *,
-        attempt_number: builtins.int = ...,
-        caller_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        outcome: global___CampaignCallAttemptOutcome.ValueType = ...,
-        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
-        sip_status_description: builtins.str = ...,
-        error_message: builtins.str = ...,
+        attempt_number: _builtins.int = ...,
+        caller_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        start_time: _timestamp_pb2.Timestamp | None = ...,
+        end_time: _timestamp_pb2.Timestamp | None = ...,
+        outcome: Global___CampaignCallAttemptOutcome.ValueType = ...,
+        sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType = ...,
+        sip_status_description: _builtins.str = ...,
+        error_message: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["end_time", b"end_time", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["attempt_number", b"attempt_number", "call_name", b"call_name", "caller_name", b"caller_name", "end_time", b"end_time", "error_message", b"error_message", "outcome", b"outcome", "sip_status_description", b"sip_status_description", "sip_status_type", b"sip_status_type", "start_time", b"start_time"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["end_time", b"end_time", "start_time", b"start_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["attempt_number", b"attempt_number", "call_name", b"call_name", "caller_name", b"caller_name", "end_time", b"end_time", "error_message", b"error_message", "outcome", b"outcome", "sip_status_description", b"sip_status_description", "sip_status_type", b"sip_status_type", "start_time", b"start_time"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CampaignCallAttempt = CampaignCallAttempt
+Global___CampaignCallAttempt: _TypeAlias = CampaignCallAttempt  # noqa: Y015
 
-@typing.final
-class CampaignCall(google.protobuf.message.Message):
+@_typing.final
+class CampaignCall(_message.Message):
     """One call of a campaign. Every field is output only."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    POSITION_FIELD_NUMBER: builtins.int
-    STATE_FIELD_NUMBER: builtins.int
-    PHONE_NUMBER_FIELD_NUMBER: builtins.int
-    SOURCE_FIELD_NUMBER: builtins.int
-    SCHEDULED_CALLER_NAME_FIELD_NUMBER: builtins.int
-    SCHEDULED_TIME_FIELD_NUMBER: builtins.int
-    ATTEMPTS_FIELD_NUMBER: builtins.int
-    MAX_ATTEMPTS_FIELD_NUMBER: builtins.int
-    CALLER_NAME_FIELD_NUMBER: builtins.int
-    CALL_NAME_FIELD_NUMBER: builtins.int
-    SIP_STATUS_TYPE_FIELD_NUMBER: builtins.int
-    SIP_STATUS_DESCRIPTION_FIELD_NUMBER: builtins.int
-    LAST_ERROR_FIELD_NUMBER: builtins.int
-    NEXT_ATTEMPT_TIME_FIELD_NUMBER: builtins.int
-    FIRST_ATTEMPT_TIME_FIELD_NUMBER: builtins.int
-    LAST_ATTEMPT_TIME_FIELD_NUMBER: builtins.int
-    FINISH_TIME_FIELD_NUMBER: builtins.int
-    CREATED_AT_FIELD_NUMBER: builtins.int
-    MODIFIED_AT_FIELD_NUMBER: builtins.int
-    ATTEMPT_HISTORY_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    POSITION_FIELD_NUMBER: _builtins.int
+    STATE_FIELD_NUMBER: _builtins.int
+    PHONE_NUMBER_FIELD_NUMBER: _builtins.int
+    SOURCE_FIELD_NUMBER: _builtins.int
+    SCHEDULED_CALLER_NAME_FIELD_NUMBER: _builtins.int
+    SCHEDULED_TIME_FIELD_NUMBER: _builtins.int
+    ATTEMPTS_FIELD_NUMBER: _builtins.int
+    MAX_ATTEMPTS_FIELD_NUMBER: _builtins.int
+    CALLER_NAME_FIELD_NUMBER: _builtins.int
+    CALL_NAME_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_TYPE_FIELD_NUMBER: _builtins.int
+    SIP_STATUS_DESCRIPTION_FIELD_NUMBER: _builtins.int
+    LAST_ERROR_FIELD_NUMBER: _builtins.int
+    NEXT_ATTEMPT_TIME_FIELD_NUMBER: _builtins.int
+    FIRST_ATTEMPT_TIME_FIELD_NUMBER: _builtins.int
+    LAST_ATTEMPT_TIME_FIELD_NUMBER: _builtins.int
+    FINISH_TIME_FIELD_NUMBER: _builtins.int
+    CREATED_AT_FIELD_NUMBER: _builtins.int
+    MODIFIED_AT_FIELD_NUMBER: _builtins.int
+    ATTEMPT_HISTORY_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign call.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;/campaign_calls/&lt;campaign_call_uuid&gt;</code></pre>
     """
-    campaign_name: builtins.str
+    campaign_name: _builtins.str
     """Resource name of the campaign."""
-    position: builtins.int
+    position: _builtins.int
     """Position of the call in the campaign, in the order calls were added, starting at 1."""
-    state: global___CampaignCallState.ValueType
+    state: Global___CampaignCallState.ValueType
     """State of the call."""
-    phone_number: builtins.str
+    phone_number: _builtins.str
     """The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request or, when the request
     leaves it empty, of <code>Campaign.campaign_sip_caller_config</code> at the time the call was added.
     Fixed from then on: every attempt of the call dials exactly this number, whatever later updates of
     the campaign&apos;s <code>campaign_sip_caller_config</code> say.
     """
-    source: global___CampaignCallSource.ValueType
+    source: Global___CampaignCallSource.ValueType
     """How the call was added."""
-    scheduled_caller_name: builtins.str
+    scheduled_caller_name: _builtins.str
     """For <code>CAMPAIGN_CALL_SOURCE_SCHEDULED_CALLER</code>: resource name of its scheduled caller."""
-    attempts: builtins.int
+    attempts: _builtins.int
     """Attempts started so far."""
-    max_attempts: builtins.int
+    max_attempts: _builtins.int
     """The attempt limit of this call: the campaign&apos;s CURRENT <code>max_attempts</code> (read live, see
     <code>Campaign.max_attempts</code>), repeated here so a page of calls is readable alone. For a call
     requeued by <code>RetryCampaignCalls</code> it is the larger of that value and the call&apos;s own
     limit set by the requeue (its attempts at the time plus <code>additional_attempts</code>).
     """
-    caller_name: builtins.str
+    caller_name: _builtins.str
     """Caller of the current or last attempt."""
-    call_name: builtins.str
+    call_name: _builtins.str
     """Call of the current or last attempt."""
-    sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType
+    sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType
     """Current or last SIP status of the call."""
-    sip_status_description: builtins.str
+    sip_status_description: _builtins.str
     """Description of the current or last SIP status of the call."""
-    last_error: builtins.str
+    last_error: _builtins.str
     """Why the last attempt failed, empty otherwise."""
-    @property
-    def scheduled_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def scheduled_time(self) -> _timestamp_pb2.Timestamp:
         """For <code>CAMPAIGN_CALL_SOURCE_SCHEDULED_CALLER</code>: the scheduled time."""
 
-    @property
-    def next_attempt_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def next_attempt_time(self) -> _timestamp_pb2.Timestamp:
         """For <code>CAMPAIGN_CALL_STATE_RETRY_PENDING</code>: when the next attempt may start."""
 
-    @property
-    def first_attempt_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def first_attempt_time(self) -> _timestamp_pb2.Timestamp:
         """When the first attempt started."""
 
-    @property
-    def last_attempt_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def last_attempt_time(self) -> _timestamp_pb2.Timestamp:
         """When the last attempt started."""
 
-    @property
-    def finish_time(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def finish_time(self) -> _timestamp_pb2.Timestamp:
         """When the call reached <code>COMPLETED</code>, <code>FAILED</code> or <code>CANCELLED</code>."""
 
-    @property
-    def created_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_at(self) -> _timestamp_pb2.Timestamp:
         """When the call was added to the campaign."""
 
-    @property
-    def modified_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_at(self) -> _timestamp_pb2.Timestamp:
         """Last change of any field above."""
 
-    @property
-    def attempt_history(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CampaignCallAttempt]:
+    @_builtins.property
+    def attempt_history(self) -> _containers.RepeatedCompositeFieldContainer[Global___CampaignCallAttempt]:
         """The attempts, oldest first. Populated only when requested
         (<code>ListCampaignCallsRequest.include_attempts</code>).
         """
@@ -1062,36 +1078,39 @@ class CampaignCall(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        campaign_name: builtins.str = ...,
-        position: builtins.int = ...,
-        state: global___CampaignCallState.ValueType = ...,
-        phone_number: builtins.str = ...,
-        source: global___CampaignCallSource.ValueType = ...,
-        scheduled_caller_name: builtins.str = ...,
-        scheduled_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        attempts: builtins.int = ...,
-        max_attempts: builtins.int = ...,
-        caller_name: builtins.str = ...,
-        call_name: builtins.str = ...,
-        sip_status_type: ondewo.sip.sip_pb2.SipStatus.StatusType.ValueType = ...,
-        sip_status_description: builtins.str = ...,
-        last_error: builtins.str = ...,
-        next_attempt_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        first_attempt_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        last_attempt_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        finish_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        created_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        modified_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        attempt_history: collections.abc.Iterable[global___CampaignCallAttempt] | None = ...,
+        name: _builtins.str = ...,
+        campaign_name: _builtins.str = ...,
+        position: _builtins.int = ...,
+        state: Global___CampaignCallState.ValueType = ...,
+        phone_number: _builtins.str = ...,
+        source: Global___CampaignCallSource.ValueType = ...,
+        scheduled_caller_name: _builtins.str = ...,
+        scheduled_time: _timestamp_pb2.Timestamp | None = ...,
+        attempts: _builtins.int = ...,
+        max_attempts: _builtins.int = ...,
+        caller_name: _builtins.str = ...,
+        call_name: _builtins.str = ...,
+        sip_status_type: _sip_pb2.SipStatus.StatusType.ValueType = ...,
+        sip_status_description: _builtins.str = ...,
+        last_error: _builtins.str = ...,
+        next_attempt_time: _timestamp_pb2.Timestamp | None = ...,
+        first_attempt_time: _timestamp_pb2.Timestamp | None = ...,
+        last_attempt_time: _timestamp_pb2.Timestamp | None = ...,
+        finish_time: _timestamp_pb2.Timestamp | None = ...,
+        created_at: _timestamp_pb2.Timestamp | None = ...,
+        modified_at: _timestamp_pb2.Timestamp | None = ...,
+        attempt_history: _abc.Iterable[Global___CampaignCallAttempt] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["created_at", b"created_at", "finish_time", b"finish_time", "first_attempt_time", b"first_attempt_time", "last_attempt_time", b"last_attempt_time", "modified_at", b"modified_at", "next_attempt_time", b"next_attempt_time", "scheduled_time", b"scheduled_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["attempt_history", b"attempt_history", "attempts", b"attempts", "call_name", b"call_name", "caller_name", b"caller_name", "campaign_name", b"campaign_name", "created_at", b"created_at", "finish_time", b"finish_time", "first_attempt_time", b"first_attempt_time", "last_attempt_time", b"last_attempt_time", "last_error", b"last_error", "max_attempts", b"max_attempts", "modified_at", b"modified_at", "name", b"name", "next_attempt_time", b"next_attempt_time", "phone_number", b"phone_number", "position", b"position", "scheduled_caller_name", b"scheduled_caller_name", "scheduled_time", b"scheduled_time", "sip_status_description", b"sip_status_description", "sip_status_type", b"sip_status_type", "source", b"source", "state", b"state"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["created_at", b"created_at", "finish_time", b"finish_time", "first_attempt_time", b"first_attempt_time", "last_attempt_time", b"last_attempt_time", "modified_at", b"modified_at", "next_attempt_time", b"next_attempt_time", "scheduled_time", b"scheduled_time"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["attempt_history", b"attempt_history", "attempts", b"attempts", "call_name", b"call_name", "caller_name", b"caller_name", "campaign_name", b"campaign_name", "created_at", b"created_at", "finish_time", b"finish_time", "first_attempt_time", b"first_attempt_time", "last_attempt_time", b"last_attempt_time", "last_error", b"last_error", "max_attempts", b"max_attempts", "modified_at", b"modified_at", "name", b"name", "next_attempt_time", b"next_attempt_time", "phone_number", b"phone_number", "position", b"position", "scheduled_caller_name", b"scheduled_caller_name", "scheduled_time", b"scheduled_time", "sip_status_description", b"sip_status_description", "sip_status_type", b"sip_status_type", "source", b"source", "state", b"state"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CampaignCall = CampaignCall
+Global___CampaignCall: _TypeAlias = CampaignCall  # noqa: Y015
 
-@typing.final
-class CampaignAssignment(google.protobuf.message.Message):
+@_typing.final
+class CampaignAssignment(_message.Message):
     """Assigns the callers of an <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code>
     request to a campaign. The calls are NOT started by the request itself but added to the
     campaign, which starts them under its <code>max_parallel_calls</code> limit.
@@ -1122,29 +1141,29 @@ class CampaignAssignment(google.protobuf.message.Message):
     supplies.</p>
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    NEW_CAMPAIGN_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    START_MODE_FIELD_NUMBER: builtins.int
-    campaign_name: builtins.str
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    NEW_CAMPAIGN_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    START_MODE_FIELD_NUMBER: _builtins.int
+    campaign_name: _builtins.str
     """Add the calls to this existing campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Add the calls to the existing campaign with this exact, case-sensitive display name, resolved
     within the enclosing request&apos;s project
     (<code>AddCallersToCampaignRequest.vtsi_project_name</code> /
     <code>AddScheduledCallersToCampaignRequest.vtsi_project_name</code>). Replaces the 9.0.0
     <code>CampaignDisplayName campaign_display_name = 4</code>.
     """
-    start_mode: global___CampaignStartMode.ValueType
+    start_mode: Global___CampaignStartMode.ValueType
     """Whether the campaign starts dialling; see <code>CampaignStartMode</code>. The default starts a
     new campaign and leaves an existing one in its state.
     """
-    @property
-    def new_campaign(self) -> global___Campaign:
+    @_builtins.property
+    def new_campaign(self) -> Global___Campaign:
         """Create a new campaign with these settings, in the enclosing request&apos;s project, and add the
         calls to it. Only <code>display_name</code>, <code>max_parallel_calls</code>,
         <code>max_attempts</code>, <code>retry_delay</code>, <code>campaign_common_services_config</code>,
@@ -1155,19 +1174,23 @@ class CampaignAssignment(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        campaign_name: builtins.str = ...,
-        new_campaign: global___Campaign | None = ...,
-        display_name: builtins.str = ...,
-        start_mode: global___CampaignStartMode.ValueType = ...,
+        campaign_name: _builtins.str = ...,
+        new_campaign: Global___Campaign | None = ...,
+        display_name: _builtins.str = ...,
+        start_mode: Global___CampaignStartMode.ValueType = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign_name", b"campaign_name", "campaign_selector", b"campaign_selector", "display_name", b"display_name", "new_campaign", b"new_campaign"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign_name", b"campaign_name", "campaign_selector", b"campaign_selector", "display_name", b"display_name", "new_campaign", b"new_campaign", "start_mode", b"start_mode"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign_selector", b"campaign_selector"]) -> typing.Literal["campaign_name", "new_campaign", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign_name", b"campaign_name", "campaign_selector", b"campaign_selector", "display_name", b"display_name", "new_campaign", b"new_campaign"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign_name", b"campaign_name", "campaign_selector", b"campaign_selector", "display_name", b"display_name", "new_campaign", b"new_campaign", "start_mode", b"start_mode"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign_selector: _TypeAlias = _typing.Literal["campaign_name", "new_campaign", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign_selector: _TypeAlias = _typing.Literal["campaign_selector", b"campaign_selector"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign_selector) -> _WhichOneofReturnType_campaign_selector | None: ...
 
-global___CampaignAssignment = CampaignAssignment
+Global___CampaignAssignment: _TypeAlias = CampaignAssignment  # noqa: Y015
 
-@typing.final
-class CreateCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class CreateCampaignRequest(_message.Message):
     """////////////////////////////////////////////////////////////////////////////
     Requests and responses
     ////////////////////////////////////////////////////////////////////////////
@@ -1176,17 +1199,17 @@ class CreateCampaignRequest(google.protobuf.message.Message):
     <a href="index.html#ondewo.vtsi.Campaigns.CreateCampaign">Campaigns.CreateCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project in which to create the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key, with the semantics of
     <code>AddCallersToCampaignRequest.idempotency_key</code>: at most 255 printable ASCII characters, no
     whitespace; empty means no deduplication. A retry carrying the same key returns the response of the
@@ -1201,15 +1224,15 @@ class CreateCampaignRequest(google.protobuf.message.Message):
     <code>campaign_sip_caller_config</code>: the server keeps no second copy of the credentials it holds;
     read them with <code>GetCampaign</code>.
     """
-    @property
-    def campaign(self) -> global___Campaign:
+    @_builtins.property
+    def campaign(self) -> Global___Campaign:
         """The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
         and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
         the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
         returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
         <code>statistics.completed</code>,
@@ -1224,38 +1247,41 @@ class CreateCampaignRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        campaign: global___Campaign | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        idempotency_key: builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        campaign: Global___Campaign | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        idempotency_key: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CreateCampaignRequest = CreateCampaignRequest
+Global___CreateCampaignRequest: _TypeAlias = CreateCampaignRequest  # noqa: Y015
 
-@typing.final
-class GetCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class GetCampaignRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.GetCampaign">Campaigns.GetCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
     <code>CampaignDisplayName display_name = 2</code>.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -1263,8 +1289,8 @@ class GetCampaignRequest(google.protobuf.message.Message):
     <code>name</code>: when set, it must be the project of the campaign
     (<code>INVALID_ARGUMENT</code> otherwise).
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
         returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
         <code>statistics.completed</code>,
@@ -1278,36 +1304,40 @@ class GetCampaignRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___GetCampaignRequest = GetCampaignRequest
+Global___GetCampaignRequest: _TypeAlias = GetCampaignRequest  # noqa: Y015
 
-@typing.final
-class UpdateCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class UpdateCampaignRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.UpdateCampaign">Campaigns.UpdateCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGN_FIELD_NUMBER: builtins.int
-    UPDATE_MASK_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    @property
-    def campaign(self) -> global___Campaign:
+    CAMPAIGN_FIELD_NUMBER: _builtins.int
+    UPDATE_MASK_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def campaign(self) -> Global___Campaign:
         """The campaign to update, identified by <code>campaign.name</code>, carrying the new values of
         the fields named in <code>update_mask</code>.
         """
 
-    @property
-    def update_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def update_mask(self) -> _field_mask_pb2.FieldMask:
         """Required. Paths WITHOUT a <code>campaign.</code> prefix. Updatable paths:
         <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code>,
         <code>retry_delay</code>, <code>campaign_common_services_config</code> and
@@ -1344,8 +1374,8 @@ class UpdateCampaignRequest(google.protobuf.message.Message):
         </ul>
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
         returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
         <code>statistics.completed</code>,
@@ -1359,38 +1389,41 @@ class UpdateCampaignRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        campaign: global___Campaign | None = ...,
-        update_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        campaign: Global___Campaign | None = ...,
+        update_mask: _field_mask_pb2.FieldMask | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "field_mask", b"field_mask", "update_mask", b"update_mask"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "field_mask", b"field_mask", "update_mask", b"update_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "field_mask", b"field_mask", "update_mask", b"update_mask"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UpdateCampaignRequest = UpdateCampaignRequest
+Global___UpdateCampaignRequest: _TypeAlias = UpdateCampaignRequest  # noqa: Y015
 
-@typing.final
-class DeleteCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class DeleteCampaignRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.DeleteCampaign">Campaigns.DeleteCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    FORCE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    FORCE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
     <code>CampaignDisplayName display_name = 2</code>.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -1398,7 +1431,7 @@ class DeleteCampaignRequest(google.protobuf.message.Message):
     <code>name</code>: when set, it must be the project of the campaign
     (<code>INVALID_ARGUMENT</code> otherwise).
     """
-    force: builtins.bool
+    force: _builtins.bool
     """Optional. Delete also a campaign that is <code>RUNNING</code>, <code>STOPPING</code> or
     <code>HARD_STOPPING</code>: the server hard stops it (every running call is hung up, see
     <code>HardStopCampaign</code>) and deletes it once the end of each call is confirmed, waiting at most
@@ -1407,8 +1440,8 @@ class DeleteCampaignRequest(google.protobuf.message.Message):
     (repeat the request). <code>false</code> (the default): such a campaign is refused with
     <code>FAILED_PRECONDITION</code>, as before. No effect on a campaign in any other state.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>DeleteCampaignResponse</code> field paths to populate, e.g.
         <code>deleted_campaign_call_count</code>. <code>name</code> is always populated. Unset or empty
         returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. It
@@ -1418,88 +1451,96 @@ class DeleteCampaignRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        force: builtins.bool = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        force: _builtins.bool = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "force", b"force", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "force", b"force", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___DeleteCampaignRequest = DeleteCampaignRequest
+Global___DeleteCampaignRequest: _TypeAlias = DeleteCampaignRequest  # noqa: Y015
 
-@typing.final
-class DeleteCampaignResponse(google.protobuf.message.Message):
+@_typing.final
+class DeleteCampaignResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Campaigns.DeleteCampaign">Campaigns.DeleteCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DELETED_CAMPAIGN_CALL_COUNT_FIELD_NUMBER: builtins.int
-    CANCELLED_SCHEDULED_CALLER_COUNT_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DELETED_CAMPAIGN_CALL_COUNT_FIELD_NUMBER: _builtins.int
+    CANCELLED_SCHEDULED_CALLER_COUNT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the deleted campaign."""
-    deleted_campaign_call_count: builtins.int
+    deleted_campaign_call_count: _builtins.int
     """How many campaign calls were deleted with it."""
-    cancelled_scheduled_caller_count: builtins.int
+    cancelled_scheduled_caller_count: _builtins.int
     """How many pending scheduled callers of the campaign were cancelled."""
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        deleted_campaign_call_count: builtins.int = ...,
-        cancelled_scheduled_caller_count: builtins.int = ...,
+        name: _builtins.str = ...,
+        deleted_campaign_call_count: _builtins.int = ...,
+        cancelled_scheduled_caller_count: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["cancelled_scheduled_caller_count", b"cancelled_scheduled_caller_count", "deleted_campaign_call_count", b"deleted_campaign_call_count", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["cancelled_scheduled_caller_count", b"cancelled_scheduled_caller_count", "deleted_campaign_call_count", b"deleted_campaign_call_count", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeleteCampaignResponse = DeleteCampaignResponse
+Global___DeleteCampaignResponse: _TypeAlias = DeleteCampaignResponse  # noqa: Y015
 
-@typing.final
-class CampaignFilter(google.protobuf.message.Message):
+@_typing.final
+class CampaignFilter(_message.Message):
     """Filter of a campaign listing."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STATES_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_CONTAINS_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    CREATED_AFTER_FIELD_NUMBER: builtins.int
-    CREATED_BEFORE_FIELD_NUMBER: builtins.int
-    CREATED_BY_FIELD_NUMBER: builtins.int
-    MODIFIED_SINCE_FIELD_NUMBER: builtins.int
-    display_name_contains: builtins.str
+    STATES_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_CONTAINS_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    CREATED_AFTER_FIELD_NUMBER: _builtins.int
+    CREATED_BEFORE_FIELD_NUMBER: _builtins.int
+    CREATED_BY_FIELD_NUMBER: _builtins.int
+    MODIFIED_SINCE_FIELD_NUMBER: _builtins.int
+    display_name_contains: _builtins.str
     """Only campaigns whose <code>display_name</code> contains this text, case-insensitive."""
-    display_name: builtins.str
+    display_name: _builtins.str
     """Only the campaign whose <code>display_name</code> is exactly this (case-sensitive). Empty
     means no constraint. Combined with the other fields by AND.
     """
-    created_by: builtins.str
+    created_by: _builtins.str
     """Only campaigns whose <code>created_by</code> is exactly this user (case-sensitive, the value the server
     returns in <code>Campaign.created_by</code>). Empty means no constraint.
     """
-    @property
-    def states(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CampaignState.ValueType]:
+    @_builtins.property
+    def states(self) -> _containers.RepeatedScalarFieldContainer[Global___CampaignState.ValueType]:
         """Only campaigns in one of these states. Empty means every state."""
 
-    @property
-    def created_after(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_after(self) -> _timestamp_pb2.Timestamp:
         """Only campaigns created at or after this time (<code>created_at &gt;= created_after</code>). Unset means
         no lower bound.
         """
 
-    @property
-    def created_before(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def created_before(self) -> _timestamp_pb2.Timestamp:
         """Only campaigns created strictly before this time (<code>created_at &lt; created_before</code>). Unset
         means no upper bound. When both are set, <code>created_after</code> must be before
         <code>created_before</code> (<code>INVALID_ARGUMENT</code> otherwise).
         """
 
-    @property
-    def modified_since(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_since(self) -> _timestamp_pb2.Timestamp:
         """Only campaigns modified at or after this time (<code>modified_at &gt;= modified_since</code>; state
         changes made by the server count as modifications). Unset means no constraint. Useful for incremental
         polling with <code>CAMPAIGN_ORDER_BY_MODIFIED_AT_DESC</code>.
@@ -1508,59 +1549,62 @@ class CampaignFilter(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        states: collections.abc.Iterable[global___CampaignState.ValueType] | None = ...,
-        display_name_contains: builtins.str = ...,
-        display_name: builtins.str = ...,
-        created_after: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        created_before: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        created_by: builtins.str = ...,
-        modified_since: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        states: _abc.Iterable[Global___CampaignState.ValueType] | None = ...,
+        display_name_contains: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        created_after: _timestamp_pb2.Timestamp | None = ...,
+        created_before: _timestamp_pb2.Timestamp | None = ...,
+        created_by: _builtins.str = ...,
+        modified_since: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["created_after", b"created_after", "created_before", b"created_before", "modified_since", b"modified_since"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["created_after", b"created_after", "created_before", b"created_before", "created_by", b"created_by", "display_name", b"display_name", "display_name_contains", b"display_name_contains", "modified_since", b"modified_since", "states", b"states"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["created_after", b"created_after", "created_before", b"created_before", "modified_since", b"modified_since"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["created_after", b"created_after", "created_before", b"created_before", "created_by", b"created_by", "display_name", b"display_name", "display_name_contains", b"display_name_contains", "modified_since", b"modified_since", "states", b"states"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CampaignFilter = CampaignFilter
+Global___CampaignFilter: _TypeAlias = CampaignFilter  # noqa: Y015
 
-@typing.final
-class ListCampaignsRequest(google.protobuf.message.Message):
+@_typing.final
+class ListCampaignsRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.ListCampaigns">Campaigns.ListCampaigns</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FILTER_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    ORDER_BY_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FILTER_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    ORDER_BY_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project whose campaigns to list.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum campaigns per page. <code>0</code> means 20; values above 1000 are clamped
     to 1000 (to 20 when <code>field_mask</code> names <code>campaign_callers</code> or
     <code>campaign_callers_truncated</code>); negative values are rejected with
     <code>INVALID_ARGUMENT</code>.
     """
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response; valid only with the same
     project and filter.
     """
-    order_by: global___CampaignOrderBy.ValueType
+    order_by: Global___CampaignOrderBy.ValueType
     """Optional. Order of the listing; unset means newest first (<code>CAMPAIGN_ORDER_BY_CREATED_AT_DESC</code>),
     as before this field existed. Part of the paging contract: a <code>page_token</code> is valid only with
     the <code>order_by</code> it was issued for (<code>INVALID_ARGUMENT</code> otherwise). An unknown value
     is rejected with <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def filter(self) -> global___CampaignFilter:
+    @_builtins.property
+    def filter(self) -> Global___CampaignFilter:
         """Optional. Narrows the listing."""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in every returned <code>Campaign</code>,
         relative to the <code>Campaign</code> message (no <code>campaigns.</code> prefix), as in
         <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
@@ -1577,66 +1621,74 @@ class ListCampaignsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        filter: global___CampaignFilter | None = ...,
-        page_size: builtins.int = ...,
-        page_token: builtins.str | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        order_by: global___CampaignOrderBy.ValueType = ...,
+        vtsi_project_name: _builtins.str = ...,
+        filter: Global___CampaignFilter | None = ...,
+        page_size: _builtins.int = ...,
+        page_token: _builtins.str | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        order_by: Global___CampaignOrderBy.ValueType = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "order_by", b"order_by", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "page_token", b"page_token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "field_mask", b"field_mask", "filter", b"filter", "order_by", b"order_by", "page_size", b"page_size", "page_token", b"page_token", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
 
-global___ListCampaignsRequest = ListCampaignsRequest
+Global___ListCampaignsRequest: _TypeAlias = ListCampaignsRequest  # noqa: Y015
 
-@typing.final
-class ListCampaignsResponse(google.protobuf.message.Message):
+@_typing.final
+class ListCampaignsResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Campaigns.ListCampaigns">Campaigns.ListCampaigns</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGNS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    CAMPAIGNS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token for the next page. Empty when there are no more results."""
-    @property
-    def campaigns(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Campaign]:
+    @_builtins.property
+    def campaigns(self) -> _containers.RepeatedCompositeFieldContainer[Global___Campaign]:
         """The campaigns of this page, in the request&apos;s <code>order_by</code> (newest first by default)."""
 
     def __init__(
         self,
         *,
-        campaigns: collections.abc.Iterable[global___Campaign] | None = ...,
-        next_page_token: builtins.str = ...,
+        campaigns: _abc.Iterable[Global___Campaign] | None = ...,
+        next_page_token: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["campaigns", b"campaigns", "next_page_token", b"next_page_token"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaigns", b"campaigns", "next_page_token", b"next_page_token"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListCampaignsResponse = ListCampaignsResponse
+Global___ListCampaignsResponse: _TypeAlias = ListCampaignsResponse  # noqa: Y015
 
-@typing.final
-class GetCampaignStatisticsRequest(google.protobuf.message.Message):
+@_typing.final
+class GetCampaignStatisticsRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.GetCampaignStatistics">Campaigns.GetCampaignStatistics</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
     <code>CampaignDisplayName display_name = 2</code>.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -1647,50 +1699,54 @@ class GetCampaignStatisticsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___GetCampaignStatisticsRequest = GetCampaignStatisticsRequest
+Global___GetCampaignStatisticsRequest: _TypeAlias = GetCampaignStatisticsRequest  # noqa: Y015
 
-@typing.final
-class ListCampaignCallsRequest(google.protobuf.message.Message):
+@_typing.final
+class ListCampaignCallsRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.ListCampaignCalls">Campaigns.ListCampaignCalls</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    STATES_FIELD_NUMBER: builtins.int
-    PHONE_NUMBER_FIELD_NUMBER: builtins.int
-    PAGE_SIZE_FIELD_NUMBER: builtins.int
-    PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    INCLUDE_ATTEMPTS_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    PHONE_NUMBERS_FIELD_NUMBER: builtins.int
-    SOURCES_FIELD_NUMBER: builtins.int
-    FINISH_TIME_MIN_FIELD_NUMBER: builtins.int
-    FINISH_TIME_MAX_FIELD_NUMBER: builtins.int
-    MODIFIED_SINCE_FIELD_NUMBER: builtins.int
-    MIN_ATTEMPTS_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
-    campaign_name: builtins.str
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    STATES_FIELD_NUMBER: _builtins.int
+    PHONE_NUMBER_FIELD_NUMBER: _builtins.int
+    PAGE_SIZE_FIELD_NUMBER: _builtins.int
+    PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    INCLUDE_ATTEMPTS_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    PHONE_NUMBERS_FIELD_NUMBER: _builtins.int
+    SOURCES_FIELD_NUMBER: _builtins.int
+    FINISH_TIME_MIN_FIELD_NUMBER: _builtins.int
+    FINISH_TIME_MAX_FIELD_NUMBER: _builtins.int
+    MODIFIED_SINCE_FIELD_NUMBER: _builtins.int
+    MIN_ATTEMPTS_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: _builtins.int
+    campaign_name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
     <code>CampaignDisplayName campaign_display_name = 7</code>.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -1698,28 +1754,28 @@ class ListCampaignCallsRequest(google.protobuf.message.Message):
     <code>campaign_name</code>: when set, it must be the project of the campaign
     (<code>INVALID_ARGUMENT</code> otherwise).
     """
-    phone_number: builtins.str
+    phone_number: _builtins.str
     """Only calls to this callee (exact match on <code>phone_number</code>). Empty means every callee."""
-    page_size: builtins.int
+    page_size: _builtins.int
     """Optional. Maximum calls per page. <code>0</code> means 50; values above 1000 are clamped to
     1000; negative values are rejected with <code>INVALID_ARGUMENT</code>.
     """
-    page_token: builtins.str
+    page_token: _builtins.str
     """Optional. The <code>next_page_token</code> of a previous response; valid only with the same
     campaign and filter (every filter field above and below, the 9.1.0 ones included).
     """
-    include_attempts: builtins.bool
+    include_attempts: _builtins.bool
     """Populate <code>CampaignCall.attempt_history</code>."""
-    min_attempts: builtins.int
+    min_attempts: _builtins.int
     """Only calls with at least this many attempts started (<code>attempts &gt;= min_attempts</code>).
     <code>0</code> means no constraint; negative is rejected with <code>INVALID_ARGUMENT</code>.
     """
-    @property
-    def states(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CampaignCallState.ValueType]:
+    @_builtins.property
+    def states(self) -> _containers.RepeatedScalarFieldContainer[Global___CampaignCallState.ValueType]:
         """Only calls in one of these states. Empty means every state."""
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths to populate in every returned
         <code>CampaignCall</code>, relative to the <code>CampaignCall</code> message (no
         <code>campaign_calls.</code> prefix), e.g. <code>state</code>, <code>phone_number</code>,
@@ -1731,41 +1787,41 @@ class ListCampaignCallsRequest(google.protobuf.message.Message):
         empty. Not part of the paging contract: a <code>page_token</code> stays valid with another mask.
         """
 
-    @property
-    def phone_numbers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def phone_numbers(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Only calls to one of these callees (exact match on <code>phone_number</code>), at most 1000 entries.
         Combined with <code>phone_number</code> by OR (a call matches when its number is
         <code>phone_number</code> or one of these); both empty means every callee.
         """
 
-    @property
-    def sources(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CampaignCallSource.ValueType]:
+    @_builtins.property
+    def sources(self) -> _containers.RepeatedScalarFieldContainer[Global___CampaignCallSource.ValueType]:
         """Only calls added in one of these ways. Empty means every source. An unknown value or
         <code>CAMPAIGN_CALL_SOURCE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
         """
 
-    @property
-    def finish_time_min(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def finish_time_min(self) -> _timestamp_pb2.Timestamp:
         """Only calls that finished (<code>finish_time</code> set: <code>COMPLETED</code>, <code>FAILED</code>,
         <code>CANCELLED</code>) at or after this time. A call without <code>finish_time</code> never matches
         when this or <code>finish_time_max</code> is set. Unset means no lower bound.
         """
 
-    @property
-    def finish_time_max(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def finish_time_max(self) -> _timestamp_pb2.Timestamp:
         """Only calls that finished strictly before this time. Unset means no upper bound. When both are set,
         <code>finish_time_min</code> must be before <code>finish_time_max</code> (<code>INVALID_ARGUMENT</code>
         otherwise).
         """
 
-    @property
-    def modified_since(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def modified_since(self) -> _timestamp_pb2.Timestamp:
         """Only calls whose <code>modified_at</code> is at or after this time, i.e. that changed since then
         (incremental reads). Unset means no constraint.
         """
 
-    @property
-    def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_call_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Only these calls, by resource name
         (<pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;/campaign_calls/&lt;campaign_call_uuid&gt;</code></pre>),
         at most 1000. Each must be a call name of the request&apos;s campaign: a malformed name or one of
@@ -1776,80 +1832,90 @@ class ListCampaignCallsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        campaign_name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        states: collections.abc.Iterable[global___CampaignCallState.ValueType] | None = ...,
-        phone_number: builtins.str = ...,
-        page_size: builtins.int = ...,
-        page_token: builtins.str | None = ...,
-        include_attempts: builtins.bool = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        phone_numbers: collections.abc.Iterable[builtins.str] | None = ...,
-        sources: collections.abc.Iterable[global___CampaignCallSource.ValueType] | None = ...,
-        finish_time_min: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        finish_time_max: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        modified_since: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        min_attempts: builtins.int = ...,
-        campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
+        campaign_name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        states: _abc.Iterable[Global___CampaignCallState.ValueType] | None = ...,
+        phone_number: _builtins.str = ...,
+        page_size: _builtins.int = ...,
+        page_token: _builtins.str | None = ...,
+        include_attempts: _builtins.bool = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        phone_numbers: _abc.Iterable[_builtins.str] | None = ...,
+        sources: _abc.Iterable[Global___CampaignCallSource.ValueType] | None = ...,
+        finish_time_min: _timestamp_pb2.Timestamp | None = ...,
+        finish_time_max: _timestamp_pb2.Timestamp | None = ...,
+        modified_since: _timestamp_pb2.Timestamp | None = ...,
+        min_attempts: _builtins.int = ...,
+        campaign_call_names: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_page_token", b"_page_token", "campaign", b"campaign", "campaign_name", b"campaign_name", "display_name", b"display_name", "field_mask", b"field_mask", "finish_time_max", b"finish_time_max", "finish_time_min", b"finish_time_min", "modified_since", b"modified_since", "page_token", b"page_token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_page_token", b"_page_token", "campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "campaign_name", b"campaign_name", "display_name", b"display_name", "field_mask", b"field_mask", "finish_time_max", b"finish_time_max", "finish_time_min", b"finish_time_min", "include_attempts", b"include_attempts", "min_attempts", b"min_attempts", "modified_since", b"modified_since", "page_size", b"page_size", "page_token", b"page_token", "phone_number", b"phone_number", "phone_numbers", b"phone_numbers", "sources", b"sources", "states", b"states", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_page_token", b"_page_token"]) -> typing.Literal["page_token"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["campaign_name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "campaign", b"campaign", "campaign_name", b"campaign_name", "display_name", b"display_name", "field_mask", b"field_mask", "finish_time_max", b"finish_time_max", "finish_time_min", b"finish_time_min", "modified_since", b"modified_since", "page_token", b"page_token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_page_token", b"_page_token", "campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "campaign_name", b"campaign_name", "display_name", b"display_name", "field_mask", b"field_mask", "finish_time_max", b"finish_time_max", "finish_time_min", b"finish_time_min", "include_attempts", b"include_attempts", "min_attempts", b"min_attempts", "modified_since", b"modified_since", "page_size", b"page_size", "page_token", b"page_token", "phone_number", b"phone_number", "phone_numbers", b"phone_numbers", "sources", b"sources", "states", b"states", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__page_token: _TypeAlias = _typing.Literal["page_token"]  # noqa: Y015
+    _WhichOneofArgType__page_token: _TypeAlias = _typing.Literal["_page_token", b"_page_token"]  # noqa: Y015
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["campaign_name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__page_token) -> _WhichOneofReturnType__page_token | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___ListCampaignCallsRequest = ListCampaignCallsRequest
+Global___ListCampaignCallsRequest: _TypeAlias = ListCampaignCallsRequest  # noqa: Y015
 
-@typing.final
-class ListCampaignCallsResponse(google.protobuf.message.Message):
+@_typing.final
+class ListCampaignCallsResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Campaigns.ListCampaignCalls">Campaigns.ListCampaignCalls</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGN_CALLS_FIELD_NUMBER: builtins.int
-    NEXT_PAGE_TOKEN_FIELD_NUMBER: builtins.int
-    next_page_token: builtins.str
+    CAMPAIGN_CALLS_FIELD_NUMBER: _builtins.int
+    NEXT_PAGE_TOKEN_FIELD_NUMBER: _builtins.int
+    next_page_token: _builtins.str
     """Token for the next page. Empty when there are no more results."""
-    @property
-    def campaign_calls(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CampaignCall]:
+    @_builtins.property
+    def campaign_calls(self) -> _containers.RepeatedCompositeFieldContainer[Global___CampaignCall]:
         """The calls of this page, by <code>position</code>."""
 
     def __init__(
         self,
         *,
-        campaign_calls: collections.abc.Iterable[global___CampaignCall] | None = ...,
-        next_page_token: builtins.str = ...,
+        campaign_calls: _abc.Iterable[Global___CampaignCall] | None = ...,
+        next_page_token: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["campaign_calls", b"campaign_calls", "next_page_token", b"next_page_token"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign_calls", b"campaign_calls", "next_page_token", b"next_page_token"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListCampaignCallsResponse = ListCampaignCallsResponse
+Global___ListCampaignCallsResponse: _TypeAlias = ListCampaignCallsResponse  # noqa: Y015
 
-@typing.final
-class StartCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class StartCampaignRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.StartCampaign">Campaigns.StartCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
     <code>CampaignDisplayName display_name = 2</code>.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -1857,8 +1923,8 @@ class StartCampaignRequest(google.protobuf.message.Message):
     <code>name</code>: when set, it must be the project of the campaign
     (<code>INVALID_ARGUMENT</code> otherwise).
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
         returned <code>Campaign</code>, exactly as
         <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
@@ -1870,39 +1936,43 @@ class StartCampaignRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___StartCampaignRequest = StartCampaignRequest
+Global___StartCampaignRequest: _TypeAlias = StartCampaignRequest  # noqa: Y015
 
-@typing.final
-class StopCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class StopCampaignRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.StopCampaign">Campaigns.StopCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
     <code>CampaignDisplayName display_name = 2</code>.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -1910,8 +1980,8 @@ class StopCampaignRequest(google.protobuf.message.Message):
     <code>name</code>: when set, it must be the project of the campaign
     (<code>INVALID_ARGUMENT</code> otherwise).
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
         returned <code>Campaign</code>, exactly as
         <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
@@ -1923,39 +1993,43 @@ class StopCampaignRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___StopCampaignRequest = StopCampaignRequest
+Global___StopCampaignRequest: _TypeAlias = StopCampaignRequest  # noqa: Y015
 
-@typing.final
-class HardStopCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class HardStopCampaignRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.HardStopCampaign">Campaigns.HardStopCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
     <code>CampaignDisplayName display_name = 2</code>.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -1963,8 +2037,8 @@ class HardStopCampaignRequest(google.protobuf.message.Message):
     <code>name</code>: when set, it must be the project of the campaign
     (<code>INVALID_ARGUMENT</code> otherwise).
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
         returned <code>Campaign</code>, exactly as
         <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
@@ -1976,39 +2050,43 @@ class HardStopCampaignRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___HardStopCampaignRequest = HardStopCampaignRequest
+Global___HardStopCampaignRequest: _TypeAlias = HardStopCampaignRequest  # noqa: Y015
 
-@typing.final
-class ResumeCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class ResumeCampaignRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.ResumeCampaign">Campaigns.ResumeCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
     <code>CampaignDisplayName display_name = 2</code>.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -2016,8 +2094,8 @@ class ResumeCampaignRequest(google.protobuf.message.Message):
     <code>name</code>: when set, it must be the project of the campaign
     (<code>INVALID_ARGUMENT</code> otherwise).
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
         returned <code>Campaign</code>, exactly as
         <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
@@ -2029,54 +2107,58 @@ class ResumeCampaignRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "field_mask", b"field_mask", "name", b"name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___ResumeCampaignRequest = ResumeCampaignRequest
+Global___ResumeCampaignRequest: _TypeAlias = ResumeCampaignRequest  # noqa: Y015
 
-@typing.final
-class StreamCampaignStatusRequest(google.protobuf.message.Message):
+@_typing.final
+class StreamCampaignStatusRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.StreamCampaignStatus">Campaigns.StreamCampaignStatus</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_NAMES_FIELD_NUMBER: builtins.int
-    CAMPAIGN_DISPLAY_NAMES_FIELD_NUMBER: builtins.int
-    INCLUDE_CALLS_FIELD_NUMBER: builtins.int
-    STATES_FIELD_NUMBER: builtins.int
-    vtsi_project_name: builtins.str
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_NAMES_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_DISPLAY_NAMES_FIELD_NUMBER: _builtins.int
+    INCLUDE_CALLS_FIELD_NUMBER: _builtins.int
+    STATES_FIELD_NUMBER: _builtins.int
+    vtsi_project_name: _builtins.str
     """VTSI project whose campaigns to stream.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     """
-    include_calls: builtins.bool
+    include_calls: _builtins.bool
     """Also stream every campaign call that changes after the stream opened. The snapshot never
     contains campaign calls; read them with <code>ListCampaignCalls</code>.
     """
-    @property
-    def campaign_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Only these campaigns (resource names). Empty, together with an empty
         <code>campaign_display_names</code>, means every campaign of the project, including campaigns
         created while the stream is open.
         """
 
-    @property
-    def campaign_display_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_display_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Only the campaigns with these exact display names (in this project). A name that matches no
         campaign yet matches a campaign created later under it. Combined with
         <code>campaign_names</code> by OR.
         """
 
-    @property
-    def states(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CampaignState.ValueType]:
+    @_builtins.property
+    def states(self) -> _containers.RepeatedScalarFieldContainer[Global___CampaignState.ValueType]:
         """Only campaigns in one of these states. Empty means every state. Combined with
         <code>campaign_names</code> / <code>campaign_display_names</code> by AND. The snapshot carries the
         matching campaigns in a selected state. Later, a campaign that ENTERS a selected state is sent (with
@@ -2090,94 +2172,102 @@ class StreamCampaignStatusRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        vtsi_project_name: builtins.str = ...,
-        campaign_names: collections.abc.Iterable[builtins.str] | None = ...,
-        campaign_display_names: collections.abc.Iterable[builtins.str] | None = ...,
-        include_calls: builtins.bool = ...,
-        states: collections.abc.Iterable[global___CampaignState.ValueType] | None = ...,
+        vtsi_project_name: _builtins.str = ...,
+        campaign_names: _abc.Iterable[_builtins.str] | None = ...,
+        campaign_display_names: _abc.Iterable[_builtins.str] | None = ...,
+        include_calls: _builtins.bool = ...,
+        states: _abc.Iterable[Global___CampaignState.ValueType] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["campaign_display_names", b"campaign_display_names", "campaign_names", b"campaign_names", "include_calls", b"include_calls", "states", b"states", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign_display_names", b"campaign_display_names", "campaign_names", b"campaign_names", "include_calls", b"include_calls", "states", b"states", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StreamCampaignStatusRequest = StreamCampaignStatusRequest
+Global___StreamCampaignStatusRequest: _TypeAlias = StreamCampaignStatusRequest  # noqa: Y015
 
-@typing.final
-class StreamCampaignStatusResponse(google.protobuf.message.Message):
+@_typing.final
+class StreamCampaignStatusResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Campaigns.StreamCampaignStatus">Campaigns.StreamCampaignStatus</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGNS_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALLS_FIELD_NUMBER: builtins.int
-    DELETED_CAMPAIGN_NAMES_FIELD_NUMBER: builtins.int
-    SNAPSHOT_FIELD_NUMBER: builtins.int
-    END_REASON_FIELD_NUMBER: builtins.int
-    END_REASON_TYPE_FIELD_NUMBER: builtins.int
-    snapshot: builtins.bool
+    CAMPAIGNS_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_CALLS_FIELD_NUMBER: _builtins.int
+    DELETED_CAMPAIGN_NAMES_FIELD_NUMBER: _builtins.int
+    SNAPSHOT_FIELD_NUMBER: _builtins.int
+    END_REASON_FIELD_NUMBER: _builtins.int
+    END_REASON_TYPE_FIELD_NUMBER: _builtins.int
+    snapshot: _builtins.bool
     """True on the first message, which carries every matching campaign."""
-    end_reason: builtins.str
+    end_reason: _builtins.str
     """Set on the last message when the server ended the stream, e.g. at the maximum stream
     duration. Empty otherwise. Human-readable; branch on <code>end_reason_type</code> instead.
     """
-    end_reason_type: global___StreamEndReason.ValueType
+    end_reason_type: Global___StreamEndReason.ValueType
     """Set on the last message when the server ended the stream, next to <code>end_reason</code>:
     <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code> or
     <code>STREAM_END_REASON_PROJECT_DELETED</code>. <code>STREAM_END_REASON_UNSPECIFIED</code> on every other
     message (and on the last message of a server that predates this field).
     """
-    @property
-    def campaigns(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Campaign]:
+    @_builtins.property
+    def campaigns(self) -> _containers.RepeatedCompositeFieldContainer[Global___Campaign]:
         """Campaigns that changed (every matching campaign in the snapshot), with their statistics. The call
         defaults <code>campaign_common_services_config</code> and <code>campaign_sip_caller_config</code>
         are always left unset here; read them with <code>GetCampaign</code>.
         """
 
-    @property
-    def campaign_calls(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CampaignCall]:
+    @_builtins.property
+    def campaign_calls(self) -> _containers.RepeatedCompositeFieldContainer[Global___CampaignCall]:
         """Campaign calls that changed, when <code>include_calls</code> is set."""
 
-    @property
-    def deleted_campaign_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def deleted_campaign_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Campaigns deleted since the previous message."""
 
     def __init__(
         self,
         *,
-        campaigns: collections.abc.Iterable[global___Campaign] | None = ...,
-        campaign_calls: collections.abc.Iterable[global___CampaignCall] | None = ...,
-        deleted_campaign_names: collections.abc.Iterable[builtins.str] | None = ...,
-        snapshot: builtins.bool = ...,
-        end_reason: builtins.str = ...,
-        end_reason_type: global___StreamEndReason.ValueType = ...,
+        campaigns: _abc.Iterable[Global___Campaign] | None = ...,
+        campaign_calls: _abc.Iterable[Global___CampaignCall] | None = ...,
+        deleted_campaign_names: _abc.Iterable[_builtins.str] | None = ...,
+        snapshot: _builtins.bool = ...,
+        end_reason: _builtins.str = ...,
+        end_reason_type: Global___StreamEndReason.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["campaign_calls", b"campaign_calls", "campaigns", b"campaigns", "deleted_campaign_names", b"deleted_campaign_names", "end_reason", b"end_reason", "end_reason_type", b"end_reason_type", "snapshot", b"snapshot"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign_calls", b"campaign_calls", "campaigns", b"campaigns", "deleted_campaign_names", b"deleted_campaign_names", "end_reason", b"end_reason", "end_reason_type", b"end_reason_type", "snapshot", b"snapshot"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StreamCampaignStatusResponse = StreamCampaignStatusResponse
+Global___StreamCampaignStatusResponse: _TypeAlias = StreamCampaignStatusResponse  # noqa: Y015
 
-@typing.final
-class GetCampaignCallRequest(google.protobuf.message.Message):
+@_typing.final
+class GetCampaignCallRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.GetCampaignCall">Campaigns.GetCampaignCall</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    INCLUDE_ATTEMPTS_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    INCLUDE_ATTEMPTS_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Required. Resource name of the campaign call.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;/campaign_calls/&lt;campaign_call_uuid&gt;</code></pre>
     Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>; authorization is checked on its
     project segment.
     """
-    include_attempts: builtins.bool
+    include_attempts: _builtins.bool
     """Populate <code>CampaignCall.attempt_history</code> (every attempt, oldest first). <code>false</code>
     (the default) leaves it empty.
     """
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the <code>CampaignCall</code> field paths to populate, relative to the
         returned <code>CampaignCall</code>, e.g. <code>state</code>, <code>attempts</code>,
         <code>attempt_history</code>. A path below a repeated field (e.g. <code>attempt_history.outcome</code>)
@@ -2189,33 +2279,36 @@ class GetCampaignCallRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        include_attempts: builtins.bool = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
+        name: _builtins.str = ...,
+        include_attempts: _builtins.bool = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["field_mask", b"field_mask", "include_attempts", b"include_attempts", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "include_attempts", b"include_attempts", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GetCampaignCallRequest = GetCampaignCallRequest
+Global___GetCampaignCallRequest: _TypeAlias = GetCampaignCallRequest  # noqa: Y015
 
-@typing.final
-class CampaignCallRefusal(google.protobuf.message.Message):
+@_typing.final
+class CampaignCallRefusal(_message.Message):
     """One campaign call a <code>CancelCampaignCalls</code> / <code>RetryCampaignCalls</code> request did not act on,
     and why. A refusal is a result, not an error.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGN_CALL_NAME_FIELD_NUMBER: builtins.int
-    STATE_FIELD_NUMBER: builtins.int
-    REASON_FIELD_NUMBER: builtins.int
-    campaign_call_name: builtins.str
+    CAMPAIGN_CALL_NAME_FIELD_NUMBER: _builtins.int
+    STATE_FIELD_NUMBER: _builtins.int
+    REASON_FIELD_NUMBER: _builtins.int
+    campaign_call_name: _builtins.str
     """Resource name of the campaign call, as named in the request or as matched by its states."""
-    state: global___CampaignCallState.ValueType
+    state: Global___CampaignCallState.ValueType
     """State of the call when it was refused; <code>CAMPAIGN_CALL_STATE_UNSPECIFIED</code> for
     <code>reason=not-found</code>.
     """
-    reason: builtins.str
+    reason: _builtins.str
     """Why, a stable kebab-case token: <code>attempt-in-progress</code> (the call is
     <code>DISPATCHING</code> or <code>IN_PROGRESS</code>), <code>already-finished</code> (cancel: the call is
     <code>COMPLETED</code>, <code>FAILED</code> or <code>CANCELLED</code>), <code>not-finished</code> (retry:
@@ -2226,36 +2319,40 @@ class CampaignCallRefusal(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        campaign_call_name: builtins.str = ...,
-        state: global___CampaignCallState.ValueType = ...,
-        reason: builtins.str = ...,
+        campaign_call_name: _builtins.str = ...,
+        state: Global___CampaignCallState.ValueType = ...,
+        reason: _builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["campaign_call_name", b"campaign_call_name", "reason", b"reason", "state", b"state"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign_call_name", b"campaign_call_name", "reason", b"reason", "state", b"state"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CampaignCallRefusal = CampaignCallRefusal
+Global___CampaignCallRefusal: _TypeAlias = CampaignCallRefusal  # noqa: Y015
 
-@typing.final
-class CancelCampaignCallsRequest(google.protobuf.message.Message):
+@_typing.final
+class CancelCampaignCallsRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.CancelCampaignCalls">Campaigns.CancelCampaignCalls</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
-    STATES_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: _builtins.int
+    STATES_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -2263,8 +2360,8 @@ class CancelCampaignCallsRequest(google.protobuf.message.Message):
     <code>name</code>: when set, it must be the project of the campaign
     (<code>INVALID_ARGUMENT</code> otherwise).
     """
-    @property
-    def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_call_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The calls to cancel, by resource name
         (<pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;/campaign_calls/&lt;campaign_call_uuid&gt;</code></pre>),
         at most 1000, duplicates ignored. Each must be a call name of this campaign (a malformed name or one
@@ -2272,8 +2369,8 @@ class CancelCampaignCallsRequest(google.protobuf.message.Message):
         every call in those states.
         """
 
-    @property
-    def states(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CampaignCallState.ValueType]:
+    @_builtins.property
+    def states(self) -> _containers.RepeatedScalarFieldContainer[Global___CampaignCallState.ValueType]:
         """Cancel the calls in one of these states: only <code>CAMPAIGN_CALL_STATE_NOT_STARTED</code> and
         <code>CAMPAIGN_CALL_STATE_RETRY_PENDING</code> are allowed (<code>INVALID_ARGUMENT</code> for any other
         value). With <code>campaign_call_names</code>, narrows the named calls (a named call in another state is
@@ -2283,44 +2380,48 @@ class CancelCampaignCallsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
-        states: collections.abc.Iterable[global___CampaignCallState.ValueType] | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        campaign_call_names: _abc.Iterable[_builtins.str] | None = ...,
+        states: _abc.Iterable[Global___CampaignCallState.ValueType] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "display_name", b"display_name", "name", b"name", "states", b"states", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "display_name", b"display_name", "name", b"name", "states", b"states", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___CancelCampaignCallsRequest = CancelCampaignCallsRequest
+Global___CancelCampaignCallsRequest: _TypeAlias = CancelCampaignCallsRequest  # noqa: Y015
 
-@typing.final
-class CancelCampaignCallsResponse(google.protobuf.message.Message):
+@_typing.final
+class CancelCampaignCallsResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Campaigns.CancelCampaignCalls">Campaigns.CancelCampaignCalls</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    CANCELLED_CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
-    REFUSED_FIELD_NUMBER: builtins.int
-    REMAINING_COUNT_FIELD_NUMBER: builtins.int
-    campaign_name: builtins.str
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    CANCELLED_CAMPAIGN_CALL_NAMES_FIELD_NUMBER: _builtins.int
+    REFUSED_FIELD_NUMBER: _builtins.int
+    REMAINING_COUNT_FIELD_NUMBER: _builtins.int
+    campaign_name: _builtins.str
     """Resource name of the campaign."""
-    remaining_count: builtins.int
+    remaining_count: _builtins.int
     """With <code>states</code> only (no names): how many further calls matched after the first 1000 that
     this request acted on. Repeat the request while it is above 0. <code>0</code> otherwise.
     """
-    @property
-    def cancelled_campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def cancelled_campaign_call_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The calls this request cancelled (now <code>CAMPAIGN_CALL_STATE_CANCELLED</code>), by
         <code>position</code>.
         """
 
-    @property
-    def refused(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CampaignCallRefusal]:
+    @_builtins.property
+    def refused(self) -> _containers.RepeatedCompositeFieldContainer[Global___CampaignCallRefusal]:
         """The selected calls this request did not cancel, with the reason, by <code>position</code> (refusals of
         unknown names last, in request order).
         """
@@ -2328,39 +2429,43 @@ class CancelCampaignCallsResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        campaign_name: builtins.str = ...,
-        cancelled_campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
-        refused: collections.abc.Iterable[global___CampaignCallRefusal] | None = ...,
-        remaining_count: builtins.int = ...,
+        campaign_name: _builtins.str = ...,
+        cancelled_campaign_call_names: _abc.Iterable[_builtins.str] | None = ...,
+        refused: _abc.Iterable[Global___CampaignCallRefusal] | None = ...,
+        remaining_count: _builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["campaign_name", b"campaign_name", "cancelled_campaign_call_names", b"cancelled_campaign_call_names", "refused", b"refused", "remaining_count", b"remaining_count"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign_name", b"campaign_name", "cancelled_campaign_call_names", b"cancelled_campaign_call_names", "refused", b"refused", "remaining_count", b"remaining_count"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CancelCampaignCallsResponse = CancelCampaignCallsResponse
+Global___CancelCampaignCallsResponse: _TypeAlias = CancelCampaignCallsResponse  # noqa: Y015
 
-@typing.final
-class RetryCampaignCallsRequest(google.protobuf.message.Message):
+@_typing.final
+class RetryCampaignCallsRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.RetryCampaignCalls">Campaigns.RetryCampaignCalls</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
-    STATES_FIELD_NUMBER: builtins.int
-    ADDITIONAL_ATTEMPTS_FIELD_NUMBER: builtins.int
-    NOT_BEFORE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_CALL_NAMES_FIELD_NUMBER: _builtins.int
+    STATES_FIELD_NUMBER: _builtins.int
+    ADDITIONAL_ATTEMPTS_FIELD_NUMBER: _builtins.int
+    NOT_BEFORE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Resource name of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    display_name: builtins.str
+    display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
     <code>vtsi_project_name</code>, which is then required.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
     REQUIRED with <code>display_name</code>: empty or malformed is rejected with
@@ -2368,29 +2473,29 @@ class RetryCampaignCallsRequest(google.protobuf.message.Message):
     <code>name</code>: when set, it must be the project of the campaign
     (<code>INVALID_ARGUMENT</code> otherwise).
     """
-    additional_attempts: builtins.int
+    additional_attempts: _builtins.int
     """Attempts each requeued call may make from now on, on top of the attempts it already made: its attempt
     limit becomes <code>attempts + additional_attempts</code> (never below the campaign&apos;s live
     <code>max_attempts</code>), reported as <code>CampaignCall.max_attempts</code>. <code>0</code> means 1;
     allowed 0 to <code>ONDEWO_VTSI_CAMPAIGN_MAX_ATTEMPTS_LIMIT</code> (10 by default). Between the new
     attempts the campaign&apos;s <code>retry_delay</code> applies as usual.
     """
-    @property
-    def campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def campaign_call_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The calls to requeue, by resource name, at most 1000, duplicates ignored; same rules as
         <code>CancelCampaignCallsRequest.campaign_call_names</code>.
         """
 
-    @property
-    def states(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CampaignCallState.ValueType]:
+    @_builtins.property
+    def states(self) -> _containers.RepeatedScalarFieldContainer[Global___CampaignCallState.ValueType]:
         """Requeue the calls in one of these states: only <code>CAMPAIGN_CALL_STATE_FAILED</code> and
         <code>CAMPAIGN_CALL_STATE_CANCELLED</code> are allowed (<code>INVALID_ARGUMENT</code> for any other
         value). With <code>campaign_call_names</code>, narrows the named calls. At least one of the two fields
         must be set.
         """
 
-    @property
-    def not_before(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    @_builtins.property
+    def not_before(self) -> _timestamp_pb2.Timestamp:
         """Optional. The first new attempt starts no earlier than this time (and, with a
         <code>calling_window</code>, inside a slot). Unset or in the past means as soon as the campaign has a
         free slot. At most 7 days ahead (<code>INVALID_ARGUMENT</code> otherwise).
@@ -2399,51 +2504,55 @@ class RetryCampaignCallsRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
-        states: collections.abc.Iterable[global___CampaignCallState.ValueType] | None = ...,
-        additional_attempts: builtins.int = ...,
-        not_before: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        name: _builtins.str = ...,
+        display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        campaign_call_names: _abc.Iterable[_builtins.str] | None = ...,
+        states: _abc.Iterable[Global___CampaignCallState.ValueType] | None = ...,
+        additional_attempts: _builtins.int = ...,
+        not_before: _timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name", "not_before", b"not_before"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["additional_attempts", b"additional_attempts", "campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "display_name", b"display_name", "name", b"name", "not_before", b"not_before", "states", b"states", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["campaign", b"campaign"]) -> typing.Literal["name", "display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["campaign", b"campaign", "display_name", b"display_name", "name", b"name", "not_before", b"not_before"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["additional_attempts", b"additional_attempts", "campaign", b"campaign", "campaign_call_names", b"campaign_call_names", "display_name", b"display_name", "name", b"name", "not_before", b"not_before", "states", b"states", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_campaign: _TypeAlias = _typing.Literal["name", "display_name"]  # noqa: Y015
+    _WhichOneofArgType_campaign: _TypeAlias = _typing.Literal["campaign", b"campaign"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_campaign) -> _WhichOneofReturnType_campaign | None: ...
 
-global___RetryCampaignCallsRequest = RetryCampaignCallsRequest
+Global___RetryCampaignCallsRequest: _TypeAlias = RetryCampaignCallsRequest  # noqa: Y015
 
-@typing.final
-class RetryCampaignCallsResponse(google.protobuf.message.Message):
+@_typing.final
+class RetryCampaignCallsResponse(_message.Message):
     """The response message for
     <a href="index.html#ondewo.vtsi.Campaigns.RetryCampaignCalls">Campaigns.RetryCampaignCalls</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CAMPAIGN_NAME_FIELD_NUMBER: builtins.int
-    REQUEUED_CAMPAIGN_CALL_NAMES_FIELD_NUMBER: builtins.int
-    REFUSED_FIELD_NUMBER: builtins.int
-    REMAINING_COUNT_FIELD_NUMBER: builtins.int
-    CAMPAIGN_STATE_FIELD_NUMBER: builtins.int
-    campaign_name: builtins.str
+    CAMPAIGN_NAME_FIELD_NUMBER: _builtins.int
+    REQUEUED_CAMPAIGN_CALL_NAMES_FIELD_NUMBER: _builtins.int
+    REFUSED_FIELD_NUMBER: _builtins.int
+    REMAINING_COUNT_FIELD_NUMBER: _builtins.int
+    CAMPAIGN_STATE_FIELD_NUMBER: _builtins.int
+    campaign_name: _builtins.str
     """Resource name of the campaign."""
-    remaining_count: builtins.int
+    remaining_count: _builtins.int
     """With <code>states</code> only: how many further calls matched after the first 1000. Repeat the request
     while it is above 0. <code>0</code> otherwise.
     """
-    campaign_state: global___CampaignState.ValueType
+    campaign_state: Global___CampaignState.ValueType
     """State of the campaign after the request (a <code>COMPLETED</code> campaign that got a call back is
     <code>CAMPAIGN_STATE_RUNNING</code>).
     """
-    @property
-    def requeued_campaign_call_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def requeued_campaign_call_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The calls this request requeued (now <code>RETRY_PENDING</code> or <code>NOT_STARTED</code>), by
         <code>position</code>.
         """
 
-    @property
-    def refused(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CampaignCallRefusal]:
+    @_builtins.property
+    def refused(self) -> _containers.RepeatedCompositeFieldContainer[Global___CampaignCallRefusal]:
         """The selected calls this request did not requeue, with the reason (see
         <code>CancelCampaignCallsResponse.refused</code>).
         """
@@ -2451,41 +2560,45 @@ class RetryCampaignCallsResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        campaign_name: builtins.str = ...,
-        requeued_campaign_call_names: collections.abc.Iterable[builtins.str] | None = ...,
-        refused: collections.abc.Iterable[global___CampaignCallRefusal] | None = ...,
-        remaining_count: builtins.int = ...,
-        campaign_state: global___CampaignState.ValueType = ...,
+        campaign_name: _builtins.str = ...,
+        requeued_campaign_call_names: _abc.Iterable[_builtins.str] | None = ...,
+        refused: _abc.Iterable[Global___CampaignCallRefusal] | None = ...,
+        remaining_count: _builtins.int = ...,
+        campaign_state: Global___CampaignState.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["campaign_name", b"campaign_name", "campaign_state", b"campaign_state", "refused", b"refused", "remaining_count", b"remaining_count", "requeued_campaign_call_names", b"requeued_campaign_call_names"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["campaign_name", b"campaign_name", "campaign_state", b"campaign_state", "refused", b"refused", "remaining_count", b"remaining_count", "requeued_campaign_call_names", b"requeued_campaign_call_names"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RetryCampaignCallsResponse = RetryCampaignCallsResponse
+Global___RetryCampaignCallsResponse: _TypeAlias = RetryCampaignCallsResponse  # noqa: Y015
 
-@typing.final
-class CloneCampaignRequest(google.protobuf.message.Message):
+@_typing.final
+class CloneCampaignRequest(_message.Message):
     """The request message for
     <a href="index.html#ondewo.vtsi.Campaigns.CloneCampaign">Campaigns.CloneCampaign</a>.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOURCE_NAME_FIELD_NUMBER: builtins.int
-    SOURCE_DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    VTSI_PROJECT_NAME_FIELD_NUMBER: builtins.int
-    NEW_DISPLAY_NAME_FIELD_NUMBER: builtins.int
-    INCLUDE_CALLS_FIELD_NUMBER: builtins.int
-    CALL_STATES_FIELD_NUMBER: builtins.int
-    FIELD_MASK_FIELD_NUMBER: builtins.int
-    IDEMPOTENCY_KEY_FIELD_NUMBER: builtins.int
-    source_name: builtins.str
+    SOURCE_NAME_FIELD_NUMBER: _builtins.int
+    SOURCE_DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    VTSI_PROJECT_NAME_FIELD_NUMBER: _builtins.int
+    NEW_DISPLAY_NAME_FIELD_NUMBER: _builtins.int
+    INCLUDE_CALLS_FIELD_NUMBER: _builtins.int
+    CALL_STATES_FIELD_NUMBER: _builtins.int
+    FIELD_MASK_FIELD_NUMBER: _builtins.int
+    IDEMPOTENCY_KEY_FIELD_NUMBER: _builtins.int
+    source_name: _builtins.str
     """Resource name of the source campaign.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
     """
-    source_display_name: builtins.str
+    source_display_name: _builtins.str
     """Exact, case-sensitive <code>display_name</code> of the source campaign, resolved within
     <code>vtsi_project_name</code>, which is then required.
     """
-    vtsi_project_name: builtins.str
+    vtsi_project_name: _builtins.str
     """VTSI project of the source AND of the clone: a campaign is only cloned within its project (its stored
     credentials never move to another project).
     The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -2494,29 +2607,29 @@ class CloneCampaignRequest(google.protobuf.message.Message):
     <code>source_name</code>: when set, it must be the project of the source (<code>INVALID_ARGUMENT</code>
     otherwise).
     """
-    new_display_name: builtins.str
+    new_display_name: _builtins.str
     """Display name of the clone, unique within the project, at most 128 characters. Empty means
     <code>campaign-&lt;campaign_uuid&gt;</code> of the clone, as on <code>CreateCampaign</code>.
     """
-    include_calls: builtins.bool
+    include_calls: _builtins.bool
     """Also copy the source&apos;s calls (see <code>Campaigns.CloneCampaign</code>). <code>false</code> (the
     default): the clone has no call.
     """
-    idempotency_key: builtins.str
+    idempotency_key: _builtins.str
     """Optional client idempotency key with the semantics of
     <a href="index.html#ondewo.vtsi.CreateCampaignRequest">CreateCampaignRequest.idempotency_key</a>
     (scoped to the project and to this RPC; a replayed clone carries no call defaults).
     """
-    @property
-    def call_states(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___CampaignCallState.ValueType]:
+    @_builtins.property
+    def call_states(self) -> _containers.RepeatedScalarFieldContainer[Global___CampaignCallState.ValueType]:
         """With <code>include_calls</code>: copy only the calls in one of these states (e.g.
         <code>CAMPAIGN_CALL_STATE_FAILED</code> to call the failed numbers again in a new campaign). Empty means
         every state. Set without <code>include_calls</code>, or holding <code>CAMPAIGN_CALL_STATE_UNSPECIFIED</code>
         or an unknown value, is rejected with <code>INVALID_ARGUMENT</code>.
         """
 
-    @property
-    def field_mask(self) -> google.protobuf.field_mask_pb2.FieldMask:
+    @_builtins.property
+    def field_mask(self) -> _field_mask_pb2.FieldMask:
         """Optional. Partial response: the field paths of the returned clone to populate, exactly as
         <a href="index.html#ondewo.vtsi.CreateCampaignRequest">CreateCampaignRequest.field_mask</a>.
         """
@@ -2524,17 +2637,21 @@ class CloneCampaignRequest(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        source_name: builtins.str = ...,
-        source_display_name: builtins.str = ...,
-        vtsi_project_name: builtins.str = ...,
-        new_display_name: builtins.str = ...,
-        include_calls: builtins.bool = ...,
-        call_states: collections.abc.Iterable[global___CampaignCallState.ValueType] | None = ...,
-        field_mask: google.protobuf.field_mask_pb2.FieldMask | None = ...,
-        idempotency_key: builtins.str = ...,
+        source_name: _builtins.str = ...,
+        source_display_name: _builtins.str = ...,
+        vtsi_project_name: _builtins.str = ...,
+        new_display_name: _builtins.str = ...,
+        include_calls: _builtins.bool = ...,
+        call_states: _abc.Iterable[Global___CampaignCallState.ValueType] | None = ...,
+        field_mask: _field_mask_pb2.FieldMask | None = ...,
+        idempotency_key: _builtins.str = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["field_mask", b"field_mask", "source", b"source", "source_display_name", b"source_display_name", "source_name", b"source_name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["call_states", b"call_states", "field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "include_calls", b"include_calls", "new_display_name", b"new_display_name", "source", b"source", "source_display_name", b"source_display_name", "source_name", b"source_name", "vtsi_project_name", b"vtsi_project_name"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["source", b"source"]) -> typing.Literal["source_name", "source_display_name"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["field_mask", b"field_mask", "source", b"source", "source_display_name", b"source_display_name", "source_name", b"source_name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["call_states", b"call_states", "field_mask", b"field_mask", "idempotency_key", b"idempotency_key", "include_calls", b"include_calls", "new_display_name", b"new_display_name", "source", b"source", "source_display_name", b"source_display_name", "source_name", b"source_name", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_source: _TypeAlias = _typing.Literal["source_name", "source_display_name"]  # noqa: Y015
+    _WhichOneofArgType_source: _TypeAlias = _typing.Literal["source", b"source"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_source) -> _WhichOneofReturnType_source | None: ...
 
-global___CloneCampaignRequest = CloneCampaignRequest
+Global___CloneCampaignRequest: _TypeAlias = CloneCampaignRequest  # noqa: Y015

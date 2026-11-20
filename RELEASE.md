@@ -34,11 +34,20 @@
 ### Improvements
 
 * Tracking API Version 9.5.0 of [ondewo-vtsi-api](https://github.com/ondewo/ondewo-vtsi-api) (unreleased; built
-  against commit `e6caa8a0aab19180427639d979a01ee7ee192d5f`).
+  against commit `2c261e2a01d3e57ca93aefdd5b69a87125fb7943`).
 * [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) The vendored `ondewo/nlu` stubs track
   ondewo-nlu-api `09169d1b766c4d19c123b9c072e80ff693fec3d9` (new `ondewo/nlu/logs.proto`,
   `Sessions.PrepareWarmTransferIntro`, agent and operations changes) and `ondewo/sip` tracks ondewo-sip-api
   `b92a13f63696a0bc013dda19d72166f87346282e`.
+
+### Breaking Changes
+
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) Generated with ondewo-proto-compiler 5.17.0
+  (grpcio-tools 1.85.1, mypy-protobuf 5.1.0): every `_pb2.py` carries `# Protobuf Python Version: 7.35.1` and every
+  `_pb2_grpc.py` `GRPC_GENERATED_VERSION = '1.85.1'`, and both refuse an older runtime at import. New runtime floors:
+  `requires-python >=3.10`, `protobuf>=7.35.1,<8`, `grpcio>=1.85.1`. `grpcio-tools`, `grpcio-reflection` and
+  `mypy-protobuf` are no longer runtime dependencies (nothing in the package imports them; `ondewo-client-utils`
+  4.1.1 still declares the first two).
 
 *****************
 

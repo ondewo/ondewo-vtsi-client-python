@@ -5,7 +5,7 @@ import warnings
 
 from ondewo.vtsi import events_pb2 as ondewo_dot_vtsi_dot_events__pb2
 
-GRPC_GENERATED_VERSION = '1.67.1'
+GRPC_GENERATED_VERSION = '1.85.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -18,14 +18,14 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in ondewo/vtsi/events_pb2_grpc.py depends on'
+        + ' but the generated code in ondewo/vtsi/events_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class EventsStub(object):
+class EventsStub:
     """<p>ONDEWO VTSI API</p>
     <p>Notifies other systems of VTSI events: calls, callers, listeners, scheduled callers,
     campaigns, VTSI projects, the project&apos;s Asterisk and softphone accounts. Every event is one
@@ -184,7 +184,7 @@ class EventsStub(object):
                 _registered_method=True)
 
 
-class EventsServicer(object):
+class EventsServicer:
     """<p>ONDEWO VTSI API</p>
     <p>Notifies other systems of VTSI events: calls, callers, listeners, scheduled callers,
     campaigns, VTSI projects, the project&apos;s Asterisk and softphone accounts. Every event is one
@@ -578,7 +578,7 @@ def add_EventsServicer_to_server(servicer, server):
 
 
  # This class is part of an EXPERIMENTAL API.
-class Events(object):
+class Events:
     """<p>ONDEWO VTSI API</p>
     <p>Notifies other systems of VTSI events: calls, callers, listeners, scheduled callers,
     campaigns, VTSI projects, the project&apos;s Asterisk and softphone accounts. Every event is one

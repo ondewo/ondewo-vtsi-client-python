@@ -5,7 +5,7 @@ import warnings
 
 from ondewo.vtsi import campaigns_pb2 as ondewo_dot_vtsi_dot_campaigns__pb2
 
-GRPC_GENERATED_VERSION = '1.67.1'
+GRPC_GENERATED_VERSION = '1.85.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -18,14 +18,14 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in ondewo/vtsi/campaigns_pb2_grpc.py depends on'
+        + ' but the generated code in ondewo/vtsi/campaigns_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class CampaignsStub(object):
+class CampaignsStub:
     """<p>ONDEWO VTSI API</p>
     <p>Manages the CAMPAIGNS of a VTSI project. A campaign is a named set of outbound calls that VTSI
     places for the client while keeping at most <code>max_parallel_calls</code> of them running at
@@ -209,7 +209,7 @@ class CampaignsStub(object):
                 _registered_method=True)
 
 
-class CampaignsServicer(object):
+class CampaignsServicer:
     """<p>ONDEWO VTSI API</p>
     <p>Manages the CAMPAIGNS of a VTSI project. A campaign is a named set of outbound calls that VTSI
     places for the client while keeping at most <code>max_parallel_calls</code> of them running at
@@ -739,7 +739,7 @@ def add_CampaignsServicer_to_server(servicer, server):
 
 
  # This class is part of an EXPERIMENTAL API.
-class Campaigns(object):
+class Campaigns:
     """<p>ONDEWO VTSI API</p>
     <p>Manages the CAMPAIGNS of a VTSI project. A campaign is a named set of outbound calls that VTSI
     places for the client while keeping at most <code>max_parallel_calls</code> of them running at
