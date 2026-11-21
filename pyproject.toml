@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ondewo-vtsi-client"
-version = "9.5.2"
+version = "9.5.3"
 description = "ONDEWO Voip Telephone System Integration (VTSI) Client library for Python"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -40,13 +40,15 @@ dependencies = [
     "protobuf>=7.35.1,<8",
     "regex",
     "requests",
+    # utils/keycloak.py logs through loguru at runtime; declared only in the dev extra, a wheel installed on its
+    # own raised ModuleNotFoundError on `import ondewo...client` (9.5.2, ondewo-t2s-release PR-221 #4).
+    "loguru",
 ]
 
 [project.optional-dependencies]
 # From requirements-dev.txt (flake8 -> ruff) plus pytest-cov + pytest-asyncio.
 dev = [
     "ruff",
-    "loguru",
     "mypy",
     "mypy-protobuf",
     "pre-commit",
