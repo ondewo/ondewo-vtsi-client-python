@@ -26,7 +26,7 @@ if _version_not_supported:
 
 
 class CallsStub:
-    """<p>ONDEWO VTSI API</p>
+    """ONDEWO VTSI API
     """
 
     def __init__(self, channel):
@@ -283,7 +283,7 @@ class CallsStub:
 
 
 class CallsServicer:
-    """<p>ONDEWO VTSI API</p>
+    """ONDEWO VTSI API
     """
 
     def StartCaller(self, request, context):
@@ -1327,7 +1327,7 @@ def add_CallsServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Calls:
-    """<p>ONDEWO VTSI API</p>
+    """ONDEWO VTSI API
     """
 
     @staticmethod

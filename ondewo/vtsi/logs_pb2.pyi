@@ -67,8 +67,7 @@ class LogSource(_LogSource, metaclass=_LogSourceEnumTypeWrapper):
     Enums
     ////////////////////////////////////////////////////////////////////////////
 
-    Which process inside the container emitted a log entry. All of these share a single docker log
-    stream, because ondewo-csi runs as a child process of the ondewo-sip container.
+    Which process inside the container emitted a log entry. All of these share a single docker log stream, because ondewo-csi runs as a child process of the ondewo-sip container.
     """
 
 LOG_SOURCE_UNSPECIFIED: LogSource.ValueType  # 0
@@ -133,10 +132,7 @@ class _LogCaptureStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_LogCa
     """Another VTSI replica holds the capture lease for this container."""
 
 class LogCaptureState(_LogCaptureState, metaclass=_LogCaptureStateEnumTypeWrapper):
-    """The state of VTSI&apos;s capture of one log stream. This describes the CAPTURE, not the container:
-    a healthy container whose capture lease was lost is <code>DETACHED</code>, and a container that no
-    longer exists but whose capture completed cleanly is <code>STOPPED</code>.
-    """
+    """The state of VTSI&apos;s capture of one log stream. This describes the CAPTURE, not the container: a healthy container whose capture lease was lost is <code>DETACHED</code>, and a container that no longer exists but whose capture completed cleanly is <code>STOPPED</code>."""
 
 LOG_CAPTURE_STATE_UNSPECIFIED: LogCaptureState.ValueType  # 0
 """Unspecified."""
@@ -174,10 +170,7 @@ class _CallLogFilterFieldEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Ca
     """<code>CallLogFilter.sip_headers</code>."""
 
 class CallLogFilterField(_CallLogFilterField, metaclass=_CallLogFilterFieldEnumTypeWrapper):
-    """Identifies a field of <a href="index.html#ondewo.vtsi.CallLogFilter">CallLogFilter</a>. Used by
-    <a href="index.html#ondewo.vtsi.ListCallLogsResponse">ListCallLogsResponse.scope_limited_filters</a>
-    to declare which filters could only be applied inside the returned window.
-    """
+    """Identifies a field of <a href="index.html#ondewo.vtsi.CallLogFilter">CallLogFilter</a>. Used by <a href="index.html#ondewo.vtsi.ListCallLogsResponse">ListCallLogsResponse.scope_limited_filters</a> to declare which filters could only be applied inside the returned window."""
 
 CALL_LOG_FILTER_FIELD_UNSPECIFIED: CallLogFilterField.ValueType  # 0
 """Unspecified."""
@@ -229,10 +222,7 @@ class _LogStreamEndReasonEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Lo
     """
 
 class LogStreamEndReason(_LogStreamEndReason, metaclass=_LogStreamEndReasonEnumTypeWrapper):
-    """Why the SERVER ended a <code>StreamCallLogs</code> stream. Carried by the final
-    <a href="index.html#ondewo.vtsi.StreamCallLogsResponse">StreamCallLogsResponse</a> beside the
-    human-readable <code>end_reason</code>. A stream ended by the client has no final message.
-    """
+    """Why the SERVER ended a <code>StreamCallLogs</code> stream. Carried by the final <a href="index.html#ondewo.vtsi.StreamCallLogsResponse">StreamCallLogsResponse</a> beside the human-readable <code>end_reason</code>. A stream ended by the client has no final message."""
 
 LOG_STREAM_END_REASON_UNSPECIFIED: LogStreamEndReason.ValueType  # 0
 """Not ended by the server: every message except the final one, and the final message of a 9.0.0
@@ -290,10 +280,7 @@ class _LogExportFormatEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_LogEx
     """
 
 class LogExportFormat(_LogExportFormat, metaclass=_LogExportFormatEnumTypeWrapper):
-    """File format of an <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">ExportCallLogs</a> export. Every
-    format is UTF-8 with <code>\\n</code> line endings and one entry per record; a multi-line entry stays one
-    record.
-    """
+    """File format of an <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">ExportCallLogs</a> export. Every format is UTF-8 with <code>\\n</code> line endings and one entry per record; a multi-line entry stays one record."""
 
 LOG_EXPORT_FORMAT_UNSPECIFIED: LogExportFormat.ValueType  # 0
 """Unspecified: identical to <code>LOG_EXPORT_FORMAT_TEXT</code>."""
@@ -325,9 +312,7 @@ class CallLogEntry(_message.Message):
     Messages
     ////////////////////////////////////////////////////////////////////////////
 
-    A single captured container log record. One record may span several physical docker log lines: a
-    Python traceback, a protobuf <code>str()</code> dump and a multi-line configuration banner are all
-    one record, and are stored and returned as one entry.
+    A single captured container log record. One record may span several physical docker log lines: a Python traceback, a protobuf <code>str()</code> dump and a multi-line configuration banner are all one record, and are stored and returned as one entry.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -464,12 +449,9 @@ Global___SipHeaderFilter: _TypeAlias = SipHeaderFilter  # noqa: Y015
 
 @_typing.final
 class CallLogFilter(_message.Message):
-    """Narrows a log query. Every field is optional; an empty repeated field means &quot;do not filter on
-    this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR.
+    """Narrows a log query. Every field is optional; an empty repeated field means &quot;do not filter on this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR.
 
-    <p>Filters fall into two groups. IDENTITY filters select which containers and which calls are of
-    interest and are resolved against VTSI&apos;s own call records. CONTENT filters select which
-    entries of those containers to return.</p>
+    Filters fall into two groups. IDENTITY filters select which containers and which calls are of interest and are resolved against VTSI&apos;s own call records. CONTENT filters select which entries of those containers to return.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -750,10 +732,7 @@ Global___CallLogFilter: _TypeAlias = CallLogFilter  # noqa: Y015
 
 @_typing.final
 class CallLogStream(_message.Message):
-    """One capture generation of one container on one docker channel. A container that is recreated
-    yields a NEW log stream, because a recreated container is a different docker container and the
-    previous container&apos;s logs no longer exist anywhere except here.
-    """
+    """One capture generation of one container on one docker channel. A container that is recreated yields a NEW log stream, because a recreated container is a different docker container and the previous container&apos;s logs no longer exist anywhere except here."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -881,9 +860,7 @@ Global___CallLogStream: _TypeAlias = CallLogStream  # noqa: Y015
 
 @_typing.final
 class StreamCallLogsRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -956,11 +933,7 @@ Global___StreamCallLogsRequest: _TypeAlias = StreamCallLogsRequest  # noqa: Y015
 
 @_typing.final
 class StreamCallLogsResponse(_message.Message):
-    """The response message for
-    <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>. The stream carries an
-    envelope rather than a bare entry so that a viewer can tell a healthy quiet container from a
-    capture that has died.
-    """
+    """The response message for <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>. The stream carries an envelope rather than a bare entry so that a viewer can tell a healthy quiet container from a capture that has died."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1023,9 +996,7 @@ Global___StreamCallLogsResponse: _TypeAlias = StreamCallLogsResponse  # noqa: Y0
 
 @_typing.final
 class ListCallLogsRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Logs.ListCallLogs">Logs.ListCallLogs</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Logs.ListCallLogs">Logs.ListCallLogs</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1134,9 +1105,7 @@ Global___ListCallLogsRequest: _TypeAlias = ListCallLogsRequest  # noqa: Y015
 
 @_typing.final
 class ListCallLogsResponse(_message.Message):
-    """The response message for
-    <a href="index.html#ondewo.vtsi.Logs.ListCallLogs">Logs.ListCallLogs</a>.
-    """
+    """The response message for <a href="index.html#ondewo.vtsi.Logs.ListCallLogs">Logs.ListCallLogs</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1237,9 +1206,7 @@ Global___ListCallLogsResponse: _TypeAlias = ListCallLogsResponse  # noqa: Y015
 
 @_typing.final
 class GetCallLogStreamRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Logs.GetCallLogStream">Logs.GetCallLogStream</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Logs.GetCallLogStream">Logs.GetCallLogStream</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1280,9 +1247,7 @@ Global___GetCallLogStreamRequest: _TypeAlias = GetCallLogStreamRequest  # noqa: 
 
 @_typing.final
 class ListCallLogStreamsRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Logs.ListCallLogStreams">Logs.ListCallLogStreams</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Logs.ListCallLogStreams">Logs.ListCallLogStreams</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1361,9 +1326,7 @@ Global___ListCallLogStreamsRequest: _TypeAlias = ListCallLogStreamsRequest  # no
 
 @_typing.final
 class ListCallLogStreamsResponse(_message.Message):
-    """The response message for
-    <a href="index.html#ondewo.vtsi.Logs.ListCallLogStreams">Logs.ListCallLogStreams</a>.
-    """
+    """The response message for <a href="index.html#ondewo.vtsi.Logs.ListCallLogStreams">Logs.ListCallLogStreams</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1393,9 +1356,7 @@ Global___ListCallLogStreamsResponse: _TypeAlias = ListCallLogStreamsResponse  # 
 
 @_typing.final
 class DeleteCallLogsRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Logs.DeleteCallLogs">Logs.DeleteCallLogs</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Logs.DeleteCallLogs">Logs.DeleteCallLogs</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1436,9 +1397,7 @@ Global___DeleteCallLogsRequest: _TypeAlias = DeleteCallLogsRequest  # noqa: Y015
 
 @_typing.final
 class DeleteCallLogsResponse(_message.Message):
-    """The response message for
-    <a href="index.html#ondewo.vtsi.Logs.DeleteCallLogs">Logs.DeleteCallLogs</a>.
-    """
+    """The response message for <a href="index.html#ondewo.vtsi.Logs.DeleteCallLogs">Logs.DeleteCallLogs</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1466,9 +1425,7 @@ Global___DeleteCallLogsResponse: _TypeAlias = DeleteCallLogsResponse  # noqa: Y0
 
 @_typing.final
 class ExportCallLogsRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">Logs.ExportCallLogs</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">Logs.ExportCallLogs</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 

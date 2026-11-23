@@ -58,7 +58,7 @@ class _IvrNodeTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IvrNodeTy
     """Continue in another published menu of the project (<code>goto_menu_name</code>)"""
 
 class IvrNodeType(_IvrNodeType, metaclass=_IvrNodeTypeEnumTypeWrapper):
-    """<p>The kind of an IVR node</p>"""
+    """The kind of an IVR node"""
 
 IVR_NODE_TYPE_UNSPECIFIED: IvrNodeType.ValueType  # 0
 """Not allowed"""
@@ -92,7 +92,7 @@ class _IvrMenuStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IvrMenuS
     """The last publish failed; the previous published revision, if any, stays live"""
 
 class IvrMenuState(_IvrMenuState, metaclass=_IvrMenuStateEnumTypeWrapper):
-    """<p>Publication state of an IVR menu</p>"""
+    """Publication state of an IVR menu"""
 
 IVR_MENU_STATE_UNSPECIFIED: IvrMenuState.ValueType  # 0
 """Not set"""
@@ -170,7 +170,7 @@ class _IvrMenuTestStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IvrM
     """The test call could not run or ended unexpectedly; <code>error_message</code> says why"""
 
 class IvrMenuTestState(_IvrMenuTestState, metaclass=_IvrMenuTestStateEnumTypeWrapper):
-    """<p>State of a test call of an IVR menu</p>"""
+    """State of a test call of an IVR menu"""
 
 IVR_MENU_TEST_STATE_UNSPECIFIED: IvrMenuTestState.ValueType  # 0
 """Not set"""
@@ -190,10 +190,7 @@ class IvrMenu(_message.Message):
     Resources
     ////////////////////////////////////////////////////////////////////////////
 
-    <p>An IVR menu of a VTSI project. The graph fields (<code>entry_node_id</code>, <code>nodes</code>,
-    <code>language_code</code>, <code>t2s_pipeline_id</code>) are versioned by <code>revision</code>; the routing
-    fields (<code>inbound_phone_numbers</code>, <code>default_inbound</code>, <code>disabled</code>) take effect on the
-    next publish.</p>
+    An IVR menu of a VTSI project. The graph fields (<code>entry_node_id</code>, <code>nodes</code>, <code>language_code</code>, <code>t2s_pipeline_id</code>) are versioned by <code>revision</code>; the routing fields (<code>inbound_phone_numbers</code>, <code>default_inbound</code>, <code>disabled</code>) take effect on the next publish.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -375,9 +372,7 @@ Global___IvrMenu: _TypeAlias = IvrMenu  # noqa: Y015
 
 @_typing.final
 class IvrNode(_message.Message):
-    """<p>One node of an IVR menu. Which fields apply depends on <code>type</code>; a field set on a node type it does not
-    apply to is refused with <code>INVALID_ARGUMENT</code>.</p>
-    """
+    """One node of an IVR menu. Which fields apply depends on <code>type</code>; a field set on a node type it does not apply to is refused with <code>INVALID_ARGUMENT</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -480,7 +475,7 @@ Global___IvrNode: _TypeAlias = IvrNode  # noqa: Y015
 
 @_typing.final
 class IvrOption(_message.Message):
-    """<p>One key of a MENU node</p>"""
+    """One key of a MENU node"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -512,7 +507,7 @@ Global___IvrOption: _TypeAlias = IvrOption  # noqa: Y015
 
 @_typing.final
 class IvrPrompt(_message.Message):
-    """<p>An audio prompt. Exactly one source must be set.</p>"""
+    """An audio prompt. Exactly one source must be set."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -550,7 +545,7 @@ Global___IvrPrompt: _TypeAlias = IvrPrompt  # noqa: Y015
 
 @_typing.final
 class IvrNodePosition(_message.Message):
-    """<p>Position of a node on the editor canvas</p>"""
+    """Position of a node on the editor canvas"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -576,7 +571,7 @@ Global___IvrNodePosition: _TypeAlias = IvrNodePosition  # noqa: Y015
 
 @_typing.final
 class IvrNodeStats(_message.Message):
-    """<p>Traffic counters of one node, in <code>IvrMenu.node_stats</code>. Approximate.</p>"""
+    """Traffic counters of one node, in <code>IvrMenu.node_stats</code>. Approximate."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -952,7 +947,7 @@ Global___ValidateIvrMenuRequest: _TypeAlias = ValidateIvrMenuRequest  # noqa: Y0
 
 @_typing.final
 class IvrMenuIssue(_message.Message):
-    """<p>One problem of an IVR menu draft</p>"""
+    """One problem of an IVR menu draft"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1052,9 +1047,7 @@ Global___PublishIvrMenuRequest: _TypeAlias = PublishIvrMenuRequest  # noqa: Y015
 
 @_typing.final
 class CloneIvrMenuRequest(_message.Message):
-    """Request to clone an IVR menu. The clone has no <code>inbound_phone_numbers</code>, <code>default_inbound</code>
-    <code>false</code> and the state DRAFT.
-    """
+    """Request to clone an IVR menu. The clone has no <code>inbound_phone_numbers</code>, <code>default_inbound</code> <code>false</code> and the state DRAFT."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1120,7 +1113,7 @@ Global___ListIvrMenuRevisionsRequest: _TypeAlias = ListIvrMenuRevisionsRequest  
 
 @_typing.final
 class IvrMenuRevision(_message.Message):
-    """<p>One saved revision of an IVR menu</p>"""
+    """One saved revision of an IVR menu"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1196,7 +1189,7 @@ Global___ListIvrMenuRevisionsResponse: _TypeAlias = ListIvrMenuRevisionsResponse
 
 @_typing.final
 class IvrTestStep(_message.Message):
-    """<p>One step of the key script of a test call</p>"""
+    """One step of the key script of a test call"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1284,7 +1277,7 @@ Global___GetIvrMenuTestRequest: _TypeAlias = GetIvrMenuTestRequest  # noqa: Y015
 
 @_typing.final
 class IvrTraversalStep(_message.Message):
-    """<p>One node entry of a test call</p>"""
+    """One node entry of a test call"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1328,7 +1321,7 @@ Global___IvrTraversalStep: _TypeAlias = IvrTraversalStep  # noqa: Y015
 
 @_typing.final
 class IvrMenuTest(_message.Message):
-    """<p>A test call of an IVR menu, started by <code>TestIvrMenu</code>. Leaves no call record and no NLU session.</p>"""
+    """A test call of an IVR menu, started by <code>TestIvrMenu</code>. Leaves no call record and no NLU session."""
 
     DESCRIPTOR: _descriptor.Descriptor
 

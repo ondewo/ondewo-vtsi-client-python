@@ -67,10 +67,7 @@ class SoftphoneTransportSecurity(_SoftphoneTransportSecurity, metaclass=_Softpho
     Enums
     ////////////////////////////////////////////////////////////////////////////
 
-    How a softphone account secures its SIP signalling to the project&apos;s Asterisk. Both modes use TLS
-    for signalling, SRTP for media and SIP digest authentication with the account&apos;s own credentials;
-    they differ in which TLS port the softphone connects to and whether it must present a client
-    certificate.
+    How a softphone account secures its SIP signalling to the project&apos;s Asterisk. Both modes use TLS for signalling, SRTP for media and SIP digest authentication with the account&apos;s own credentials; they differ in which TLS port the softphone connects to and whether it must present a client certificate.
     """
 
 SOFTPHONE_TRANSPORT_SECURITY_UNSPECIFIED: SoftphoneTransportSecurity.ValueType  # 0
@@ -170,9 +167,7 @@ class _SoftphoneContactStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper
     """
 
 class SoftphoneContactStatus(_SoftphoneContactStatus, metaclass=_SoftphoneContactStatusEnumTypeWrapper):
-    """Reachability of one registered contact of a softphone account, as the project&apos;s Asterisk
-    qualifies it (SIP <code>OPTIONS</code>).
-    """
+    """Reachability of one registered contact of a softphone account, as the project&apos;s Asterisk qualifies it (SIP <code>OPTIONS</code>)."""
 
 SOFTPHONE_CONTACT_STATUS_UNSPECIFIED: SoftphoneContactStatus.ValueType  # 0
 """Unspecified. Never returned."""
@@ -223,8 +218,7 @@ class SoftphoneAccount(_message.Message):
     Resources
     ////////////////////////////////////////////////////////////////////////////
 
-    A SIP account on a VTSI project&apos;s Asterisk for a human using a softphone. Never carries a
-    secret.
+    A SIP account on a VTSI project&apos;s Asterisk for a human using a softphone. Never carries a secret.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -415,10 +409,7 @@ Global___SoftphoneAccount: _TypeAlias = SoftphoneAccount  # noqa: Y015
 
 @_typing.final
 class SoftphoneCertificate(_message.Message):
-    """A client certificate issued to a softphone account by the project&apos;s SOFTPHONE certificate
-    authority. Carries public material only: the private key exists solely inside the PKCS#12 bundle that
-    was returned once when the certificate was issued. Every field is output only.
-    """
+    """A client certificate issued to a softphone account by the project&apos;s SOFTPHONE certificate authority. Carries public material only: the private key exists solely inside the PKCS#12 bundle that was returned once when the certificate was issued. Every field is output only."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -524,11 +515,7 @@ Global___SoftphoneCertificate: _TypeAlias = SoftphoneCertificate  # noqa: Y015
 
 @_typing.final
 class SoftphoneCredentials(_message.Message):
-    """ONE-TIME secrets of a softphone account, returned only by <code>CreateSoftphoneAccount</code> and
-    <code>RotateSoftphoneCredentials</code>. VTSI keeps no copy of the private key or of
-    <code>pkcs12_password</code> and cannot return them again: store them now, or rotate later. Never log
-    this message.
-    """
+    """ONE-TIME secrets of a softphone account, returned only by <code>CreateSoftphoneAccount</code> and <code>RotateSoftphoneCredentials</code>. VTSI keeps no copy of the private key or of <code>pkcs12_password</code> and cannot return them again: store them now, or rotate later. Never log this message."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -574,9 +561,7 @@ Global___SoftphoneCredentials: _TypeAlias = SoftphoneCredentials  # noqa: Y015
 
 @_typing.final
 class SoftphoneProvisioning(_message.Message):
-    """Everything needed to configure a softphone for one account, except the secrets. Every field is output
-    only.
-    """
+    """Everything needed to configure a softphone for one account, except the secrets. Every field is output only."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -718,9 +703,7 @@ class SoftphoneAccountFilter(_message.Message):
     Filters and sorting
     ////////////////////////////////////////////////////////////////////////////
 
-    Narrows a softphone account listing. Every field is optional; an unset field or an empty repeated
-    field or map means &quot;do not filter on this&quot;. Fields are combined with AND; the values within
-    one repeated field are combined with OR; the entries of <code>labels</code> are combined with AND.
+    Narrows a softphone account listing. Every field is optional; an unset field or an empty repeated field or map means &quot;do not filter on this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR; the entries of <code>labels</code> are combined with AND.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -821,9 +804,7 @@ Global___SoftphoneAccountFilter: _TypeAlias = SoftphoneAccountFilter  # noqa: Y0
 
 @_typing.final
 class SoftphoneCertificateFilter(_message.Message):
-    """Narrows a softphone certificate listing. Combined like
-    <a href="index.html#ondewo.vtsi.SoftphoneAccountFilter">SoftphoneAccountFilter</a>.
-    """
+    """Narrows a softphone certificate listing. Combined like <a href="index.html#ondewo.vtsi.SoftphoneAccountFilter">SoftphoneAccountFilter</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -939,8 +920,7 @@ class CreateSoftphoneAccountRequest(_message.Message):
     Requests and responses
     ////////////////////////////////////////////////////////////////////////////
 
-    The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.CreateSoftphoneAccount">Softphones.CreateSoftphoneAccount</a>.
+    The request message for <a href="index.html#ondewo.vtsi.Softphones.CreateSoftphoneAccount">Softphones.CreateSoftphoneAccount</a>.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -995,9 +975,7 @@ Global___CreateSoftphoneAccountRequest: _TypeAlias = CreateSoftphoneAccountReque
 
 @_typing.final
 class CreateSoftphoneAccountResponse(_message.Message):
-    """The response message for
-    <a href="index.html#ondewo.vtsi.Softphones.CreateSoftphoneAccount">Softphones.CreateSoftphoneAccount</a>.
-    """
+    """The response message for <a href="index.html#ondewo.vtsi.Softphones.CreateSoftphoneAccount">Softphones.CreateSoftphoneAccount</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1030,9 +1008,7 @@ Global___CreateSoftphoneAccountResponse: _TypeAlias = CreateSoftphoneAccountResp
 
 @_typing.final
 class GetSoftphoneAccountRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneAccount">Softphones.GetSoftphoneAccount</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneAccount">Softphones.GetSoftphoneAccount</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1065,9 +1041,7 @@ Global___GetSoftphoneAccountRequest: _TypeAlias = GetSoftphoneAccountRequest  # 
 
 @_typing.final
 class UpdateSoftphoneAccountRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.UpdateSoftphoneAccount">Softphones.UpdateSoftphoneAccount</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.UpdateSoftphoneAccount">Softphones.UpdateSoftphoneAccount</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1116,9 +1090,7 @@ Global___UpdateSoftphoneAccountRequest: _TypeAlias = UpdateSoftphoneAccountReque
 
 @_typing.final
 class DeleteSoftphoneAccountRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.DeleteSoftphoneAccount">Softphones.DeleteSoftphoneAccount</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.DeleteSoftphoneAccount">Softphones.DeleteSoftphoneAccount</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1142,9 +1114,7 @@ Global___DeleteSoftphoneAccountRequest: _TypeAlias = DeleteSoftphoneAccountReque
 
 @_typing.final
 class DeleteSoftphoneAccountResponse(_message.Message):
-    """The response message for
-    <a href="index.html#ondewo.vtsi.Softphones.DeleteSoftphoneAccount">Softphones.DeleteSoftphoneAccount</a>.
-    """
+    """The response message for <a href="index.html#ondewo.vtsi.Softphones.DeleteSoftphoneAccount">Softphones.DeleteSoftphoneAccount</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1170,9 +1140,7 @@ Global___DeleteSoftphoneAccountResponse: _TypeAlias = DeleteSoftphoneAccountResp
 
 @_typing.final
 class ListSoftphoneAccountsRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneAccounts">Softphones.ListSoftphoneAccounts</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneAccounts">Softphones.ListSoftphoneAccounts</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1230,9 +1198,7 @@ Global___ListSoftphoneAccountsRequest: _TypeAlias = ListSoftphoneAccountsRequest
 
 @_typing.final
 class ListSoftphoneAccountsResponse(_message.Message):
-    """The response message for
-    <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneAccounts">Softphones.ListSoftphoneAccounts</a>.
-    """
+    """The response message for <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneAccounts">Softphones.ListSoftphoneAccounts</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1260,11 +1226,7 @@ Global___ListSoftphoneAccountsResponse: _TypeAlias = ListSoftphoneAccountsRespon
 
 @_typing.final
 class RotateSoftphoneCredentialsRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.RotateSoftphoneCredentials">Softphones.RotateSoftphoneCredentials</a>.
-    At least one of <code>rotate_sip_password</code> and <code>rotate_certificate</code> must be
-    <code>true</code>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.RotateSoftphoneCredentials">Softphones.RotateSoftphoneCredentials</a>. At least one of <code>rotate_sip_password</code> and <code>rotate_certificate</code> must be <code>true</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1298,9 +1260,7 @@ Global___RotateSoftphoneCredentialsRequest: _TypeAlias = RotateSoftphoneCredenti
 
 @_typing.final
 class RotateSoftphoneCredentialsResponse(_message.Message):
-    """The response message for
-    <a href="index.html#ondewo.vtsi.Softphones.RotateSoftphoneCredentials">Softphones.RotateSoftphoneCredentials</a>.
-    """
+    """The response message for <a href="index.html#ondewo.vtsi.Softphones.RotateSoftphoneCredentials">Softphones.RotateSoftphoneCredentials</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1332,9 +1292,7 @@ Global___RotateSoftphoneCredentialsResponse: _TypeAlias = RotateSoftphoneCredent
 
 @_typing.final
 class ListSoftphoneCertificatesRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneCertificates">Softphones.ListSoftphoneCertificates</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneCertificates">Softphones.ListSoftphoneCertificates</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1398,9 +1356,7 @@ Global___ListSoftphoneCertificatesRequest: _TypeAlias = ListSoftphoneCertificate
 
 @_typing.final
 class ListSoftphoneCertificatesResponse(_message.Message):
-    """The response message for
-    <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneCertificates">Softphones.ListSoftphoneCertificates</a>.
-    """
+    """The response message for <a href="index.html#ondewo.vtsi.Softphones.ListSoftphoneCertificates">Softphones.ListSoftphoneCertificates</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1428,9 +1384,7 @@ Global___ListSoftphoneCertificatesResponse: _TypeAlias = ListSoftphoneCertificat
 
 @_typing.final
 class GetSoftphoneCertificateRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneCertificate">Softphones.GetSoftphoneCertificate</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneCertificate">Softphones.GetSoftphoneCertificate</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1462,9 +1416,7 @@ Global___GetSoftphoneCertificateRequest: _TypeAlias = GetSoftphoneCertificateReq
 
 @_typing.final
 class RevokeSoftphoneCertificateRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.RevokeSoftphoneCertificate">Softphones.RevokeSoftphoneCertificate</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.RevokeSoftphoneCertificate">Softphones.RevokeSoftphoneCertificate</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1494,9 +1446,7 @@ Global___RevokeSoftphoneCertificateRequest: _TypeAlias = RevokeSoftphoneCertific
 
 @_typing.final
 class GetSoftphoneProvisioningRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneProvisioning">Softphones.GetSoftphoneProvisioning</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneProvisioning">Softphones.GetSoftphoneProvisioning</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1520,9 +1470,7 @@ Global___GetSoftphoneProvisioningRequest: _TypeAlias = GetSoftphoneProvisioningR
 
 @_typing.final
 class GetSoftphoneRegistrationRequest(_message.Message):
-    """The request message for
-    <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneRegistration">Softphones.GetSoftphoneRegistration</a>.
-    """
+    """The request message for <a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneRegistration">Softphones.GetSoftphoneRegistration</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1556,9 +1504,7 @@ Global___GetSoftphoneRegistrationRequest: _TypeAlias = GetSoftphoneRegistrationR
 
 @_typing.final
 class SoftphoneRegistration(_message.Message):
-    """The live registrations of one softphone account on its project&apos;s Asterisk. Every field is output
-    only. Never carries a secret.
-    """
+    """The live registrations of one softphone account on its project&apos;s Asterisk. Every field is output only. Never carries a secret."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
