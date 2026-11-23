@@ -32,6 +32,7 @@ from ondewo.vtsi.call_configs_pb2 import AnsweringMachineDetectionConfig as Answ
 from ondewo.vtsi.call_configs_pb2 import AudioObjectStorageConfig as AudioObjectStorageConfig
 from ondewo.vtsi.call_configs_pb2 import AudioObjectStorageServicesActivationConfig as AudioObjectStorageServicesActivationConfig
 from ondewo.vtsi.call_configs_pb2 import BaseServiceConfig as BaseServiceConfig
+from ondewo.vtsi.call_configs_pb2 import BotTransferConfig as BotTransferConfig
 from ondewo.vtsi.call_configs_pb2 import CommonServicesConfig as CommonServicesConfig
 from ondewo.vtsi.call_configs_pb2 import Credentials as Credentials
 from ondewo.vtsi.call_configs_pb2 import CsiPreemptiveGenerationConfig as CsiPreemptiveGenerationConfig
@@ -50,6 +51,7 @@ from ondewo.vtsi.call_configs_pb2 import S2tVtsiCallbacks as S2tVtsiCallbacks
 from ondewo.vtsi.call_configs_pb2 import S2tVtsiConfig as S2tVtsiConfig
 from ondewo.vtsi.call_configs_pb2 import SipBaseConfig as SipBaseConfig
 from ondewo.vtsi.call_configs_pb2 import SipCallerConfig as SipCallerConfig
+from ondewo.vtsi.call_configs_pb2 import SipVtsiConfig as SipVtsiConfig
 from ondewo.vtsi.call_configs_pb2 import SoftTimeoutConfig as SoftTimeoutConfig
 from ondewo.vtsi.call_configs_pb2 import T2sPreemptiveSynthesisConfig as T2sPreemptiveSynthesisConfig
 from ondewo.vtsi.call_configs_pb2 import T2sVtsiCallbacks as T2sVtsiCallbacks

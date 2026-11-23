@@ -2,6 +2,24 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 9.6.0
+
+### New Features
+
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) Every speech-to-speech and SIP setting that changes how a call behaves is settable per call
+  (ondewo-vtsi-api 9.6.0, every new scalar `optional`, a set value wins over the deployment's setting):
+  `InterruptionHandlingConfig` 10-15, `TurnDetectionConfig` 16-20, `ResponseTimingConfig` 6-9, `NluVtsiConfig` 11-13,
+  `S2tVtsiConfig.failure_sip_trigger`, `DtmfConfig` 5-6, the new `BotTransferConfig`
+  (`VoiceInteractionConfig.bot_transfer_config`) and the new `SipVtsiConfig` (`CommonServicesConfig.sip_vtsi_config`).
+
+### Improvements
+
+* Tracking API Version 9.6.0 of [ondewo-vtsi-api](https://github.com/ondewo/ondewo-vtsi-api) (unreleased; built
+  against commit `84af18b7059beb284480015df304e8ae22affcdf`). Only the `ondewo/vtsi` stubs change; the vendored
+  `ondewo/{nlu,s2t,t2s,sip,qa}` stubs are byte-identical to 9.5.3's.
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 9.5.3
 
 ### Bug Fixes

@@ -241,6 +241,9 @@ class NluVtsiConfig(_message.Message):
     HTTP_BASIC_AUTH_TOKEN_FIELD_NUMBER: _builtins.int
     PLATFORM_FIELD_NUMBER: _builtins.int
     PREEMPTIVE_GENERATION_CONFIG_FIELD_NUMBER: _builtins.int
+    AI_TEAMS_FILLERS_AUDIBLE_FIELD_NUMBER: _builtins.int
+    FAILURE_APOLOGY_MESSAGE_FIELD_NUMBER: _builtins.int
+    SESSION_ID_FROM_SIP_CONTEXT_FIELD_NUMBER: _builtins.int
     auth_token: _builtins.str
     """Authentication token"""
     agent_name: _builtins.str
@@ -259,6 +262,20 @@ class NluVtsiConfig(_message.Message):
     """http basic auth token"""
     platform: _intent_pb2.Intent.Message.Platform.ValueType
     """Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse"""
+    ai_teams_fillers_audible: _builtins.bool
+    """Optional: Speak the filler messages an AI Teams agent of the NLU sends while it works on an answer
+    (default: true). Sets <code>CSI_NLU_TEAM_FILLERS_AUDIBLE</code>
+    """
+    failure_apology_message: _builtins.str
+    """Optional: Text the bot speaks when the NLU cannot be reached during the call (default: an apology in the
+    language of the call, German for <code>de-*</code>, English otherwise). An empty text switches the apology
+    off. At most 500 characters, no control characters; otherwise refused with <code>INVALID_ARGUMENT</code>.
+    Sets <code>NLU_FAILURE_APOLOGY_MESSAGE</code>
+    """
+    session_id_from_sip_context: _builtins.bool
+    """Optional: Derive the NLU session id of the call from its SIP header <code>X-ondewo-phonesystem-call-id</code>
+    instead of minting a new one (default: true). Sets <code>SET_SESSION_ID_FROM_SIP_CONTEXT</code>
+    """
     @_builtins.property
     def nlu_base_config(self) -> Global___BaseServiceConfig:
         """Base config
@@ -293,17 +310,32 @@ class NluVtsiConfig(_message.Message):
         http_basic_auth_token: _builtins.str = ...,
         platform: _intent_pb2.Intent.Message.Platform.ValueType | None = ...,
         preemptive_generation_config: Global___NluPreemptiveGenerationConfig | None = ...,
+        ai_teams_fillers_audible: _builtins.bool | None = ...,
+        failure_apology_message: _builtins.str | None = ...,
+        session_id_from_sip_context: _builtins.bool | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["_platform", b"_platform", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_ai_teams_fillers_audible", b"_ai_teams_fillers_audible", "_failure_apology_message", b"_failure_apology_message", "_platform", b"_platform", "_session_id_from_sip_context", b"_session_id_from_sip_context", "ai_teams_fillers_audible", b"ai_teams_fillers_audible", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "failure_apology_message", b"failure_apology_message", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config", "session_id_from_sip_context", b"session_id_from_sip_context"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["_platform", b"_platform", "agent_name", b"agent_name", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_ai_teams_fillers_audible", b"_ai_teams_fillers_audible", "_failure_apology_message", b"_failure_apology_message", "_platform", b"_platform", "_session_id_from_sip_context", b"_session_id_from_sip_context", "agent_name", b"agent_name", "ai_teams_fillers_audible", b"ai_teams_fillers_audible", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "failure_apology_message", b"failure_apology_message", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config", "session_id_from_sip_context", b"session_id_from_sip_context"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__ai_teams_fillers_audible: _TypeAlias = _typing.Literal["ai_teams_fillers_audible"]  # noqa: Y015
+    _WhichOneofArgType__ai_teams_fillers_audible: _TypeAlias = _typing.Literal["_ai_teams_fillers_audible", b"_ai_teams_fillers_audible"]  # noqa: Y015
+    _WhichOneofReturnType__failure_apology_message: _TypeAlias = _typing.Literal["failure_apology_message"]  # noqa: Y015
+    _WhichOneofArgType__failure_apology_message: _TypeAlias = _typing.Literal["_failure_apology_message", b"_failure_apology_message"]  # noqa: Y015
     _WhichOneofReturnType__platform: _TypeAlias = _typing.Literal["platform"]  # noqa: Y015
     _WhichOneofArgType__platform: _TypeAlias = _typing.Literal["_platform", b"_platform"]  # noqa: Y015
+    _WhichOneofReturnType__session_id_from_sip_context: _TypeAlias = _typing.Literal["session_id_from_sip_context"]  # noqa: Y015
+    _WhichOneofArgType__session_id_from_sip_context: _TypeAlias = _typing.Literal["_session_id_from_sip_context", b"_session_id_from_sip_context"]  # noqa: Y015
     _WhichOneofReturnType_authentication: _TypeAlias = _typing.Literal["credentials", "auth_token"]  # noqa: Y015
     _WhichOneofArgType_authentication: _TypeAlias = _typing.Literal["authentication", b"authentication"]  # noqa: Y015
     @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__ai_teams_fillers_audible) -> _WhichOneofReturnType__ai_teams_fillers_audible | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__failure_apology_message) -> _WhichOneofReturnType__failure_apology_message | None: ...
+    @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__platform) -> _WhichOneofReturnType__platform | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__session_id_from_sip_context) -> _WhichOneofReturnType__session_id_from_sip_context | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType_authentication) -> _WhichOneofReturnType_authentication | None: ...
 
@@ -445,6 +477,13 @@ class S2tVtsiConfig(_message.Message):
 
     S2T_BASE_CONFIG_FIELD_NUMBER: _builtins.int
     S2T_TRANSCRIBE_REQUEST_CONFIG_FIELD_NUMBER: _builtins.int
+    FAILURE_SIP_TRIGGER_FIELD_NUMBER: _builtins.int
+    failure_sip_trigger: _builtins.str
+    """Optional: What the call does when the speech-to-text service stays unreachable after all retries:
+    <code>hangup</code> (default; the call is ended), <code>human_handover</code> (the call is handed over to a
+    human agent) or <code>none</code> (the call stays up without transcription). Case-insensitive; any other
+    value is refused with <code>INVALID_ARGUMENT</code>. Sets <code>S2T_FAILURE_SIP_TRIGGER</code>
+    """
     @_builtins.property
     def s2t_base_config(self) -> Global___BaseServiceConfig:
         """Host, Port, and [Optional] GRPC cert"""
@@ -458,12 +497,15 @@ class S2tVtsiConfig(_message.Message):
         *,
         s2t_base_config: Global___BaseServiceConfig | None = ...,
         s2t_transcribe_request_config: _speech_to_text_pb2.TranscribeRequestConfig | None = ...,
+        failure_sip_trigger: _builtins.str | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_failure_sip_trigger", b"_failure_sip_trigger", "failure_sip_trigger", b"failure_sip_trigger", "s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_failure_sip_trigger", b"_failure_sip_trigger", "failure_sip_trigger", b"failure_sip_trigger", "s2t_base_config", b"s2t_base_config", "s2t_transcribe_request_config", b"s2t_transcribe_request_config"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-    def WhichOneof(self, oneof_group: _Never) -> None: ...
+    _WhichOneofReturnType__failure_sip_trigger: _TypeAlias = _typing.Literal["failure_sip_trigger"]  # noqa: Y015
+    _WhichOneofArgType__failure_sip_trigger: _TypeAlias = _typing.Literal["_failure_sip_trigger", b"_failure_sip_trigger"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__failure_sip_trigger) -> _WhichOneofReturnType__failure_sip_trigger | None: ...
 
 Global___S2tVtsiConfig: _TypeAlias = S2tVtsiConfig  # noqa: Y015
 
@@ -478,6 +520,7 @@ class CommonServicesConfig(_message.Message):
     T2S_VTSI_CONFIG_FIELD_NUMBER: _builtins.int
     CSI_VTSI_CONFIG_FIELD_NUMBER: _builtins.int
     VOICE_INTERACTION_CONFIG_FIELD_NUMBER: _builtins.int
+    SIP_VTSI_CONFIG_FIELD_NUMBER: _builtins.int
     @_builtins.property
     def s2t_vtsi_config(self) -> Global___S2tVtsiConfig:
         """speech-to-text service configuration"""
@@ -498,6 +541,10 @@ class CommonServicesConfig(_message.Message):
     def voice_interaction_config(self) -> Global___VoiceInteractionConfig:
         """Voice interaction configuration for turn detection, interruption (barge-in) handling and response timing"""
 
+    @_builtins.property
+    def sip_vtsi_config(self) -> Global___SipVtsiConfig:
+        """Media and SIP behaviour of the call&apos;s SIP container. Unset fields keep the container&apos;s defaults"""
+
     def __init__(
         self,
         *,
@@ -506,14 +553,121 @@ class CommonServicesConfig(_message.Message):
         t2s_vtsi_config: Global___T2sVtsiConfig | None = ...,
         csi_vtsi_config: Global___CsiVtsiConfig | None = ...,
         voice_interaction_config: Global___VoiceInteractionConfig | None = ...,
+        sip_vtsi_config: Global___SipVtsiConfig | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "sip_vtsi_config", b"sip_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "sip_vtsi_config", b"sip_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___CommonServicesConfig: _TypeAlias = CommonServicesConfig  # noqa: Y015
+
+@_typing.final
+class SipVtsiConfig(_message.Message):
+    """Media and SIP behaviour of the SIP container of a call. A container serves one call, one listener deployment or
+    one pooled caller, and a pooled caller is reused only for a request with the same configuration, so every field
+    applies to the call(s) of exactly this configuration. Every field is <code>optional</code>; an unset field keeps
+    the container&apos;s default, and a value outside its range is refused with <code>INVALID_ARGUMENT</code>
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    PLAYBACK_LATENCY_MS_FIELD_NUMBER: _builtins.int
+    SOFTWARE_CLOCK_ENABLED_FIELD_NUMBER: _builtins.int
+    RTP_STATS_SAMPLE_INTERVAL_SECONDS_FIELD_NUMBER: _builtins.int
+    HANGUP_WAIT_FOR_PLAYBACK_TIMEOUT_SECONDS_FIELD_NUMBER: _builtins.int
+    OUTGOING_DIAL_WATCHDOG_SECONDS_FIELD_NUMBER: _builtins.int
+    REGISTER_INTERVAL_SECONDS_FIELD_NUMBER: _builtins.int
+    CALL_AUDIO_STREAM_MAX_CONCURRENT_FIELD_NUMBER: _builtins.int
+    CALL_AUDIO_STREAM_MAX_DURATION_SECONDS_FIELD_NUMBER: _builtins.int
+    playback_latency_ms: _builtins.int
+    """Optional: Milliseconds of audio the sound device&apos;s playback buffer holds, i.e. how long the caller&apos;s
+    audio waits before the speech-to-text service hears it (default: 60, valid range: 40 - 1000; 140 is the
+    previous default). Sets <code>SIP_PJSIP_PLAYBACK_LATENCY_MS</code>
+    """
+    software_clock_enabled: _builtins.bool
+    """Optional: Clock the media of the call from a software clock instead of the sound device (default: true;
+    false is the rollback to the sound device&apos;s clock). Sets <code>SIP_PJSIP_SOFTWARE_CLOCK</code>
+    """
+    rtp_stats_sample_interval_seconds: _builtins.float
+    """Optional: Seconds between two RTP statistics log lines of a live call (default: 10, valid: 0 = off, or
+    1 - 3600). Sets <code>SIP_RTP_STATS_SAMPLE_INTERVAL_S</code>
+    """
+    hangup_wait_for_playback_timeout_seconds: _builtins.float
+    """Optional: Seconds a hangup waits at most for audio files still playing into the call (default: 5.0, valid
+    range: 0 - 60). Sets <code>SIP_HANGUP_WAIT_FOR_PLAYBACK_TIMEOUT_IN_S</code>
+    """
+    outgoing_dial_watchdog_seconds: _builtins.float
+    """Optional: Seconds an outbound call of a pooled caller may stay at <code>OUTGOING_CALL_INITIATED</code> with
+    no SIP session behind it before it is failed (default: 45, valid range: above 30 - 600; it must stay above
+    the 30 s lifetime of a DNS lookup). Sets <code>SIP_OUTGOING_DIAL_WATCHDOG_S</code>
+    """
+    register_interval_seconds: _builtins.int
+    """Optional: Seconds the SIP registration of the container asks the Asterisk to keep it (default: 600, valid
+    range: 60 - 86400; the Asterisk grants no less than 60 s). The registration is refreshed 30 s before it
+    expires. Sets <code>SIP_REGISTER_INTERVAL_S</code>; a set value wins over the deployment&apos;s
+    <code>ONDEWO_VTSI_SIP_REGISTER_INTERVAL_S</code>
+    """
+    call_audio_stream_max_concurrent: _builtins.int
+    """Optional: Live audio streams (<code>StreamCallAudio</code>) the call admits at the same time (default: 2,
+    valid range: 1 - 2). Sets <code>SIP_CALL_AUDIO_STREAM_MAX_CONCURRENT</code>
+    """
+    call_audio_stream_max_duration_seconds: _builtins.int
+    """Optional: Seconds a live audio stream of the call may last at most; a stream&apos;s own
+    <code>max_duration_s</code> can only lower it (default: 3600, valid range: 1 - 86400). Sets
+    <code>SIP_CALL_AUDIO_STREAM_MAX_DURATION_S</code>
+    """
+    def __init__(
+        self,
+        *,
+        playback_latency_ms: _builtins.int | None = ...,
+        software_clock_enabled: _builtins.bool | None = ...,
+        rtp_stats_sample_interval_seconds: _builtins.float | None = ...,
+        hangup_wait_for_playback_timeout_seconds: _builtins.float | None = ...,
+        outgoing_dial_watchdog_seconds: _builtins.float | None = ...,
+        register_interval_seconds: _builtins.int | None = ...,
+        call_audio_stream_max_concurrent: _builtins.int | None = ...,
+        call_audio_stream_max_duration_seconds: _builtins.int | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_call_audio_stream_max_concurrent", b"_call_audio_stream_max_concurrent", "_call_audio_stream_max_duration_seconds", b"_call_audio_stream_max_duration_seconds", "_hangup_wait_for_playback_timeout_seconds", b"_hangup_wait_for_playback_timeout_seconds", "_outgoing_dial_watchdog_seconds", b"_outgoing_dial_watchdog_seconds", "_playback_latency_ms", b"_playback_latency_ms", "_register_interval_seconds", b"_register_interval_seconds", "_rtp_stats_sample_interval_seconds", b"_rtp_stats_sample_interval_seconds", "_software_clock_enabled", b"_software_clock_enabled", "call_audio_stream_max_concurrent", b"call_audio_stream_max_concurrent", "call_audio_stream_max_duration_seconds", b"call_audio_stream_max_duration_seconds", "hangup_wait_for_playback_timeout_seconds", b"hangup_wait_for_playback_timeout_seconds", "outgoing_dial_watchdog_seconds", b"outgoing_dial_watchdog_seconds", "playback_latency_ms", b"playback_latency_ms", "register_interval_seconds", b"register_interval_seconds", "rtp_stats_sample_interval_seconds", b"rtp_stats_sample_interval_seconds", "software_clock_enabled", b"software_clock_enabled"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_call_audio_stream_max_concurrent", b"_call_audio_stream_max_concurrent", "_call_audio_stream_max_duration_seconds", b"_call_audio_stream_max_duration_seconds", "_hangup_wait_for_playback_timeout_seconds", b"_hangup_wait_for_playback_timeout_seconds", "_outgoing_dial_watchdog_seconds", b"_outgoing_dial_watchdog_seconds", "_playback_latency_ms", b"_playback_latency_ms", "_register_interval_seconds", b"_register_interval_seconds", "_rtp_stats_sample_interval_seconds", b"_rtp_stats_sample_interval_seconds", "_software_clock_enabled", b"_software_clock_enabled", "call_audio_stream_max_concurrent", b"call_audio_stream_max_concurrent", "call_audio_stream_max_duration_seconds", b"call_audio_stream_max_duration_seconds", "hangup_wait_for_playback_timeout_seconds", b"hangup_wait_for_playback_timeout_seconds", "outgoing_dial_watchdog_seconds", b"outgoing_dial_watchdog_seconds", "playback_latency_ms", b"playback_latency_ms", "register_interval_seconds", b"register_interval_seconds", "rtp_stats_sample_interval_seconds", b"rtp_stats_sample_interval_seconds", "software_clock_enabled", b"software_clock_enabled"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__call_audio_stream_max_concurrent: _TypeAlias = _typing.Literal["call_audio_stream_max_concurrent"]  # noqa: Y015
+    _WhichOneofArgType__call_audio_stream_max_concurrent: _TypeAlias = _typing.Literal["_call_audio_stream_max_concurrent", b"_call_audio_stream_max_concurrent"]  # noqa: Y015
+    _WhichOneofReturnType__call_audio_stream_max_duration_seconds: _TypeAlias = _typing.Literal["call_audio_stream_max_duration_seconds"]  # noqa: Y015
+    _WhichOneofArgType__call_audio_stream_max_duration_seconds: _TypeAlias = _typing.Literal["_call_audio_stream_max_duration_seconds", b"_call_audio_stream_max_duration_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__hangup_wait_for_playback_timeout_seconds: _TypeAlias = _typing.Literal["hangup_wait_for_playback_timeout_seconds"]  # noqa: Y015
+    _WhichOneofArgType__hangup_wait_for_playback_timeout_seconds: _TypeAlias = _typing.Literal["_hangup_wait_for_playback_timeout_seconds", b"_hangup_wait_for_playback_timeout_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__outgoing_dial_watchdog_seconds: _TypeAlias = _typing.Literal["outgoing_dial_watchdog_seconds"]  # noqa: Y015
+    _WhichOneofArgType__outgoing_dial_watchdog_seconds: _TypeAlias = _typing.Literal["_outgoing_dial_watchdog_seconds", b"_outgoing_dial_watchdog_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__playback_latency_ms: _TypeAlias = _typing.Literal["playback_latency_ms"]  # noqa: Y015
+    _WhichOneofArgType__playback_latency_ms: _TypeAlias = _typing.Literal["_playback_latency_ms", b"_playback_latency_ms"]  # noqa: Y015
+    _WhichOneofReturnType__register_interval_seconds: _TypeAlias = _typing.Literal["register_interval_seconds"]  # noqa: Y015
+    _WhichOneofArgType__register_interval_seconds: _TypeAlias = _typing.Literal["_register_interval_seconds", b"_register_interval_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__rtp_stats_sample_interval_seconds: _TypeAlias = _typing.Literal["rtp_stats_sample_interval_seconds"]  # noqa: Y015
+    _WhichOneofArgType__rtp_stats_sample_interval_seconds: _TypeAlias = _typing.Literal["_rtp_stats_sample_interval_seconds", b"_rtp_stats_sample_interval_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__software_clock_enabled: _TypeAlias = _typing.Literal["software_clock_enabled"]  # noqa: Y015
+    _WhichOneofArgType__software_clock_enabled: _TypeAlias = _typing.Literal["_software_clock_enabled", b"_software_clock_enabled"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_audio_stream_max_concurrent) -> _WhichOneofReturnType__call_audio_stream_max_concurrent | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__call_audio_stream_max_duration_seconds) -> _WhichOneofReturnType__call_audio_stream_max_duration_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__hangup_wait_for_playback_timeout_seconds) -> _WhichOneofReturnType__hangup_wait_for_playback_timeout_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__outgoing_dial_watchdog_seconds) -> _WhichOneofReturnType__outgoing_dial_watchdog_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__playback_latency_ms) -> _WhichOneofReturnType__playback_latency_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__register_interval_seconds) -> _WhichOneofReturnType__register_interval_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__rtp_stats_sample_interval_seconds) -> _WhichOneofReturnType__rtp_stats_sample_interval_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__software_clock_enabled) -> _WhichOneofReturnType__software_clock_enabled | None: ...
+
+Global___SipVtsiConfig: _TypeAlias = SipVtsiConfig  # noqa: Y015
 
 @_typing.final
 class VoiceInteractionConfig(_message.Message):
@@ -529,6 +683,7 @@ class VoiceInteractionConfig(_message.Message):
     ANSWERING_MACHINE_DETECTION_CONFIG_FIELD_NUMBER: _builtins.int
     DTMF_CONFIG_FIELD_NUMBER: _builtins.int
     WARM_TRANSFER_CONFIG_FIELD_NUMBER: _builtins.int
+    BOT_TRANSFER_CONFIG_FIELD_NUMBER: _builtins.int
     @_builtins.property
     def turn_detection_config(self) -> Global___TurnDetectionConfig:
         """Configuration of the turn detection"""
@@ -561,6 +716,12 @@ class VoiceInteractionConfig(_message.Message):
         <code>TransferCallRequest.warm_transfer_config</code> wins over it for that one transfer
         """
 
+    @_builtins.property
+    def bot_transfer_config(self) -> Global___BotTransferConfig:
+        """Configuration of the transfers the bot starts itself (an NLU or LLM agent decision), not the ones a client
+        asks for with <code>TransferCall</code>. Unset fields keep the speech-to-speech service&apos;s defaults
+        """
+
     def __init__(
         self,
         *,
@@ -570,14 +731,70 @@ class VoiceInteractionConfig(_message.Message):
         answering_machine_detection_config: Global___AnsweringMachineDetectionConfig | None = ...,
         dtmf_config: Global___DtmfConfig | None = ...,
         warm_transfer_config: Global___WarmTransferConfig | None = ...,
+        bot_transfer_config: Global___BotTransferConfig | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "bot_transfer_config", b"bot_transfer_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["answering_machine_detection_config", b"answering_machine_detection_config", "bot_transfer_config", b"bot_transfer_config", "dtmf_config", b"dtmf_config", "interruption_handling_config", b"interruption_handling_config", "response_timing_config", b"response_timing_config", "turn_detection_config", b"turn_detection_config", "warm_transfer_config", b"warm_transfer_config"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___VoiceInteractionConfig: _TypeAlias = VoiceInteractionConfig  # noqa: Y015
+
+@_typing.final
+class BotTransferConfig(_message.Message):
+    """Configuration of the transfers the bot of a call starts itself (an NLU or LLM agent decision). Every field is
+    <code>optional</code>; an unset field keeps its default, and a value outside its range is refused with
+    <code>INVALID_ARGUMENT</code>
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    OUTCOME_TIMEOUT_MS_FIELD_NUMBER: _builtins.int
+    FAILED_ACTION_FIELD_NUMBER: _builtins.int
+    WARM_TRANSFER_OUTCOME_COMMIT_TIMEOUT_SECONDS_FIELD_NUMBER: _builtins.int
+    outcome_timeout_ms: _builtins.int
+    """Optional: Milliseconds a bot transfer waits for the far end to accept or reject the REFER before the bot
+    leaves the call (default: 5000, valid range: 0 - 10000; 0 = leave at once without waiting for the outcome).
+    Sets <code>CSI_TRANSFER_OUTCOME_TIMEOUT_MS</code>
+    """
+    failed_action: _builtins.str
+    """Optional: What the bot does when a transfer it started fails while the call is still up:
+    <code>continue</code> (default; the bot keeps the call), <code>hangup</code> (the call is ended) or
+    <code>exit</code> (one more transfer to the <code>exit</code> extension of the project, the call is ended if
+    that fails too). Case-insensitive; any other value is refused with <code>INVALID_ARGUMENT</code>. Sets
+    <code>CSI_TRANSFER_FAILED_ACTION</code>
+    """
+    warm_transfer_outcome_commit_timeout_seconds: _builtins.float
+    """Optional: Seconds the notice about a failed warm transfer waits to be answered by the NLU before its fallback
+    text is spoken instead (default: 5.0, valid range: above 0 - 60). Sets
+    <code>CSI_WARM_TRANSFER_OUTCOME_COMMIT_TIMEOUT_S</code>
+    """
+    def __init__(
+        self,
+        *,
+        outcome_timeout_ms: _builtins.int | None = ...,
+        failed_action: _builtins.str | None = ...,
+        warm_transfer_outcome_commit_timeout_seconds: _builtins.float | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_failed_action", b"_failed_action", "_outcome_timeout_ms", b"_outcome_timeout_ms", "_warm_transfer_outcome_commit_timeout_seconds", b"_warm_transfer_outcome_commit_timeout_seconds", "failed_action", b"failed_action", "outcome_timeout_ms", b"outcome_timeout_ms", "warm_transfer_outcome_commit_timeout_seconds", b"warm_transfer_outcome_commit_timeout_seconds"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_failed_action", b"_failed_action", "_outcome_timeout_ms", b"_outcome_timeout_ms", "_warm_transfer_outcome_commit_timeout_seconds", b"_warm_transfer_outcome_commit_timeout_seconds", "failed_action", b"failed_action", "outcome_timeout_ms", b"outcome_timeout_ms", "warm_transfer_outcome_commit_timeout_seconds", b"warm_transfer_outcome_commit_timeout_seconds"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__failed_action: _TypeAlias = _typing.Literal["failed_action"]  # noqa: Y015
+    _WhichOneofArgType__failed_action: _TypeAlias = _typing.Literal["_failed_action", b"_failed_action"]  # noqa: Y015
+    _WhichOneofReturnType__outcome_timeout_ms: _TypeAlias = _typing.Literal["outcome_timeout_ms"]  # noqa: Y015
+    _WhichOneofArgType__outcome_timeout_ms: _TypeAlias = _typing.Literal["_outcome_timeout_ms", b"_outcome_timeout_ms"]  # noqa: Y015
+    _WhichOneofReturnType__warm_transfer_outcome_commit_timeout_seconds: _TypeAlias = _typing.Literal["warm_transfer_outcome_commit_timeout_seconds"]  # noqa: Y015
+    _WhichOneofArgType__warm_transfer_outcome_commit_timeout_seconds: _TypeAlias = _typing.Literal["_warm_transfer_outcome_commit_timeout_seconds", b"_warm_transfer_outcome_commit_timeout_seconds"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__failed_action) -> _WhichOneofReturnType__failed_action | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__outcome_timeout_ms) -> _WhichOneofReturnType__outcome_timeout_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__warm_transfer_outcome_commit_timeout_seconds) -> _WhichOneofReturnType__warm_transfer_outcome_commit_timeout_seconds | None: ...
+
+Global___BotTransferConfig: _TypeAlias = BotTransferConfig  # noqa: Y015
 
 @_typing.final
 class DtmfConfig(_message.Message):
@@ -595,6 +812,8 @@ class DtmfConfig(_message.Message):
     BARGE_IN_FIELD_NUMBER: _builtins.int
     INTER_DIGIT_TIMEOUT_MS_FIELD_NUMBER: _builtins.int
     UNDECLARED_POLICY_FIELD_NUMBER: _builtins.int
+    SPEECH_GUARD_MS_FIELD_NUMBER: _builtins.int
+    TEXT_TEMPLATE_FIELD_NUMBER: _builtins.int
     enabled: _builtins.bool
     """Whether a pressed key is forwarded to the bot at all (default true). <code>false</code> ignores every key of
     the call
@@ -611,6 +830,18 @@ class DtmfConfig(_message.Message):
     not interrupted) or <code>COMMIT_SINGLE</code> (the key is sent to the NLU as a one-key turn). Any other
     value is refused with <code>INVALID_ARGUMENT</code>
     """
+    speech_guard_ms: _builtins.int
+    """Optional: Milliseconds after a key turn within which a spoken final transcription is dropped in favour of the
+    keys (default 300, valid range 0 - 5000; a value outside the range is refused with
+    <code>INVALID_ARGUMENT</code>). Sets <code>CSI_DTMF_SPEECH_GUARD_MS</code>
+    """
+    text_template: _builtins.str
+    """Optional: The text a key entry is sent to the NLU as, with <code>{digits}</code> standing for the keys
+    (default <code>[DTMF:{digits}]</code>). <code>{digits}</code> must occur exactly once and no other
+    placeholder may occur (a literal brace is written <code>{{</code> / <code>}}</code>); 1 - 64 characters, no
+    control characters. Otherwise refused with <code>INVALID_ARGUMENT</code>. Change it only together with the
+    training phrases of the NLU agent. Sets <code>CSI_DTMF_TEXT_TEMPLATE</code>
+    """
     def __init__(
         self,
         *,
@@ -618,10 +849,12 @@ class DtmfConfig(_message.Message):
         barge_in: _builtins.bool | None = ...,
         inter_digit_timeout_ms: _builtins.int | None = ...,
         undeclared_policy: _builtins.str | None = ...,
+        speech_guard_ms: _builtins.int | None = ...,
+        text_template: _builtins.str | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "undeclared_policy", b"undeclared_policy"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_speech_guard_ms", b"_speech_guard_ms", "_text_template", b"_text_template", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "speech_guard_ms", b"speech_guard_ms", "text_template", b"text_template", "undeclared_policy", b"undeclared_policy"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "undeclared_policy", b"undeclared_policy"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_barge_in", b"_barge_in", "_enabled", b"_enabled", "_inter_digit_timeout_ms", b"_inter_digit_timeout_ms", "_speech_guard_ms", b"_speech_guard_ms", "_text_template", b"_text_template", "_undeclared_policy", b"_undeclared_policy", "barge_in", b"barge_in", "enabled", b"enabled", "inter_digit_timeout_ms", b"inter_digit_timeout_ms", "speech_guard_ms", b"speech_guard_ms", "text_template", b"text_template", "undeclared_policy", b"undeclared_policy"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     _WhichOneofReturnType__barge_in: _TypeAlias = _typing.Literal["barge_in"]  # noqa: Y015
     _WhichOneofArgType__barge_in: _TypeAlias = _typing.Literal["_barge_in", b"_barge_in"]  # noqa: Y015
@@ -629,6 +862,10 @@ class DtmfConfig(_message.Message):
     _WhichOneofArgType__enabled: _TypeAlias = _typing.Literal["_enabled", b"_enabled"]  # noqa: Y015
     _WhichOneofReturnType__inter_digit_timeout_ms: _TypeAlias = _typing.Literal["inter_digit_timeout_ms"]  # noqa: Y015
     _WhichOneofArgType__inter_digit_timeout_ms: _TypeAlias = _typing.Literal["_inter_digit_timeout_ms", b"_inter_digit_timeout_ms"]  # noqa: Y015
+    _WhichOneofReturnType__speech_guard_ms: _TypeAlias = _typing.Literal["speech_guard_ms"]  # noqa: Y015
+    _WhichOneofArgType__speech_guard_ms: _TypeAlias = _typing.Literal["_speech_guard_ms", b"_speech_guard_ms"]  # noqa: Y015
+    _WhichOneofReturnType__text_template: _TypeAlias = _typing.Literal["text_template"]  # noqa: Y015
+    _WhichOneofArgType__text_template: _TypeAlias = _typing.Literal["_text_template", b"_text_template"]  # noqa: Y015
     _WhichOneofReturnType__undeclared_policy: _TypeAlias = _typing.Literal["undeclared_policy"]  # noqa: Y015
     _WhichOneofArgType__undeclared_policy: _TypeAlias = _typing.Literal["_undeclared_policy", b"_undeclared_policy"]  # noqa: Y015
     @_typing.overload
@@ -637,6 +874,10 @@ class DtmfConfig(_message.Message):
     def WhichOneof(self, oneof_group: _WhichOneofArgType__enabled) -> _WhichOneofReturnType__enabled | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__inter_digit_timeout_ms) -> _WhichOneofReturnType__inter_digit_timeout_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__speech_guard_ms) -> _WhichOneofReturnType__speech_guard_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__text_template) -> _WhichOneofReturnType__text_template | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__undeclared_policy) -> _WhichOneofReturnType__undeclared_policy | None: ...
 
@@ -1154,6 +1395,11 @@ class TurnDetectionConfig(_message.Message):
     EXACT_PROBABILITY_FIELD_NUMBER: _builtins.int
     FINAL_MERGE_WINDOW_SECONDS_FIELD_NUMBER: _builtins.int
     DICTATION_CONFIG_FIELD_NUMBER: _builtins.int
+    S2T_EMIT_MS_FIELD_NUMBER: _builtins.int
+    S2T_REQUEST_PARTIALS_FIELD_NUMBER: _builtins.int
+    S2T_REQUEST_END_OF_SPEECH_CANDIDATE_FIELD_NUMBER: _builtins.int
+    SMART_TURN_THRESHOLD_FIELD_NUMBER: _builtins.int
+    POST_UNMUTE_PHANTOM_WINDOW_SECONDS_FIELD_NUMBER: _builtins.int
     mode: Global___TurnDetectionConfig.TurnDetectionMode.ValueType
     """Mode of the turn detection. Defaults to SEMANTIC_MODEL if unspecified"""
     min_endpointing_delay_seconds: _builtins.float
@@ -1230,6 +1476,34 @@ class TurnDetectionConfig(_message.Message):
     caller&apos;s continuation into ONE turn (default: 0 = off, valid range: 0 - 2). Valid with every mode. A value
     outside the range is refused with <code>INVALID_ARGUMENT</code>
     """
+    s2t_emit_ms: _builtins.int
+    """Optional: Milliseconds of caller audio the speech-to-speech service sends to the speech-to-text service per
+    request (default: 40, valid range: 20 - 1000). Sets <code>CSI_S2T_EMIT_MS</code>; a set value wins over the
+    deployment&apos;s <code>ONDEWO_VTSI_CSI_S2T_EMIT_MS</code>. A value outside the range is refused with
+    <code>INVALID_ARGUMENT</code>
+    """
+    s2t_request_partials: _builtins.bool
+    """Optional: Ask the speech-to-text service for partial transcriptions and the start of speech, which the
+    interruption noise gate and the endpointing need, wherever the speech-to-text configuration of the call says
+    nothing about them (default: true; an explicit setting in <code>s2t_transcribe_request_config</code> always
+    wins). Sets <code>CSI_S2T_REQUEST_PARTIALS</code>
+    """
+    s2t_request_end_of_speech_candidate: _builtins.bool
+    """Optional: Ask the speech-to-text service for an early end-of-speech candidate, so that a turn can be
+    prepared before its final transcription while preemptive generation is active (default: true). Sets
+    <code>CSI_S2T_REQUEST_END_OF_SPEECH_CANDIDATE</code>
+    """
+    smart_turn_threshold: _builtins.float
+    """Optional: End-of-turn probability at or above which the audio-native turn detection model (mode
+    <code>AUDIO_MODEL</code>) takes the caller to have finished the turn (default: 0.5, valid range: 0 - 1). Sets
+    <code>SMART_TURN_THRESHOLD</code>. A value outside the range is refused with <code>INVALID_ARGUMENT</code>
+    """
+    post_unmute_phantom_window_seconds: _builtins.float
+    """Optional: Seconds after the caller&apos;s audio is unmuted (the bot stopped speaking) within which a final
+    transcription with no voiced caller audio behind it is dropped as a phantom (default: 0.3, valid range:
+    0 - 1; 0 = off). Sets <code>CSI_S2T_POST_UNMUTE_PHANTOM_WINDOW_SECONDS</code>. A value outside the range is
+    refused with <code>INVALID_ARGUMENT</code>
+    """
     @_builtins.property
     def hold_bands(self) -> Global___TurnDetectionConfig.EndOfTurnHoldBands:
         """Optional: Hold bands of the semantic turn detection model: how long a turn judged finished, but only with a
@@ -1266,10 +1540,15 @@ class TurnDetectionConfig(_message.Message):
         exact_probability: _builtins.bool | None = ...,
         final_merge_window_seconds: _builtins.float | None = ...,
         dictation_config: Global___DictationConfig | None = ...,
+        s2t_emit_ms: _builtins.int | None = ...,
+        s2t_request_partials: _builtins.bool | None = ...,
+        s2t_request_end_of_speech_candidate: _builtins.bool | None = ...,
+        smart_turn_threshold: _builtins.float | None = ...,
+        post_unmute_phantom_window_seconds: _builtins.float | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_semantic_model_name", b"_semantic_model_name", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "semantic_model_name", b"semantic_model_name", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "uncertain_min_words", b"uncertain_min_words"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_post_unmute_phantom_window_seconds", b"_post_unmute_phantom_window_seconds", "_s2t_emit_ms", b"_s2t_emit_ms", "_s2t_request_end_of_speech_candidate", b"_s2t_request_end_of_speech_candidate", "_s2t_request_partials", b"_s2t_request_partials", "_semantic_model_name", b"_semantic_model_name", "_smart_turn_threshold", b"_smart_turn_threshold", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "post_unmute_phantom_window_seconds", b"post_unmute_phantom_window_seconds", "s2t_emit_ms", b"s2t_emit_ms", "s2t_request_end_of_speech_candidate", b"s2t_request_end_of_speech_candidate", "s2t_request_partials", b"s2t_request_partials", "semantic_model_name", b"semantic_model_name", "smart_turn_threshold", b"smart_turn_threshold", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "uncertain_min_words", b"uncertain_min_words"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_semantic_model_name", b"_semantic_model_name", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "mode", b"mode", "semantic_model_name", b"semantic_model_name", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "turn_eagerness", b"turn_eagerness", "uncertain_min_words", b"uncertain_min_words"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_conversation_context_turns", b"_conversation_context_turns", "_end_of_turn_probability_threshold", b"_end_of_turn_probability_threshold", "_exact_probability", b"_exact_probability", "_final_merge_window_seconds", b"_final_merge_window_seconds", "_incomplete_max_silence_seconds", b"_incomplete_max_silence_seconds", "_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds", "_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds", "_post_unmute_phantom_window_seconds", b"_post_unmute_phantom_window_seconds", "_s2t_emit_ms", b"_s2t_emit_ms", "_s2t_request_end_of_speech_candidate", b"_s2t_request_end_of_speech_candidate", "_s2t_request_partials", b"_s2t_request_partials", "_semantic_model_name", b"_semantic_model_name", "_smart_turn_threshold", b"_smart_turn_threshold", "_turn_detection_system_prompt", b"_turn_detection_system_prompt", "_turn_detection_user_prompt", b"_turn_detection_user_prompt", "_uncertain_min_words", b"_uncertain_min_words", "conversation_context_turns", b"conversation_context_turns", "dictation_config", b"dictation_config", "end_of_turn_probability_threshold", b"end_of_turn_probability_threshold", "exact_probability", b"exact_probability", "final_merge_window_seconds", b"final_merge_window_seconds", "hold_bands", b"hold_bands", "incomplete_max_silence_seconds", b"incomplete_max_silence_seconds", "max_endpointing_delay_seconds", b"max_endpointing_delay_seconds", "min_endpointing_delay_seconds", b"min_endpointing_delay_seconds", "mode", b"mode", "post_unmute_phantom_window_seconds", b"post_unmute_phantom_window_seconds", "s2t_emit_ms", b"s2t_emit_ms", "s2t_request_end_of_speech_candidate", b"s2t_request_end_of_speech_candidate", "s2t_request_partials", b"s2t_request_partials", "semantic_model_name", b"semantic_model_name", "smart_turn_threshold", b"smart_turn_threshold", "turn_detection_system_prompt", b"turn_detection_system_prompt", "turn_detection_user_prompt", b"turn_detection_user_prompt", "turn_eagerness", b"turn_eagerness", "uncertain_min_words", b"uncertain_min_words"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     _WhichOneofReturnType__conversation_context_turns: _TypeAlias = _typing.Literal["conversation_context_turns"]  # noqa: Y015
     _WhichOneofArgType__conversation_context_turns: _TypeAlias = _typing.Literal["_conversation_context_turns", b"_conversation_context_turns"]  # noqa: Y015
@@ -1285,8 +1564,18 @@ class TurnDetectionConfig(_message.Message):
     _WhichOneofArgType__max_endpointing_delay_seconds: _TypeAlias = _typing.Literal["_max_endpointing_delay_seconds", b"_max_endpointing_delay_seconds"]  # noqa: Y015
     _WhichOneofReturnType__min_endpointing_delay_seconds: _TypeAlias = _typing.Literal["min_endpointing_delay_seconds"]  # noqa: Y015
     _WhichOneofArgType__min_endpointing_delay_seconds: _TypeAlias = _typing.Literal["_min_endpointing_delay_seconds", b"_min_endpointing_delay_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__post_unmute_phantom_window_seconds: _TypeAlias = _typing.Literal["post_unmute_phantom_window_seconds"]  # noqa: Y015
+    _WhichOneofArgType__post_unmute_phantom_window_seconds: _TypeAlias = _typing.Literal["_post_unmute_phantom_window_seconds", b"_post_unmute_phantom_window_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__s2t_emit_ms: _TypeAlias = _typing.Literal["s2t_emit_ms"]  # noqa: Y015
+    _WhichOneofArgType__s2t_emit_ms: _TypeAlias = _typing.Literal["_s2t_emit_ms", b"_s2t_emit_ms"]  # noqa: Y015
+    _WhichOneofReturnType__s2t_request_end_of_speech_candidate: _TypeAlias = _typing.Literal["s2t_request_end_of_speech_candidate"]  # noqa: Y015
+    _WhichOneofArgType__s2t_request_end_of_speech_candidate: _TypeAlias = _typing.Literal["_s2t_request_end_of_speech_candidate", b"_s2t_request_end_of_speech_candidate"]  # noqa: Y015
+    _WhichOneofReturnType__s2t_request_partials: _TypeAlias = _typing.Literal["s2t_request_partials"]  # noqa: Y015
+    _WhichOneofArgType__s2t_request_partials: _TypeAlias = _typing.Literal["_s2t_request_partials", b"_s2t_request_partials"]  # noqa: Y015
     _WhichOneofReturnType__semantic_model_name: _TypeAlias = _typing.Literal["semantic_model_name"]  # noqa: Y015
     _WhichOneofArgType__semantic_model_name: _TypeAlias = _typing.Literal["_semantic_model_name", b"_semantic_model_name"]  # noqa: Y015
+    _WhichOneofReturnType__smart_turn_threshold: _TypeAlias = _typing.Literal["smart_turn_threshold"]  # noqa: Y015
+    _WhichOneofArgType__smart_turn_threshold: _TypeAlias = _typing.Literal["_smart_turn_threshold", b"_smart_turn_threshold"]  # noqa: Y015
     _WhichOneofReturnType__turn_detection_system_prompt: _TypeAlias = _typing.Literal["turn_detection_system_prompt"]  # noqa: Y015
     _WhichOneofArgType__turn_detection_system_prompt: _TypeAlias = _typing.Literal["_turn_detection_system_prompt", b"_turn_detection_system_prompt"]  # noqa: Y015
     _WhichOneofReturnType__turn_detection_user_prompt: _TypeAlias = _typing.Literal["turn_detection_user_prompt"]  # noqa: Y015
@@ -1308,7 +1597,17 @@ class TurnDetectionConfig(_message.Message):
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__min_endpointing_delay_seconds) -> _WhichOneofReturnType__min_endpointing_delay_seconds | None: ...
     @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__post_unmute_phantom_window_seconds) -> _WhichOneofReturnType__post_unmute_phantom_window_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__s2t_emit_ms) -> _WhichOneofReturnType__s2t_emit_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__s2t_request_end_of_speech_candidate) -> _WhichOneofReturnType__s2t_request_end_of_speech_candidate | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__s2t_request_partials) -> _WhichOneofReturnType__s2t_request_partials | None: ...
+    @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__semantic_model_name) -> _WhichOneofReturnType__semantic_model_name | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__smart_turn_threshold) -> _WhichOneofReturnType__smart_turn_threshold | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__turn_detection_system_prompt) -> _WhichOneofReturnType__turn_detection_system_prompt | None: ...
     @_typing.overload
@@ -1467,6 +1766,12 @@ class InterruptionHandlingConfig(_message.Message):
     FIRST_MESSAGE_PROTECTED_SECONDS_FIELD_NUMBER: _builtins.int
     TRANSCRIBE_ON_DISABLED_INTERRUPTIONS_FIELD_NUMBER: _builtins.int
     INTERRUPTION_FADE_OUT_MS_FIELD_NUMBER: _builtins.int
+    CANCEL_ON_SPEECH_WHILE_THINKING_FIELD_NUMBER: _builtins.int
+    AI_TEAMS_CANCEL_PENDING_ON_INTERRUPT_FIELD_NUMBER: _builtins.int
+    T2S_CANCEL_ON_BARGE_IN_FIELD_NUMBER: _builtins.int
+    NLU_TURN_CONTROL_ENABLED_FIELD_NUMBER: _builtins.int
+    HEARD_REPORT_ENABLED_FIELD_NUMBER: _builtins.int
+    HEARD_TEXT_ALIGNMENT_ENABLED_FIELD_NUMBER: _builtins.int
     enabled: _builtins.bool
     """Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking
     (default: false, i.e. the bot cannot be interrupted)
@@ -1502,6 +1807,41 @@ class InterruptionHandlingConfig(_message.Message):
     interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
     A value outside the range is refused with <code>INVALID_ARGUMENT</code>
     """
+    cancel_on_speech_while_thinking: _builtins.bool
+    """Optional: Let a caller turn committed while the bot is still thinking (the answer of the previous turn is
+    generated but not yet spoken) supersede that turn: the pending answer is cancelled and the new turn is
+    answered instead (default: false). Sets <code>CSI_CANCEL_ON_SPEECH_WHILE_THINKING</code>; a set value wins
+    over the deployment&apos;s <code>ONDEWO_VTSI_CSI_CANCEL_ON_SPEECH_WHILE_THINKING</code>
+    """
+    ai_teams_cancel_pending_on_interrupt: _builtins.bool
+    """Optional: Whether a caller&apos;s interruption cancels the AI Teams asynchronous tool calls still pending
+    for the call. Unset keeps the NLU&apos;s deployment switch; a tool whose team document says
+    <code>async.on_interrupt: keep</code> is never cancelled. Sets
+    <code>CSI_NLU_AI_TEAMS_CANCEL_PENDING_ON_INTERRUPT</code> (<code>true</code> / <code>false</code>), which the
+    speech-to-speech service forwards to the NLU with every request of the call
+    """
+    t2s_cancel_on_barge_in: _builtins.bool
+    """Optional: Cancel the text-to-speech synthesis of an answer the caller really interrupted, instead of letting
+    it run to its end unheard (default: true). Sets <code>CSI_T2S_CANCEL_ON_BARGE_IN</code>; a set value wins over
+    the deployment&apos;s <code>ONDEWO_VTSI_CSI_T2S_CANCEL_ON_BARGE_IN</code>
+    """
+    nlu_turn_control_enabled: _builtins.bool
+    """Optional: Tell an NLU that supports turn control which turn a real interruption cancelled (default: true;
+    an NLU without turn control is sent nothing either way). Sets <code>CSI_NLU_TURN_CONTROL_ACTIVE</code>; a set
+    value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_TURN_CONTROL_ACTIVE</code>
+    """
+    heard_report_enabled: _builtins.bool
+    """Optional: Report to an NLU that supports turn control what the caller actually heard of an interrupted
+    answer, so the conversation history holds what was said rather than what was generated (default: true).
+    Sets <code>CSI_HEARD_REPORT_ACTIVE</code>; a set value wins over the deployment&apos;s
+    <code>ONDEWO_VTSI_CSI_HEARD_REPORT_ACTIVE</code>
+    """
+    heard_text_alignment_enabled: _builtins.bool
+    """Optional: Map the measured cut position of an interrupted answer onto its text using the text-to-speech
+    service&apos;s word timings, instead of estimating it from the audio length (default: true). Sets
+    <code>CSI_HEARD_TEXT_ALIGNMENT_ACTIVE</code>; a set value wins over the deployment&apos;s
+    <code>ONDEWO_VTSI_CSI_HEARD_TEXT_ALIGNMENT_ACTIVE</code>
+    """
     def __init__(
         self,
         *,
@@ -1514,31 +1854,53 @@ class InterruptionHandlingConfig(_message.Message):
         first_message_protected_seconds: _builtins.float | None = ...,
         transcribe_on_disabled_interruptions: _builtins.bool | None = ...,
         interruption_fade_out_ms: _builtins.int | None = ...,
+        cancel_on_speech_while_thinking: _builtins.bool | None = ...,
+        ai_teams_cancel_pending_on_interrupt: _builtins.bool | None = ...,
+        t2s_cancel_on_barge_in: _builtins.bool | None = ...,
+        nlu_turn_control_enabled: _builtins.bool | None = ...,
+        heard_report_enabled: _builtins.bool | None = ...,
+        heard_text_alignment_enabled: _builtins.bool | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_ai_teams_cancel_pending_on_interrupt", b"_ai_teams_cancel_pending_on_interrupt", "_backoff_seconds", b"_backoff_seconds", "_cancel_on_speech_while_thinking", b"_cancel_on_speech_while_thinking", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_heard_report_enabled", b"_heard_report_enabled", "_heard_text_alignment_enabled", b"_heard_text_alignment_enabled", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_nlu_turn_control_enabled", b"_nlu_turn_control_enabled", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_t2s_cancel_on_barge_in", b"_t2s_cancel_on_barge_in", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "ai_teams_cancel_pending_on_interrupt", b"ai_teams_cancel_pending_on_interrupt", "backoff_seconds", b"backoff_seconds", "cancel_on_speech_while_thinking", b"cancel_on_speech_while_thinking", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "heard_report_enabled", b"heard_report_enabled", "heard_text_alignment_enabled", b"heard_text_alignment_enabled", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "nlu_turn_control_enabled", b"nlu_turn_control_enabled", "resume_after_false_interruption", b"resume_after_false_interruption", "t2s_cancel_on_barge_in", b"t2s_cancel_on_barge_in", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["_backoff_seconds", b"_backoff_seconds", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "backoff_seconds", b"backoff_seconds", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "resume_after_false_interruption", b"resume_after_false_interruption", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_ai_teams_cancel_pending_on_interrupt", b"_ai_teams_cancel_pending_on_interrupt", "_backoff_seconds", b"_backoff_seconds", "_cancel_on_speech_while_thinking", b"_cancel_on_speech_while_thinking", "_enabled", b"_enabled", "_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds", "_first_message_protected_seconds", b"_first_message_protected_seconds", "_heard_report_enabled", b"_heard_report_enabled", "_heard_text_alignment_enabled", b"_heard_text_alignment_enabled", "_interruption_fade_out_ms", b"_interruption_fade_out_ms", "_min_interruption_duration_seconds", b"_min_interruption_duration_seconds", "_min_interruption_words", b"_min_interruption_words", "_nlu_turn_control_enabled", b"_nlu_turn_control_enabled", "_resume_after_false_interruption", b"_resume_after_false_interruption", "_t2s_cancel_on_barge_in", b"_t2s_cancel_on_barge_in", "_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions", "ai_teams_cancel_pending_on_interrupt", b"ai_teams_cancel_pending_on_interrupt", "backoff_seconds", b"backoff_seconds", "cancel_on_speech_while_thinking", b"cancel_on_speech_while_thinking", "enabled", b"enabled", "false_interruption_timeout_seconds", b"false_interruption_timeout_seconds", "first_message_protected_seconds", b"first_message_protected_seconds", "heard_report_enabled", b"heard_report_enabled", "heard_text_alignment_enabled", b"heard_text_alignment_enabled", "interruption_fade_out_ms", b"interruption_fade_out_ms", "min_interruption_duration_seconds", b"min_interruption_duration_seconds", "min_interruption_words", b"min_interruption_words", "nlu_turn_control_enabled", b"nlu_turn_control_enabled", "resume_after_false_interruption", b"resume_after_false_interruption", "t2s_cancel_on_barge_in", b"t2s_cancel_on_barge_in", "transcribe_on_disabled_interruptions", b"transcribe_on_disabled_interruptions"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__ai_teams_cancel_pending_on_interrupt: _TypeAlias = _typing.Literal["ai_teams_cancel_pending_on_interrupt"]  # noqa: Y015
+    _WhichOneofArgType__ai_teams_cancel_pending_on_interrupt: _TypeAlias = _typing.Literal["_ai_teams_cancel_pending_on_interrupt", b"_ai_teams_cancel_pending_on_interrupt"]  # noqa: Y015
     _WhichOneofReturnType__backoff_seconds: _TypeAlias = _typing.Literal["backoff_seconds"]  # noqa: Y015
     _WhichOneofArgType__backoff_seconds: _TypeAlias = _typing.Literal["_backoff_seconds", b"_backoff_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__cancel_on_speech_while_thinking: _TypeAlias = _typing.Literal["cancel_on_speech_while_thinking"]  # noqa: Y015
+    _WhichOneofArgType__cancel_on_speech_while_thinking: _TypeAlias = _typing.Literal["_cancel_on_speech_while_thinking", b"_cancel_on_speech_while_thinking"]  # noqa: Y015
     _WhichOneofReturnType__enabled: _TypeAlias = _typing.Literal["enabled"]  # noqa: Y015
     _WhichOneofArgType__enabled: _TypeAlias = _typing.Literal["_enabled", b"_enabled"]  # noqa: Y015
     _WhichOneofReturnType__false_interruption_timeout_seconds: _TypeAlias = _typing.Literal["false_interruption_timeout_seconds"]  # noqa: Y015
     _WhichOneofArgType__false_interruption_timeout_seconds: _TypeAlias = _typing.Literal["_false_interruption_timeout_seconds", b"_false_interruption_timeout_seconds"]  # noqa: Y015
     _WhichOneofReturnType__first_message_protected_seconds: _TypeAlias = _typing.Literal["first_message_protected_seconds"]  # noqa: Y015
     _WhichOneofArgType__first_message_protected_seconds: _TypeAlias = _typing.Literal["_first_message_protected_seconds", b"_first_message_protected_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__heard_report_enabled: _TypeAlias = _typing.Literal["heard_report_enabled"]  # noqa: Y015
+    _WhichOneofArgType__heard_report_enabled: _TypeAlias = _typing.Literal["_heard_report_enabled", b"_heard_report_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__heard_text_alignment_enabled: _TypeAlias = _typing.Literal["heard_text_alignment_enabled"]  # noqa: Y015
+    _WhichOneofArgType__heard_text_alignment_enabled: _TypeAlias = _typing.Literal["_heard_text_alignment_enabled", b"_heard_text_alignment_enabled"]  # noqa: Y015
     _WhichOneofReturnType__interruption_fade_out_ms: _TypeAlias = _typing.Literal["interruption_fade_out_ms"]  # noqa: Y015
     _WhichOneofArgType__interruption_fade_out_ms: _TypeAlias = _typing.Literal["_interruption_fade_out_ms", b"_interruption_fade_out_ms"]  # noqa: Y015
     _WhichOneofReturnType__min_interruption_duration_seconds: _TypeAlias = _typing.Literal["min_interruption_duration_seconds"]  # noqa: Y015
     _WhichOneofArgType__min_interruption_duration_seconds: _TypeAlias = _typing.Literal["_min_interruption_duration_seconds", b"_min_interruption_duration_seconds"]  # noqa: Y015
     _WhichOneofReturnType__min_interruption_words: _TypeAlias = _typing.Literal["min_interruption_words"]  # noqa: Y015
     _WhichOneofArgType__min_interruption_words: _TypeAlias = _typing.Literal["_min_interruption_words", b"_min_interruption_words"]  # noqa: Y015
+    _WhichOneofReturnType__nlu_turn_control_enabled: _TypeAlias = _typing.Literal["nlu_turn_control_enabled"]  # noqa: Y015
+    _WhichOneofArgType__nlu_turn_control_enabled: _TypeAlias = _typing.Literal["_nlu_turn_control_enabled", b"_nlu_turn_control_enabled"]  # noqa: Y015
     _WhichOneofReturnType__resume_after_false_interruption: _TypeAlias = _typing.Literal["resume_after_false_interruption"]  # noqa: Y015
     _WhichOneofArgType__resume_after_false_interruption: _TypeAlias = _typing.Literal["_resume_after_false_interruption", b"_resume_after_false_interruption"]  # noqa: Y015
+    _WhichOneofReturnType__t2s_cancel_on_barge_in: _TypeAlias = _typing.Literal["t2s_cancel_on_barge_in"]  # noqa: Y015
+    _WhichOneofArgType__t2s_cancel_on_barge_in: _TypeAlias = _typing.Literal["_t2s_cancel_on_barge_in", b"_t2s_cancel_on_barge_in"]  # noqa: Y015
     _WhichOneofReturnType__transcribe_on_disabled_interruptions: _TypeAlias = _typing.Literal["transcribe_on_disabled_interruptions"]  # noqa: Y015
     _WhichOneofArgType__transcribe_on_disabled_interruptions: _TypeAlias = _typing.Literal["_transcribe_on_disabled_interruptions", b"_transcribe_on_disabled_interruptions"]  # noqa: Y015
     @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__ai_teams_cancel_pending_on_interrupt) -> _WhichOneofReturnType__ai_teams_cancel_pending_on_interrupt | None: ...
+    @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__backoff_seconds) -> _WhichOneofReturnType__backoff_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__cancel_on_speech_while_thinking) -> _WhichOneofReturnType__cancel_on_speech_while_thinking | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__enabled) -> _WhichOneofReturnType__enabled | None: ...
     @_typing.overload
@@ -1546,13 +1908,21 @@ class InterruptionHandlingConfig(_message.Message):
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__first_message_protected_seconds) -> _WhichOneofReturnType__first_message_protected_seconds | None: ...
     @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__heard_report_enabled) -> _WhichOneofReturnType__heard_report_enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__heard_text_alignment_enabled) -> _WhichOneofReturnType__heard_text_alignment_enabled | None: ...
+    @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__interruption_fade_out_ms) -> _WhichOneofReturnType__interruption_fade_out_ms | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__min_interruption_duration_seconds) -> _WhichOneofReturnType__min_interruption_duration_seconds | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__min_interruption_words) -> _WhichOneofReturnType__min_interruption_words | None: ...
     @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__nlu_turn_control_enabled) -> _WhichOneofReturnType__nlu_turn_control_enabled | None: ...
+    @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__resume_after_false_interruption) -> _WhichOneofReturnType__resume_after_false_interruption | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__t2s_cancel_on_barge_in) -> _WhichOneofReturnType__t2s_cancel_on_barge_in | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__transcribe_on_disabled_interruptions) -> _WhichOneofReturnType__transcribe_on_disabled_interruptions | None: ...
 
@@ -1569,6 +1939,10 @@ class ResponseTimingConfig(_message.Message):
     SOFT_TIMEOUT_CONFIG_FIELD_NUMBER: _builtins.int
     PREEMPTIVE_GENERATION_ENABLED_FIELD_NUMBER: _builtins.int
     T2S_CHUNKED_STREAMING_ENABLED_FIELD_NUMBER: _builtins.int
+    STREAMING_ENABLED_FIELD_NUMBER: _builtins.int
+    NLU_CALL_STREAM_ENABLED_FIELD_NUMBER: _builtins.int
+    TURN_TIMEOUT_INTENT_FIELD_NUMBER: _builtins.int
+    T2S_MAX_EDGE_SILENCE_MS_FIELD_NUMBER: _builtins.int
     turn_timeout_seconds: _builtins.float
     """Optional: Seconds of caller silence after a bot response until a follow-up event
     is triggered (default: 20.0, valid range: 1.0 - 30.0)
@@ -1586,6 +1960,28 @@ class ResponseTimingConfig(_message.Message):
     """
     t2s_chunked_streaming_enabled: _builtins.bool
     """Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)"""
+    streaming_enabled: _builtins.bool
+    """Optional: Ask the NLU with its streaming request instead of the unary one (default: true; false falls every
+    turn back to the unary request). Sets <code>CSI_STREAMING_ACTIVE</code>; a set value wins over the
+    deployment&apos;s <code>ONDEWO_VTSI_CSI_STREAMING_ACTIVE</code>
+    """
+    nlu_call_stream_enabled: _builtins.bool
+    """Optional: Keep ONE streaming NLU request open for the whole call instead of opening one per turn
+    (default: true; needs <code>streaming_enabled</code>). Sets <code>CSI_NLU_CALL_STREAM_ACTIVE</code>; a set
+    value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_CALL_STREAM_ACTIVE</code>
+    """
+    turn_timeout_intent: _builtins.str
+    """Optional: Display name of the NLU intent triggered when the caller stays silent for
+    <code>turn_timeout_seconds</code> after a bot response (default: none, i.e. the turn timeout re-engages
+    nothing). 1 - 256 characters, no control characters; an empty or invalid value is refused with
+    <code>INVALID_ARGUMENT</code>. Sets <code>TURN_TIMEOUT_INTENT</code>
+    """
+    t2s_max_edge_silence_ms: _builtins.int
+    """Optional: Milliseconds of silence kept at most at the start and at the end of every synthesized bot
+    utterance; longer edge silence is trimmed (default: 40, valid range: -1 - 1000; 0 keeps no edge silence,
+    -1 disables the trimming). Sets <code>CSI_T2S_MAX_EDGE_SILENCE_MS</code>. A value outside the range is
+    refused with <code>INVALID_ARGUMENT</code>
+    """
     @_builtins.property
     def soft_timeout_config(self) -> Global___SoftTimeoutConfig:
         """Configuration of the soft timeout filler messages"""
@@ -1598,25 +1994,45 @@ class ResponseTimingConfig(_message.Message):
         soft_timeout_config: Global___SoftTimeoutConfig | None = ...,
         preemptive_generation_enabled: _builtins.bool | None = ...,
         t2s_chunked_streaming_enabled: _builtins.bool | None = ...,
+        streaming_enabled: _builtins.bool | None = ...,
+        nlu_call_stream_enabled: _builtins.bool | None = ...,
+        turn_timeout_intent: _builtins.str | None = ...,
+        t2s_max_edge_silence_ms: _builtins.int | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_nlu_call_stream_enabled", b"_nlu_call_stream_enabled", "_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_streaming_enabled", b"_streaming_enabled", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_t2s_max_edge_silence_ms", b"_t2s_max_edge_silence_ms", "_turn_timeout_intent", b"_turn_timeout_intent", "_turn_timeout_seconds", b"_turn_timeout_seconds", "nlu_call_stream_enabled", b"nlu_call_stream_enabled", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "streaming_enabled", b"streaming_enabled", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "t2s_max_edge_silence_ms", b"t2s_max_edge_silence_ms", "turn_timeout_intent", b"turn_timeout_intent", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_turn_timeout_seconds", b"_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_nlu_call_stream_enabled", b"_nlu_call_stream_enabled", "_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_streaming_enabled", b"_streaming_enabled", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_t2s_max_edge_silence_ms", b"_t2s_max_edge_silence_ms", "_turn_timeout_intent", b"_turn_timeout_intent", "_turn_timeout_seconds", b"_turn_timeout_seconds", "nlu_call_stream_enabled", b"nlu_call_stream_enabled", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "streaming_enabled", b"streaming_enabled", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "t2s_max_edge_silence_ms", b"t2s_max_edge_silence_ms", "turn_timeout_intent", b"turn_timeout_intent", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__nlu_call_stream_enabled: _TypeAlias = _typing.Literal["nlu_call_stream_enabled"]  # noqa: Y015
+    _WhichOneofArgType__nlu_call_stream_enabled: _TypeAlias = _typing.Literal["_nlu_call_stream_enabled", b"_nlu_call_stream_enabled"]  # noqa: Y015
     _WhichOneofReturnType__preemptive_generation_enabled: _TypeAlias = _typing.Literal["preemptive_generation_enabled"]  # noqa: Y015
     _WhichOneofArgType__preemptive_generation_enabled: _TypeAlias = _typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled"]  # noqa: Y015
     _WhichOneofReturnType__silence_end_call_timeout_seconds: _TypeAlias = _typing.Literal["silence_end_call_timeout_seconds"]  # noqa: Y015
     _WhichOneofArgType__silence_end_call_timeout_seconds: _TypeAlias = _typing.Literal["_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__streaming_enabled: _TypeAlias = _typing.Literal["streaming_enabled"]  # noqa: Y015
+    _WhichOneofArgType__streaming_enabled: _TypeAlias = _typing.Literal["_streaming_enabled", b"_streaming_enabled"]  # noqa: Y015
     _WhichOneofReturnType__t2s_chunked_streaming_enabled: _TypeAlias = _typing.Literal["t2s_chunked_streaming_enabled"]  # noqa: Y015
     _WhichOneofArgType__t2s_chunked_streaming_enabled: _TypeAlias = _typing.Literal["_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__t2s_max_edge_silence_ms: _TypeAlias = _typing.Literal["t2s_max_edge_silence_ms"]  # noqa: Y015
+    _WhichOneofArgType__t2s_max_edge_silence_ms: _TypeAlias = _typing.Literal["_t2s_max_edge_silence_ms", b"_t2s_max_edge_silence_ms"]  # noqa: Y015
+    _WhichOneofReturnType__turn_timeout_intent: _TypeAlias = _typing.Literal["turn_timeout_intent"]  # noqa: Y015
+    _WhichOneofArgType__turn_timeout_intent: _TypeAlias = _typing.Literal["_turn_timeout_intent", b"_turn_timeout_intent"]  # noqa: Y015
     _WhichOneofReturnType__turn_timeout_seconds: _TypeAlias = _typing.Literal["turn_timeout_seconds"]  # noqa: Y015
     _WhichOneofArgType__turn_timeout_seconds: _TypeAlias = _typing.Literal["_turn_timeout_seconds", b"_turn_timeout_seconds"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__nlu_call_stream_enabled) -> _WhichOneofReturnType__nlu_call_stream_enabled | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__preemptive_generation_enabled) -> _WhichOneofReturnType__preemptive_generation_enabled | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__silence_end_call_timeout_seconds) -> _WhichOneofReturnType__silence_end_call_timeout_seconds | None: ...
     @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__streaming_enabled) -> _WhichOneofReturnType__streaming_enabled | None: ...
+    @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__t2s_chunked_streaming_enabled) -> _WhichOneofReturnType__t2s_chunked_streaming_enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__t2s_max_edge_silence_ms) -> _WhichOneofReturnType__t2s_max_edge_silence_ms | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__turn_timeout_intent) -> _WhichOneofReturnType__turn_timeout_intent | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__turn_timeout_seconds) -> _WhichOneofReturnType__turn_timeout_seconds | None: ...
 
