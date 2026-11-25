@@ -5103,6 +5103,7 @@ class Call(_message.Message):
     IVR_MENU_DISPLAY_NAME_FIELD_NUMBER: _builtins.int
     IVR_PATH_FIELD_NUMBER: _builtins.int
     IVR_MENU_NAME_FIELD_NUMBER: _builtins.int
+    DIALED_NUMBER_FIELD_NUMBER: _builtins.int
     name: _builtins.str
     """call name
     For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
@@ -5177,6 +5178,14 @@ class Call(_message.Message):
     <code>ivr_menu_display_name</code> names, so a client can find the menu by id instead of by its label.
     The format is: <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>
     Empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL views
+    """
+    dialed_number: _builtins.str
+    """Output only. The inbound phone number the caller dialled, as the project&apos;s Asterisk received it from the
+    carrier trunk (from <code>X-ondewo-dialed-number</code>, which the trunk&apos;s IVR entry hook sets on every
+    inbound call), e.g. <code>+493052187211</code>: digits with an optional leading <code>+</code>, at most 32
+    characters. It is the company&apos;s own number, not the caller&apos;s (that is <code>phone_number</code>).
+    Empty when the call did not come in over the carrier trunk, or the dialled number was not numeric. Set in the
+    SHALLOW and FULL views
     """
     @_builtins.property
     def start_time(self) -> _timestamp_pb2.Timestamp:
@@ -5272,10 +5281,11 @@ class Call(_message.Message):
         ivr_menu_display_name: _builtins.str = ...,
         ivr_path: _builtins.str = ...,
         ivr_menu_name: _builtins.str = ...,
+        dialed_number: _builtins.str = ...,
     ) -> None: ...
     _HasFieldArgType: _TypeAlias = _typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "common_services_config", b"common_services_config", "csi_port", b"csi_port", "end_time", b"end_time", "last_transfer", b"last_transfer", "media_control", b"media_control", "nlu_session_name", b"nlu_session_name", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "start_time", b"start_time"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "end_time", b"end_time", "ivr_menu_display_name", b"ivr_menu_display_name", "ivr_menu_name", b"ivr_menu_name", "ivr_path", b"ivr_path", "labels", b"labels", "last_transfer", b"last_transfer", "media_control", b"media_control", "name", b"name", "nlu_session_name", b"nlu_session_name", "participants", b"participants", "phone_number", b"phone_number", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_call_id", b"sip_call_id", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description", "_common_services_config", b"_common_services_config", "_csi_port", b"_csi_port", "_nlu_session_name", b"_nlu_session_name", "_platforms", b"_platforms", "_redial_reason", b"_redial_reason", "_redial_recommended", b"_redial_recommended", "_services_statuses", b"_services_statuses", "_sip_port", b"_sip_port", "_sip_status", b"_sip_status", "_sip_status_history", b"_sip_status_history", "active", b"active", "answering_machine_detection_end_description", b"answering_machine_detection_end_description", "call_type", b"call_type", "common_services_config", b"common_services_config", "container_name", b"container_name", "csi_port", b"csi_port", "dialed_number", b"dialed_number", "end_time", b"end_time", "ivr_menu_display_name", b"ivr_menu_display_name", "ivr_menu_name", b"ivr_menu_name", "ivr_path", b"ivr_path", "labels", b"labels", "last_transfer", b"last_transfer", "media_control", b"media_control", "name", b"name", "nlu_session_name", b"nlu_session_name", "participants", b"participants", "phone_number", b"phone_number", "platforms", b"platforms", "redial_reason", b"redial_reason", "redial_recommended", b"redial_recommended", "services_statuses", b"services_statuses", "sip_account", b"sip_account", "sip_call_id", b"sip_call_id", "sip_port", b"sip_port", "sip_status", b"sip_status", "sip_status_history", b"sip_status_history", "sip_status_type", b"sip_status_type", "start_time", b"start_time", "vtsi_project_name", b"vtsi_project_name"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     _WhichOneofReturnType__answering_machine_detection_end_description: _TypeAlias = _typing.Literal["answering_machine_detection_end_description"]  # noqa: Y015
     _WhichOneofArgType__answering_machine_detection_end_description: _TypeAlias = _typing.Literal["_answering_machine_detection_end_description", b"_answering_machine_detection_end_description"]  # noqa: Y015
