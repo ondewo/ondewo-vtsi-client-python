@@ -297,6 +297,8 @@ class NluVtsiConfig(_message.Message):
     AI_TEAMS_FILLERS_AUDIBLE_FIELD_NUMBER: _builtins.int
     FAILURE_APOLOGY_MESSAGE_FIELD_NUMBER: _builtins.int
     SESSION_ID_FROM_SIP_CONTEXT_FIELD_NUMBER: _builtins.int
+    AI_TEAMS_PUSH_MAX_AGE_SECONDS_FIELD_NUMBER: _builtins.int
+    AI_TEAMS_PUSH_MAX_SPOKEN_FIELD_NUMBER: _builtins.int
     auth_token: _builtins.str
     """Authentication token. Kept for wire compatibility only: VTSI does not validate the request with it, and
     the speech-to-speech service of current SIP images does not read it, so it has no effect there. It is
@@ -357,6 +359,25 @@ class NluVtsiConfig(_message.Message):
     the one generated for the call, no <code>c-sip-context</code> is created, and an agent that reads SIP headers
     from that context finds nothing. There is no deployment-wide setting for it; a value set here wins
     """
+    ai_teams_push_max_age_seconds: _builtins.float
+    """Optional: Seconds a result an AI Teams agent delivers on its own (a push, e.g. the later result of a tool that
+    ran in the background) may wait at most to be spoken. A push is held while the caller speaks or the bot is
+    still answering, and spoken once the floor is free; a push that has waited longer than this by then is dropped
+    without being spoken and reported as dropped with the reason <code>stale</code>, because a result the caller
+    asked for long ago is confusing once the conversation has moved on. Unit: seconds. Default: 30. Valid range:
+    0 - 3600; 0 switches the age limit off (every held push is spoken, subject to
+    <code>ai_teams_push_max_spoken</code>). Pushes only reach the call with
+    <code>ResponseTimingConfig.nlu_call_stream_enabled</code>; agents that are not AI Teams agents send none. A set
+    value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_AGE_SECONDS</code>
+    """
+    ai_teams_push_max_spoken: _builtins.int
+    """Optional: Number of held pushes (see <code>ai_teams_push_max_age_seconds</code>) spoken at most when the floor
+    becomes free: of the pushes still held after the age limit, only the NEWEST ones up to this number are spoken,
+    oldest first; every older one is dropped without being spoken and reported as dropped with the reason
+    <code>coalesced</code>. Example: three tool results arrived while the caller was talking; with 2 the caller
+    hears the two latest. Default: 2. Valid range: 0 - 16; 0 switches the limit off (every held push is spoken).
+    A set value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_SPOKEN</code>
+    """
     @_builtins.property
     def nlu_base_config(self) -> Global___BaseServiceConfig:
         """Required: Address of the NLU gRPC server (host, port and the certificate its server certificate chains to).
@@ -403,13 +424,19 @@ class NluVtsiConfig(_message.Message):
         ai_teams_fillers_audible: _builtins.bool | None = ...,
         failure_apology_message: _builtins.str | None = ...,
         session_id_from_sip_context: _builtins.bool | None = ...,
+        ai_teams_push_max_age_seconds: _builtins.float | None = ...,
+        ai_teams_push_max_spoken: _builtins.int | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["_ai_teams_fillers_audible", b"_ai_teams_fillers_audible", "_failure_apology_message", b"_failure_apology_message", "_platform", b"_platform", "_session_id_from_sip_context", b"_session_id_from_sip_context", "ai_teams_fillers_audible", b"ai_teams_fillers_audible", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "failure_apology_message", b"failure_apology_message", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config", "session_id_from_sip_context", b"session_id_from_sip_context"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_ai_teams_fillers_audible", b"_ai_teams_fillers_audible", "_ai_teams_push_max_age_seconds", b"_ai_teams_push_max_age_seconds", "_ai_teams_push_max_spoken", b"_ai_teams_push_max_spoken", "_failure_apology_message", b"_failure_apology_message", "_platform", b"_platform", "_session_id_from_sip_context", b"_session_id_from_sip_context", "ai_teams_fillers_audible", b"ai_teams_fillers_audible", "ai_teams_push_max_age_seconds", b"ai_teams_push_max_age_seconds", "ai_teams_push_max_spoken", b"ai_teams_push_max_spoken", "auth_token", b"auth_token", "authentication", b"authentication", "credentials", b"credentials", "failure_apology_message", b"failure_apology_message", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config", "session_id_from_sip_context", b"session_id_from_sip_context"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["_ai_teams_fillers_audible", b"_ai_teams_fillers_audible", "_failure_apology_message", b"_failure_apology_message", "_platform", b"_platform", "_session_id_from_sip_context", b"_session_id_from_sip_context", "agent_name", b"agent_name", "ai_teams_fillers_audible", b"ai_teams_fillers_audible", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "failure_apology_message", b"failure_apology_message", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config", "session_id_from_sip_context", b"session_id_from_sip_context"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_ai_teams_fillers_audible", b"_ai_teams_fillers_audible", "_ai_teams_push_max_age_seconds", b"_ai_teams_push_max_age_seconds", "_ai_teams_push_max_spoken", b"_ai_teams_push_max_spoken", "_failure_apology_message", b"_failure_apology_message", "_platform", b"_platform", "_session_id_from_sip_context", b"_session_id_from_sip_context", "agent_name", b"agent_name", "ai_teams_fillers_audible", b"ai_teams_fillers_audible", "ai_teams_push_max_age_seconds", b"ai_teams_push_max_age_seconds", "ai_teams_push_max_spoken", b"ai_teams_push_max_spoken", "auth_token", b"auth_token", "authentication", b"authentication", "contexts", b"contexts", "credentials", b"credentials", "failure_apology_message", b"failure_apology_message", "http_basic_auth_token", b"http_basic_auth_token", "initial_intent", b"initial_intent", "language_code", b"language_code", "nlu_base_config", b"nlu_base_config", "platform", b"platform", "preemptive_generation_config", b"preemptive_generation_config", "session_id_from_sip_context", b"session_id_from_sip_context"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     _WhichOneofReturnType__ai_teams_fillers_audible: _TypeAlias = _typing.Literal["ai_teams_fillers_audible"]  # noqa: Y015
     _WhichOneofArgType__ai_teams_fillers_audible: _TypeAlias = _typing.Literal["_ai_teams_fillers_audible", b"_ai_teams_fillers_audible"]  # noqa: Y015
+    _WhichOneofReturnType__ai_teams_push_max_age_seconds: _TypeAlias = _typing.Literal["ai_teams_push_max_age_seconds"]  # noqa: Y015
+    _WhichOneofArgType__ai_teams_push_max_age_seconds: _TypeAlias = _typing.Literal["_ai_teams_push_max_age_seconds", b"_ai_teams_push_max_age_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__ai_teams_push_max_spoken: _TypeAlias = _typing.Literal["ai_teams_push_max_spoken"]  # noqa: Y015
+    _WhichOneofArgType__ai_teams_push_max_spoken: _TypeAlias = _typing.Literal["_ai_teams_push_max_spoken", b"_ai_teams_push_max_spoken"]  # noqa: Y015
     _WhichOneofReturnType__failure_apology_message: _TypeAlias = _typing.Literal["failure_apology_message"]  # noqa: Y015
     _WhichOneofArgType__failure_apology_message: _TypeAlias = _typing.Literal["_failure_apology_message", b"_failure_apology_message"]  # noqa: Y015
     _WhichOneofReturnType__platform: _TypeAlias = _typing.Literal["platform"]  # noqa: Y015
@@ -420,6 +447,10 @@ class NluVtsiConfig(_message.Message):
     _WhichOneofArgType_authentication: _TypeAlias = _typing.Literal["authentication", b"authentication"]  # noqa: Y015
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__ai_teams_fillers_audible) -> _WhichOneofReturnType__ai_teams_fillers_audible | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__ai_teams_push_max_age_seconds) -> _WhichOneofReturnType__ai_teams_push_max_age_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__ai_teams_push_max_spoken) -> _WhichOneofReturnType__ai_teams_push_max_spoken | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__failure_apology_message) -> _WhichOneofReturnType__failure_apology_message | None: ...
     @_typing.overload
@@ -499,6 +530,30 @@ class T2sVtsiConfig(_message.Message):
     T2S_BASE_CONFIG_FIELD_NUMBER: _builtins.int
     T2S_REQUEST_CONFIG_FIELD_NUMBER: _builtins.int
     PREEMPTIVE_SYNTHESIS_CONFIG_FIELD_NUMBER: _builtins.int
+    SYNTHESIZE_TIMEOUT_SECONDS_FIELD_NUMBER: _builtins.int
+    CACHE_RETENTION_FIELD_NUMBER: _builtins.int
+    synthesize_timeout_seconds: _builtins.float
+    """Optional: Seconds one speech synthesis request of the call may take before it is given up (default: 20, valid
+    range: 1 - 120). A failed or timed-out request of an answer is retried, so a slow text-to-speech service can
+    keep the caller waiting for several times this value; a lower value gives up sooner. The opening message of
+    the call stops retrying when the time the caller is kept muted at the start of the call runs out, and an
+    audible AI Teams filler gets one attempt of at most 1 s, never more than this value. There is no
+    deployment-wide setting for it; a value set here wins
+    """
+    cache_retention: _builtins.str
+    """Optional: How long the synthesized audio of the bot&apos;s answers is kept for reuse (case-insensitive):
+    <ul>
+      <li><code>call</code> (the default when unset): everything synthesized during a call is dropped when the
+          call ends. Audio synthesized when the speech-to-speech service starts (the greeting, the answers of
+          static intents, fillers) is kept, so the next call still starts without a synthesis wait.</li>
+      <li><code>process</code>: nothing is dropped; an utterance repeated in a later call served by the same
+          container is not synthesized again. The audio of one caller (e.g. a name or an amount the bot read
+          back) then stays in memory while later callers of a listener are served. The audio is reused only for
+          the identical request, so it is never played to another caller unless the bot says the same text.</li>
+    </ul>
+    Any other value is refused with <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it; a
+    value set here wins
+    """
     @_builtins.property
     def t2s_base_config(self) -> Global___BaseServiceConfig:
         """Host, port and trust anchor of the text-to-speech service the call uses. Required; see
@@ -527,12 +582,21 @@ class T2sVtsiConfig(_message.Message):
         t2s_base_config: Global___BaseServiceConfig | None = ...,
         t2s_request_config: _text_to_speech_pb2.RequestConfig | None = ...,
         preemptive_synthesis_config: Global___T2sPreemptiveSynthesisConfig | None = ...,
+        synthesize_timeout_seconds: _builtins.float | None = ...,
+        cache_retention: _builtins.str | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["preemptive_synthesis_config", b"preemptive_synthesis_config", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_cache_retention", b"_cache_retention", "_synthesize_timeout_seconds", b"_synthesize_timeout_seconds", "cache_retention", b"cache_retention", "preemptive_synthesis_config", b"preemptive_synthesis_config", "synthesize_timeout_seconds", b"synthesize_timeout_seconds", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["preemptive_synthesis_config", b"preemptive_synthesis_config", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_cache_retention", b"_cache_retention", "_synthesize_timeout_seconds", b"_synthesize_timeout_seconds", "cache_retention", b"cache_retention", "preemptive_synthesis_config", b"preemptive_synthesis_config", "synthesize_timeout_seconds", b"synthesize_timeout_seconds", "t2s_base_config", b"t2s_base_config", "t2s_request_config", b"t2s_request_config"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-    def WhichOneof(self, oneof_group: _Never) -> None: ...
+    _WhichOneofReturnType__cache_retention: _TypeAlias = _typing.Literal["cache_retention"]  # noqa: Y015
+    _WhichOneofArgType__cache_retention: _TypeAlias = _typing.Literal["_cache_retention", b"_cache_retention"]  # noqa: Y015
+    _WhichOneofReturnType__synthesize_timeout_seconds: _TypeAlias = _typing.Literal["synthesize_timeout_seconds"]  # noqa: Y015
+    _WhichOneofArgType__synthesize_timeout_seconds: _TypeAlias = _typing.Literal["_synthesize_timeout_seconds", b"_synthesize_timeout_seconds"]  # noqa: Y015
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__cache_retention) -> _WhichOneofReturnType__cache_retention | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__synthesize_timeout_seconds) -> _WhichOneofReturnType__synthesize_timeout_seconds | None: ...
 
 Global___T2sVtsiConfig: _TypeAlias = T2sVtsiConfig  # noqa: Y015
 
@@ -667,6 +731,17 @@ class CommonServicesConfig(_message.Message):
     CSI_VTSI_CONFIG_FIELD_NUMBER: _builtins.int
     VOICE_INTERACTION_CONFIG_FIELD_NUMBER: _builtins.int
     SIP_VTSI_CONFIG_FIELD_NUMBER: _builtins.int
+    MAX_CALL_DURATION_SECONDS_FIELD_NUMBER: _builtins.int
+    max_call_duration_seconds: _builtins.int
+    """Optional: Seconds a call may last at most, counted from when it was connected; then VTSI hangs it up (an
+    outbound call of a caller, and each inbound call of a listener). Valid range: 1 - 86400; 0 and any value
+    outside the range are refused with <code>INVALID_ARGUMENT</code>. It can only shorten a call: the
+    deployment&apos;s own cap on callers (<code>ONDEWO_VTSI_CALLER_MAX_CALL_DURATION_SEC</code>, default 1200 s,
+    counted from the deployment of the caller; for a pooled caller with that cap off,
+    <code>ONDEWO_VTSI_CALLER_POOLED_MAX_CALL_DURATION_SEC</code>) still applies, and whichever is reached first
+    ends the call. Unset: only the deployment&apos;s cap applies, and an inbound call of a listener is not capped.
+    Example: <code>max_call_duration_seconds=300</code> ends a survey call after five minutes
+    """
     @_builtins.property
     def s2t_vtsi_config(self) -> Global___S2tVtsiConfig:
         """Speech-to-text configuration (see <code>S2tVtsiConfig</code>). Required"""
@@ -708,12 +783,15 @@ class CommonServicesConfig(_message.Message):
         csi_vtsi_config: Global___CsiVtsiConfig | None = ...,
         voice_interaction_config: Global___VoiceInteractionConfig | None = ...,
         sip_vtsi_config: Global___SipVtsiConfig | None = ...,
+        max_call_duration_seconds: _builtins.int | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "sip_vtsi_config", b"sip_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_max_call_duration_seconds", b"_max_call_duration_seconds", "csi_vtsi_config", b"csi_vtsi_config", "max_call_duration_seconds", b"max_call_duration_seconds", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "sip_vtsi_config", b"sip_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["csi_vtsi_config", b"csi_vtsi_config", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "sip_vtsi_config", b"sip_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_max_call_duration_seconds", b"_max_call_duration_seconds", "csi_vtsi_config", b"csi_vtsi_config", "max_call_duration_seconds", b"max_call_duration_seconds", "nlu_vtsi_config", b"nlu_vtsi_config", "s2t_vtsi_config", b"s2t_vtsi_config", "sip_vtsi_config", b"sip_vtsi_config", "t2s_vtsi_config", b"t2s_vtsi_config", "voice_interaction_config", b"voice_interaction_config"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-    def WhichOneof(self, oneof_group: _Never) -> None: ...
+    _WhichOneofReturnType__max_call_duration_seconds: _TypeAlias = _typing.Literal["max_call_duration_seconds"]  # noqa: Y015
+    _WhichOneofArgType__max_call_duration_seconds: _TypeAlias = _typing.Literal["_max_call_duration_seconds", b"_max_call_duration_seconds"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__max_call_duration_seconds) -> _WhichOneofReturnType__max_call_duration_seconds | None: ...
 
 Global___CommonServicesConfig: _TypeAlias = CommonServicesConfig  # noqa: Y015
 
@@ -2213,11 +2291,11 @@ class InterruptionHandlingConfig(_message.Message):
 
     With <code>enabled=true</code>, caller speech over the bot goes through these steps:
 
-    (1) Is it an interruption? Speech within <code>first_message_protected_seconds</code> after the greeting started, speech shorter than <code>min_interruption_duration_seconds</code> and sounds without words (&quot;hmm&quot;, &quot;mhm&quot;) are ignored. Otherwise, with the turn detection mode <code>VAD</code> (and whenever no semantic turn detection runs for the call), any recognised speech interrupts; with <code>SEMANTIC_MODEL</code> or <code>AUDIO_MODEL</code> a final transcription with at least one word interrupts at once, and a partial transcription interrupts once it has <code>min_interruption_words</code> words. Speech that does not interrupt is dropped: the bot keeps talking and the speech is not answered.
+    (1) Is it an interruption? Speech within <code>first_message_protected_seconds</code> after the greeting started, speech shorter than <code>min_interruption_duration_seconds</code> and sounds without words (&quot;hmm&quot;, &quot;mhm&quot;) are ignored. Otherwise, with the turn detection mode <code>VAD</code> (and whenever no semantic turn detection runs for the call), any recognised speech interrupts; with <code>SEMANTIC_MODEL</code> or <code>AUDIO_MODEL</code> a final transcription with at least one word interrupts at once, and a partial transcription interrupts once it has <code>min_interruption_words</code> words. Speech that does not interrupt is dropped: the bot keeps talking and the speech is not answered. One exception: a final transcription with at least one word that is refused only because it was shorter than <code>min_interruption_duration_seconds</code> does not stop the bot either, but it is kept and answered as the caller&apos;s next turn once the bot has finished speaking.
 
     (2) The bot pauses: its voice fades out over <code>interruption_fade_out_ms</code>, and the rest of its answer is kept.
 
-    (3) Real or false? If the caller&apos;s speech becomes a complete turn (a final transcription) within <code>false_interruption_timeout_seconds</code>, the interruption is REAL: the rest of the answer is discarded, the bot stays silent for <code>backoff_seconds</code> and then answers what the caller said. Its synthesis is cancelled (<code>t2s_cancel_on_barge_in</code>), and an NLU that supports it is told which turn was cut and what the caller heard of it (<code>nlu_turn_control_enabled</code>, <code>heard_report_enabled</code>). If no turn is committed in time, the interruption is FALSE (a cough, a short noise): with <code>resume_after_false_interruption</code> the bot continues where its voice faded out, else the rest of the answer is dropped, and then, as after a real one, its synthesis is cancelled and a call action it carries is dropped (<code>t2s_cancel_on_barge_in</code>). The window waits for a caller who is still speaking: each partial transcription that changes what the caller said extends it, up to twice <code>false_interruption_timeout_seconds</code> (at most 9 s) after the interruption.
+    (3) Real or false? If the caller&apos;s speech becomes a complete turn (a final transcription) within <code>false_interruption_timeout_seconds</code>, the interruption is REAL: the rest of the answer is discarded, the bot stays silent for <code>backoff_seconds</code> and then answers what the caller said. Its synthesis is cancelled (<code>t2s_cancel_on_barge_in</code>), and an NLU that supports it is told which turn was cut and what the caller heard of it (<code>nlu_turn_control_enabled</code>, <code>heard_report_enabled</code>). If no turn is committed in time, the interruption is FALSE (a cough, a short noise): with <code>resume_after_false_interruption</code> the bot continues where its fade-out ended, so nothing is heard twice, else the rest of the answer is dropped, and then, as after a real one, its synthesis is cancelled and a call action it carries is dropped (<code>t2s_cancel_on_barge_in</code>). The window waits for a caller who is still speaking: each partial transcription that changes what the caller said extends it, up to twice <code>false_interruption_timeout_seconds</code> (at most 9 s) after the interruption.
 
     Example: let the caller interrupt, ignore anything shorter than 0.6 s, and never interrupt the first 3 s of the greeting: <code>enabled: true, min_interruption_duration_seconds: 0.6, first_message_protected_seconds: 3</code>
 
@@ -2255,7 +2333,9 @@ class InterruptionHandlingConfig(_message.Message):
     min_interruption_duration_seconds: _builtins.float
     """Optional: Minimum duration in seconds the caller must have been speaking over the bot before it counts as an
     interruption, measured from the start of the caller&apos;s speech (noise gate) (default: 0.5, valid range:
-    0 - 10). Raise it (e.g. 0.8) to let short noises pass without stopping the bot
+    0 - 10). Raise it (e.g. 0.8) to let short noises pass without stopping the bot. A final transcription with
+    at least one word that is too short to interrupt is not lost: it is answered as the caller&apos;s next turn
+    once the bot has finished speaking
     """
     min_interruption_words: _builtins.int
     """Optional: Minimum number of words a PARTIAL transcription of caller speech over the bot needs to interrupt
@@ -2274,9 +2354,9 @@ class InterruptionHandlingConfig(_message.Message):
     an answer is kept for at most 10 s, so a longer window cannot resume it
     """
     resume_after_false_interruption: _builtins.bool
-    """Optional: After a FALSE interruption, continue the paused answer where the bot&apos;s voice faded out (with a
-    fade, it fades back in and repeats the faded syllable, as a person would) (default: true). False: the rest of
-    the answer is dropped
+    """Optional: After a FALSE interruption, continue the paused answer where the bot&apos;s fade-out ended, with a
+    short fade-in, so nothing the caller already heard is played twice, whatever
+    <code>interruption_fade_out_ms</code> is (default: true). False: the rest of the answer is dropped
     """
     backoff_seconds: _builtins.float
     """Optional: Seconds of silence after a REAL interruption before the bot&apos;s next answer plays, so the caller
@@ -2472,6 +2552,8 @@ class ResponseTimingConfig(_message.Message):
     NLU_CALL_STREAM_ENABLED_FIELD_NUMBER: _builtins.int
     TURN_TIMEOUT_INTENT_FIELD_NUMBER: _builtins.int
     T2S_MAX_EDGE_SILENCE_MS_FIELD_NUMBER: _builtins.int
+    NLU_CALL_STREAM_TURN_TIMEOUT_SECONDS_FIELD_NUMBER: _builtins.int
+    NLU_CALL_STREAM_TURN_QUIET_SECONDS_FIELD_NUMBER: _builtins.int
     turn_timeout_seconds: _builtins.float
     """Optional: Seconds of caller silence after which the bot re-engages the caller by triggering
     <code>turn_timeout_intent</code> (default: 20.0, valid range: 1.0 - 30.0). Has no effect unless
@@ -2535,6 +2617,23 @@ class ResponseTimingConfig(_message.Message):
     silence at all; -1 turns the trimming off and plays the audio exactly as synthesized. A value outside the range
     is refused with <code>INVALID_ARGUMENT</code>
     """
+    nlu_call_stream_turn_timeout_seconds: _builtins.float
+    """Optional: Seconds a caller turn waits at most for the first answer of the NLU on the call-length NLU request
+    (<code>nlu_call_stream_enabled</code>); past it the turn is treated as a failed NLU request, i.e. the bot
+    speaks <code>NluVtsiConfig.failure_apology_message</code> (default: 120, valid range: 5 - 600). A lower value
+    keeps a caller whose NLU hangs from waiting in silence for two minutes, but cuts off an agent that
+    legitimately thinks longer. Only matters with <code>streaming_enabled</code> and
+    <code>nlu_call_stream_enabled</code> on; the per-turn request has its own deadline. There is no
+    deployment-wide setting for it; a value set here wins
+    """
+    nlu_call_stream_turn_quiet_seconds: _builtins.float
+    """Optional: Seconds of silence on the call-length NLU request after a turn was already answered that end the turn
+    when the NLU never marks it finished (default: 5, valid range: 1 - 60). While a turn is open the next caller
+    turn waits behind it, so a lower value frees it sooner; it must stay above the longest pause the agent makes
+    between two parts of one answer, or the rest of the answer is lost. Only matters with
+    <code>streaming_enabled</code> and <code>nlu_call_stream_enabled</code> on. There is no deployment-wide
+    setting for it; a value set here wins
+    """
     @_builtins.property
     def soft_timeout_config(self) -> Global___SoftTimeoutConfig:
         """Optional: Filler messages the bot speaks while an answer takes long to prepare (default: off). See
@@ -2553,13 +2652,19 @@ class ResponseTimingConfig(_message.Message):
         nlu_call_stream_enabled: _builtins.bool | None = ...,
         turn_timeout_intent: _builtins.str | None = ...,
         t2s_max_edge_silence_ms: _builtins.int | None = ...,
+        nlu_call_stream_turn_timeout_seconds: _builtins.float | None = ...,
+        nlu_call_stream_turn_quiet_seconds: _builtins.float | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["_nlu_call_stream_enabled", b"_nlu_call_stream_enabled", "_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_streaming_enabled", b"_streaming_enabled", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_t2s_max_edge_silence_ms", b"_t2s_max_edge_silence_ms", "_turn_timeout_intent", b"_turn_timeout_intent", "_turn_timeout_seconds", b"_turn_timeout_seconds", "nlu_call_stream_enabled", b"nlu_call_stream_enabled", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "streaming_enabled", b"streaming_enabled", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "t2s_max_edge_silence_ms", b"t2s_max_edge_silence_ms", "turn_timeout_intent", b"turn_timeout_intent", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["_nlu_call_stream_enabled", b"_nlu_call_stream_enabled", "_nlu_call_stream_turn_quiet_seconds", b"_nlu_call_stream_turn_quiet_seconds", "_nlu_call_stream_turn_timeout_seconds", b"_nlu_call_stream_turn_timeout_seconds", "_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_streaming_enabled", b"_streaming_enabled", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_t2s_max_edge_silence_ms", b"_t2s_max_edge_silence_ms", "_turn_timeout_intent", b"_turn_timeout_intent", "_turn_timeout_seconds", b"_turn_timeout_seconds", "nlu_call_stream_enabled", b"nlu_call_stream_enabled", "nlu_call_stream_turn_quiet_seconds", b"nlu_call_stream_turn_quiet_seconds", "nlu_call_stream_turn_timeout_seconds", b"nlu_call_stream_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "streaming_enabled", b"streaming_enabled", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "t2s_max_edge_silence_ms", b"t2s_max_edge_silence_ms", "turn_timeout_intent", b"turn_timeout_intent", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["_nlu_call_stream_enabled", b"_nlu_call_stream_enabled", "_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_streaming_enabled", b"_streaming_enabled", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_t2s_max_edge_silence_ms", b"_t2s_max_edge_silence_ms", "_turn_timeout_intent", b"_turn_timeout_intent", "_turn_timeout_seconds", b"_turn_timeout_seconds", "nlu_call_stream_enabled", b"nlu_call_stream_enabled", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "streaming_enabled", b"streaming_enabled", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "t2s_max_edge_silence_ms", b"t2s_max_edge_silence_ms", "turn_timeout_intent", b"turn_timeout_intent", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["_nlu_call_stream_enabled", b"_nlu_call_stream_enabled", "_nlu_call_stream_turn_quiet_seconds", b"_nlu_call_stream_turn_quiet_seconds", "_nlu_call_stream_turn_timeout_seconds", b"_nlu_call_stream_turn_timeout_seconds", "_preemptive_generation_enabled", b"_preemptive_generation_enabled", "_silence_end_call_timeout_seconds", b"_silence_end_call_timeout_seconds", "_streaming_enabled", b"_streaming_enabled", "_t2s_chunked_streaming_enabled", b"_t2s_chunked_streaming_enabled", "_t2s_max_edge_silence_ms", b"_t2s_max_edge_silence_ms", "_turn_timeout_intent", b"_turn_timeout_intent", "_turn_timeout_seconds", b"_turn_timeout_seconds", "nlu_call_stream_enabled", b"nlu_call_stream_enabled", "nlu_call_stream_turn_quiet_seconds", b"nlu_call_stream_turn_quiet_seconds", "nlu_call_stream_turn_timeout_seconds", b"nlu_call_stream_turn_timeout_seconds", "preemptive_generation_enabled", b"preemptive_generation_enabled", "silence_end_call_timeout_seconds", b"silence_end_call_timeout_seconds", "soft_timeout_config", b"soft_timeout_config", "streaming_enabled", b"streaming_enabled", "t2s_chunked_streaming_enabled", b"t2s_chunked_streaming_enabled", "t2s_max_edge_silence_ms", b"t2s_max_edge_silence_ms", "turn_timeout_intent", b"turn_timeout_intent", "turn_timeout_seconds", b"turn_timeout_seconds"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     _WhichOneofReturnType__nlu_call_stream_enabled: _TypeAlias = _typing.Literal["nlu_call_stream_enabled"]  # noqa: Y015
     _WhichOneofArgType__nlu_call_stream_enabled: _TypeAlias = _typing.Literal["_nlu_call_stream_enabled", b"_nlu_call_stream_enabled"]  # noqa: Y015
+    _WhichOneofReturnType__nlu_call_stream_turn_quiet_seconds: _TypeAlias = _typing.Literal["nlu_call_stream_turn_quiet_seconds"]  # noqa: Y015
+    _WhichOneofArgType__nlu_call_stream_turn_quiet_seconds: _TypeAlias = _typing.Literal["_nlu_call_stream_turn_quiet_seconds", b"_nlu_call_stream_turn_quiet_seconds"]  # noqa: Y015
+    _WhichOneofReturnType__nlu_call_stream_turn_timeout_seconds: _TypeAlias = _typing.Literal["nlu_call_stream_turn_timeout_seconds"]  # noqa: Y015
+    _WhichOneofArgType__nlu_call_stream_turn_timeout_seconds: _TypeAlias = _typing.Literal["_nlu_call_stream_turn_timeout_seconds", b"_nlu_call_stream_turn_timeout_seconds"]  # noqa: Y015
     _WhichOneofReturnType__preemptive_generation_enabled: _TypeAlias = _typing.Literal["preemptive_generation_enabled"]  # noqa: Y015
     _WhichOneofArgType__preemptive_generation_enabled: _TypeAlias = _typing.Literal["_preemptive_generation_enabled", b"_preemptive_generation_enabled"]  # noqa: Y015
     _WhichOneofReturnType__silence_end_call_timeout_seconds: _TypeAlias = _typing.Literal["silence_end_call_timeout_seconds"]  # noqa: Y015
@@ -2576,6 +2681,10 @@ class ResponseTimingConfig(_message.Message):
     _WhichOneofArgType__turn_timeout_seconds: _TypeAlias = _typing.Literal["_turn_timeout_seconds", b"_turn_timeout_seconds"]  # noqa: Y015
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__nlu_call_stream_enabled) -> _WhichOneofReturnType__nlu_call_stream_enabled | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__nlu_call_stream_turn_quiet_seconds) -> _WhichOneofReturnType__nlu_call_stream_turn_quiet_seconds | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__nlu_call_stream_turn_timeout_seconds) -> _WhichOneofReturnType__nlu_call_stream_turn_timeout_seconds | None: ...
     @_typing.overload
     def WhichOneof(self, oneof_group: _WhichOneofArgType__preemptive_generation_enabled) -> _WhichOneofReturnType__preemptive_generation_enabled | None: ...
     @_typing.overload
