@@ -72,7 +72,10 @@ class _IntentViewEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_IntentView
     """Minimum view including only intent UUID and intent display name"""
 
 class IntentView(_IntentView, metaclass=_IntentViewEnumTypeWrapper):
-    """Represents the options for views of an intent. An intent can be a sizable object. Therefore, we provide a resource view that does not return training phrases in the response by default."""
+    """Represents the options for views of an intent.
+    An intent can be a sizable object. Therefore, we provide a resource view that
+    does not return training phrases in the response by default.
+    """
 
 INTENT_VIEW_UNSPECIFIED: IntentView.ValueType  # 0
 """Same as INTENT_VIEW_FULL"""
@@ -126,7 +129,9 @@ Global___IntentCategory: _TypeAlias = IntentCategory  # noqa: Y015
 
 @_typing.final
 class Intent(_message.Message):
-    """Represents an intent. Intents convert a number of user expressions or patterns into an action. An action is an extraction of a user command or sentence semantics."""
+    """Represents an intent.
+    Intents convert a number of user expressions or patterns into an action. An action is an extraction of a user command or sentence semantics.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -215,7 +220,9 @@ class Intent(_message.Message):
 
         @_typing.final
         class Entity(_message.Message):
-            """Represents an entity annotation in a training phrase. The entity can be annotated on the level of entity type only or both entity type and entity value."""
+            """Represents an entity annotation in a training phrase. The entity can be annotated on the level of
+            entity type only or both entity type and entity value.
+            """
 
             DESCRIPTOR: _descriptor.Descriptor
 

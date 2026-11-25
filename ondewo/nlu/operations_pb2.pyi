@@ -824,7 +824,11 @@ Global___RemoteOperationContainerStatus: _TypeAlias = RemoteOperationContainerSt
 
 @_typing.final
 class RemoteOperationContainer(_message.Message):
-    """Describes one docker container started by a remote operation. A single operation may start several containers sequentially (hardware-check, GPU pre-allocation, build-cache, and one training container per algorithm), so containers are enumerated by <a href="index.html#ondewo.nlu.Operations.ListRemoteOperationContainers">Operations.ListRemoteOperationContainers</a>."""
+    """Describes one docker container started by a remote operation. A single operation may start several
+    containers sequentially (hardware-check, GPU pre-allocation, build-cache, and one training container
+    per algorithm), so containers are enumerated by
+    <a href="index.html#ondewo.nlu.Operations.ListRemoteOperationContainers">Operations.ListRemoteOperationContainers</a>.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 

@@ -131,7 +131,7 @@ class _ServiceTierEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_ServiceTi
     """Priority service tier."""
 
 class ServiceTier(_ServiceTier, metaclass=_ServiceTierEnumTypeWrapper):
-    """Latency tier to use for processing an OpenAI request. Affects cost and throughput."""
+    """<p>Latency tier to use for processing an OpenAI request. Affects cost and throughput.</p>"""
 
 SERVICE_TIER_UNSPECIFIED: ServiceTier.ValueType  # 0
 """Unspecified service tier."""
@@ -163,7 +163,7 @@ class _VerbosityEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Verbosity.V
     """High verbosity."""
 
 class Verbosity(_Verbosity, metaclass=_VerbosityEnumTypeWrapper):
-    """Verbosity level for the response output."""
+    """<p>Verbosity level for the response output.</p>"""
 
 VERBOSITY_UNSPECIFIED: Verbosity.ValueType  # 0
 """Unspecified verbosity."""
@@ -193,7 +193,7 @@ class _ReasoningEffortEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Reaso
     """High reasoning effort."""
 
 class ReasoningEffort(_ReasoningEffort, metaclass=_ReasoningEffortEnumTypeWrapper):
-    """Effort level for reasoning models (e.g., o1, o3). Controls the trade-off between speed and quality."""
+    """<p>Effort level for reasoning models (e.g., o1, o3). Controls the trade-off between speed and quality.</p>"""
 
 REASONING_EFFORT_UNSPECIFIED: ReasoningEffort.ValueType  # 0
 """Unspecified reasoning effort."""
@@ -223,7 +223,7 @@ class _VadMethodEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_VadMethod.V
     """Use the Silero model, configured by <code>VoiceActivityDetection.silero</code>."""
 
 class VadMethod(_VadMethod, metaclass=_VadMethodEnumTypeWrapper):
-    """VadMethod selects the model used to split the audio stream into utterances."""
+    """<p>VadMethod selects the model used to split the audio stream into utterances.</p>"""
 
 VAD_METHOD_UNSPECIFIED: VadMethod.ValueType  # 0
 """No explicit choice. The method is then taken from the legacy
@@ -261,7 +261,10 @@ class _TsdMethodEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_TsdMethod.V
     """
 
 class TsdMethod(_TsdMethod, metaclass=_TsdMethodEnumTypeWrapper):
-    """TsdMethod selects the model used for target-speaker detection (TSD): deciding whether a newly detected utterance came from the main speaker of the call, so that speech from anyone else (crosstalk, background speakers, barge-in) can be rejected."""
+    """<p>TsdMethod selects the model used for target-speaker detection (TSD): deciding whether a
+    newly detected utterance came from the main speaker of the call, so that speech from anyone
+    else (crosstalk, background speakers, barge-in) can be rejected.</p>
+    """
 
 TSD_METHOD_UNSPECIFIED: TsdMethod.ValueType  # 0
 """No explicit choice. TSD then follows the behaviour of older configurations that predate
@@ -289,7 +292,7 @@ class TranscribeRequestConfig(_message.Message):
     Configuration Message //
     /////////////////////////
 
-    Configuration for a request to transcribe audio
+    <p>Configuration for a request to transcribe audio</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -432,7 +435,7 @@ Global___TranscribeRequestConfig: _TypeAlias = TranscribeRequestConfig  # noqa: 
 
 @_typing.final
 class S2tCloudProviderConfig(_message.Message):
-    """Configuration for cloud provider settings for Speech-to-Text (S2T)."""
+    """<p>Configuration for cloud provider settings for Speech-to-Text (S2T).</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -489,7 +492,7 @@ Global___S2tCloudProviderConfig: _TypeAlias = S2tCloudProviderConfig  # noqa: Y0
 
 @_typing.final
 class S2tCloudProviderConfigAmazon(_message.Message):
-    """Configuration details specific to the Amazon web service speech-to-text provider."""
+    """<p>Configuration details specific to the Amazon web service speech-to-text provider.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -549,7 +552,7 @@ Global___S2tCloudProviderConfigAmazon: _TypeAlias = S2tCloudProviderConfigAmazon
 
 @_typing.final
 class S2tCloudProviderConfigDeepgram(_message.Message):
-    """Configuration details specific to the Deepgram speech-to-text provider."""
+    """<p>Configuration details specific to the Deepgram speech-to-text provider.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -617,7 +620,7 @@ Global___S2tCloudProviderConfigDeepgram: _TypeAlias = S2tCloudProviderConfigDeep
 
 @_typing.final
 class S2tCloudProviderConfigGoogle(_message.Message):
-    """Configuration details specific to the Google speech-to-text provider."""
+    """<p>Configuration details specific to the Google speech-to-text provider.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -685,7 +688,7 @@ Global___S2tCloudProviderConfigGoogle: _TypeAlias = S2tCloudProviderConfigGoogle
 
 @_typing.final
 class S2tCloudProviderConfigMicrosoft(_message.Message):
-    """Configuration details specific to the Microsoft Azure speech-to-text provider."""
+    """<p>Configuration details specific to the Microsoft Azure speech-to-text provider.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -723,7 +726,7 @@ Global___S2tCloudProviderConfigMicrosoft: _TypeAlias = S2tCloudProviderConfigMic
 
 @_typing.final
 class TranscriptionReturnOptions(_message.Message):
-    """Configuration of the return values of a transcribe request"""
+    """<p>Configuration of the return values of a transcribe request</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -784,7 +787,7 @@ Global___TranscriptionReturnOptions: _TypeAlias = TranscriptionReturnOptions  # 
 
 @_typing.final
 class UtteranceDetectionOptions(_message.Message):
-    """Configuration of the options to detect utterances"""
+    """<p>Configuration of the options to detect utterances</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -857,7 +860,7 @@ Global___UtteranceDetectionOptions: _TypeAlias = UtteranceDetectionOptions  # no
 
 @_typing.final
 class PostProcessingOptions(_message.Message):
-    """Configuration of the post-processing options"""
+    """<p>Configuration of the post-processing options</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -899,7 +902,7 @@ class Transcription(_message.Message):
      TRANSCRIPTION TYPE  //
     /////////////////////////
 
-    The transcription message
+    <p>The transcription message</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -940,7 +943,7 @@ Global___Transcription: _TypeAlias = Transcription  # noqa: Y015
 
 @_typing.final
 class TranscriptionAlternative(_message.Message):
-    """The alternative transcription message"""
+    """<p>The alternative transcription message</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -974,7 +977,7 @@ Global___TranscriptionAlternative: _TypeAlias = TranscriptionAlternative  # noqa
 
 @_typing.final
 class WordDetail(_message.Message):
-    """WordDetail provides word-specific information for recognized words."""
+    """<p>WordDetail provides word-specific information for recognized words.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1018,7 +1021,7 @@ Global___WordDetail: _TypeAlias = WordDetail  # noqa: Y015
 
 @_typing.final
 class WordAlternative(_message.Message):
-    """The word alternative message"""
+    """<p>The word alternative message</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1048,7 +1051,7 @@ class TranscribeStreamRequest(_message.Message):
     TRANSCRIBE STREAM //
     /////////////////////
 
-    Request to transcribe an audio stream
+    <p>Request to transcribe an audio stream</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1085,7 +1088,7 @@ Global___TranscribeStreamRequest: _TypeAlias = TranscribeStreamRequest  # noqa: 
 
 @_typing.final
 class TranscribeStreamResponse(_message.Message):
-    """The response message of a stream transcription"""
+    """<p>The response message of a stream transcription</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1163,7 +1166,7 @@ class TranscribeFileRequest(_message.Message):
     TRANSCRIBE FILE //
     ///////////////////
 
-    A request to transcribe an audio file
+    <p>A request to transcribe an audio file</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1192,7 +1195,7 @@ Global___TranscribeFileRequest: _TypeAlias = TranscribeFileRequest  # noqa: Y015
 
 @_typing.final
 class TranscribeFileResponse(_message.Message):
-    """The response message for a transcribe file request"""
+    """<p>The response message for a transcribe file request</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1228,7 +1231,7 @@ class S2tPipelineId(_message.Message):
     GET S2T PIPELINE //
     ////////////////////
 
-    The pipeline id for a specific pipeline configuration
+    <p>The pipeline id for a specific pipeline configuration</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1255,7 +1258,7 @@ class ListS2tPipelinesRequest(_message.Message):
     LIST S2T PIPELINES //
     //////////////////////
 
-    Request to list all speech-to-text pipelines. Optionally also filter criteria can be set
+    <p>Request to list all speech-to-text pipelines. Optionally also filter criteria can be set</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1298,7 +1301,7 @@ Global___ListS2tPipelinesRequest: _TypeAlias = ListS2tPipelinesRequest  # noqa: 
 
 @_typing.final
 class ListS2tPipelinesResponse(_message.Message):
-    """ListS2tPipelinesResponse is used to return a list of all speech-to-text pipelines."""
+    """<p>ListS2tPipelinesResponse is used to return a list of all speech-to-text pipelines.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1329,7 +1332,7 @@ class ListS2tLanguagesRequest(_message.Message):
     LIST S2T LANGUAGES //
     //////////////////////
 
-    ListS2tLanguagesRequest is used to request a list of available languages. Optionally, filters can be set.
+    <p>ListS2tLanguagesRequest is used to request a list of available languages. Optionally, filters can be set.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1362,7 +1365,7 @@ Global___ListS2tLanguagesRequest: _TypeAlias = ListS2tLanguagesRequest  # noqa: 
 
 @_typing.final
 class ListS2tLanguagesResponse(_message.Message):
-    """Response message to list available languages"""
+    """<p>Response message to list available languages</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1390,7 +1393,7 @@ class ListS2tDomainsRequest(_message.Message):
     LIST S2T DOMAINS //
     ////////////////////
 
-    Request message to list available domains. Optionally also filters can be set.
+    <p>Request message to list available domains. Optionally also filters can be set.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1421,7 +1424,7 @@ Global___ListS2tDomainsRequest: _TypeAlias = ListS2tDomainsRequest  # noqa: Y015
 
 @_typing.final
 class ListS2tDomainsResponse(_message.Message):
-    """Response message to list available domains"""
+    """<p>Response message to list available domains</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1449,7 +1452,7 @@ class S2tGetServiceInfoResponse(_message.Message):
     GET SERVICE INFO //
     ////////////////////
 
-    S2tGetServiceInfoResponse is used to return version information about the speech-to-text service.
+    <p>S2tGetServiceInfoResponse is used to return version information about the speech-to-text service.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1476,7 +1479,7 @@ class Speech2TextConfig(_message.Message):
     SPEECH-2-TEXT PIPELINE CONFIG //
     /////////////////////////////////
 
-    Speech2TextConfig is a configuration message for the speech-to-text pipeline
+    <p>Speech2TextConfig is a configuration message for the speech-to-text pipeline</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1539,7 +1542,7 @@ Global___Speech2TextConfig: _TypeAlias = Speech2TextConfig  # noqa: Y015
 
 @_typing.final
 class S2tDescription(_message.Message):
-    """S2tDescription contains descriptive information about the speech-to-text pipeline."""
+    """<p>S2tDescription contains descriptive information about the speech-to-text pipeline.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1573,7 +1576,7 @@ Global___S2tDescription: _TypeAlias = S2tDescription  # noqa: Y015
 
 @_typing.final
 class S2tInference(_message.Message):
-    """S2tInference contains information about inference models used in the speech-to-text pipeline."""
+    """<p>S2tInference contains information about inference models used in the speech-to-text pipeline.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1607,7 +1610,7 @@ Global___S2tInference: _TypeAlias = S2tInference  # noqa: Y015
 
 @_typing.final
 class AcousticModels(_message.Message):
-    """AcousticModels contains information about different types of acoustic models."""
+    """<p>AcousticModels contains information about different types of acoustic models.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1683,7 +1686,7 @@ Global___AcousticModels: _TypeAlias = AcousticModels  # noqa: Y015
 
 @_typing.final
 class S2tCloudServiceAmazon(_message.Message):
-    """S2tCloudServiceAmazon message contains settings for the Amazon web service Cloud service inference."""
+    """<p>S2tCloudServiceAmazon message contains settings for the Amazon web service Cloud service inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1740,7 +1743,7 @@ Global___S2tCloudServiceAmazon: _TypeAlias = S2tCloudServiceAmazon  # noqa: Y015
 
 @_typing.final
 class S2tCloudServiceDeepgram(_message.Message):
-    """S2tCloudServiceDeepgram message contains settings for the Deepgram Cloud service inference."""
+    """<p>S2tCloudServiceDeepgram message contains settings for the Deepgram Cloud service inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1801,7 +1804,7 @@ Global___S2tCloudServiceDeepgram: _TypeAlias = S2tCloudServiceDeepgram  # noqa: 
 
 @_typing.final
 class S2tCloudServiceGoogle(_message.Message):
-    """S2tCloudServiceGoogle message contains settings for the Google Cloud service inference."""
+    """<p>S2tCloudServiceGoogle message contains settings for the Google Cloud service inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1862,7 +1865,7 @@ Global___S2tCloudServiceGoogle: _TypeAlias = S2tCloudServiceGoogle  # noqa: Y015
 
 @_typing.final
 class S2tCloudServiceMicrosoft(_message.Message):
-    """S2tCloudServiceMicrosoft message contains settings for the Microsoft Azure Cloud service inference."""
+    """<p>S2tCloudServiceMicrosoft message contains settings for the Microsoft Azure Cloud service inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1898,7 +1901,7 @@ Global___S2tCloudServiceMicrosoft: _TypeAlias = S2tCloudServiceMicrosoft  # noqa
 
 @_typing.final
 class Whisper(_message.Message):
-    """Whisper contains information about the Whisper model."""
+    """<p>Whisper contains information about the Whisper model.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1932,7 +1935,7 @@ Global___Whisper: _TypeAlias = Whisper  # noqa: Y015
 
 @_typing.final
 class WhisperTriton(_message.Message):
-    """WhisperTriton contains information about the Whisper model using Triton."""
+    """<p>WhisperTriton contains information about the Whisper model using Triton.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1982,7 +1985,7 @@ Global___WhisperTriton: _TypeAlias = WhisperTriton  # noqa: Y015
 
 @_typing.final
 class Wav2Vec(_message.Message):
-    """Wav2Vec contains information about the Wav2Vec model."""
+    """<p>Wav2Vec contains information about the Wav2Vec model.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2008,7 +2011,7 @@ Global___Wav2Vec: _TypeAlias = Wav2Vec  # noqa: Y015
 
 @_typing.final
 class Wav2VecTriton(_message.Message):
-    """Wav2VecTriton contains information about the Wav2Vec model using Triton."""
+    """<p>Wav2VecTriton contains information about the Wav2Vec model using Triton.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2050,7 +2053,7 @@ Global___Wav2VecTriton: _TypeAlias = Wav2VecTriton  # noqa: Y015
 
 @_typing.final
 class Parakeet(_message.Message):
-    """Parakeet contains information about the Parakeet model."""
+    """<p>Parakeet contains information about the Parakeet model.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2088,7 +2091,7 @@ Global___Parakeet: _TypeAlias = Parakeet  # noqa: Y015
 
 @_typing.final
 class PtFiles(_message.Message):
-    """PtFiles contains information about PT files."""
+    """<p>PtFiles contains information about PT files.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2114,7 +2117,7 @@ Global___PtFiles: _TypeAlias = PtFiles  # noqa: Y015
 
 @_typing.final
 class CkptFile(_message.Message):
-    """CkptFile contains information about checkpoint files."""
+    """<p>CkptFile contains information about checkpoint files.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2136,7 +2139,7 @@ Global___CkptFile: _TypeAlias = CkptFile  # noqa: Y015
 
 @_typing.final
 class LanguageModels(_message.Message):
-    """LanguageModels contains information about language models."""
+    """<p>LanguageModels contains information about language models.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2174,7 +2177,7 @@ Global___LanguageModels: _TypeAlias = LanguageModels  # noqa: Y015
 
 @_typing.final
 class StreamingServer(_message.Message):
-    """StreamingServer contains information about the streaming server."""
+    """<p>StreamingServer contains information about the streaming server.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2210,7 +2213,7 @@ Global___StreamingServer: _TypeAlias = StreamingServer  # noqa: Y015
 
 @_typing.final
 class StreamingSpeechRecognition(_message.Message):
-    """StreamingSpeechRecognition contains information about streaming speech recognition settings."""
+    """<p>StreamingSpeechRecognition contains information about streaming speech recognition settings.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2275,9 +2278,14 @@ Global___StreamingSpeechRecognition: _TypeAlias = StreamingSpeechRecognition  # 
 
 @_typing.final
 class TurnDetectionOptions(_message.Message):
-    """TurnDetectionOptions configures turn detection: deciding, at a pause of the caller, whether the caller has finished the turn. Exactly one turn detector is chosen by <code>oneof_turn_detector</code>; the fields outside it apply to every detector.
-
-    Precedence for every field: the request config's value (<code>TranscribeRequestConfig.utterance_detection.turn_detection</code>), then the pipeline config's value (<code>StreamingSpeechRecognition.turn_detection</code>), then the server's configured value. When the request config chooses a different detector than the pipeline config, the request config's detector is used with only its own fields: none of the pipeline config's detector fields carry over.
+    """<p>TurnDetectionOptions configures turn detection: deciding, at a pause of the caller, whether the caller has
+    finished the turn. Exactly one turn detector is chosen by <code>oneof_turn_detector</code>; the fields outside it
+    apply to every detector.</p>
+    <p>Precedence for every field: the request config's value
+    (<code>TranscribeRequestConfig.utterance_detection.turn_detection</code>), then the pipeline config's value
+    (<code>StreamingSpeechRecognition.turn_detection</code>), then the server's configured value. When the request
+    config chooses a different detector than the pipeline config, the request config's detector is used with only
+    its own fields: none of the pipeline config's detector fields carry over.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -2444,7 +2452,9 @@ Global___TurnDetectionOptions: _TypeAlias = TurnDetectionOptions  # noqa: Y015
 
 @_typing.final
 class TurnDetectionChatLlmOptions(_message.Message):
-    """TurnDetectionChatLlmOptions configures a chat LLM as the turn detector: the LLM is asked, with the prompts below and the transcription of the turn, whether the caller has finished."""
+    """<p>TurnDetectionChatLlmOptions configures a chat LLM as the turn detector: the LLM is asked, with the prompts
+    below and the transcription of the turn, whether the caller has finished.</p>
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2490,7 +2500,11 @@ Global___TurnDetectionChatLlmOptions: _TypeAlias = TurnDetectionChatLlmOptions  
 
 @_typing.final
 class TurnDetectionEndOfUtteranceLlmOptions(_message.Message):
-    """TurnDetectionEndOfUtteranceLlmOptions configures an end-of-utterance LLM (LiveKit-shaped, e.g. <code>livekit/turn-detector</code>) as the turn detector: the model scores the probability of the end-of-utterance token after the turn's transcription and, when <code>TurnDetectionOptions.turn_detection_conversation_context</code> is set, the turns before it."""
+    """<p>TurnDetectionEndOfUtteranceLlmOptions configures an end-of-utterance LLM (LiveKit-shaped, e.g.
+    <code>livekit/turn-detector</code>) as the turn detector: the model scores the probability of the
+    end-of-utterance token after the turn's transcription and, when
+    <code>TurnDetectionOptions.turn_detection_conversation_context</code> is set, the turns before it.</p>
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2567,7 +2581,9 @@ Global___TurnDetectionEndOfUtteranceLlmOptions: _TypeAlias = TurnDetectionEndOfU
 
 @_typing.final
 class TurnDetectionOndewoDeOptions(_message.Message):
-    """TurnDetectionOndewoDeOptions configures the ONDEWO German turn-detection model as the turn detector. It judges the turn from its text and word timing and is served by vLLM."""
+    """<p>TurnDetectionOndewoDeOptions configures the ONDEWO German turn-detection model as the turn detector. It judges
+    the turn from its text and word timing and is served by vLLM.</p>
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2610,7 +2626,10 @@ Global___TurnDetectionOndewoDeOptions: _TypeAlias = TurnDetectionOndewoDeOptions
 
 @_typing.final
 class TurnDetectionOndewoDeFusionOptions(_message.Message):
-    """TurnDetectionOndewoDeFusionOptions configures the ONDEWO German fusion turn detector. It combines the ONDEWO German text model on vLLM, acoustic heads on Triton and signals computed from the stream into one end-of-turn probability. The Triton heads, the text model's served name and the weights file are server settings."""
+    """<p>TurnDetectionOndewoDeFusionOptions configures the ONDEWO German fusion turn detector. It combines the ONDEWO
+    German text model on vLLM, acoustic heads on Triton and signals computed from the stream into one end-of-turn
+    probability. The Triton heads, the text model's served name and the weights file are server settings.</p>
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2650,9 +2669,9 @@ Global___TurnDetectionOndewoDeFusionOptions: _TypeAlias = TurnDetectionOndewoDeF
 
 @_typing.final
 class TurnDetectionPipecatSmartTurnOptions(_message.Message):
-    """TurnDetectionPipecatSmartTurnOptions configures pipecat Smart Turn v3.2 as the turn detector. It judges the turn from the caller's audio alone and is served by Triton.
-
-    Model: <a href="https://github.com/pipecat-ai/smart-turn">pipecat Smart Turn</a>
+    """<p>TurnDetectionPipecatSmartTurnOptions configures pipecat Smart Turn v3.2 as the turn detector. It judges the
+    turn from the caller's audio alone and is served by Triton.</p>
+    <p>Model: <a href="https://github.com/pipecat-ai/smart-turn">pipecat Smart Turn</a></p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -2737,7 +2756,10 @@ Global___TurnDetectionPipecatSmartTurnOptions: _TypeAlias = TurnDetectionPipecat
 
 @_typing.final
 class TurnDetectionConversationContext(_message.Message):
-    """TurnDetectionConversationContext carries the latest turns of the conversation for <code>TurnDetectionEndOfUtteranceLlmOptions</code> (see <code>TurnDetectionOptions.turn_detection_conversation_context</code>). No other detector reads it."""
+    """<p>TurnDetectionConversationContext carries the latest turns of the conversation for
+    <code>TurnDetectionEndOfUtteranceLlmOptions</code> (see
+    <code>TurnDetectionOptions.turn_detection_conversation_context</code>). No other detector reads it.</p>
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2763,7 +2785,9 @@ Global___TurnDetectionConversationContext: _TypeAlias = TurnDetectionConversatio
 
 @_typing.final
 class TurnDetectionContextTurn(_message.Message):
-    """One turn of the conversation context of the turn detection, read only by <code>TurnDetectionEndOfUtteranceLlmOptions</code>."""
+    """<p>One turn of the conversation context of the turn detection, read only by
+    <code>TurnDetectionEndOfUtteranceLlmOptions</code>.</p>
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2783,7 +2807,7 @@ class TurnDetectionContextTurn(_message.Message):
         """
 
     class Role(_Role, metaclass=_RoleEnumTypeWrapper):
-        """Who spoke the turn."""
+        """<p>Who spoke the turn.</p>"""
 
     ROLE_UNSPECIFIED: TurnDetectionContextTurn.Role.ValueType  # 0
     """Unspecified role. The server ignores a turn without a role."""
@@ -2816,7 +2840,9 @@ Global___TurnDetectionContextTurn: _TypeAlias = TurnDetectionContextTurn  # noqa
 
 @_typing.final
 class TurnDetectionHoldBands(_message.Message):
-    """TurnDetectionHoldBands carries the hold bands of <code>TurnDetectionEndOfUtteranceLlmOptions</code>. No other detector reads them."""
+    """<p>TurnDetectionHoldBands carries the hold bands of <code>TurnDetectionEndOfUtteranceLlmOptions</code>. No other
+    detector reads them.</p>
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2843,7 +2869,7 @@ Global___TurnDetectionHoldBands: _TypeAlias = TurnDetectionHoldBands  # noqa: Y0
 
 @_typing.final
 class TurnDetectionHoldBand(_message.Message):
-    """One hold band of <code>TurnDetectionEndOfUtteranceLlmOptions</code>."""
+    """<p>One hold band of <code>TurnDetectionEndOfUtteranceLlmOptions</code>.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2871,7 +2897,7 @@ Global___TurnDetectionHoldBand: _TypeAlias = TurnDetectionHoldBand  # noqa: Y015
 
 @_typing.final
 class OpenaiLlmOptions(_message.Message):
-    """Configuration options for OpenAI client chat completion requests used in turn detection and LLM post-processing."""
+    """<p>Configuration options for OpenAI client chat completion requests used in turn detection and LLM post-processing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3270,7 +3296,7 @@ Global___OpenaiLlmOptions: _TypeAlias = OpenaiLlmOptions  # noqa: Y015
 
 @_typing.final
 class VoiceActivityDetection(_message.Message):
-    """VoiceActivityDetection contains information about voice activity detection settings."""
+    """<p>VoiceActivityDetection contains information about voice activity detection settings.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3333,9 +3359,8 @@ Global___VoiceActivityDetection: _TypeAlias = VoiceActivityDetection  # noqa: Y0
 
 @_typing.final
 class Pyannote(_message.Message):
-    """Pyannote contains configuration for the Pyannote voice activity detection model.
-
-    Library: <a href="https://github.com/pyannote/pyannote-audio/blob/develop/tutorials/voice_activity_detection.ipynb">pyannote-audio</a>
+    """<p>Pyannote contains configuration for the Pyannote voice activity detection model.</p>
+    <p>Library: <a href="https://github.com/pyannote/pyannote-audio/blob/develop/tutorials/voice_activity_detection.ipynb">pyannote-audio</a></p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -3382,11 +3407,11 @@ Global___Pyannote: _TypeAlias = Pyannote  # noqa: Y015
 
 @_typing.final
 class Silero(_message.Message):
-    """Silero contains configuration for the Silero voice activity detection model.
-
-    Unlike <code>Pyannote</code>, Silero is configured with its own parameters rather than <code>(min_duration_on, min_duration_off)</code>. They carry exactly the meaning they have upstream in <code>get_speech_timestamps</code> / <code>VADIterator</code>.
-
-    Library: <a href="https://github.com/snakers4/silero-vad">silero-vad</a>
+    """<p>Silero contains configuration for the Silero voice activity detection model.</p>
+    <p>Unlike <code>Pyannote</code>, Silero is configured with its own parameters rather than
+    <code>(min_duration_on, min_duration_off)</code>. They carry exactly the meaning they have
+    upstream in <code>get_speech_timestamps</code> / <code>VADIterator</code>.</p>
+    <p>Library: <a href="https://github.com/snakers4/silero-vad">silero-vad</a></p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -3466,9 +3491,11 @@ Global___Silero: _TypeAlias = Silero  # noqa: Y015
 
 @_typing.final
 class WespeakerTsd(_message.Message):
-    """WespeakerTsd contains configuration for the WeSpeaker target-speaker detection (TSD) model. Given a reference speaker embedding, it decides whether a newly detected utterance was spoken by the same person, so that speech from a different speaker (e.g. background noise, crosstalk, or a barge-in) can be rejected.
-
-    Library: <a href="https://huggingface.co/pyannote/wespeaker-voxceleb-resnet34-LM">wespeaker-voxceleb-resnet34-LM</a>
+    """<p>WespeakerTsd contains configuration for the WeSpeaker target-speaker detection (TSD)
+    model. Given a reference speaker embedding, it decides whether a newly detected utterance
+    was spoken by the same person, so that speech from a different speaker (e.g. background
+    noise, crosstalk, or a barge-in) can be rejected.</p>
+    <p>Library: <a href="https://huggingface.co/pyannote/wespeaker-voxceleb-resnet34-LM">wespeaker-voxceleb-resnet34-LM</a></p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -3532,7 +3559,7 @@ Global___WespeakerTsd: _TypeAlias = WespeakerTsd  # noqa: Y015
 
 @_typing.final
 class PostProcessing(_message.Message):
-    """PostProcessing contains the configuration for post-processing."""
+    """<p>PostProcessing contains the configuration for post-processing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3562,7 +3589,7 @@ Global___PostProcessing: _TypeAlias = PostProcessing  # noqa: Y015
 
 @_typing.final
 class PostProcessors(_message.Message):
-    """PostProcessors contains configurations for post-processors."""
+    """<p>PostProcessors contains configurations for post-processors.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3598,7 +3625,7 @@ Global___PostProcessors: _TypeAlias = PostProcessors  # noqa: Y015
 
 @_typing.final
 class SymSpell(_message.Message):
-    """SymSpell contains configuration for the SymSpell spelling correction."""
+    """<p>SymSpell contains configuration for the SymSpell spelling correction.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3630,7 +3657,7 @@ Global___SymSpell: _TypeAlias = SymSpell  # noqa: Y015
 
 @_typing.final
 class S2tNormalization(_message.Message):
-    """S2tNormalization contains configuration for the speech-to-text normalization."""
+    """<p>S2tNormalization contains configuration for the speech-to-text normalization.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3658,7 +3685,7 @@ Global___S2tNormalization: _TypeAlias = S2tNormalization  # noqa: Y015
 
 @_typing.final
 class S2tLlmPostProcessing(_message.Message):
-    """S2tLlmPostProcessing contains configuration for the speech-to-text postprocessing with LLM."""
+    """<p>S2tLlmPostProcessing contains configuration for the speech-to-text postprocessing with LLM.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3791,7 +3818,7 @@ Global___S2tLlmPostProcessing: _TypeAlias = S2tLlmPostProcessing  # noqa: Y015
 
 @_typing.final
 class S2tLlmPostProcessingTranslationOptions(_message.Message):
-    """Configuration of the options to translation task in LLM post-processing."""
+    """<p>Configuration of the options to translation task in LLM post-processing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3832,7 +3859,7 @@ Global___S2tLlmPostProcessingTranslationOptions: _TypeAlias = S2tLlmPostProcessi
 
 @_typing.final
 class S2tLlmPostProcessingInverseNormalizationOptions(_message.Message):
-    """Configuration of the options to inverse-normalization task in LLM post-processing."""
+    """<p>Configuration of the options to inverse-normalization task in LLM post-processing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3917,7 +3944,7 @@ Global___S2tLlmPostProcessingInverseNormalizationOptions: _TypeAlias = S2tLlmPos
 
 @_typing.final
 class S2tLlmPostProcessingNormalizationOptions(_message.Message):
-    """Configuration of the options to normalization task in LLM post-processing."""
+    """<p>Configuration of the options to normalization task in LLM post-processing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4002,7 +4029,7 @@ Global___S2tLlmPostProcessingNormalizationOptions: _TypeAlias = S2tLlmPostProces
 
 @_typing.final
 class S2tLlmPostProcessingSummarizationOptions(_message.Message):
-    """Configuration of the options to summarization task in LLM post-processing."""
+    """<p>Configuration of the options to summarization task in LLM post-processing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4051,7 +4078,10 @@ Global___S2tLlmPostProcessingSummarizationOptions: _TypeAlias = S2tLlmPostProces
 
 @_typing.final
 class S2tLlmPostProcessingSubTaskOptions(_message.Message):
-    """Common configuration for an individual LLM post-processing sub-task (e.g. email, phone number, date and time, credit card number, social security number, time zone). Used by both normalization and inverse-normalization tasks."""
+    """<p>Common configuration for an individual LLM post-processing sub-task (e.g. email, phone number,
+    date and time, credit card number, social security number, time zone).
+    Used by both normalization and inverse-normalization tasks.</p>
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4086,7 +4116,7 @@ Global___S2tLlmPostProcessingSubTaskOptions: _TypeAlias = S2tLlmPostProcessingSu
 
 @_typing.final
 class Logging(_message.Message):
-    """Logging contains configuration for logging."""
+    """<p>Logging contains configuration for logging.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4116,7 +4146,7 @@ class ListS2tLanguageModelsRequest(_message.Message):
     GET LIST OF AVAILABLE LANGUAGE MODELS //
     /////////////////////////////////////////
 
-    ListS2tLanguageModelsRequest is used to request a list of available language models for specified pipelines.
+    <p>ListS2tLanguageModelsRequest is used to request a list of available language models for specified pipelines.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -4143,7 +4173,7 @@ Global___ListS2tLanguageModelsRequest: _TypeAlias = ListS2tLanguageModelsRequest
 
 @_typing.final
 class LanguageModelPipelineId(_message.Message):
-    """LanguageModelPipelineId contains information about a pipeline and its available language models."""
+    """<p>LanguageModelPipelineId contains information about a pipeline and its available language models.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4171,7 +4201,7 @@ Global___LanguageModelPipelineId: _TypeAlias = LanguageModelPipelineId  # noqa: 
 
 @_typing.final
 class ListS2tLanguageModelsResponse(_message.Message):
-    """ListS2tLanguageModelsResponse is used to return the available language models for specified pipelines."""
+    """<p>ListS2tLanguageModelsResponse is used to return the available language models for specified pipelines.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4203,7 +4233,7 @@ class CreateUserLanguageModelRequest(_message.Message):
     CUSTOM LANGUAGE MODEL FEATURES  //
     ///////////////////////////////////
 
-    CreateUserLanguageModelRequest is used to request the creation of a new user-specific language model.
+    <p>CreateUserLanguageModelRequest is used to request the creation of a new user-specific language model.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -4226,7 +4256,7 @@ Global___CreateUserLanguageModelRequest: _TypeAlias = CreateUserLanguageModelReq
 
 @_typing.final
 class DeleteUserLanguageModelRequest(_message.Message):
-    """DeleteUserLanguageModelRequest is used to request the deletion of a user-specific language model."""
+    """<p>DeleteUserLanguageModelRequest is used to request the deletion of a user-specific language model.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4248,7 +4278,7 @@ Global___DeleteUserLanguageModelRequest: _TypeAlias = DeleteUserLanguageModelReq
 
 @_typing.final
 class AddDataToUserLanguageModelRequest(_message.Message):
-    """AddDataToUserLanguageModelRequest is used to request the addition of data to a user-specific language model."""
+    """<p>AddDataToUserLanguageModelRequest is used to request the addition of data to a user-specific language model.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4276,7 +4306,7 @@ Global___AddDataToUserLanguageModelRequest: _TypeAlias = AddDataToUserLanguageMo
 
 @_typing.final
 class TrainUserLanguageModelRequest(_message.Message):
-    """TrainUserLanguageModelRequest is used to request the training of a user-specific language model."""
+    """<p>TrainUserLanguageModelRequest is used to request the training of a user-specific language model.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4306,9 +4336,8 @@ class ListS2tNormalizationPipelinesRequest(_message.Message):
     LIST OF S2T NORMALIZATION PIPELINES //
     //////////////////////
 
-    The request message for <code>ListS2tNormalizationPipelines</code>.
-
-    Filter pipelines by attributes in request.
+    <p>The request message for <code>ListS2tNormalizationPipelines</code>.</p>
+    <p>Filter pipelines by attributes in request.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -4331,7 +4360,7 @@ Global___ListS2tNormalizationPipelinesRequest: _TypeAlias = ListS2tNormalization
 
 @_typing.final
 class ListS2tNormalizationPipelinesResponse(_message.Message):
-    """The response message for <code>ListS2tNormalizationPipelines</code>."""
+    """<p>The response message for <code>ListS2tNormalizationPipelines</code>.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 

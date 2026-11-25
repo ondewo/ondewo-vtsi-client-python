@@ -57,11 +57,17 @@ class _SipTransferDelegationEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[
     """
 
 class SipTransferDelegation(_SipTransferDelegation, metaclass=_SipTransferDelegationEnumTypeWrapper):
-    """How a <code>SipTransferCall</code> handles a transfer that the container parked in <code>SipStatus.delegated_transfer</code> instead of sending it.
-
-    Every value other than <code>SIP_TRANSFER_DELEGATION_UNSPECIFIED</code> requires the <code>x-ondewo-sip-call-control-token</code> metadatum (otherwise <code>CallControlUnauthenticated</code>) and the <code>x-ondewo-expected-call-id</code> metadatum naming the ongoing call (missing or different: <code>CallScopeMismatch</code>), plus <code>delegated_request_id</code> (otherwise <code>DelegatedRequestMismatch</code>). Refusals are RETURNED in <code>exception_name</code> / <code>description</code> and never assigned to the shared status.
-
-    A parked transfer that is neither claimed nor ended within <code>SIP_TRANSFER_DELEGATION_CLAIM_TIMEOUT_S</code> is dropped WITHOUT a REFER, and the pipeline is told with <code>SIP_WARM_TRANSFER_OUTCOME_DELEGATION_EXPIRED</code>. A claimed transfer never expires.
+    """<p>How a <code>SipTransferCall</code> handles a transfer that the container parked in
+    <code>SipStatus.delegated_transfer</code> instead of sending it.</p>
+    <p>Every value other than <code>SIP_TRANSFER_DELEGATION_UNSPECIFIED</code> requires the
+    <code>x-ondewo-sip-call-control-token</code> metadatum (otherwise <code>CallControlUnauthenticated</code>) and the
+    <code>x-ondewo-expected-call-id</code> metadatum naming the ongoing call (missing or different:
+    <code>CallScopeMismatch</code>), plus <code>delegated_request_id</code> (otherwise
+    <code>DelegatedRequestMismatch</code>). Refusals are RETURNED in <code>exception_name</code> /
+    <code>description</code> and never assigned to the shared status.</p>
+    <p>A parked transfer that is neither claimed nor ended within <code>SIP_TRANSFER_DELEGATION_CLAIM_TIMEOUT_S</code> is
+    dropped WITHOUT a REFER, and the pipeline is told with <code>SIP_WARM_TRANSFER_OUTCOME_DELEGATION_EXPIRED</code>. A
+    claimed transfer never expires.</p>
     """
 
 SIP_TRANSFER_DELEGATION_UNSPECIFIED: SipTransferDelegation.ValueType  # 0
@@ -96,7 +102,7 @@ class _MediaControlSettingEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_M
     """The flag is off: the bot is muted (<code>bot_voice</code>) or the bot's listening is paused (<code>bot_listening</code>)"""
 
 class MediaControlSetting(_MediaControlSetting, metaclass=_MediaControlSettingEnumTypeWrapper):
-    """Desired setting of one media control flag"""
+    """<p>Desired setting of one media control flag</p>"""
 
 MEDIA_CONTROL_SETTING_UNCHANGED: MediaControlSetting.ValueType  # 0
 """Leave the flag as it is for this owner"""
@@ -123,7 +129,9 @@ class _MediaControlOwnerEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Med
     """
 
 class MediaControlOwner(_MediaControlOwner, metaclass=_MediaControlOwnerEnumTypeWrapper):
-    """Owner of a media control hold. Each owner holds its own mute and pause; releasing one owner's hold never releases another owner's"""
+    """<p>Owner of a media control hold. Each owner holds its own mute and pause; releasing one owner's hold never releases
+    another owner's</p>
+    """
 
 MEDIA_CONTROL_OWNER_UNSPECIFIED: MediaControlOwner.ValueType  # 0
 """Same as <code>MEDIA_CONTROL_OWNER_OPERATOR</code>"""
@@ -156,7 +164,7 @@ class _SipWarmTransferOutcomeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper
     """
 
 class SipWarmTransferOutcome(_SipWarmTransferOutcome, metaclass=_SipWarmTransferOutcomeEnumTypeWrapper):
-    """Outcome of a warm transfer that the bot tells the caller"""
+    """<p>Outcome of a warm transfer that the bot tells the caller</p>"""
 
 SIP_WARM_TRANSFER_OUTCOME_UNSPECIFIED: SipWarmTransferOutcome.ValueType  # 0
 """No outcome"""
@@ -194,7 +202,7 @@ class _SipWarmTransferOutcomeNoticeStatusEnumTypeWrapper(_enum_type_wrapper._Enu
     """
 
 class SipWarmTransferOutcomeNoticeStatus(_SipWarmTransferOutcomeNoticeStatus, metaclass=_SipWarmTransferOutcomeNoticeStatusEnumTypeWrapper):
-    """Answer of the speech-to-speech pipeline to a <code>SipWarmTransferOutcomeNotice</code>"""
+    """<p>Answer of the speech-to-speech pipeline to a <code>SipWarmTransferOutcomeNotice</code></p>"""
 
 SIP_WARM_TRANSFER_OUTCOME_NOTICE_STATUS_UNSPECIFIED: SipWarmTransferOutcomeNoticeStatus.ValueType  # 0
 """No notice was carried"""
@@ -226,7 +234,7 @@ class _SipCallAudioModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_SipC
     """Receive the caller's audio and send audio to the caller. Requires <code>take_over</code>"""
 
 class SipCallAudioMode(_SipCallAudioMode, metaclass=_SipCallAudioModeEnumTypeWrapper):
-    """Mode of a <code>SipStreamCallAudio</code> stream"""
+    """<p>Mode of a <code>SipStreamCallAudio</code> stream</p>"""
 
 SIP_CALL_AUDIO_MODE_UNSPECIFIED: SipCallAudioMode.ValueType  # 0
 """Same as <code>SIP_CALL_AUDIO_MODE_LISTEN</code>"""
@@ -258,7 +266,7 @@ class _SipCallAudioEndReasonEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[
     """An internal error ended the stream"""
 
 class SipCallAudioEndReason(_SipCallAudioEndReason, metaclass=_SipCallAudioEndReasonEnumTypeWrapper):
-    """Why a <code>SipStreamCallAudio</code> stream ended"""
+    """<p>Why a <code>SipStreamCallAudio</code> stream ended</p>"""
 
 SIP_CALL_AUDIO_END_REASON_UNSPECIFIED: SipCallAudioEndReason.ValueType  # 0
 """No reason recorded"""
@@ -278,7 +286,7 @@ Global___SipCallAudioEndReason: _TypeAlias = SipCallAudioEndReason  # noqa: Y015
 
 @_typing.final
 class SipEndCallRequest(_message.Message):
-    """Ends an ongoing call of the active SIP session of the active SIP account"""
+    """<p>Ends an ongoing call of the active SIP session of the active SIP account</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -309,7 +317,7 @@ class SipEndCallRequest(_message.Message):
         """
 
     class EndCallReason(_EndCallReason, metaclass=_EndCallReasonEnumTypeWrapper):
-        """Why the call is being ended"""
+        """<p>Why the call is being ended</p>"""
 
     END_CALL_REASON_UNSPECIFIED: SipEndCallRequest.EndCallReason.ValueType  # 0
     """No specific reason given. The call ends as an ordinary hangup, exactly as before this field existed"""
@@ -362,7 +370,7 @@ Global___SipEndCallRequest: _TypeAlias = SipEndCallRequest  # noqa: Y015
 
 @_typing.final
 class SipReportAnsweringMachineDetectedRequest(_message.Message):
-    """Reports the verdict of the answering machine detection of the ongoing outgoing call"""
+    """<p>Reports the verdict of the answering machine detection of the ongoing outgoing call</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -388,9 +396,8 @@ Global___SipReportAnsweringMachineDetectedRequest: _TypeAlias = SipReportAnsweri
 
 @_typing.final
 class AnsweringMachineDetectionResult(_message.Message):
-    """Result of the answering machine detection (AMD) of an outbound call
-
-    Carries identifiers from closed vocabularies only: never audio, transcript text or a phone number
+    """<p>Result of the answering machine detection (AMD) of an outbound call</p>
+    <p>Carries identifiers from closed vocabularies only: never audio, transcript text or a phone number</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -421,7 +428,7 @@ class AnsweringMachineDetectionResult(_message.Message):
         """The detection could not decide"""
 
     class Verdict(_Verdict, metaclass=_VerdictEnumTypeWrapper):
-        """Who or what answered the call"""
+        """<p>Who or what answered the call</p>"""
 
     VERDICT_UNSPECIFIED: AnsweringMachineDetectionResult.Verdict.ValueType  # 0
     """No verdict available"""
@@ -468,7 +475,7 @@ class AnsweringMachineDetectionResult(_message.Message):
         """Silence throughout the detection window"""
 
     class Cause(_Cause, metaclass=_CauseEnumTypeWrapper):
-        """Evidence that led to the verdict"""
+        """<p>Evidence that led to the verdict</p>"""
 
     CAUSE_UNSPECIFIED: AnsweringMachineDetectionResult.Cause.ValueType  # 0
     """No cause available"""
@@ -507,7 +514,7 @@ class AnsweringMachineDetectionResult(_message.Message):
         """A voice message was left on the answering machine, and the call was hung up afterwards"""
 
     class ActionTaken(_ActionTaken, metaclass=_ActionTakenEnumTypeWrapper):
-        """What was done because of the verdict"""
+        """<p>What was done because of the verdict</p>"""
 
     ACTION_TAKEN_UNSPECIFIED: AnsweringMachineDetectionResult.ActionTaken.ValueType  # 0
     """No action recorded"""
@@ -570,7 +577,7 @@ Global___AnsweringMachineDetectionResult: _TypeAlias = AnsweringMachineDetection
 
 @_typing.final
 class SipStartCallRequest(_message.Message):
-    """Request to start the call with the active SIP session of the active SIP account"""
+    """<p>Request to start the call with the active SIP session of the active SIP account</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -618,7 +625,7 @@ Global___SipStartCallRequest: _TypeAlias = SipStartCallRequest  # noqa: Y015
 
 @_typing.final
 class SipRegisterAccountRequest(_message.Message):
-    """Request for registering a SIP account at a SIP server"""
+    """<p>Request for registering a SIP account at a SIP server</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -654,7 +661,7 @@ Global___SipRegisterAccountRequest: _TypeAlias = SipRegisterAccountRequest  # no
 
 @_typing.final
 class SipStartSessionRequest(_message.Message):
-    """Request for starting a new SIP session for a specified account"""
+    """<p>Request for starting a new SIP session for a specified account</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -682,7 +689,7 @@ Global___SipStartSessionRequest: _TypeAlias = SipStartSessionRequest  # noqa: Y0
 
 @_typing.final
 class SipTransferCallRequest(_message.Message):
-    """Request for transferring a call with or without headers"""
+    """<p>Request for transferring a call with or without headers</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -772,9 +779,12 @@ Global___SipTransferCallRequest: _TypeAlias = SipTransferCallRequest  # noqa: Y0
 
 @_typing.final
 class SipDelegatedTransfer(_message.Message):
-    """A transfer that the in-container speech-to-speech pipeline asked for and the container handed to a client instead of sending it (see <code>SipTransferDelegation</code>). Call-scoped: empty when no transfer is parked, when no call is ongoing, and after the call ended.
-
-    <code>SipGetSipStatus</code>, <code>SipGetSipStatusHistory</code> and every other response report only <code>request_id</code>, <code>requested_at</code> and <code>target_is_phone_number</code>. The target and the headers are filled ONLY in the response of a <code>SIP_TRANSFER_DELEGATION_CLAIM</code>.
+    """<p>A transfer that the in-container speech-to-speech pipeline asked for and the container handed to a client instead
+    of sending it (see <code>SipTransferDelegation</code>). Call-scoped: empty when no transfer is parked, when no call
+    is ongoing, and after the call ended.</p>
+    <p><code>SipGetSipStatus</code>, <code>SipGetSipStatusHistory</code> and every other response report only
+    <code>request_id</code>, <code>requested_at</code> and <code>target_is_phone_number</code>. The target and the headers
+    are filled ONLY in the response of a <code>SIP_TRANSFER_DELEGATION_CLAIM</code>.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -846,7 +856,7 @@ Global___SipDelegatedTransfer: _TypeAlias = SipDelegatedTransfer  # noqa: Y015
 
 @_typing.final
 class SipStatus(_message.Message):
-    """Status information for a SIP account, session, or call"""
+    """<p>Status information for a SIP account, session, or call</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1119,7 +1129,7 @@ Global___SipStatus: _TypeAlias = SipStatus  # noqa: Y015
 
 @_typing.final
 class SipStatusHistoryResponse(_message.Message):
-    """History of SIP status"""
+    """<p>History of SIP status</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1143,7 +1153,7 @@ Global___SipStatusHistoryResponse: _TypeAlias = SipStatusHistoryResponse  # noqa
 
 @_typing.final
 class SipSetCallMediaControlRequest(_message.Message):
-    """Request of <code>SipSetCallMediaControl</code>"""
+    """<p>Request of <code>SipSetCallMediaControl</code></p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1202,7 +1212,9 @@ Global___SipSetCallMediaControlRequest: _TypeAlias = SipSetCallMediaControlReque
 
 @_typing.final
 class SipWarmTransferOutcomeNotice(_message.Message):
-    """One-shot notice of a warm-transfer outcome for the bot. The pipeline tells the caller at most once per <code>request_id</code> and call. Carries no reason text the target gave"""
+    """<p>One-shot notice of a warm-transfer outcome for the bot. The pipeline tells the caller at most once per
+    <code>request_id</code> and call. Carries no reason text the target gave</p>
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1252,7 +1264,7 @@ Global___SipWarmTransferOutcomeNotice: _TypeAlias = SipWarmTransferOutcomeNotice
 
 @_typing.final
 class SipSendDtmfRequest(_message.Message):
-    """Request of <code>SipSendDtmf</code>"""
+    """<p>Request of <code>SipSendDtmf</code></p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1277,7 +1289,7 @@ Global___SipSendDtmfRequest: _TypeAlias = SipSendDtmfRequest  # noqa: Y015
 
 @_typing.final
 class SipCallAudioConfig(_message.Message):
-    """Configuration of a <code>SipStreamCallAudio</code> stream. Must be the first request of the stream"""
+    """<p>Configuration of a <code>SipStreamCallAudio</code> stream. Must be the first request of the stream</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1323,7 +1335,7 @@ Global___SipCallAudioConfig: _TypeAlias = SipCallAudioConfig  # noqa: Y015
 
 @_typing.final
 class SipCallAudioFrame(_message.Message):
-    """One frame of call audio"""
+    """<p>One frame of call audio</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1349,7 +1361,7 @@ Global___SipCallAudioFrame: _TypeAlias = SipCallAudioFrame  # noqa: Y015
 
 @_typing.final
 class SipCallAudioRequest(_message.Message):
-    """Request of <code>SipStreamCallAudio</code>"""
+    """<p>Request of <code>SipStreamCallAudio</code></p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1385,7 +1397,7 @@ Global___SipCallAudioRequest: _TypeAlias = SipCallAudioRequest  # noqa: Y015
 
 @_typing.final
 class SipCallAudioStarted(_message.Message):
-    """Sent once when a <code>SipStreamCallAudio</code> stream is connected"""
+    """<p>Sent once when a <code>SipStreamCallAudio</code> stream is connected</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1419,7 +1431,7 @@ Global___SipCallAudioStarted: _TypeAlias = SipCallAudioStarted  # noqa: Y015
 
 @_typing.final
 class SipCallAudioStats(_message.Message):
-    """Counters of a <code>SipStreamCallAudio</code> stream, sent periodically"""
+    """<p>Counters of a <code>SipStreamCallAudio</code> stream, sent periodically</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1457,7 +1469,7 @@ Global___SipCallAudioStats: _TypeAlias = SipCallAudioStats  # noqa: Y015
 
 @_typing.final
 class SipCallAudioEnded(_message.Message):
-    """Sent once when a <code>SipStreamCallAudio</code> stream ends normally"""
+    """<p>Sent once when a <code>SipStreamCallAudio</code> stream ends normally</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1483,7 +1495,7 @@ Global___SipCallAudioEnded: _TypeAlias = SipCallAudioEnded  # noqa: Y015
 
 @_typing.final
 class SipCallAudioResponse(_message.Message):
-    """Response of <code>SipStreamCallAudio</code>"""
+    """<p>Response of <code>SipStreamCallAudio</code></p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1527,7 +1539,7 @@ Global___SipCallAudioResponse: _TypeAlias = SipCallAudioResponse  # noqa: Y015
 
 @_typing.final
 class SipPlayWavFilesRequest(_message.Message):
-    """Plays a list of wav files"""
+    """<p>Plays a list of wav files</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 

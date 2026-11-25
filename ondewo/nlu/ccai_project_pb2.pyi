@@ -212,7 +212,9 @@ class _CcaiServiceTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CcaiS
 class CcaiServiceType(_CcaiServiceType, metaclass=_CcaiServiceTypeEnumTypeWrapper):
     """Defines the types of CCAI (Call Center AI) services available in the system.
 
-    Each service type represents a specific capability or module within the ONDEWO platform that enables comprehensive call center and customer interaction management. Services can be composed in workflows and are identified by their type, language code, and provider configuration.
+    Each service type represents a specific capability or module within the ONDEWO platform
+    that enables comprehensive call center and customer interaction management. Services can be
+    composed in workflows and are identified by their type, language code, and provider configuration.
     """
 
 CCAI_SERVICE_TYPE_UNSPECIFIED: CcaiServiceType.ValueType  # 0
@@ -1340,7 +1342,9 @@ Global___UpdateCcaiProjectResponse: _TypeAlias = UpdateCcaiProjectResponse  # no
 
 @_typing.final
 class DeleteCcaiProjectRequest(_message.Message):
-    """Request to delete a CCAI service project If a deployed CCAI service project was deleted then it was undeployed beforehand automatically"""
+    """Request to delete a CCAI service project
+    If a deployed CCAI service project was deleted then it was undeployed beforehand automatically
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1368,7 +1372,9 @@ Global___DeleteCcaiProjectRequest: _TypeAlias = DeleteCcaiProjectRequest  # noqa
 
 @_typing.final
 class DeleteCcaiProjectResponse(_message.Message):
-    """Response to delete a CCAI service project If a deployed CCAI service project was deleted then it was undeployed beforehand automatically"""
+    """Response to delete a CCAI service project
+    If a deployed CCAI service project was deleted then it was undeployed beforehand automatically
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 

@@ -27,7 +27,7 @@ if _version_not_supported:
 
 
 class Text2SpeechStub:
-    """Text2Speech service provides endpoints for text-to-speech generation.
+    """<p>Text2Speech service provides endpoints for text-to-speech generation.</p>
     """
 
     def __init__(self, channel):
@@ -134,7 +134,7 @@ class Text2SpeechStub:
 
 
 class Text2SpeechServicer:
-    """Text2Speech service provides endpoints for text-to-speech generation.
+    """<p>Text2Speech service provides endpoints for text-to-speech generation.</p>
     """
 
     def Synthesize(self, request, context):
@@ -382,7 +382,7 @@ def add_Text2SpeechServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Text2Speech:
-    """Text2Speech service provides endpoints for text-to-speech generation.
+    """<p>Text2Speech service provides endpoints for text-to-speech generation.</p>
     """
 
     @staticmethod

@@ -404,7 +404,12 @@ class _LlmEvaluationAbOptimizeMetricEnumTypeWrapper(_enum_type_wrapper._EnumType
 class LlmEvaluationAbOptimizeMetric(_LlmEvaluationAbOptimizeMetric, metaclass=_LlmEvaluationAbOptimizeMetricEnumTypeWrapper):
     """region a/b rollout domain messages
 
-    The metric an A/B rollout optimizes when comparing each variant against the control. Each value maps to a quantity already produced by the per-variant results rollup (see GetAbExperimentResults). Higher-is-better vs. lower-is-better is implied by the metric (e.g. PASS_RATE / CRITERION_SCORE / SAFETY_SCORE are higher-is-better; ERROR_RATE / MEAN_LATENCY are lower-is-better) and applied server-side when picking the winner.
+    The metric an A/B rollout optimizes when comparing each variant against the
+    control. Each value maps to a quantity already produced by the per-variant
+    results rollup (see GetAbExperimentResults). Higher-is-better vs.
+    lower-is-better is implied by the metric (e.g. PASS_RATE / CRITERION_SCORE /
+    SAFETY_SCORE are higher-is-better; ERROR_RATE / MEAN_LATENCY are
+    lower-is-better) and applied server-side when picking the winner.
     """
 
 LLM_EVALUATION_AB_OPTIMIZE_METRIC_UNSPECIFIED: LlmEvaluationAbOptimizeMetric.ValueType  # 0
@@ -1222,7 +1227,9 @@ Global___GetLlmEvaluationDatasetRequest: _TypeAlias = GetLlmEvaluationDatasetReq
 
 @_typing.final
 class LlmEvaluationDatasetFilter(_message.Message):
-    """Filter conditions for ListDatasets. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListDatasets. All fields are optional; multiple fields
+    set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1572,7 +1579,9 @@ Global___GetLlmEvaluationExampleRequest: _TypeAlias = GetLlmEvaluationExampleReq
 
 @_typing.final
 class LlmEvaluationExampleFilter(_message.Message):
-    """Filter conditions for ListExamples. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListExamples. All fields are optional; multiple fields
+    set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1917,7 +1926,9 @@ Global___GetLlmEvaluationExperimentRequest: _TypeAlias = GetLlmEvaluationExperim
 
 @_typing.final
 class LlmEvaluationExperimentFilter(_message.Message):
-    """Filter conditions for ListExperiments. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListExperiments. All fields are optional; multiple
+    fields set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2261,7 +2272,9 @@ Global___SubmitLlmEvaluationFeedbackRequest: _TypeAlias = SubmitLlmEvaluationFee
 
 @_typing.final
 class LlmEvaluationFeedbackFilter(_message.Message):
-    """Filter conditions for ListFeedback. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListFeedback. All fields are optional; multiple fields
+    set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2547,7 +2560,8 @@ Global___LlmEvaluationTurnResult: _TypeAlias = LlmEvaluationTurnResult  # noqa: 
 class LlmEvaluationReleaseGateThresholds(_message.Message):
     """region release gate domain messages
 
-    Threshold set evaluated by a release gate. Nested in a dedicated message so presence can be detected at the message level (proto3 scalars carry no presence).
+    Threshold set evaluated by a release gate. Nested in a dedicated message so
+    presence can be detected at the message level (proto3 scalars carry no presence).
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -2586,7 +2600,9 @@ Global___LlmEvaluationReleaseGateThresholds: _TypeAlias = LlmEvaluationReleaseGa
 
 @_typing.final
 class LlmEvaluationReleaseGateSafetyConfig(_message.Message):
-    """Safety section of a release gate: a separate adversarial experiment scored with safety evaluators."""
+    """Safety section of a release gate: a separate adversarial experiment scored
+    with safety evaluators.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2635,7 +2651,9 @@ Global___LlmEvaluationReleaseGateSafetyConfig: _TypeAlias = LlmEvaluationRelease
 
 @_typing.final
 class LlmEvaluationReleaseGate(_message.Message):
-    """A release gate: a named set of thresholds over evaluator scores, regression deltas and telemetry that decides whether a candidate configuration ships."""
+    """A release gate: a named set of thresholds over evaluator scores, regression
+    deltas and telemetry that decides whether a candidate configuration ships.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2997,7 +3015,9 @@ Global___GetLlmEvaluationReleaseGateRequest: _TypeAlias = GetLlmEvaluationReleas
 
 @_typing.final
 class LlmEvaluationReleaseGateFilter(_message.Message):
-    """Filter conditions for ListReleaseGates. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListReleaseGates. All fields are optional; multiple
+    fields set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3282,7 +3302,9 @@ Global___GetLlmEvaluationReleaseGateRunRequest: _TypeAlias = GetLlmEvaluationRel
 
 @_typing.final
 class LlmEvaluationReleaseGateRunFilter(_message.Message):
-    """Filter conditions for ListReleaseGateRuns. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListReleaseGateRuns. All fields are optional; multiple
+    fields set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3430,7 +3452,9 @@ Global___LlmEvaluationScorecardComponent: _TypeAlias = LlmEvaluationScorecardCom
 
 @_typing.final
 class LlmEvaluationScorecard(_message.Message):
-    """A scorecard: a named weighted multi-criteria roll-up definition applied to experiments for release reporting."""
+    """A scorecard: a named weighted multi-criteria roll-up definition applied to
+    experiments for release reporting.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3572,7 +3596,9 @@ Global___GetLlmEvaluationScorecardRequest: _TypeAlias = GetLlmEvaluationScorecar
 
 @_typing.final
 class LlmEvaluationScorecardFilter(_message.Message):
-    """Filter conditions for ListScorecards. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListScorecards. All fields are optional; multiple
+    fields set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4525,7 +4551,9 @@ Global___GetLlmEvaluationScheduleRequest: _TypeAlias = GetLlmEvaluationScheduleR
 
 @_typing.final
 class LlmEvaluationScheduleFilter(_message.Message):
-    """Filter conditions for ListSchedules. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListSchedules. All fields are optional; multiple fields
+    set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4724,7 +4752,8 @@ Global___DeleteLlmEvaluationScheduleRequest: _TypeAlias = DeleteLlmEvaluationSch
 class LlmEvaluationReport(_message.Message):
     """region report messages
 
-    An immutable persisted report artifact (release summaries, gate sign-offs, exported evaluation snapshots).
+    An immutable persisted report artifact (release summaries, gate sign-offs,
+    exported evaluation snapshots).
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -4883,7 +4912,9 @@ Global___GetLlmEvaluationReportRequest: _TypeAlias = GetLlmEvaluationReportReque
 
 @_typing.final
 class LlmEvaluationReportFilter(_message.Message):
-    """Filter conditions for ListReports. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListReports. All fields are optional; multiple fields
+    set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -5062,7 +5093,14 @@ Global___LlmEvaluationAbTrafficConfig: _TypeAlias = LlmEvaluationAbTrafficConfig
 
 @_typing.final
 class RagVariantConfig(_message.Message):
-    """RAGFlow variant override for an A/B experiment running on a RAG-classifier project (<code>IntentRagflowClassifier</code>). Where an IntentAgent variant overrides the LLM via <code>ccai_service_names</code>, a RAG variant overrides the project's chat-assistant LLM CcaiService and the retrieval parameters used when answering the assigned sessions. Override-or-inherit semantics apply per field: an empty / zero value means "inherit the project's base IntentRagflowClassifier config for this field"."""
+    """RAGFlow variant override for an A/B experiment running on a RAG-classifier
+    project (<code>IntentRagflowClassifier</code>). Where an IntentAgent variant
+    overrides the LLM via <code>ccai_service_names</code>, a RAG variant overrides
+    the project's chat-assistant LLM CcaiService and the retrieval parameters used
+    when answering the assigned sessions. Override-or-inherit semantics apply per
+    field: an empty / zero value means "inherit the project's base
+    IntentRagflowClassifier config for this field".
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -5117,7 +5155,20 @@ Global___RagVariantConfig: _TypeAlias = RagVariantConfig  # noqa: Y015
 
 @_typing.final
 class LlmEvaluationAbVariant(_message.Message):
-    """One routing variant of an A/B experiment. The variant overrides the model used for the sessions assigned to it. A variant is one of two shapes depending on the project's classifier: <ul> <li><b>IntentAgent projects</b> — the variant overrides the LLM connection via <code>ccai_service_names</code> (+ optional <code>model_name</code> / <code>prompt_version</code>).</li> <li><b>RAG projects</b> (<code>IntentRagflowClassifier</code>) — the variant overrides the chat-assistant LLM CcaiService and retrieval parameters via <code>rag_variant_config</code>.</li> </ul> The two override shapes are mutually exclusive per variant; the server applies whichever matches the project's classifier type."""
+    """One routing variant of an A/B experiment. The variant overrides the model used
+    for the sessions assigned to it. A variant is one of two shapes depending on
+    the project's classifier:
+    <ul>
+      <li><b>IntentAgent projects</b> — the variant overrides the LLM connection
+          via <code>ccai_service_names</code> (+ optional <code>model_name</code> /
+          <code>prompt_version</code>).</li>
+      <li><b>RAG projects</b> (<code>IntentRagflowClassifier</code>) — the variant
+          overrides the chat-assistant LLM CcaiService and retrieval parameters via
+          <code>rag_variant_config</code>.</li>
+    </ul>
+    The two override shapes are mutually exclusive per variant; the server applies
+    whichever matches the project's classifier type.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -5192,7 +5243,9 @@ Global___LlmEvaluationAbVariant: _TypeAlias = LlmEvaluationAbVariant  # noqa: Y0
 
 @_typing.final
 class LlmEvaluationAbExperiment(_message.Message):
-    """An A/B experiment: a set of routing variants split over live DetectIntent traffic for a (project, language_code) scope."""
+    """An A/B experiment: a set of routing variants split over live DetectIntent
+    traffic for a (project, language_code) scope.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -5416,7 +5469,9 @@ Global___GetLlmEvaluationAbExperimentRequest: _TypeAlias = GetLlmEvaluationAbExp
 
 @_typing.final
 class LlmEvaluationAbExperimentFilter(_message.Message):
-    """Filter conditions for ListAbExperiments. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListAbExperiments. All fields are optional; multiple
+    fields set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -5741,7 +5796,13 @@ Global___GetLlmEvaluationAbExperimentResultsResponse: _TypeAlias = GetLlmEvaluat
 
 @_typing.final
 class LlmEvaluationAbRolloutRecommendation(_message.Message):
-    """A computed, read-only rollout recommendation for an A/B experiment: which variant currently wins against the control on the chosen optimize metric, under the requested statistical guard-rails. Stateless — recomputed on demand by <code>LlmEvaluationGetAbRolloutRecommendation</code> from the per-variant results rollup; nothing is persisted and no traffic / config changes. The operator decides whether to apply it via <code>LlmEvaluationApplyAbRollout</code>."""
+    """A computed, read-only rollout recommendation for an A/B experiment: which
+    variant currently wins against the control on the chosen optimize metric,
+    under the requested statistical guard-rails. Stateless — recomputed on demand
+    by <code>LlmEvaluationGetAbRolloutRecommendation</code> from the per-variant
+    results rollup; nothing is persisted and no traffic / config changes. The
+    operator decides whether to apply it via <code>LlmEvaluationApplyAbRollout</code>.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -5832,7 +5893,14 @@ Global___LlmEvaluationAbRolloutRecommendation: _TypeAlias = LlmEvaluationAbRollo
 
 @_typing.final
 class LlmEvaluationAbRolloutDecision(_message.Message):
-    """The persisted audit record of an A/B rollout that an operator explicitly applied: it captures which variant's config was promoted to the project's classifier default, on which metric, and the statistics at the moment of application. Written + returned by <code>LlmEvaluationApplyAbRollout</code>; read back via <code>LlmEvaluationGetAbRolloutDecision</code> / <code>LlmEvaluationListAbRolloutDecisions</code>. There is no auto-rollout — every decision row corresponds to an explicit operator action."""
+    """The persisted audit record of an A/B rollout that an operator explicitly
+    applied: it captures which variant's config was promoted to the project's
+    classifier default, on which metric, and the statistics at the moment of
+    application. Written + returned by <code>LlmEvaluationApplyAbRollout</code>;
+    read back via <code>LlmEvaluationGetAbRolloutDecision</code> /
+    <code>LlmEvaluationListAbRolloutDecisions</code>. There is no auto-rollout —
+    every decision row corresponds to an explicit operator action.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -5920,7 +5988,10 @@ Global___LlmEvaluationAbRolloutDecision: _TypeAlias = LlmEvaluationAbRolloutDeci
 class GetLlmEvaluationAbRolloutRecommendationRequest(_message.Message):
     """region a/b rollout RPC messages
 
-    Request to compute a rollout recommendation for an A/B experiment. Read-only / stateless — computes the winner-vs-control statistics on demand under the supplied guard-rails and returns a LlmEvaluationAbRolloutRecommendation without mutating anything.
+    Request to compute a rollout recommendation for an A/B experiment. Read-only /
+    stateless — computes the winner-vs-control statistics on demand under the
+    supplied guard-rails and returns a LlmEvaluationAbRolloutRecommendation
+    without mutating anything.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -5979,7 +6050,11 @@ Global___GetLlmEvaluationAbRolloutRecommendationRequest: _TypeAlias = GetLlmEval
 
 @_typing.final
 class ApplyLlmEvaluationAbRolloutRequest(_message.Message):
-    """Request to apply an A/B rollout: promotes the chosen variant's config to the project's classifier default, stops the experiment and writes the audit decision. Idempotent — re-applying the same already-applied experiment returns the existing decision rather than promoting twice."""
+    """Request to apply an A/B rollout: promotes the chosen variant's config to the
+    project's classifier default, stops the experiment and writes the audit
+    decision. Idempotent — re-applying the same already-applied experiment returns
+    the existing decision rather than promoting twice.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -6024,7 +6099,9 @@ Global___ApplyLlmEvaluationAbRolloutRequest: _TypeAlias = ApplyLlmEvaluationAbRo
 
 @_typing.final
 class GetLlmEvaluationAbRolloutDecisionRequest(_message.Message):
-    """Request to get a single A/B rollout decision (the applied audit record) for an experiment."""
+    """Request to get a single A/B rollout decision (the applied audit record) for an
+    experiment.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -6064,7 +6141,9 @@ Global___GetLlmEvaluationAbRolloutDecisionRequest: _TypeAlias = GetLlmEvaluation
 
 @_typing.final
 class LlmEvaluationAbRolloutDecisionFilter(_message.Message):
-    """Filter conditions for ListAbRolloutDecisions. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListAbRolloutDecisions. All fields are optional;
+    multiple fields set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -6092,7 +6171,9 @@ Global___LlmEvaluationAbRolloutDecisionFilter: _TypeAlias = LlmEvaluationAbRollo
 
 @_typing.final
 class ListLlmEvaluationAbRolloutDecisionsRequest(_message.Message):
-    """Request to list A/B rollout decisions within a project, optionally narrowed by filter (typically by experiment)."""
+    """Request to list A/B rollout decisions within a project, optionally narrowed by
+    filter (typically by experiment).
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -6177,7 +6258,9 @@ Global___ListLlmEvaluationAbRolloutDecisionsResponse: _TypeAlias = ListLlmEvalua
 class LlmEvaluationOnlineSessionFilter(_message.Message):
     """region online evaluation domain messages
 
-    Optional filter narrowing which already-persisted live session steps an online-evaluation config samples. All fields are optional; multiple fields set at the same time are combined via logical AND.
+    Optional filter narrowing which already-persisted live session steps an
+    online-evaluation config samples. All fields are optional; multiple fields set
+    at the same time are combined via logical AND.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -6225,7 +6308,12 @@ Global___LlmEvaluationOnlineSessionFilter: _TypeAlias = LlmEvaluationOnlineSessi
 
 @_typing.final
 class LlmEvaluationOnlineConfig(_message.Message):
-    """An online-evaluation config: a per-(project, language_code) definition that a swarm-safe background worker uses to sample already-persisted live session steps, score the recorded answer with a reference-free evaluator set, and enqueue failing steps into the annotation queue. Mirrors the LlmEvaluationSchedule scoping / audit / enabled-flag shape."""
+    """An online-evaluation config: a per-(project, language_code) definition that a
+    swarm-safe background worker uses to sample already-persisted live session
+    steps, score the recorded answer with a reference-free evaluator set, and
+    enqueue failing steps into the annotation queue. Mirrors the LlmEvaluationSchedule
+    scoping / audit / enabled-flag shape.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -6424,7 +6512,9 @@ Global___GetLlmEvaluationOnlineConfigRequest: _TypeAlias = GetLlmEvaluationOnlin
 
 @_typing.final
 class LlmEvaluationOnlineConfigFilter(_message.Message):
-    """Filter conditions for ListOnlineConfigs. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListOnlineConfigs. All fields are optional; multiple
+    fields set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -6619,7 +6709,11 @@ Global___DeleteLlmEvaluationOnlineConfigRequest: _TypeAlias = DeleteLlmEvaluatio
 class LlmEvaluationOnlineResult(_message.Message):
     """region online result domain messages
 
-    A self-contained online-evaluation result: one row per scored session step. Per-criterion feedbacks are stored as an embedded repeated LlmEvaluationFeedback list (exactly like LlmEvaluationTurnResult.feedbacks — NOT persisted into the experiment-scoped llm_feedback table). Produced by the online-evaluation worker; read-only over the API.
+    A self-contained online-evaluation result: one row per scored session step.
+    Per-criterion feedbacks are stored as an embedded repeated LlmEvaluationFeedback
+    list (exactly like LlmEvaluationTurnResult.feedbacks — NOT persisted into the
+    experiment-scoped llm_feedback table). Produced by the online-evaluation worker;
+    read-only over the API.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -6747,7 +6841,9 @@ Global___GetLlmEvaluationOnlineResultRequest: _TypeAlias = GetLlmEvaluationOnlin
 
 @_typing.final
 class LlmEvaluationOnlineResultFilter(_message.Message):
-    """Filter conditions for ListOnlineResults. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListOnlineResults. All fields are optional; multiple
+    fields set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -6864,7 +6960,10 @@ Global___ListLlmEvaluationOnlineResultsResponse: _TypeAlias = ListLlmEvaluationO
 
 @_typing.final
 class LlmEvaluationAnnotationQueueItem(_message.Message):
-    """A human-review annotation-queue item: one per failing session step enqueued by the online-evaluation worker. The reviewer annotates (status / reason) and may promote the offending session into a regression dataset."""
+    """A human-review annotation-queue item: one per failing session step enqueued by
+    the online-evaluation worker. The reviewer annotates (status / reason) and may
+    promote the offending session into a regression dataset.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -6995,7 +7094,9 @@ Global___GetLlmEvaluationAnnotationQueueItemRequest: _TypeAlias = GetLlmEvaluati
 
 @_typing.final
 class LlmEvaluationAnnotationQueueItemFilter(_message.Message):
-    """Filter conditions for ListAnnotationQueueItems. All fields are optional; multiple fields set at the same time are combined via logical AND."""
+    """Filter conditions for ListAnnotationQueueItems. All fields are optional;
+    multiple fields set at the same time are combined via logical AND.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -7152,7 +7253,10 @@ Global___UpdateLlmEvaluationAnnotationQueueItemRequest: _TypeAlias = UpdateLlmEv
 
 @_typing.final
 class PromoteLlmEvaluationAnnotationQueueItemRequest(_message.Message):
-    """Request to promote an annotation-queue item into a regression dataset. Thin server-side composition over LlmEvaluationCreateExamplesFromSession; the item status is flipped to PROMOTED and the dataset name stamped on success."""
+    """Request to promote an annotation-queue item into a regression dataset. Thin
+    server-side composition over LlmEvaluationCreateExamplesFromSession; the item
+    status is flipped to PROMOTED and the dataset name stamped on success.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 

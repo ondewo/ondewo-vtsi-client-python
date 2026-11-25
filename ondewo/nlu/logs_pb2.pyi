@@ -127,7 +127,9 @@ class _CaiLogCaptureStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Ca
     """Another CAI server process holds the capture of this stream."""
 
 class CaiLogCaptureState(_CaiLogCaptureState, metaclass=_CaiLogCaptureStateEnumTypeWrapper):
-    """The state of CAI&apos;s capture of one log stream. This describes the CAPTURE, not the process or the container."""
+    """The state of CAI&apos;s capture of one log stream. This describes the CAPTURE, not the process or the
+    container.
+    """
 
 CAI_LOG_CAPTURE_STATE_UNSPECIFIED: CaiLogCaptureState.ValueType  # 0
 """Unspecified."""
@@ -167,7 +169,10 @@ class _CaiLogFilterFieldEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Cai
     """<code>CaiLogFilter.process_names</code>."""
 
 class CaiLogFilterField(_CaiLogFilterField, metaclass=_CaiLogFilterFieldEnumTypeWrapper):
-    """Identifies a field of <a href="index.html#ondewo.nlu.CaiLogFilter">CaiLogFilter</a>. Used by <a href="index.html#ondewo.nlu.ListLogsResponse">ListLogsResponse.scope_limited_filters</a> to declare which filters could only be applied inside the returned window."""
+    """Identifies a field of <a href="index.html#ondewo.nlu.CaiLogFilter">CaiLogFilter</a>. Used by
+    <a href="index.html#ondewo.nlu.ListLogsResponse">ListLogsResponse.scope_limited_filters</a> to declare which
+    filters could only be applied inside the returned window.
+    """
 
 CAI_LOG_FILTER_FIELD_UNSPECIFIED: CaiLogFilterField.ValueType  # 0
 """Unspecified."""
@@ -213,7 +218,10 @@ class _CaiLogStreamEndReasonEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[
     """
 
 class CaiLogStreamEndReason(_CaiLogStreamEndReason, metaclass=_CaiLogStreamEndReasonEnumTypeWrapper):
-    """Why the SERVER ended a <code>StreamLogs</code> stream. Carried by the final <a href="index.html#ondewo.nlu.StreamLogsResponse">StreamLogsResponse</a> beside the human-readable <code>end_reason</code>. A stream ended by the client has no final message."""
+    """Why the SERVER ended a <code>StreamLogs</code> stream. Carried by the final
+    <a href="index.html#ondewo.nlu.StreamLogsResponse">StreamLogsResponse</a> beside the human-readable
+    <code>end_reason</code>. A stream ended by the client has no final message.
+    """
 
 CAI_LOG_STREAM_END_REASON_UNSPECIFIED: CaiLogStreamEndReason.ValueType  # 0
 """Not ended by the server: every message except the final one."""
@@ -266,7 +274,9 @@ class _CaiLogExportFormatEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Ca
     """
 
 class CaiLogExportFormat(_CaiLogExportFormat, metaclass=_CaiLogExportFormatEnumTypeWrapper):
-    """File format of an <a href="index.html#ondewo.nlu.Logs.ExportLogs">ExportLogs</a> export. Every format is UTF-8 with <code>\\n</code> line endings and one entry per record; a multi-line entry stays one record."""
+    """File format of an <a href="index.html#ondewo.nlu.Logs.ExportLogs">ExportLogs</a> export. Every format is UTF-8
+    with <code>\\n</code> line endings and one entry per record; a multi-line entry stays one record.
+    """
 
 CAI_LOG_EXPORT_FORMAT_UNSPECIFIED: CaiLogExportFormat.ValueType  # 0
 """Unspecified: identical to <code>CAI_LOG_EXPORT_FORMAT_TEXT</code>."""
@@ -297,7 +307,8 @@ class CaiLogEntry(_message.Message):
     region Messages
     ////////////////////////////////////////////////////////////////////////////
 
-    A single captured log record. One record may span several physical lines: a Python traceback, a protobuf <code>str()</code> dump and a multi-line banner are all one record and are stored and returned as one entry.
+    A single captured log record. One record may span several physical lines: a Python traceback, a protobuf
+    <code>str()</code> dump and a multi-line banner are all one record and are stored and returned as one entry.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -433,9 +444,12 @@ Global___CaiLogEntry: _TypeAlias = CaiLogEntry  # noqa: Y015
 
 @_typing.final
 class CaiLogFilter(_message.Message):
-    """Narrows a log query. Every field is optional; an empty repeated field means &quot;do not filter on this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR.
+    """Narrows a log query. Every field is optional; an empty repeated field means &quot;do not filter on
+    this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR.
 
-    Filters fall into two groups. IDENTITY filters (fields 1 to 19) select which log streams, operations and projects are of interest. CONTENT filters (fields 20 to 30) select which entries of those to return. The time window (fields 31, 32) is neither.
+    <p>Filters fall into two groups. IDENTITY filters (fields 1 to 19) select which log streams, operations and
+    projects are of interest. CONTENT filters (fields 20 to 30) select which entries of those to return. The time
+    window (fields 31, 32) is neither.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -630,7 +644,9 @@ Global___CaiLogFilter: _TypeAlias = CaiLogFilter  # noqa: Y015
 
 @_typing.final
 class CaiLogStream(_message.Message):
-    """One capture of one server process or of one container. A server process that restarts, and a container recreated under a new id, yield a NEW log stream."""
+    """One capture of one server process or of one container. A server process that restarts, and a container
+    recreated under a new id, yield a NEW log stream.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -821,7 +837,10 @@ Global___StreamLogsRequest: _TypeAlias = StreamLogsRequest  # noqa: Y015
 
 @_typing.final
 class StreamLogsResponse(_message.Message):
-    """The response message for <a href="index.html#ondewo.nlu.Logs.StreamLogs">Logs.StreamLogs</a>. The stream carries an envelope rather than a bare entry so that a viewer can tell a healthy quiet source from a capture that has died."""
+    """The response message for <a href="index.html#ondewo.nlu.Logs.StreamLogs">Logs.StreamLogs</a>. The stream
+    carries an envelope rather than a bare entry so that a viewer can tell a healthy quiet source from a capture
+    that has died.
+    """
 
     DESCRIPTOR: _descriptor.Descriptor
 

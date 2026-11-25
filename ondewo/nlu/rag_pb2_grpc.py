@@ -27,7 +27,8 @@ if _version_not_supported:
 
 
 class RagsStub:
-    """Provides RAG and web crawler endpoints. Most of the RAG related endpoints largely mirror <a href="https://github.com/ondewo/ragflow">RAGFlow's</a> HTTP API endpoints. For more information on RAGFlow refer to the <a href="https://ragflow.io/docs/dev/">official documentation</a>
+    """Provides RAG and web crawler endpoints.
+    Most of the RAG related endpoints largely mirror <a href="https://github.com/ondewo/ragflow">RAGFlow's</a> HTTP API endpoints. For more information on RAGFlow refer to the <a href="https://ragflow.io/docs/dev/">official documentation</a>
     """
 
     def __init__(self, channel):
@@ -184,7 +185,8 @@ class RagsStub:
 
 
 class RagsServicer:
-    """Provides RAG and web crawler endpoints. Most of the RAG related endpoints largely mirror <a href="https://github.com/ondewo/ragflow">RAGFlow's</a> HTTP API endpoints. For more information on RAGFlow refer to the <a href="https://ragflow.io/docs/dev/">official documentation</a>
+    """Provides RAG and web crawler endpoints.
+    Most of the RAG related endpoints largely mirror <a href="https://github.com/ondewo/ragflow">RAGFlow's</a> HTTP API endpoints. For more information on RAGFlow refer to the <a href="https://ragflow.io/docs/dev/">official documentation</a>
     """
 
     def RagCreateDataset(self, request, context):
@@ -602,7 +604,8 @@ def add_RagsServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Rags:
-    """Provides RAG and web crawler endpoints. Most of the RAG related endpoints largely mirror <a href="https://github.com/ondewo/ragflow">RAGFlow's</a> HTTP API endpoints. For more information on RAGFlow refer to the <a href="https://ragflow.io/docs/dev/">official documentation</a>
+    """Provides RAG and web crawler endpoints.
+    Most of the RAG related endpoints largely mirror <a href="https://github.com/ondewo/ragflow">RAGFlow's</a> HTTP API endpoints. For more information on RAGFlow refer to the <a href="https://ragflow.io/docs/dev/">official documentation</a>
     """
 
     @staticmethod

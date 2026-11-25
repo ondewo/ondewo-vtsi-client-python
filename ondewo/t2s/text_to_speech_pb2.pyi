@@ -55,7 +55,7 @@ class _PcmEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Pcm.ValueType], _
     """Floating-point (64-bit) pulse-code modulation."""
 
 class Pcm(_Pcm, metaclass=_PcmEnumTypeWrapper):
-    """Represents a pulse-code modulation technique."""
+    """<p>Represents a pulse-code modulation technique.</p>"""
 
 PCM_16: Pcm.ValueType  # 0
 """16-bit pulse-code modulation."""
@@ -95,7 +95,7 @@ class _AudioFormatEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_AudioForm
     """Windows Media Audio (WMA)"""
 
 class AudioFormat(_AudioFormat, metaclass=_AudioFormatEnumTypeWrapper):
-    """AudioFormat enum represents various audio file formats for storing digital audio data."""
+    """<p>AudioFormat enum represents various audio file formats for storing digital audio data.</p>"""
 
 wav: AudioFormat.ValueType  # 0
 """Waveform Audio File Format (WAV)"""
@@ -115,9 +115,8 @@ Global___AudioFormat: _TypeAlias = AudioFormat  # noqa: Y015
 
 @_typing.final
 class SynthesizeRequest(_message.Message):
-    """Represents a Synthesize Request.
-
-    A Synthesize Request contains the information need to perform a text to speech conversion.
+    """<p>Represents a Synthesize Request.</p>
+    <p>A Synthesize Request contains the information need to perform a text to speech conversion.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -350,7 +349,7 @@ Global___SynthesizeRequest: _TypeAlias = SynthesizeRequest  # noqa: Y015
 
 @_typing.final
 class BatchSynthesizeRequest(_message.Message):
-    """BatchSynthesizeRequest message is used to send a batch request for synthesis."""
+    """<p>BatchSynthesizeRequest message is used to send a batch request for synthesis.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -374,7 +373,7 @@ Global___BatchSynthesizeRequest: _TypeAlias = BatchSynthesizeRequest  # noqa: Y0
 
 @_typing.final
 class StreamingSynthesizeRequest(_message.Message):
-    """StreamingSynthesizeRequest is used to perform streaming synthesize."""
+    """<p>StreamingSynthesizeRequest is used to perform streaming synthesize.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -404,7 +403,7 @@ Global___StreamingSynthesizeRequest: _TypeAlias = StreamingSynthesizeRequest  # 
 
 @_typing.final
 class BatchSynthesizeResponse(_message.Message):
-    """BatchSynthesizeResponse message is used to store the responses for a batch synthesis request."""
+    """<p>BatchSynthesizeResponse message is used to store the responses for a batch synthesis request.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -428,7 +427,7 @@ Global___BatchSynthesizeResponse: _TypeAlias = BatchSynthesizeResponse  # noqa: 
 
 @_typing.final
 class RequestConfig(_message.Message):
-    """Represents a Configuration for the text to speech conversion."""
+    """<p>Represents a Configuration for the text to speech conversion.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -611,7 +610,7 @@ Global___RequestConfig: _TypeAlias = RequestConfig  # noqa: Y015
 
 @_typing.final
 class T2sCloudProviderConfig(_message.Message):
-    """Configuration for cloud provider settings for Text-to-Speech (T2S)."""
+    """<p>Configuration for cloud provider settings for Text-to-Speech (T2S).</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -647,7 +646,7 @@ Global___T2sCloudProviderConfig: _TypeAlias = T2sCloudProviderConfig  # noqa: Y0
 
 @_typing.final
 class T2sCloudProviderConfigElevenLabs(_message.Message):
-    """Configuration details specific to the Eleven Labs text-to-speech provider."""
+    """<p>Configuration details specific to the Eleven Labs text-to-speech provider.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -687,7 +686,7 @@ Global___T2sCloudProviderConfigElevenLabs: _TypeAlias = T2sCloudProviderConfigEl
 
 @_typing.final
 class T2sCloudProviderConfigMicrosoft(_message.Message):
-    """Configuration details specific to the Microsoft text-to-speech provider."""
+    """<p>Configuration details specific to the Microsoft text-to-speech provider.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -709,7 +708,7 @@ Global___T2sCloudProviderConfigMicrosoft: _TypeAlias = T2sCloudProviderConfigMic
 
 @_typing.final
 class T2sCloudProviderConfigGoogle(_message.Message):
-    """Configuration details specific to the Google text-to-speech provider."""
+    """<p>Configuration details specific to the Google text-to-speech provider.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -739,9 +738,8 @@ Global___T2sCloudProviderConfigGoogle: _TypeAlias = T2sCloudProviderConfigGoogle
 
 @_typing.final
 class SynthesizeResponse(_message.Message):
-    """Represents a Synthesize Response.
-
-    A Synthesize Response contains the generated audio, requested text and all other properties of this generated audio.
+    """<p>Represents a Synthesize Response.</p>
+    <p>A Synthesize Response contains the generated audio, requested text and all other properties of this generated audio.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -794,9 +792,9 @@ Global___SynthesizeResponse: _TypeAlias = SynthesizeResponse  # noqa: Y015
 
 @_typing.final
 class StreamingSynthesizeResponse(_message.Message):
-    """Represents a Streaming Synthesize Response.
-
-    A Streaming Synthesize Response contains the generated audio, requested text and and all other properties of this generated audio.
+    """<p>Represents a Streaming Synthesize Response.</p>
+    <p>A Streaming Synthesize Response contains the generated audio, requested text and and
+    all other properties of this generated audio.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -853,7 +851,7 @@ class NormalizeTextRequest(_message.Message):
     NORMALIZE //
     /////////////
 
-    NormalizeTextRequest message is used to request text normalization.
+    <p>NormalizeTextRequest message is used to request text normalization.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -880,7 +878,7 @@ Global___NormalizeTextRequest: _TypeAlias = NormalizeTextRequest  # noqa: Y015
 
 @_typing.final
 class NormalizeTextResponse(_message.Message):
-    """NormalizeTextResponse message is used to store the normalized text response."""
+    """<p>NormalizeTextResponse message is used to store the normalized text response.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -906,7 +904,7 @@ class T2SGetServiceInfoResponse(_message.Message):
     GET SERVICE INFO //
     ////////////////////
 
-    Version information of the service
+    <p>Version information of the service</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -933,11 +931,9 @@ class ListT2sPipelinesRequest(_message.Message):
     LIST T2S PIPELINES //
     //////////////////////
 
-    Pipeline Request representation.
-
-    The request message for ListT2sPipelines.
-
-    Filter pipelines by attributed in request.
+    <p>Pipeline Request representation.</p>
+    <p>The request message for ListT2sPipelines.</p>
+    <p>Filter pipelines by attributed in request.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -986,9 +982,8 @@ Global___ListT2sPipelinesRequest: _TypeAlias = ListT2sPipelinesRequest  # noqa: 
 
 @_typing.final
 class ListT2sPipelinesResponse(_message.Message):
-    """Pipeline Response representation.
-
-    The response message for ListT2sPipelines.
+    """<p>Pipeline Response representation.</p>
+    <p>The response message for ListT2sPipelines.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1020,11 +1015,9 @@ class ListT2sLanguagesRequest(_message.Message):
     LIST T2S LANGUAGES //
     //////////////////////
 
-    Language Request representation.
-
-    The request message for ListT2sLanguages.
-
-    Filter languages of pipelines by attributed in request.
+    <p>Language Request representation.</p>
+    <p>The request message for ListT2sLanguages.</p>
+    <p>Filter languages of pipelines by attributed in request.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1067,9 +1060,8 @@ Global___ListT2sLanguagesRequest: _TypeAlias = ListT2sLanguagesRequest  # noqa: 
 
 @_typing.final
 class ListT2sLanguagesResponse(_message.Message):
-    """Language Response representation.
-
-    The response message for ListT2sLanguages.
+    """<p>Language Response representation.</p>
+    <p>The response message for ListT2sLanguages.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1100,11 +1092,9 @@ class ListT2sDomainsRequest(_message.Message):
     LIST T2S DOMAINS //
     ////////////////////
 
-    Domain Request representation.
-
-    The request message for ListT2sDomains.
-
-    Filter domains of pipelines by attributed in request.
+    <p>Domain Request representation.</p>
+    <p>The request message for ListT2sDomains.</p>
+    <p>Filter domains of pipelines by attributed in request.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1147,9 +1137,8 @@ Global___ListT2sDomainsRequest: _TypeAlias = ListT2sDomainsRequest  # noqa: Y015
 
 @_typing.final
 class ListT2sDomainsResponse(_message.Message):
-    """Domains Response representation.
-
-    The response message for ListT2sDomains.
+    """<p>Domains Response representation.</p>
+    <p>The response message for ListT2sDomains.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1180,9 +1169,8 @@ class ListT2sNormalizationPipelinesRequest(_message.Message):
     LIST T2S NORMALIZATION PIPELINES //
     //////////////////////
 
-    The request message for ListT2sNormalizationPipelines.
-
-    Filter pipelines by attributed in request.
+    <p>The request message for ListT2sNormalizationPipelines.</p>
+    <p>Filter pipelines by attributed in request.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1205,9 +1193,8 @@ Global___ListT2sNormalizationPipelinesRequest: _TypeAlias = ListT2sNormalization
 
 @_typing.final
 class ListT2sNormalizationPipelinesResponse(_message.Message):
-    """Pipeline Response representation.
-
-    The response message for ListT2sNormalizationPipelines.
+    """<p>Pipeline Response representation.</p>
+    <p>The response message for ListT2sNormalizationPipelines.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1239,9 +1226,8 @@ class T2sPipelineId(_message.Message):
     UPDATE T2S PIPELINE //
     ///////////////////////
 
-    Pipeline Id representation.
-
-    Used in the creation, deletion and getter of pipelines.
+    <p>Pipeline Id representation.</p>
+    <p>Used in the creation, deletion and getter of pipelines.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1268,7 +1254,7 @@ class Text2SpeechConfig(_message.Message):
     Text-to-Speech Config //
     /////////////////////////
 
-    Configuration of text-to-speech models representation.
+    <p>Configuration of text-to-speech models representation.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -1319,7 +1305,7 @@ Global___Text2SpeechConfig: _TypeAlias = Text2SpeechConfig  # noqa: Y015
 
 @_typing.final
 class T2SDescription(_message.Message):
-    """T2SDescription message is used to describe the text-to-speech service."""
+    """<p>T2SDescription message is used to describe the text-to-speech service.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1361,7 +1347,7 @@ Global___T2SDescription: _TypeAlias = T2SDescription  # noqa: Y015
 
 @_typing.final
 class T2SInference(_message.Message):
-    """T2SInference message is used to specify the text-to-speech inference settings."""
+    """<p>T2SInference message is used to specify the text-to-speech inference settings.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1404,7 +1390,7 @@ Global___T2SInference: _TypeAlias = T2SInference  # noqa: Y015
 
 @_typing.final
 class CompositeInference(_message.Message):
-    """CompositeInference message combines text-to-mel and mel-to-audio inference settings."""
+    """<p>CompositeInference message combines text-to-mel and mel-to-audio inference settings.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1434,7 +1420,7 @@ Global___CompositeInference: _TypeAlias = CompositeInference  # noqa: Y015
 
 @_typing.final
 class SingleInference(_message.Message):
-    """SingleInference message inference settings of text2audio models."""
+    """<p>SingleInference message inference settings of text2audio models.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1458,7 +1444,7 @@ Global___SingleInference: _TypeAlias = SingleInference  # noqa: Y015
 
 @_typing.final
 class Text2Mel(_message.Message):
-    """Text2Mel message contains settings for text-to-mel inference."""
+    """<p>Text2Mel message contains settings for text-to-mel inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1494,7 +1480,7 @@ Global___Text2Mel: _TypeAlias = Text2Mel  # noqa: Y015
 
 @_typing.final
 class Text2Audio(_message.Message):
-    """Text2Audio message contains settings for text-to-audio inference."""
+    """<p>Text2Audio message contains settings for text-to-audio inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1568,7 +1554,7 @@ Global___Text2Audio: _TypeAlias = Text2Audio  # noqa: Y015
 
 @_typing.final
 class GlowTTS(_message.Message):
-    """GlowTTS message contains settings for the GlowTTS inference."""
+    """<p>GlowTTS message contains settings for the GlowTTS inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1616,7 +1602,7 @@ Global___GlowTTS: _TypeAlias = GlowTTS  # noqa: Y015
 
 @_typing.final
 class GlowTTSTriton(_message.Message):
-    """GlowTTSTriton message contains settings for the GlowTTS Triton inference."""
+    """<p>GlowTTSTriton message contains settings for the GlowTTS Triton inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1672,7 +1658,7 @@ Global___GlowTTSTriton: _TypeAlias = GlowTTSTriton  # noqa: Y015
 
 @_typing.final
 class Vits(_message.Message):
-    """Vits message contains settings for the Vits inference."""
+    """<p>Vits message contains settings for the Vits inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1720,7 +1706,7 @@ Global___Vits: _TypeAlias = Vits  # noqa: Y015
 
 @_typing.final
 class VitsTriton(_message.Message):
-    """VitsTriton message contains settings for the Vits Triton inference."""
+    """<p>VitsTriton message contains settings for the Vits Triton inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1776,7 +1762,7 @@ Global___VitsTriton: _TypeAlias = VitsTriton  # noqa: Y015
 
 @_typing.final
 class T2sCloudServiceElevenLabs(_message.Message):
-    """T2sCloudServiceElevenLabs message contains settings for the ElevenLabs Cloud service inference."""
+    """<p>T2sCloudServiceElevenLabs message contains settings for the ElevenLabs Cloud service inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1816,7 +1802,7 @@ Global___T2sCloudServiceElevenLabs: _TypeAlias = T2sCloudServiceElevenLabs  # no
 
 @_typing.final
 class VoiceSettings(_message.Message):
-    """VoiceSettings message contains settings for ElevenLabs inference."""
+    """<p>VoiceSettings message contains settings for ElevenLabs inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1850,7 +1836,7 @@ Global___VoiceSettings: _TypeAlias = VoiceSettings  # noqa: Y015
 
 @_typing.final
 class T2sCloudServiceAmazon(_message.Message):
-    """T2sCloudServiceAmazon message contains settings for the Amazon Cloud service inference."""
+    """<p>T2sCloudServiceAmazon message contains settings for the Amazon Cloud service inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1876,7 +1862,7 @@ Global___T2sCloudServiceAmazon: _TypeAlias = T2sCloudServiceAmazon  # noqa: Y015
 
 @_typing.final
 class T2sCloudServiceGoogle(_message.Message):
-    """T2sCloudServiceGoogle message contains settings for the Google Cloud service inference."""
+    """<p>T2sCloudServiceGoogle message contains settings for the Google Cloud service inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1914,7 +1900,7 @@ Global___T2sCloudServiceGoogle: _TypeAlias = T2sCloudServiceGoogle  # noqa: Y015
 
 @_typing.final
 class T2sCloudServiceMicrosoft(_message.Message):
-    """T2sCloudServiceMicrosoft message contains settings for the Microsoft Cloud service inference."""
+    """<p>T2sCloudServiceMicrosoft message contains settings for the Microsoft Cloud service inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1940,7 +1926,7 @@ Global___T2sCloudServiceMicrosoft: _TypeAlias = T2sCloudServiceMicrosoft  # noqa
 
 @_typing.final
 class Qwen3TtsCustomVoice(_message.Message):
-    """Qwen3TtsCustomVoice message contains settings for inference of qwen3-TTS-CustomVoice model."""
+    """<p>Qwen3TtsCustomVoice message contains settings for inference of qwen3-TTS-CustomVoice model.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1986,7 +1972,7 @@ Global___Qwen3TtsCustomVoice: _TypeAlias = Qwen3TtsCustomVoice  # noqa: Y015
 
 @_typing.final
 class Qwen3TtsBase(_message.Message):
-    """Qwen3TtsBase message contains settings for inference of qwen3-TTS-Base model."""
+    """<p>Qwen3TtsBase message contains settings for inference of qwen3-TTS-Base model.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2032,7 +2018,7 @@ Global___Qwen3TtsBase: _TypeAlias = Qwen3TtsBase  # noqa: Y015
 
 @_typing.final
 class Mel2Audio(_message.Message):
-    """Mel2Audio message contains settings for mel-to-audio inference."""
+    """<p>Mel2Audio message contains settings for mel-to-audio inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2074,7 +2060,7 @@ Global___Mel2Audio: _TypeAlias = Mel2Audio  # noqa: Y015
 
 @_typing.final
 class HiFiGan(_message.Message):
-    """HiFiGan message contains settings for the HiFiGan inference."""
+    """<p>HiFiGan message contains settings for the HiFiGan inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2108,7 +2094,7 @@ Global___HiFiGan: _TypeAlias = HiFiGan  # noqa: Y015
 
 @_typing.final
 class HiFiGanTriton(_message.Message):
-    """HiFiGanTriton message contains settings for the HiFiGan Triton inference."""
+    """<p>HiFiGanTriton message contains settings for the HiFiGan Triton inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2142,7 +2128,7 @@ Global___HiFiGanTriton: _TypeAlias = HiFiGanTriton  # noqa: Y015
 
 @_typing.final
 class MbMelganTriton(_message.Message):
-    """MbMelganTriton message contains settings for the MbMelgan Triton inference."""
+    """<p>MbMelganTriton message contains settings for the MbMelgan Triton inference.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2180,7 +2166,7 @@ Global___MbMelganTriton: _TypeAlias = MbMelganTriton  # noqa: Y015
 
 @_typing.final
 class Caching(_message.Message):
-    """Caching message contains settings for caching."""
+    """<p>Caching message contains settings for caching.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2222,7 +2208,7 @@ Global___Caching: _TypeAlias = Caching  # noqa: Y015
 
 @_typing.final
 class T2SNormalization(_message.Message):
-    """Represents the configuration for text-to-speech normalization."""
+    """<p>Represents the configuration for text-to-speech normalization.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2276,7 +2262,7 @@ Global___T2SNormalization: _TypeAlias = T2SNormalization  # noqa: Y015
 
 @_typing.final
 class Postprocessing(_message.Message):
-    """Postprocessing message contains settings for postprocessing."""
+    """<p>Postprocessing message contains settings for postprocessing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2322,7 +2308,7 @@ Global___Postprocessing: _TypeAlias = Postprocessing  # noqa: Y015
 
 @_typing.final
 class Logmnse(_message.Message):
-    """Logmnse message contains settings for Logmnse postprocessing."""
+    """<p>Logmnse message contains settings for Logmnse postprocessing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2352,7 +2338,7 @@ Global___Logmnse: _TypeAlias = Logmnse  # noqa: Y015
 
 @_typing.final
 class Wiener(_message.Message):
-    """Wiener message contains settings for Wiener postprocessing."""
+    """<p>Wiener message contains settings for Wiener postprocessing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2390,7 +2376,7 @@ Global___Wiener: _TypeAlias = Wiener  # noqa: Y015
 
 @_typing.final
 class Apodization(_message.Message):
-    """Apodization message contains settings for apodization postprocessing."""
+    """<p>Apodization message contains settings for apodization postprocessing.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2412,7 +2398,7 @@ Global___Apodization: _TypeAlias = Apodization  # noqa: Y015
 
 @_typing.final
 class T2SCustomLengthScales(_message.Message):
-    """T2SCustomLengthScales message contains custom length scales for text types."""
+    """<p>T2SCustomLengthScales message contains custom length scales for text types.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2462,7 +2448,7 @@ Global___T2SCustomLengthScales: _TypeAlias = T2SCustomLengthScales  # noqa: Y015
 
 @_typing.final
 class PhonemizerId(_message.Message):
-    """PhonemizerId message represents the ID of a phonemizer."""
+    """<p>PhonemizerId message represents the ID of a phonemizer.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2484,7 +2470,7 @@ Global___PhonemizerId: _TypeAlias = PhonemizerId  # noqa: Y015
 
 @_typing.final
 class CustomPhonemizerProto(_message.Message):
-    """CustomPhonemizerProto message represents a custom phonemizer."""
+    """<p>CustomPhonemizerProto message represents a custom phonemizer.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2512,7 +2498,7 @@ Global___CustomPhonemizerProto: _TypeAlias = CustomPhonemizerProto  # noqa: Y015
 
 @_typing.final
 class Map(_message.Message):
-    """Map message represents a word-to-phoneme mapping in a custom phonemizer."""
+    """<p>Map message represents a word-to-phoneme mapping in a custom phonemizer.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2538,7 +2524,7 @@ Global___Map: _TypeAlias = Map  # noqa: Y015
 
 @_typing.final
 class ListCustomPhonemizerResponse(_message.Message):
-    """ListCustomPhonemizerResponse message represents the response for listing custom phonemizers."""
+    """<p>ListCustomPhonemizerResponse message represents the response for listing custom phonemizers.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2562,7 +2548,7 @@ Global___ListCustomPhonemizerResponse: _TypeAlias = ListCustomPhonemizerResponse
 
 @_typing.final
 class ListCustomPhonemizerRequest(_message.Message):
-    """ListCustomPhonemizerRequest message represents the request for listing custom phonemizers."""
+    """<p>ListCustomPhonemizerRequest message represents the request for listing custom phonemizers.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2586,7 +2572,7 @@ Global___ListCustomPhonemizerRequest: _TypeAlias = ListCustomPhonemizerRequest  
 
 @_typing.final
 class UpdateCustomPhonemizerRequest(_message.Message):
-    """UpdateCustomPhonemizerRequest message represents the request for updating a custom phonemizer."""
+    """<p>UpdateCustomPhonemizerRequest message represents the request for updating a custom phonemizer.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2604,7 +2590,9 @@ class UpdateCustomPhonemizerRequest(_message.Message):
         """Replace all words in the phonemizer with new ones."""
 
     class UpdateMethod(_UpdateMethod, metaclass=_UpdateMethodEnumTypeWrapper):
-        """The update method to be used. UpdateMethod enum defines the method for updating custom phonemizers."""
+        """The update method to be used.
+        UpdateMethod enum defines the method for updating custom phonemizers.
+        """
 
     extend_hard: UpdateCustomPhonemizerRequest.UpdateMethod.ValueType  # 0
     """Add new words, replacing existing ones."""
@@ -2641,7 +2629,7 @@ Global___UpdateCustomPhonemizerRequest: _TypeAlias = UpdateCustomPhonemizerReque
 
 @_typing.final
 class CreateCustomPhonemizerRequest(_message.Message):
-    """CreateCustomPhonemizerRequest message represents the request for creating a custom phonemizer."""
+    """<p>CreateCustomPhonemizerRequest message represents the request for creating a custom phonemizer.</p>"""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2673,9 +2661,9 @@ class VoiceCloningRequest(_message.Message):
     VOICE CLONING //
     /////////////////
 
-    VoiceCloningRequest message represents the request for cloning a voice.
-
-    A VoiceCloningRequest contains a sample audio of the speaker to be cloned together with its transcription and the information about the speaker and the model to use for cloning.
+    <p>VoiceCloningRequest message represents the request for cloning a voice.</p>
+    <p>A VoiceCloningRequest contains a sample audio of the speaker to be cloned together with
+    its transcription and the information about the speaker and the model to use for cloning.</p>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
