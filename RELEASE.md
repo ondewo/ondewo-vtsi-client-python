@@ -20,7 +20,7 @@
 ### Improvements
 
 * Tracking API Version 9.6.0 of [ondewo-vtsi-api](https://github.com/ondewo/ondewo-vtsi-api) (unreleased; built
-  against commit `da7e545f14f53451a66058f5f26e437fdb093d72`). Only the `ondewo/vtsi` stubs change; the vendored
+  against commit `c1b0c15398ca69d5b1a07d9baf0b2c88a9e2aba9`). Only the `ondewo/vtsi` stubs change; the vendored
   `ondewo/{nlu,s2t,t2s,sip,qa}` stubs are byte-identical to 9.5.3's.
 
 *****************
