@@ -2,6 +2,20 @@
 
 *****************
 
+## Release ONDEWO VTSI Python Client 9.6.1
+
+### Bug Fixes
+
+* Vendored protos byte-identical to the released service clients again: the vendored `ondewo/{nlu,qa,s2t,t2s,sip}`
+  modules are generated from the verbatim `ondewo-nlu-api` 7.6.0, `ondewo-s2t-api` 7.6.0, `ondewo-t2s-api` 6.7.0 and
+  `ondewo-sip-api` 5.7.0 protos once more, so they are byte-identical to `ondewo-nlu-client` 7.6.1,
+  `ondewo-s2t-client` 7.6.3, `ondewo-t2s-client` 6.7.2 and `ondewo-sip-client` 5.7.3. 9.6.0 shipped them with
+  re-wrapped docstrings (code identical), which broke a byte-for-byte install alongside those clients.
+* Tracking API Version [9.6.1](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.6.1)
+  ( [Documentation](https://ondewo.github.io/ondewo-vtsi-api/) ); `ondewo/vtsi` is unchanged from 9.6.0.
+
+*****************
+
 ## Release ONDEWO VTSI Python Client 9.6.0
 
 ### New Features
