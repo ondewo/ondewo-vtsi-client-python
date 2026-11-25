@@ -659,9 +659,7 @@ Global___Agent: _TypeAlias = Agent  # noqa: Y015
 
 @_typing.final
 class WarmTransferAgentSettings(_message.Message):
-    """The agent's settings of warm transfer intros. A text a <code>WarmTransferIntroConfig</code> leaves empty falls back
-    to the agent's text for the intro's language, then to the built-in default.
-    """
+    """The agent's settings of warm transfer intros. A text a <code>WarmTransferIntroConfig</code> leaves empty falls back to the agent's text for the intro's language, then to the built-in default."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -748,9 +746,7 @@ Global___WarmTransferAgentSettings: _TypeAlias = WarmTransferAgentSettings  # no
 
 @_typing.final
 class WarmTransferAgentTexts(_message.Message):
-    """The default texts of warm transfer intros in one language. An empty text = the built-in default. The fields and
-    placeholders are those of the same-named fields of <code>WarmTransferIntroConfig</code>.
-    """
+    """The default texts of warm transfer intros in one language. An empty text = the built-in default. The fields and placeholders are those of the same-named fields of <code>WarmTransferIntroConfig</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -794,10 +790,7 @@ Global___WarmTransferAgentTexts: _TypeAlias = WarmTransferAgentTexts  # noqa: Y0
 
 @_typing.final
 class WarmTransferAgentLexicon(_message.Message):
-    """Additional entries of the closed decision lexicon of warm transfer intros in one language, matched before an LLM
-    classifies an answer. At most 50 entries in <code>accept_phrases</code> and <code>decline_phrases</code>
-    together.
-    """
+    """Additional entries of the closed decision lexicon of warm transfer intros in one language, matched before an LLM classifies an answer. At most 50 entries in <code>accept_phrases</code> and <code>decline_phrases</code> together."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4174,9 +4167,7 @@ Global___CreateProjectTechnicalUserRequest: _TypeAlias = CreateProjectTechnicalU
 
 @_typing.final
 class CreateProjectTechnicalUserResponse(_message.Message):
-    """Response with the freshly minted technical user's credentials.
-    The password is returned ONCE and cannot be retrieved later.
-    """
+    """Response with the freshly minted technical user's credentials. The password is returned ONCE and cannot be retrieved later."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4356,9 +4347,7 @@ Global___RotateProjectTechnicalUserPasswordRequest: _TypeAlias = RotateProjectTe
 
 @_typing.final
 class RotateProjectTechnicalUserPasswordResponse(_message.Message):
-    """Response with the rotated password.
-    The password is returned ONCE and cannot be retrieved later.
-    """
+    """Response with the rotated password. The password is returned ONCE and cannot be retrieved later."""
 
     DESCRIPTOR: _descriptor.Descriptor
 

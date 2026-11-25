@@ -68,10 +68,7 @@ class _EntityTypeViewEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Entity
     """Minimum view including only entity type UUID and entity type display name"""
 
 class EntityTypeView(_EntityTypeView, metaclass=_EntityTypeViewEnumTypeWrapper):
-    """Represents the options for views of an entity type.
-    An entity type can be a sizable object. Therefore, we provide a resource view that
-    does not return all values and synonyms besides the full view that is set by default.
-    """
+    """Represents the options for views of an entity type. An entity type can be a sizable object. Therefore, we provide a resource view that does not return all values and synonyms besides the full view that is set by default."""
 
 ENTITY_TYPE_VIEW_UNSPECIFIED: EntityTypeView.ValueType  # 0
 """Same as ENTITY_TYPE_VIEW_FULL"""
@@ -111,10 +108,7 @@ Global___EntityTypeCategory: _TypeAlias = EntityTypeCategory  # noqa: Y015
 
 @_typing.final
 class EntityType(_message.Message):
-    """Represents an entity type.
-    Entity types serve as a tool for extracting parameter values from natural
-    language queries.
-    """
+    """Represents an entity type. Entity types serve as a tool for extracting parameter values from natural language queries."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -182,10 +176,7 @@ class EntityType(_message.Message):
         """
 
     class AutoExpansionMode(_AutoExpansionMode, metaclass=_AutoExpansionModeEnumTypeWrapper):
-        """Represents different entity type expansion modes. Automated expansion
-        allows an agent to recognize values that have not been explicitly listed in
-        the entity (for example, new kinds of shopping list items).
-        """
+        """Represents different entity type expansion modes. Automated expansion allows an agent to recognize values that have not been explicitly listed in the entity (for example, new kinds of shopping list items)."""
 
     AUTO_EXPANSION_MODE_UNSPECIFIED: EntityType.AutoExpansionMode.ValueType  # 0
     """Auto expansion disabled for the entity."""

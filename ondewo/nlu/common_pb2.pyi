@@ -893,9 +893,7 @@ Global___DeleteNotificationsRequest: _TypeAlias = DeleteNotificationsRequest  # 
 
 @_typing.final
 class StreamNotificationsRequest(_message.Message):
-    """Message for streaming notifications in real time via
-    <a href="index.html#ondewo.nlu.Users.StreamNotifications">Users.StreamNotifications</a>.
-    """
+    """Message for streaming notifications in real time via <a href="index.html#ondewo.nlu.Users.StreamNotifications">Users.StreamNotifications</a>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 

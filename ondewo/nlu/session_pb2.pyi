@@ -71,9 +71,7 @@ class _TranscriptionTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Tra
     """Manual transcription produced by a human annotator."""
 
 class TranscriptionType(_TranscriptionType, metaclass=_TranscriptionTypeEnumTypeWrapper):
-    """Identifies whether a transcription was produced by an automatic
-    speech-to-text system or by a human annotator.
-    """
+    """Identifies whether a transcription was produced by an automatic speech-to-text system or by a human annotator."""
 
 TRANSCRIPTION_TYPE_UNSPECIFIED: TranscriptionType.ValueType  # 0
 """Sentinel value when the source of the transcription was not specified."""
@@ -101,9 +99,7 @@ class _ReasoningEffortEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Reaso
     """High reasoning effort."""
 
 class ReasoningEffort(_ReasoningEffort, metaclass=_ReasoningEffortEnumTypeWrapper):
-    """Effort level for reasoning models (e.g. o1, o3). Controls the trade-off
-    between speed and quality.
-    """
+    """Effort level for reasoning models (e.g. o1, o3). Controls the trade-off between speed and quality."""
 
 REASONING_EFFORT_UNSPECIFIED: ReasoningEffort.ValueType  # 0
 """Unspecified reasoning effort."""
@@ -496,9 +492,7 @@ class _AudioEncodingEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_AudioEn
     """
 
 class AudioEncoding(_AudioEncoding, metaclass=_AudioEncodingEnumTypeWrapper):
-    """Audio encoding of the audio content sent in the conversational query request.
-    Refer to the <a href="/speech/docs/basics">Cloud Speech API documentation</a> for more details.
-    """
+    """Audio encoding of the audio content sent in the conversational query request. Refer to the <a href="/speech/docs/basics">Cloud Speech API documentation</a> for more details."""
 
 AUDIO_ENCODING_UNSPECIFIED: AudioEncoding.ValueType  # 0
 """Not specified."""
@@ -682,9 +676,7 @@ class _FeedbackTimeGranularityEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrappe
     """Yearly calendar buckets."""
 
 class FeedbackTimeGranularity(_FeedbackTimeGranularity, metaclass=_FeedbackTimeGranularityEnumTypeWrapper):
-    """The calendar granularity of a feedback time series. When set (non-unspecified) it overrides the
-    fixed-width bucket_width_seconds on the request.
-    """
+    """The calendar granularity of a feedback time series. When set (non-unspecified) it overrides the fixed-width bucket_width_seconds on the request."""
 
 FEEDBACK_TIME_GRANULARITY_UNSPECIFIED: FeedbackTimeGranularity.ValueType  # 0
 """Unspecified — use the request's fixed-width bucket_width_seconds instead."""
@@ -1240,9 +1232,7 @@ Global___LlmToolCallMetadata: _TypeAlias = LlmToolCallMetadata  # noqa: Y015
 
 @_typing.final
 class LlmThinkingMetadata(_message.Message):
-    """Thinking / reasoning block emitted by the model (e.g. Anthropic extended thinking,
-    OpenAI o-series reasoning).
-    """
+    """Thinking / reasoning block emitted by the model (e.g. Anthropic extended thinking, OpenAI o-series reasoning)."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1706,12 +1696,7 @@ Global___LlmSafetyFinding: _TypeAlias = LlmSafetyFinding  # noqa: Y015
 
 @_typing.final
 class LlmSafetyAssessment(_message.Message):
-    """Native safety assessment for one LLM call, computed at telemetry build time by
-    a dependency-free (regex / substring) assessor over the call's input / output
-    text. Additive, optional: absent when safety scoring is disabled. This is the
-    live MONITORING signal; the offline LLM-judge safety evaluators live in
-    <code>llm_evaluation.proto</code>.
-    """
+    """Native safety assessment for one LLM call, computed at telemetry build time by a dependency-free (regex / substring) assessor over the call's input / output text. Additive, optional: absent when safety scoring is disabled. This is the live MONITORING signal; the offline LLM-judge safety evaluators live in <code>llm_evaluation.proto</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1764,10 +1749,7 @@ Global___LlmSafetyAssessment: _TypeAlias = LlmSafetyAssessment  # noqa: Y015
 
 @_typing.final
 class LlmRetrievedChunk(_message.Message):
-    """One retrieved RAG chunk surfaced during an LLM call. Mirrors the five-field
-    chunk already emitted into <code>outputs.retrieved_chunks</code> (Struct) plus
-    a typed <code>rank</code>.
-    """
+    """One retrieved RAG chunk surfaced during an LLM call. Mirrors the five-field chunk already emitted into <code>outputs.retrieved_chunks</code> (Struct) plus a typed <code>rank</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1811,10 +1793,7 @@ Global___LlmRetrievedChunk: _TypeAlias = LlmRetrievedChunk  # noqa: Y015
 
 @_typing.final
 class LlmRetrievalMetadata(_message.Message):
-    """Typed view of the chunks retrieved for one LLM call. Populated alongside the
-    unstructured <code>outputs.retrieved_chunks</code> Struct (field 18 on
-    LlmTelemetry, kept for back-compat); both carry the same chunk list.
-    """
+    """Typed view of the chunks retrieved for one LLM call. Populated alongside the unstructured <code>outputs.retrieved_chunks</code> Struct (field 18 on LlmTelemetry, kept for back-compat); both carry the same chunk list."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2100,10 +2079,7 @@ Global___LlmCcaiServiceUsage: _TypeAlias = LlmCcaiServiceUsage  # noqa: Y015
 
 @_typing.final
 class LlmBaseUrlUsage(_message.Message):
-    """Per-base-URL usage rollup across the scope. One entry per distinct
-    <code>LlmTelemetry.base_url</code>; calls whose model configuration states no base URL are
-    grouped under an empty <code>base_url</code>.
-    """
+    """Per-base-URL usage rollup across the scope. One entry per distinct <code>LlmTelemetry.base_url</code>; calls whose model configuration states no base URL are grouped under an empty <code>base_url</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2400,11 +2376,7 @@ Global___LlmReasoningEffortStat: _TypeAlias = LlmReasoningEffortStat  # noqa: Y0
 
 @_typing.final
 class LlmTelemetryReport(_message.Message):
-    """Aggregated telemetry across all LLM calls in one DetectIntent turn, or across
-    a session / agent-domain scope when used as a statistics report payload. The
-    breakdown fields (6+) are populated only for the matching report type; a
-    *_LLM_TOTAL_STATISTICS report populates all of them.
-    """
+    """Aggregated telemetry across all LLM calls in one DetectIntent turn, or across a session / agent-domain scope when used as a statistics report payload. The breakdown fields (6+) are populated only for the matching report type; a *_LLM_TOTAL_STATISTICS report populates all of them."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2571,9 +2543,7 @@ Global___LlmSafetyCategoryStat: _TypeAlias = LlmSafetyCategoryStat  # noqa: Y015
 
 @_typing.final
 class LlmSafetyStats(_message.Message):
-    """Native-safety breakdown aggregate across the LLM calls in scope. Computed from
-    the per-call LlmSafetyAssessment records.
-    """
+    """Native-safety breakdown aggregate across the LLM calls in scope. Computed from the per-call LlmSafetyAssessment records."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2845,10 +2815,7 @@ Global___LlmTokenUsageUpdateEvent: _TypeAlias = LlmTokenUsageUpdateEvent  # noqa
 
 @_typing.final
 class LlmAgentNodeEvent(_message.Message):
-    """Emitted on a streaming DetectIntent when a node of an AI Team graph starts, completes or fails.
-    A node inside a nested graph (a subgraph, or a member agent of a supervisor or swarm) is reported too,
-    with its full <code>llm_agent_node_event_node_path</code>.
-    """
+    """Emitted on a streaming DetectIntent when a node of an AI Team graph starts, completes or fails. A node inside a nested graph (a subgraph, or a member agent of a supervisor or swarm) is reported too, with its full <code>llm_agent_node_event_node_path</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3119,11 +3086,7 @@ Global___QueryResult: _TypeAlias = QueryResult  # noqa: Y015
 
 @_typing.final
 class StreamingDetectIntentRequest(_message.Message):
-    """The top-level message sent by the client to the <code>StreamingDetectIntent</code> method.
-    Multiple request messages should be sent in order:
-    1.  The first message must contain <code>session</code>, <code>query_input</code> plus optionally <code>query_params</code> and/or <code>single_utterance</code>. The message must not contain <code>input_audio</code>.
-    2.  If <code>query_input</code> was set to a streaming input audio config, all subsequent messages must contain only <code>input_audio</code>. Otherwise, finish the request stream.
-    """
+    """The top-level message sent by the client to the <code>StreamingDetectIntent</code> method. Multiple request messages should be sent in order: 1.  The first message must contain <code>session</code>, <code>query_input</code> plus optionally <code>query_params</code> and/or <code>single_utterance</code>. The message must not contain <code>input_audio</code>. 2.  If <code>query_input</code> was set to a streaming input audio config, all subsequent messages must contain only <code>input_audio</code>. Otherwise, finish the request stream."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3207,11 +3170,7 @@ Global___StreamingDetectIntentRequest: _TypeAlias = StreamingDetectIntentRequest
 
 @_typing.final
 class StreamingDetectIntentResponse(_message.Message):
-    """The top-level message returned from the <code>StreamingDetectIntent</code> method.
-    Multiple response messages can be returned in order:
-    1.  If the input was set to streaming audio, the first one or more messages contain <code>recognition_result</code>. Each <code>recognition_result</code> represents a more complete transcript of what the user said. The last <code>recognition_result</code> has <code>is_final</code> set to <code>true</code>.
-    2.  The next message contains <code>response_id</code>, <code>query_result</code> and optionally <code>webhook_status</code> if a WebHook was called.
-    """
+    """The top-level message returned from the <code>StreamingDetectIntent</code> method. Multiple response messages can be returned in order: 1.  If the input was set to streaming audio, the first one or more messages contain <code>recognition_result</code>. Each <code>recognition_result</code> represents a more complete transcript of what the user said. The last <code>recognition_result</code> has <code>is_final</code> set to <code>true</code>. 2.  The next message contains <code>response_id</code>, <code>query_result</code> and optionally <code>webhook_status</code> if a WebHook was called."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3318,9 +3277,7 @@ Global___StreamingDetectIntentResponse: _TypeAlias = StreamingDetectIntentRespon
 
 @_typing.final
 class TurnControl(_message.Message):
-    """Controls one turn of a session. Sent as <code>StreamingDetectIntentRequest.turn_control</code> on a call-length
-    stream, or in an <code>InterruptTurnRequest</code>.
-    """
+    """Controls one turn of a session. Sent as <code>StreamingDetectIntentRequest.turn_control</code> on a call-length stream, or in an <code>InterruptTurnRequest</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3362,9 +3319,7 @@ Global___TurnControl: _TypeAlias = TurnControl  # noqa: Y015
 
 @_typing.final
 class CancelTurn(_message.Message):
-    """Cancels a turn. At least one of <code>response_id</code> and <code>client_turn_id</code> must be set; when both
-    are, <code>client_turn_id</code> is authoritative.
-    """
+    """Cancels a turn. At least one of <code>response_id</code> and <code>client_turn_id</code> must be set; when both are, <code>client_turn_id</code> is authoritative."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3472,10 +3427,7 @@ Global___HeardMessage: _TypeAlias = HeardMessage  # noqa: Y015
 
 @_typing.final
 class HeardReport(_message.Message):
-    """Reports what the user heard of a turn's answer. At least one of <code>response_id</code> and
-    <code>client_turn_id</code> must be set. The server keeps the report with the highest <code>revision</code> per
-    turn and ignores a lower or equal one.
-    """
+    """Reports what the user heard of a turn's answer. At least one of <code>response_id</code> and <code>client_turn_id</code> must be set. The server keeps the report with the highest <code>revision</code> per turn and ignores a lower or equal one."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3527,12 +3479,7 @@ Global___HeardReport: _TypeAlias = HeardReport  # noqa: Y015
 
 @_typing.final
 class DiscardDraft(_message.Message):
-    """Discards the session step of a preemptive draft: a turn the client started speculatively on a partial
-    transcript and then did not use. The server deletes the session step only when it belongs to this session and its
-    request carried <code>QueryParameters.preemptive_draft</code> = true; it answers
-    <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code>. Any other step is kept and the server answers
-    <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code>.
-    """
+    """Discards the session step of a preemptive draft: a turn the client started speculatively on a partial transcript and then did not use. The server deletes the session step only when it belongs to this session and its request carried <code>QueryParameters.preemptive_draft</code> = true; it answers <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code>. Any other step is kept and the server answers <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3646,12 +3593,7 @@ Global___InterruptTurnResponse: _TypeAlias = InterruptTurnResponse  # noqa: Y015
 
 @_typing.final
 class WarmTransferIntroConfig(_message.Message):
-    """The configuration of one warm transfer intro, as resolved by the caller of
-    <code>PrepareWarmTransferIntro</code>. A text left empty (or unset, for an <code>optional</code> field) falls back
-    to the agent's default text for the language (<code>Agent.warm_transfer_settings</code>), then to the built-in
-    default. Texts are spoken to the target, never to the caller, except <code>caller_declined_message</code> and
-    <code>caller_unreachable_message</code>.
-    """
+    """The configuration of one warm transfer intro, as resolved by the caller of <code>PrepareWarmTransferIntro</code>. A text left empty (or unset, for an <code>optional</code> field) falls back to the agent's default text for the language (<code>Agent.warm_transfer_settings</code>), then to the built-in default. Texts are spoken to the target, never to the caller, except <code>caller_declined_message</code> and <code>caller_unreachable_message</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -3915,8 +3857,7 @@ class StreamingRecognitionResult(_message.Message):
 
     3.  transcript: &quot;to be&quot;
 
-    4.  transcript: &quot;to be or not to be&quot;
-        is_final: true
+    4.  transcript: &quot;to be or not to be&quot; is_final: true
 
     5.  transcript: &quot; that&apos;s&quot;
 
@@ -3924,17 +3865,13 @@ class StreamingRecognitionResult(_message.Message):
 
     7.  recognition_event_type: <code>RECOGNITION_EVENT_END_OF_SINGLE_UTTERANCE</code>
 
-    8.  transcript: &quot; that is the question&quot;
-        is_final: true
+    8.  transcript: &quot; that is the question&quot; is_final: true
 
     Only two of the responses contain final results (#4 and #8 indicated by <code>is_final: true</code>). Concatenating these generates the full transcript: <code>"to be or not to be that is the question"</code>.
 
     In each response we populate:
 
-    <ul>
-        <li>for <code>MESSAGE_TYPE_TRANSCRIPT</code>: <code>transcript</code> and possibly <code>is_final</code>.</li>
-        <li>for <code>MESSAGE_TYPE_END_OF_SINGLE_UTTERANCE</code>: only <code>event_type</code>.</li>
-    </ul>
+    <ul> <li>for <code>MESSAGE_TYPE_TRANSCRIPT</code>: <code>transcript</code> and possibly <code>is_final</code>.</li> <li>for <code>MESSAGE_TYPE_END_OF_SINGLE_UTTERANCE</code>: only <code>event_type</code>.</li> </ul>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -4100,10 +4037,7 @@ Global___TextInput: _TypeAlias = TextInput  # noqa: Y015
 
 @_typing.final
 class EventInput(_message.Message):
-    """Events allow for matching intents by event name instead of the natural language input.
-    For instance, input <code>&lt;event: { name: &quot;welcome_event&quot;, parameters: { name: &quot;Sam&quot; } }&gt;</code> can trigger a personalized welcome response.
-    The parameter <code>name</code> may be used by the agent in the response: <code>&quot;Hello #welcome_event.name! What can I do for you today?&quot;</code>.
-    """
+    """Events allow for matching intents by event name instead of the natural language input. For instance, input <code>&lt;event: { name: &quot;welcome_event&quot;, parameters: { name: &quot;Sam&quot; } }&gt;</code> can trigger a personalized welcome response. The parameter <code>name</code> may be used by the agent in the response: <code>&quot;Hello #welcome_event.name! What can I do for you today?&quot;</code>."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -4160,9 +4094,7 @@ class Session(_message.Message):
         """Only some fields are populated in the response."""
 
     class View(_View, metaclass=_ViewEnumTypeWrapper):
-        """Represents the options for views of a session.
-        A session can be a sizable object. Therefore, we provide a resource view that does not return all data
-        """
+        """Represents the options for views of a session. A session can be a sizable object. Therefore, we provide a resource view that does not return all data"""
 
     VIEW_UNSPECIFIED: Session.View.ValueType  # 0
     """Endpoints decide whether to return the full or the sparse view"""
@@ -5191,8 +5123,7 @@ Global___DeleteSessionRequest: _TypeAlias = DeleteSessionRequest  # noqa: Y015
 class CreateSessionReviewRequest(_message.Message):
     """*** SESSION-REVIEW RELATED MESSAGES *** //
 
-    Request to persist a session review for a given session.
-    As a side effect, training data in ondewo-cai may also be updated.
+    Request to persist a session review for a given session. As a side effect, training data in ondewo-cai may also be updated.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -5253,9 +5184,7 @@ class SessionReview(_message.Message):
         """Only some fields are populated in the response."""
 
     class View(_View, metaclass=_ViewEnumTypeWrapper):
-        """Represents the options for views of a session_review.
-        A session_review can be a sizable object. Therefore, we provide a resource view that does not return all data
-        """
+        """Represents the options for views of a session_review. A session_review can be a sizable object. Therefore, we provide a resource view that does not return all data"""
 
     VIEW_UNSPECIFIED: SessionReview.View.ValueType  # 0
     """Endpoints decide whether to return the full or the sparse view"""
@@ -6628,12 +6557,7 @@ Global___ListSessionCommentsResponse: _TypeAlias = ListSessionCommentsResponse  
 class SessionFeedback(_message.Message):
     """A single piece of user feedback about a whole session or a single session step (turn).
 
-    The rating is intentionally extensible: <code>rating</code> carries the thumbs signal surfaced in the UI
-    today, while <code>score</code> and <code>categorical_value</code> allow richer scales (star / NPS / CSAT)
-    to be added later without a schema change. The feedback is pinned to the exact forensic context it is
-    about (<code>session_id</code>, <code>session_step_id</code>, <code>response_id</code>,
-    <code>session_step_llm_telemetry_id</code>) so the full conversation state up to the feedback can be
-    reconstructed from the already-persisted session step.
+    The rating is intentionally extensible: <code>rating</code> carries the thumbs signal surfaced in the UI today, while <code>score</code> and <code>categorical_value</code> allow richer scales (star / NPS / CSAT) to be added later without a schema change. The feedback is pinned to the exact forensic context it is about (<code>session_id</code>, <code>session_step_id</code>, <code>response_id</code>, <code>session_step_llm_telemetry_id</code>) so the full conversation state up to the feedback can be reconstructed from the already-persisted session step.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -7003,10 +6927,7 @@ Global___ListSessionFeedbackResponse: _TypeAlias = ListSessionFeedbackResponse  
 
 @_typing.final
 class FeedbackFilter(_message.Message):
-    """A key + up/down counts breakdown bucket (by language / intent / author type / ...).
-    A feedback-native filter for feedback list + analytics requests, complementing SessionFilter (which
-    filters the parent sessions). All set fields are AND-combined; repeated fields are OR-within-field.
-    """
+    """A key + up/down counts breakdown bucket (by language / intent / author type / ...). A feedback-native filter for feedback list + analytics requests, complementing SessionFilter (which filters the parent sessions). All set fields are AND-combined; repeated fields are OR-within-field."""
 
     DESCRIPTOR: _descriptor.Descriptor
 

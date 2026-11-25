@@ -27,7 +27,7 @@ if _version_not_supported:
 
 
 class Speech2TextStub:
-    """<p>Speech-to-text service</p>
+    """Speech-to-text service
     """
 
     def __init__(self, channel):
@@ -119,7 +119,7 @@ class Speech2TextStub:
 
 
 class Speech2TextServicer:
-    """<p>Speech-to-text service</p>
+    """Speech-to-text service
     """
 
     def TranscribeFile(self, request, context):
@@ -330,7 +330,7 @@ def add_Speech2TextServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Speech2Text:
-    """<p>Speech-to-text service</p>
+    """Speech-to-text service
     """
 
     @staticmethod

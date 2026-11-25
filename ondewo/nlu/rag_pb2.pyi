@@ -29,10 +29,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-File-level comment for <code>ondewo/nlu/rag.proto</code>.
-This file contains a single service <a href="#ondewo.nlu.Rags">Rags</a>. The Rags service provides RAG (Retrieval-Augmented Generation) and web crawler functionality.
-Fields marked as <code>optional</code> carry explicit presence, so that an explicitly set default value (<code>0</code>, <code>false</code>, <code>""</code>) can be distinguished from a field that was never set. Without the <code>optional</code> keyword it would for instance not be possible to distinguish between an integer <code>0</code> and <code>null</code>.
-The marker is applied where that distinction is actually consumed — the partial-update inputs (an unset field leaves the stored value untouched, an explicit default clears it) and the retrieval overrides that are forwarded to RAGFlow (an explicit <code>0.0</code> or <code>false</code> must override the server-side default rather than fall back to it). Fields that carry no such distinction are deliberately left without the keyword, and for message-typed fields it is omitted because proto3 gives them explicit presence anyway.
+File-level comment for <code>ondewo/nlu/rag.proto</code>. This file contains a single service <a href="#ondewo.nlu.Rags">Rags</a>. The Rags service provides RAG (Retrieval-Augmented Generation) and web crawler functionality. Fields marked as <code>optional</code> carry explicit presence, so that an explicitly set default value (<code>0</code>, <code>false</code>, <code>""</code>) can be distinguished from a field that was never set. Without the <code>optional</code> keyword it would for instance not be possible to distinguish between an integer <code>0</code> and <code>null</code>. The marker is applied where that distinction is actually consumed — the partial-update inputs (an unset field leaves the stored value untouched, an explicit default clears it) and the retrieval overrides that are forwarded to RAGFlow (an explicit <code>0.0</code> or <code>false</code> must override the server-side default rather than fall back to it). Fields that carry no such distinction are deliberately left without the keyword, and for message-typed fields it is omitted because proto3 gives them explicit presence anyway.
 """
 
 from collections import abc as _abc
@@ -526,9 +523,7 @@ Global___RagFileMetadata: _TypeAlias = RagFileMetadata  # noqa: Y015
 
 @_typing.final
 class RagPartialSuccess(_message.Message):
-    """On complete success: no fields set (empty message).
-    On partial success/failure: both fields set.
-    """
+    """On complete success: no fields set (empty message). On partial success/failure: both fields set."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -623,24 +618,7 @@ Global___RagCreateDatasetRequest: _TypeAlias = RagCreateDatasetRequest  # noqa: 
 class RagParserConfig(_message.Message):
     """Document parser configuration.
 
-    Used fields depend on the chunking method of the document.
-    <ul>
-        <li><code>naive</code>: uses the following fields (all optional)</li>
-        <ul>
-            <li><code>auto_keywords</code></li>
-            <li><code>auto_questions</code></li>
-            <li><code>chunk_token_num</code></li>
-            <li><code>delimiter</code></li>
-            <li><code>html4excel</code></li>
-            <li><code>layout_recognize</code></li>
-            <li><code>tag_kb_ids</code></li>
-            <li><code>task_page_size</code></li>
-            <li><code>raptor</code></li>
-            <li><code>graphrag</code></li>
-        </ul>
-        <li><code>qa</code>, <code>manual</code>, <code>paper</code>, <code>book</code>, <code>laws</code>, <code>presentation</code>: uses only the <code>raptor</code> field</li>
-        <li><code>table</code>, <code>picture</code>, <code>one</code>, <code>email</code>: does not use any field (expects empty message)</li>
-    </ul>
+    Used fields depend on the chunking method of the document. <ul> <li><code>naive</code>: uses the following fields (all optional)</li> <ul> <li><code>auto_keywords</code></li> <li><code>auto_questions</code></li> <li><code>chunk_token_num</code></li> <li><code>delimiter</code></li> <li><code>html4excel</code></li> <li><code>layout_recognize</code></li> <li><code>tag_kb_ids</code></li> <li><code>task_page_size</code></li> <li><code>raptor</code></li> <li><code>graphrag</code></li> </ul> <li><code>qa</code>, <code>manual</code>, <code>paper</code>, <code>book</code>, <code>laws</code>, <code>presentation</code>: uses only the <code>raptor</code> field</li> <li><code>table</code>, <code>picture</code>, <code>one</code>, <code>email</code>: does not use any field (expects empty message)</li> </ul>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -969,9 +947,7 @@ Global___RagDatasetParsingStatus: _TypeAlias = RagDatasetParsingStatus  # noqa: 
 
 @_typing.final
 class RagUpdateDatasetRequest(_message.Message):
-    """Request message for updating an existing dataset.
-    The same field constraints as for <code>RagCreateDatasetRequest</code> apply here.
-    """
+    """Request message for updating an existing dataset. The same field constraints as for <code>RagCreateDatasetRequest</code> apply here."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1506,9 +1482,7 @@ Global___RagDownloadDocumentRequest: _TypeAlias = RagDownloadDocumentRequest  # 
 
 @_typing.final
 class RagFileChunk(_message.Message):
-    """File chunk for streaming downloads.<br>
-    First chunk contains metadata, subsequent chunks only contain data.
-    """
+    """File chunk for streaming downloads.<br> First chunk contains metadata, subsequent chunks only contain data."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1688,9 +1662,7 @@ Global___RagMetadataConditions: _TypeAlias = RagMetadataConditions  # noqa: Y015
 
 @_typing.final
 class RagMetadataCondition(_message.Message):
-    """Condition to filter document metadata on.
-    String comparison is always case-insensitive.
-    """
+    """Condition to filter document metadata on. String comparison is always case-insensitive."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1838,8 +1810,7 @@ class RagRetrievalRequest(_message.Message):
     Chunk Management Types
     ============================================================================
 
-    Request message for retrieving chunks using vector similarity search.<br>
-    Supports hybrid search combining vector similarity with keyword matching.
+    Request message for retrieving chunks using vector similarity search.<br> Supports hybrid search combining vector similarity with keyword matching.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -2037,9 +2008,7 @@ Global___RagRetrievalResponse: _TypeAlias = RagRetrievalResponse  # noqa: Y015
 
 @_typing.final
 class RagChunk(_message.Message):
-    """Chunk of text extracted from a document.<br>
-    Chunks are the basic retrieval units used for vector similarity search in RAG.
-    """
+    """Chunk of text extracted from a document.<br> Chunks are the basic retrieval units used for vector similarity search in RAG."""
 
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2512,17 +2481,9 @@ Global___RagUpdateCrawlerRequest: _TypeAlias = RagUpdateCrawlerRequest  # noqa: 
 class RagCrawler(_message.Message):
     """RagCrawler definition.
 
-    This object represents a reusable crawler profile that can be run multiple times.
-    It is modeled after Crawl4AI concepts:
-    <ul>
-        <li>seed/sitemap discovery (<code>RagCrawlerSources</code>)</li>
-        <li>URL/domain constraints (<code>RagCrawlerFilters</code>)</li>
-        <li>authentication/session bootstrap (<code>RagCrawlerAuth</code>, <code>RagCrawlerBrowserConfig</code>)</li>
-        <li>run behavior and extraction output (<code>RagCrawlerConfig</code>)</li>
-    </ul>
+    This object represents a reusable crawler profile that can be run multiple times. It is modeled after Crawl4AI concepts: <ul> <li>seed/sitemap discovery (<code>RagCrawlerSources</code>)</li> <li>URL/domain constraints (<code>RagCrawlerFilters</code>)</li> <li>authentication/session bootstrap (<code>RagCrawlerAuth</code>, <code>RagCrawlerBrowserConfig</code>)</li> <li>run behavior and extraction output (<code>RagCrawlerConfig</code>)</li> </ul>
 
-    The same crawler can be executed multiple times; each execution creates
-    a separate crawler run and result set.
+    The same crawler can be executed multiple times; each execution creates a separate crawler run and result set.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -2621,9 +2582,7 @@ Global___RagCrawler: _TypeAlias = RagCrawler  # noqa: Y015
 class RagCrawlerSources(_message.Message):
     """Crawl entry points.
 
-    Both inputs can be provided at the same time:
-    - Sitemaps are expanded into a crawl URL list (in discovery order)
-    - Seed URLs are appended afterwards (in the order provided)
+    Both inputs can be provided at the same time: - Sitemaps are expanded into a crawl URL list (in discovery order) - Seed URLs are appended afterwards (in the order provided)
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -2658,11 +2617,7 @@ Global___RagCrawlerSources: _TypeAlias = RagCrawlerSources  # noqa: Y015
 class RagCrawlerFilters(_message.Message):
     """URL and domain restrictions.
 
-    Filters are evaluated during link discovery/scheduling and help avoid
-    crawling irrelevant, duplicate, or unsafe sections (auth/logout pages,
-    marketing subdomains, binary downloads, etc.).
-    These include domains to be excluded in the sources (e.g. through sitemaps or seed URLs)
-    and domains to be excluded in the deep crawl or extraction of pages to be crawled.
+    Filters are evaluated during link discovery/scheduling and help avoid crawling irrelevant, duplicate, or unsafe sections (auth/logout pages, marketing subdomains, binary downloads, etc.). These include domains to be excluded in the sources (e.g. through sitemaps or seed URLs) and domains to be excluded in the deep crawl or extraction of pages to be crawled.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -2789,8 +2744,7 @@ Global___RagCrawlerSeedUrlFilters: _TypeAlias = RagCrawlerSeedUrlFilters  # noqa
 class RagCrawlerAuth(_message.Message):
     """Authentication configuration.
 
-    Supports both browser/form login and HTTP auth patterns used by Crawl4AI pipelines when crawling protected content.
-    HTTP Auth is used on all pages of the sources, while html_auth is a separate authentication flow used in the beginning of the crawl to extract the cookies. This is done through a login screen. If HTTP Auth is set, this would ALSO be used on the HTML auth page.
+    Supports both browser/form login and HTTP auth patterns used by Crawl4AI pipelines when crawling protected content. HTTP Auth is used on all pages of the sources, while html_auth is a separate authentication flow used in the beginning of the crawl to extract the cookies. This is done through a login screen. If HTTP Auth is set, this would ALSO be used on the HTML auth page.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -2823,8 +2777,7 @@ Global___RagCrawlerAuth: _TypeAlias = RagCrawlerAuth  # noqa: Y015
 class RagCrawlerHtmlAuth(_message.Message):
     """Form/HTML login configuration.
 
-    Selector types and selector strings identify login form fields in the page
-    DOM. Credentials are then filled before form submission.
+    Selector types and selector strings identify login form fields in the page DOM. Credentials are then filled before form submission.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -2903,9 +2856,7 @@ Global___RagCrawlerHttpAuth: _TypeAlias = RagCrawlerHttpAuth  # noqa: Y015
 class RagCrawlerBrowserConfig(_message.Message):
     """Browser runtime configuration.
 
-    This block maps closely to Crawl4AI BrowserConfig and controls browser
-    process setup (engine, headless mode, viewport, context, proxy, cookies,
-    user-agent behavior, and launch arguments).
+    This block maps closely to Crawl4AI BrowserConfig and controls browser process setup (engine, headless mode, viewport, context, proxy, cookies, user-agent behavior, and launch arguments).
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -3004,8 +2955,7 @@ Global___RagCrawlerConcurrencyConfig: _TypeAlias = RagCrawlerConcurrencyConfig  
 class RagCrawlerConfig(_message.Message):
     """Crawl run behavior.
 
-    This block controls scheduling, traversal, extraction outputs, retries,
-    diagnostics capture, and deep crawling options for each crawler run.
+    This block controls scheduling, traversal, extraction outputs, retries, diagnostics capture, and deep crawling options for each crawler run.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -3123,8 +3073,7 @@ Global___RagCrawlerDeepCrawlerConfig: _TypeAlias = RagCrawlerDeepCrawlerConfig  
 class RagCrawlerResultsConfig(_message.Message):
     """Structured output configuration.
 
-    Use this block to define result payload shape and metadata behavior,
-    similar to Crawl4AI markdown/output-generation toggles.
+    Use this block to define result payload shape and metadata behavior, similar to Crawl4AI markdown/output-generation toggles.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -3380,8 +3329,7 @@ class RagCrawlerIncrementalConfig(_message.Message):
 
     A page is reused from the most recent completed run of the same crawler when its sitemap/ <code>&lt;lastmod&gt;</code> is not newer than the <code>page_last_updated_date</code> of the copy that run holds. A reused page is part of the new run exactly like a freshly fetched one; only <code>RagCrawlerResult.last_crawled_date</code> still reports when its content was actually fetched.
 
-    A page is always fetched when any of the following holds: its sitemap entry carries no <code>&lt;lastmod&gt;</code>; the most recent completed run did not contain it; there is no completed previous
-    run; the crawler configuration changed since that run; or <code>max_age_days</code> has elapsed.
+    A page is always fetched when any of the following holds: its sitemap entry carries no <code>&lt;lastmod&gt;</code>; the most recent completed run did not contain it; there is no completed previous run; the crawler configuration changed since that run; or <code>max_age_days</code> has elapsed.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -3481,8 +3429,7 @@ Global___RagCrawlerExecutionInfo: _TypeAlias = RagCrawlerExecutionInfo  # noqa: 
 class RagCrawlerResult(_message.Message):
     """Crawler result entity.
 
-    Each result corresponds to one crawled URL in a crawler run and includes
-    extracted content, metadata, diagnostics, and optional binary artifacts.
+    Each result corresponds to one crawled URL in a crawler run and includes extracted content, metadata, diagnostics, and optional binary artifacts.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -3550,8 +3497,7 @@ Global___RagCrawlerResult: _TypeAlias = RagCrawlerResult  # noqa: Y015
 class RagStartCrawlerRequest(_message.Message):
     """Request message for running a crawler.
 
-    This starts a long-running operation and returns immediately.
-    Clients should poll operation status via <code>RagGetCrawlerRun</code>.
+    This starts a long-running operation and returns immediately. Clients should poll operation status via <code>RagGetCrawlerRun</code>.
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -3720,9 +3666,7 @@ Global___RagListCrawlerRunsResponse: _TypeAlias = RagListCrawlerRunsResponse  # 
 class RagDeleteCrawlerRunsRequest(_message.Message):
     """Request message for deleting crawler runs.
 
-    Deletion candidates are the union of:
-    - explicit run names in <code>crawler_run_names</code>
-    - all runs belonging to crawlers listed in <code>crawler_names</code>
+    Deletion candidates are the union of: - explicit run names in <code>crawler_run_names</code> - all runs belonging to crawlers listed in <code>crawler_names</code>
 
     If both lists are empty, the call is a no-op.
     """
@@ -3861,14 +3805,9 @@ Global___RagStopCrawlerResponse: _TypeAlias = RagStopCrawlerResponse  # noqa: Y0
 class RagGetCrawlerResultsRequest(_message.Message):
     """Request message for getting crawler results of a crawler run.
 
-    Results are returned in pages. Request the first page with an empty
-    <code>page_token</code>, then continue with each response <code>next_page_token</code>.
+    Results are returned in pages. Request the first page with an empty <code>page_token</code>, then continue with each response <code>next_page_token</code>.
 
-    Example:
-    <pre><code>RagGetCrawlerResults(run_name, page_token="")
-    -> next_page_token="..."
-    RagGetCrawlerResults(run_name, page_token="...")
-    </code></pre>
+    Example: <pre><code>RagGetCrawlerResults(run_name, page_token="")&#10;-> next_page_token="..."&#10;RagGetCrawlerResults(run_name, page_token="...")&#10;</code></pre>
     """
 
     DESCRIPTOR: _descriptor.Descriptor
@@ -4023,9 +3962,7 @@ Global___RagGetCrawlerResultRequest: _TypeAlias = RagGetCrawlerResultRequest  # 
 
 @_typing.final
 class RagAddCrawlerResultsToDatasetsRequest(_message.Message):
-    """Request message for adding crawler output to one or more datasets.<br>
-    Either <code>crawler_names</code> or <code>crawler_result_names</code> (or both) must be provided.
-    """
+    """Request message for adding crawler output to one or more datasets.<br> Either <code>crawler_names</code> or <code>crawler_result_names</code> (or both) must be provided."""
 
     DESCRIPTOR: _descriptor.Descriptor
 

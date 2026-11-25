@@ -28,12 +28,7 @@ if _version_not_supported:
 
 
 class LlmEvaluationsStub:
-    """LangSmith-style evaluation surface: datasets, examples, experiments, evaluator
-    runs, feedback (LLM-as-judge / human / heuristic / custom code / pairwise),
-    pairwise comparisons, release gates + persisted gate runs, scorecards,
-    per-project evaluation settings (judge configuration), the evaluator registry,
-    golden-transcript recording from sessions, conversation simulation
-    (standard + adversarial red-teaming), recurring schedules and report artifacts.
+    """LangSmith-style evaluation surface: datasets, examples, experiments, evaluator runs, feedback (LLM-as-judge / human / heuristic / custom code / pairwise), pairwise comparisons, release gates + persisted gate runs, scorecards, per-project evaluation settings (judge configuration), the evaluator registry, golden-transcript recording from sessions, conversation simulation (standard + adversarial red-teaming), recurring schedules and report artifacts.
     """
 
     def __init__(self, channel):
@@ -405,12 +400,7 @@ class LlmEvaluationsStub:
 
 
 class LlmEvaluationsServicer:
-    """LangSmith-style evaluation surface: datasets, examples, experiments, evaluator
-    runs, feedback (LLM-as-judge / human / heuristic / custom code / pairwise),
-    pairwise comparisons, release gates + persisted gate runs, scorecards,
-    per-project evaluation settings (judge configuration), the evaluator registry,
-    golden-transcript recording from sessions, conversation simulation
-    (standard + adversarial red-teaming), recurring schedules and report artifacts.
+    """LangSmith-style evaluation surface: datasets, examples, experiments, evaluator runs, feedback (LLM-as-judge / human / heuristic / custom code / pairwise), pairwise comparisons, release gates + persisted gate runs, scorecards, per-project evaluation settings (judge configuration), the evaluator registry, golden-transcript recording from sessions, conversation simulation (standard + adversarial red-teaming), recurring schedules and report artifacts.
     """
 
     def LlmEvaluationCreateDataset(self, request, context):
@@ -1398,12 +1388,7 @@ def add_LlmEvaluationsServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class LlmEvaluations:
-    """LangSmith-style evaluation surface: datasets, examples, experiments, evaluator
-    runs, feedback (LLM-as-judge / human / heuristic / custom code / pairwise),
-    pairwise comparisons, release gates + persisted gate runs, scorecards,
-    per-project evaluation settings (judge configuration), the evaluator registry,
-    golden-transcript recording from sessions, conversation simulation
-    (standard + adversarial red-teaming), recurring schedules and report artifacts.
+    """LangSmith-style evaluation surface: datasets, examples, experiments, evaluator runs, feedback (LLM-as-judge / human / heuristic / custom code / pairwise), pairwise comparisons, release gates + persisted gate runs, scorecards, per-project evaluation settings (judge configuration), the evaluator registry, golden-transcript recording from sessions, conversation simulation (standard + adversarial red-teaming), recurring schedules and report artifacts.
     """
 
     @staticmethod
